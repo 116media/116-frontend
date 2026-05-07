@@ -1,0 +1,32 @@
+{
+    "name": "116-frontend",
+    "version": "0.1.0",
+    "private": true,
+    "repository": "git@github.com:coolbeatz71/116-frontend.git",
+    "author": "coolbeatz71 <sigmacool@gmail.com>",
+    "type": "module",
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint:code": "biome lint --no-errors-on-unmatched",
+        "lint:code:fix": "biome check --write",
+        "lint:types": "tsc --noEmit",
+        "api:generate": "yarn dlx swagger-typescript-api generate -p http://localhost:5025/swagger/v1/swagger.json -o ./src/shared/infrastructure/api/generated/ -n 116.api.ts --axios --responses && node scripts/format-api-docs.js"
+
+    },
+    "dependencies": {
+        "next": "^16.2.6",
+        "react": "^19.2.4",
+        "react-dom": "^19.2.4"
+    },
+    "devDependencies": {
+        "@biomejs/biome": "^2.4.15",
+        "@tailwindcss/postcss": "^4",
+        "@types/node": "^25.9.1",
+        "@types/react": "^19",
+        "@types/react-dom": "^19",
+        "tailwindcss": "^4",
+        "typescript": "^6.0.3"
+    }
+}
