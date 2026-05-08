@@ -37,8 +37,8 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { slug } = await params;
-    const repository = new ArticlesRepositoryImpl();
-    const result = await repository.getArticleBySlug(slug);
+    const scope = await getServerScope();
+    const result = await scope.cradle.articlesRepository.getArticleBySlug(slug);
 
     if (!result.ok) {
         return { title: "Article introuvable" };
@@ -157,7 +157,7 @@ description: `Paroles de ${lyrics.songTitle} par ${lyrics.artistName}. Lisez les
 Some pages should not be indexed:
 
 ```typescript
-// Login, signup, user profile pages
+// User-only pages (profile, settings, bookmarks, playlists, favorites)
 export const metadata: Metadata = {
     robots: { index: false, follow: false },
 };
