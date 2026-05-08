@@ -27,13 +27,6 @@ apps/frontend/
           [artistName]/
             page.tsx
       page.tsx                  # Home page
-    (auth)/                     # Auth routes (login, signup)
-      login/
-        page.tsx
-      signup/
-        page.tsx
-      forgot-password/
-        page.tsx
     (user)/                     # Authenticated user routes
       profile/
         page.tsx
@@ -120,11 +113,12 @@ modules/articles/
 
 ### Route Groups
 
-Next.js route groups `(public)`, `(auth)`, and `(user)` share different layouts without affecting the URL:
+Next.js route groups `(public)` and `(user)` share different layouts without affecting the URL:
 
-- `(public)` routes get the full header + footer layout
-- `(auth)` routes get a minimal centered layout
-- `(user)` routes get the header + sidebar layout and require authentication
+- `(public)` routes get the full header + footer layout. All content is publicly accessible.
+- `(user)` routes get the header + sidebar layout and require authentication.
+
+There is no `(auth)` route group. All auth forms (login, signup, forgot password, reset password, OTP) are modals rendered at the root layout level. They are triggered via the `AuthDialogProvider` context from any component (header login button, like button, comment form, etc.).
 
 ## Path Aliases
 
