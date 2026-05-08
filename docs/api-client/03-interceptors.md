@@ -69,6 +69,8 @@ apiClient.instance.interceptors.response.use(
 
 The queue pattern prevents multiple simultaneous refresh calls when several requests fail at once.
 
+The `session-expired` DOM event is listened to by a component at the root layout level. When fired, it clears the AuthContext and opens the login modal via `AuthDialogProvider`. This bridges the gap between the Axios interceptor (which runs outside React) and the React context system.
+
 ## Server-Side: No Interceptors
 
 The server-side API client (`createServerApiClient`) does not use interceptors. If the token is expired, the Server Component simply treats the user as unauthenticated and fetches public data. Token refresh on the server is handled by Next.js middleware.
