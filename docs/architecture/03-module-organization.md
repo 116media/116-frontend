@@ -10,7 +10,7 @@ Based on the backend's public API endpoints, the frontend needs these modules:
 | `videos` | Published videos, featured, likes, ratings | `/videos`, `/videos/[slug]` |
 | `shorts` | Short video clips, likes, bookmarks, views | `/shorts`, `/shorts/[slug]` |
 | `lyrics` | Song lyrics pages | `/lyrics/[songTitle]/[artistName]` |
-| `auth` | Login, signup, forgot password, OTP | `/login`, `/signup`, `/forgot-password` |
+| `auth` | Login, signup, forgot password, OTP | Modals (no routes, triggered via `AuthDialogProvider`) |
 | `playlists` | User playlists (CRUD, add/remove videos) | `/playlists` |
 | `catalog` | Categories, tags (navigation data) | Used across modules |
 
@@ -95,6 +95,7 @@ src/shared/
       ThemeProvider.tsx
       QueryProvider.tsx
       AuthProvider.tsx
+      AuthDialogProvider.tsx
     styles/
       globals.css
     utils/
