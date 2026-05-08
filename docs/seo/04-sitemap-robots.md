@@ -59,7 +59,7 @@ export default function robots(): MetadataRoute.Robots {
             {
                 userAgent: "*",
                 allow: "/",
-                disallow: ["/api/", "/login", "/signup", "/profile", "/settings", "/bookmarks", "/playlists"],
+                disallow: ["/api/", "/profile", "/settings", "/bookmarks", "/playlists", "/favorites"],
             },
         ],
         sitemap: "https://116.cd/sitemap.xml",
