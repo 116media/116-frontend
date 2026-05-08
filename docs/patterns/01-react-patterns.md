@@ -60,8 +60,9 @@ For components that need to control how their children render:
 
 Only for truly global state that many components need:
 
-- `AuthContext` (user info, isAuthenticated)
-- `ThemeContext` (light/dark mode via next-themes)
+- `AuthProvider` (current user, isAuthenticated, setUser)
+- `AuthDialogProvider` (auth modal open/close, context switching between login/signup/forgot password)
+- `ThemeProvider` (light/dark mode via next-themes)
 
 Do NOT use Context for server data. That is React Query's job.
 
