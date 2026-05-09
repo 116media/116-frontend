@@ -7,8 +7,8 @@
         "indentWidth": 4,
         "lineEnding": "lf",
         "lineWidth": 100,
-        "attributePosition": "auto",
-        "includes": ["**", "**/app/**"]
+        "attributePosition": "multiline",
+        "includes": ["app/**", "src/**", "*.js", "*.ts", "*.json"]
     },
     "assist": {
         "actions": {
@@ -31,7 +31,7 @@
                 "noUnusedLabels": "error"
             }
         },
-        "includes": ["**", "**/app/**"]
+        "includes": ["app/**", "src/**", "*.js", "*.ts", "*.json"]
     },
     "javascript": {
         "formatter": {
@@ -43,7 +43,7 @@
             "bracketSpacing": true,
             "bracketSameLine": false,
             "quoteStyle": "double",
-            "attributePosition": "auto"
+            "attributePosition": "multiline"
         }
     },
     "css": {
