@@ -1,0 +1,13 @@
+/* Font variables are injected by next/font/google in app/layout.tsx.
+   --font-sans      → Outfit       (UI text, labels, buttons)
+   --font-serif     → Playfair Display  (article titles, headings)
+   --font-article   → Merriweather      (article body copy)
+
+   These CSS variables are set on <html> as class attributes by Next.js
+   and consumed here as Tailwind theme tokens via theme.css. 
+*/
+:root {
+    --font-sans: "Outfit", sans-serif;
+    --font-serif: "Playfair Display", serif;
+    --font-article: "Merriweather", serif;
+}
