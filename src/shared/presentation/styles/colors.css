@@ -1,0 +1,57 @@
+:root {
+    /* Brand */
+    --primitive-brand-primary: #490fd2;
+    --primitive-brand-secondary: #ff74d4;
+    --primitive-brand-bg-light: #dce0e5;
+    --primitive-brand-bg-dark: #34384d;
+
+    /* Base */
+    --primitive-white: var(--color-white);
+    --primitive-black: var(--color-black);
+    --primitive-neutral: #f9fcff;
+    --primitive-yellow: #ffb700;
+    --primitive-link: #1890ff;
+    --primitive-loader: #072ac9;
+
+    /* Neutral scale */
+    --primitive-neutral-50: var(--color-slate-50);
+    --primitive-neutral-100: var(--color-slate-100);
+    --primitive-neutral-200: var(--color-slate-200);
+    --primitive-neutral-300: var(--color-slate-300);
+    --primitive-neutral-400: var(--color-slate-400);
+    --primitive-neutral-500: var(--color-slate-500);
+    --primitive-neutral-600: var(--color-slate-600);
+    --primitive-neutral-700: var(--color-slate-700);
+    --primitive-neutral-800: var(--color-slate-800);
+    --primitive-neutral-900: var(--color-slate-900);
+    --primitive-neutral-950: var(--color-slate-950);
+
+    /* Semantic */
+    --primitive-success: #1dd3b0;
+    --primitive-error: #ef476f;
+    --primitive-warning: #f07f34;
+
+    /* UI / typography */
+    --primitive-background: #f0f2f5;
+    --primitive-title: #5e6275;
+    --primitive-description: #9295a2;
+    --primitive-text-primary: #111827;
+    --primitive-text-secondary: #374151;
+    --primitive-text-muted: #9ca3af;
+
+    /* Borders & surfaces */
+    --primitive-border-light: #eaedf2;
+    --primitive-border-table: #edf5ff;
+    --primitive-border-table-hr: #e4e7f4;
+    --primitive-bg-hover: #f9fafb;
+    --primitive-bg-subtle: rgba(249, 250, 251, 0.5);
+
+    /* Social */
+    --primitive-social-youtube: #ff0000;
+    --primitive-social-instagram: #e1306c;
+    --primitive-social-facebook: #4267b2;
+    --primitive-social-twitter: #1da1f2;
+    --primitive-social-tiktok: #010101;
+    --primitive-social-whatsapp: #25d366;
+    --primitive-social-google: #e45e52;
+}
