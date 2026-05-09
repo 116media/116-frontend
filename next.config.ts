@@ -5,10 +5,10 @@ const nextConfig: NextConfig = {
         remotePatterns: [
             {
                 protocol: "https",
-                hostname: "i.pravatar.cc",
-            },
-        ],
-    },
+                hostname: "i.pravatar.cc"
+            }
+        ]
+    }
 };
 
 export default nextConfig;
