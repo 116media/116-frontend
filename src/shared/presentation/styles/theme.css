@@ -43,6 +43,7 @@
     /* Surface */
     --surface-raised: var(--primitive-neutral-100);
     --surface-hover: var(--primitive-neutral-200);
+    --mega-menu: var(--primitive-neutral-50);
 
     /* Decorative */
     --sun: var(--primitive-yellow);
@@ -89,6 +90,7 @@
     /* Surface */
     --surface-raised: var(--primitive-neutral-800);
     --surface-hover: var(--primitive-neutral-700);
+    --mega-menu: var(--primitive-neutral-800);
 
     /* Decorative */
     --sun: var(--primitive-yellow);
@@ -163,6 +165,7 @@
     /* Surface */
     --color-surface-raised: var(--surface-raised);
     --color-surface-hover: var(--surface-hover);
+    --color-mega-menu: var(--mega-menu);
 
     /* Decorative */
     --color-sun: var(--sun);
@@ -179,4 +182,8 @@
     --font-sans: var(--font-sans);
     --font-serif: var(--font-serif);
     --font-article: var(--font-article);
+
+    /* Animations */
+    --animate-mega-menu-slide-down: mega-menu-slide-down 0.2s ease-out;
+    --animate-mega-menu-slide-up: mega-menu-slide-up 0.2s ease-in;
 }
