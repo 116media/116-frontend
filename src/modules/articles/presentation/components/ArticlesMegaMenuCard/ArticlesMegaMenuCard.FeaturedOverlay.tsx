@@ -4,8 +4,10 @@ import { Calendar } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
+import { cardVariants } from "@/shared/presentation/components/ui/Card";
 import { Tag } from "@/shared/presentation/components/ui/Tag";
 import { ARTICLES_PATH } from "@/shared/presentation/constants/paths";
+import { cn } from "@/shared/presentation/utils/cn";
 import { formatRelativeDate } from "@/shared/presentation/utils/formatRelativeDate";
 import { ArticlesMegaMenuCardStats } from "./ArticlesMegaMenuCardStats";
 import type { ArticlesMegaMenuCardProps } from "./types";
@@ -24,7 +26,10 @@ export function FeaturedOverlay({ article }: ArticlesMegaMenuCardProps) {
     return (
         <Link
             href={`${ARTICLES_PATH}/${article.slug}`}
-            className="group relative flex h-full flex-col overflow-hidden rounded-xl"
+            className={cn(
+                cardVariants,
+                "group relative flex h-full flex-col overflow-hidden rounded-xl border-0"
+            )}
         >
             <div className="relative flex-1 w-full">
                 {article.coverImageUrl ? (
