@@ -55,3 +55,13 @@ Technical documentation for the 116 public-facing website built with Next.js 16,
 - [Error Boundaries](patterns/02-error-boundaries.md)
 - [Loading States](patterns/03-loading-states.md)
 - [Form Handling](patterns/04-form-handling.md)
+
+### Navigation
+- [Mega Menu Overview](navigation/01-overview.md)
+- [Backend Gap — Public Content Types Endpoint](navigation/02-backend-content-types-endpoint.md)
+- [API Client Setup](navigation/03-api-client-setup.md)
+- [Articles Module](navigation/04-articles-module.md)
+- [Videos Module](navigation/05-videos-module.md)
+- [NavigationMenu UI Primitive](navigation/06-navigation-menu-primitive.md)
+- [Mega Menu Components](navigation/07-mega-menu-components.md)
+- [DesktopNav Refactor](navigation/08-desktop-nav-refactor.md)
