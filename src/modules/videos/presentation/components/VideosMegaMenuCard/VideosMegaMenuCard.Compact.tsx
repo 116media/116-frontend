@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { ButtonFrostedPlay } from "@/shared/presentation/components/ui/Button";
+import { cardVariants } from "@/shared/presentation/components/ui/Card";
 import { VIDEOS_PATH } from "@/shared/presentation/constants/paths";
 import { cn } from "@/shared/presentation/utils/cn";
 import { formatRelativeDate } from "@/shared/presentation/utils/formatRelativeDate";
@@ -26,7 +27,8 @@ export function Compact({ video }: VideosMegaMenuCardProps) {
     return (
         <div
             className={cn(
-                "group h-full rounded-xl p-0.5 transition-all duration-300",
+                cardVariants,
+                "group h-full rounded-xl border-0 p-0.5 transition-all duration-300",
                 "bg-border",
                 "hover:[background:conic-gradient(from_var(--border-angle),#490fd2,#ff74d4,#490fd2)]",
                 "hover:animate-[spin-border_2s_linear_infinite]"
