@@ -3,8 +3,10 @@
 import { Clock } from "lucide-react";
 import Link from "next/link";
 
+import { cardVariants } from "@/shared/presentation/components/ui/Card";
 import { Tag } from "@/shared/presentation/components/ui/Tag";
 import { ARTICLES_PATH } from "@/shared/presentation/constants/paths";
+import { cn } from "@/shared/presentation/utils/cn";
 import { formatRelativeDate } from "@/shared/presentation/utils/formatRelativeDate";
 import { ArticlesMegaMenuCardStats } from "./ArticlesMegaMenuCardStats";
 import type { ArticlesMegaMenuCardProps } from "./types";
@@ -23,7 +25,7 @@ export function Compact({ article }: ArticlesMegaMenuCardProps) {
     return (
         <Link
             href={`${ARTICLES_PATH}/${article.slug}`}
-            className="group flex h-full flex-col overflow-hidden rounded-md border bg-background shadow-sm hover:shadow-md transition-shadow"
+            className={cn(cardVariants, "group flex h-full flex-col overflow-hidden rounded-md")}
         >
             <div className="flex flex-1 flex-col p-3 overflow-hidden">
                 <div className="flex items-center justify-between mb-2">
