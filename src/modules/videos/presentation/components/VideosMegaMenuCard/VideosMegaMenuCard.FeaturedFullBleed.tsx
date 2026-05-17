@@ -5,8 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Button, ButtonFrostedPlay } from "@/shared/presentation/components/ui/Button";
+import { cardVariants } from "@/shared/presentation/components/ui/Card";
 import { Tag } from "@/shared/presentation/components/ui/Tag";
 import { VIDEOS_PATH } from "@/shared/presentation/constants/paths";
+import { cn } from "@/shared/presentation/utils/cn";
 import type { VideosMegaMenuCardProps } from "./types";
 import { VideosMegaMenuCardStats } from "./VideosMegaMenuCardStats";
 
@@ -22,7 +24,10 @@ export function FeaturedFullBleed({ video }: VideosMegaMenuCardProps) {
     return (
         <Link
             href={`${VIDEOS_PATH}/${video.slug}`}
-            className="group relative flex h-full flex-col overflow-hidden rounded-xl bg-black"
+            className={cn(
+                cardVariants,
+                "group relative flex h-full flex-col overflow-hidden rounded-xl border-0 bg-black"
+            )}
         >
             {video.thumbnailUrl ? (
                 <Image
