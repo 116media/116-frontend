@@ -42,7 +42,7 @@ export interface IArticleEntity {
     author?: IAuthorEntity | null;
     tags: ITagEntity[];
     readTimeInMinutes: number;
-    isFeatured: boolean;
+    isPromoted: boolean;
     publishedAt?: string | null;
     metaTitle?: string | null;
     metaDescription?: string | null;
@@ -60,7 +60,7 @@ modules/articles/application/
   usecases/
     getarticlebyslug.usecase.ts
     getpublishedarticles.usecase.ts
-    getfeaturedarticles.usecase.ts
+    getpromotedarticles.usecase.ts
 ```
 
 Repository port:
@@ -81,7 +81,7 @@ export interface IArticlesRepositoryPort {
 
     getArticleBySlug(slug: string): Promise<Result<IArticleEntity>>;
 
-    getFeaturedArticles(): Promise<Result<IArticleSummaryEntity[]>>;
+    getPromotedArticles(): Promise<Result<IArticleSummaryEntity[]>>;
 }
 ```
 
