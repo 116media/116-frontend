@@ -30,7 +30,7 @@ The page renders on the server, returns fully formed HTML, and the browser displ
 | Article detail | Yes | SEO, structured data |
 | Video list | Yes | SEO, thumbnails in HTML |
 | Lyrics content | Yes | SEO is the entire point of lyrics pages |
-| Featured content | Yes | Above the fold on home page |
+| Promoted content | Yes | Above the fold on home page |
 | Categories | Yes | Navigation data, rarely changes |
 | User bookmarks | No | User-specific, requires auth |
 | Comments | Partially | First page on server, load more on client |
