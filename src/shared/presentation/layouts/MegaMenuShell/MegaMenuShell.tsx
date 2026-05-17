@@ -52,7 +52,7 @@ export function MegaMenuShell({ tagsBasePath, popularTags, children }: MegaMenuS
                                     key={tag.id}
                                     href={`${tagsBasePath}?tagId=${tag.id}`}
                                     variant="default"
-                                    size="md"
+                                    size="lg"
                                     shape="pill"
                                     prefix="#"
                                 >
