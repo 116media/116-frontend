@@ -4,6 +4,7 @@ import { Calendar } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
+import { cardVariants } from "@/shared/presentation/components/ui/Card";
 import { Tag } from "@/shared/presentation/components/ui/Tag";
 import { ARTICLES_PATH } from "@/shared/presentation/constants/paths";
 import { cn } from "@/shared/presentation/utils/cn";
@@ -26,9 +27,10 @@ export function FeaturedGradient({ article }: ArticlesMegaMenuCardProps) {
         <Link
             href={`${ARTICLES_PATH}/${article.slug}`}
             className={cn(
-                "group relative flex h-full flex-col overflow-hidden rounded-xl",
+                cardVariants,
+                "group relative flex h-full flex-col overflow-hidden rounded-xl border-0",
                 "bg-linear-to-br from-primary/5 to-secondary/5 dark:from-primary/10 dark:to-secondary/10",
-                "hover:shadow-md transition-shadow"
+                ""
             )}
         >
             <div className="flex flex-1 flex-col min-h-0 p-3">
