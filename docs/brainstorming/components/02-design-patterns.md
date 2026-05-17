@@ -62,7 +62,7 @@ Prefer composition over configuration. Instead of one component with 15 props, c
     categoryName={article.categoryName}
     tags={article.tags}
     readTime={article.readTimeInMinutes}
-    isFeatured={article.isFeatured}
+    isPromoted={article.isPromoted}
     slug={article.slug}
 />
 
