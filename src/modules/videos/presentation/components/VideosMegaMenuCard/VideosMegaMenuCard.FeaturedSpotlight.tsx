@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Button, ButtonFrostedPlay } from "@/shared/presentation/components/ui/Button";
+import { cardVariants } from "@/shared/presentation/components/ui/Card";
 import { Tag } from "@/shared/presentation/components/ui/Tag";
 import { VIDEOS_PATH } from "@/shared/presentation/constants/paths";
 import { cn } from "@/shared/presentation/utils/cn";
@@ -25,7 +26,8 @@ export function FeaturedSpotlight({ video }: VideosMegaMenuCardProps) {
         <Link
             href={`${VIDEOS_PATH}/${video.slug}`}
             className={cn(
-                "group relative flex h-full flex-col overflow-hidden rounded-xl",
+                cardVariants,
+                "group relative flex h-full flex-col overflow-hidden rounded-xl border-0",
                 "bg-linear-to-br from-primary/5 to-secondary/5 dark:from-primary/10 dark:to-secondary/10",
                 "p-3"
             )}
@@ -72,11 +74,11 @@ export function FeaturedSpotlight({ video }: VideosMegaMenuCardProps) {
 
             <div className="shrink-0">
                 <Button
-                    variant="outline"
                     size="sm"
-                    className="w-full text-xs text-primary dark:text-secondary border-primary/30 dark:border-secondary/30 hover:bg-primary/10 hover:text-primary dark:hover:bg-secondary/10 dark:hover:text-secondary dark:hover:border-secondary"
+                    variant="brand-outline"
+                    className="w-full text-xs"
                 >
-                    <Play className="h-3.5 w-3.5 fill-primary dark:fill-secondary" />
+                    <Play className="h-3.5 w-3.5 fill-current" />
                     Watch Now
                 </Button>
             </div>
