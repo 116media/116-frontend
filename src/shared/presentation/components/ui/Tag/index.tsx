@@ -1,6 +1,7 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import type * as React from "react";
 
+import { badgeVariants } from "@/shared/presentation/components/ui/Badge";
 import { cn } from "@/shared/presentation/utils/cn";
 
 const tagVariants = cva(
@@ -91,7 +92,7 @@ export function Tag({
 }: TagProps) {
     return (
         <Comp
-            className={cn(tagVariants({ variant, size, shape, className }))}
+            className={cn(badgeVariants(), tagVariants({ variant, size, shape }), className)}
             {...(props as React.HTMLAttributes<HTMLElement>)}
         >
             {prefix && <span className="shrink-0">{prefix}</span>}
