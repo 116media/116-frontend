@@ -8,26 +8,24 @@ The layout system uses Next.js App Router's nested layout feature. Each route gr
 
 ```text
 app/layout.tsx (Root)
-  Providers (Theme, Query, Auth)
+  Providers (Theme, Query, Auth, AuthDialog)
   Font loading
   Global metadata
+  Auth modals (login, signup, forgot password, etc.)
   
   app/(public)/layout.tsx
-    Header (navigation, search, auth buttons)
+    Header (navigation, mega menu, search, auth buttons)
     Main content area
     Footer (links, social, copyright)
     
-  app/(auth)/layout.tsx
-    Minimal centered card layout
-    Brand logo
-    No header/footer
-    
   app/(user)/layout.tsx
     Header
-    Sidebar (profile, playlists, bookmarks, settings)
+    Sidebar (profile, playlists, bookmarks, favorites, settings)
     Main content area
     Footer
 ```
+
+There is no `(auth)` layout. All auth forms are modals rendered at the root layout level via `AuthDialogProvider`. This means the login modal can appear on any page without navigating away.
 
 ## Root Layout
 
@@ -64,7 +62,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                 <ThemeProvider>
                     <QueryProvider>
                         <AuthProvider user={user}>
-                            {children}
+                            <AuthDialogProvider>
+                                {children}
+                                <AuthModals />
+                            </AuthDialogProvider>
                         </AuthProvider>
                     </QueryProvider>
                 </ThemeProvider>
@@ -290,26 +291,6 @@ shared/presentation/layouts/
 ```
 
 The footer mirrors the mega menu categories in a 4-column grid (collapses to 2 columns on tablet, stacked on mobile). This gives search engines additional internal links for crawling.
-
-## Auth Layout
-
-Minimal layout for login, signup, forgot password pages:
-
-```typescript
-// app/(auth)/layout.tsx
-export default function AuthLayout({ children }: { children: React.ReactNode }) {
-    return (
-        <div className="flex min-h-screen items-center justify-center bg-muted p-4">
-            <div className="w-full max-w-md">
-                <div className="mb-8 text-center">
-                    <Logo />
-                </div>
-                {children}
-            </div>
-        </div>
-    );
-}
-```
 
 ## User Layout
 

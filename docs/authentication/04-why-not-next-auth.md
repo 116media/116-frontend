@@ -93,21 +93,22 @@ Use the backend as the single source of truth for auth. The frontend is a thin c
 ```text
 Frontend                          Backend
 --------                          -------
-Login form                   -->  POST /auth/login
+Auth modal (login form)      -->  POST /auth/login
                              <--  HttpOnly cookies set
                              <--  { user } in response body
+                             -->  AuthContext updated, modal closes
 
 getCurrentUser()             -->  GET /users/{id}/profile (with cookie)
                              <--  { user, roles, permissions }
 
-AuthContext provides user to all components
+AuthProvider + AuthDialogProvider provide state to all components
 
 API call with expired token  -->  401 response
 Interceptor catches 401      -->  POST /sessions/refresh-token (cookie)
                              <--  New cookies set
 Interceptor retries request  -->  Original API call succeeds
 
-Protected route middleware   -->  Read cookie, redirect if missing
+Protected route middleware   -->  Read cookie, redirect to / with ?authRequired=true
 ```
 
 No next-auth. No second session system. No adapter glue code. One auth layer (the backend), one source of truth.
@@ -136,9 +137,11 @@ By not using next-auth, you avoid:
 
 The frontend auth implementation is just:
 
-- `AuthProvider.tsx` (React Context, ~30 lines)
+- `AuthProvider.tsx` (React Context for user state, ~30 lines)
+- `AuthDialogProvider.tsx` (React Context for modal state, ~20 lines)
 - `getCurrentUser()` (server-side cookie read + API call, ~20 lines)
 - `middleware.ts` (route protection, ~20 lines)
 - Token refresh interceptor (~40 lines)
+- Auth modal components (login, signup, forgot password, OTP forms)
 
 Total: about 110 lines of straightforward code vs an entire library with adapters and callbacks.

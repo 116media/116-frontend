@@ -172,17 +172,18 @@ shared/
     components/                   # shadcn/ui wrappers and shared UI
     hooks/                        # useMediaQuery, useDebounce, etc.
     layouts/                      # Header, Footer, Sidebar
-    providers/                    # ThemeProvider, QueryProvider, AuthProvider
+    providers/                    # ThemeProvider, QueryProvider, AuthProvider, AuthDialogProvider
     styles/                       # globals.css, CSS variables
     utils/                        # formatDate, slugify, truncate
 ```
 
 ## Key Difference from Dashboard
 
-The dashboard uses Redux for everything because it is a single-page app where all data flows through client-side state. The frontend is different: Next.js Server Components can fetch data at the server level and stream HTML to the client. This means:
+The dashboard uses Redux Toolkit for everything because it is a client-side SPA where all data flows through a global store. The frontend takes a different approach because Next.js Server Components change what needs to be on the client:
 
-1. **Read operations** (articles list, video detail) happen in Server Components with no client-side state
-2. **Mutations** (like, comment, bookmark) use React Query on the client
-3. **Auth state** is the only piece that needs a global store (and even that can be a React Context with cookies)
+1. **Read operations** (articles list, video detail) happen in Server Components with no client-side state at all
+2. **Mutations** (like, comment, bookmark) use React Query on the client for optimistic updates and cache invalidation
+3. **Auth state** (current user + auth modal) uses two small React Context providers, no Redux
+4. **Auth forms** (login, signup, forgot password) are modals, not pages. The `AuthDialogProvider` context lets any component trigger the login modal with `openAuth("LOGIN")`
 
-This is explained in detail in [React Query vs Redux Toolkit](../data-fetching/01-react-query-vs-redux.md).
+No Redux, no Redux Persist, no additional state management libraries. React Query handles data, React Context handles auth. This is explained in detail in [React Query + React Context](../data-fetching/01-react-query-vs-redux.md).

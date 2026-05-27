@@ -6,11 +6,12 @@ The frontend has fewer forms than the dashboard. The main forms are:
 
 | Form | Location | Complexity |
 | --- | --- | --- |
-| Login | `/login` | Email + password |
-| Signup | `/signup` | Email + password + username + country |
-| Forgot Password | `/forgot-password` | Email |
-| OTP Verification | `/verify-otp` | 6-digit code |
-| Comment | Article detail | Single textarea |
+| Login | Auth modal | Email + password |
+| Signup | Auth modal | Email + password + username + country |
+| Forgot Password | Auth modal | Email |
+| OTP Verification | Auth modal | 6-digit code |
+| Reset Password | Auth modal | New password + confirm |
+| Comment | Article detail page | Single textarea |
 | Search | Header | Single input |
 | Profile Edit | `/settings` | Multiple fields |
 | Create Playlist | `/playlists` | Name input |

@@ -56,6 +56,6 @@
         }
     },
     "files": {
-        "includes": ["app/**"]
+        "includes": ["app/**", "src/**", "docs/**", "*.js", "*.ts", "*.json", "*.md"]
     }
 }

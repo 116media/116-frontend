@@ -12,7 +12,7 @@ Technical documentation for the 116 public-facing website built with Next.js 16,
 - [Dependency Injection](architecture/05-dependency-injection.md)
 
 ### Data Fetching
-- [React Query vs Redux Toolkit](data-fetching/01-react-query-vs-redux.md)
+- [React Query + React Context](data-fetching/01-react-query-vs-redux.md)
 - [Server-Side Data Fetching](data-fetching/02-server-side-fetching.md)
 - [Client-Side Data Fetching](data-fetching/03-client-side-fetching.md)
 - [Caching Strategy](data-fetching/04-caching-strategy.md)

@@ -6,8 +6,11 @@ In Next.js 16 App Router, Server Components are `async` functions. You fetch dat
 
 ```typescript
 export default async function ArticlesPage() {
-    const repository = new ArticlesRepositoryImpl();
-    const result = await repository.getPublishedArticles({ pageIndex: 0, pageSize: 12 });
+    const scope = await getServerScope();
+    const result = await scope.cradle.articlesRepository.getPublishedArticles({
+        pageIndex: 0,
+        pageSize: 12,
+    });
 
     if (!result.ok) {
         throw new Error(result.error.detail);
@@ -77,8 +80,8 @@ To avoid duplicate requests (e.g., `generateMetadata` and the page component bot
 import { cache } from "react";
 
 export const getArticle = cache(async (slug: string) => {
-    const repository = new ArticlesRepositoryImpl();
-    return repository.getArticleBySlug(slug);
+    const scope = await getServerScope();
+    return scope.cradle.articlesRepository.getArticleBySlug(slug);
 });
 
 // Both calls below hit the API only once per request

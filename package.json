@@ -13,7 +13,6 @@
         "lint:code:fix": "biome check --write",
         "lint:types": "tsc --noEmit",
         "api:generate": "yarn dlx swagger-typescript-api generate -p http://localhost:5025/swagger/v1/swagger.json -o ./src/shared/infrastructure/api/generated/ -n 116.api.ts --axios --responses && node scripts/format-api-docs.js"
-
     },
     "dependencies": {
         "next": "^16.2.6",
@@ -26,6 +25,7 @@
         "@types/node": "^25.9.1",
         "@types/react": "^19",
         "@types/react-dom": "^19",
+        "lint-staged": "^17.0.5",
         "tailwindcss": "^4",
         "typescript": "^6.0.3"
     }

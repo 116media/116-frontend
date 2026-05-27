@@ -2,20 +2,23 @@
 
 ## Overview
 
-The backend delivers JWT tokens via HttpOnly cookies for web clients. The frontend never sees or stores tokens directly. This is more secure than the dashboard's current approach (which stores tokens in encrypted localStorage).
+The backend delivers JWT tokens via HttpOnly cookies for web clients. The frontend never sees or stores tokens directly. Both the dashboard and the frontend use the same HttpOnly cookie mechanism for token delivery.
 
 ## Login Flow
 
 ```text
-1. User submits email + password
-2. Frontend sends POST /api/v1/public/auth/login
-3. Backend validates credentials
-4. Backend sets HttpOnly cookies:
+1. User clicks login button or tries to interact without being logged in
+2. Auth modal opens with login form
+3. User submits email + password
+4. Frontend sends POST /api/v1/public/auth/login
+5. Backend validates credentials
+6. Backend sets HttpOnly cookies:
    - accessToken (short-lived, ~60 min)
    - refreshToken (long-lived, ~30 days)
-5. Backend returns { user: UserResponseDto }
-6. Frontend stores user data in AuthContext
-7. Frontend redirects to home page
+7. Backend returns { user: UserResponseDto }
+8. Frontend updates AuthContext with user data
+9. Auth modal closes
+10. User continues where they were (no page redirect)
 ```
 
 ## Token Refresh
@@ -30,7 +33,7 @@ The backend delivers JWT tokens via HttpOnly cookies for web clients. The fronte
 6. Interceptor retries the original request
 7. If refresh also fails (refresh token expired):
    - Clear AuthContext
-   - Redirect to login
+   - Open login modal
 ```
 
 ## Social Login
@@ -43,7 +46,8 @@ The backend delivers JWT tokens via HttpOnly cookies for web clients. The fronte
 5. Backend exchanges code for user info
 6. Backend creates/links account
 7. Backend sets HttpOnly cookies
-8. Frontend stores user in AuthContext
+8. Frontend updates AuthContext with user data
+9. Auth modal closes
 ```
 
 ## Sign Up Flow
@@ -53,11 +57,11 @@ The backend delivers JWT tokens via HttpOnly cookies for web clients. The fronte
 2. Frontend sends POST /api/v1/public/auth/signup
 3. Backend creates unverified account
 4. Backend sends OTP to email
-5. Frontend redirects to OTP verification page
+5. Auth modal switches to OTP verification form
 6. User enters OTP
 7. Frontend sends POST /api/v1/public/auth/verify-otp
 8. Backend verifies OTP, marks account as verified
-9. Frontend redirects to login
+9. Auth modal switches to login form
 ```
 
 ## Auth Context
@@ -110,19 +114,51 @@ export async function getCurrentUser(): Promise<IUser | null> {
 
 ## Checking Auth in Client Components
 
+All auth forms (login, signup, forgot password, reset password, OTP) are modals, not pages. A visitor browsing an article should never be navigated away to a login page. They see a modal, log in, and continue reading.
+
+The `AuthDialogProvider` context lets any component trigger the auth modal:
+
 ```typescript
 "use client";
 
 import { useAuth } from "@/shared/presentation/providers/AuthProvider";
+import { useAuthDialog } from "@/shared/presentation/providers/AuthDialogProvider";
 
 function LikeButton({ articleId }: { articleId: string }) {
-    const { isAuthenticated } = useAuth();
+    const { user } = useAuth();
+    const { openAuth } = useAuthDialog();
     const like = useLikeArticle(articleId);
 
-    if (!isAuthenticated) {
-        return <LoginPromptButton />;
-    }
+    const handleLike = () => {
+        if (!user) {
+            openAuth("LOGIN");
+            return;
+        }
+        like.mutate();
+    };
 
-    return <button onClick={() => like.mutate()}>Like</button>;
+    return <button onClick={handleLike}>Like</button>;
+}
+```
+
+This pattern is used by every interaction button: LikeButton, BookmarkButton, ShareButton, CommentForm, RatingStars, AddToPlaylistButton. All check auth first, show the login modal if needed, perform the action if authenticated.
+
+After a successful login, the mutation updates the AuthProvider context and closes the modal:
+
+```typescript
+"use client";
+
+export function useLogin() {
+    const { setUser } = useAuth();
+    const { closeAuth } = useAuthDialog();
+
+    return useMutation({
+        mutationFn: (credentials: ILoginCredentials) =>
+            apiClient.api.publicLogin(credentials),
+        onSuccess: (response) => {
+            setUser(AuthMapper.userFromDto(response.data.user));
+            closeAuth();
+        },
+    });
 }
 ```

@@ -174,8 +174,11 @@ Infinite scroll is client-rendered, which means Google only sees the first page 
 ```typescript
 // app/(public)/articles/page.tsx (Server Component)
 export default async function ArticlesPage() {
-    const repository = new ArticlesRepositoryImpl();
-    const result = await repository.getPublishedArticles({ pageIndex: 0, pageSize: 12 });
+    const scope = await getServerScope();
+    const result = await scope.cradle.articlesRepository.getPublishedArticles({
+        pageIndex: 0,
+        pageSize: 12,
+    });
 
     const initialData = result.ok ? result.value : null;
 
