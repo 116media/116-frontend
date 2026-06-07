@@ -23,6 +23,7 @@ Découvrez
 déplacée
 désormais
 dévoile
+Embla
 Enquête
 esthétique
 europeenne
@@ -32,6 +33,7 @@ FOUC
 getarticlebyslug
 getarticlecategories
 getarticlepopulartags
+getarticlepromotionfeed
 getfeaturedarticles
 getfeaturedvideos
 getpromotedarticles
@@ -39,6 +41,7 @@ getpromotedvideos
 getpublishedarticles
 getvideocategories
 getvideopopulartags
+Gims
 grayscale
 Highlife
 icone
@@ -51,9 +54,15 @@ Lettre
 leur
 Lisez
 logomark
+Matete
+Matonge
+Maître
 Merriweather
+mixtape
 musiceditor
 Musique
+Mwaka
+Mwaka's
 n'avons
 n'existe
 Nakamura
@@ -63,6 +72,7 @@ Officiel
 optimisation
 Playfair
 POPULAIRES
+prefetchnavigation
 premières
 principale
 prochain
