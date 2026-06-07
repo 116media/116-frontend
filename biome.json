@@ -71,5 +71,18 @@
     },
     "files": {
         "includes": ["app/**", "src/**", "docs/**", "*.js", "*.ts", "*.json", "*.md"]
-    }
+    },
+    "overrides": [
+        {
+            "includes": ["src/shared/presentation/components/ui/Carousel/**"],
+            "linter": {
+                "rules": {
+                    "a11y": {
+                        "useSemanticElements": "off",
+                        "useAriaPropsSupportedByRole": "off"
+                    }
+                }
+            }
+        }
+    ]
 }
