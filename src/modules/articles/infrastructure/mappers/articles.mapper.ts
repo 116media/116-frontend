@@ -1,9 +1,11 @@
 import type { IArticleCategoryEntity } from "@/modules/articles/domain/entities/IArticleCategoryEntity";
+import type { IArticlePromotionFeedEntity } from "@/modules/articles/domain/entities/IArticlePromotionFeedEntity";
 import type { IArticleSummaryEntity } from "@/modules/articles/domain/entities/IArticleSummaryEntity";
 import type { IArticleTagEntity } from "@/modules/articles/domain/entities/IArticleTagEntity";
 import type {
     ArticleSummaryDto,
     CategoryDto,
+    PublicGetArticlePromotionFeedResponse,
     TagDto
 } from "@/shared/infrastructure/api/generated/116.api";
 
@@ -74,6 +76,24 @@ export const ArticlesMapper = {
             id: dto.id,
             name: dto.name,
             slug: dto.slug
+        };
+    },
+
+    /**
+     * Maps the article promotion feed API response to a clean domain entity.
+     * Resolves backend spots and slots into named arrays and maps each
+     * article entry through articleSummaryFromDto.
+     *
+     * @param {PublicGetArticlePromotionFeedResponse} dto - Raw API response
+     * @returns {IArticlePromotionFeedEntity} Mapped promotion feed entity
+     */
+    promotionFeedFromDto(dto: PublicGetArticlePromotionFeedResponse): IArticlePromotionFeedEntity {
+        return {
+            hero: dto.spot1.articles.map(ArticlesMapper.articleSummaryFromDto),
+            side: dto.spot2.articles.map(ArticlesMapper.articleSummaryFromDto),
+            pairA: (dto.spot3.slots[0]?.articles ?? []).map(ArticlesMapper.articleSummaryFromDto),
+            pairB: (dto.spot3.slots[1]?.articles ?? []).map(ArticlesMapper.articleSummaryFromDto),
+            gossipStrip: dto.gossipStrip.map(ArticlesMapper.articleSummaryFromDto)
         };
     }
 } as const;
