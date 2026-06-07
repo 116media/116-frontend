@@ -1,20 +1,20 @@
 "use client";
 
-import { Search } from "lucide-react";
+import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
+import { ChevronDown, Search } from "lucide-react";
 import Link from "next/link";
-
 import { ArticlesMegaMenu } from "@/modules/articles/presentation/components/ArticlesMegaMenu";
 import type { ArticlesMegaMenuProps } from "@/modules/articles/presentation/components/ArticlesMegaMenu/types";
 import { VideosMegaMenu } from "@/modules/videos/presentation/components/VideosMegaMenu";
 import type { VideosMegaMenuProps } from "@/modules/videos/presentation/components/VideosMegaMenu/types";
 import { Button } from "@/shared/presentation/components/ui/Button";
+
 import {
     NavigationMenu,
     NavigationMenuContent,
     NavigationMenuItem,
     NavigationMenuLink,
     NavigationMenuList,
-    NavigationMenuTrigger,
     NavigationMenuViewport
 } from "@/shared/presentation/components/ui/NavigationMenu";
 import { NAV_LINKS } from "@/shared/presentation/layouts/Header/constants";
@@ -48,14 +48,24 @@ export function DesktopNav({ articles, videos }: DesktopNavProps) {
                             value={hasMegaMenu ? label : undefined}
                         >
                             {hasMegaMenu ? (
-                                <Link
-                                    href={href}
-                                    className={cn(
-                                        "flex items-center rounded-md text-sm font-medium text-foreground transition-colors",
-                                        "hover:bg-accent hover:text-accent-foreground"
-                                    )}
-                                >
-                                    <NavigationMenuTrigger>{label}</NavigationMenuTrigger>
+                                <>
+                                    <NavigationMenuPrimitive.Trigger asChild>
+                                        <Link
+                                            href={href}
+                                            className={cn(
+                                                "flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-foreground transition-colors",
+                                                "hover:bg-accent hover:text-accent-foreground",
+                                                "data-[state=open]:bg-accent data-[state=open]:text-accent-foreground"
+                                            )}
+                                        >
+                                            {label}
+                                            <ChevronDown
+                                                size={14}
+                                                className="text-muted-foreground transition-transform duration-200 data-[state=open]:rotate-180"
+                                                aria-hidden="true"
+                                            />
+                                        </Link>
+                                    </NavigationMenuPrimitive.Trigger>
                                     <NavigationMenuContent>
                                         {label === "NEWS" ? (
                                             <ArticlesMegaMenu {...articles} />
@@ -63,7 +73,7 @@ export function DesktopNav({ articles, videos }: DesktopNavProps) {
                                             <VideosMegaMenu {...videos} />
                                         )}
                                     </NavigationMenuContent>
-                                </Link>
+                                </>
                             ) : (
                                 <NavigationMenuLink asChild>
                                     <Link
