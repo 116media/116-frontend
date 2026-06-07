@@ -41,7 +41,7 @@
     --radius: 0.5rem;
 
     /* Surface */
-    --surface-raised: var(--primitive-neutral-100);
+    --surface-raised: var(--primitive-neutral-50);
     --surface-hover: var(--primitive-neutral-200);
     --mega-menu: var(--primitive-neutral-50);
 
