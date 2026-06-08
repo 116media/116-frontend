@@ -39,10 +39,10 @@ export function CarouselContent({
     const { emblaRef } = useCarousel();
 
     return (
-        <div className={cn("relative h-full overflow-hidden rounded-xl", wrapperClassName)}>
+        <div className={cn("relative h-full min-w-0 overflow-hidden rounded-xl", wrapperClassName)}>
             <div
                 ref={emblaRef}
-                className="h-full"
+                className="h-full overflow-hidden"
             >
                 <div
                     className={cn("flex h-full", className)}
