@@ -12,7 +12,6 @@ import { cn } from "@/shared/presentation/utils/cn";
  * and height of the carousel viewport by default (single-slide mode).
  */
 export function CarouselItem({ className, ...props }: ComponentPropsWithoutRef<"div">) {
-    // biome-ignore lint/a11y/useSemanticElements: use WAI-ARIA, fieldset is for forms, not carousel slides
     return (
         <div
             role="group"
