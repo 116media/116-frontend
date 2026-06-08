@@ -22,51 +22,58 @@ export function Side({ article }: ArticlePromotionCardProps) {
     return (
         <Link
             href={`/articles/${article.slug}`}
-            className="group flex h-full flex-col overflow-hidden rounded-xl bg-linear-to-br from-primary/5 to-secondary/5 dark:from-primary/10 dark:to-secondary/10"
+            className="group flex h-full min-w-0 flex-col overflow-hidden rounded-xl bg-linear-to-br from-primary/5 to-secondary/5 dark:from-primary/10 dark:to-secondary/10"
         >
-            <div className="flex flex-1 flex-col p-6">
-                <div className="mb-4 flex items-center gap-2 text-sm text-muted-foreground">
-                    <Calendar className="size-3.5" />
+            <div className="flex flex-1 flex-col p-4 sm:p-5 md:p-6">
+                <div className="mb-3 flex flex-wrap items-center gap-2 text-xs text-muted-foreground sm:mb-4 sm:text-sm">
+                    <Calendar className="size-3 sm:size-3.5" />
                     <span suppressHydrationWarning>{formatRelativeDate(article.publishedAt)}</span>
                     <span className="mx-1 h-4 w-px bg-border" />
-                    <Tag as="span">{article.categoryName}</Tag>
+                    <Tag
+                        as="span"
+                        size="sm"
+                    >
+                        {article.categoryName}
+                    </Tag>
                 </div>
 
-                <div className="flex flex-1 gap-5">
-                    <div className="relative h-full w-full shrink-0 overflow-hidden rounded-lg md:w-1/3">
+                <div className="flex min-w-0 flex-1 flex-col gap-3 sm:flex-row sm:gap-5">
+                    <div className="relative h-36 w-full shrink-0 overflow-hidden rounded-lg sm:h-auto sm:w-1/3">
                         {article.coverImageUrl && (
                             <Image
                                 fill
                                 alt={article.title}
                                 src={article.coverImageUrl}
-                                sizes="(max-width: 768px) 100vw, 15vw"
+                                sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 15vw"
                                 className="object-cover transition-transform duration-500 group-hover:scale-105"
                             />
                         )}
                     </div>
 
-                    <div className="flex flex-1 flex-col">
-                        <h3 className="mb-3 text-2xl font-bold transition-colors group-hover:text-primary dark:group-hover:text-secondary">
+                    <div className="flex min-w-0 flex-1 flex-col">
+                        <h3 className="mb-2 text-base font-bold transition-colors group-hover:text-primary dark:group-hover:text-secondary sm:mb-3 sm:text-xl md:text-2xl">
                             {article.title}
                         </h3>
-                        <p className="text-muted-foreground line-clamp-4">{article.headline}</p>
+                        <p className="text-sm text-muted-foreground line-clamp-2 sm:line-clamp-3 md:line-clamp-4">
+                            {article.headline}
+                        </p>
                     </div>
                 </div>
 
-                <hr className="my-6" />
+                <hr className="my-4 sm:my-6" />
 
                 <div className="mt-auto flex items-center justify-between">
-                    <div className="flex items-center gap-3 text-muted-foreground">
-                        <span className="flex items-center gap-1 text-sm">
-                            <MessageSquare className="size-4" />
+                    <div className="flex items-center gap-3 text-xs text-muted-foreground sm:text-sm">
+                        <span className="flex items-center gap-1">
+                            <MessageSquare className="size-3.5 sm:size-4" />
                             {article.commentCount}
                         </span>
-                        <span className="flex items-center gap-1 text-sm">
-                            <Heart className="size-4" />
+                        <span className="flex items-center gap-1">
+                            <Heart className="size-3.5 sm:size-4" />
                             {article.likeCount}
                         </span>
-                        <span className="flex items-center gap-1 text-sm">
-                            <Share2 className="size-4" />
+                        <span className="flex items-center gap-1">
+                            <Share2 className="size-3.5 sm:size-4" />
                             {article.shareCount}
                         </span>
                     </div>
