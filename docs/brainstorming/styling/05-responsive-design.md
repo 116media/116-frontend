@@ -43,7 +43,7 @@ Cap content width to keep text readable. Long lines are hard to read.
     {grid}
 </section>
 
-<!-- Full-width sections: hero, featured -->
+<!-- Full-width sections: hero, promoted -->
 <section class="w-full">
     {hero}
 </section>
@@ -51,15 +51,15 @@ Cap content width to keep text readable. Long lines are hard to read.
 
 ### Navigation
 
-- **Mobile**: Hamburger icon opens a slide-in drawer from the left with accordion sections for categories and featured content previews
+- **Mobile**: Hamburger icon opens a slide-in drawer from the left with accordion sections for categories and promoted content previews
 - **Tablet**: Same drawer pattern as mobile, triggered by hamburger icon
-- **Desktop**: Horizontal navbar with mega menu dropdowns on "Articles" and "Vidéos" showing category columns, featured content thumbnails, and trending tags
+- **Desktop**: Horizontal navbar with mega menu dropdowns on "Articles" and "Vidéos" showing category columns, promoted content thumbnails, and trending tags
 
 See the full navigation documentation in [Layout System](../components/04-layout-system.md).
 
 ### Cards
 
-- **Mobile**: Full-width cards stacked vertically, horizontal scroll for featured
+- **Mobile**: Full-width cards stacked vertically, horizontal scroll for promoted
 - **Tablet**: 2-column grid
 - **Desktop**: 3 or 4 column grid
 

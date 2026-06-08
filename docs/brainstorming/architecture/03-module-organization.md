@@ -6,8 +6,8 @@ Based on the backend's public API endpoints, the frontend needs these modules:
 
 | Module | Content | Routes |
 | --- | --- | --- |
-| `articles` | Published articles, featured, comments, likes, bookmarks | `/articles`, `/articles/[slug]` |
-| `videos` | Published videos, featured, likes, ratings | `/videos`, `/videos/[slug]` |
+| `articles` | Published articles, promoted, comments, likes, bookmarks | `/articles`, `/articles/[slug]` |
+| `videos` | Published videos, promoted, likes, ratings | `/videos`, `/videos/[slug]` |
 | `shorts` | Short video clips, likes, bookmarks, views | `/shorts`, `/shorts/[slug]` |
 | `lyrics` | Song lyrics pages | `/lyrics/[songTitle]/[artistName]` |
 | `auth` | Login, signup, forgot password, OTP | Modals (no routes, triggered via `AuthDialogProvider`) |
@@ -31,7 +31,7 @@ src/modules/articles/
     usecases/
       getpublishedarticles.usecase.ts
       getarticlebyslug.usecase.ts
-      getfeaturedarticles.usecase.ts
+      getpromotedarticles.usecase.ts
   infrastructure/
     repositories/
       articles.repository.impl.ts    # API calls

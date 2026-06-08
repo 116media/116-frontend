@@ -49,11 +49,11 @@ export default function HomePage() {
     return (
         <>
             <HeroBanner />
-            <Suspense fallback={<FeaturedArticlesSkeleton />}>
-                <FeaturedArticles />
+            <Suspense fallback={<PromotedArticlesSkeleton />}>
+                <PromotedArticles />
             </Suspense>
-            <Suspense fallback={<FeaturedVideosSkeleton />}>
-                <FeaturedVideos />
+            <Suspense fallback={<PromotedVideosSkeleton />}>
+                <PromotedVideos />
             </Suspense>
             <Suspense fallback={<LatestShortsSkeleton />}>
                 <LatestShorts />

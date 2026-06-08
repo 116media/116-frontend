@@ -13,7 +13,7 @@ For content pages that do not change often:
 export const revalidate = 60;
 ```
 
-For content that changes frequently (trending, featured):
+For content that changes frequently (trending, promoted):
 
 ```typescript
 export const revalidate = 0; // No cache, always fresh

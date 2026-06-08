@@ -159,7 +159,7 @@ You can scope theme overrides to specific sections of the page:
 ```html
 <!-- Dark section in a light page -->
 <section class="dark bg-background text-foreground">
-    <h2 class="text-foreground">Featured Videos</h2>
+    <h2 class="text-foreground">Promoted Videos</h2>
     <p class="text-muted-foreground">This section has dark styling</p>
 </section>
 ```

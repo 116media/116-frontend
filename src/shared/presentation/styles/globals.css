@@ -2,6 +2,39 @@
 @import "./fonts.css";
 @import "./theme.css";
 
+@keyframes mega-menu-slide-down {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes mega-menu-slide-up {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-100%);
+    }
+}
+
+@keyframes spin-border {
+    0% {
+        --border-angle: 0deg;
+    }
+    100% {
+        --border-angle: 360deg;
+    }
+}
+
+@property --border-angle {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 0deg;
+}
+
 @layer base {
     * {
         border-color: var(--border);

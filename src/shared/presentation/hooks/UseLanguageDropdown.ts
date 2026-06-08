@@ -1,8 +1,13 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useSyncExternalStore } from "react";
 import { LANGUAGE_LIST, USER_LANG } from "@/shared/presentation/constants/languages";
 import { getLanguage } from "@/shared/presentation/utils/getLanguage";
+
+function subscribeToLanguage(callback: () => void) {
+    window.addEventListener("storage", callback);
+    return () => window.removeEventListener("storage", callback);
+}
 
 /**
  * useLanguageDropdown
@@ -10,14 +15,19 @@ import { getLanguage } from "@/shared/presentation/utils/getLanguage";
  * @description
  * Encapsulates current language resolution and language update logic
  * for the language dropdown.
- * Initializes from localStorage via getLanguage() using a lazy useState
- * initializer — this runs only on the client so there is no SSR mismatch.
+ * Uses useSyncExternalStore so the server always renders the static default
+ * snapshot while the client reads from localStorage — eliminating the
+ * hydration mismatch without needing useEffect or hardcoded strings.
  * Persists the selected language to localStorage under the USER_LANG key.
  *
  * @returns currentCode, currentLanguage, updateLanguage
  */
 export function useLanguageDropdown() {
-    const [currentCode, setCurrentCode] = useState<string>(() => getLanguage());
+    const currentCode = useSyncExternalStore(
+        subscribeToLanguage,
+        () => getLanguage(),
+        () => LANGUAGE_LIST[0].code
+    );
 
     const currentLanguage = useMemo(
         () => LANGUAGE_LIST.find((lang) => lang.code === currentCode) ?? LANGUAGE_LIST[0],
@@ -27,8 +37,8 @@ export function useLanguageDropdown() {
     const updateLanguage = useCallback(
         (code: string) => {
             if (code === currentCode) return;
-            setCurrentCode(code);
             localStorage.setItem(USER_LANG, code);
+            window.dispatchEvent(new StorageEvent("storage", { key: USER_LANG, newValue: code }));
             // TODO: sync with i18next when translations are wired up
         },
         [currentCode]

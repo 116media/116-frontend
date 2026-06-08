@@ -73,11 +73,11 @@ Each command copies a component file into `src/shared/presentation/components/ui
 | `Sheet` | Mobile navigation drawer |
 | `Skeleton` | Loading placeholders for cards, articles |
 | `Avatar` | Author avatars, user profile |
-| `Badge` | Category tags, featured badge, status |
+| `Badge` | Category tags, promoted badge, status |
 | `Tabs` | Content sections (articles/videos toggle) |
 | `Toast` | Success/error notifications |
 | `Separator` | Visual dividers between sections |
-| `ScrollArea` | Horizontal scroll for featured content |
+| `ScrollArea` | Horizontal scroll for promoted content |
 | `AspectRatio` | Video thumbnails, cover images |
 | `Pagination` | Article/video list pagination |
 

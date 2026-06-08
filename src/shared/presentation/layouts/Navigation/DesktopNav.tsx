@@ -1,47 +1,91 @@
-import { ChevronDown, Search } from "lucide-react";
+"use client";
+
+import { Search } from "lucide-react";
 import Link from "next/link";
 
+import { ArticlesMegaMenu } from "@/modules/articles/presentation/components/ArticlesMegaMenu";
+import type { ArticlesMegaMenuProps } from "@/modules/articles/presentation/components/ArticlesMegaMenu/types";
+import { VideosMegaMenu } from "@/modules/videos/presentation/components/VideosMegaMenu";
+import type { VideosMegaMenuProps } from "@/modules/videos/presentation/components/VideosMegaMenu/types";
 import { Button } from "@/shared/presentation/components/ui/Button";
+import {
+    NavigationMenu,
+    NavigationMenuContent,
+    NavigationMenuItem,
+    NavigationMenuLink,
+    NavigationMenuList,
+    NavigationMenuTrigger,
+    NavigationMenuViewport
+} from "@/shared/presentation/components/ui/NavigationMenu";
 import { NAV_LINKS } from "@/shared/presentation/layouts/Header/constants";
 import { cn } from "@/shared/presentation/utils/cn";
+
+interface DesktopNavProps {
+    articles: ArticlesMegaMenuProps;
+    videos: VideosMegaMenuProps;
+}
 
 /**
  * DesktopNav
  *
  * @description
  * Centre section of the Header for desktop viewports.
- * Renders the primary nav links (Articles, Vidéos, Lyrics, Artistes) on the
- * left side and a search icon button on the right side, both grouped inside a
- * single centred container so the whole block sits in the middle of the header.
- *
- * Articles and Vidéos will receive mega menu panels in a later iteration.
- * The search button will open a full-screen search overlay when implemented.
+ * Renders primary nav links using Radix UI NavigationMenu so that
+ * NEWS and VIDEOS items open mega menu panels on hover.
+ * LYRICS and ARTISTES remain plain links with no sub-menu.
+ * All mega menu data is prefetched server-side in PublicLayout and
+ * passed in as props — no data fetching happens inside this component.
+ * A search icon button sits to the right of the link group.
  */
-export function DesktopNav() {
+export function DesktopNav({ articles, videos }: DesktopNavProps) {
     return (
         <div className="hidden items-center gap-1 md:flex">
-            {NAV_LINKS.map(({ label, href, hasMegaMenu }) => (
-                <Link
-                    key={href}
-                    href={href}
-                    className={cn(
-                        "flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-foreground transition-colors",
-                        "hover:bg-accent hover:text-accent-foreground"
-                    )}
-                >
-                    {label}
-                    {hasMegaMenu && (
-                        <ChevronDown
-                            size={14}
-                            className="text-muted-foreground"
-                        />
-                    )}
-                </Link>
-            ))}
+            <NavigationMenu>
+                <NavigationMenuList>
+                    {NAV_LINKS.map(({ label, href, hasMegaMenu }) => (
+                        <NavigationMenuItem
+                            key={href}
+                            value={hasMegaMenu ? label : undefined}
+                        >
+                            {hasMegaMenu ? (
+                                <Link
+                                    href={href}
+                                    className={cn(
+                                        "flex items-center rounded-md text-sm font-medium text-foreground transition-colors",
+                                        "hover:bg-accent hover:text-accent-foreground"
+                                    )}
+                                >
+                                    <NavigationMenuTrigger>{label}</NavigationMenuTrigger>
+                                    <NavigationMenuContent>
+                                        {label === "NEWS" ? (
+                                            <ArticlesMegaMenu {...articles} />
+                                        ) : (
+                                            <VideosMegaMenu {...videos} />
+                                        )}
+                                    </NavigationMenuContent>
+                                </Link>
+                            ) : (
+                                <NavigationMenuLink asChild>
+                                    <Link
+                                        href={href}
+                                        className={cn(
+                                            "flex items-center rounded-md px-3 py-2 text-sm font-medium text-foreground transition-colors",
+                                            "hover:bg-accent hover:text-accent-foreground"
+                                        )}
+                                    >
+                                        {label}
+                                    </Link>
+                                </NavigationMenuLink>
+                            )}
+                        </NavigationMenuItem>
+                    ))}
+                </NavigationMenuList>
+                <NavigationMenuViewport />
+            </NavigationMenu>
 
             <div
-                className="ml-2 h-8 w-px bg-border"
                 aria-hidden="true"
+                className="ml-2 h-8 w-px bg-border"
             />
 
             <Button

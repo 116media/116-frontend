@@ -4,7 +4,7 @@ import type * as React from "react";
 
 import { cn } from "@/shared/presentation/utils/cn";
 
-const buttonVariants = cva(
+export const buttonVariants = cva(
     "inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
     {
         variants: {
@@ -13,6 +13,8 @@ const buttonVariants = cva(
                 destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
                 outline:
                     "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+                "brand-outline":
+                    "border bg-transparent text-primary dark:text-secondary border-primary/30 dark:border-secondary/30 hover:bg-primary/10 hover:text-primary dark:hover:bg-secondary/10 dark:hover:text-secondary dark:hover:border-secondary",
                 secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
                 ghost: "hover:bg-accent hover:text-accent-foreground",
                 link: "text-primary underline-offset-4 hover:underline"
@@ -31,6 +33,13 @@ const buttonVariants = cva(
     }
 );
 
+/**
+ * Props for the Button component.
+ *
+ * @interface ButtonProps
+ *
+ * @property {boolean} [asChild] - Render as the child element using Radix Slot instead of a button
+ */
 export interface ButtonProps
     extends React.ButtonHTMLAttributes<HTMLButtonElement>,
         VariantProps<typeof buttonVariants> {
@@ -59,5 +68,3 @@ export function Button({ className, variant, size, asChild = false, ...props }: 
         />
     );
 }
-
-export { buttonVariants };

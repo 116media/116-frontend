@@ -1,11 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import type { ArticlesMegaMenuProps } from "@/modules/articles/presentation/components/ArticlesMegaMenu/types";
+import type { VideosMegaMenuProps } from "@/modules/videos/presentation/components/VideosMegaMenu/types";
 import { LanguageDropdown } from "@/shared/presentation/components/common/LanguageDropdown";
 import { ThemeToggle } from "@/shared/presentation/components/common/ThemeToggle";
 import { UserAccountControl } from "@/shared/presentation/components/common/UserAccountControl";
 import { DesktopNav } from "@/shared/presentation/layouts/Navigation/DesktopNav";
 import { PageContainer } from "@/shared/presentation/layouts/PageContainer";
+
+interface HeaderProps {
+    articles: ArticlesMegaMenuProps;
+    videos: VideosMegaMenuProps;
+}
 
 /**
  * Header
@@ -20,8 +27,9 @@ import { PageContainer } from "@/shared/presentation/layouts/PageContainer";
  * will be added in a later iteration.
  * UserAccountControl shows "Se connecter" for anonymous visitors or an avatar
  * for authenticated users. User is null until auth is wired up.
+ * Mega menu data is prefetched server-side in PublicLayout and forwarded here.
  */
-export function Header() {
+export function Header({ articles, videos }: HeaderProps) {
     return (
         <header className="w-full border-b border-border bg-background/80 backdrop-blur-lg">
             <PageContainer>
@@ -48,7 +56,10 @@ export function Header() {
                         />
                     </Link>
 
-                    <DesktopNav />
+                    <DesktopNav
+                        articles={articles}
+                        videos={videos}
+                    />
 
                     <div className="flex items-center gap-6">
                         <div className="flex items-center gap-1">

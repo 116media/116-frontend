@@ -8,7 +8,14 @@
         "lineEnding": "lf",
         "lineWidth": 100,
         "attributePosition": "multiline",
-        "includes": ["app/**", "src/**", "*.js", "*.ts", "*.json"]
+        "includes": [
+            "app/**",
+            "src/**",
+            "*.js",
+            "*.ts",
+            "*.json",
+            "!**/src/shared/infrastructure/api/generated/116.api.ts"
+        ]
     },
     "assist": {
         "actions": {
@@ -31,7 +38,14 @@
                 "noUnusedLabels": "error"
             }
         },
-        "includes": ["app/**", "src/**", "*.js", "*.ts", "*.json"]
+        "includes": [
+            "app/**",
+            "src/**",
+            "*.js",
+            "*.ts",
+            "*.json",
+            "!**/src/shared/infrastructure/api/generated/116.api.ts"
+        ]
     },
     "javascript": {
         "formatter": {

@@ -88,10 +88,10 @@ import { Header } from "@/shared/presentation/layouts/Header";
 import { Footer } from "@/shared/presentation/layouts/Footer";
 
 export default async function PublicLayout({ children }) {
-    const [categories, featuredArticles, featuredVideos] = await Promise.all([
+    const [categories, promotedArticles, promotedVideos] = await Promise.all([
         fetchActiveCategories(),
-        fetchFeaturedArticles(),
-        fetchFeaturedVideos(),
+        fetchPromotedArticles(),
+        fetchPromotedVideos(),
     ]);
 
     return (
@@ -99,8 +99,8 @@ export default async function PublicLayout({ children }) {
             <TopBar />
             <Header
                 categories={categories}
-                featuredArticles={featuredArticles}
-                featuredVideos={featuredVideos}
+                promotedArticles={promotedArticles}
+                promotedVideos={promotedVideos}
             />
             <main className="min-h-screen">{children}</main>
             <Footer />
@@ -109,7 +109,7 @@ export default async function PublicLayout({ children }) {
 }
 ```
 
-The categories and featured content are fetched once at the layout level (Server Component) and passed as props. This avoids client-side fetching for navigation data.
+The categories and promoted content are fetched once at the layout level (Server Component) and passed as props. This avoids client-side fetching for navigation data.
 
 ---
 
@@ -223,13 +223,13 @@ When the user hovers over "Articles" or "Vidéos", a mega menu panel drops down:
 |  CATÉGORIES             À LA UNE                    TAGS POPULAIRES   |
 |                                                                       |
 |  Artist Profile  >      +------------------+        [Fally Ipupa]     |
-|  Chronique Sale  >      | [Featured Image] |        [Kinshasa]        |
+|  Chronique Sale  >      | [Promoted Image] |        [Kinshasa]        |
 |  116 Le Focus    >      | Article Title    |        [Afrobeats]       |
 |  116 Interview   >      | Author - 3 min   |        [Rumba]           |
 |  FlexBeat        >      +------------------+        [Innoss'B]        |
 |  BTS             >                                                    |
 |  Podcast         >      +------------------+                          |
-|                         | [Featured Image] |        VOIR TOUT ->      |
+|                         | [Promoted Image] |        VOIR TOUT ->      |
 |                         | Article Title    |                          |
 |                         +------------------+                          |
 |                                                                       |
@@ -240,7 +240,7 @@ The panel has three columns:
 
 1. **Categories** (left): Active categories for the content type, each linking to a filtered view (e.g., `/articles?category=artist-profile`). Data from `GET /api/v1/public/categories` filtered by content type.
 
-2. **Featured content** (center): 2 featured content cards with thumbnail, title, author, and read time. Data from `GET /api/v1/public/articles/featured` or `GET /api/v1/public/videos/featured`.
+2. **Promoted content** (center): 2 promoted content cards with thumbnail, title, author, and read time. Data from `GET /api/v1/public/articles/promoted` or `GET /api/v1/public/videos/promoted`.
 
 3. **Trending tags** (right): Most-used tags as clickable chips. Data from `GET /api/v1/public/tags`. Clicking filters the content list by tag.
 
@@ -292,7 +292,7 @@ The hamburger icon opens a full-height drawer from the left:
 
 1. **User section** (top): Avatar + username + profile link if authenticated; "Se connecter" button if anonymous.
 2. **Search bar**: Always visible.
-3. **Articles and Vidéos as accordions**: Expand to show categories + 2 featured cards + "Voir tout" link.
+3. **Articles and Vidéos as accordions**: Expand to show categories + 2 promoted cards + "Voir tout" link.
 4. **Paroles and Artistes**: Plain links.
 5. **Footer** (bottom): Theme toggle.
 
@@ -316,11 +316,11 @@ shared/presentation/layouts/
     DesktopNav.tsx               # Horizontal nav links + mega menu triggers
     MegaMenuPanel.tsx            # Dropdown panel (Articles / Vidéos)
     MegaMenuCategories.tsx       # Category links column
-    MegaMenuFeatured.tsx         # Featured content cards column
+    MegaMenuPromoted.tsx         # Promoted content cards column
     MegaMenuTags.tsx             # Trending tags column
     MobileDrawer.tsx             # Slide-in drawer (shadcn Sheet)
     MobileDrawerAccordion.tsx    # Collapsible section per content type
-    MobileDrawerFeatured.tsx     # Compact featured cards for drawer
+    MobileDrawerPromoted.tsx     # Compact promoted cards for drawer
     SearchOverlay.tsx            # Full-screen search on mobile
     UserMenu.tsx                 # Avatar dropdown (desktop) / user section (drawer)
 shared/presentation/components/
