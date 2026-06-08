@@ -24,7 +24,7 @@ export function Pair({ article }: ArticlePromotionCardProps) {
     return (
         <Link
             href={`/articles/${article.slug}`}
-            className="group relative block h-full min-h-40 overflow-hidden rounded-xl shadow-xl"
+            className="group relative block h-full overflow-hidden rounded-xl"
         >
             {article.coverImageUrl && (
                 <Image
@@ -47,8 +47,8 @@ export function Pair({ article }: ArticlePromotionCardProps) {
                 </span>
             </div>
 
-            <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6">
-                <div className="mb-3 flex items-center gap-2">
+            <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 md:p-6">
+                <div className="mb-2 flex items-center gap-2 sm:mb-3">
                     <Tag
                         as="span"
                         variant="outline"
@@ -60,25 +60,25 @@ export function Pair({ article }: ArticlePromotionCardProps) {
                     </Tag>
                 </div>
 
-                <h3 className="mb-2 text-lg font-bold leading-tight text-white line-clamp-2 md:text-xl">
+                <h3 className="mb-1 text-sm font-bold leading-tight text-white line-clamp-2 sm:mb-2 sm:text-lg md:text-xl">
                     {article.title}
                 </h3>
 
-                <p className="mb-4 text-sm font-light text-white/70 line-clamp-3">
+                <p className="mb-2 text-xs font-light text-white/70 line-clamp-2 sm:mb-4 sm:text-sm sm:line-clamp-3">
                     — {article.headline}
                 </p>
 
-                <div className="flex items-center gap-4 border-t border-white/10 pt-5 text-xs text-white/60">
-                    <span className="flex items-center gap-1.5">
-                        <MessageSquare className="size-4" />
+                <div className="flex items-center justify-between border-t border-white/10 pt-3 text-xs text-white/60 sm:justify-start sm:gap-4 sm:pt-5">
+                    <span className="flex items-center gap-1">
+                        <MessageSquare className="size-3 sm:size-4" />
                         {article.commentCount}
                     </span>
                     <span className="flex items-center gap-1">
-                        <Heart className="size-4" />
+                        <Heart className="size-3 sm:size-4" />
                         {article.likeCount}
                     </span>
-                    <span className="flex items-center gap-1.5">
-                        <Share2 className="size-4" />
+                    <span className="flex items-center gap-1">
+                        <Share2 className="size-3 sm:size-4" />
                         {article.shareCount}
                     </span>
                 </div>
