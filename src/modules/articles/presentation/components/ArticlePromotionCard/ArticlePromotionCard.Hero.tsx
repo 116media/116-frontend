@@ -23,7 +23,7 @@ export function Hero({ article }: ArticlePromotionCardProps) {
     return (
         <Link
             href={`/articles/${article.slug}`}
-            className="group relative block h-full min-h-48 overflow-hidden rounded-xl"
+            className="group relative block h-full min-h-64 overflow-hidden rounded-xl sm:min-h-80 md:min-h-0"
         >
             {article.coverImageUrl && (
                 <Image
@@ -49,7 +49,7 @@ export function Hero({ article }: ArticlePromotionCardProps) {
                     variant="ghost"
                     className="mb-3 bg-white/10 text-white/90 backdrop-blur-sm"
                     prefix={
-                        <span className="block size-2 animate-pulse rounded-full bg-secondary" />
+                        <span className="hidden size-2 animate-pulse rounded-full bg-secondary sm:block" />
                     }
                 >
                     {article.categoryName}
@@ -59,21 +59,21 @@ export function Hero({ article }: ArticlePromotionCardProps) {
                     {article.title}
                 </h3>
 
-                <p className="mb-4 text-sm text-white/70 line-clamp-4 md:text-base">
+                <p className="mb-3 text-xs text-white/70 line-clamp-2 sm:mb-4 sm:text-sm sm:line-clamp-4 md:text-base">
                     {article.headline}
                 </p>
 
-                <div className="flex items-center gap-4 text-xs text-white/60 md:text-sm">
+                <div className="flex items-center gap-3 text-xs text-white/60 sm:gap-4 md:text-sm">
                     <span className="flex items-center gap-1">
-                        <MessageSquare className="size-4" />
+                        <MessageSquare className="size-3.5 sm:size-4" />
                         {article.commentCount}
                     </span>
                     <span className="flex items-center gap-1">
-                        <Heart className="size-4" />
+                        <Heart className="size-3.5 sm:size-4" />
                         {article.likeCount}
                     </span>
                     <span className="flex items-center gap-1">
-                        <Share2 className="size-4" />
+                        <Share2 className="size-3.5 sm:size-4" />
                         {article.shareCount}
                     </span>
                 </div>
