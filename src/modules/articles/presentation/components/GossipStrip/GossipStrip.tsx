@@ -18,8 +18,8 @@ export function GossipStrip({ articles }: GossipStripProps) {
     if (articles.length === 0) return null;
 
     return (
-        <div className="flex flex-1 flex-col rounded-xl bg-muted/30 p-6">
-            <div className="flex flex-1 flex-col gap-4">
+        <div className="flex min-w-0 flex-1 flex-col overflow-hidden rounded-xl bg-muted/30 p-3 sm:p-4 md:p-6">
+            <div className="flex flex-1 flex-col gap-3 sm:gap-4">
                 {articles.map((article, index) => (
                     <Fragment key={article.id}>
                         <ArticlePromotionCard.Strip article={article} />
