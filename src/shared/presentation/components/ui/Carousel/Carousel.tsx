@@ -99,7 +99,7 @@ export function Carousel({ emblaRef, api, className, children, ...props }: Carou
             value={{ emblaRef, api, scrollPrev, scrollNext, canScrollPrev, canScrollNext }}
         >
             <section
-                className={cn("h-full", className)}
+                className={cn("h-full min-w-0 overflow-hidden", className)}
                 {...props}
             >
                 {children}
