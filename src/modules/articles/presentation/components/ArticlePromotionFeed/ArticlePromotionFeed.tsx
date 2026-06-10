@@ -18,8 +18,8 @@ import type { ArticlePromotionFeedViewProps } from "./types";
  */
 export function ArticlePromotionFeed({ feed }: ArticlePromotionFeedViewProps) {
     return (
-        <section className="grid grid-cols-1 gap-2 overflow-hidden sm:gap-3 md:h-[80vh] md:gap-4 md:grid-cols-[3fr_2fr]">
-            <div className="grid min-w-0 gap-2 overflow-hidden sm:gap-3 md:gap-4 md:grid-rows-[4fr_2fr]">
+        <section className="grid grid-cols-1 gap-2 overflow-hidden sm:gap-3 md:gap-4 lg:h-full lg:grid-cols-[3fr_2fr] 2xl:h-[80vh]">
+            <div className="grid min-w-0 gap-2 overflow-hidden sm:gap-3 md:gap-4 lg:grid-rows-[4fr_2fr]">
                 <HeroCarousel articles={feed.hero} />
                 <PairCarousel
                     pairA={feed.pairA}
@@ -27,7 +27,7 @@ export function ArticlePromotionFeed({ feed }: ArticlePromotionFeedViewProps) {
                 />
             </div>
 
-            <div className="grid min-w-0 gap-2 overflow-hidden sm:gap-3 md:gap-4 md:grid-rows-[2fr_2.5fr]">
+            <div className="grid min-w-0 gap-2 overflow-hidden sm:gap-3 md:gap-4 lg:grid-rows-[2fr_2.5fr]">
                 <SideCarousel articles={feed.side} />
                 <GossipStrip articles={feed.gossipStrip} />
             </div>
