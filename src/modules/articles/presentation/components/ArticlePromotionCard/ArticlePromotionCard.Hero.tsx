@@ -23,7 +23,7 @@ export function Hero({ article }: ArticlePromotionCardProps) {
     return (
         <Link
             href={`/articles/${article.slug}`}
-            className="group relative block h-full min-h-64 overflow-hidden rounded-xl sm:min-h-80 md:min-h-0"
+            className="group relative block h-full min-h-96 overflow-hidden rounded-xl sm:min-h-80 lg:min-h-0"
         >
             {article.coverImageUrl && (
                 <Image
@@ -43,11 +43,11 @@ export function Hero({ article }: ArticlePromotionCardProps) {
                 )}
             />
 
-            <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6">
+            <div className="absolute bottom-0 left-0 right-0 p-4 lg:p-4 xl:p-6">
                 <Tag
                     as="span"
                     variant="ghost"
-                    className="mb-3 bg-white/10 text-white/90 backdrop-blur-sm"
+                    className="mb-2 bg-white/10 text-white/90 backdrop-blur-sm lg:mb-2 xl:mb-3"
                     prefix={
                         <span className="hidden size-2 animate-pulse rounded-full bg-secondary sm:block" />
                     }
@@ -55,15 +55,15 @@ export function Hero({ article }: ArticlePromotionCardProps) {
                     {article.categoryName}
                 </Tag>
 
-                <h3 className="mb-2 text-lg font-bold leading-tight text-white line-clamp-2 md:text-2xl lg:text-3xl">
+                <h3 className="mb-1 text-lg font-bold leading-tight text-white line-clamp-2 md:text-2xl lg:text-xl xl:text-3xl">
                     {article.title}
                 </h3>
 
-                <p className="mb-3 text-xs text-white/70 line-clamp-2 sm:mb-4 sm:text-sm sm:line-clamp-4 md:text-base">
+                <p className="mb-3 text-xs text-white/70 line-clamp-2 sm:mb-4 sm:text-sm sm:line-clamp-4 md:text-base md:line-clamp-4 lg:text-sm lg:line-clamp-3 xl:text-base xl:line-clamp-4">
                     {article.headline}
                 </p>
 
-                <div className="flex items-center gap-3 text-xs text-white/60 sm:gap-4 md:text-sm">
+                <div className="flex items-center gap-3 text-xs text-white/60 sm:gap-4 md:text-sm lg:text-xs xl:text-sm">
                     <span className="flex items-center gap-1">
                         <MessageSquare className="size-3.5 sm:size-4" />
                         {article.commentCount}
