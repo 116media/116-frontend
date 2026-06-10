@@ -47,8 +47,8 @@ export function Pair({ article }: ArticlePromotionCardProps) {
                 </span>
             </div>
 
-            <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 md:p-6">
-                <div className="mb-2 flex items-center gap-2 sm:mb-3">
+            <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 lg:p-3 xl:p-5">
+                <div className="mb-2 flex items-center gap-2 sm:mb-3 lg:mb-1.5">
                     <Tag
                         as="span"
                         variant="outline"
@@ -60,15 +60,15 @@ export function Pair({ article }: ArticlePromotionCardProps) {
                     </Tag>
                 </div>
 
-                <h3 className="mb-1 text-sm font-bold leading-tight text-white line-clamp-2 sm:mb-2 sm:text-lg md:text-xl">
+                <h3 className="mb-1 text-sm font-bold leading-tight text-white line-clamp-2 sm:mb-2 sm:text-lg md:text-xl lg:text-sm xl:text-lg">
                     {article.title}
                 </h3>
 
-                <p className="mb-2 text-xs font-light text-white/70 line-clamp-2 sm:mb-4 sm:text-sm sm:line-clamp-3">
+                <p className="mb-2 text-xs font-light text-white/70 line-clamp-2 sm:mb-4 sm:text-sm sm:line-clamp-3 md:text-base md:line-clamp-3 lg:mb-2 lg:text-xs lg:line-clamp-2 xl:text-sm xl:line-clamp-3">
                     — {article.headline}
                 </p>
 
-                <div className="flex items-center justify-between border-t border-white/10 pt-3 text-xs text-white/60 sm:justify-start sm:gap-4 sm:pt-5">
+                <div className="flex items-center justify-between border-t border-white/10 pt-3 text-xs text-white/60 sm:justify-start sm:gap-4 sm:pt-5 md:text-sm lg:pt-2 lg:text-xs xl:pt-4">
                     <span className="flex items-center gap-1">
                         <MessageSquare className="size-3 sm:size-4" />
                         {article.commentCount}
