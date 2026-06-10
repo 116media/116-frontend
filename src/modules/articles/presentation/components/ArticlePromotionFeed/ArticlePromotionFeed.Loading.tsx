@@ -10,11 +10,11 @@
  */
 export function ArticlePromotionFeedLoading() {
     return (
-        <section className="grid grid-cols-1 gap-2 overflow-hidden sm:gap-3 md:h-[80vh] md:gap-4 md:grid-cols-[3fr_2fr]">
-            <div className="grid min-w-0 gap-2 overflow-hidden sm:gap-3 md:gap-4 md:grid-rows-[4fr_2fr]">
+        <section className="grid grid-cols-1 gap-2 overflow-hidden sm:gap-3 md:gap-4 lg:h-full lg:grid-cols-[3fr_2fr] 2xl:h-[80vh]">
+            <div className="grid min-w-0 gap-2 overflow-hidden sm:gap-3 md:gap-4 lg:grid-rows-[4fr_2fr]">
                 {/* Hero skeleton */}
-                <div className="min-h-64 animate-pulse rounded-xl bg-muted sm:min-h-80 md:min-h-0">
-                    <div className="flex h-full flex-col justify-end p-4 md:p-6">
+                <div className="min-h-64 animate-pulse rounded-xl bg-muted sm:min-h-80 lg:min-h-0">
+                    <div className="flex h-full flex-col justify-end p-4 lg:p-4 xl:p-6">
                         <div className="mb-3 h-5 w-24 rounded-full bg-muted-foreground/10" />
                         <div className="mb-2 h-5 w-3/4 rounded bg-muted-foreground/10 sm:h-6" />
                         <div className="mb-3 h-3 w-1/2 rounded bg-muted-foreground/10 sm:mb-4 sm:h-4" />
@@ -30,7 +30,7 @@ export function ArticlePromotionFeedLoading() {
                     {[0, 1].map((i) => (
                         <div
                             key={i}
-                            className="min-h-48 animate-pulse rounded-xl bg-muted sm:min-h-56 md:min-h-0"
+                            className="min-h-48 animate-pulse rounded-xl bg-muted sm:min-h-56 lg:min-h-0"
                         >
                             <div className="flex h-full flex-col justify-end p-3 sm:p-4">
                                 <div className="mb-2 h-4 w-16 rounded-full bg-muted-foreground/10" />
@@ -42,9 +42,9 @@ export function ArticlePromotionFeedLoading() {
                 </div>
             </div>
 
-            <div className="grid min-w-0 gap-2 overflow-hidden sm:gap-3 md:gap-4 md:grid-rows-[2fr_2.5fr]">
+            <div className="grid min-w-0 gap-2 overflow-hidden sm:gap-3 md:gap-4 lg:grid-rows-[2fr_2.5fr]">
                 {/* Side skeleton */}
-                <div className="animate-pulse rounded-xl border-2 border-muted bg-muted/30 p-4 sm:p-5 md:p-6">
+                <div className="animate-pulse rounded-xl border-2 border-muted bg-muted/30 p-4 sm:p-5 lg:p-4 xl:p-6">
                     <div className="mb-3 flex items-center gap-2 sm:mb-4">
                         <div className="h-3 w-20 rounded bg-muted-foreground/10 sm:h-4 sm:w-24" />
                         <div className="h-4 w-14 rounded-full bg-muted-foreground/10 sm:h-5 sm:w-16" />
@@ -60,7 +60,7 @@ export function ArticlePromotionFeedLoading() {
                 </div>
 
                 {/* Gossip strip skeleton */}
-                <div className="flex min-w-0 flex-1 flex-col gap-3 overflow-hidden rounded-xl bg-muted/30 p-3 sm:gap-4 sm:p-4 md:p-6">
+                <div className="flex min-w-0 flex-1 flex-col gap-3 overflow-hidden rounded-xl bg-muted/30 p-3 sm:gap-4 sm:p-4 lg:p-4 xl:p-6">
                     {[0, 1, 2].map((i) => (
                         <div
                             key={i}
