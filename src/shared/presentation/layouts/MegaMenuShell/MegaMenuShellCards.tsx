@@ -23,7 +23,7 @@ export interface MegaMenuShellCardsProps {
  */
 export function MegaMenuShellCards({ viewAllHref, label, children }: MegaMenuShellCardsProps) {
     return (
-        <div className="flex flex-col gap-3 px-4">
+        <div className="flex flex-col gap-2 border-x border-border px-3 lg:gap-3 lg:px-4">
             <div className="flex items-center justify-between">
                 <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                     À la une

@@ -2,6 +2,7 @@ import type { AwilixContainer } from "awilix";
 import { asClass } from "awilix";
 import { GetArticleCategoriesUseCase } from "@/modules/articles/application/usecases/getarticlecategories.usecase";
 import { GetArticlePopularTagsUseCase } from "@/modules/articles/application/usecases/getarticlepopulartags.usecase";
+import { GetArticlePromotionFeedUseCase } from "@/modules/articles/application/usecases/getarticlepromotionfeed.usecase";
 import { GetPromotedArticlesUseCase } from "@/modules/articles/application/usecases/getpromotedarticles.usecase";
 import { ArticlesRepositoryImpl } from "@/modules/articles/infrastructure/repositories/articles.repository.impl";
 
@@ -22,6 +23,7 @@ export function registerArticlesDependencies(container: AwilixContainer): void {
         // Queries
         getPromotedArticlesUseCase: asClass(GetPromotedArticlesUseCase).transient(),
         getArticleCategoriesUseCase: asClass(GetArticleCategoriesUseCase).transient(),
-        getArticlePopularTagsUseCase: asClass(GetArticlePopularTagsUseCase).transient()
+        getArticlePopularTagsUseCase: asClass(GetArticlePopularTagsUseCase).transient(),
+        getArticlePromotionFeedUseCase: asClass(GetArticlePromotionFeedUseCase).transient()
     });
 }

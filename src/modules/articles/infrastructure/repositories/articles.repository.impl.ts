@@ -1,5 +1,6 @@
 import type { IArticlesRepositoryPort } from "@/modules/articles/application/repositories/articles.repository.port";
 import type { IArticleCategoryEntity } from "@/modules/articles/domain/entities/IArticleCategoryEntity";
+import type { IArticlePromotionFeedEntity } from "@/modules/articles/domain/entities/IArticlePromotionFeedEntity";
 import type { IArticleSummaryEntity } from "@/modules/articles/domain/entities/IArticleSummaryEntity";
 import type { IArticleTagEntity } from "@/modules/articles/domain/entities/IArticleTagEntity";
 import { ArticlesMapper } from "@/modules/articles/infrastructure/mappers/articles.mapper";
@@ -58,6 +59,15 @@ export class ArticlesRepositoryImpl implements IArticlesRepositoryPort {
                 contentType: EnumCoreContentType.Article
             });
             return ok(response.data.tags.map(ArticlesMapper.tagFromDto));
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async getPromotionFeed(): Promise<Result<IArticlePromotionFeedEntity>> {
+        try {
+            const response = await this.api.getArticlePromotionFeed();
+            return ok(ArticlesMapper.promotionFeedFromDto(response.data));
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }

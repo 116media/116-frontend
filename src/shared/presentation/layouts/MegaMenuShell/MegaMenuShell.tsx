@@ -37,11 +37,11 @@ export interface MegaMenuShellProps {
 export function MegaMenuShell({ tagsBasePath, popularTags, children }: MegaMenuShellProps) {
     return (
         <div className="w-full py-4">
-            <div className="mx-auto grid max-w-7xl grid-cols-[3fr_5fr_3fr] gap-0 px-4 sm:px-6 lg:px-8 xl:px-10">
+            <div className="mx-auto grid max-w-7xl grid-cols-[2fr_5fr] gap-0 px-4 sm:px-6 lg:grid-cols-[3fr_5fr_3fr] lg:px-8 xl:px-10">
                 {children}
 
                 {popularTags.length > 0 && (
-                    <div className="pl-4 p-3 flex flex-col gap-2">
+                    <div className="hidden lg:flex lg:flex-col lg:gap-2 lg:p-3 lg:pl-4">
                         <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                             Tags populaires
                         </p>

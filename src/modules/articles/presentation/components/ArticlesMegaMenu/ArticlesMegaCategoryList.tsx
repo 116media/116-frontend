@@ -20,10 +20,10 @@ import type { ArticlesMegaCategoryListProps } from "./types";
 export function ArticlesMegaCategoryList({ categories }: ArticlesMegaCategoryListProps) {
     return (
         <div className="flex flex-col">
-            <p className="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            <p className="mb-2 pr-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 Catégories
             </p>
-            <div className="mb-2 h-px bg-border/60 mx-3" />
+            <div className="mb-2 h-px bg-border/60 mr-3" />
             {categories.map((category) => (
                 <Link
                     key={category.id}
@@ -33,7 +33,7 @@ export function ArticlesMegaCategoryList({ categories }: ArticlesMegaCategoryLis
                         "hover:bg-accent"
                     )}
                 >
-                    <span className="text-sm font-medium text-foreground group-hover:text-accent-foreground">
+                    <span className="text-xs font-medium text-foreground group-hover:text-accent-foreground lg:text-sm">
                         {category.name}
                     </span>
                     <div className="flex items-center gap-1.5 shrink-0">

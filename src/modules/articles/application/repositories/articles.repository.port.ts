@@ -1,4 +1,5 @@
 import type { IArticleCategoryEntity } from "@/modules/articles/domain/entities/IArticleCategoryEntity";
+import type { IArticlePromotionFeedEntity } from "@/modules/articles/domain/entities/IArticlePromotionFeedEntity";
 import type { IArticleSummaryEntity } from "@/modules/articles/domain/entities/IArticleSummaryEntity";
 import type { IArticleTagEntity } from "@/modules/articles/domain/entities/IArticleTagEntity";
 import type { Result } from "@/shared/domain/results/result";
@@ -32,4 +33,11 @@ export interface IArticlesRepositoryPort {
      * @returns `ok(IArticleTagEntity[])` on success, `err(Failure)` on failure
      */
     getArticlePopularTags(): Promise<Result<IArticleTagEntity[]>>;
+
+    /**
+     * Fetches the homepage article promotion feed with spots and gossip strip.
+     *
+     * @returns `ok(IArticlePromotionFeedEntity)` on success, `err(Failure)` on failure
+     */
+    getPromotionFeed(): Promise<Result<IArticlePromotionFeedEntity>>;
 }

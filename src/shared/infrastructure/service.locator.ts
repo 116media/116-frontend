@@ -1,7 +1,8 @@
-import { asValue, createContainer, InjectionMode } from "awilix";
+import { asClass, asValue, createContainer, InjectionMode } from "awilix";
 import type { IArticlesRepositoryPort } from "@/modules/articles/application/repositories/articles.repository.port";
 import type { GetArticleCategoriesUseCase } from "@/modules/articles/application/usecases/getarticlecategories.usecase";
 import type { GetArticlePopularTagsUseCase } from "@/modules/articles/application/usecases/getarticlepopulartags.usecase";
+import type { GetArticlePromotionFeedUseCase } from "@/modules/articles/application/usecases/getarticlepromotionfeed.usecase";
 import type { GetPromotedArticlesUseCase } from "@/modules/articles/application/usecases/getpromotedarticles.usecase";
 import { registerArticlesDependencies } from "@/modules/articles/infrastructure/dependencies/articles.dependencies";
 import type { IVideosRepositoryPort } from "@/modules/videos/application/repositories/videos.repository.port";
@@ -9,6 +10,7 @@ import type { GetPromotedVideosUseCase } from "@/modules/videos/application/usec
 import type { GetVideoCategoriesUseCase } from "@/modules/videos/application/usecases/getvideocategories.usecase";
 import type { GetVideoPopularTagsUseCase } from "@/modules/videos/application/usecases/getvideopopulartags.usecase";
 import { registerVideosDependencies } from "@/modules/videos/infrastructure/dependencies/videos.dependencies";
+import { PrefetchNavigationUseCase } from "@/shared/application/usecases/prefetchnavigation.usecase";
 import { apiClient } from "@/shared/infrastructure/api/client";
 import type { Api } from "@/shared/infrastructure/api/generated/116.api";
 
@@ -33,6 +35,7 @@ export interface Cradle {
     getPromotedArticlesUseCase: GetPromotedArticlesUseCase;
     getArticleCategoriesUseCase: GetArticleCategoriesUseCase;
     getArticlePopularTagsUseCase: GetArticlePopularTagsUseCase;
+    getArticlePromotionFeedUseCase: GetArticlePromotionFeedUseCase;
 
     // Videos repository
     videosRepository: IVideosRepositoryPort;
@@ -41,6 +44,9 @@ export interface Cradle {
     getPromotedVideosUseCase: GetPromotedVideosUseCase;
     getVideoCategoriesUseCase: GetVideoCategoriesUseCase;
     getVideoPopularTagsUseCase: GetVideoPopularTagsUseCase;
+
+    // Shared composite use cases
+    prefetchNavigationUseCase: PrefetchNavigationUseCase;
 }
 
 /**
@@ -60,5 +66,10 @@ container.register({ client: asValue(apiClient) });
 
 registerArticlesDependencies(container);
 registerVideosDependencies(container);
+
+// Shared composite use cases (depend on both modules)
+container.register({
+    prefetchNavigationUseCase: asClass(PrefetchNavigationUseCase).transient()
+});
 
 export default container;

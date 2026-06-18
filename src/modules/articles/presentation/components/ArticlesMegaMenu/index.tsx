@@ -110,11 +110,11 @@ export function ArticlesMegaMenu({
                 viewAllHref={ARTICLES_PATH}
                 label="Voir tout →"
             >
-                <div className="grid grid-cols-2 gap-2 grid-rows-[320px]">
+                <div className="grid grid-cols-2 gap-2 grid-rows-[288px] lg:grid-rows-[320px]">
                     <ArticlesMegaMenuCard.FeaturedOverlay article={featured[0]} />
                     <ArticlesMegaMenuCard.FeaturedGradient article={featured[1]} />
                 </div>
-                <div className="grid grid-cols-2 gap-2 grid-rows-[180px]">
+                <div className="grid grid-cols-2 gap-2 grid-rows-[168px] lg:grid-rows-[180px]">
                     {compact.map((article) => (
                         <ArticlesMegaMenuCard.Compact
                             key={article.id}

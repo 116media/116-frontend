@@ -15,5 +15,5 @@ export interface MegaMenuShellCategoriesProps {
  * Wraps the domain-specific category list component.
  */
 export function MegaMenuShellCategories({ children }: MegaMenuShellCategoriesProps) {
-    return <div className="pr-4 p-3">{children}</div>;
+    return <div className="pt-2 pr-3 pb-2 lg:pt-3 lg:pr-4 lg:pb-3">{children}</div>;
 }

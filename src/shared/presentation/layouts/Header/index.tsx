@@ -44,7 +44,7 @@ export function Header({ articles, videos }: HeaderProps) {
                             height={48}
                             alt="116 Media"
                             src="/images/logo/dark/icon.svg"
-                            className="dark:hidden"
+                            className="size-9 dark:hidden sm:size-12 md:size-10 lg:size-12"
                         />
                         <Image
                             priority
@@ -52,7 +52,7 @@ export function Header({ articles, videos }: HeaderProps) {
                             height={48}
                             alt="116 Media"
                             src="/images/logo/light/icon.svg"
-                            className="hidden dark:block"
+                            className="hidden size-9 dark:block sm:size-12 md:size-10 lg:size-12"
                         />
                     </Link>
 

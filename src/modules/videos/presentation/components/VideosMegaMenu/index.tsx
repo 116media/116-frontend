@@ -102,11 +102,11 @@ export function VideosMegaMenu({ categories, promotedVideos, popularTags }: Vide
                 viewAllHref={VIDEOS_PATH}
                 label="Voir tout →"
             >
-                <div className="grid grid-cols-2 gap-2 grid-rows-[320px]">
+                <div className="grid grid-cols-2 gap-2 grid-rows-[288px] lg:grid-rows-[320px]">
                     {featured[0] && <VideosMegaMenuCard.FeaturedFullBleed video={featured[0]} />}
                     {featured[1] && <VideosMegaMenuCard.FeaturedSpotlight video={featured[1]} />}
                 </div>
-                <div className="grid grid-cols-2 gap-2 grid-rows-[180px]">
+                <div className="grid grid-cols-2 gap-2 grid-rows-[168px] lg:grid-rows-[180px]">
                     {compact.map((video) => (
                         <VideosMegaMenuCard.Compact
                             key={video.id}
