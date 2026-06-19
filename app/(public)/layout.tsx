@@ -22,8 +22,8 @@ export default async function PublicLayout({ children }: { children: React.React
     const result = await cradle.prefetchNavigationUseCase.execute();
 
     const { articles, videos } = unwrap(result, {
-        articles: { categories: [], promotedArticles: [], popularTags: [] },
-        videos: { categories: [], promotedVideos: [], popularTags: [] }
+        videos: { categories: [], promotedVideos: [], popularTags: [] },
+        articles: { categories: [], promotedArticles: [], popularTags: [] }
     });
 
     return (
