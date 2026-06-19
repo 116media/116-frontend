@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslation } from "react-i18next";
 import { Button } from "@/shared/presentation/components/ui/Button";
 import type { User } from "@/shared/presentation/types/user";
 import { getAvatarColor, getInitials } from "@/shared/presentation/utils/avatar";
@@ -35,6 +36,8 @@ const DUMMY_USER: User = {
 };
 
 export function UserAccountControl({ user = DUMMY_USER, className }: UserAccountControlProps) {
+    const { t } = useTranslation();
+
     if (!user) {
         return (
             <Button
@@ -44,7 +47,7 @@ export function UserAccountControl({ user = DUMMY_USER, className }: UserAccount
                     // TODO: open auth modal with LOGIN context
                 }}
             >
-                Se connecter
+                {t("navigation.login")}
             </Button>
         );
     }
