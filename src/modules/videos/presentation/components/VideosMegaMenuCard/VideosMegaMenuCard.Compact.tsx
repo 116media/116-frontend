@@ -41,11 +41,11 @@ export function Compact({ video }: VideosMegaMenuCardProps) {
                 <div className="relative h-full overflow-hidden">
                     {video.thumbnailUrl ? (
                         <Image
-                            src={video.thumbnailUrl}
-                            alt={video.title}
                             fill
-                            className="object-cover brightness-75 transition-all duration-300 group-hover:brightness-100"
+                            alt={video.title}
+                            src={video.thumbnailUrl}
                             sizes="(max-width: 1280px) 100vw, 420px"
+                            className="object-cover brightness-75 transition-all duration-300 group-hover:brightness-100"
                         />
                     ) : (
                         <div className="absolute inset-0 bg-muted" />
