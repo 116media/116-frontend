@@ -2,31 +2,36 @@
  * API error code mappings.
  *
  * @description
- * Maps backend exception types (ProblemDetails `title` field) to
- * user-friendly error titles in French.
- *
- * Used by the API client error handler to normalize error responses.
+ * Maps backend exception types (ProblemDetails `title` field) to translation keys in the
+ * `apiErrors` namespace. The API client resolves the key to a localised title at runtime
+ * using the active language.
  */
 export const apiErrors = {
-    validation: { code: "ValidationException", title: "Validation" },
-    authentication: { code: "AuthenticationException", title: "Authentification" },
-    authorization: { code: "AuthorizationException", title: "Autorisation" },
-    notFound: { code: "NotFoundException", title: "Introuvable" },
-    resourceNotFound: { code: "ResourceNotFoundException", title: "Ressource introuvable" },
-    conflict: { code: "ConflictException", title: "Conflit" },
-    badRequest: { code: "BadRequestException", title: "Requête Invalide" },
-    invalidFormat: { code: "InvalidFormatException", title: "Format invalide" },
-    formatException: { code: "FormatException", title: "Format invalide" },
-    methodNotAllowed: { code: "MethodNotAllowedException", title: "Méthode non autorisée" },
-    otpAttemptsLimit: { code: "OtpAttemptsLimitException", title: "Limite atteinte" },
-    otpExpiration: { code: "OtpExpirationException", title: "Expiré" },
-    rateLimitExceeded: { code: "RateLimitExceededException", title: "Limite de requêtes atteinte" },
-    accessDenied: { code: "AccessDeniedException", title: "Accès refusé" },
-    accessTokenExpiry: { code: "AccessTokenExpiryException", title: "Session expirée" },
-    refreshTokenExpiry: { code: "RefreshTokenExpiryException", title: "Session expirée" },
-    accountNotVerified: { code: "AccountNotVerifiedException", title: "Compte non vérifié" },
-    accountInactive: { code: "AccountInactiveException", title: "Compte inactif" },
-    internalServer: { code: "InternalServerException", title: "Erreur interne du serveur" },
-    internalServerError: { code: "InternalServerError", title: "Erreur interne du serveur" },
-    badGateway: { code: "BadGatewayException", title: "Erreur de passerelle" }
+    validation: { code: "ValidationException", key: "apiErrors.validation" },
+    authentication: { code: "AuthenticationException", key: "apiErrors.authentication" },
+    authorization: { code: "AuthorizationException", key: "apiErrors.authorization" },
+    notFound: { code: "NotFoundException", key: "apiErrors.notFound" },
+    resourceNotFound: { code: "ResourceNotFoundException", key: "apiErrors.resourceNotFound" },
+    conflict: { code: "ConflictException", key: "apiErrors.conflict" },
+    badRequest: { code: "BadRequestException", key: "apiErrors.badRequest" },
+    invalidFormat: { code: "InvalidFormatException", key: "apiErrors.invalidFormat" },
+    formatException: { code: "FormatException", key: "apiErrors.formatException" },
+    methodNotAllowed: { code: "MethodNotAllowedException", key: "apiErrors.methodNotAllowed" },
+    otpAttemptsLimit: { code: "OtpAttemptsLimitException", key: "apiErrors.otpAttemptsLimit" },
+    otpExpiration: { code: "OtpExpirationException", key: "apiErrors.otpExpiration" },
+    rateLimitExceeded: { code: "RateLimitExceededException", key: "apiErrors.rateLimitExceeded" },
+    accessDenied: { code: "AccessDeniedException", key: "apiErrors.accessDenied" },
+    accessTokenExpiry: { code: "AccessTokenExpiryException", key: "apiErrors.accessTokenExpiry" },
+    refreshTokenExpiry: {
+        code: "RefreshTokenExpiryException",
+        key: "apiErrors.refreshTokenExpiry"
+    },
+    accountNotVerified: {
+        code: "AccountNotVerifiedException",
+        key: "apiErrors.accountNotVerified"
+    },
+    accountInactive: { code: "AccountInactiveException", key: "apiErrors.accountInactive" },
+    internalServer: { code: "InternalServerException", key: "apiErrors.internalServer" },
+    internalServerError: { code: "InternalServerError", key: "apiErrors.internalServerError" },
+    badGateway: { code: "BadGatewayException", key: "apiErrors.badGateway" }
 } as const;
