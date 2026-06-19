@@ -2,8 +2,8 @@ import { BadgeCheck, Calendar, Heart, MessageSquare, Share2 } from "lucide-react
 import Image from "next/image";
 import Link from "next/link";
 
+import { RelativeDate } from "@/shared/presentation/components/ui/RelativeDate";
 import { Tag } from "@/shared/presentation/components/ui/Tag";
-import { formatRelativeDate } from "@/shared/presentation/utils/formatRelativeDate";
 
 import type { ArticlePromotionCardProps } from "./types";
 
@@ -38,12 +38,9 @@ export function Pair({ article }: ArticlePromotionCardProps) {
             <div className="absolute inset-0 bg-black/40 backdrop-blur-[5px]" />
 
             <div className="absolute top-0 left-0 right-0 flex h-12 items-center justify-end bg-linear-to-b from-black/60 to-transparent px-4">
-                <span
-                    className="text-xs text-white/60 flex items-center gap-2"
-                    suppressHydrationWarning
-                >
+                <span className="text-xs text-white/60 flex items-center gap-2">
                     <Calendar className="size-3.5" />
-                    {formatRelativeDate(article.publishedAt)}
+                    <RelativeDate date={article.publishedAt} />
                 </span>
             </div>
 
