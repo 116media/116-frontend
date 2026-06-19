@@ -106,10 +106,7 @@ export function ArticlesMegaMenu({
                 <ArticlesMegaCategoryList categories={categories} />
             </MegaMenuShellCategories>
 
-            <MegaMenuShellCards
-                viewAllHref={ARTICLES_PATH}
-                label="Voir tout →"
-            >
+            <MegaMenuShellCards viewAllHref={ARTICLES_PATH}>
                 <div className="grid grid-cols-2 gap-2 grid-rows-[288px] lg:grid-rows-[320px]">
                     <ArticlesMegaMenuCard.FeaturedOverlay article={featured[0]} />
                     <ArticlesMegaMenuCard.FeaturedGradient article={featured[1]} />
