@@ -4,10 +4,10 @@ import { Clock } from "lucide-react";
 import Link from "next/link";
 
 import { cardVariants } from "@/shared/presentation/components/ui/Card";
+import { RelativeDate } from "@/shared/presentation/components/ui/RelativeDate";
 import { Tag } from "@/shared/presentation/components/ui/Tag";
 import { ARTICLES_PATH } from "@/shared/presentation/constants/paths";
 import { cn } from "@/shared/presentation/utils/cn";
-import { formatRelativeDate } from "@/shared/presentation/utils/formatRelativeDate";
 import { ArticlesMegaMenuCardStats } from "./ArticlesMegaMenuCardStats";
 import type { ArticlesMegaMenuCardProps } from "./types";
 
@@ -20,8 +20,6 @@ import type { ArticlesMegaMenuCardProps } from "./types";
  * header, title, headline excerpt, like + share footer.
  */
 export function Compact({ article }: ArticlesMegaMenuCardProps) {
-    const relativeDate = formatRelativeDate(article.publishedAt);
-
     return (
         <Link
             href={`${ARTICLES_PATH}/${article.slug}`}
@@ -37,10 +35,10 @@ export function Compact({ article }: ArticlesMegaMenuCardProps) {
                     >
                         {article.categoryName}
                     </Tag>
-                    {relativeDate && (
+                    {article.publishedAt && (
                         <div className="flex items-center gap-1 text-[10px] text-muted-foreground">
                             <Clock className="h-3 w-3" />
-                            <span>{relativeDate}</span>
+                            <RelativeDate date={article.publishedAt} />
                         </div>
                     )}
                 </div>
