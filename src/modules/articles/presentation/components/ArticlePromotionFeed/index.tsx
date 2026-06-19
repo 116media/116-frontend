@@ -16,9 +16,11 @@ import { generateDummyFeed } from "./dummy-feed";
  */
 export async function ArticlePromotionFeedContainer() {
     const cradle = await createServerCradle();
-    const result = await cradle.getArticlePromotionFeedUseCase.execute();
+    await cradle.getArticlePromotionFeedUseCase.execute();
 
-    const feed = result.ok ? result.value : generateDummyFeed();
+    // TODO: restore real feed once the backend has promoted content.
+    // const feed = result.ok ? result.value : generateDummyFeed();
+    const feed = generateDummyFeed();
 
     return <ArticlePromotionFeed feed={feed} />;
 }
