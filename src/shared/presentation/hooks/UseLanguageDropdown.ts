@@ -1,8 +1,12 @@
 "use client";
 
+import dayjs from "dayjs";
 import { useCallback, useMemo, useSyncExternalStore } from "react";
 import { LANGUAGE_LIST, USER_LANG } from "@/shared/presentation/constants/languages";
-import { getLanguage } from "@/shared/presentation/utils/getLanguage";
+import { i18n } from "@/shared/presentation/i18n/config";
+import { getClientLanguage } from "@/shared/presentation/utils/getClientLanguage";
+import { setClientLanguage } from "@/shared/presentation/utils/setClientLanguage";
+import { setLanguageCookie } from "@/shared/presentation/utils/setLanguageCookie";
 
 function subscribeToLanguage(callback: () => void) {
     window.addEventListener("storage", callback);
@@ -18,14 +22,17 @@ function subscribeToLanguage(callback: () => void) {
  * Uses useSyncExternalStore so the server always renders the static default
  * snapshot while the client reads from localStorage — eliminating the
  * hydration mismatch without needing useEffect or hardcoded strings.
- * Persists the selected language to localStorage under the USER_LANG key.
+ *
+ * On update it persists the choice, switches the shared i18next instance and the dayjs
+ * locale, then dispatches a StorageEvent so every subscriber (including I18nProvider,
+ * which mirrors <html lang>) reacts to the change.
  *
  * @returns currentCode, currentLanguage, updateLanguage
  */
 export function useLanguageDropdown() {
     const currentCode = useSyncExternalStore(
         subscribeToLanguage,
-        () => getLanguage(),
+        () => getClientLanguage(),
         () => LANGUAGE_LIST[0].code
     );
 
@@ -37,9 +44,14 @@ export function useLanguageDropdown() {
     const updateLanguage = useCallback(
         (code: string) => {
             if (code === currentCode) return;
-            localStorage.setItem(USER_LANG, code);
+
+            setClientLanguage(code);
+            setLanguageCookie(code);
+
+            void i18n.changeLanguage(code);
+            dayjs.locale(code);
+
             window.dispatchEvent(new StorageEvent("storage", { key: USER_LANG, newValue: code }));
-            // TODO: sync with i18next when translations are wired up
         },
         [currentCode]
     );
