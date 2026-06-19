@@ -268,6 +268,9 @@ export interface AdminCreateCategoryRequest {
   description: string;
   isFree: boolean;
   isGossip: boolean;
+  isExclusive: boolean;
+  /** @format binary */
+  poster?: File | null;
 }
 
 export interface AdminCreateCategoryResponse {
@@ -782,6 +785,10 @@ export interface AdminScheduleShootResponse {
   isSuccess: boolean;
 }
 
+export interface AdminSetExclusiveCategoryResponse {
+  category: CategoryDto;
+}
+
 export interface AdminSignOutFromAllDevicesResponse {
   isSuccess: boolean;
 }
@@ -823,7 +830,6 @@ export interface AdminUpdateArticleRequest {
   slug: string;
   headline: string;
   body: string;
-  coverImageUrl?: string | null;
   /** @format uuid */
   customerId?: string | null;
   /** @format uuid */
@@ -872,6 +878,9 @@ export interface AdminUpdateCategoryRequest {
   slug: string;
   description: string;
   isGossip: boolean;
+  isExclusive: boolean;
+  /** @format binary */
+  poster?: File | null;
 }
 
 export interface AdminUpdateCategoryResponse {
@@ -1026,6 +1035,10 @@ export interface AdminUpdateVideoTagsResponse {
 
 export interface AdminUploadArticleImageResponse {
   image: ArticleImageDto;
+}
+
+export interface AdminUploadCategoryPosterResponse {
+  category: CategoryDto;
 }
 
 export interface AdminUploadShortVideoThumbnailResponse {
@@ -1238,6 +1251,8 @@ export interface CategoryDto {
   isFree: boolean;
   isActive: boolean;
   isGossip: boolean;
+  isExclusive: boolean;
+  posterUrl?: string | null;
   pricing: CategoryPricingDto[];
 }
 
@@ -1746,6 +1761,11 @@ export interface PublicGetArticlePromotionFeedResponse {
   gossipStrip: ArticleSummaryDto[];
 }
 
+export interface PublicGetExclusiveCategoryResponse {
+  category: CategoryDto;
+  videos: VideoSummaryDtoPaginatedResult;
+}
+
 export interface PublicGetLyricsBySlugResponse {
   lyrics: LyricsDto;
 }
@@ -2066,7 +2086,7 @@ export interface ShortVideoDto {
   id: string;
   title: string;
   slug: string;
-  videoUrl: string;
+  videoUrl?: string | null;
   thumbnailUrl?: string | null;
   /** @format uuid */
   videoId?: string | null;
@@ -2141,7 +2161,6 @@ export interface VideoDetailDto {
   slug: string;
   description: string;
   thumbnailUrl?: string | null;
-  thumbnailStorageKey?: string | null;
   authorId: string;
   status: EnumContentStatus;
   rejectionReason?: string | null;
@@ -3302,6 +3321,58 @@ export class Api<
       }),
 
     /**
+     * @description Uploads or replaces the poster image for a content category (show).
+     * The poster is displayed on the homepage exclusive section alongside the show's
+     * title, description, and video list.
+     * 
+     * If the category already has a poster, the previous file is soft-deleted
+     * and replaced by the new upload.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have SuperAdmin role
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with the updated category details on success
+     * - Returns 400 Bad Request if validation fails or no file is provided
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 403 Forbidden if user lacks SuperAdmin role
+     * - Returns 404 Not Found if the category does not exist
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags admin::categories
+     * @name AdminUploadCategoryPoster
+     * @summary Upload a poster image for a category
+     * @request PUT:/api/v1/admin/categories/{id}/poster
+     * @secure
+     * @response `200` `AdminUploadCategoryPosterResponse` OK
+     * @response `400` `ProblemDetails` Bad Request
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    adminUploadCategoryPoster: (
+      id: string,
+      data: {
+        /** @format binary */
+        file: File;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<AdminUploadCategoryPosterResponse, ProblemDetails>({
+        path: `/api/v1/admin/categories/${id}/poster`,
+        method: "PUT",
+        body: data,
+        secure: true,
+        type: ContentType.FormData,
+        format: "json",
+        ...params,
+      }),
+
+    /**
      * @description Updates the price for a specific pricing tier within a category.
      * 
      * **Note:** Price changes apply only to future orders — existing order items have their
@@ -3385,6 +3456,52 @@ export class Api<
       this.request<AdminRemoveCategoryPricingResponse, ProblemDetails>({
         path: `/api/v1/admin/categories/${id}/pricing/${tierId}`,
         method: "DELETE",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Marks a category as the exclusive show featured on the homepage.
+     * Only one category can be exclusive at a time — setting a new one
+     * automatically unsets the previous exclusive category.
+     * 
+     * The exclusive show appears on the homepage after the promotion feed section
+     * as a two-column layout with the poster image, tag, title, description,
+     * and a list of video cards.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have SuperAdmin role
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with the updated category details on success
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 403 Forbidden if user lacks SuperAdmin role
+     * - Returns 404 Not Found if the category does not exist
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags admin::categories
+     * @name AdminSetExclusiveCategory
+     * @summary Set a category as the exclusive show
+     * @request PATCH:/api/v1/admin/categories/{id}/set-exclusive
+     * @secure
+     * @response `200` `AdminSetExclusiveCategoryResponse` OK
+     * @response `400` `HttpValidationProblemDetails` Bad Request
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    adminSetExclusiveCategory: (id: string, params: RequestParams = {}) =>
+      this.request<
+        AdminSetExclusiveCategoryResponse,
+        HttpValidationProblemDetails | ProblemDetails
+      >({
+        path: `/api/v1/admin/categories/${id}/set-exclusive`,
+        method: "PATCH",
         secure: true,
         format: "json",
         ...params,
@@ -10627,6 +10744,56 @@ export class Api<
       this.request<PublicGetArticleBySlugResponse, ProblemDetails>({
         path: `/api/v1/public/articles/${slug}`,
         method: "GET",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Returns the currently exclusive category along with a paginated list of its published
+     * videos. The exclusive category is the featured show displayed on the homepage after the
+     * promotion feed.
+     * 
+     * Only one category can be exclusive at a time, and it must be a video category. If no
+     * category is currently marked as exclusive, a 404 response is returned.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - No authentication required
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with the exclusive category and its videos
+     * - Returns 404 Not Found if no exclusive category is set
+     *
+     * @tags public::categories
+     * @name PublicGetExclusiveCategory
+     * @summary Get the exclusive category with videos
+     * @request GET:/api/v1/public/categories/exclusive
+     * @secure
+     * @response `200` `PublicGetExclusiveCategoryResponse` OK
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    publicGetExclusiveCategory: (
+      query?: {
+        /**
+         * @format int32
+         * @default 0
+         */
+        pageIndex?: number;
+        /**
+         * @format int32
+         * @default 10
+         */
+        pageSize?: number;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<PublicGetExclusiveCategoryResponse, ProblemDetails>({
+        path: `/api/v1/public/categories/exclusive`,
+        method: "GET",
+        query: query,
         secure: true,
         format: "json",
         ...params,
