@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslation } from "react-i18next";
 import { Button } from "@/shared/presentation/components/ui/Button";
 import { cn } from "@/shared/presentation/utils/cn";
 
@@ -11,13 +14,15 @@ import { SOCIAL_LINKS } from "./constants";
  * Shows a "Nous suivre" label alongside social media icon links (YouTube,
  * Instagram, Facebook, TikTok, Twitter/X), all centered on one line.
  * Background is a left-to-right gradient from brand primary to brand secondary.
- * This is a Server Component — no client-side state or interactivity.
+ * This is a Client Component so the follow label resolves through the active language.
  */
 export function TopBar() {
+    const { t } = useTranslation();
+
     return (
         <div className="w-full bg-linear-to-r from-brand-primary to-brand-secondary py-1.5 text-sm text-primary-foreground">
             <div className="flex items-center justify-center gap-1">
-                <span className="mr-1 font-medium">Suivez-Nous: </span>
+                <span className="mr-1 font-medium">{t("general.follow")}</span>
 
                 {SOCIAL_LINKS.map(({ icon: Icon, href, label, hoverClass }) => (
                     <Button
