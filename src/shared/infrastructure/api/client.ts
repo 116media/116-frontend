@@ -4,13 +4,15 @@ import { Api } from "@/shared/infrastructure/api/generated/116.api";
 import type { IApiProblemDetails } from "@/shared/infrastructure/api/type";
 import { apiErrors } from "@/shared/infrastructure/constants/api";
 import { API_URL, CLIENT_APP } from "@/shared/infrastructure/constants/common";
+import { i18n } from "@/shared/presentation/i18n/config";
+import { getClientLanguage } from "@/shared/presentation/utils/getClientLanguage";
 
 /**
  * Configured API client instance.
  *
  * @description
  * Auto-generated API client from swagger with:
- * - French language header
+ * - Dynamic Accept-Language header (request interceptor reads the active language)
  * - Client-App identification header
  * - HttpOnly cookie-based authentication (withCredentials)
  * - Response/error interceptors for normalized error handling
@@ -19,9 +21,21 @@ export const apiClient = new Api({
     baseURL: API_URL,
     withCredentials: true,
     headers: {
-        "Accept-Language": "fr",
         "Client-App": CLIENT_APP
     }
+});
+
+/**
+ * Axios request interceptor — sets a dynamic Accept-Language header.
+ *
+ * @description
+ * Reads the active language from getClientLanguage() on every request so the backend negotiates
+ * content language and localised error details against the user's current choice, rather
+ * than a value frozen at client-construction time.
+ */
+apiClient.instance.interceptors.request.use((config) => {
+    config.headers.set("Accept-Language", getClientLanguage());
+    return config;
 });
 
 /**
@@ -36,7 +50,7 @@ const responseHandler = (response: AxiosResponse): AxiosResponse => response;
  * Handles the following cases in order:
  * - 400 ValidationException: Normalize title, set detail to first error message, preserve errors array
  * - 429 responses: Parse Retry-After header, attach as retryAfter
- * - Other API errors: Map exception codes to user-friendly French titles
+ * - Other API errors: Map exception codes to localised titles via the active language
  * - Network errors: Return structured error with status 0
  */
 const errorHandler = async (error: AxiosError<IApiProblemDetails>): Promise<never> => {
@@ -47,7 +61,7 @@ const errorHandler = async (error: AxiosError<IApiProblemDetails>): Promise<neve
         if (problemDetails.title === apiErrors.validation.code && problemDetails.errors?.length) {
             const normalizedError: IApiProblemDetails = {
                 ...problemDetails,
-                title: apiErrors.validation.title,
+                title: i18n.t(apiErrors.validation.key),
                 detail: problemDetails.errors[0].errorMessage
             };
             return await Promise.reject(normalizedError);
@@ -60,17 +74,17 @@ const errorHandler = async (error: AxiosError<IApiProblemDetails>): Promise<neve
             const errorType = Object.values(apiErrors).find((e) => e.code === problemDetails.title);
             const normalizedError: IApiProblemDetails = {
                 ...problemDetails,
-                title: errorType?.title || problemDetails.title,
+                title: errorType ? i18n.t(errorType.key) : problemDetails.title,
                 retryAfter: Number.isNaN(retryAfter) ? undefined : retryAfter
             };
             return await Promise.reject(normalizedError);
         }
 
-        // Map exception names to user-friendly titles
+        // Map exception names to localised titles
         const errorType = Object.values(apiErrors).find((e) => e.code === problemDetails.title);
         const normalizedError: IApiProblemDetails = {
             ...problemDetails,
-            title: errorType?.title || problemDetails.title
+            title: errorType ? i18n.t(errorType.key) : problemDetails.title
         };
 
         return await Promise.reject(normalizedError);
@@ -78,9 +92,9 @@ const errorHandler = async (error: AxiosError<IApiProblemDetails>): Promise<neve
 
     return await Promise.reject({
         type: null,
-        title: "Erreur réseau",
+        title: i18n.t("apiErrors.networkTitle"),
         status: 0,
-        detail: "Une erreur réseau est survenue. Veuillez vérifier votre connexion.",
+        detail: i18n.t("apiErrors.networkDetail"),
         instance: error.config?.url
     } as IApiProblemDetails);
 };
