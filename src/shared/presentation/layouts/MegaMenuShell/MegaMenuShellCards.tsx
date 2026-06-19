@@ -1,14 +1,15 @@
+"use client";
+
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
 
 /**
  * @interface MegaMenuShellCardsProps
  *
- * @property {string} viewAllHref - URL for the "Voir tout →" link in the section header
- * @property {string} label - Label text for the "Voir tout" link
+ * @property {string} viewAllHref - URL for the "view all" link in the section header
  * @property {React.ReactNode} children - Card grids to render inside the column
  */
 export interface MegaMenuShellCardsProps {
-    label: string;
     viewAllHref: string;
     children: React.ReactNode;
 }
@@ -18,21 +19,23 @@ export interface MegaMenuShellCardsProps {
  *
  * @description
  * Centre column slot of MegaMenuShell.
- * Renders the "À la une" section header with a "Voir tout" link,
+ * Renders the localised "featured" section header with a "view all" link,
  * then the injected card grids below it.
  */
-export function MegaMenuShellCards({ viewAllHref, label, children }: MegaMenuShellCardsProps) {
+export function MegaMenuShellCards({ viewAllHref, children }: MegaMenuShellCardsProps) {
+    const { t } = useTranslation();
+
     return (
         <div className="flex flex-col gap-2 border-x border-border px-3 lg:gap-3 lg:px-4">
             <div className="flex items-center justify-between">
                 <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                    À la une
+                    {t("general.featured")}
                 </p>
                 <Link
                     href={viewAllHref}
                     className="text-xs text-primary dark:text-secondary hover:underline"
                 >
-                    {label}
+                    {t("general.viewAll")} →
                 </Link>
             </div>
             {children}
