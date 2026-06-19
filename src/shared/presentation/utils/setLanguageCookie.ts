@@ -1,4 +1,4 @@
-import { setCookie } from "cookies-next/server";
+import { setCookie } from "cookies-next/client";
 import { USER_LANG } from "@/shared/presentation/constants/languages";
 
 const LANGUAGE_COOKIE_MAX_AGE = 60 * 60 * 24 * 365;
