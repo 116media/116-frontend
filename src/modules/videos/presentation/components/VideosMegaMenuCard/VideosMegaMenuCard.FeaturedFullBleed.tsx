@@ -3,6 +3,7 @@
 import { Play } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
 
 import { Button, ButtonFrostedPlay } from "@/shared/presentation/components/ui/Button";
 import { cardVariants } from "@/shared/presentation/components/ui/Card";
@@ -21,6 +22,8 @@ import { VideosMegaMenuCardStats } from "./VideosMegaMenuCardStats";
  * centered frosted-glass play button, title + stats + Watch Now CTA at bottom.
  */
 export function FeaturedFullBleed({ video }: VideosMegaMenuCardProps) {
+    const { t } = useTranslation();
+
     return (
         <Link
             href={`${VIDEOS_PATH}/${video.slug}`}
@@ -73,7 +76,7 @@ export function FeaturedFullBleed({ video }: VideosMegaMenuCardProps) {
                     className="w-full text-xs"
                 >
                     <Play className="h-3 w-3 fill-current" />
-                    Watch Now
+                    {t("videos.home.watchNow")}
                 </Button>
             </div>
         </Link>
