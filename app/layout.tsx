@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Merriweather, Outfit, Playfair_Display } from "next/font/google";
+import { I18nProvider } from "@/shared/presentation/i18n/I18nProvider";
 import { ThemeProvider } from "@/shared/presentation/providers/ThemeProvider";
 import "./globals.css";
 
@@ -45,7 +46,9 @@ export default function RootLayout({
                 suppressHydrationWarning
                 className="min-h-screen bg-background text-foreground antialiased"
             >
-                <ThemeProvider>{children}</ThemeProvider>
+                <ThemeProvider>
+                    <I18nProvider>{children}</I18nProvider>
+                </ThemeProvider>
             </body>
         </html>
     );
