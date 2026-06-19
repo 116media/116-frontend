@@ -1,6 +1,6 @@
 "use client";
 
-import { formatRelativeDate } from "@/shared/presentation/utils/formatRelativeDate";
+import { RelativeDate } from "@/shared/presentation/components/ui/RelativeDate";
 import type { VideosMegaMenuCardBodyProps } from "./types";
 
 /**
@@ -18,15 +18,17 @@ export function VideosMegaMenuCardBody({
     categoryName,
     publishedAt
 }: VideosMegaMenuCardBodyProps) {
-    const relativeDate = formatRelativeDate(publishedAt);
-
     return (
         <div className="flex flex-1 flex-col gap-0.5 min-w-0">
             <p className="line-clamp-2 text-sm font-semibold leading-snug text-foreground group-hover:text-accent-foreground">
                 {title}
             </p>
             <p className="text-xs text-muted-foreground">{categoryName}</p>
-            {relativeDate && <p className="text-xs text-muted-foreground/70">{relativeDate}</p>}
+            {publishedAt && (
+                <p className="text-xs text-muted-foreground/70">
+                    <RelativeDate date={publishedAt} />
+                </p>
+            )}
         </div>
     );
 }
