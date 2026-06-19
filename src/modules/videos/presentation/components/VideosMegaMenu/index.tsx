@@ -91,17 +91,14 @@ export function VideosMegaMenu({ categories, promotedVideos, popularTags }: Vide
 
     return (
         <MegaMenuShell
-            tagsBasePath={VIDEOS_PATH}
             popularTags={popularTags}
+            tagsBasePath={VIDEOS_PATH}
         >
             <MegaMenuShellCategories>
                 <VideosMegaCategoryList categories={categories} />
             </MegaMenuShellCategories>
 
-            <MegaMenuShellCards
-                viewAllHref={VIDEOS_PATH}
-                label="Voir tout →"
-            >
+            <MegaMenuShellCards viewAllHref={VIDEOS_PATH}>
                 <div className="grid grid-cols-2 gap-2 grid-rows-[288px] lg:grid-rows-[320px]">
                     {featured[0] && <VideosMegaMenuCard.FeaturedFullBleed video={featured[0]} />}
                     {featured[1] && <VideosMegaMenuCard.FeaturedSpotlight video={featured[1]} />}
