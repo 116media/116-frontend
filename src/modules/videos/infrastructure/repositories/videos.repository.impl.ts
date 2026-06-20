@@ -1,5 +1,6 @@
 import type { IVideosRepositoryPort } from "@/modules/videos/application/repositories/videos.repository.port";
 import type { IVideoCategoryEntity } from "@/modules/videos/domain/entities/IVideoCategoryEntity";
+import type { IVideoExclusiveShowEntity } from "@/modules/videos/domain/entities/IVideoExclusiveShowEntity";
 import type { IVideoSummaryEntity } from "@/modules/videos/domain/entities/IVideoSummaryEntity";
 import type { IVideoTagEntity } from "@/modules/videos/domain/entities/IVideoTagEntity";
 import { VideosMapper } from "@/modules/videos/infrastructure/mappers/videos.mapper";
@@ -58,6 +59,15 @@ export class VideosRepositoryImpl implements IVideosRepositoryPort {
                 contentType: EnumCoreContentType.Video
             });
             return ok(response.data.tags.map(VideosMapper.tagFromDto));
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async getExclusiveShow(): Promise<Result<IVideoExclusiveShowEntity>> {
+        try {
+            const response = await this.api.publicGetExclusiveCategory();
+            return ok(VideosMapper.exclusiveShowFromDto(response.data));
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }
