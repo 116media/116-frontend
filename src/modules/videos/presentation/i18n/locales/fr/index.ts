@@ -1,3 +1,4 @@
+import { exclusiveShow } from "@/modules/videos/presentation/i18n/locales/fr/exclusiveshow";
 import { home } from "@/modules/videos/presentation/i18n/locales/fr/home";
 
 /**
@@ -5,10 +6,11 @@ import { home } from "@/modules/videos/presentation/i18n/locales/fr/home";
  *
  * @description
  * French translation catalog for the videos module, mirror of the English barrel.
- * Composes the module's namespaces (one per usage area, e.g. `home`) into a single
- * locale object that the composition root nests under the `videos` key. Must stay
- * key-aligned with the English mirror.
+ * Composes the module's namespaces (one per usage area, e.g. `home`, `exclusiveShow`)
+ * into a single locale object that the composition root nests under the `videos` key.
+ * Must stay key-aligned with the English mirror.
  */
 export const fr = {
-    home
+    home,
+    exclusiveShow
 } as const;
