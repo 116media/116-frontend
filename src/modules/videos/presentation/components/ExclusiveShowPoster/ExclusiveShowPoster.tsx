@@ -5,13 +5,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 
+import type { IVideoExclusiveShowEntity } from "@/modules/videos/domain/entities/IVideoExclusiveShowEntity";
 import { Button } from "@/shared/presentation/components/ui/Button";
 import { Tag } from "@/shared/presentation/components/ui/Tag";
 import { VIDEOS_PATH } from "@/shared/presentation/constants/paths";
-import type { VideoExclusiveShowPosterProps } from "./types";
+
+interface ExclusiveShowPosterProps {
+    category: IVideoExclusiveShowEntity;
+}
 
 /**
- * VideoExclusiveShowPoster
+ * ExclusiveShowPoster
  *
  * @description
  * Left panel of the exclusive show section — the landscape poster with a gradient
@@ -23,7 +27,7 @@ import type { VideoExclusiveShowPosterProps } from "./types";
  *
  * @param category - The exclusive category (show)
  */
-export function VideoExclusiveShowPoster({ category }: VideoExclusiveShowPosterProps) {
+export function ExclusiveShowPoster({ category }: ExclusiveShowPosterProps) {
     const { t } = useTranslation();
     const watchHref = category.episodes[0]
         ? `${VIDEOS_PATH}/${category.episodes[0].slug}`
