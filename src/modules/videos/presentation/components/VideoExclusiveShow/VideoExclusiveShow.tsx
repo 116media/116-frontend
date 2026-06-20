@@ -1,6 +1,9 @@
+"use client";
+
 import { Crown, Play } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
 
 import { VideoCard } from "@/modules/videos/presentation/components/VideoCard";
 import { Button } from "@/shared/presentation/components/ui/Button";
@@ -18,13 +21,15 @@ import type { VideoExclusiveShowViewProps } from "./types";
  * horizontal cards on the right. The section carries the `dark` + `always-dark` classes
  * so it always renders with the dark theme palette, regardless of the active app theme.
  *
- * Rendered on the server with its chrome labels resolved from the request language,
- * so the streamed markup is stable and never mismatches on hydration.
+ * Chrome labels are read from the i18n context so they update live when the language
+ * changes. They use suppressHydrationWarning because this section streams in after the
+ * provider has applied the persisted language, so the server (default locale) and the
+ * late client hydration (persisted locale) can differ on first paint.
  *
  * @param category - The exclusive category (show) with its episodes
- * @param labels - Server-resolved translated chrome labels
  */
-export function VideoExclusiveShow({ category, labels }: VideoExclusiveShowViewProps) {
+export function VideoExclusiveShow({ category }: VideoExclusiveShowViewProps) {
+    const { t } = useTranslation();
     const watchHref = category.episodes[0]
         ? `${VIDEOS_PATH}/${category.episodes[0].slug}`
         : VIDEOS_PATH;
@@ -52,7 +57,7 @@ export function VideoExclusiveShow({ category, labels }: VideoExclusiveShowViewP
                         className="uppercase tracking-wider"
                         prefix={<Crown className="size-3" />}
                     >
-                        {labels.exclusive}
+                        <span suppressHydrationWarning>{t("videos.exclusiveShow.exclusive")}</span>
                     </Tag>
                 </div>
 
@@ -70,15 +75,18 @@ export function VideoExclusiveShow({ category, labels }: VideoExclusiveShowViewP
                     >
                         <Link href={watchHref}>
                             <Play className="fill-current" />
-                            {labels.watchNow}
+                            <span suppressHydrationWarning>{t("videos.home.watchNow")}</span>
                         </Link>
                     </Button>
                 </div>
             </div>
 
             <div className="p-2 sm:p-3 md:p-6">
-                <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-foreground">
-                    {labels.episodes}
+                <h3
+                    className="mb-4 text-sm font-semibold uppercase tracking-wider text-foreground"
+                    suppressHydrationWarning
+                >
+                    {t("videos.exclusiveShow.episodes")}
                 </h3>
 
                 <div className="flex flex-col gap-3">
