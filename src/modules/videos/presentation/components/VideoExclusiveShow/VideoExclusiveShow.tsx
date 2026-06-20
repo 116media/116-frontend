@@ -1,6 +1,6 @@
+import { ExclusiveShowEpisodes } from "@/modules/videos/presentation/components/ExclusiveShowEpisodes";
+import { ExclusiveShowPoster } from "@/modules/videos/presentation/components/ExclusiveShowPoster";
 import type { VideoExclusiveShowViewProps } from "./types";
-import { VideoExclusiveShowEpisodes } from "./VideoExclusiveShow.Episodes";
-import { VideoExclusiveShowPoster } from "./VideoExclusiveShow.Poster";
 
 /**
  * VideoExclusiveShow
@@ -16,8 +16,8 @@ import { VideoExclusiveShowPoster } from "./VideoExclusiveShow.Poster";
 export function VideoExclusiveShow({ category }: VideoExclusiveShowViewProps) {
     return (
         <article className="always-dark dark grid grid-cols-1 overflow-hidden rounded-2xl border border-border bg-card lg:grid-cols-[1.1fr_1fr]">
-            <VideoExclusiveShowPoster category={category} />
-            <VideoExclusiveShowEpisodes episodes={category.episodes} />
+            <ExclusiveShowPoster category={category} />
+            <ExclusiveShowEpisodes episodes={category.episodes} />
         </article>
     );
 }
