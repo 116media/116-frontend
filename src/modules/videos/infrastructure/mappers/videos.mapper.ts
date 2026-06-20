@@ -1,8 +1,10 @@
 import type { IVideoCategoryEntity } from "@/modules/videos/domain/entities/IVideoCategoryEntity";
+import type { IVideoExclusiveShowEntity } from "@/modules/videos/domain/entities/IVideoExclusiveShowEntity";
 import type { IVideoSummaryEntity } from "@/modules/videos/domain/entities/IVideoSummaryEntity";
 import type { IVideoTagEntity } from "@/modules/videos/domain/entities/IVideoTagEntity";
 import type {
     CategoryDto,
+    PublicGetExclusiveCategoryResponse,
     TagDto,
     VideoSummaryDto
 } from "@/shared/infrastructure/api/generated/116.api";
@@ -74,6 +76,25 @@ export const VideosMapper = {
             id: dto.id,
             name: dto.name,
             slug: dto.slug
+        };
+    },
+
+    /**
+     * Maps the public exclusive-category response to IVideoExclusiveShowEntity.
+     * Flattens the category into the show's presentational fields and maps the
+     * paginated videos into episodes, carrying the total count for the header.
+     *
+     * @param {PublicGetExclusiveCategoryResponse} dto - Exclusive show payload from API
+     * @returns {IVideoExclusiveShowEntity} Mapped exclusive show entity
+     */
+    exclusiveShowFromDto(dto: PublicGetExclusiveCategoryResponse): IVideoExclusiveShowEntity {
+        return {
+            id: dto.category.id,
+            title: dto.category.name,
+            slug: dto.category.slug,
+            description: dto.category.description,
+            posterUrl: dto.category.posterUrl ?? null,
+            episodes: dto.videos.items.map(VideosMapper.videoSummaryFromDto)
         };
     }
 } as const;
