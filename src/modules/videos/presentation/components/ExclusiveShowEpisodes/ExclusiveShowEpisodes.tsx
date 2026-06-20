@@ -2,11 +2,15 @@
 
 import { useTranslation } from "react-i18next";
 
+import type { IVideoSummaryEntity } from "@/modules/videos/domain/entities/IVideoSummaryEntity";
 import { VideoCard } from "@/modules/videos/presentation/components/VideoCard";
-import type { VideoExclusiveShowEpisodesProps } from "./types";
+
+interface ExclusiveShowEpisodesProps {
+    episodes: IVideoSummaryEntity[];
+}
 
 /**
- * VideoExclusiveShowEpisodes
+ * ExclusiveShowEpisodes
  *
  * @description
  * Right panel of the exclusive show section — the "Episodes" heading and the
@@ -16,7 +20,7 @@ import type { VideoExclusiveShowEpisodesProps } from "./types";
  *
  * @param episodes - The show's episodes
  */
-export function VideoExclusiveShowEpisodes({ episodes }: VideoExclusiveShowEpisodesProps) {
+export function ExclusiveShowEpisodes({ episodes }: ExclusiveShowEpisodesProps) {
     const { t } = useTranslation();
 
     return (
