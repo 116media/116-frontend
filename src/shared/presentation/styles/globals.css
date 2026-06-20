@@ -48,3 +48,30 @@
         -moz-osx-font-smoothing: grayscale;
     }
 }
+
+/*
+ * always-dark
+ *
+ * Forces a subtree to render with the dark palette regardless of the active app
+ * theme. Apply together with the `dark` class: `dark` sets the dark intermediate
+ * --* values on the element, and this rule re-binds the themed --color-* tokens
+ * to those local values. The rebinding is required because Tailwind resolves the
+ * @theme --color-* tokens once at :root, so a nested `dark` class alone never
+ * flips them.
+ */
+.always-dark {
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-surface-raised: var(--surface-raised);
+    --color-surface-hover: var(--surface-hover);
+}
