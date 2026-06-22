@@ -5,10 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { cardVariants } from "@/shared/presentation/components/ui/Card";
+import { RelativeDate } from "@/shared/presentation/components/ui/RelativeDate";
 import { Tag } from "@/shared/presentation/components/ui/Tag";
 import { ARTICLES_PATH } from "@/shared/presentation/constants/paths";
 import { cn } from "@/shared/presentation/utils/cn";
-import { formatRelativeDate } from "@/shared/presentation/utils/formatRelativeDate";
 import { ArticlesMegaMenuCardStats } from "./ArticlesMegaMenuCardStats";
 import type { ArticlesMegaMenuCardProps } from "./types";
 
@@ -21,8 +21,6 @@ import type { ArticlesMegaMenuCardProps } from "./types";
  * cover image in the middle growing to fill remaining height, like + share stats footer.
  */
 export function FeaturedGradient({ article }: ArticlesMegaMenuCardProps) {
-    const relativeDate = formatRelativeDate(article.publishedAt);
-
     return (
         <Link
             href={`${ARTICLES_PATH}/${article.slug}`}
@@ -43,10 +41,10 @@ export function FeaturedGradient({ article }: ArticlesMegaMenuCardProps) {
                     >
                         {article.categoryName}
                     </Tag>
-                    {relativeDate && (
+                    {article.publishedAt && (
                         <div className="flex items-center gap-1 text-[10px] text-muted-foreground">
                             <Calendar className="h-3 w-3" />
-                            <span>{relativeDate}</span>
+                            <RelativeDate date={article.publishedAt} />
                         </div>
                     )}
                 </div>

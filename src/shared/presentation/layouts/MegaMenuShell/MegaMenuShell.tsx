@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslation } from "react-i18next";
 import { Tag } from "@/shared/presentation/components/ui/Tag";
 
 /**
@@ -20,8 +23,8 @@ export interface MegaMenuTagItem {
  */
 export interface MegaMenuShellProps {
     tagsBasePath: string;
-    popularTags: MegaMenuTagItem[];
     children: React.ReactNode;
+    popularTags: MegaMenuTagItem[];
 }
 
 /**
@@ -35,6 +38,8 @@ export interface MegaMenuShellProps {
  * - MegaMenuShell.Cards — centre column
  */
 export function MegaMenuShell({ tagsBasePath, popularTags, children }: MegaMenuShellProps) {
+    const { t } = useTranslation();
+
     return (
         <div className="w-full py-4">
             <div className="mx-auto grid max-w-7xl grid-cols-[2fr_5fr] gap-0 px-4 sm:px-6 lg:grid-cols-[3fr_5fr_3fr] lg:px-8 xl:px-10">
@@ -43,18 +48,18 @@ export function MegaMenuShell({ tagsBasePath, popularTags, children }: MegaMenuS
                 {popularTags.length > 0 && (
                     <div className="hidden lg:flex lg:flex-col lg:gap-2 lg:p-3 lg:pl-4">
                         <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                            Tags populaires
+                            {t("general.popularTags")}
                         </p>
                         <div className="mb-1 h-px bg-border/60" />
                         <div className="flex flex-wrap gap-1.5">
                             {popularTags.slice(0, 16).map((tag) => (
                                 <Tag
-                                    key={tag.id}
-                                    href={`${tagsBasePath}?tagId=${tag.id}`}
-                                    variant="default"
                                     size="lg"
-                                    shape="pill"
                                     prefix="#"
+                                    shape="pill"
+                                    key={tag.id}
+                                    variant="default"
+                                    href={`${tagsBasePath}?tagId=${tag.id}`}
                                 >
                                     {tag.name}
                                 </Tag>

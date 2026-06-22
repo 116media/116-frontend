@@ -5,10 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { cardVariants } from "@/shared/presentation/components/ui/Card";
+import { RelativeDate } from "@/shared/presentation/components/ui/RelativeDate";
 import { Tag } from "@/shared/presentation/components/ui/Tag";
 import { ARTICLES_PATH } from "@/shared/presentation/constants/paths";
 import { cn } from "@/shared/presentation/utils/cn";
-import { formatRelativeDate } from "@/shared/presentation/utils/formatRelativeDate";
 import { ArticlesMegaMenuCardStats } from "./ArticlesMegaMenuCardStats";
 import type { ArticlesMegaMenuCardProps } from "./types";
 
@@ -21,8 +21,6 @@ import type { ArticlesMegaMenuCardProps } from "./types";
  * headline + engagement stats overlaid at the bottom.
  */
 export function FeaturedOverlay({ article }: ArticlesMegaMenuCardProps) {
-    const relativeDate = formatRelativeDate(article.publishedAt);
-
     return (
         <Link
             href={`${ARTICLES_PATH}/${article.slug}`}
@@ -45,10 +43,10 @@ export function FeaturedOverlay({ article }: ArticlesMegaMenuCardProps) {
                 )}
                 <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/50 to-black/10" />
 
-                {relativeDate && (
+                {article.publishedAt && (
                     <div className="absolute top-3 left-3 flex items-center gap-1 text-white/80 text-xs">
                         <Calendar className="h-3 w-3" />
-                        <span>{relativeDate}</span>
+                        <RelativeDate date={article.publishedAt} />
                     </div>
                 )}
 

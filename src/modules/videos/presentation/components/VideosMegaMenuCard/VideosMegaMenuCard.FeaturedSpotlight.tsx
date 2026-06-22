@@ -3,6 +3,7 @@
 import { Play } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
 
 import { Button, ButtonFrostedPlay } from "@/shared/presentation/components/ui/Button";
 import { cardVariants } from "@/shared/presentation/components/ui/Card";
@@ -22,6 +23,8 @@ import { VideosMegaMenuCardStats } from "./VideosMegaMenuCardStats";
  * and a full-width outlined Watch Now CTA.
  */
 export function FeaturedSpotlight({ video }: VideosMegaMenuCardProps) {
+    const { t } = useTranslation();
+
     return (
         <Link
             href={`${VIDEOS_PATH}/${video.slug}`}
@@ -35,9 +38,9 @@ export function FeaturedSpotlight({ video }: VideosMegaMenuCardProps) {
             <div className="flex flex-col gap-1 mb-2 shrink-0">
                 <Tag
                     as="span"
-                    variant="primary"
                     size="sm"
                     shape="rounded"
+                    variant="primary"
                     className="self-start"
                 >
                     {video.categoryName}
@@ -50,11 +53,11 @@ export function FeaturedSpotlight({ video }: VideosMegaMenuCardProps) {
             <div className="relative w-full flex-1 min-h-0 overflow-hidden rounded-md mb-2">
                 {video.thumbnailUrl ? (
                     <Image
-                        src={video.thumbnailUrl}
-                        alt={video.title}
                         fill
-                        className="object-cover brightness-75 transition-all duration-300 group-hover:brightness-90"
+                        alt={video.title}
+                        src={video.thumbnailUrl}
                         sizes="(max-width: 1280px) 50vw, 260px"
+                        className="object-cover brightness-75 transition-all duration-300 group-hover:brightness-90"
                     />
                 ) : (
                     <div className="absolute inset-0 bg-muted" />
@@ -66,9 +69,9 @@ export function FeaturedSpotlight({ video }: VideosMegaMenuCardProps) {
 
             <div className="flex items-center justify-between mb-2 shrink-0">
                 <VideosMegaMenuCardStats
-                    ratingAverage={video.ratingAverage}
-                    ratingCount={video.ratingCount}
                     shareCount={video.shareCount}
+                    ratingCount={video.ratingCount}
+                    ratingAverage={video.ratingAverage}
                 />
             </div>
 
@@ -79,7 +82,7 @@ export function FeaturedSpotlight({ video }: VideosMegaMenuCardProps) {
                     className="w-full text-xs"
                 >
                     <Play className="h-3.5 w-3.5 fill-current" />
-                    Watch Now
+                    {t("videos.home.watchNow")}
                 </Button>
             </div>
         </Link>

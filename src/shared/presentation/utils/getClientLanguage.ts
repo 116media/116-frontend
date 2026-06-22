@@ -1,7 +1,7 @@
 import { USER_LANG } from "@/shared/presentation/constants/languages";
 
 /**
- * getLanguage
+ * getClientLanguage
  *
  * @description
  * Reads the user's preferred language from localStorage.
@@ -9,7 +9,7 @@ import { USER_LANG } from "@/shared/presentation/constants/languages";
  *
  * @returns The active language code ("fr" or "en")
  */
-export function getLanguage(): string {
+export function getClientLanguage(): string {
     if (typeof window === "undefined") return "fr";
     return localStorage.getItem(USER_LANG) ?? "fr";
 }

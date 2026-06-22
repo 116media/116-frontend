@@ -57,8 +57,8 @@ export function Header({ articles, videos }: HeaderProps) {
                     </Link>
 
                     <DesktopNav
-                        articles={articles}
                         videos={videos}
+                        articles={articles}
                     />
 
                     <div className="flex items-center gap-6">

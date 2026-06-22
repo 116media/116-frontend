@@ -1,7 +1,7 @@
 import { Calendar } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { formatRelativeDate } from "@/shared/presentation/utils/formatRelativeDate";
+import { RelativeDate } from "@/shared/presentation/components/ui/RelativeDate";
 import type { ArticlePromotionCardProps } from "./types";
 
 /**
@@ -38,12 +38,9 @@ export function Strip({ article }: ArticlePromotionCardProps) {
                 <p className="mt-0.5 text-xs text-muted-foreground line-clamp-1 sm:mt-1 sm:text-sm sm:line-clamp-2 md:text-base lg:text-xs lg:line-clamp-1 xl:text-sm">
                     {article.headline}
                 </p>
-                <span
-                    className="mt-auto mb-1 flex items-center gap-1.5 text-xs text-muted-foreground sm:mb-2 sm:gap-2 md:text-sm"
-                    suppressHydrationWarning
-                >
+                <span className="mt-auto mb-1 flex items-center gap-1.5 text-xs text-muted-foreground sm:mb-2 sm:gap-2 md:text-sm">
                     <Calendar className="size-3 sm:size-3.5" />
-                    {formatRelativeDate(article.publishedAt)}
+                    <RelativeDate date={article.publishedAt} />
                 </span>
             </div>
         </Link>

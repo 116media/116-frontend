@@ -33,11 +33,11 @@ export function VideosMegaMenuCardImage({
             <div className="relative aspect-video w-full shrink-0 overflow-hidden bg-muted">
                 {src ? (
                     <Image
+                        fill
                         src={src}
                         alt={alt}
-                        fill
-                        className="object-cover transition-transform duration-300 group-hover:scale-105"
                         sizes="(max-width: 1280px) 50vw, 320px"
+                        className="object-cover transition-transform duration-300 group-hover:scale-105"
                     />
                 ) : (
                     <div className="h-full w-full bg-muted" />
@@ -54,11 +54,11 @@ export function VideosMegaMenuCardImage({
         <div className="relative aspect-video w-28 shrink-0 overflow-hidden rounded-md bg-muted">
             {src ? (
                 <Image
+                    fill
                     src={src}
                     alt={alt}
-                    fill
-                    className="object-cover"
                     sizes="112px"
+                    className="object-cover"
                 />
             ) : (
                 <div className="h-full w-full bg-muted" />

@@ -2,8 +2,8 @@ import { Calendar, Heart, MessageSquare, Share2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
+import { RelativeDate } from "@/shared/presentation/components/ui/RelativeDate";
 import { Tag } from "@/shared/presentation/components/ui/Tag";
-import { formatRelativeDate } from "@/shared/presentation/utils/formatRelativeDate";
 
 import type { ArticlePromotionCardProps } from "./types";
 
@@ -27,7 +27,7 @@ export function Side({ article }: ArticlePromotionCardProps) {
             <div className="flex flex-1 flex-col p-4 sm:p-5 md:p-6 lg:p-3 xl:p-6">
                 <div className="mb-3 flex flex-wrap items-center gap-2 text-xs text-muted-foreground sm:mb-4 md:text-sm lg:mb-3 lg:text-xs xl:text-sm">
                     <Calendar className="size-3 sm:size-3.5 lg:size-3" />
-                    <span suppressHydrationWarning>{formatRelativeDate(article.publishedAt)}</span>
+                    <RelativeDate date={article.publishedAt} />
                     <span className="mx-1 h-4 w-px bg-border" />
                     <Tag
                         as="span"

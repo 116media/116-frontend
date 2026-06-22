@@ -6,9 +6,9 @@ import Link from "next/link";
 
 import { ButtonFrostedPlay } from "@/shared/presentation/components/ui/Button";
 import { cardVariants } from "@/shared/presentation/components/ui/Card";
+import { RelativeDate } from "@/shared/presentation/components/ui/RelativeDate";
 import { VIDEOS_PATH } from "@/shared/presentation/constants/paths";
 import { cn } from "@/shared/presentation/utils/cn";
-import { formatRelativeDate } from "@/shared/presentation/utils/formatRelativeDate";
 import type { VideosMegaMenuCardProps } from "./types";
 import { VideosMegaMenuCardStats } from "./VideosMegaMenuCardStats";
 
@@ -22,15 +22,13 @@ import { VideosMegaMenuCardStats } from "./VideosMegaMenuCardStats";
  * color border on hover via conic-gradient animation.
  */
 export function Compact({ video }: VideosMegaMenuCardProps) {
-    const relativeDate = formatRelativeDate(video.publishedAt);
-
     return (
         <div
             className={cn(
                 cardVariants,
                 "group h-full rounded-xl border-0 p-0.5 transition-all duration-300",
                 "bg-border",
-                "hover:[background:conic-gradient(from_var(--border-angle),#490fd2,#ff74d4,#490fd2)]",
+                "hover:[background:conic-gradient(from_var(--border-angle),var(--color-primary),var(--color-secondary),var(--color-primary))]",
                 "hover:animate-[spin-border_2s_linear_infinite]"
             )}
         >
@@ -41,11 +39,11 @@ export function Compact({ video }: VideosMegaMenuCardProps) {
                 <div className="relative h-full overflow-hidden">
                     {video.thumbnailUrl ? (
                         <Image
-                            src={video.thumbnailUrl}
-                            alt={video.title}
                             fill
-                            className="object-cover brightness-75 transition-all duration-300 group-hover:brightness-100"
+                            alt={video.title}
+                            src={video.thumbnailUrl}
                             sizes="(max-width: 1280px) 100vw, 420px"
+                            className="object-cover brightness-75 transition-all duration-300 group-hover:brightness-100"
                         />
                     ) : (
                         <div className="absolute inset-0 bg-muted" />
@@ -60,10 +58,10 @@ export function Compact({ video }: VideosMegaMenuCardProps) {
                             {video.title}
                         </h3>
                         <div className="flex items-center justify-between text-white/75">
-                            {relativeDate && (
+                            {video.publishedAt && (
                                 <div className="flex items-center gap-1 text-[10px]">
                                     <Calendar className="h-2.5 w-2.5" />
-                                    <span>{relativeDate}</span>
+                                    <RelativeDate date={video.publishedAt} />
                                 </div>
                             )}
                             <VideosMegaMenuCardStats

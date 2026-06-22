@@ -2,6 +2,7 @@
 
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
 
 import { ARTICLES_PATH } from "@/shared/presentation/constants/paths";
 import { cn } from "@/shared/presentation/utils/cn";
@@ -18,10 +19,12 @@ import type { ArticlesMegaCategoryListProps } from "./types";
  * the right reinforces the navigational intent.
  */
 export function ArticlesMegaCategoryList({ categories }: ArticlesMegaCategoryListProps) {
+    const { t } = useTranslation();
+
     return (
         <div className="flex flex-col">
             <p className="mb-2 pr-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                Catégories
+                {t("articles.home.categories")}
             </p>
             <div className="mb-2 h-px bg-border/60 mr-3" />
             {categories.map((category) => (

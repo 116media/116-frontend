@@ -1,6 +1,6 @@
 "use client";
 
-import { formatRelativeDate } from "@/shared/presentation/utils/formatRelativeDate";
+import { RelativeDate } from "@/shared/presentation/components/ui/RelativeDate";
 import type { ArticlesMegaMenuCardBodyProps } from "./types";
 
 /**
@@ -17,8 +17,6 @@ export function ArticlesMegaMenuCardBody({
     headline,
     publishedAt
 }: ArticlesMegaMenuCardBodyProps) {
-    const relativeDate = formatRelativeDate(publishedAt);
-
     return (
         <div className="flex flex-1 flex-col gap-1 min-w-0">
             <p className="line-clamp-2 text-sm font-semibold leading-snug text-foreground group-hover:text-accent-foreground">
@@ -29,8 +27,10 @@ export function ArticlesMegaMenuCardBody({
                     {headline}
                 </p>
             )}
-            {relativeDate && (
-                <p className="mt-auto pt-1 text-xs text-muted-foreground/70">{relativeDate}</p>
+            {publishedAt && (
+                <p className="mt-auto pt-1 text-xs text-muted-foreground/70">
+                    <RelativeDate date={publishedAt} />
+                </p>
             )}
         </div>
     );

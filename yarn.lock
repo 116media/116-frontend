@@ -23,10 +23,13 @@ __metadata:
     axios: "npm:1.16.1"
     class-variance-authority: "npm:^0.7.1"
     clsx: "npm:^2.1.1"
+    cookies-next: "npm:6.1.1"
+    dayjs: "npm:^1.11.21"
     embla-carousel-autoplay: "npm:^8.6.0"
     embla-carousel-fade: "npm:^8.6.0"
     embla-carousel-react: "npm:^8.6.0"
     http-status: "npm:2.1.0"
+    i18next: "npm:^26.3.1"
     lint-staged: "npm:^17.0.5"
     lucide-react: "npm:^1.17.0"
     motion: "npm:^12.40.0"
@@ -34,6 +37,7 @@ __metadata:
     next-themes: "npm:^0.4.6"
     react: "npm:^19.2.4"
     react-dom: "npm:^19.2.4"
+    react-i18next: "npm:^17.0.8"
     tailwind-merge: "npm:^3.3.0"
     tailwindcss: "npm:^4"
     typescript: "npm:^6.0.3"
@@ -44,6 +48,13 @@ __metadata:
   version: 5.2.0
   resolution: "@alloc/quick-lru@npm:5.2.0"
   checksum: 10c0/7b878c48b9d25277d0e1a9b8b2f2312a314af806b4129dc902f2bc29ab09b58236e53964689feec187b28c80d2203aff03829754773a707a8a5987f1b7682d92
+  languageName: node
+  linkType: hard
+
+"@babel/runtime@npm:^7.29.2":
+  version: 7.29.7
+  resolution: "@babel/runtime@npm:7.29.7"
+  checksum: 10c0/ca11572f7146b21e0bde6a9ed4bb6a89eafbee5f0944c7eb54d0d8a2dac962c33638a1d611e14faa71dfbb92b4b5f9236232208568a6b7d5c6f3f39ddb91771e
   languageName: node
   linkType: hard
 
@@ -1623,10 +1634,36 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cookie@npm:^1.0.1":
+  version: 1.1.1
+  resolution: "cookie@npm:1.1.1"
+  checksum: 10c0/79c4ddc0fcad9c4f045f826f42edf54bcc921a29586a4558b0898277fa89fb47be95bc384c2253f493af7b29500c830da28341274527328f18eba9f58afa112c
+  languageName: node
+  linkType: hard
+
+"cookies-next@npm:6.1.1":
+  version: 6.1.1
+  resolution: "cookies-next@npm:6.1.1"
+  dependencies:
+    cookie: "npm:^1.0.1"
+  peerDependencies:
+    next: ">=15.0.0"
+    react: ">= 16.8.0"
+  checksum: 10c0/09b53c819b532c70de4645c615b308652ab529c56f52b00aaa16bbc6caea2be8de6fbb2187ef882ea39831fc4b445d90898990f21ee3ccd9a124fadd31320391
+  languageName: node
+  linkType: hard
+
 "csstype@npm:^3.2.2":
   version: 3.2.3
   resolution: "csstype@npm:3.2.3"
   checksum: 10c0/cd29c51e70fa822f1cecd8641a1445bed7063697469d35633b516e60fe8c1bde04b08f6c5b6022136bb669b64c63d4173af54864510fbb4ee23281801841a3ce
+  languageName: node
+  linkType: hard
+
+"dayjs@npm:^1.11.21":
+  version: 1.11.21
+  resolution: "dayjs@npm:1.11.21"
+  checksum: 10c0/bd97dfdc4bfea3c66268635690313828b386faa040fbc1f829ff42a2bd748b72c9d9b3c8f9616ce9e61fcb78923f1461a462c969c54b1084458ae1b715898fb0
   languageName: node
   linkType: hard
 
@@ -1969,6 +2006,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"html-parse-stringify@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "html-parse-stringify@npm:3.0.1"
+  dependencies:
+    void-elements: "npm:3.1.0"
+  checksum: 10c0/159292753d48b84d216d61121054ae5a33466b3db5b446e2ffc093ac077a411a99ce6cbe0d18e55b87cf25fa3c5a86c4d8b130b9719ec9b66623259000c72c15
+  languageName: node
+  linkType: hard
+
 "http-status@npm:2.1.0":
   version: 2.1.0
   resolution: "http-status@npm:2.1.0"
@@ -1983,6 +2029,18 @@ __metadata:
     agent-base: "npm:6"
     debug: "npm:4"
   checksum: 10c0/6dd639f03434003577c62b27cafdb864784ef19b2de430d8ae2a1d45e31c4fd60719e5637b44db1a88a046934307da7089e03d6089ec3ddacc1189d8de8897d1
+  languageName: node
+  linkType: hard
+
+"i18next@npm:^26.3.1":
+  version: 26.3.1
+  resolution: "i18next@npm:26.3.1"
+  peerDependencies:
+    typescript: ^5 || ^6
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 10c0/8f26cb9a09b648edde395a58c2fe890dd996cb81a969d0a05da178b9cb4ce3dee009f9c677a480bb58b5a9d8bbf762fd226111626b015e9bbd66b96132dbba39
   languageName: node
   linkType: hard
 
@@ -2456,6 +2514,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-i18next@npm:^17.0.8":
+  version: 17.0.8
+  resolution: "react-i18next@npm:17.0.8"
+  dependencies:
+    "@babel/runtime": "npm:^7.29.2"
+    html-parse-stringify: "npm:^3.0.1"
+    use-sync-external-store: "npm:^1.6.0"
+  peerDependencies:
+    i18next: ">= 26.2.0"
+    react: ">= 16.8.0"
+    typescript: ^5 || ^6
+  peerDependenciesMeta:
+    react-dom:
+      optional: true
+    react-native:
+      optional: true
+    typescript:
+      optional: true
+  checksum: 10c0/4d13d396208927ed3c80eb62db011a98dae16d93fc951bb4cb220fc5a3a5dd2f0046244fdbd197f627f595230d6fa05cc5d1c6f52b6241acd63ff818dff63acb
+  languageName: node
+  linkType: hard
+
 "react-remove-scroll-bar@npm:^2.3.7":
   version: 2.3.8
   resolution: "react-remove-scroll-bar@npm:2.3.8"
@@ -2833,6 +2913,22 @@ __metadata:
     "@types/react":
       optional: true
   checksum: 10c0/161599bf921cfaa41c85d2b01c871975ee99260f3e874c2d41c05890d41170297bdcf314bc5185e7a700de2034ac5b888e3efc8e9f35724f4918f53538d717c9
+  languageName: node
+  linkType: hard
+
+"use-sync-external-store@npm:^1.6.0":
+  version: 1.6.0
+  resolution: "use-sync-external-store@npm:1.6.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+  checksum: 10c0/35e1179f872a53227bdf8a827f7911da4c37c0f4091c29b76b1e32473d1670ebe7bcd880b808b7549ba9a5605c233350f800ffab963ee4a4ee346ee983b6019b
+  languageName: node
+  linkType: hard
+
+"void-elements@npm:3.1.0":
+  version: 3.1.0
+  resolution: "void-elements@npm:3.1.0"
+  checksum: 10c0/0b8686f9f9aa44012e9bd5eabf287ae0cde409b9a2854c5a2335cb83920c957668ac5876e3f0d158dd424744ac411a7270e64128556b451ed3bec875ef18534d
   languageName: node
   linkType: hard
 
