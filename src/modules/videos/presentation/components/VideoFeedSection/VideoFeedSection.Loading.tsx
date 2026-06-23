@@ -11,7 +11,7 @@ export function VideoFeedSectionLoading() {
     return (
         <section className="flex flex-col gap-4">
             <div className="flex items-center justify-between gap-3">
-                <div className="h-6 w-32 rounded bg-muted-foreground/10" />
+                <div className="h-8 w-64 rounded bg-muted-foreground/10" />
                 <div className="h-4 w-16 rounded bg-muted-foreground/10" />
             </div>
 
