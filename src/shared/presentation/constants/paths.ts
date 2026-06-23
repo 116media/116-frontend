@@ -27,6 +27,8 @@ export const ARTICLE_DETAIL_PATH = "/articles/:slug";
 export const VIDEOS_PATH = "/videos";
 export const VIDEO_DETAIL_PATH = "/videos/:slug";
 
+export const SHOWS_PATH = "/shows";
+
 export const LYRICS_PATH = "/lyrics";
 export const LYRICS_DETAIL_PATH = "/lyrics/:slug";
 
