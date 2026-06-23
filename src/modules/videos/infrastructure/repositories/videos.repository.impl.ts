@@ -1,4 +1,5 @@
 import type { IVideosRepositoryPort } from "@/modules/videos/application/repositories/videos.repository.port";
+import type { IShowEntity } from "@/modules/videos/domain/entities/IShowEntity";
 import type { IVideoCategoryEntity } from "@/modules/videos/domain/entities/IVideoCategoryEntity";
 import type { IVideoExclusiveShowEntity } from "@/modules/videos/domain/entities/IVideoExclusiveShowEntity";
 import type { IVideoSummaryEntity } from "@/modules/videos/domain/entities/IVideoSummaryEntity";
@@ -48,6 +49,25 @@ export class VideosRepositoryImpl implements IVideosRepositoryPort {
             });
 
             return ok(categoriesResponse.data.categories.map(VideosMapper.categoryFromDto));
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async getShows(): Promise<Result<IShowEntity[]>> {
+        try {
+            const contentTypesResponse = await this.api.publicGetAllContentTypes();
+            const videoContentType = contentTypesResponse.data.contentTypes.find(
+                (ct) => ct.name === EnumCoreContentType.Video
+            );
+
+            if (!videoContentType) return ok([]);
+
+            const categoriesResponse = await this.api.publicGetActiveCategories({
+                contentTypeId: videoContentType.id
+            });
+
+            return ok(categoriesResponse.data.categories.map(VideosMapper.showFromDto));
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }
