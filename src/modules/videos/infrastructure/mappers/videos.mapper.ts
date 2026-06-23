@@ -1,3 +1,4 @@
+import type { IShowEntity } from "@/modules/videos/domain/entities/IShowEntity";
 import type { IVideoCategoryEntity } from "@/modules/videos/domain/entities/IVideoCategoryEntity";
 import type { IVideoExclusiveShowEntity } from "@/modules/videos/domain/entities/IVideoExclusiveShowEntity";
 import type { IVideoSummaryEntity } from "@/modules/videos/domain/entities/IVideoSummaryEntity";
@@ -62,6 +63,28 @@ export const VideosMapper = {
             slug: dto.slug,
             description: dto.description,
             isFree: dto.isFree
+        };
+    },
+
+    /**
+     * Maps CategoryDto to IShowEntity domain entity for the shows carousel.
+     * Keeps the poster artwork and description (unlike categoryFromDto), which
+     * the show card needs, and drops the content-type fields since the list is
+     * already scoped to Video.
+     *
+     * @param {CategoryDto} dto - Category data from API
+     * @returns {IShowEntity} Mapped show entity
+     */
+    showFromDto(dto: CategoryDto): IShowEntity {
+        return {
+            id: dto.id,
+            name: dto.name,
+            slug: dto.slug,
+            description: dto.description,
+            posterUrl: dto.posterUrl ?? null,
+            colors: dto.colors
+                ? { background: dto.colors.background, foreground: dto.colors.foreground }
+                : null
         };
     },
 
