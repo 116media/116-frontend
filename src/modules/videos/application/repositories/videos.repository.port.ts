@@ -1,3 +1,4 @@
+import type { IShowEntity } from "@/modules/videos/domain/entities/IShowEntity";
 import type { IVideoCategoryEntity } from "@/modules/videos/domain/entities/IVideoCategoryEntity";
 import type { IVideoExclusiveShowEntity } from "@/modules/videos/domain/entities/IVideoExclusiveShowEntity";
 import type { IVideoSummaryEntity } from "@/modules/videos/domain/entities/IVideoSummaryEntity";
@@ -26,6 +27,14 @@ export interface IVideosRepositoryPort {
      * @returns `ok(IVideoCategoryEntity[])` on success, `err(Failure)` on failure
      */
     getVideoCategories(): Promise<Result<IVideoCategoryEntity[]>>;
+
+    /**
+     * Fetches the active video categories as "shows" (with poster + description)
+     * for the homepage shows carousel and the shows page.
+     *
+     * @returns `ok(IShowEntity[])` on success, `err(Failure)` on failure
+     */
+    getShows(): Promise<Result<IShowEntity[]>>;
 
     /**
      * Fetches the most popular tags scoped to the Video content type.
