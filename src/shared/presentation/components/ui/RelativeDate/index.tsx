@@ -27,5 +27,7 @@ export function RelativeDate({ date }: RelativeDateProps) {
 
     if (!label) return null;
 
-    return <span suppressHydrationWarning>{label}</span>;
+    const capitalized = label.charAt(0).toUpperCase() + label.slice(1);
+
+    return <span suppressHydrationWarning>{capitalized}</span>;
 }
