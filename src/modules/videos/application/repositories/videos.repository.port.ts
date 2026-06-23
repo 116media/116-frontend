@@ -1,4 +1,5 @@
 import type { IVideoCategoryEntity } from "@/modules/videos/domain/entities/IVideoCategoryEntity";
+import type { IVideoExclusiveShowEntity } from "@/modules/videos/domain/entities/IVideoExclusiveShowEntity";
 import type { IVideoSummaryEntity } from "@/modules/videos/domain/entities/IVideoSummaryEntity";
 import type { IVideoTagEntity } from "@/modules/videos/domain/entities/IVideoTagEntity";
 import type { Result } from "@/shared/domain/results/result";
@@ -32,4 +33,12 @@ export interface IVideosRepositoryPort {
      * @returns `ok(IVideoTagEntity[])` on success, `err(Failure)` on failure
      */
     getVideoPopularTags(): Promise<Result<IVideoTagEntity[]>>;
+
+    /**
+     * Fetches the exclusive show (the single exclusive category) together with
+     * its episodes for the homepage exclusive section.
+     *
+     * @returns `ok(IVideoExclusiveShowEntity)` on success, `err(Failure)` on failure
+     */
+    getExclusiveShow(): Promise<Result<IVideoExclusiveShowEntity>>;
 }

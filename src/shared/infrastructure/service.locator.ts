@@ -8,6 +8,7 @@ import { registerArticlesDependencies } from "@/modules/articles/infrastructure/
 import type { IVideosRepositoryPort } from "@/modules/videos/application/repositories/videos.repository.port";
 import type { GetPromotedVideosUseCase } from "@/modules/videos/application/usecases/getpromotedvideos.usecase";
 import type { GetVideoCategoriesUseCase } from "@/modules/videos/application/usecases/getvideocategories.usecase";
+import type { GetVideoExclusiveShowUseCase } from "@/modules/videos/application/usecases/getvideoexclusiveshow.usecase";
 import type { GetVideoPopularTagsUseCase } from "@/modules/videos/application/usecases/getvideopopulartags.usecase";
 import { registerVideosDependencies } from "@/modules/videos/infrastructure/dependencies/videos.dependencies";
 import { PrefetchNavigationUseCase } from "@/shared/application/usecases/prefetchnavigation.usecase";
@@ -44,6 +45,7 @@ export interface Cradle {
     getPromotedVideosUseCase: GetPromotedVideosUseCase;
     getVideoCategoriesUseCase: GetVideoCategoriesUseCase;
     getVideoPopularTagsUseCase: GetVideoPopularTagsUseCase;
+    getVideoExclusiveShowUseCase: GetVideoExclusiveShowUseCase;
 
     // Shared composite use cases
     prefetchNavigationUseCase: PrefetchNavigationUseCase;

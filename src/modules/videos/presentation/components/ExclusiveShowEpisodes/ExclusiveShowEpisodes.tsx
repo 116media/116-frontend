@@ -1,0 +1,45 @@
+"use client";
+
+import { useTranslation } from "react-i18next";
+
+import type { IVideoSummaryEntity } from "@/modules/videos/domain/entities/IVideoSummaryEntity";
+import { VideoCard } from "@/modules/videos/presentation/components/VideoCard";
+
+interface ExclusiveShowEpisodesProps {
+    episodes: IVideoSummaryEntity[];
+}
+
+/**
+ * ExclusiveShowEpisodes
+ *
+ * @description
+ * Right panel of the exclusive show section — the "Episodes" heading and the
+ * vertical stack of horizontal episode cards. The heading is read from the i18n
+ * context so it updates live on a language change; it uses suppressHydrationWarning
+ * because the section streams in after the persisted language has been applied.
+ *
+ * @param episodes - The show's episodes
+ */
+export function ExclusiveShowEpisodes({ episodes }: ExclusiveShowEpisodesProps) {
+    const { t } = useTranslation();
+
+    return (
+        <div className="p-2 sm:p-3 md:p-6">
+            <h3
+                className="mb-4 text-sm font-semibold uppercase tracking-wider text-foreground"
+                suppressHydrationWarning
+            >
+                {t("videos.exclusiveShow.episodes")}
+            </h3>
+
+            <div className="flex flex-col gap-3">
+                {episodes.map((episode) => (
+                    <VideoCard.Horizontal
+                        video={episode}
+                        key={episode.id}
+                    />
+                ))}
+            </div>
+        </div>
+    );
+}
