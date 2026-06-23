@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import { RelativeDate } from "@/shared/presentation/components/ui/RelativeDate";
 import { Tag } from "@/shared/presentation/components/ui/Tag";
+import { formatCount } from "@/shared/presentation/utils/formatCount";
 
 import type { ArticlePromotionCardProps } from "./types";
 
@@ -66,15 +67,15 @@ export function Side({ article }: ArticlePromotionCardProps) {
                     <div className="flex items-center gap-3 text-xs text-muted-foreground sm:text-sm md:text-base lg:text-xs xl:text-sm">
                         <span className="flex items-center gap-1">
                             <MessageSquare className="size-3.5 sm:size-4" />
-                            {article.commentCount}
+                            {formatCount(article.commentCount)}
                         </span>
                         <span className="flex items-center gap-1">
                             <Heart className="size-3.5 sm:size-4" />
-                            {article.likeCount}
+                            {formatCount(article.likeCount)}
                         </span>
                         <span className="flex items-center gap-1">
                             <Share2 className="size-3.5 sm:size-4" />
-                            {article.shareCount}
+                            {formatCount(article.shareCount)}
                         </span>
                     </div>
                 </div>
