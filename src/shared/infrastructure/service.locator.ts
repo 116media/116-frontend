@@ -7,6 +7,7 @@ import type { GetPromotedArticlesUseCase } from "@/modules/articles/application/
 import { registerArticlesDependencies } from "@/modules/articles/infrastructure/dependencies/articles.dependencies";
 import type { IVideosRepositoryPort } from "@/modules/videos/application/repositories/videos.repository.port";
 import type { GetPromotedVideosUseCase } from "@/modules/videos/application/usecases/getpromotedvideos.usecase";
+import type { GetShowsUseCase } from "@/modules/videos/application/usecases/getshows.usecase";
 import type { GetVideoCategoriesUseCase } from "@/modules/videos/application/usecases/getvideocategories.usecase";
 import type { GetVideoExclusiveShowUseCase } from "@/modules/videos/application/usecases/getvideoexclusiveshow.usecase";
 import type { GetVideoPopularTagsUseCase } from "@/modules/videos/application/usecases/getvideopopulartags.usecase";
@@ -44,6 +45,7 @@ export interface Cradle {
     // Videos use cases
     getPromotedVideosUseCase: GetPromotedVideosUseCase;
     getVideoCategoriesUseCase: GetVideoCategoriesUseCase;
+    getShowsUseCase: GetShowsUseCase;
     getVideoPopularTagsUseCase: GetVideoPopularTagsUseCase;
     getVideoExclusiveShowUseCase: GetVideoExclusiveShowUseCase;
 
