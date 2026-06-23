@@ -269,8 +269,6 @@ export interface AdminCreateCategoryRequest {
   isFree: boolean;
   isGossip: boolean;
   isExclusive: boolean;
-  /** @format binary */
-  poster?: File | null;
 }
 
 export interface AdminCreateCategoryResponse {
@@ -369,6 +367,13 @@ export interface AdminCreateRoleRequest {
 
 export interface AdminCreateRoleResponse {
   role: RoleDto;
+}
+
+export interface AdminCreateShortVideoRequest {
+  title: string;
+  slug: string;
+  /** @format uuid */
+  videoId?: string | null;
 }
 
 export interface AdminCreateShortVideoResponse {
@@ -681,6 +686,10 @@ export interface AdminLoginResponse {
   user: UserResponseDto;
 }
 
+export interface AdminPinCategoryToFeedResponse {
+  category: CategoryDto;
+}
+
 export interface AdminPublishArticleResponse {
   isSuccess: boolean;
 }
@@ -823,6 +832,10 @@ export interface AdminSubmitVideoResponse {
   isSuccess: boolean;
 }
 
+export interface AdminUnpinCategoryFromFeedResponse {
+  category: CategoryDto;
+}
+
 export interface AdminUpdateArticleRequest {
   /** @format uuid */
   categoryId: string;
@@ -879,8 +892,6 @@ export interface AdminUpdateCategoryRequest {
   description: string;
   isGossip: boolean;
   isExclusive: boolean;
-  /** @format binary */
-  poster?: File | null;
 }
 
 export interface AdminUpdateCategoryResponse {
@@ -984,6 +995,12 @@ export interface AdminUpdateRoleResponse {
   role: RoleDto;
 }
 
+export interface AdminUpdateShortVideoRequest {
+  title: string;
+  /** @format uuid */
+  videoId?: string | null;
+}
+
 export interface AdminUpdateShortVideoResponse {
   shortVideo: ShortVideoDto;
 }
@@ -1039,6 +1056,11 @@ export interface AdminUploadArticleImageResponse {
 
 export interface AdminUploadCategoryPosterResponse {
   category: CategoryDto;
+}
+
+export interface AdminUploadShortVideoFileResponse {
+  videoUrl: string;
+  videoStorageKey: string;
 }
 
 export interface AdminUploadShortVideoThumbnailResponse {
@@ -1252,6 +1274,9 @@ export interface CategoryDto {
   isActive: boolean;
   isGossip: boolean;
   isExclusive: boolean;
+  isPinnedToFeed: boolean;
+  /** @format date-time */
+  pinnedToFeedAt?: string | null;
   posterUrl?: string | null;
   pricing: CategoryPricingDto[];
 }
@@ -1822,6 +1847,10 @@ export interface PublicGetVideoBySlugResponse {
   video: VideoDetailDto;
 }
 
+export interface PublicGetVideoFeedResponse {
+  sections: VideoFeedSectionDto[];
+}
+
 export interface PublicGetVideoPromotionFeedResponse {
   spot1: VideoPromotionSpotDto;
   spot2: VideoPromotionSpotDto;
@@ -2192,6 +2221,11 @@ export interface VideoDetailDto {
   /** @format uuid */
   orderItemId?: string | null;
   author?: AuthorDto | null;
+}
+
+export interface VideoFeedSectionDto {
+  category: CategoryDto;
+  videos: VideoSummaryDto[];
 }
 
 export interface VideoInPlaylistDto {
@@ -3462,6 +3496,47 @@ export class Api<
       }),
 
     /**
+     * @description Removes a category from the content feed so it no longer appears as a section
+     * on the homepage. Unpinning a category that is not currently pinned succeeds as a no-op.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have SuperAdmin role
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with the updated category details on success
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 403 Forbidden if user lacks SuperAdmin role
+     * - Returns 404 Not Found if the category does not exist
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags admin::categories
+     * @name AdminUnpinCategoryFromFeed
+     * @summary Unpin a category from the content feed
+     * @request PATCH:/api/v1/admin/categories/{id}/unpin-from-feed
+     * @secure
+     * @response `200` `AdminUnpinCategoryFromFeedResponse` OK
+     * @response `400` `HttpValidationProblemDetails` Bad Request
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    adminUnpinCategoryFromFeed: (id: string, params: RequestParams = {}) =>
+      this.request<
+        AdminUnpinCategoryFromFeedResponse,
+        HttpValidationProblemDetails | ProblemDetails
+      >({
+        path: `/api/v1/admin/categories/${id}/unpin-from-feed`,
+        method: "PATCH",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
      * @description Marks a category as the exclusive show featured on the homepage.
      * Only one category can be exclusive at a time — setting a new one
      * automatically unsets the previous exclusive category.
@@ -3501,6 +3576,50 @@ export class Api<
         HttpValidationProblemDetails | ProblemDetails
       >({
         path: `/api/v1/admin/categories/${id}/set-exclusive`,
+        method: "PATCH",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Pins a category to the content feed so it appears as a section on the homepage,
+     * displaying its latest published videos.
+     * 
+     * At most five categories per content type can be pinned at a time. Pinning a sixth
+     * category automatically unpins the oldest pinned category (FIFO). A category must be
+     * active, of the Video content type, and have at least the minimum number of published
+     * videos before it can be pinned.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have SuperAdmin role
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with the updated category details on success
+     * - Returns 400 Bad Request if the category is inactive, not a video category, or has too few published videos
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 403 Forbidden if user lacks SuperAdmin role
+     * - Returns 404 Not Found if the category does not exist
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags admin::categories
+     * @name AdminPinCategoryToFeed
+     * @summary Pin a category to the content feed
+     * @request PATCH:/api/v1/admin/categories/{id}/pin-to-feed
+     * @secure
+     * @response `200` `AdminPinCategoryToFeedResponse` OK
+     * @response `400` `ProblemDetails` Bad Request
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    adminPinCategoryToFeed: (id: string, params: RequestParams = {}) =>
+      this.request<AdminPinCategoryToFeedResponse, ProblemDetails>({
+        path: `/api/v1/admin/categories/${id}/pin-to-feed`,
         method: "PATCH",
         secure: true,
         format: "json",
@@ -8736,24 +8855,15 @@ export class Api<
      */
     updateShortVideo: (
       id: string,
-      query: {
-        title: string;
-        /** @format uuid */
-        videoId?: string;
-      },
-      data: {
-        /** @format binary */
-        videoFile?: File;
-      },
+      data: AdminUpdateShortVideoRequest,
       params: RequestParams = {},
     ) =>
       this.request<AdminUpdateShortVideoResponse, ProblemDetails>({
         path: `/api/v1/admin/shorts/${id}`,
         method: "PUT",
-        query: query,
         body: data,
         secure: true,
-        type: ContentType.FormData,
+        type: ContentType.Json,
         format: "json",
         ...params,
       }),
@@ -8886,25 +8996,15 @@ export class Api<
      * @response `429` `ProblemDetails` Too Many Requests
      */
     createShortVideo: (
-      query: {
-        title: string;
-        slug: string;
-        /** @format uuid */
-        videoId?: string;
-      },
-      data: {
-        /** @format binary */
-        videoFile: File;
-      },
+      data: AdminCreateShortVideoRequest,
       params: RequestParams = {},
     ) =>
       this.request<AdminCreateShortVideoResponse, ProblemDetails>({
         path: `/api/v1/admin/shorts`,
         method: "POST",
-        query: query,
         body: data,
         secure: true,
-        type: ContentType.FormData,
+        type: ContentType.Json,
         format: "json",
         ...params,
       }),
@@ -8952,6 +9052,60 @@ export class Api<
     ) =>
       this.request<AdminUploadShortVideoThumbnailResponse, ProblemDetails>({
         path: `/api/v1/admin/shorts/${id}/thumbnail`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.FormData,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Uploads a video file to Cloudinary and sets it as the source file for the specified
+     * short video. If a video file already exists, the previous file is deleted from
+     * cloud storage after the new one is successfully saved.
+     * 
+     * A short video is created as a draft without a file; this endpoint attaches the file
+     * so the short video becomes eligible for activation and visible in the feed.
+     * 
+     * The video file must be submitted as <c>multipart/form-data</c>.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have Admin or SuperAdmin role
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with video URL and storage key on success
+     * - Returns 400 Bad Request if validation fails
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 403 Forbidden if user lacks Admin role
+     * - Returns 404 Not Found if the short video does not exist
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags admin::shorts
+     * @name UploadShortVideoFile
+     * @summary Upload or replace the video file for a short video
+     * @request POST:/api/v1/admin/shorts/{id}/video
+     * @secure
+     * @response `200` `AdminUploadShortVideoFileResponse` OK
+     * @response `400` `ProblemDetails` Bad Request
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    uploadShortVideoFile: (
+      id: string,
+      data: {
+        /** @format binary */
+        file: File;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<AdminUploadShortVideoFileResponse, ProblemDetails>({
+        path: `/api/v1/admin/shorts/${id}/video`,
         method: "POST",
         body: data,
         secure: true,
@@ -13080,6 +13234,34 @@ export class Api<
         path: `/api/v1/public/videos/promotion/feed`,
         method: "GET",
         query: query,
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Returns the homepage video feed as an ordered list of sections, one per category
+     * pinned to the feed (most recently pinned first). Each section contains the category
+     * metadata and its latest published videos. Sections whose category has no published
+     * videos are omitted.
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with the list of feed sections
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags public::videos
+     * @name PublicGetVideoFeed
+     * @summary Get the public video feed
+     * @request GET:/api/v1/public/videos/feed
+     * @secure
+     * @response `200` `PublicGetVideoFeedResponse` OK
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    publicGetVideoFeed: (params: RequestParams = {}) =>
+      this.request<PublicGetVideoFeedResponse, ProblemDetails>({
+        path: `/api/v1/public/videos/feed`,
+        method: "GET",
         secure: true,
         format: "json",
         ...params,
