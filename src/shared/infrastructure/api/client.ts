@@ -4,6 +4,9 @@ import { Api } from "@/shared/infrastructure/api/generated/116.api";
 import type { IApiProblemDetails } from "@/shared/infrastructure/api/type";
 import { apiErrors } from "@/shared/infrastructure/constants/api";
 import { API_URL, CLIENT_APP } from "@/shared/infrastructure/constants/common";
+import { accessTokenExpiryInterceptor } from "@/shared/infrastructure/interceptors/access-token-expiry.interceptor";
+import { deviceIdInterceptor } from "@/shared/infrastructure/interceptors/device-id.interceptor";
+import { refreshTokenExpiryInterceptor } from "@/shared/infrastructure/interceptors/refresh-token-expiry.interceptor";
 import { i18n } from "@/shared/presentation/i18n/config";
 import { getClientLanguage } from "@/shared/presentation/utils/getClientLanguage";
 
@@ -37,6 +40,9 @@ apiClient.instance.interceptors.request.use((config) => {
     config.headers.set("Accept-Language", getClientLanguage());
     return config;
 });
+
+// Request: attach X-Device-Id so the backend attributes sessions per device.
+apiClient.instance.interceptors.request.use(deviceIdInterceptor);
 
 /**
  * Axios response handler — passes through successful responses.
@@ -99,4 +105,12 @@ const errorHandler = async (error: AxiosError<IApiProblemDetails>): Promise<neve
     } as IApiProblemDetails);
 };
 
+// Runs first: silently refreshes expired access tokens and retries the request.
+apiClient.instance.interceptors.response.use(
+    responseHandler,
+    accessTokenExpiryInterceptor(apiClient.instance)
+);
+// Runs second: detects expired refresh tokens and signals the UI via a DOM event.
+apiClient.instance.interceptors.response.use(responseHandler, refreshTokenExpiryInterceptor);
+// Runs last: normalizes API errors into localized ProblemDetails.
 apiClient.instance.interceptors.response.use(responseHandler, errorHandler);
