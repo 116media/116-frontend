@@ -1,14 +1,21 @@
 "use client";
 
 import { useTranslation } from "react-i18next";
+import { useAuthModal } from "@/modules/auth/presentation/context/AuthModalProvider";
+import { useAuth } from "@/modules/auth/presentation/context/AuthProvider";
+import { useLogout } from "@/modules/auth/presentation/hooks/useLogout";
 import { Button } from "@/shared/presentation/components/ui/Button";
-import type { User } from "@/shared/presentation/types/user";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger
+} from "@/shared/presentation/components/ui/DropdownMenu";
 import { getAvatarColor, getInitials } from "@/shared/presentation/utils/avatar";
 import { cn } from "@/shared/presentation/utils/cn";
 import { UserAvatar } from "../UserAvatar";
 
 interface UserAccountControlProps {
-    user?: User | null;
     className?: string;
 }
 
@@ -16,61 +23,75 @@ interface UserAccountControlProps {
  * UserAccountControl
  *
  * @description
- * Displays either a "Se connecter" button (anonymous state) or a user avatar
- * (authenticated state) in the Header.
+ * The Header's auth control, driven by `useAuth()`:
  *
- * Anonymous: renders an outline Button that will open the login modal once auth
- * is wired up. The click handler is a no-op placeholder for now.
+ * - **Guest** — renders a "Log in" button that opens the auth modal at the login
+ *   view via `useAuthModal().open("login")`.
+ * - **Authenticated** — renders the user's avatar as a dropdown trigger; the menu
+ *   shows the username and a "Sign out" action wired to `useLogout`.
  *
- * Authenticated: renders a circular avatar showing the user's profile picture
- * if available, falling back to initials derived from the username, or a
- * UserRound icon if neither is available.
+ * The domain `IAuthUser` is mapped to the presentation `User` shape so the
+ * avatar helpers stay decoupled from the domain.
  *
- * @param user - The authenticated user, or null for anonymous visitors
- * @param className - Additional classes to merge
+ * @param className - Additional classes to merge onto the trigger.
  */
-const DUMMY_USER: User = {
-    id: "1",
-    userName: "CoolBeatz",
-    image: "https://i.pravatar.cc/150?img=12"
-};
-
-export function UserAccountControl({ user = DUMMY_USER, className }: UserAccountControlProps) {
+export function UserAccountControl({ className }: UserAccountControlProps) {
     const { t } = useTranslation();
+    const { user } = useAuth();
+    const { open } = useAuthModal();
+    const logout = useLogout();
 
     if (!user) {
         return (
             <Button
                 variant="outline"
                 className={cn("text-sm font-medium", className)}
-                onClick={() => {
-                    // TODO: open auth modal with LOGIN context
-                }}
+                onClick={() => open("login")}
             >
                 {t("navigation.login")}
             </Button>
         );
     }
 
+    const avatarUrl = user.avatar?.storageUrl;
+
     return (
-        <Button
-            size="icon"
-            type="button"
-            variant="ghost"
-            aria-label={`Compte de ${user.userName}`}
-            className={cn(
-                "size-8 rounded-full p-0 text-primary-foreground text-sm font-semibold ring-2 ring-border transition-opacity hover:opacity-90",
-                className
-            )}
-            style={!user.image ? { backgroundColor: getAvatarColor(user.userName) } : undefined}
-            onClick={() => {
-                // TODO: open user profile dropdown
-            }}
-        >
-            <UserAvatar
-                user={user}
-                initials={getInitials(user.userName)}
-            />
-        </Button>
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <Button
+                    size="icon"
+                    type="button"
+                    variant="ghost"
+                    aria-label={`Compte de ${user.userName}`}
+                    className={cn(
+                        "size-8 rounded-full p-0 text-primary-foreground text-sm font-semibold ring-2 ring-border transition-opacity hover:opacity-90",
+                        className
+                    )}
+                    style={
+                        avatarUrl ? undefined : { backgroundColor: getAvatarColor(user.userName) }
+                    }
+                >
+                    <UserAvatar
+                        userName={user.userName}
+                        image={avatarUrl}
+                        initials={getInitials(user.userName)}
+                    />
+                </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+                align="end"
+                className="min-w-44"
+            >
+                <div className="px-2 py-1.5 text-sm font-semibold text-foreground">
+                    {user.userName}
+                </div>
+                <DropdownMenuItem
+                    onSelect={() => logout.mutate({})}
+                    className="text-destructive focus:text-destructive"
+                >
+                    {t("auth.session.signOut")}
+                </DropdownMenuItem>
+            </DropdownMenuContent>
+        </DropdownMenu>
     );
 }
