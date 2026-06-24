@@ -2,6 +2,7 @@ import { Suspense } from "react";
 
 import { ArticlePromotionFeedContainer } from "@/modules/articles/presentation/components/ArticlePromotionFeed";
 import { ArticlePromotionFeedLoading } from "@/modules/articles/presentation/components/ArticlePromotionFeed/ArticlePromotionFeed.Loading";
+import { ShowsSectionContainer } from "@/modules/videos/presentation/components/ShowsSection";
 import { VideoExclusiveShowContainer } from "@/modules/videos/presentation/components/VideoExclusiveShow";
 import { VideoExclusiveShowLoading } from "@/modules/videos/presentation/components/VideoExclusiveShow/VideoExclusiveShow.Loading";
 import { VideoFeedSectionContainer } from "@/modules/videos/presentation/components/VideoFeedSection";
@@ -27,6 +28,9 @@ export default function HomePage() {
             <Suspense fallback={<VideoExclusiveShowLoading />}>
                 <VideoExclusiveShowContainer />
             </Suspense>
+
+            {/* Shows — swipeable carousel of video categories */}
+            <ShowsSectionContainer />
 
             {/* Video feed — a pinned category and its latest videos */}
             <VideoFeedSectionContainer />
