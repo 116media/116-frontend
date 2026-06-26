@@ -3,6 +3,7 @@
 import { useMutation } from "@tanstack/react-query";
 
 import type { IResetPasswordResponse } from "@/modules/auth/domain/entities/IResetPasswordResponse";
+import { authKeys } from "@/modules/auth/presentation/context/authKeys";
 import type { IResetPasswordCredentials } from "@/modules/auth/presentation/model/IResetPasswordCredentials";
 import type { Failure } from "@/shared/domain/failures/failure";
 import container from "@/shared/infrastructure/service.locator";
@@ -20,6 +21,7 @@ import container from "@/shared/infrastructure/service.locator";
  */
 export function useResetPassword() {
     return useMutation<IResetPasswordResponse, Failure, IResetPasswordCredentials>({
+        mutationKey: authKeys.mutation,
         mutationFn: async (credentials) => {
             const result = await container.cradle.resetPasswordUseCase.execute(credentials);
             if (!result.ok) throw result.error;
