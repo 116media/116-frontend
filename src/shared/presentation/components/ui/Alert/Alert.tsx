@@ -1,6 +1,5 @@
-import { AlertCircle } from "lucide-react";
-
 import type { Failure } from "@/shared/domain/failures/failure";
+import { AlertCircleIcon } from "@/shared/presentation/components/ui/Icon";
 
 /**
  * Props for the Alert component.
@@ -30,7 +29,7 @@ export function Alert({ error }: AlertProps) {
             role="alert"
             className="flex items-start gap-2 rounded-lg border border-destructive/30 bg-destructive/10 p-3"
         >
-            <AlertCircle className="mt-0.5 size-4 shrink-0 text-destructive" />
+            <AlertCircleIcon className="mt-0.5 size-4 shrink-0 text-destructive" />
             <div>
                 <p className="text-sm font-semibold text-destructive">{error.title}</p>
                 {error.detail && (
