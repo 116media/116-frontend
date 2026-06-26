@@ -1,7 +1,7 @@
 "use client";
 
-import { Eye, EyeOff } from "lucide-react";
 import { forwardRef, type InputHTMLAttributes, useState } from "react";
+import { EyeIcon, EyeOffIcon } from "@/shared/presentation/components/ui/Icon";
 
 import { Input } from "@/shared/presentation/components/ui/Input";
 import { cn } from "@/shared/presentation/utils/cn";
@@ -41,8 +41,8 @@ export interface FloatingFieldProps
  */
 export const FloatingField = forwardRef<HTMLInputElement, FloatingFieldProps>(
     ({ label, error, required, id, type = "text", className, ...props }, ref) => {
-        const [visible, setVisible] = useState(false);
         const isPassword = type === "password";
+        const [visible, setVisible] = useState(false);
 
         return (
             <div className="flex flex-col gap-1.5">
@@ -80,7 +80,11 @@ export const FloatingField = forwardRef<HTMLInputElement, FloatingFieldProps>(
                             aria-label={visible ? "Hide password" : "Show password"}
                             className="absolute right-1 top-1/2 -translate-y-1/2 text-muted-foreground transition-colors hover:text-foreground rounded-full"
                         >
-                            {visible ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+                            {visible ? (
+                                <EyeOffIcon className="size-4" />
+                            ) : (
+                                <EyeIcon className="size-4" />
+                            )}
                         </Button>
                     )}
                 </div>
