@@ -1,13 +1,13 @@
 "use client";
 
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
-import { ChevronDown, Search } from "lucide-react";
 import Link from "next/link";
 import { ArticlesMegaMenu } from "@/modules/articles/presentation/components/ArticlesMegaMenu";
 import type { ArticlesMegaMenuProps } from "@/modules/articles/presentation/components/ArticlesMegaMenu/types";
 import { VideosMegaMenu } from "@/modules/videos/presentation/components/VideosMegaMenu";
 import type { VideosMegaMenuProps } from "@/modules/videos/presentation/components/VideosMegaMenu/types";
 import { Button } from "@/shared/presentation/components/ui/Button";
+import { ChevronDownIcon, SearchIcon } from "@/shared/presentation/components/ui/Icon";
 
 import {
     NavigationMenu,
@@ -59,7 +59,7 @@ export function DesktopNav({ articles, videos }: DesktopNavProps) {
                                             )}
                                         >
                                             {label}
-                                            <ChevronDown
+                                            <ChevronDownIcon
                                                 size={14}
                                                 className="text-muted-foreground transition-transform duration-200 data-[state=open]:rotate-180"
                                                 aria-hidden="true"
@@ -104,7 +104,7 @@ export function DesktopNav({ articles, videos }: DesktopNavProps) {
                 aria-label="Rechercher"
                 className="text-muted-foreground hover:text-foreground"
             >
-                <Search />
+                <SearchIcon />
             </Button>
         </div>
     );
