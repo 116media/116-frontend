@@ -186,4 +186,11 @@
     /* Animations */
     --animate-mega-menu-slide-down: mega-menu-slide-down 0.2s ease-out;
     --animate-mega-menu-slide-up: mega-menu-slide-up 0.2s ease-in;
+
+    /* Dialog / modal */
+    --animate-dialog-overlay-in: dialog-overlay-in 0.2s ease-out;
+    --animate-dialog-overlay-out: dialog-overlay-out 0.15s ease-in;
+    --animate-dialog-in: dialog-in 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    --animate-dialog-out: dialog-out 0.2s ease-in;
+    --animate-dialog-shake: dialog-shake 0.4s ease-in-out;
 }
