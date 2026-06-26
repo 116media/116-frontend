@@ -81,7 +81,6 @@ export function ResetPasswordForm() {
 
             <div className="flex flex-col items-center gap-1">
                 <Button
-                    size="sm"
                     type="button"
                     variant="link"
                     onClick={() => go("login")}
