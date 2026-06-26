@@ -1,10 +1,8 @@
 "use client";
 
 import { useQueryClient } from "@tanstack/react-query";
-import { ArrowLeft, XCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-
 import { ForgotPasswordForm } from "@/modules/auth/presentation/components/ForgotPasswordForm";
 import { LoginForm } from "@/modules/auth/presentation/components/LoginForm";
 import { ResetPasswordForm } from "@/modules/auth/presentation/components/ResetPasswordForm";
@@ -20,6 +18,7 @@ import {
     DialogHeader,
     DialogTitle
 } from "@/shared/presentation/components/ui/Dialog";
+import { ArrowLeftIcon, XCircleIcon } from "@/shared/presentation/components/ui/Icon";
 import { cn } from "@/shared/presentation/utils/cn";
 
 /**
@@ -54,7 +53,7 @@ const VIEW_TITLES = {
 export function AuthModal() {
     const { t } = useTranslation();
     const { isOpen, view, canGoBack, close, back } = useAuthModal();
-    
+
     const queryClient = useQueryClient();
     const { title, subtitle } = VIEW_TITLES[view];
 
@@ -90,7 +89,7 @@ export function AuthModal() {
                         className="absolute right-4 top-4 cursor-pointer rounded-full text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                         aria-label={t("auth.common.close")}
                     >
-                        <XCircle className="size-5" />
+                        <XCircleIcon className="size-5" />
                     </DialogClose>
 
                     <DialogHeader>
@@ -103,7 +102,7 @@ export function AuthModal() {
                                 aria-label={t("auth.common.back")}
                                 className="absolute left-3 top-3"
                             >
-                                <ArrowLeft />
+                                <ArrowLeftIcon />
                             </Button>
                         )}
                         <DialogTitle
