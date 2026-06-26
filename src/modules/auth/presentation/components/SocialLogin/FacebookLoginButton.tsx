@@ -87,8 +87,8 @@ export function FacebookLoginButton({ onProfile, disabled }: FacebookLoginButton
             type="button"
             variant="outline"
             className="w-full"
-            disabled={disabled || loading}
             onClick={handleClick}
+            disabled={disabled || loading}
         >
             <FacebookIcon />
             {t("auth.common.continueWithFacebook")}
