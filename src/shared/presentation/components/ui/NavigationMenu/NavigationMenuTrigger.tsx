@@ -1,9 +1,9 @@
 "use client";
 
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
-import { ChevronDown } from "lucide-react";
 import type { ComponentPropsWithoutRef, ComponentRef } from "react";
 import { forwardRef } from "react";
+import { ChevronDownIcon } from "@/shared/presentation/components/ui/Icon";
 
 import { cn } from "@/shared/presentation/utils/cn";
 
@@ -33,7 +33,7 @@ export const NavigationMenuTrigger = forwardRef<
         {...props}
     >
         {children}
-        <ChevronDown
+        <ChevronDownIcon
             size={14}
             className="text-muted-foreground transition-transform duration-200 data-[state=open]:rotate-180"
             aria-hidden="true"
