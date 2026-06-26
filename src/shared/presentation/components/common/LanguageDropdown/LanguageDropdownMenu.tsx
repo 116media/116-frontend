@@ -1,8 +1,8 @@
-import { Check } from "lucide-react";
 import {
     DropdownMenuContent,
     DropdownMenuItem
 } from "@/shared/presentation/components/ui/DropdownMenu";
+import { CheckIcon } from "@/shared/presentation/components/ui/Icon";
 import { LANGUAGE_LIST } from "@/shared/presentation/constants/languages";
 import { cn } from "@/shared/presentation/utils/cn";
 import type { LanguageDropdownMenuProps } from "./types";
@@ -39,7 +39,7 @@ export function LanguageDropdownMenu({
                         <lang.FlagIcon />
                     </span>
                     <span className="flex-1">{lang.name}</span>
-                    <Check
+                    <CheckIcon
                         size={14}
                         className={cn(
                             "ml-auto shrink-0 text-secondary transition-opacity",
