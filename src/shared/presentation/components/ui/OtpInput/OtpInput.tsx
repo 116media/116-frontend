@@ -2,6 +2,8 @@
 
 import { useMemo, useRef } from "react";
 
+import { Input } from "@/shared/presentation/components/ui/Input";
+
 /**
  * Props for the OtpInput component.
  *
@@ -53,7 +55,7 @@ export function OtpInput({ value, onChange, length = 6 }: OtpInputProps) {
     return (
         <div className="flex justify-center gap-2">
             {slotKeys.map((key, index) => (
-                <input
+                <Input
                     key={key}
                     ref={(el) => {
                         refs.current[index] = el;
@@ -73,7 +75,7 @@ export function OtpInput({ value, onChange, length = 6 }: OtpInputProps) {
                             event.clipboardData.getData("text").replace(/\D/g, "").slice(0, length)
                         );
                     }}
-                    className="size-11 rounded-sm border border-input bg-muted text-center text-lg font-semibold text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    className="size-11 rounded-sm px-0 text-center text-lg font-semibold"
                 />
             ))}
         </div>
