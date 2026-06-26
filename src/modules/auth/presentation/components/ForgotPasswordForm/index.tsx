@@ -55,6 +55,7 @@ export function ForgotPasswordForm() {
             />
 
             <Button
+                size="lg"
                 type="submit"
                 className="w-full"
                 disabled={isPending}
@@ -64,7 +65,6 @@ export function ForgotPasswordForm() {
 
             <div className="flex flex-col items-center gap-1">
                 <Button
-                    size="sm"
                     type="button"
                     variant="link"
                     onClick={() => go("login")}
