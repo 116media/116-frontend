@@ -1,6 +1,6 @@
-import { Heart, MessageSquare, Share2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { HeartIcon, MessageSquareIcon, ShareIcon } from "@/shared/presentation/components/ui/Icon";
 
 import { Tag } from "@/shared/presentation/components/ui/Tag";
 import { cn } from "@/shared/presentation/utils/cn";
@@ -66,15 +66,15 @@ export function Hero({ article }: ArticlePromotionCardProps) {
 
                 <div className="flex items-center gap-3 text-xs text-white/60 sm:gap-4 md:text-sm lg:text-xs xl:text-sm">
                     <span className="flex items-center gap-1">
-                        <MessageSquare className="size-3.5 sm:size-4" />
+                        <MessageSquareIcon className="size-3.5 sm:size-4" />
                         {formatCount(article.commentCount)}
                     </span>
                     <span className="flex items-center gap-1">
-                        <Heart className="size-3.5 sm:size-4" />
+                        <HeartIcon className="size-3.5 sm:size-4" />
                         {formatCount(article.likeCount)}
                     </span>
                     <span className="flex items-center gap-1">
-                        <Share2 className="size-3.5 sm:size-4" />
+                        <ShareIcon className="size-3.5 sm:size-4" />
                         {formatCount(article.shareCount)}
                     </span>
                 </div>
