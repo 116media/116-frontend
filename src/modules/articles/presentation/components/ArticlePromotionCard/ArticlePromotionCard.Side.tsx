@@ -1,6 +1,11 @@
-import { Calendar, Heart, MessageSquare, Share2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import {
+    CalendarIcon,
+    HeartIcon,
+    MessageSquareIcon,
+    ShareIcon
+} from "@/shared/presentation/components/ui/Icon";
 
 import { RelativeDate } from "@/shared/presentation/components/ui/RelativeDate";
 import { Tag } from "@/shared/presentation/components/ui/Tag";
@@ -27,7 +32,7 @@ export function Side({ article }: ArticlePromotionCardProps) {
         >
             <div className="flex flex-1 flex-col p-4 sm:p-5 md:p-6 lg:p-3 xl:p-6">
                 <div className="mb-3 flex flex-wrap items-center gap-2 text-xs text-muted-foreground sm:mb-4 md:text-sm lg:mb-3 lg:text-xs xl:text-sm">
-                    <Calendar className="size-3 sm:size-3.5 lg:size-3" />
+                    <CalendarIcon className="size-3 sm:size-3.5 lg:size-3" />
                     <RelativeDate date={article.publishedAt} />
                     <span className="mx-1 h-4 w-px bg-border" />
                     <Tag
@@ -66,15 +71,15 @@ export function Side({ article }: ArticlePromotionCardProps) {
                 <div className="mt-auto flex items-center justify-between">
                     <div className="flex items-center gap-3 text-xs text-muted-foreground sm:text-sm md:text-base lg:text-xs xl:text-sm">
                         <span className="flex items-center gap-1">
-                            <MessageSquare className="size-3.5 sm:size-4" />
+                            <MessageSquareIcon className="size-3.5 sm:size-4" />
                             {formatCount(article.commentCount)}
                         </span>
                         <span className="flex items-center gap-1">
-                            <Heart className="size-3.5 sm:size-4" />
+                            <HeartIcon className="size-3.5 sm:size-4" />
                             {formatCount(article.likeCount)}
                         </span>
                         <span className="flex items-center gap-1">
-                            <Share2 className="size-3.5 sm:size-4" />
+                            <ShareIcon className="size-3.5 sm:size-4" />
                             {formatCount(article.shareCount)}
                         </span>
                     </div>
