@@ -1,6 +1,6 @@
 "use client";
 
-import { Share2 } from "lucide-react";
+import { ShareIcon } from "@/shared/presentation/components/ui/Icon";
 
 import { StarRating } from "@/shared/presentation/components/ui/StarRating";
 import { cn } from "@/shared/presentation/utils/cn";
@@ -43,7 +43,7 @@ export function VideosMegaMenuCardStats({
                 ratingCount={ratingCount}
             />
             <span className={cn("flex items-center gap-0.5", textClass)}>
-                <Share2 className="h-2.5 w-2.5 shrink-0" />
+                <ShareIcon className="h-2.5 w-2.5 shrink-0" />
                 <span>{formatCount(shareCount)}</span>
             </span>
         </div>
