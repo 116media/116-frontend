@@ -5,6 +5,7 @@ import { AuthModalProvider } from "@/modules/auth/presentation/context/AuthModal
 import { AuthProvider } from "@/modules/auth/presentation/context/AuthProvider";
 import { authKeys } from "@/modules/auth/presentation/context/authKeys";
 import { createServerCradle } from "@/shared/infrastructure/server.cradle";
+import { Toaster } from "@/shared/presentation/components/ui/Toaster";
 import { I18nProvider } from "@/shared/presentation/i18n/I18nProvider";
 import { QueryProvider } from "@/shared/presentation/providers/QueryProvider";
 import { ThemeProvider } from "@/shared/presentation/providers/ThemeProvider";
@@ -61,6 +62,7 @@ export default async function RootLayout({
                 className="min-h-screen bg-background text-foreground antialiased"
             >
                 <ThemeProvider>
+                    <Toaster />
                     <QueryProvider>
                         <HydrationBoundary state={dehydrate(queryClient)}>
                             <I18nProvider>
