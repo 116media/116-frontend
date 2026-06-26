@@ -4,6 +4,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { createContext, type ReactNode, useContext, useEffect, useMemo } from "react";
 import type { IAuthUser } from "@/modules/auth/domain/entities/IAuthUser";
 import type { AuthStatus } from "@/modules/auth/domain/valueobjects/AuthStatus";
+import { getAuthChannel } from "@/modules/auth/presentation/context/authChannel";
 import { authKeys } from "@/modules/auth/presentation/context/authKeys";
 import { REFRESH_TOKEN_EXPIRED_EVENT } from "@/shared/infrastructure/interceptors/refresh-token-expiry.interceptor";
 import container from "@/shared/infrastructure/service.locator";
@@ -74,12 +75,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const onExpired = () => queryClient.removeQueries({ queryKey: authKeys.me });
         window.addEventListener(REFRESH_TOKEN_EXPIRED_EVENT, onExpired);
 
-        const channel = new BroadcastChannel("auth");
-        channel.onmessage = () => queryClient.invalidateQueries({ queryKey: authKeys.me });
+        const channel = getAuthChannel();
+        const onMessage = () => queryClient.invalidateQueries({ queryKey: authKeys.me });
+        channel?.addEventListener("message", onMessage);
 
         return () => {
             window.removeEventListener(REFRESH_TOKEN_EXPIRED_EVENT, onExpired);
-            channel.close();
+            channel?.removeEventListener("message", onMessage);
         };
     }, [queryClient]);
 
