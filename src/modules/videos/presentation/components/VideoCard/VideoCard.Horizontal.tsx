@@ -1,8 +1,7 @@
-import { Clock, Share2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-
 import { ButtonFrostedPlay } from "@/shared/presentation/components/ui/Button";
+import { ClockIcon, ShareIcon } from "@/shared/presentation/components/ui/Icon";
 import { RelativeDate } from "@/shared/presentation/components/ui/RelativeDate";
 import { StarRating } from "@/shared/presentation/components/ui/StarRating";
 import { VIDEOS_PATH } from "@/shared/presentation/constants/paths";
@@ -54,11 +53,11 @@ export function Horizontal({ video }: VideoCardProps) {
                 </div>
                 <div className="mt-auto flex flex-wrap justify-between items-center gap-2 pt-2 text-muted-foreground">
                     <span className="flex items-center gap-1 text-sm">
-                        <Share2 className="size-3" />
+                        <ShareIcon className="size-3" />
                         {formatCount(video.shareCount)}
                     </span>
                     <span className="flex items-center gap-1 text-xs">
-                        <Clock className="size-3" />
+                        <ClockIcon className="size-3" />
                         <RelativeDate date={video.publishedAt} />
                     </span>
                 </div>
