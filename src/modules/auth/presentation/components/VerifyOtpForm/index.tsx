@@ -88,7 +88,6 @@ export function VerifyOtpForm() {
 
             <div className="flex flex-col items-center gap-1">
                 <Button
-                    size="lg"
                     type="button"
                     variant="link"
                     onClick={onResend}
