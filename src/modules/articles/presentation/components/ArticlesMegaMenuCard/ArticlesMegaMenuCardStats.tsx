@@ -1,6 +1,6 @@
 "use client";
 
-import { Heart, Share2 } from "lucide-react";
+import { HeartIcon, ShareIcon } from "@/shared/presentation/components/ui/Icon";
 
 import { cn } from "@/shared/presentation/utils/cn";
 import { formatCount } from "@/shared/presentation/utils/formatCount";
@@ -32,11 +32,11 @@ export function ArticlesMegaMenuCardStats({
     return (
         <div className="flex items-center gap-3">
             <span className={itemClass}>
-                <Heart className="h-3 w-3 shrink-0" />
+                <HeartIcon className="h-3 w-3 shrink-0" />
                 <span>{formatCount(likeCount)}</span>
             </span>
             <span className={itemClass}>
-                <Share2 className="h-3 w-3 shrink-0" />
+                <ShareIcon className="h-3 w-3 shrink-0" />
                 <span>{formatCount(shareCount)}</span>
             </span>
         </div>
