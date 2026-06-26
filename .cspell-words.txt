@@ -16,6 +16,7 @@ commentaire
 complètes
 congolaise
 Connectez
+Continuez
 coolbeatz
 coupé
 Créez
@@ -41,6 +42,7 @@ europeenne
 européenne
 Exclusif
 exclusiveshow
+favoris
 Flava
 formulaire
 FOUC
@@ -66,6 +68,7 @@ icone
 icône
 initialisation
 Innoss'B
+interagir
 keyline
 keylines
 Kuduro
@@ -73,6 +76,8 @@ letterforms
 Lettre
 leur
 libellé
+libellés
+librement
 Lisez
 Lngs
 localisé
@@ -109,11 +114,13 @@ principale
 prochain
 produite
 Prêt
+quand
 recherchez
 refetches
 refreshtoken
 regarde
 Rejoignez
+retrouver
 revient
 rgba
 RRGGBBAA
@@ -122,6 +129,7 @@ Réessayez
 Réinitialisez
 réservés
 résultat
+réussie
 S'inscrire
 Saisissez
 scène
@@ -146,6 +154,7 @@ utilisent
 valueobjects
 viewports
 visuel
+voulez
 Vérifiez
 WCAG
 Zouk
