@@ -1,8 +1,8 @@
 "use client";
 
-import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
+import { ChevronRightIcon } from "@/shared/presentation/components/ui/Icon";
 
 import { VIDEOS_PATH } from "@/shared/presentation/constants/paths";
 import { cn } from "@/shared/presentation/utils/cn";
@@ -40,7 +40,7 @@ export function VideosMegaCategoryList({ categories }: VideosMegaCategoryListPro
                         {category.name}
                     </span>
                     <div className="flex items-center gap-1.5 shrink-0">
-                        <ChevronRight className="h-3.5 w-3.5 text-muted-foreground group-hover:text-accent-foreground" />
+                        <ChevronRightIcon className="h-3.5 w-3.5 text-muted-foreground group-hover:text-accent-foreground" />
                     </div>
                 </Link>
             ))}
