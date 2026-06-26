@@ -1,6 +1,6 @@
 "use client";
 
-import { Play } from "lucide-react";
+import { PlayIcon } from "@/shared/presentation/components/ui/Icon";
 
 import { cn } from "@/shared/presentation/utils/cn";
 
@@ -37,7 +37,7 @@ export function ButtonFrostedPlay({ size = "md" }: ButtonFrostedPlayProps) {
                 size === "lg" && "h-12 w-12"
             )}
         >
-            <Play
+            <PlayIcon
                 className={cn(
                     "fill-white text-white",
                     size === "sm" && "h-3.5 w-3.5",
