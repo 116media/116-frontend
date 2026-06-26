@@ -1,10 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useAuthModal } from "@/modules/auth/presentation/context/AuthModalProvider";
 import { useAuth } from "@/modules/auth/presentation/context/AuthProvider";
 import { useLogout } from "@/modules/auth/presentation/hooks/useLogout";
 import { Button } from "@/shared/presentation/components/ui/Button";
+import { ConfirmDialog } from "@/shared/presentation/components/ui/ConfirmDialog";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -40,6 +42,7 @@ export function UserAccountControl({ className }: UserAccountControlProps) {
     const { user } = useAuth();
     const { open } = useAuthModal();
     const logout = useLogout();
+    const [confirmOpen, setConfirmOpen] = useState(false);
 
     if (!user) {
         return (
@@ -56,42 +59,56 @@ export function UserAccountControl({ className }: UserAccountControlProps) {
     const avatarUrl = user.avatar?.storageUrl;
 
     return (
-        <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-                <Button
-                    size="icon"
-                    type="button"
-                    variant="ghost"
-                    aria-label={`Compte de ${user.userName}`}
-                    className={cn(
-                        "size-8 rounded-full p-0 text-primary-foreground text-sm font-semibold ring-2 ring-border transition-opacity hover:opacity-90",
-                        className
-                    )}
-                    style={
-                        avatarUrl ? undefined : { backgroundColor: getAvatarColor(user.userName) }
-                    }
+        <>
+            <DropdownMenu modal={false}>
+                <DropdownMenuTrigger asChild>
+                    <Button
+                        size="icon"
+                        type="button"
+                        variant="ghost"
+                        aria-label={`Compte de ${user.userName}`}
+                        className={cn(
+                            "size-8 rounded-full p-0 text-primary-foreground text-sm font-semibold ring-2 ring-border transition-opacity hover:opacity-90",
+                            className
+                        )}
+                        style={
+                            avatarUrl ? undefined : { backgroundColor: getAvatarColor(user.userName) }
+                        }
+                    >
+                        <UserAvatar
+                            userName={user.userName}
+                            image={avatarUrl}
+                            initials={getInitials(user.userName)}
+                        />
+                    </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                    align="end"
+                    className="min-w-44"
                 >
-                    <UserAvatar
-                        userName={user.userName}
-                        image={avatarUrl}
-                        initials={getInitials(user.userName)}
-                    />
-                </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-                align="end"
-                className="min-w-44"
-            >
-                <div className="px-2 py-1.5 text-sm font-semibold text-foreground">
-                    {user.userName}
-                </div>
-                <DropdownMenuItem
-                    onSelect={() => logout.mutate({})}
-                    className="text-destructive focus:text-destructive"
-                >
-                    {t("auth.session.signOut")}
-                </DropdownMenuItem>
-            </DropdownMenuContent>
-        </DropdownMenu>
+                    <div className="px-2 py-1.5 text-sm font-semibold text-foreground">
+                        {user.userName}
+                    </div>
+                    <DropdownMenuItem
+                        onSelect={() => setConfirmOpen(true)}
+                        className="text-destructive focus:text-destructive"
+                    >
+                        {t("auth.session.signOut")}
+                    </DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
+
+            <ConfirmDialog
+                destructive
+                open={confirmOpen}
+                onOpenChange={setConfirmOpen}
+                loading={logout.isPending}
+                title={t("auth.session.signOutConfirmTitle")}
+                description={t("auth.session.signOutConfirmDescription")}
+                confirmLabel={t("auth.session.signOut")}
+                cancelLabel={t("auth.common.cancel")}
+                onConfirm={() => logout.mutate({}, { onSuccess: () => setConfirmOpen(false) })}
+            />
+        </>
     );
 }
