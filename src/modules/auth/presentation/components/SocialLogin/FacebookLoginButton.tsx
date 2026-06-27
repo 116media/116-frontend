@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { EAuthProvider } from "@/modules/auth/domain/enums/EAuthProvider";
 import type { ISocialLoginCredentials } from "@/modules/auth/presentation/model/ISocialLoginCredentials";
 import { Button } from "@/shared/presentation/components/ui/Button";
-import { FacebookIcon } from "@/shared/presentation/icons/FacebookIcon";
+import { FacebookIcon } from "@/shared/presentation/components/ui/Icon";
 
 /**
  * The Graph API fields requested for the signed-in user after login.
@@ -88,7 +88,7 @@ export function FacebookLoginButton({ onProfile, disabled }: FacebookLoginButton
             variant="outline"
             className="w-full"
             onClick={handleClick}
-            disabled={disabled || loading}
+            loading={disabled || loading}
         >
             <FacebookIcon />
             {t("auth.common.continueWithFacebook")}
