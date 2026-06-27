@@ -46,5 +46,6 @@ export {
     Star as StarIcon,
     Tablet as TabletIcon,
     UserRound as UserRoundIcon,
+    X as XIcon,
     XCircle as XCircleIcon
 } from "lucide-react";
