@@ -9,8 +9,8 @@ import type { ReactNode } from "react";
  * @property {string | null} [value] - The field value; an em dash renders when empty.
  */
 export interface DetailFieldProps {
-    icon: ReactNode;
     label: string;
+    icon: ReactNode;
     value?: string | null;
 }
 
@@ -27,7 +27,7 @@ export interface DetailFieldProps {
  */
 export function DetailField({ icon, label, value }: DetailFieldProps) {
     return (
-        <div className="flex items-start gap-3 rounded-md border p-3">
+        <div className="flex items-start gap-3 rounded-md border p-4">
             <div className="flex size-9 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground [&_svg]:size-4">
                 {icon}
             </div>
