@@ -13,6 +13,9 @@
     --popover: var(--primitive-white);
     --popover-foreground: var(--primitive-text-primary);
 
+    --dialog: var(--primitive-dialog-light);
+    --dialog-foreground: var(--primitive-text-primary);
+
     --primary: var(--primitive-brand-primary);
     --primary-foreground: var(--primitive-white);
 
@@ -64,6 +67,9 @@
     --popover: var(--primitive-neutral-800);
     --popover-foreground: var(--primitive-neutral);
 
+    --dialog: var(--primitive-dialog-dark);
+    --dialog-foreground: var(--primitive-neutral);
+
     --primary: var(--primitive-brand-primary);
     --primary-foreground: var(--primitive-white);
 
@@ -112,6 +118,9 @@
 
     --color-popover: var(--popover);
     --color-popover-foreground: var(--popover-foreground);
+
+    --color-dialog: var(--dialog);
+    --color-dialog-foreground: var(--dialog-foreground);
 
     --color-primary: var(--primary);
     --color-primary-foreground: var(--primary-foreground);
