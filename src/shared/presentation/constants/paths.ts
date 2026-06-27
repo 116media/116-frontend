@@ -38,4 +38,8 @@ export const ARTISTE_DETAIL_PATH = "/artistes/:slug";
 export const PROFILE_PATH = "/profile";
 export const BOOKMARKS_PATH = "/profile/bookmarks";
 export const PLAYLISTS_PATH = "/profile/playlists";
-export const SETTINGS_PATH = "/profile/settings";
+
+export const SETTINGS_PATH = "/settings";
+export const SETTINGS_PROFILE_PATH = "/settings/profile";
+export const SETTINGS_SECURITY_PATH = "/settings/security";
+export const SETTINGS_ACCOUNT_PATH = "/settings/account";
