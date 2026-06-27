@@ -81,7 +81,8 @@ export function VerifyOtpForm() {
                 size="lg"
                 type="submit"
                 className="w-full"
-                disabled={!isComplete || isVerifying}
+                disabled={!isComplete}
+                loading={isVerifying}
             >
                 {t("auth.otp.submit")}
             </Button>
@@ -91,7 +92,8 @@ export function VerifyOtpForm() {
                     type="button"
                     variant="link"
                     onClick={onResend}
-                    disabled={cooldown > 0 || isResending}
+                    disabled={cooldown > 0}
+                    loading={isResending}
                 >
                     {cooldown > 0
                         ? t("auth.otp.resendIn", { seconds: cooldown })
