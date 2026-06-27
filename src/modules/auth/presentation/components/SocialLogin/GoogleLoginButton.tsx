@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { EAuthProvider } from "@/modules/auth/domain/enums/EAuthProvider";
 import type { ISocialLoginCredentials } from "@/modules/auth/presentation/model/ISocialLoginCredentials";
 import { Button } from "@/shared/presentation/components/ui/Button";
-import { GoogleIcon } from "@/shared/presentation/icons/GoogleIcon";
+import { GoogleIcon } from "@/shared/presentation/components/ui/Icon";
 
 /**
  * Google's OpenID userinfo endpoint. Called with the implicit-flow access token to
@@ -89,7 +89,7 @@ export function GoogleLoginButton({ onProfile, disabled }: GoogleLoginButtonProp
             type="button"
             variant="outline"
             className="w-full"
-            disabled={disabled}
+            loading={disabled}
             onClick={() => login()}
         >
             <GoogleIcon />
