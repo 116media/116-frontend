@@ -58,7 +58,7 @@ export function ForgotPasswordForm() {
                 size="lg"
                 type="submit"
                 className="w-full"
-                disabled={isPending}
+                loading={isPending}
             >
                 {t("auth.password.sendCode")}
             </Button>
