@@ -107,8 +107,9 @@ export function ProfileSection() {
                                 </p>
                             )}
                             {user.countryName && (
-                                <p className="truncate text-muted-foreground text-sm">
-                                    {user.countryName}
+                                <p className="flex items-center gap-1 mt-1 text-muted-foreground text-sm">
+                                    <MapPinIcon className="size-3.5 shrink-0" />
+                                    <span className="truncate">{user.countryName}</span>
                                 </p>
                             )}
                         </div>
