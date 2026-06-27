@@ -13,9 +13,6 @@ import {
 } from "@/shared/presentation/constants/paths";
 import { cn } from "@/shared/presentation/utils/cn";
 
-/**
- * The settings tabs in display order — route, label key, and icon.
- */
 const SETTINGS_TABS: ReadonlyArray<{
     href: string;
     labelKey: string;
@@ -39,7 +36,7 @@ export function SettingsSidebar() {
     const { t } = useTranslation();
 
     return (
-        <nav className="flex gap-1 overflow-x-auto md:w-64 md:flex-col md:overflow-visible">
+        <nav className="flex gap-2 overflow-x-auto border-b bg-sidebar p-4 md:w-60 md:flex-col md:overflow-visible md:border-r md:border-b-0">
             {SETTINGS_TABS.map(({ href, labelKey, Icon }) => {
                 const isActive = pathname === href || pathname.startsWith(`${href}/`);
                 return (
@@ -49,8 +46,8 @@ export function SettingsSidebar() {
                         className={cn(
                             "flex items-center gap-2 whitespace-nowrap rounded-md px-3 py-2 font-medium text-sm transition-colors",
                             isActive
-                                ? "bg-accent text-accent-foreground"
-                                : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                                ? "bg-primary/10 text-primary dark:bg-secondary/15 dark:text-secondary"
+                                : "text-foreground/80 hover:bg-foreground/5 hover:text-foreground"
                         )}
                     >
                         <Icon className="size-4" />
