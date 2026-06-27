@@ -19,8 +19,9 @@ export const security = {
         current: "This device",
         expired: "Expired",
         revoke: "Revoke",
-        revokeTitle: "Revoke this session?",
-        revokeDescription: "The device will be signed out immediately.",
+        revokeTitle: "Revoke session",
+        revokeDescription:
+            "Are you sure you want to revoke this session? The device will be signed out immediately.",
         empty: "No active sessions.",
         unknownIp: "—"
     }
