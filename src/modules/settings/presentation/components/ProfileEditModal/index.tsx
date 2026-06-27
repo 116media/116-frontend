@@ -12,8 +12,8 @@ import { profileSchema } from "@/modules/settings/presentation/validation/profil
 import { Alert } from "@/shared/presentation/components/ui/Alert";
 import { Button } from "@/shared/presentation/components/ui/Button";
 import { CountrySelect } from "@/shared/presentation/components/ui/CountrySelect";
-import { Dialog, DialogContent, DialogTitle } from "@/shared/presentation/components/ui/Dialog";
 import { FloatingField } from "@/shared/presentation/components/ui/FloatingField";
+import { ModalForm } from "@/shared/presentation/components/ui/ModalForm";
 import { useDetectedCountry } from "@/shared/presentation/hooks/useDetectedCountry";
 import { findCountryByName } from "@/shared/presentation/utils/country";
 import { showNotification } from "@/shared/presentation/utils/notification";
@@ -91,79 +91,74 @@ export function ProfileEditModal({ open, onOpenChange, user }: ProfileEditModalP
     });
 
     return (
-        <Dialog
+        <ModalForm
             open={open}
+            onSubmit={onSubmit}
             onOpenChange={onOpenChange}
+            header={t("settings.profile.edit.title")}
+            subtitle={t("settings.profile.edit.subtitle")}
+            footer={
+                <>
+                    <Button
+                        type="button"
+                        variant="outline"
+                        disabled={isPending}
+                        onClick={() => onOpenChange(false)}
+                    >
+                        {t("auth.common.cancel")}
+                    </Button>
+                    <Button
+                        type="submit"
+                        loading={isPending}
+                    >
+                        {t("settings.profile.edit.submit")}
+                    </Button>
+                </>
+            }
         >
-            <DialogContent aria-describedby={undefined}>
-                <form
-                    onSubmit={onSubmit}
-                    className="relative grid gap-5 rounded-2xl border border-border bg-card p-6 shadow-xl"
-                >
-                    <DialogTitle>{t("settings.profile.edit.title")}</DialogTitle>
+            {error && <Alert error={error} />}
 
-                    {error && <Alert error={error} />}
+            <FloatingField
+                disabled
+                id="edit-email"
+                defaultValue={user.email ?? ""}
+                label={t("settings.profile.edit.email")}
+            />
 
-                    <FloatingField
-                        disabled
-                        id="edit-email"
-                        defaultValue={user.email ?? ""}
-                        label={t("settings.profile.edit.email")}
-                    />
+            <FloatingField
+                required
+                id="edit-userName"
+                autoComplete="username"
+                label={t("settings.profile.edit.userName")}
+                error={form.formState.errors.userName?.message}
+                {...form.register("userName")}
+            />
 
-                    <FloatingField
+            <Controller
+                name="countryName"
+                control={form.control}
+                render={({ field }) => (
+                    <CountrySelect
                         required
-                        id="edit-userName"
-                        autoComplete="username"
-                        label={t("settings.profile.edit.userName")}
-                        error={form.formState.errors.userName?.message}
-                        {...form.register("userName")}
+                        id="edit-country"
+                        value={field.value}
+                        onChange={field.onChange}
+                        label={t("settings.profile.edit.country")}
+                        error={form.formState.errors.countryName?.message}
+                        placeholder={t("settings.profile.edit.countryPlaceholder")}
                     />
+                )}
+            />
 
-                    <Controller
-                        name="countryName"
-                        control={form.control}
-                        render={({ field }) => (
-                            <CountrySelect
-                                required
-                                id="edit-country"
-                                value={field.value}
-                                onChange={field.onChange}
-                                label={t("settings.profile.edit.country")}
-                                placeholder={t("settings.profile.edit.countryPlaceholder")}
-                                error={form.formState.errors.countryName?.message}
-                            />
-                        )}
-                    />
-
-                    <FloatingField
-                        id="edit-phone"
-                        inputMode="numeric"
-                        autoComplete="tel-national"
-                        label={t("settings.profile.edit.phone")}
-                        prefix={selectedCountry?.dialCode ?? "—"}
-                        error={form.formState.errors.partialPhoneNumber?.message}
-                        {...form.register("partialPhoneNumber")}
-                    />
-
-                    <div className="flex justify-between w-full">
-                        <Button
-                            type="button"
-                            variant="outline"
-                            disabled={isPending}
-                            onClick={() => onOpenChange(false)}
-                        >
-                            {t("auth.common.cancel")}
-                        </Button>
-                        <Button
-                            type="submit"
-                            loading={isPending}
-                        >
-                            {t("settings.profile.edit.submit")}
-                        </Button>
-                    </div>
-                </form>
-            </DialogContent>
-        </Dialog>
+            <FloatingField
+                id="edit-phone"
+                inputMode="numeric"
+                autoComplete="tel-national"
+                label={t("settings.profile.edit.phone")}
+                prefix={selectedCountry?.dialCode ?? "—"}
+                error={form.formState.errors.partialPhoneNumber?.message}
+                {...form.register("partialPhoneNumber")}
+            />
+        </ModalForm>
     );
 }
