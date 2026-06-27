@@ -19,8 +19,9 @@ export const security = {
         current: "Ce navigateur",
         expired: "Expiré",
         revoke: "Révoquer",
-        revokeTitle: "Révoquer cette session ?",
-        revokeDescription: "L'appareil sera déconnecté immédiatement.",
+        revokeTitle: "Révoquer la session",
+        revokeDescription:
+            "Êtes-vous sûr de vouloir révoquer cette session ? L'appareil sera déconnecté immédiatement.",
         empty: "Aucune session active.",
         unknownIp: "—"
     }
