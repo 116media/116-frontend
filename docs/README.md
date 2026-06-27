@@ -45,6 +45,21 @@ See [authentication/README.md](authentication/README.md) for the full index.
 - [Why Not next-auth](authentication/18-why-not-next-auth.md)
 - [Implementation Specs](authentication/specs/00-index.md)
 
+### Settings & Sessions
+See [settings/README.md](settings/README.md) for the full index.
+- [Overview](settings/01-overview.md)
+- [Architecture](settings/02-architecture.md)
+- [Account Control (dropdown)](settings/03-account-control.md)
+- [Routing & Layout](settings/04-routing-and-layout.md)
+- [Profile Section](settings/05-profile-section.md)
+- [Security Section](settings/06-security-section.md)
+- [Account Section](settings/07-account-section.md)
+- [API Endpoints](settings/08-api-endpoints.md)
+- [Data Layer](settings/09-data-layer.md)
+- [i18n](settings/10-i18n.md)
+- [Components & Icons](settings/11-components.md)
+- [Implementation Plan](settings/12-implementation-plan.md)
+
 ### Styling
 - [Tailwind CSS 4 Setup](styling/01-tailwind-setup.md)
 - [Theming and Design Tokens](styling/02-theming.md)
