@@ -17,10 +17,12 @@ import { SettingsSidebar } from "@/modules/settings/presentation/components/Sett
  */
 export default function SettingsLayout({ children }: { children: ReactNode }) {
     return (
-        <div className="mx-auto flex w-full flex-col gap-6 py-8 md:flex-row">
-            <SettingsSidebar />
-            <div className="min-w-0 flex-1">
-                <SettingsGuard>{children}</SettingsGuard>
+        <div className="mx-auto w-full pb-8">
+            <div className="flex min-h-[calc(100vh-140px)] flex-col overflow-hidden rounded-lg border bg-background md:flex-row">
+                <SettingsSidebar />
+                <div className="min-w-0 flex-1 bg-background p-4">
+                    <SettingsGuard>{children}</SettingsGuard>
+                </div>
             </div>
         </div>
     );
