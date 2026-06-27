@@ -74,7 +74,7 @@ export function ResetPasswordForm() {
             <Button
                 type="submit"
                 className="w-full"
-                disabled={isPending}
+                loading={isPending}
             >
                 {t("auth.password.reset")}
             </Button>
