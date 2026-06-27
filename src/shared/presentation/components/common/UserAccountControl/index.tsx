@@ -72,7 +72,9 @@ export function UserAccountControl({ className }: UserAccountControlProps) {
                             className
                         )}
                         style={
-                            avatarUrl ? undefined : { backgroundColor: getAvatarColor(user.userName) }
+                            avatarUrl
+                                ? undefined
+                                : { backgroundColor: getAvatarColor(user.userName) }
                         }
                     >
                         <UserAvatar
@@ -101,12 +103,12 @@ export function UserAccountControl({ className }: UserAccountControlProps) {
             <ConfirmDialog
                 destructive
                 open={confirmOpen}
-                onOpenChange={setConfirmOpen}
                 loading={logout.isPending}
+                onOpenChange={setConfirmOpen}
+                cancelLabel={t("auth.common.cancel")}
+                confirmLabel={t("auth.session.signOut")}
                 title={t("auth.session.signOutConfirmTitle")}
                 description={t("auth.session.signOutConfirmDescription")}
-                confirmLabel={t("auth.session.signOut")}
-                cancelLabel={t("auth.common.cancel")}
                 onConfirm={() => logout.mutate({}, { onSuccess: () => setConfirmOpen(false) })}
             />
         </>
