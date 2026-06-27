@@ -34,6 +34,7 @@
         "embla-carousel-autoplay": "^8.6.0",
         "embla-carousel-fade": "^8.6.0",
         "embla-carousel-react": "^8.6.0",
+        "google-libphonenumber": "3.2.44",
         "http-status": "2.1.0",
         "i18next": "^26.3.1",
         "lucide-react": "^1.17.0",
@@ -52,6 +53,7 @@
     "devDependencies": {
         "@biomejs/biome": "^2.4.15",
         "@tailwindcss/postcss": "^4",
+        "@types/google-libphonenumber": "7.4.30",
         "@types/node": "^26.0.1",
         "@types/react": "^19",
         "@types/react-dom": "^19",
