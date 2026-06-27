@@ -1,5 +1,6 @@
 import { articlesMessages } from "@/modules/articles/presentation/i18n";
 import { authMessages } from "@/modules/auth/presentation/i18n";
+import { settingsMessages } from "@/modules/settings/presentation/i18n";
 import { videosMessages } from "@/modules/videos/presentation/i18n";
 import sharedEn from "@/shared/presentation/i18n/locales/en";
 import sharedFr from "@/shared/presentation/i18n/locales/fr";
@@ -18,7 +19,8 @@ export const en = {
     ...sharedEn,
     articles: articlesMessages.en,
     videos: videosMessages.en,
-    auth: authMessages.en
+    auth: authMessages.en,
+    settings: settingsMessages.en
 } as const;
 
 /**
@@ -32,7 +34,8 @@ export const fr = {
     ...sharedFr,
     articles: articlesMessages.fr,
     videos: videosMessages.fr,
-    auth: authMessages.fr
+    auth: authMessages.fr,
+    settings: settingsMessages.fr
 } as const;
 
 /**
