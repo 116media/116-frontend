@@ -62,40 +62,42 @@ export function ProfileSection() {
             <div className="flex flex-col gap-6">
                 <SettingsCard title={t("settings.profile.photo.title")}>
                     <div className="flex items-center gap-4">
-                        <button
-                            type="button"
-                            onClick={openFilePicker}
-                            disabled={updateAvatar.isPending}
-                            aria-label={t("settings.profile.photo.change")}
-                            className="relative size-20 shrink-0 cursor-pointer overflow-hidden rounded-md ring-2 ring-border"
-                            style={
-                                avatarUrl
-                                    ? undefined
-                                    : { backgroundColor: getAvatarColor(user.userName) }
-                            }
-                        >
-                            {avatarUrl ? (
-                                <Image
-                                    fill
-                                    sizes="80px"
-                                    src={avatarUrl}
-                                    alt={user.userName}
-                                    className="object-cover"
-                                />
-                            ) : (
-                                <span className="flex size-full items-center justify-center font-semibold text-lg text-primary-foreground">
-                                    {getInitials(user.userName)}
-                                </span>
-                            )}
-                            <span className="absolute right-1 bottom-1 flex size-6 items-center justify-center rounded-full bg-primary text-primary-foreground [&_svg]:size-3.5">
+                        <div className="relative size-20 shrink-0">
+                            <Button
+                                type="button"
+                                onClick={openFilePicker}
+                                disabled={updateAvatar.isPending}
+                                aria-label={t("settings.profile.photo.change")}
+                                className="relative size-20 cursor-pointer overflow-hidden rounded-md ring-2 ring-border"
+                                style={
+                                    avatarUrl
+                                        ? undefined
+                                        : { backgroundColor: getAvatarColor(user.userName) }
+                                }
+                            >
+                                {avatarUrl ? (
+                                    <Image
+                                        fill
+                                        sizes="80px"
+                                        src={avatarUrl}
+                                        alt={user.userName}
+                                        className="object-cover"
+                                    />
+                                ) : (
+                                    <span className="flex size-full items-center justify-center font-semibold text-lg text-primary-foreground">
+                                        {getInitials(user.userName)}
+                                    </span>
+                                )}
+                                {updateAvatar.isPending && (
+                                    <span className="absolute inset-0 flex items-center justify-center bg-background/60">
+                                        <SpinnerIcon className="size-6 animate-spin text-foreground" />
+                                    </span>
+                                )}
+                            </Button>
+                            <span className="pointer-events-none absolute right-0 bottom-0 flex size-7 translate-x-1/4 translate-y-1/4 items-center justify-center rounded-full bg-primary text-primary-foreground ring-2 ring-card [&_svg]:size-3.5">
                                 <CameraIcon />
                             </span>
-                            {updateAvatar.isPending && (
-                                <span className="absolute inset-0 flex items-center justify-center bg-background/60">
-                                    <SpinnerIcon className="size-6 animate-spin text-foreground" />
-                                </span>
-                            )}
-                        </button>
+                        </div>
 
                         <div className="min-w-0">
                             <p className="font-medium text-foreground">{user.userName}</p>
@@ -112,7 +114,7 @@ export function ProfileSection() {
                         </div>
 
                         <Button
-                            variant="secondary"
+                            variant="outline"
                             className="ml-auto"
                             loading={updateAvatar.isPending}
                             onClick={openFilePicker}
