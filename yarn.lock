@@ -21,6 +21,7 @@ __metadata:
     "@react-oauth/google": "npm:^0.13.5"
     "@tailwindcss/postcss": "npm:^4"
     "@tanstack/react-query": "npm:5.101.2"
+    "@types/google-libphonenumber": "npm:7.4.30"
     "@types/node": "npm:^26.0.1"
     "@types/react": "npm:^19"
     "@types/react-dom": "npm:^19"
@@ -33,6 +34,7 @@ __metadata:
     embla-carousel-autoplay: "npm:^8.6.0"
     embla-carousel-fade: "npm:^8.6.0"
     embla-carousel-react: "npm:^8.6.0"
+    google-libphonenumber: "npm:3.2.44"
     http-status: "npm:2.1.0"
     i18next: "npm:^26.3.1"
     lint-staged: "npm:^17.0.5"
@@ -1764,6 +1766,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/google-libphonenumber@npm:7.4.30":
+  version: 7.4.30
+  resolution: "@types/google-libphonenumber@npm:7.4.30"
+  checksum: 10c0/f81803dc061b775d981a04e99dfe9ee124b9e73ced6f0298928c0ff73fea4b34bc50b9c58f3235ee5c3c08a940a27bad20fcb9f4c25ba31698f1a64b98768306
+  languageName: node
+  linkType: hard
+
 "@types/node@npm:^26.0.1":
   version: 26.0.1
   resolution: "@types/node@npm:26.0.1"
@@ -2290,6 +2299,13 @@ __metadata:
   dependencies:
     is-glob: "npm:^4.0.1"
   checksum: 10c0/cab87638e2112bee3f839ef5f6e0765057163d39c66be8ec1602f3823da4692297ad4e972de876ea17c44d652978638d2fd583c6713d0eb6591706825020c9ee
+  languageName: node
+  linkType: hard
+
+"google-libphonenumber@npm:3.2.44":
+  version: 3.2.44
+  resolution: "google-libphonenumber@npm:3.2.44"
+  checksum: 10c0/86b1a2519fd3abb696f529f3075372e27de157431bf3deb5138e5317b357139cf8135da0d28c9c0fb7f677fcfcd69f5f215d379b61955b17b8198b0b841d9223
   languageName: node
   linkType: hard
 
