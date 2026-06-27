@@ -107,8 +107,8 @@ export function ProfileEditModal({ open, onOpenChange, user }: ProfileEditModalP
                     <FloatingField
                         disabled
                         id="edit-email"
-                        label={t("settings.profile.edit.email")}
                         defaultValue={user.email ?? ""}
+                        label={t("settings.profile.edit.email")}
                     />
 
                     <FloatingField
