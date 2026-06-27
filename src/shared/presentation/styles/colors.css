@@ -9,6 +9,10 @@
     --primitive-sidebar-light: var(--color-slate-50);
     --primitive-sidebar-dark: var(--color-slate-800);
 
+    /* Dialog surfaces */
+    --primitive-dialog-light: var(--color-white);
+    --primitive-dialog-dark: var(--color-slate-900);
+
     /* Base */
     --primitive-white: var(--color-white);
     --primitive-black: var(--color-black);
