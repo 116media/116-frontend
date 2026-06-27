@@ -27,8 +27,8 @@ export interface SettingsPageHeaderProps {
  */
 export function SettingsPageHeader({ icon, title, subtitle }: SettingsPageHeaderProps) {
     return (
-        <div className="mb-6 flex items-center gap-3">
-            <div className="flex size-10 items-center justify-center rounded-md bg-muted text-foreground [&_svg]:size-5">
+        <div className="flex items-center gap-3 border-b pb-4 mb-4">
+            <div className="flex size-12 items-center justify-center rounded-md bg-muted text-foreground [&_svg]:size-5">
                 {icon}
             </div>
             <div>
