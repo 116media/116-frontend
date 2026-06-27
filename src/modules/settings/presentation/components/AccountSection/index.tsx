@@ -4,9 +4,8 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { useLogout } from "@/modules/auth/presentation/hooks/useLogout";
+import { AccountActionCard } from "@/modules/settings/presentation/components/AccountActionCard";
 import { SettingsPageHeader } from "@/modules/settings/presentation/components/SettingsPageHeader";
-import { Button } from "@/shared/presentation/components/ui/Button";
-import { Card } from "@/shared/presentation/components/ui/Card";
 import { ConfirmDialog } from "@/shared/presentation/components/ui/ConfirmDialog";
 import {
     AlertCircleIcon,
@@ -38,46 +37,22 @@ export function AccountSection() {
             />
 
             <div className="flex flex-col gap-4">
-                <Card className="flex items-center gap-3 p-4">
-                    <div className="flex size-10 shrink-0 items-center justify-center rounded-md bg-muted text-foreground [&_svg]:size-5">
-                        <LogOutIcon />
-                    </div>
-                    <div className="min-w-0 flex-1">
-                        <p className="font-medium text-foreground">
-                            {t("settings.account.signOut.title")}
-                        </p>
-                        <p className="text-muted-foreground text-sm">
-                            {t("settings.account.signOut.description")}
-                        </p>
-                    </div>
-                    <Button
-                        variant="outline"
-                        className="text-destructive"
-                        onClick={() => setSignOutOpen(true)}
-                    >
-                        {t("settings.account.signOut.action")}
-                    </Button>
-                </Card>
+                <AccountActionCard
+                    icon={<LogOutIcon />}
+                    title={t("settings.account.signOut.title")}
+                    description={t("settings.account.signOut.description")}
+                    actionLabel={t("settings.account.signOut.action")}
+                    onAction={() => setSignOutOpen(true)}
+                />
 
-                <Card className="flex items-center gap-3 p-4">
-                    <div className="flex size-10 shrink-0 items-center justify-center rounded-md bg-destructive/10 text-destructive [&_svg]:size-5">
-                        <AlertCircleIcon />
-                    </div>
-                    <div className="min-w-0 flex-1">
-                        <p className="font-medium text-foreground">
-                            {t("settings.account.signOutAll.title")}
-                        </p>
-                        <p className="text-muted-foreground text-sm">
-                            {t("settings.account.signOutAll.description")}
-                        </p>
-                    </div>
-                    <Button
-                        variant="destructive"
-                        onClick={() => setSignOutAllOpen(true)}
-                    >
-                        {t("settings.account.signOutAll.action")}
-                    </Button>
-                </Card>
+                <AccountActionCard
+                    danger
+                    icon={<AlertCircleIcon />}
+                    title={t("settings.account.signOutAll.title")}
+                    description={t("settings.account.signOutAll.description")}
+                    actionLabel={t("settings.account.signOutAll.action")}
+                    onAction={() => setSignOutAllOpen(true)}
+                />
             </div>
 
             <ConfirmDialog
