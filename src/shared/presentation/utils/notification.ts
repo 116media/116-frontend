@@ -29,7 +29,12 @@ export interface INotificationConfig {
  *
  * @param config - The notification to display. See {@link INotificationConfig}.
  */
-export function showNotification({ type, title, description, duration }: INotificationConfig): void {
+export function showNotification({
+    type,
+    title,
+    description,
+    duration
+}: INotificationConfig): void {
     const options = { description, duration };
 
     switch (type) {
