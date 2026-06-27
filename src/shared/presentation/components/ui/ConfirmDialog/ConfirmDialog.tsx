@@ -82,7 +82,7 @@ export function ConfirmDialog({
                         <Button
                             type="button"
                             className="flex-1"
-                            disabled={loading}
+                            loading={loading}
                             onClick={onConfirm}
                             variant={destructive ? "destructive" : "default"}
                         >
