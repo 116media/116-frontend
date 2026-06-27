@@ -42,20 +42,19 @@ export function ChangePasswordForm() {
 
     return (
         <SettingsCard
-            className="lg:max-w-xl"
             title={t("settings.security.password.title")}
             subtitle={t("settings.security.password.subtitle")}
         >
             <form
                 onSubmit={onSubmit}
-                className="flex flex-col gap-4"
+                className="flex max-w-lg flex-col gap-4"
             >
                 {error && <Alert error={error} />}
 
                 <FloatingField
                     required
-                    id="oldPassword"
                     type="password"
+                    id="oldPassword"
                     autoComplete="current-password"
                     label={t("settings.security.password.current")}
                     error={form.formState.errors.oldPassword?.message}
@@ -64,8 +63,8 @@ export function ChangePasswordForm() {
 
                 <FloatingField
                     required
-                    id="newPassword"
                     type="password"
+                    id="newPassword"
                     autoComplete="new-password"
                     label={t("settings.security.password.new")}
                     error={form.formState.errors.newPassword?.message}
@@ -74,8 +73,8 @@ export function ChangePasswordForm() {
 
                 <FloatingField
                     required
-                    id="confirmPassword"
                     type="password"
+                    id="confirmPassword"
                     autoComplete="new-password"
                     label={t("settings.security.password.confirm")}
                     error={form.formState.errors.confirmPassword?.message}
