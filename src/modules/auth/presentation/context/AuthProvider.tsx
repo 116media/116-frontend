@@ -16,13 +16,13 @@ import container from "@/shared/infrastructure/service.locator";
  * @property {IAuthUser | null} user - The current user, or null when guest.
  * @property {AuthStatus} status - Derived status: loading | guest | unverified | authenticated.
  * @property {boolean} isAuthenticated - Convenience for `status === "authenticated"`.
- * @property {() => void} refetch - Re-runs the `me` query.
+ * @property {() => Promise<unknown>} refetch - Re-runs the `me` query; resolves when it settles.
  */
 export interface AuthContextValue {
     user: IAuthUser | null;
     status: AuthStatus;
     isAuthenticated: boolean;
-    refetch: () => void;
+    refetch: () => Promise<unknown>;
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null);
