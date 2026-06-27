@@ -1,10 +1,12 @@
-import { Clock, Play, Share2 } from "lucide-react";
+import { Clock, Share2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
+import { ButtonFrostedPlay } from "@/shared/presentation/components/ui/Button";
 import { RelativeDate } from "@/shared/presentation/components/ui/RelativeDate";
 import { StarRating } from "@/shared/presentation/components/ui/StarRating";
 import { VIDEOS_PATH } from "@/shared/presentation/constants/paths";
+import { formatCount } from "@/shared/presentation/utils/formatCount";
 import type { VideoCardProps } from "./types";
 
 /**
@@ -36,10 +38,7 @@ export function Horizontal({ video }: VideoCardProps) {
                     />
                 )}
                 <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity group-hover:opacity-100">
-                    <Play
-                        aria-hidden
-                        className="size-5 fill-current text-white"
-                    />
+                    <ButtonFrostedPlay size="sm" />
                 </div>
             </div>
 
@@ -56,7 +55,7 @@ export function Horizontal({ video }: VideoCardProps) {
                 <div className="mt-auto flex flex-wrap justify-between items-center gap-2 pt-2 text-muted-foreground">
                     <span className="flex items-center gap-1 text-sm">
                         <Share2 className="size-3" />
-                        {video.shareCount}
+                        {formatCount(video.shareCount)}
                     </span>
                     <span className="flex items-center gap-1 text-xs">
                         <Clock className="size-3" />

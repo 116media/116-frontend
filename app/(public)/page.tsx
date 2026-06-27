@@ -4,6 +4,7 @@ import { ArticlePromotionFeedContainer } from "@/modules/articles/presentation/c
 import { ArticlePromotionFeedLoading } from "@/modules/articles/presentation/components/ArticlePromotionFeed/ArticlePromotionFeed.Loading";
 import { VideoExclusiveShowContainer } from "@/modules/videos/presentation/components/VideoExclusiveShow";
 import { VideoExclusiveShowLoading } from "@/modules/videos/presentation/components/VideoExclusiveShow/VideoExclusiveShow.Loading";
+import { VideoFeedSectionContainer } from "@/modules/videos/presentation/components/VideoFeedSection";
 
 /**
  * HomePage
@@ -26,6 +27,9 @@ export default function HomePage() {
             <Suspense fallback={<VideoExclusiveShowLoading />}>
                 <VideoExclusiveShowContainer />
             </Suspense>
+
+            {/* Video feed — a pinned category and its latest videos */}
+            <VideoFeedSectionContainer />
         </div>
     );
 }
