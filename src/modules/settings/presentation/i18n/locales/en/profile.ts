@@ -19,6 +19,7 @@ export const profile = {
     },
     edit: {
         title: "Edit account information",
+        subtitle: "Update your username, country, and phone number.",
         email: "Email",
         userName: "Username",
         country: "Country",
