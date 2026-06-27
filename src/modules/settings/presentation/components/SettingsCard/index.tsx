@@ -53,7 +53,7 @@ export function SettingsCard({
     className
 }: SettingsCardProps) {
     return (
-        <Card className={cn("p-6", className)}>
+        <Card className={cn("bg-transparent p-6 shadow-none hover:shadow-none", className)}>
             <div className="mb-4 flex items-start justify-between gap-4">
                 <div className="min-w-0">
                     <h2 className="font-semibold text-base text-foreground">{title}</h2>
@@ -63,9 +63,8 @@ export function SettingsCard({
                     {extra}
                     {onEdit && (
                         <Button
-                            size="sm"
-                            variant="secondary"
                             onClick={onEdit}
+                            variant="outline"
                         >
                             <EditIcon className="size-4" />
                             {editLabel}
