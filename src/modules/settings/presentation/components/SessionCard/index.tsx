@@ -77,8 +77,8 @@ export function SessionCard({ session }: SessionCardProps) {
 
     return (
         <>
-            <div className="flex items-center gap-3 rounded-md border p-3">
-                <div className="flex size-10 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground [&_svg]:size-5">
+            <div className="flex items-center gap-3 rounded-md border p-4">
+                <div className="flex size-12 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground [&_svg]:size-5">
                     <DeviceIcon />
                 </div>
                 <div className="min-w-0 flex-1">
@@ -100,7 +100,7 @@ export function SessionCard({ session }: SessionCardProps) {
                         )}
                     </div>
                 </div>
-                {session.isActive && !session.isCurrent && (
+                {session.isActive ? (
                     <Button
                         size="sm"
                         variant="destructive"
@@ -109,8 +109,7 @@ export function SessionCard({ session }: SessionCardProps) {
                     >
                         {t("settings.security.sessions.revoke")}
                     </Button>
-                )}
-                {!session.isActive && (
+                ) : (
                     <Tag variant="outline">{t("settings.security.sessions.expired")}</Tag>
                 )}
             </div>
