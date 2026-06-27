@@ -33,8 +33,8 @@ type ProfileFormValues = z.infer<typeof profileSchema>;
  */
 export interface ProfileEditModalProps {
     open: boolean;
-    onOpenChange: (open: boolean) => void;
     user: IProfile;
+    onOpenChange: (open: boolean) => void;
 }
 
 /**
