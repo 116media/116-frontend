@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { COUNTRY_LIST } from "@/shared/infrastructure/constants/countries";
-import { CheckIcon, ChevronsUpDownIcon } from "@/shared/presentation/components/ui/Icon";
-import { Input } from "@/shared/presentation/components/ui/Input";
-import { cn } from "@/shared/presentation/utils/cn";
+import { useDismiss } from "@/shared/presentation/hooks/useDismiss";
 import { findCountryByName } from "@/shared/presentation/utils/country";
+
+import { CountrySelectMenu } from "./CountrySelectMenu";
+import { CountrySelectTrigger } from "./CountrySelectTrigger";
 
 /**
  * Props for the CountrySelect component.
@@ -21,27 +22,30 @@ import { findCountryByName } from "@/shared/presentation/utils/country";
  * @property {string} [placeholder] - Search prompt inside the popover.
  */
 export interface CountrySelectProps {
-    value?: string;
-    onChange: (name: string) => void;
+    id?: string;
     label: string;
     error?: string;
+    value?: string;
     required?: boolean;
-    id?: string;
     placeholder?: string;
+    onChange: (name: string) => void;
 }
 
 /**
  * CountrySelect
  *
  * @description
- * A searchable country picker wearing the same floating-label chrome as
- * `FloatingField`, so it lines up with the other form fields. The trigger shows the
- * selected flag, dial code, and name; the label floats to the top once a country is
- * selected or the popover opens, and rests as the placeholder otherwise. The popover
- * holds a search field over the full country list (filtered by name, dial code, or ISO
- * code) and emits the country name only — the parent derives the ISO and dial codes.
- * Flags load from the CDN via a plain image tag, so no image-host configuration is
- * needed.
+ * A searchable country picker composed from small parts: the floating-label
+ * {@link CountrySelectTrigger}, the searchable {@link CountrySelectMenu} (a list of
+ * {@link CountryOption} rows), and the shared {@link useDismiss} hook for outside-click /
+ * Escape handling. This component owns only the state — open/close, the
+ * search query, filtering the country list, and focusing the search field on open — and
+ * emits the selected country name; the parent derives the ISO and dial codes.
+ *
+ * The menu renders in flow (absolutely positioned under the trigger), so it stays inside
+ * any surrounding focus/scroll scope — a modal dialog keeps its search input typeable and
+ * its list scrollable. It relies on its host container not clipping it, so a dialog that
+ * hosts it must not put an `overflow` boundary between the field and the panel edge.
  *
  * @param value - The selected country name.
  * @param onChange - Emits the selected country name.
@@ -66,7 +70,6 @@ export function CountrySelect({
     const [query, setQuery] = useState("");
 
     const selected = findCountryByName(value);
-    const floated = open || Boolean(selected);
 
     const results = useMemo(() => {
         const search = query.trim().toLowerCase();
@@ -79,24 +82,11 @@ export function CountrySelect({
         );
     }, [query]);
 
+    const close = useCallback(() => setOpen(false), []);
+    useDismiss(open, close, containerRef);
+
     useEffect(() => {
-        if (!open) return;
-
-        searchRef.current?.focus();
-
-        const onPointerDown = (event: PointerEvent) => {
-            if (!containerRef.current?.contains(event.target as Node)) setOpen(false);
-        };
-        const onKeyDown = (event: KeyboardEvent) => {
-            if (event.key === "Escape") setOpen(false);
-        };
-
-        document.addEventListener("pointerdown", onPointerDown);
-        document.addEventListener("keydown", onKeyDown);
-        return () => {
-            document.removeEventListener("pointerdown", onPointerDown);
-            document.removeEventListener("keydown", onKeyDown);
-        };
+        if (open) searchRef.current?.focus();
     }, [open]);
 
     const select = (name: string) => {
@@ -111,84 +101,26 @@ export function CountrySelect({
                 ref={containerRef}
                 className="relative"
             >
-                <button
+                <CountrySelectTrigger
                     id={id}
-                    type="button"
-                    aria-invalid={error ? true : undefined}
-                    onClick={() => setOpen((previous) => !previous)}
-                    className={cn(
-                        "flex h-12 w-full cursor-pointer items-center gap-2 rounded-md border border-input bg-muted px-3 pt-4 text-left text-sm outline-none transition-colors",
-                        "focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/20",
-                        open && "border-ring ring-3 ring-ring/20",
-                        error && "border-destructive"
-                    )}
-                >
-                    {selected && (
-                        <span className="flex min-w-0 items-center gap-2">
-                            <img
-                                src={selected.flag}
-                                alt={selected.isoCode}
-                                className="h-3 w-5 shrink-0 object-cover"
-                            />
-                            <span className="text-muted-foreground">{selected.dialCode}</span>
-                            <span className="truncate">{selected.name}</span>
-                        </span>
-                    )}
-                    <ChevronsUpDownIcon className="ml-auto size-4 shrink-0 text-muted-foreground" />
-                </button>
-
-                <label
-                    htmlFor={id}
-                    className={cn(
-                        "pointer-events-none absolute left-3 transition-all duration-200",
-                        floated
-                            ? "top-1.5 font-bold text-[10px] text-primary dark:text-secondary"
-                            : "-translate-y-1/2 top-1/2 font-normal text-muted-foreground text-sm"
-                    )}
-                >
-                    {label}
-                    {required && <span className="ml-0.5 text-destructive">*</span>}
-                </label>
+                    open={open}
+                    label={label}
+                    selected={selected}
+                    error={Boolean(error)}
+                    required={required}
+                    onToggle={() => setOpen((previous) => !previous)}
+                />
 
                 {open && (
-                    <div className="absolute z-50 mt-1 w-full overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md">
-                        <div className="p-2">
-                            <Input
-                                ref={searchRef}
-                                value={query}
-                                placeholder={placeholder}
-                                onChange={(event) => setQuery(event.target.value)}
-                            />
-                        </div>
-                        <ul className="max-h-64 overflow-y-auto pb-1">
-                            {results.map((country) => (
-                                <li key={country.isoCode}>
-                                    <button
-                                        type="button"
-                                        onClick={() => select(country.name)}
-                                        className={cn(
-                                            "flex w-full cursor-pointer items-center gap-2 px-3 py-1.5 text-left text-sm transition-colors hover:bg-accent hover:text-accent-foreground",
-                                            country.name === value && "bg-accent/50"
-                                        )}
-                                    >
-                                        <img
-                                            loading="lazy"
-                                            src={country.flag}
-                                            alt={country.isoCode}
-                                            className="h-3 w-5 shrink-0 object-cover"
-                                        />
-                                        <span className="w-12 shrink-0 text-muted-foreground">
-                                            {country.dialCode}
-                                        </span>
-                                        <span className="truncate">{country.name}</span>
-                                        {country.name === value && (
-                                            <CheckIcon className="ml-auto size-4 shrink-0" />
-                                        )}
-                                    </button>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+                    <CountrySelectMenu
+                        value={value}
+                        query={query}
+                        results={results}
+                        onSelect={select}
+                        searchRef={searchRef}
+                        placeholder={placeholder}
+                        onQueryChange={setQuery}
+                    />
                 )}
             </div>
             {error && <p className="text-destructive text-xs">{error}</p>}
