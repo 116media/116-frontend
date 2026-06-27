@@ -39,4 +39,12 @@ export interface ISettingsRepositoryPort {
     changePassword(
         credentials: IChangePasswordCredentials
     ): Promise<Result<IChangePasswordResponse>>;
+
+    /**
+     * Uploads a new avatar image and returns the updated user.
+     *
+     * @param file - The image file to upload
+     * @returns `ok(IProfile)` on success, `err(Failure)` on failure
+     */
+    updateAvatar(file: File): Promise<Result<IProfile>>;
 }
