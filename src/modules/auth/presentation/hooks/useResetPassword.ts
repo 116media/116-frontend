@@ -3,7 +3,7 @@
 import { useMutation } from "@tanstack/react-query";
 
 import type { IResetPasswordResponse } from "@/modules/auth/domain/entities/IResetPasswordResponse";
-import { authKeys } from "@/modules/auth/presentation/context/authKeys";
+import { authKeys } from "@/modules/auth/presentation/constants/authKeys";
 import type { IResetPasswordCredentials } from "@/modules/auth/presentation/model/IResetPasswordCredentials";
 import type { Failure } from "@/shared/domain/failures/failure";
 import container from "@/shared/infrastructure/service.locator";
