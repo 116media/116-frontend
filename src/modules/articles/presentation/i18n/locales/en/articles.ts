@@ -1,0 +1,46 @@
+/**
+ * articles (en)
+ *
+ * @description
+ * English strings for the article card, feed grid, and filter toolbar surfaces. Owned
+ * by the articles module presentation layer; the locale barrel spreads this object so
+ * call sites reference the keys as `t("articles.card.<key>")`, `t("articles.grid.<key>")`
+ * and `t("articles.filters.<key>")`. `readTime` uses i18next plural suffixes and is
+ * called as `t("articles.card.readTime", { count })`. Must hold the exact same keys as
+ * the French mirror.
+ */
+export const articles = {
+    card: {
+        read: "Read Article",
+        readTime_one: "{{count}} min read",
+        readTime_other: "{{count}} min read",
+        share: "Share",
+        bookmark: "Bookmark",
+        like: "Like",
+        comments: "Comments"
+    },
+    grid: {
+        empty: {
+            title: "No articles yet",
+            body: "Check back soon for new stories."
+        },
+        noResults: {
+            title: "No articles match your filters",
+            body: "Try a different search, category, or tag."
+        },
+        error: {
+            title: "Couldn't load articles",
+            retry: "Try again"
+        },
+        end: "You're all caught up"
+    },
+    filters: {
+        searchPlaceholder: "Search articles…",
+        clearSearch: "Clear search",
+        allCategories: "All categories",
+        category: "Category",
+        allTags: "All tags",
+        tagSearch: "Find a tag…",
+        clear: "Clear filters"
+    }
+} as const;
