@@ -3,7 +3,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import type { IAuthResponse } from "@/modules/auth/domain/entities/IAuthResponse";
-import { authKeys } from "@/modules/auth/presentation/context/authKeys";
+import { authKeys } from "@/modules/auth/presentation/constants/authKeys";
 import type { ISignupCredentials } from "@/modules/auth/presentation/model/ISignupCredentials";
 import type { Failure } from "@/shared/domain/failures/failure";
 import { ok } from "@/shared/domain/results/result";
