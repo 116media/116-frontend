@@ -1261,6 +1261,11 @@ export interface BrowserMetrics {
   unknown: number;
 }
 
+export interface CategoryColorsDto {
+  background: string;
+  foreground: string;
+}
+
 export interface CategoryDto {
   /** @format uuid */
   id: string;
@@ -1278,6 +1283,7 @@ export interface CategoryDto {
   /** @format date-time */
   pinnedToFeedAt?: string | null;
   posterUrl?: string | null;
+  colors?: CategoryColorsDto | null;
   pricing: CategoryPricingDto[];
 }
 
