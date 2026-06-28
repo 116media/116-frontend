@@ -1,5 +1,9 @@
-import type { IArticlesRepositoryPort } from "@/modules/articles/application/repositories/articles.repository.port";
+import type {
+    IArticlesRepositoryPort,
+    IPublishedArticlesQuery
+} from "@/modules/articles/application/repositories/articles.repository.port";
 import type { IArticleCategoryEntity } from "@/modules/articles/domain/entities/IArticleCategoryEntity";
+import type { IArticlePage } from "@/modules/articles/domain/entities/IArticlePage";
 import type { IArticlePromotionFeedEntity } from "@/modules/articles/domain/entities/IArticlePromotionFeedEntity";
 import type { IArticleSummaryEntity } from "@/modules/articles/domain/entities/IArticleSummaryEntity";
 import type { IArticleTagEntity } from "@/modules/articles/domain/entities/IArticleTagEntity";
@@ -7,6 +11,20 @@ import { ArticlesMapper } from "@/modules/articles/infrastructure/mappers/articl
 import { err, ok, type Result } from "@/shared/domain/results/result";
 import { type Api, EnumCoreContentType } from "@/shared/infrastructure/api/generated/116.api";
 import { ProblemMapper } from "@/shared/infrastructure/mappers/problem.mapper";
+
+/**
+ * Maximum number of article tags requested for the "All tags" popover. Caps the server
+ * response so the popover never pulls the full tag vocabulary; matching tags beyond this
+ * count are reachable through the popover's search box.
+ */
+const ALL_TAGS_LIMIT = 50;
+
+/**
+ * Maximum number of popular article tags requested for the quick-pick tag strip and the
+ * navigation prefetch that warms it. Keeps the strip to the most-used tags; everything else
+ * is reachable through the searchable "All tags" popover.
+ */
+const POPULAR_TAGS_LIMIT = 15;
 
 /**
  * Articles repository implementation using the public REST API.
@@ -56,7 +74,8 @@ export class ArticlesRepositoryImpl implements IArticlesRepositoryPort {
     async getArticlePopularTags(): Promise<Result<IArticleTagEntity[]>> {
         try {
             const response = await this.api.publicGetPopularTags({
-                contentType: EnumCoreContentType.Article
+                contentType: EnumCoreContentType.Article,
+                limit: POPULAR_TAGS_LIMIT
             });
             return ok(response.data.tags.map(ArticlesMapper.tagFromDto));
         } catch (error) {
@@ -68,6 +87,79 @@ export class ArticlesRepositoryImpl implements IArticlesRepositoryPort {
         try {
             const response = await this.api.getArticlePromotionFeed();
             return ok(ArticlesMapper.promotionFeedFromDto(response.data));
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async getPublishedArticles(query: IPublishedArticlesQuery): Promise<Result<IArticlePage>> {
+        try {
+            const response = await this.api.getPublishedArticles({
+                pageIndex: query.pageIndex,
+                pageSize: query.pageSize,
+                search: query.search,
+                categoryId: query.categoryId,
+                tagSlug: query.tagSlug
+            });
+            return ok(ArticlesMapper.articlePageFromDto(response.data.articles));
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async getAllTags(search?: string): Promise<Result<IArticleTagEntity[]>> {
+        try {
+            const response = await this.api.publicGetAllTags({
+                search,
+                contentType: EnumCoreContentType.Article,
+                limit: ALL_TAGS_LIMIT
+            });
+            return ok(response.data.tags.map(ArticlesMapper.tagFromDto));
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async likeArticle(id: string): Promise<Result<boolean>> {
+        try {
+            const response = await this.api.publicLikeArticle(id);
+            return ok(response.data.isSuccess);
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async unlikeArticle(id: string): Promise<Result<boolean>> {
+        try {
+            const response = await this.api.publicUnlikeArticle(id);
+            return ok(response.data.isSuccess);
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async bookmarkArticle(id: string): Promise<Result<boolean>> {
+        try {
+            const response = await this.api.publicBookmarkArticle(id);
+            return ok(response.data.isSuccess);
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async unbookmarkArticle(id: string): Promise<Result<boolean>> {
+        try {
+            const response = await this.api.publicUnbookmarkArticle(id);
+            return ok(response.data.isSuccess);
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async shareArticle(id: string, _platform: string): Promise<Result<boolean>> {
+        try {
+            const response = await this.api.publicShareArticle(id);
+            return ok(response.data.isSuccess);
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }
