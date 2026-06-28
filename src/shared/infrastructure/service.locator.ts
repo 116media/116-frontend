@@ -1,9 +1,16 @@
 import { asClass, asValue, createContainer, InjectionMode } from "awilix";
 import type { IArticlesRepositoryPort } from "@/modules/articles/application/repositories/articles.repository.port";
+import type { BookmarkArticleUseCase } from "@/modules/articles/application/usecases/bookmarkarticle.usecase";
+import type { GetAllTagsUseCase } from "@/modules/articles/application/usecases/getalltags.usecase";
 import type { GetArticleCategoriesUseCase } from "@/modules/articles/application/usecases/getarticlecategories.usecase";
 import type { GetArticlePopularTagsUseCase } from "@/modules/articles/application/usecases/getarticlepopulartags.usecase";
 import type { GetArticlePromotionFeedUseCase } from "@/modules/articles/application/usecases/getarticlepromotionfeed.usecase";
 import type { GetPromotedArticlesUseCase } from "@/modules/articles/application/usecases/getpromotedarticles.usecase";
+import type { GetPublishedArticlesUseCase } from "@/modules/articles/application/usecases/getpublishedarticles.usecase";
+import type { LikeArticleUseCase } from "@/modules/articles/application/usecases/likearticle.usecase";
+import type { ShareArticleUseCase } from "@/modules/articles/application/usecases/sharearticle.usecase";
+import type { UnbookmarkArticleUseCase } from "@/modules/articles/application/usecases/unbookmarkarticle.usecase";
+import type { UnlikeArticleUseCase } from "@/modules/articles/application/usecases/unlikearticle.usecase";
 import { registerArticlesDependencies } from "@/modules/articles/infrastructure/dependencies/articles.dependencies";
 import type { IAuthRepositoryPort } from "@/modules/auth/application/repositories/auth.repository.port";
 import type { ForgotPasswordUseCase } from "@/modules/auth/application/usecases/forgotpassword.usecase";
@@ -60,6 +67,15 @@ export interface Cradle {
     getArticleCategoriesUseCase: GetArticleCategoriesUseCase;
     getArticlePopularTagsUseCase: GetArticlePopularTagsUseCase;
     getArticlePromotionFeedUseCase: GetArticlePromotionFeedUseCase;
+    getPublishedArticlesUseCase: GetPublishedArticlesUseCase;
+    getAllTagsUseCase: GetAllTagsUseCase;
+
+    // Articles interaction use cases
+    likeArticleUseCase: LikeArticleUseCase;
+    unlikeArticleUseCase: UnlikeArticleUseCase;
+    bookmarkArticleUseCase: BookmarkArticleUseCase;
+    unbookmarkArticleUseCase: UnbookmarkArticleUseCase;
+    shareArticleUseCase: ShareArticleUseCase;
 
     // Videos repository
     videosRepository: IVideosRepositoryPort;
