@@ -1,9 +1,16 @@
 import type { AwilixContainer } from "awilix";
 import { asClass } from "awilix";
+import { BookmarkArticleUseCase } from "@/modules/articles/application/usecases/bookmarkarticle.usecase";
+import { GetAllTagsUseCase } from "@/modules/articles/application/usecases/getalltags.usecase";
 import { GetArticleCategoriesUseCase } from "@/modules/articles/application/usecases/getarticlecategories.usecase";
 import { GetArticlePopularTagsUseCase } from "@/modules/articles/application/usecases/getarticlepopulartags.usecase";
 import { GetArticlePromotionFeedUseCase } from "@/modules/articles/application/usecases/getarticlepromotionfeed.usecase";
 import { GetPromotedArticlesUseCase } from "@/modules/articles/application/usecases/getpromotedarticles.usecase";
+import { GetPublishedArticlesUseCase } from "@/modules/articles/application/usecases/getpublishedarticles.usecase";
+import { LikeArticleUseCase } from "@/modules/articles/application/usecases/likearticle.usecase";
+import { ShareArticleUseCase } from "@/modules/articles/application/usecases/sharearticle.usecase";
+import { UnbookmarkArticleUseCase } from "@/modules/articles/application/usecases/unbookmarkarticle.usecase";
+import { UnlikeArticleUseCase } from "@/modules/articles/application/usecases/unlikearticle.usecase";
 import { ArticlesRepositoryImpl } from "@/modules/articles/infrastructure/repositories/articles.repository.impl";
 
 /**
@@ -24,6 +31,15 @@ export function registerArticlesDependencies(container: AwilixContainer): void {
         getPromotedArticlesUseCase: asClass(GetPromotedArticlesUseCase).transient(),
         getArticleCategoriesUseCase: asClass(GetArticleCategoriesUseCase).transient(),
         getArticlePopularTagsUseCase: asClass(GetArticlePopularTagsUseCase).transient(),
-        getArticlePromotionFeedUseCase: asClass(GetArticlePromotionFeedUseCase).transient()
+        getArticlePromotionFeedUseCase: asClass(GetArticlePromotionFeedUseCase).transient(),
+        getPublishedArticlesUseCase: asClass(GetPublishedArticlesUseCase).transient(),
+        getAllTagsUseCase: asClass(GetAllTagsUseCase).transient(),
+
+        // Interactions
+        likeArticleUseCase: asClass(LikeArticleUseCase).transient(),
+        unlikeArticleUseCase: asClass(UnlikeArticleUseCase).transient(),
+        bookmarkArticleUseCase: asClass(BookmarkArticleUseCase).transient(),
+        unbookmarkArticleUseCase: asClass(UnbookmarkArticleUseCase).transient(),
+        shareArticleUseCase: asClass(ShareArticleUseCase).transient()
     });
 }
