@@ -3,7 +3,7 @@
 import { useMutation } from "@tanstack/react-query";
 
 import type { IResendOtpResponse } from "@/modules/auth/domain/entities/IResendOtpResponse";
-import { authKeys } from "@/modules/auth/presentation/context/authKeys";
+import { authKeys } from "@/modules/auth/presentation/constants/authKeys";
 import type { IResendOtpCredentials } from "@/modules/auth/presentation/model/IResendOtpCredentials";
 import type { Failure } from "@/shared/domain/failures/failure";
 import container from "@/shared/infrastructure/service.locator";
