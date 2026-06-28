@@ -4,8 +4,8 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { createContext, type ReactNode, useContext, useEffect, useMemo } from "react";
 import type { IAuthUser } from "@/modules/auth/domain/entities/IAuthUser";
 import type { AuthStatus } from "@/modules/auth/domain/valueobjects/AuthStatus";
-import { getAuthChannel } from "@/modules/auth/presentation/context/authChannel";
-import { authKeys } from "@/modules/auth/presentation/context/authKeys";
+import { authKeys } from "@/modules/auth/presentation/constants/authKeys";
+import { getAuthChannel } from "@/modules/auth/presentation/utils/authChannel";
 import { REFRESH_TOKEN_EXPIRED_EVENT } from "@/shared/infrastructure/interceptors/refresh-token-expiry.interceptor";
 import container from "@/shared/infrastructure/service.locator";
 
