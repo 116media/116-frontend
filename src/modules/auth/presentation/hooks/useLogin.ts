@@ -3,9 +3,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import type { IAuthResponse } from "@/modules/auth/domain/entities/IAuthResponse";
-import { getAuthChannel } from "@/modules/auth/presentation/context/authChannel";
-import { authKeys } from "@/modules/auth/presentation/context/authKeys";
+import { authKeys } from "@/modules/auth/presentation/constants/authKeys";
 import type { ILoginCredentials } from "@/modules/auth/presentation/model/ILoginCredentials";
+import { getAuthChannel } from "@/modules/auth/presentation/utils/authChannel";
 import type { Failure } from "@/shared/domain/failures/failure";
 import { ok } from "@/shared/domain/results/result";
 import container from "@/shared/infrastructure/service.locator";
