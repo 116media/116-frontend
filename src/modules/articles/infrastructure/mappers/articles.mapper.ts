@@ -1,9 +1,11 @@
 import type { IArticleCategoryEntity } from "@/modules/articles/domain/entities/IArticleCategoryEntity";
+import type { IArticlePage } from "@/modules/articles/domain/entities/IArticlePage";
 import type { IArticlePromotionFeedEntity } from "@/modules/articles/domain/entities/IArticlePromotionFeedEntity";
 import type { IArticleSummaryEntity } from "@/modules/articles/domain/entities/IArticleSummaryEntity";
 import type { IArticleTagEntity } from "@/modules/articles/domain/entities/IArticleTagEntity";
 import type {
     ArticleSummaryDto,
+    ArticleSummaryDtoPaginatedResult,
     CategoryDto,
     PublicGetArticlePromotionFeedResponse,
     TagDto
@@ -43,7 +45,25 @@ export const ArticlesMapper = {
             publishedAt: dto.publishedAt ?? null,
             likeCount: dto.likeCount ?? 0,
             commentCount: dto.commentCount ?? 0,
-            shareCount: dto.shareCount ?? 0
+            shareCount: dto.shareCount ?? 0,
+            bookmarkCount: dto.bookmarkCount ?? 0
+        };
+    },
+
+    /**
+     * Maps a paginated ArticleSummaryDto result to an IArticlePage, deriving
+     * hasNextPage from the total count and the current page index.
+     *
+     * @param {ArticleSummaryDtoPaginatedResult} dto - Paginated envelope from getPublishedArticles
+     * @returns {IArticlePage} Mapped article page entity
+     */
+    articlePageFromDto(dto: ArticleSummaryDtoPaginatedResult): IArticlePage {
+        return {
+            items: dto.items.map(ArticlesMapper.articleSummaryFromDto),
+            pageIndex: dto.pageIndex,
+            pageSize: dto.pageSize,
+            count: dto.count,
+            hasNextPage: (dto.pageIndex + 1) * dto.pageSize < dto.count
         };
     },
 
