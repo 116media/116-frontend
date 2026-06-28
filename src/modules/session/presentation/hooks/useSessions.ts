@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import type { ISession } from "@/modules/auth/domain/entities/ISession";
-import { authKeys } from "@/modules/auth/presentation/context/authKeys";
+import { authKeys } from "@/modules/auth/presentation/constants/authKeys";
 import type { Failure } from "@/shared/domain/failures/failure";
 import container from "@/shared/infrastructure/service.locator";
 
