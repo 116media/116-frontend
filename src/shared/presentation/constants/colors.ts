@@ -61,7 +61,7 @@ export const Colors = {
     Description: "#9295a2",
 
     // Social
-    Twitter: "#1da1f2",
+    Twitter: "#000000",
     Instagram: "#e1306c",
     Facebook: "#4267b2",
     Youtube: "#ff0000",
