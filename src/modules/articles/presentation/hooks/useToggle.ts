@@ -12,15 +12,21 @@ import type { Result } from "@/shared/domain/results/result";
  * @description
  * Shared optimistic toggle used by like and bookmark: owns a boolean `on` state and a
  * displayed `count`, flips them immediately on `toggle`, runs the on/off use case, and
- * rolls both back on failure. State is client-owned because the summary DTO exposes no
- * per-user flag.
+ * rolls both back on failure. `initialOn` seeds the state from the entity's per-user
+ * flag where the DTO provides one (the article detail); it defaults to false for
+ * surfaces whose summary DTO exposes no per-user flag (the feed).
  *
  * @param initialCount - The baseline count from the entity.
  * @param onExecute - Runs the "on" (true) or "off" (false) mutation; resolves the success flag.
+ * @param initialOn - The entity's per-user flag baseline. Defaults to false.
  * @returns `{ on, count, toggle }`.
  */
-export function useToggle(initialCount: number, onExecute: (next: boolean) => Promise<boolean>) {
-    const [on, setOn] = useState(false);
+export function useToggle(
+    initialCount: number,
+    onExecute: (next: boolean) => Promise<boolean>,
+    initialOn = false
+) {
+    const [on, setOn] = useState(initialOn);
     const [count, setCount] = useState(initialCount);
 
     const mutation = useMutation<boolean, Failure, boolean>({
