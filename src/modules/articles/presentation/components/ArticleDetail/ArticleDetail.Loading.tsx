@@ -32,7 +32,7 @@ function SidebarRowSkeleton() {
  */
 export function ArticleDetailLoading() {
     const bodyLines = Array.from({ length: 8 }, (_, index) => index);
-    const sidebarRows = Array.from({ length: 3 }, (_, index) => index);
+    const sidebarRows = Array.from({ length: 5 }, (_, index) => index);
     return (
         <div className="lg:grid lg:grid-cols-[auto_minmax(0,3fr)_minmax(0,2fr)] lg:gap-8">
             <aside className="hidden lg:block lg:w-9" />
@@ -60,8 +60,11 @@ export function ArticleDetailLoading() {
             </div>
 
             <aside className="hidden lg:flex lg:flex-col lg:gap-3">
-                <Skeleton className="h-6 w-40" />
-                <div className="flex flex-col gap-3 rounded-xl bg-muted/30 p-3 xl:p-5">
+                <div className="mb-4 flex items-center gap-3 border-b pb-4">
+                    <Skeleton className="size-12 rounded-md" />
+                    <Skeleton className="h-5 w-40" />
+                </div>
+                <div className="flex flex-col gap-8 rounded-xl bg-muted/30 p-3 xl:p-5">
                     {sidebarRows.map((row) => (
                         <SidebarRowSkeleton key={row} />
                     ))}
