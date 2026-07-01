@@ -20,14 +20,24 @@ export interface IArticleFeedFilters {
 /**
  * Stable TanStack Query keys for the articles feature. The feed key embeds the active
  * filters so each filter combination caches independently; categories and tags have
- * their own stable entries for the toolbar reads.
+ * their own stable entries for the toolbar reads. The detail page adds `detail(slug)`,
+ * `comments(articleId)`, and `popular(articleId)` — the latter keyed by the open article
+ * so each article's exclusion set caches independently.
  */
 export const articleKeys = {
     all: ["articles"] as const,
     feed: (filters: IArticleFeedFilters = {}) => [...articleKeys.all, "feed", filters] as const,
     categories: ["articles", "categories"] as const,
     popularTags: ["articles", "tags", "popular"] as const,
-    allTags: (search: string) => [...articleKeys.all, "tags", "all", search] as const
+    allTags: (search: string) => [...articleKeys.all, "tags", "all", search] as const,
+    detail: (slug: string) => [...articleKeys.all, "detail", slug] as const,
+    comments: (articleId: string) => [...articleKeys.all, "detail", articleId, "comments"] as const,
+    popular: (articleId: string) => [...articleKeys.all, "popular", articleId] as const
 };
 
 export const ARTICLES_PAGE_SIZE = 12;
+
+/**
+ * Page size for the article comment list.
+ */
+export const ARTICLE_COMMENTS_PAGE_SIZE = 10;
