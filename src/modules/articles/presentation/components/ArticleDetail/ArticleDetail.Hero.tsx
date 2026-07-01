@@ -34,7 +34,7 @@ export function ArticleDetailHero({ coverImageUrl, categoryName, title }: Articl
                 categoryName={categoryName}
                 coverImageUrl={coverImageUrl}
             />
-            <h1 className="line-clamp-3 font-serif font-bold text-2xl tracking-tight md:text-3xl">
+            <h1 className="line-clamp-3 font-serif font-bold text-2xl tracking-tight md:text-3xl mb-1">
                 {title}
             </h1>
         </header>
