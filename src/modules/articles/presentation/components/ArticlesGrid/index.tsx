@@ -21,21 +21,46 @@ import { ArticlesGridLoading } from "./ArticlesGrid.Loading";
 const SENTINEL_OPTIONS: IntersectionObserverInit = { rootMargin: "200px 0px" };
 
 /**
+ * Props for {@link ArticlesFeedContainer}.
+ *
+ * @interface ArticlesFeedContainerProps
+ * @property {string} [initialSearch] - Initial search term, seeded from the URL `search` param.
+ * @property {string} [initialCategoryId] - Initial category filter, seeded from the URL `categoryId` param.
+ * @property {string} [initialTagSlug] - Initial tag filter, seeded from the URL `tagSlug` param.
+ */
+export interface ArticlesFeedContainerProps {
+    initialSearch?: string;
+    initialCategoryId?: string;
+    initialTagSlug?: string;
+}
+
+/**
  * ArticlesFeedContainer
  *
  * @description
  * Owns the article feed's filter state (search / category / tag), renders
  * {@link ArticlesToolbar} above the grid, and drives {@link useArticlesFeed} with the
- * debounced filters. Flattens the query's pages and renders {@link ArticlesGrid} with a
- * sentinel observed by {@link useIntersectionObserver} that requests the next page as it
- * enters the viewport. Shows skeleton / filtered-empty / error / end-of-feed states.
- * The dummy-data fallback lives in {@link useArticlesFeed} (paged), so an empty
- * unfiltered feed pages through the dummy set here with no special branch.
+ * debounced filters. The filter state is seeded from the URL query params (`search`,
+ * `categoryId`, `tagSlug`) supplied by the route, so a deep link such as
+ * `/articles?tagSlug=music` opens pre-filtered and the toolbar reflects the active filter.
+ * Flattens the query's pages and renders {@link ArticlesGrid} with a sentinel observed by
+ * {@link useIntersectionObserver} that requests the next page as it enters the viewport.
+ * Shows skeleton / filtered-empty / error / end-of-feed states. The dummy-data fallback
+ * lives in {@link useArticlesFeed} (paged), so an empty unfiltered feed pages through the
+ * dummy set here with no special branch.
+ *
+ * @param initialSearch - Initial search term from the URL.
+ * @param initialCategoryId - Initial category filter from the URL.
+ * @param initialTagSlug - Initial tag filter from the URL.
  */
-export function ArticlesFeedContainer() {
-    const [search, setSearch] = useState("");
-    const [categoryId, setCategoryId] = useState<string | undefined>(undefined);
-    const [tagSlug, setTagSlug] = useState<string | undefined>(undefined);
+export function ArticlesFeedContainer({
+    initialSearch = "",
+    initialCategoryId,
+    initialTagSlug
+}: ArticlesFeedContainerProps = {}) {
+    const [search, setSearch] = useState(initialSearch);
+    const [categoryId, setCategoryId] = useState<string | undefined>(initialCategoryId);
+    const [tagSlug, setTagSlug] = useState<string | undefined>(initialTagSlug);
 
     const debouncedSearch = useDebouncedValue(search, 300);
     const filters = useMemo(
