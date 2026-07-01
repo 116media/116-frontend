@@ -91,8 +91,8 @@ export function ArticleDetailEngagement({
 }: ArticleDetailEngagementProps) {
     const { t } = useTranslation();
     const requireAuth = useRequireAuth();
-    const like = useToggleArticleLike(articleId, likeCount, isLiked);
     const share = useShareArticle(articleId, slug);
+    const like = useToggleArticleLike(articleId, likeCount, isLiked);
 
     const actions: IEngagementAction[] = [
         {
@@ -150,8 +150,8 @@ export function ArticleDetailEngagement({
                         size="sm"
                         variant="outline"
                         aria-label={label}
-                        className="h-9 gap-1.5 rounded-lg px-3 text-muted-foreground"
                         onClick={onClick}
+                        className="h-9 gap-1.5 rounded-lg px-3 text-muted-foreground"
                     >
                         {icon}
                         <span className={cn(countClass)}>{formatCount(count)}</span>
