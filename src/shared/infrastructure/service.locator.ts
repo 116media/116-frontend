@@ -5,6 +5,27 @@ import type { GetArticlePopularTagsUseCase } from "@/modules/articles/applicatio
 import type { GetArticlePromotionFeedUseCase } from "@/modules/articles/application/usecases/getarticlepromotionfeed.usecase";
 import type { GetPromotedArticlesUseCase } from "@/modules/articles/application/usecases/getpromotedarticles.usecase";
 import { registerArticlesDependencies } from "@/modules/articles/infrastructure/dependencies/articles.dependencies";
+import type { IAuthRepositoryPort } from "@/modules/auth/application/repositories/auth.repository.port";
+import type { ForgotPasswordUseCase } from "@/modules/auth/application/usecases/forgotpassword.usecase";
+import type { LoginUseCase } from "@/modules/auth/application/usecases/login.usecase";
+import type { ResendOtpUseCase } from "@/modules/auth/application/usecases/resendotp.usecase";
+import type { ResetPasswordUseCase } from "@/modules/auth/application/usecases/resetpassword.usecase";
+import type { SignOutUseCase } from "@/modules/auth/application/usecases/signout.usecase";
+import type { SignOutAllUseCase } from "@/modules/auth/application/usecases/signoutall.usecase";
+import type { SignupUseCase } from "@/modules/auth/application/usecases/signup.usecase";
+import type { SocialLoginUseCase } from "@/modules/auth/application/usecases/sociallogin.usecase";
+import type { VerifyOtpUseCase } from "@/modules/auth/application/usecases/verifyotp.usecase";
+import { registerAuthDependencies } from "@/modules/auth/infrastructure/dependencies/auth.dependencies";
+import type { ISessionRepositoryPort } from "@/modules/session/application/repositories/session.repository.port";
+import type { GetSessionsUseCase } from "@/modules/session/application/usecases/getsessions.usecase";
+import type { RefreshTokenUseCase } from "@/modules/session/application/usecases/refresh-token.usecase";
+import type { RevokeSessionUseCase } from "@/modules/session/application/usecases/revokesession.usecase";
+import { registerSessionDependencies } from "@/modules/session/infrastructure/dependencies/session.dependencies";
+import type { ISettingsRepositoryPort } from "@/modules/settings/application/repositories/settings.repository.port";
+import type { ChangePasswordUseCase } from "@/modules/settings/application/usecases/changepassword.usecase";
+import type { GetProfileUseCase } from "@/modules/settings/application/usecases/getprofile.usecase";
+import type { UpdateAccountUseCase } from "@/modules/settings/application/usecases/updateaccount.usecase";
+import { registerSettingsDependencies } from "@/modules/settings/infrastructure/dependencies/settings.dependencies";
 import type { IVideosRepositoryPort } from "@/modules/videos/application/repositories/videos.repository.port";
 import type { GetPromotedVideosUseCase } from "@/modules/videos/application/usecases/getpromotedvideos.usecase";
 import type { GetShowsUseCase } from "@/modules/videos/application/usecases/getshows.usecase";
@@ -51,6 +72,30 @@ export interface Cradle {
 
     // Shared composite use cases
     prefetchNavigationUseCase: PrefetchNavigationUseCase;
+
+    // Auth repository + use cases
+    authRepository: IAuthRepositoryPort;
+    loginUseCase: LoginUseCase;
+    socialLoginUseCase: SocialLoginUseCase;
+    signupUseCase: SignupUseCase;
+    verifyOtpUseCase: VerifyOtpUseCase;
+    resendOtpUseCase: ResendOtpUseCase;
+    forgotPasswordUseCase: ForgotPasswordUseCase;
+    resetPasswordUseCase: ResetPasswordUseCase;
+    signOutUseCase: SignOutUseCase;
+    signOutAllUseCase: SignOutAllUseCase;
+
+    // Session repository + use cases
+    sessionRepository: ISessionRepositoryPort;
+    refreshTokenUseCase: RefreshTokenUseCase;
+    getSessionsUseCase: GetSessionsUseCase;
+    revokeSessionUseCase: RevokeSessionUseCase;
+
+    // Settings repository + use cases
+    settingsRepository: ISettingsRepositoryPort;
+    getProfileUseCase: GetProfileUseCase;
+    updateAccountUseCase: UpdateAccountUseCase;
+    changePasswordUseCase: ChangePasswordUseCase;
 }
 
 /**
@@ -70,6 +115,9 @@ container.register({ client: asValue(apiClient) });
 
 registerArticlesDependencies(container);
 registerVideosDependencies(container);
+registerAuthDependencies(container);
+registerSessionDependencies(container);
+registerSettingsDependencies(container);
 
 // Shared composite use cases (depend on both modules)
 container.register({

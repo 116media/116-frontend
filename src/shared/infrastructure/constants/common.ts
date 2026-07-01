@@ -17,6 +17,11 @@ export const API_URL = process.env.NEXT_PUBLIC_API_URL;
 export const API_INTERNAL_URL = process.env.API_INTERNAL_URL ?? process.env.NEXT_PUBLIC_API_URL;
 export const CLIENT_APP = process.env.NEXT_PUBLIC_CLIENT_APP;
 
+/** Google OAuth Web Client ID (same value as the mobile's `GOOGLE_SERVER_CLIENT_ID`). */
+export const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+/** Facebook App ID (same value as the mobile's `facebook_app_id`). */
+export const FACEBOOK_APP_ID = process.env.NEXT_PUBLIC_FACEBOOK_APP_ID;
+
 export const APP_NAME = "116";
 export const APP_AUTHOR = `${APP_NAME} Network`;
 export const APP_TWITTER_HANDLE = `@${APP_NAME}HQ`;

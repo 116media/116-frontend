@@ -1,6 +1,12 @@
+import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import type { Metadata } from "next";
 import { Merriweather, Outfit, Playfair_Display } from "next/font/google";
+import { AuthModalProvider } from "@/modules/auth/presentation/context/AuthModalProvider";
+import { AuthProvider } from "@/modules/auth/presentation/context/AuthProvider";
+import { authKeys } from "@/modules/auth/presentation/context/authKeys";
+import { createServerCradle } from "@/shared/infrastructure/server.cradle";
 import { I18nProvider } from "@/shared/presentation/i18n/I18nProvider";
+import { QueryProvider } from "@/shared/presentation/providers/QueryProvider";
 import { ThemeProvider } from "@/shared/presentation/providers/ThemeProvider";
 import "./globals.css";
 
@@ -31,11 +37,19 @@ export const metadata: Metadata = {
     description: "Articles, vidéos et paroles de la culture hip-hop en RDC et au-delà."
 };
 
-export default function RootLayout({
+export default async function RootLayout({
     children
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+    // Resolve the current user server-side (cookie-authenticated) and seed the `me`
+    // query so the first paint already reflects the real auth state — no guest flash.
+    const cradle = await createServerCradle();
+    const currentUserResult = await cradle.getProfileUseCase.execute();
+
+    const queryClient = new QueryClient();
+    queryClient.setQueryData(authKeys.me, currentUserResult);
+
     return (
         <html
             lang="fr"
@@ -47,7 +61,15 @@ export default function RootLayout({
                 className="min-h-screen bg-background text-foreground antialiased"
             >
                 <ThemeProvider>
-                    <I18nProvider>{children}</I18nProvider>
+                    <QueryProvider>
+                        <HydrationBoundary state={dehydrate(queryClient)}>
+                            <I18nProvider>
+                                <AuthProvider>
+                                    <AuthModalProvider>{children}</AuthModalProvider>
+                                </AuthProvider>
+                            </I18nProvider>
+                        </HydrationBoundary>
+                    </QueryProvider>
                 </ThemeProvider>
             </body>
         </html>

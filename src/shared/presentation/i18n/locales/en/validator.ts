@@ -2,7 +2,19 @@
  * validator (en)
  *
  * @description
- * English mirror of the validator namespace. Reserved for population as form validation is
- * wired up; must stay key-complete with fr.
+ * English validation messages, resolved by the zod error map at validation time.
+ * Every message names its field via the `{{field}}` interpolation (the localized
+ * field label, supplied by `Validators`) — e.g. "Email or username is required".
+ * Must stay key-complete with the French mirror.
  */
-export const validator = {} as const;
+export const validator = {
+    required: "{{field}} is required",
+    email: "{{field}} must be a valid email address",
+    invalid: "{{field}} is invalid",
+    minLength: "{{field}} must be at least {{min}} characters",
+    maxLength: "{{field}} must be at most {{max}} characters",
+    passwordStrength:
+        "{{field}} must be at least {{min}} characters with an uppercase, a lowercase and a number",
+    otp: "{{field}} must be a 6-digit code",
+    mustMatch: "{{field}} does not match"
+} as const;
