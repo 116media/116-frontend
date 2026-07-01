@@ -20,7 +20,7 @@ export function TopBar() {
     const { t } = useTranslation();
 
     return (
-        <div className="w-full bg-linear-to-r from-brand-primary to-brand-secondary py-1.5 text-sm text-primary-foreground">
+        <div className="w-full bg-linear-to-r from-brand-primary to-brand-secondary py-2 text-sm text-primary-foreground">
             <div className="flex items-center justify-center gap-1">
                 <span className="mr-1 font-medium">{t("general.follow")}</span>
 
