@@ -1,10 +1,14 @@
 import { asClass, asValue, createContainer, InjectionMode } from "awilix";
 import type { IArticlesRepositoryPort } from "@/modules/articles/application/repositories/articles.repository.port";
+import type { AddArticleCommentUseCase } from "@/modules/articles/application/usecases/addarticlecomment.usecase";
 import type { BookmarkArticleUseCase } from "@/modules/articles/application/usecases/bookmarkarticle.usecase";
 import type { GetAllTagsUseCase } from "@/modules/articles/application/usecases/getalltags.usecase";
+import type { GetArticleBySlugUseCase } from "@/modules/articles/application/usecases/getarticlebyslug.usecase";
 import type { GetArticleCategoriesUseCase } from "@/modules/articles/application/usecases/getarticlecategories.usecase";
+import type { GetArticleCommentsUseCase } from "@/modules/articles/application/usecases/getarticlecomments.usecase";
 import type { GetArticlePopularTagsUseCase } from "@/modules/articles/application/usecases/getarticlepopulartags.usecase";
 import type { GetArticlePromotionFeedUseCase } from "@/modules/articles/application/usecases/getarticlepromotionfeed.usecase";
+import type { GetPopularArticlesUseCase } from "@/modules/articles/application/usecases/getpopulararticles.usecase";
 import type { GetPromotedArticlesUseCase } from "@/modules/articles/application/usecases/getpromotedarticles.usecase";
 import type { GetPublishedArticlesUseCase } from "@/modules/articles/application/usecases/getpublishedarticles.usecase";
 import type { LikeArticleUseCase } from "@/modules/articles/application/usecases/likearticle.usecase";
@@ -69,6 +73,9 @@ export interface Cradle {
     getArticlePromotionFeedUseCase: GetArticlePromotionFeedUseCase;
     getPublishedArticlesUseCase: GetPublishedArticlesUseCase;
     getAllTagsUseCase: GetAllTagsUseCase;
+    getArticleBySlugUseCase: GetArticleBySlugUseCase;
+    getArticleCommentsUseCase: GetArticleCommentsUseCase;
+    getPopularArticlesUseCase: GetPopularArticlesUseCase;
 
     // Articles interaction use cases
     likeArticleUseCase: LikeArticleUseCase;
@@ -76,6 +83,7 @@ export interface Cradle {
     bookmarkArticleUseCase: BookmarkArticleUseCase;
     unbookmarkArticleUseCase: UnbookmarkArticleUseCase;
     shareArticleUseCase: ShareArticleUseCase;
+    addArticleCommentUseCase: AddArticleCommentUseCase;
 
     // Videos repository
     videosRepository: IVideosRepositoryPort;
