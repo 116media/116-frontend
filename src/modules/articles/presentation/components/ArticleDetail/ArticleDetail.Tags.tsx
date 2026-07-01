@@ -43,6 +43,7 @@ export function ArticleDetailTags({ tags }: ArticleDetailTagsProps) {
                     key={tag.id}
                     variant="default"
                     href={`/articles?tagSlug=${tag.slug}`}
+                    className="border-transparent bg-muted text-muted-foreground hover:border-primary hover:bg-primary hover:text-primary-foreground dark:hover:border-secondary dark:hover:bg-secondary dark:hover:text-secondary-foreground"
                 >
                     {tag.name}
                 </Tag>
