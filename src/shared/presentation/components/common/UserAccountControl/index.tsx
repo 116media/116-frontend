@@ -18,6 +18,7 @@ import {
     DropdownMenuTrigger
 } from "@/shared/presentation/components/ui/DropdownMenu";
 import { LockIcon, LogOutIcon, UserRoundIcon } from "@/shared/presentation/components/ui/Icon";
+import { Skeleton } from "@/shared/presentation/components/ui/Skeleton";
 import {
     SETTINGS_PROFILE_PATH,
     SETTINGS_SECURITY_PATH
@@ -74,12 +75,9 @@ export function UserAccountControl({ className }: UserAccountControlProps) {
 
     if (status === "loading") {
         return (
-            <div
+            <Skeleton
                 aria-hidden
-                className={cn(
-                    "size-8 animate-pulse rounded-full bg-muted ring-2 ring-foreground/25",
-                    className
-                )}
+                className={cn("size-8 rounded-full ring-2 ring-foreground/25", className)}
             />
         );
     }
