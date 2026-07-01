@@ -1104,6 +1104,15 @@ export interface ArticleCommentDto {
   userId: string;
   body?: string | null;
   isDeleted: boolean;
+  author?: AuthorDto | null;
+  /** @format uuid */
+  parentCommentId?: string | null;
+  /** @format int32 */
+  replyCount: number;
+  replies?: ArticleCommentDto[] | null;
+  /** @format int32 */
+  likeCount: number;
+  isLiked: boolean;
 }
 
 export interface ArticleCommentDtoPaginatedResult {
@@ -1165,6 +1174,8 @@ export interface ArticleDetailDto {
   /** @format uuid */
   orderItemId?: string | null;
   author?: AuthorDto | null;
+  isLiked: boolean;
+  isBookmarked: boolean;
 }
 
 export interface ArticleImageDto {
@@ -1221,6 +1232,8 @@ export interface ArticleSummaryDto {
   shareCount: number;
   /** @format int32 */
   bookmarkCount: number;
+  isLiked: boolean;
+  isBookmarked: boolean;
 }
 
 export interface ArticleSummaryDtoPaginatedResult {
@@ -1704,6 +1717,14 @@ export interface PublicAddArticleCommentResponse {
   comment: ArticleCommentDto;
 }
 
+export interface PublicAddCommentReplyRequest {
+  body: string;
+}
+
+export interface PublicAddCommentReplyResponse {
+  reply: ArticleCommentDto;
+}
+
 export interface PublicAddVideoToPlaylistRequest {
   /** @format uuid */
   videoId: string;
@@ -1821,6 +1842,10 @@ export interface PublicGetOwnSessionsResponse {
   sessions: SessionDto[];
 }
 
+export interface PublicGetPopularArticlesResponse {
+  articles: ArticleSummaryDto[];
+}
+
 export interface PublicGetPopularTagsResponse {
   tags: TagDto[];
 }
@@ -1862,6 +1887,10 @@ export interface PublicGetVideoPromotionFeedResponse {
   spot2: VideoPromotionSpotDto;
   spot3: VideoPromotionSpot3Dto;
   freeVideoStrip: VideoSummaryDto[];
+}
+
+export interface PublicLikeArticleCommentResponse {
+  isSuccess: boolean;
 }
 
 export interface PublicLikeArticleResponse {
@@ -1996,6 +2025,10 @@ export interface PublicUnbookmarkArticleResponse {
 }
 
 export interface PublicUnbookmarkShortVideoResponse {
+  isSuccess: boolean;
+}
+
+export interface PublicUnlikeArticleCommentResponse {
   isSuccess: boolean;
 }
 
@@ -10390,6 +10423,52 @@ export class Api<
       }),
 
     /**
+     * @description Returns a paginated list of non-deleted replies to a top-level comment, each
+     * enriched with the replier's author profile.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - No authentication required — anonymous access is permitted
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK on success
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags public::articles
+     * @name PublicGetCommentReplies
+     * @summary List replies to a comment
+     * @request GET:/api/v1/public/articles/comments/{commentId}/replies
+     * @secure
+     * @response `200` `ArticleCommentDtoPaginatedResult` OK
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    publicGetCommentReplies: (
+      commentId: string,
+      query?: {
+        /**
+         * @format int32
+         * @default 0
+         */
+        pageIndex?: number;
+        /**
+         * @format int32
+         * @default 10
+         */
+        pageSize?: number;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<ArticleCommentDtoPaginatedResult, ProblemDetails>({
+        path: `/api/v1/public/articles/comments/${commentId}/replies`,
+        method: "GET",
+        query: query,
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
      * @description Returns a paginated list of comments for a given article.
      * Soft-deleted comments are included but their body is returned as null.
      * 
@@ -10475,6 +10554,79 @@ export class Api<
         body: data,
         secure: true,
         type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Removes the authenticated user's like from a comment. Idempotent — unliking a
+     * comment that is not liked has no effect and still returns success.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have an active account
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK on success
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 404 Not Found if the comment does not exist
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags public::articles
+     * @name PublicUnlikeArticleComment
+     * @summary Unlike an article comment
+     * @request DELETE:/api/v1/public/articles/comments/{commentId}/likes
+     * @secure
+     * @response `200` `PublicUnlikeArticleCommentResponse` OK
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    publicUnlikeArticleComment: (
+      commentId: string,
+      params: RequestParams = {},
+    ) =>
+      this.request<PublicUnlikeArticleCommentResponse, ProblemDetails>({
+        path: `/api/v1/public/articles/comments/${commentId}/likes`,
+        method: "DELETE",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Records that the authenticated user has liked a comment. Idempotent — liking a
+     * comment that is already liked has no effect and still returns success.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have an active account
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK on success
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 404 Not Found if the comment does not exist
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags public::articles
+     * @name PublicLikeArticleComment
+     * @summary Like an article comment
+     * @request POST:/api/v1/public/articles/comments/{commentId}/likes
+     * @secure
+     * @response `200` `PublicLikeArticleCommentResponse` OK
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    publicLikeArticleComment: (commentId: string, params: RequestParams = {}) =>
+      this.request<PublicLikeArticleCommentResponse, ProblemDetails>({
+        path: `/api/v1/public/articles/comments/${commentId}/likes`,
+        method: "POST",
+        secure: true,
         format: "json",
         ...params,
       }),
@@ -10748,6 +10900,51 @@ export class Api<
       }),
 
     /**
+     * @description Posts a single-level reply to an existing top-level comment on an article.
+     * 
+     * Replies to replies are rejected — only one level of threading is supported.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have an active account
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 201 Created on success
+     * - Returns 400 Bad Request if the body is invalid or the parent is itself a reply
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 404 Not Found if the article or parent comment does not exist
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags public::articles
+     * @name PublicAddCommentReply
+     * @summary Reply to an article comment
+     * @request POST:/api/v1/public/articles/{id}/comments/{commentId}/replies
+     * @secure
+     * @response `201` `PublicAddCommentReplyResponse` Created
+     * @response `400` `ProblemDetails` Bad Request
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    publicAddCommentReply: (
+      id: string,
+      commentId: string,
+      data: PublicAddCommentReplyRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<PublicAddCommentReplyResponse, ProblemDetails>({
+        path: `/api/v1/public/articles/${id}/comments/${commentId}/replies`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
      * @description Retrieves a paginated list of all published articles for public consumption.
      * 
      * Supports optional filtering by category. Results are returned as a paginated list
@@ -10826,6 +11023,56 @@ export class Api<
       this.request<PublicGetPromotedArticlesResponse, ProblemDetails>({
         path: `/api/v1/public/articles/promoted`,
         method: "GET",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Returns published articles ranked by a weighted engagement score
+     * (likes, comments, shares, bookmarks), tie-broken by publish date descending.
+     * 
+     * Results are cached server-side for 10 minutes to avoid running the
+     * ranking query on every request.
+     * 
+     * **Query Parameters:**
+     * 
+     * - `limit` (optional, default 10, max 50): maximum number of articles to return
+     * - `categoryId` (optional): rank only articles in this category
+     * - `excludeId` (optional): article id to omit, e.g. the article currently being viewed
+     * This endpoint is publicly accessible and does not require authentication.
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with the list of popular articles on success
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags public::articles
+     * @name PublicGetPopularArticles
+     * @summary Get popular articles
+     * @request GET:/api/v1/public/articles/popular
+     * @secure
+     * @response `200` `PublicGetPopularArticlesResponse` OK
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    publicGetPopularArticles: (
+      query?: {
+        /**
+         * @format int32
+         * @default 10
+         */
+        limit?: number;
+        /** @format uuid */
+        categoryId?: string;
+        /** @format uuid */
+        excludeId?: string;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<PublicGetPopularArticlesResponse, ProblemDetails>({
+        path: `/api/v1/public/articles/popular`,
+        method: "GET",
+        query: query,
         secure: true,
         format: "json",
         ...params,
