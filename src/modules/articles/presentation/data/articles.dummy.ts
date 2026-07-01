@@ -59,10 +59,26 @@ const COVERS = [
  * Rotation pool of author bylines for the dummy articles.
  */
 const AUTHORS: IArticleAuthor[] = [
-    { userName: "Sarah Wilson", avatarUrl: "https://i.pravatar.cc/80?img=1" },
-    { userName: "James Carter", avatarUrl: "https://i.pravatar.cc/80?img=12" },
-    { userName: "Amara Okafor", avatarUrl: "https://i.pravatar.cc/80?img=45" },
-    { userName: "Liam Nguyen", avatarUrl: "https://i.pravatar.cc/80?img=32" }
+    {
+        userName: "Sarah Wilson",
+        avatarUrl: "https://i.pravatar.cc/80?img=1",
+        role: "Music Editor, London"
+    },
+    {
+        userName: "James Carter",
+        avatarUrl: "https://i.pravatar.cc/80?img=12",
+        role: "Culture Reporter, New York"
+    },
+    {
+        userName: "Amara Okafor",
+        avatarUrl: "https://i.pravatar.cc/80?img=45",
+        role: "Senior Writer, Lagos"
+    },
+    {
+        userName: "Liam Nguyen",
+        avatarUrl: "https://i.pravatar.cc/80?img=32",
+        role: "Staff Journalist, Toronto"
+    }
 ];
 
 /**
