@@ -1,6 +1,7 @@
 import { common } from "@/modules/auth/presentation/i18n/locales/fr/common";
 import { errors } from "@/modules/auth/presentation/i18n/locales/fr/errors";
 import { login } from "@/modules/auth/presentation/i18n/locales/fr/login";
+import { notification } from "@/modules/auth/presentation/i18n/locales/fr/notification";
 import { otp } from "@/modules/auth/presentation/i18n/locales/fr/otp";
 import { password } from "@/modules/auth/presentation/i18n/locales/fr/password";
 import { session } from "@/modules/auth/presentation/i18n/locales/fr/session";
@@ -20,5 +21,6 @@ export const fr = {
     otp,
     password,
     session,
-    errors
+    errors,
+    notification
 } as const;

@@ -22,6 +22,7 @@ import container from "@/shared/infrastructure/service.locator";
 export function useVerifyOtp() {
     const queryClient = useQueryClient();
     return useMutation<IVerifyOtpResponse, Failure, IVerifyOtpCredentials>({
+        mutationKey: authKeys.mutation,
         mutationFn: async (credentials) => {
             const result = await container.cradle.verifyOtpUseCase.execute(credentials);
             if (!result.ok) throw result.error;

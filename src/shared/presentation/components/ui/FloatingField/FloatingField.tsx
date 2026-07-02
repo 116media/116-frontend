@@ -1,9 +1,11 @@
 "use client";
 
-import { Eye, EyeOff } from "lucide-react";
 import { forwardRef, type InputHTMLAttributes, useState } from "react";
+import { EyeIcon, EyeOffIcon } from "@/shared/presentation/components/ui/Icon";
 
+import { Input } from "@/shared/presentation/components/ui/Input";
 import { cn } from "@/shared/presentation/utils/cn";
+import { Button } from "../Button";
 
 /**
  * Props for the FloatingField component.
@@ -24,15 +26,13 @@ export interface FloatingFieldProps
  * FloatingField
  *
  * @description
- * Floating-label text field — the kinix `FloatTextInput` look, rebuilt with
- * shadcn/Tailwind and the app theme tokens. The label overlaps the field as its
- * placeholder and floats to the top (10px, bold, primary — secondary in dark mode)
- * on focus or when
- * filled, purely via CSS (`peer` + `:placeholder-shown`, no JS state). Gray
- * `bg-muted` surface, `border-input` border, `rounded-md` corners, focus ring, and
- * `aria-invalid` styling — all tokens, so light/dark are automatic. A
- * `type="password"` field gets an accessible show/hide toggle. The inline `error`
- * renders below; backend failures still go to the top `Alert`.
+ * Floating-label text field — the kinix `FloatTextInput` look. Renders the shared
+ * `Input` primitive (bg-muted surface, border, focus ring, `aria-invalid`, all theme
+ * tokens) and layers on the floating label: it overlaps the field as its placeholder
+ * and floats to the top (10px, bold, primary — secondary in dark mode) on focus or
+ * when filled, purely via CSS (`peer` + `:placeholder-shown`, no JS state), with extra
+ * top padding to make room. A `type="password"` field gets an accessible show/hide
+ * toggle. The inline `error` renders below; backend failures still go to the top `Alert`.
  *
  * @param label - The floating label (doubles as the resting placeholder).
  * @param error - The inline (zod) error, shown below the field.
@@ -41,20 +41,20 @@ export interface FloatingFieldProps
  */
 export const FloatingField = forwardRef<HTMLInputElement, FloatingFieldProps>(
     ({ label, error, required, id, type = "text", className, ...props }, ref) => {
-        const [visible, setVisible] = useState(false);
         const isPassword = type === "password";
+        const [visible, setVisible] = useState(false);
 
         return (
             <div className="flex flex-col gap-1.5">
                 <div className="relative">
-                    <input
-                        ref={ref}
+                    <Input
                         id={id}
-                        type={isPassword && visible ? "text" : type}
+                        ref={ref}
                         placeholder=" "
                         aria-invalid={error ? true : undefined}
+                        type={isPassword && visible ? "text" : type}
                         className={cn(
-                            "peer h-12 w-full rounded-md border border-input bg-muted px-3 pb-1 pt-5 text-sm text-foreground transition-colors placeholder:text-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 aria-[invalid=true]:border-destructive",
+                            "peer h-12 bg-muted pb-1 pt-5 text-sm placeholder:text-transparent",
                             isPassword && "pr-10",
                             className
                         )}
@@ -72,14 +72,20 @@ export const FloatingField = forwardRef<HTMLInputElement, FloatingFieldProps>(
                         {required && <span className="ml-0.5 text-destructive">*</span>}
                     </label>
                     {isPassword && (
-                        <button
+                        <Button
+                            size="icon"
                             type="button"
-                            aria-label={visible ? "Hide password" : "Show password"}
+                            variant="ghost"
                             onClick={() => setVisible((v) => !v)}
-                            className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground transition-colors hover:text-foreground"
+                            aria-label={visible ? "Hide password" : "Show password"}
+                            className="absolute right-1 top-1/2 -translate-y-1/2 text-muted-foreground transition-colors hover:text-foreground rounded-full"
                         >
-                            {visible ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
-                        </button>
+                            {visible ? (
+                                <EyeOffIcon className="size-4" />
+                            ) : (
+                                <EyeIcon className="size-4" />
+                            )}
+                        </Button>
                     )}
                 </div>
                 {error && (

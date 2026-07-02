@@ -24,6 +24,7 @@ import container from "@/shared/infrastructure/service.locator";
 export function useSignup() {
     const queryClient = useQueryClient();
     return useMutation<IAuthResponse, Failure, ISignupCredentials>({
+        mutationKey: authKeys.mutation,
         mutationFn: async (credentials) => {
             const result = await container.cradle.signupUseCase.execute(credentials);
             if (!result.ok) throw result.error;

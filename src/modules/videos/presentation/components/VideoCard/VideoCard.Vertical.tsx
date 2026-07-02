@@ -1,8 +1,7 @@
-import { Share2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-
 import { ButtonFrostedPlay } from "@/shared/presentation/components/ui/Button";
+import { ShareIcon } from "@/shared/presentation/components/ui/Icon";
 import { RelativeDate } from "@/shared/presentation/components/ui/RelativeDate";
 import { StarRating } from "@/shared/presentation/components/ui/StarRating";
 import { VIDEOS_PATH } from "@/shared/presentation/constants/paths";
@@ -63,7 +62,7 @@ export function Vertical({ video }: VideoCardProps) {
                     <RelativeDate date={video.publishedAt} />
                     <span className="flex items-center gap-4">
                         <span className="flex items-center gap-1">
-                            <Share2 className="size-4" />
+                            <ShareIcon className="size-4" />
                             {formatCount(video.shareCount)}
                         </span>
                         <StarRating

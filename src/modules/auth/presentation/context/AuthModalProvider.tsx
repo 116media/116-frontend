@@ -78,8 +78,8 @@ export function AuthModalProvider({ children }: { children: ReactNode }) {
     const [history, setHistory] = useState<AuthView[]>(["login"]);
     const [context, setContext] = useState<AuthModalContextState>({});
 
-    const view = history[history.length - 1];
     const canGoBack = history.length > 1;
+    const view = history[history.length - 1];
 
     const open = useCallback((next: AuthView = "login", ctx: AuthModalContextState = {}) => {
         setHistory([next]);
@@ -89,8 +89,6 @@ export function AuthModalProvider({ children }: { children: ReactNode }) {
 
     const close = useCallback(() => {
         setIsOpen(false);
-        setHistory(["login"]);
-        setContext({});
     }, []);
 
     const go = useCallback((next: AuthView, ctx: Partial<AuthModalContextState> = {}) => {
@@ -105,8 +103,6 @@ export function AuthModalProvider({ children }: { children: ReactNode }) {
     const runOnSuccess = useCallback(() => {
         context.onSuccess?.();
         setIsOpen(false);
-        setHistory(["login"]);
-        setContext({});
     }, [context]);
 
     const api = useMemo<AuthModalApi>(

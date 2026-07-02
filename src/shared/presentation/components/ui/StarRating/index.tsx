@@ -1,4 +1,4 @@
-import { Star } from "lucide-react";
+import { StarIcon } from "@/shared/presentation/components/ui/Icon";
 
 import { cn } from "@/shared/presentation/utils/cn";
 import { formatCount } from "@/shared/presentation/utils/formatCount";
@@ -42,8 +42,8 @@ export function StarRating({
     variant = "default",
     className
 }: StarRatingProps) {
-    const isLight = variant === "light";
     const hasRatings = ratingCount > 0;
+    const isLight = variant === "light";
 
     const textClass = cn(
         "text-[9pt] font-medium",
@@ -58,7 +58,9 @@ export function StarRating({
     if (mode === "compact") {
         return (
             <span className={cn("flex items-center gap-1", className)}>
-                <Star className={cn("h-3 w-3 shrink-0", hasRatings ? filledClass : emptyClass)} />
+                <StarIcon
+                    className={cn("h-3 w-3 shrink-0", hasRatings ? filledClass : emptyClass)}
+                />
                 <span className={cn(textClass, "tabular-nums")}>
                     {hasRatings ? ratingAverage.toFixed(1) : ratingCount}
                 </span>
@@ -69,7 +71,7 @@ export function StarRating({
     const stars = [1, 2, 3, 4, 5].map((position) => {
         const filled = hasRatings && position <= Math.round(ratingAverage);
         return (
-            <Star
+            <StarIcon
                 key={position}
                 className={cn("h-3 w-3 shrink-0", filled ? filledClass : emptyClass)}
             />

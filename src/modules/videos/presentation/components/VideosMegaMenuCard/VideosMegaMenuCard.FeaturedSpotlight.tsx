@@ -1,12 +1,11 @@
 "use client";
 
-import { Play } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
-
 import { Button, ButtonFrostedPlay } from "@/shared/presentation/components/ui/Button";
 import { cardVariants } from "@/shared/presentation/components/ui/Card";
+import { PlayIcon } from "@/shared/presentation/components/ui/Icon";
 import { Tag } from "@/shared/presentation/components/ui/Tag";
 import { VIDEOS_PATH } from "@/shared/presentation/constants/paths";
 import { cn } from "@/shared/presentation/utils/cn";
@@ -81,7 +80,7 @@ export function FeaturedSpotlight({ video }: VideosMegaMenuCardProps) {
                     variant="brand-outline"
                     className="w-full text-xs"
                 >
-                    <Play className="h-3.5 w-3.5 fill-current" />
+                    <PlayIcon className="h-3.5 w-3.5 fill-current" />
                     {t("videos.home.watchNow")}
                 </Button>
             </div>

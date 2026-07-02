@@ -3,6 +3,8 @@
  */
 export const common = {
     back: "Back",
+    cancel: "Cancel",
+    close: "Close",
     or: "or",
     google: "Google",
     facebook: "Facebook",

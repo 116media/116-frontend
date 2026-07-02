@@ -74,14 +74,13 @@ export function ResetPasswordForm() {
             <Button
                 type="submit"
                 className="w-full"
-                disabled={isPending}
+                loading={isPending}
             >
                 {t("auth.password.reset")}
             </Button>
 
             <div className="flex flex-col items-center gap-1">
                 <Button
-                    size="sm"
                     type="button"
                     variant="link"
                     onClick={() => go("login")}

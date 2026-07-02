@@ -1,6 +1,5 @@
 import type { ComponentType } from "react";
-import { EnglishFlagIcon } from "@/shared/presentation/icons/EnglishFlagIcon";
-import { FrenchFlagIcon } from "@/shared/presentation/icons/FrenchFlagIcon";
+import { EnglishFlagIcon, FrenchFlagIcon } from "@/shared/presentation/components/ui/Icon";
 
 /**
  * ILanguage

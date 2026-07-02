@@ -1,7 +1,6 @@
-import { UserRound } from "lucide-react";
 import Image from "next/image";
-
 import { Avatar, AvatarFallback } from "@/shared/presentation/components/ui/Avatar";
+import { UserRoundIcon } from "@/shared/presentation/components/ui/Icon";
 
 interface UserAvatarProps {
     userName: string;
@@ -20,7 +19,7 @@ interface UserAvatarProps {
  * Render priority:
  * 1. Profile picture via next/image (when `image` is set)
  * 2. Pre-computed initials string inside AvatarFallback
- * 3. Generic UserRound icon inside AvatarFallback
+ * 3. Generic UserRoundIcon icon inside AvatarFallback
  *
  * next/image is used directly inside Avatar root (not AvatarImage) to keep
  * Next.js image optimization — AvatarImage renders a plain img tag.
@@ -45,7 +44,7 @@ export function UserAvatar({ userName, image, initials }: UserAvatarProps) {
                 {initials ? (
                     <span className="text-sm font-medium">{initials}</span>
                 ) : (
-                    <UserRound size={18} />
+                    <UserRoundIcon size={18} />
                 )}
             </AvatarFallback>
         </Avatar>

@@ -18,7 +18,7 @@ __metadata:
     "@radix-ui/react-navigation-menu": "npm:1.2.14"
     "@radix-ui/react-slot": "npm:^1.2.4"
     "@radix-ui/react-toast": "npm:1.2.18"
-    "@react-oauth/google": "npm:0.13.5"
+    "@react-oauth/google": "npm:^0.13.5"
     "@tailwindcss/postcss": "npm:^4"
     "@tanstack/react-query": "npm:5.101.2"
     "@types/node": "npm:^26.0.1"
@@ -42,9 +42,10 @@ __metadata:
     next-themes: "npm:^0.4.6"
     react: "npm:^19.2.4"
     react-dom: "npm:^19.2.4"
-    react-facebook: "npm:11.0.2"
+    react-facebook: "npm:^11.0.2"
     react-hook-form: "npm:7.80.0"
     react-i18next: "npm:^17.0.8"
+    sonner: "npm:2.0.7"
     tailwind-merge: "npm:^3.3.0"
     tailwindcss: "npm:^4"
     typescript: "npm:^6.0.3"
@@ -1546,7 +1547,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-oauth/google@npm:0.13.5":
+"@react-oauth/google@npm:^0.13.5":
   version: 0.13.5
   resolution: "@react-oauth/google@npm:0.13.5"
   peerDependencies:
@@ -2839,7 +2840,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-facebook@npm:11.0.2":
+"react-facebook@npm:^11.0.2":
   version: 11.0.2
   resolution: "react-facebook@npm:11.0.2"
   peerDependencies:
@@ -3095,6 +3096,16 @@ __metadata:
     ansi-styles: "npm:^6.2.3"
     is-fullwidth-code-point: "npm:^5.1.0"
   checksum: 10c0/0ce4aa91febb7cea4a00c2c27bb820fa53b6d2862ce0f80f7120134719f7914fc416b0ed966cf35250a3169e152916392f35917a2d7cad0fcc5d8b841010fa9a
+  languageName: node
+  linkType: hard
+
+"sonner@npm:2.0.7":
+  version: 2.0.7
+  resolution: "sonner@npm:2.0.7"
+  peerDependencies:
+    react: ^18.0.0 || ^19.0.0 || ^19.0.0-rc
+    react-dom: ^18.0.0 || ^19.0.0 || ^19.0.0-rc
+  checksum: 10c0/6966ab5e892ed6aab579a175e4a24f3b48747f0fc21cb68c3e33cb41caa7a0eebeb098c210545395e47a18d585eb8734ae7dd12d2bd18c8a3294a1ee73f997d9
   languageName: node
   linkType: hard
 

@@ -1,12 +1,11 @@
 "use client";
 
-import { ChevronsUpDown } from "lucide-react";
-
 import { Button } from "@/shared/presentation/components/ui/Button";
 import {
     DropdownMenu,
     DropdownMenuTrigger
 } from "@/shared/presentation/components/ui/DropdownMenu";
+import { ChevronsUpDownIcon } from "@/shared/presentation/components/ui/Icon";
 import { useLanguageDropdown } from "@/shared/presentation/hooks/UseLanguageDropdown";
 import { LanguageDropdownMenu } from "./LanguageDropdownMenu";
 import type { LanguageDropdownProps } from "./types";
@@ -40,7 +39,7 @@ export function LanguageDropdown({ placement = "bottom" }: LanguageDropdownProps
                     <span className="text-sm font-semibold uppercase text-foreground">
                         {currentCode}
                     </span>
-                    <ChevronsUpDown
+                    <ChevronsUpDownIcon
                         size={14}
                         className="shrink-0 text-muted-foreground"
                     />

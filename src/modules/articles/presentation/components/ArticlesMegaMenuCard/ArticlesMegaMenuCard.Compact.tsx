@@ -1,9 +1,8 @@
 "use client";
 
-import { Clock } from "lucide-react";
 import Link from "next/link";
-
 import { cardVariants } from "@/shared/presentation/components/ui/Card";
+import { ClockIcon } from "@/shared/presentation/components/ui/Icon";
 import { RelativeDate } from "@/shared/presentation/components/ui/RelativeDate";
 import { Tag } from "@/shared/presentation/components/ui/Tag";
 import { ARTICLES_PATH } from "@/shared/presentation/constants/paths";
@@ -37,7 +36,7 @@ export function Compact({ article }: ArticlesMegaMenuCardProps) {
                     </Tag>
                     {article.publishedAt && (
                         <div className="flex items-center gap-1 text-[10px] text-muted-foreground">
-                            <Clock className="h-3 w-3" />
+                            <ClockIcon className="h-3 w-3" />
                             <RelativeDate date={article.publishedAt} />
                         </div>
                     )}

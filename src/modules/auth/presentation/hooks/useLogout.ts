@@ -4,8 +4,13 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import type { ISignOutAllResponse } from "@/modules/auth/domain/entities/ISignOutAllResponse";
 import type { ISignOutResponse } from "@/modules/auth/domain/entities/ISignOutResponse";
+import { getAuthChannel } from "@/modules/auth/presentation/context/authChannel";
+import { authKeys } from "@/modules/auth/presentation/context/authKeys";
+import { AuthNotification } from "@/modules/auth/presentation/notifications/auth.notification";
 import type { Failure } from "@/shared/domain/failures/failure";
+import { err } from "@/shared/domain/results/result";
 import container from "@/shared/infrastructure/service.locator";
+import { showNotification } from "@/shared/presentation/utils/notification";
 
 /**
  * useLogout
@@ -30,10 +35,10 @@ export function useLogout() {
             return result.value;
         },
         onSuccess: () => {
-            queryClient.clear();
-            const channel = new BroadcastChannel("auth");
-            channel.postMessage("logout");
-            channel.close();
+            queryClient.setQueryData(authKeys.me, err({ title: "", detail: "" }));
+            queryClient.removeQueries({ predicate: (query) => query.queryKey[0] !== "auth" });
+            getAuthChannel()?.postMessage("logout");
+            showNotification(AuthNotification.signOutSuccess());
         }
     });
 }

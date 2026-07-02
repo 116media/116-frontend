@@ -3,6 +3,7 @@
 import { useMutation } from "@tanstack/react-query";
 
 import type { IResendOtpResponse } from "@/modules/auth/domain/entities/IResendOtpResponse";
+import { authKeys } from "@/modules/auth/presentation/context/authKeys";
 import type { IResendOtpCredentials } from "@/modules/auth/presentation/model/IResendOtpCredentials";
 import type { Failure } from "@/shared/domain/failures/failure";
 import container from "@/shared/infrastructure/service.locator";
@@ -20,6 +21,7 @@ import container from "@/shared/infrastructure/service.locator";
  */
 export function useResendOtp() {
     return useMutation<IResendOtpResponse, Failure, IResendOtpCredentials>({
+        mutationKey: authKeys.mutation,
         mutationFn: async (credentials) => {
             const result = await container.cradle.resendOtpUseCase.execute(credentials);
             if (!result.ok) throw result.error;

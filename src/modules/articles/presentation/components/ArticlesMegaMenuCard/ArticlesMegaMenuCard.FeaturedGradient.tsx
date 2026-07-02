@@ -1,10 +1,9 @@
 "use client";
 
-import { Calendar } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-
 import { cardVariants } from "@/shared/presentation/components/ui/Card";
+import { CalendarIcon } from "@/shared/presentation/components/ui/Icon";
 import { RelativeDate } from "@/shared/presentation/components/ui/RelativeDate";
 import { Tag } from "@/shared/presentation/components/ui/Tag";
 import { ARTICLES_PATH } from "@/shared/presentation/constants/paths";
@@ -43,7 +42,7 @@ export function FeaturedGradient({ article }: ArticlesMegaMenuCardProps) {
                     </Tag>
                     {article.publishedAt && (
                         <div className="flex items-center gap-1 text-[10px] text-muted-foreground">
-                            <Calendar className="h-3 w-3" />
+                            <CalendarIcon className="h-3 w-3" />
                             <RelativeDate date={article.publishedAt} />
                         </div>
                     )}

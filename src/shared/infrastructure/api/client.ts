@@ -32,12 +32,14 @@ export const apiClient = new Api({
  * Axios request interceptor — sets a dynamic Accept-Language header.
  *
  * @description
- * Reads the active language from getClientLanguage() on every request so the backend negotiates
- * content language and localised error details against the user's current choice, rather
- * than a value frozen at client-construction time.
+ * Reads the active i18n language on every request so the backend negotiates content
+ * language and localised error `detail` against exactly what the UI is rendering. The
+ * live `i18n.language` is the source of truth (it always reflects the active locale
+ * even if `localStorage` is blocked or stale); `getClientLanguage()` is the SSR-safe
+ * fallback for the pre-init window.
  */
 apiClient.instance.interceptors.request.use((config) => {
-    config.headers.set("Accept-Language", getClientLanguage());
+    config.headers.set("Accept-Language", i18n.language || getClientLanguage());
     return config;
 });
 

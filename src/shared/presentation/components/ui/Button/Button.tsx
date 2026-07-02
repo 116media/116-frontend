@@ -1,6 +1,7 @@
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import type * as React from "react";
+import { SpinnerIcon } from "@/shared/presentation/components/ui/Icon";
 
 import { cn } from "@/shared/presentation/utils/cn";
 
@@ -39,11 +40,13 @@ export const buttonVariants = cva(
  * @interface ButtonProps
  *
  * @property {boolean} [asChild] - Render as the child element using Radix Slot instead of a button
+ * @property {boolean} [loading] - Show a centered spinner over the label and disable the button
  */
 export interface ButtonProps
     extends React.ButtonHTMLAttributes<HTMLButtonElement>,
         VariantProps<typeof buttonVariants> {
     asChild?: boolean;
+    loading?: boolean;
 }
 
 /**
@@ -58,13 +61,55 @@ export interface ButtonProps
  * @param variant - Visual style: default | destructive | outline | secondary | ghost | link
  * @param size - Size preset: default | sm | lg | icon
  * @param asChild - Render as the child element using Radix Slot
+ * @param loading - Overlays a centered spinner on the label and disables the button
+ * @param disabled - Native disabled state (implied while `loading`)
+ * @param children - The button label / content
  */
-export function Button({ className, variant, size, asChild = false, ...props }: ButtonProps) {
+export function Button({
+    className,
+    variant,
+    size,
+    asChild = false,
+    loading = false,
+    disabled,
+    children,
+    ...props
+}: ButtonProps) {
     const Comp = asChild ? Slot : "button";
+
+    // Slot forwards to an arbitrary element (e.g. an anchor) and demands a single
+    // child, so the spinner overlay only applies to a real <button>. The label stays
+    // visible; the spinner is layered on top of it, so the button never resizes.
+    if (asChild) {
+        return (
+            <Comp
+                className={cn(buttonVariants({ variant, size, className }))}
+                {...props}
+            >
+                {children}
+            </Comp>
+        );
+    }
+
     return (
         <Comp
-            className={cn(buttonVariants({ variant, size, className }))}
+            disabled={disabled || loading}
+            aria-busy={loading || undefined}
+            className={cn(buttonVariants({ variant, size, className }), loading && "relative")}
             {...props}
-        />
+        >
+            {loading && (
+                <span className="absolute inset-0 flex items-center justify-center">
+                    <SpinnerIcon
+                        aria-hidden
+                        strokeWidth={3}
+                        className="size-6! animate-spin"
+                    />
+                </span>
+            )}
+            <span className={cn("inline-flex items-center gap-2", loading && "opacity-30")}>
+                {children}
+            </span>
+        </Comp>
     );
 }

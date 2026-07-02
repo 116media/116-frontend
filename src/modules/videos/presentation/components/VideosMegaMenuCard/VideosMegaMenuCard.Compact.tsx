@@ -1,11 +1,10 @@
 "use client";
 
-import { Calendar } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-
 import { ButtonFrostedPlay } from "@/shared/presentation/components/ui/Button";
 import { cardVariants } from "@/shared/presentation/components/ui/Card";
+import { CalendarIcon } from "@/shared/presentation/components/ui/Icon";
 import { RelativeDate } from "@/shared/presentation/components/ui/RelativeDate";
 import { VIDEOS_PATH } from "@/shared/presentation/constants/paths";
 import { cn } from "@/shared/presentation/utils/cn";
@@ -60,7 +59,7 @@ export function Compact({ video }: VideosMegaMenuCardProps) {
                         <div className="flex items-center justify-between text-white/75">
                             {video.publishedAt && (
                                 <div className="flex items-center gap-1 text-[10px]">
-                                    <Calendar className="h-2.5 w-2.5" />
+                                    <CalendarIcon className="h-2.5 w-2.5" />
                                     <RelativeDate date={video.publishedAt} />
                                 </div>
                             )}

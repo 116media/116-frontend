@@ -45,6 +45,7 @@
         "react-facebook": "^11.0.2",
         "react-hook-form": "7.80.0",
         "react-i18next": "^17.0.8",
+        "sonner": "2.0.7",
         "tailwind-merge": "^3.3.0",
         "zod": "^4.4.3"
     },

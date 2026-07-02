@@ -5,6 +5,7 @@
  */
 export const authKeys = {
     me: ["auth", "me"] as const,
+    mutation: ["auth", "mutation"] as const,
     sessions: ["auth", "sessions"] as const,
     session: (id: string) => ["auth", "session", id] as const
 };

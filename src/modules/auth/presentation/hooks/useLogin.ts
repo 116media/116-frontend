@@ -3,6 +3,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import type { IAuthResponse } from "@/modules/auth/domain/entities/IAuthResponse";
+import { getAuthChannel } from "@/modules/auth/presentation/context/authChannel";
 import { authKeys } from "@/modules/auth/presentation/context/authKeys";
 import type { ILoginCredentials } from "@/modules/auth/presentation/model/ILoginCredentials";
 import type { Failure } from "@/shared/domain/failures/failure";
@@ -25,6 +26,7 @@ import container from "@/shared/infrastructure/service.locator";
 export function useLogin() {
     const queryClient = useQueryClient();
     return useMutation<IAuthResponse, Failure, ILoginCredentials>({
+        mutationKey: authKeys.mutation,
         mutationFn: async (credentials) => {
             const result = await container.cradle.loginUseCase.execute(credentials);
             if (!result.ok) throw result.error;
@@ -32,9 +34,7 @@ export function useLogin() {
         },
         onSuccess: (data) => {
             queryClient.setQueryData(authKeys.me, ok(data.user));
-            const channel = new BroadcastChannel("auth");
-            channel.postMessage("login");
-            channel.close();
+            getAuthChannel()?.postMessage("login");
         }
     });
 }

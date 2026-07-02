@@ -3,6 +3,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import type { IAuthResponse } from "@/modules/auth/domain/entities/IAuthResponse";
+import { getAuthChannel } from "@/modules/auth/presentation/context/authChannel";
 import { authKeys } from "@/modules/auth/presentation/context/authKeys";
 import type { ISocialLoginCredentials } from "@/modules/auth/presentation/model/ISocialLoginCredentials";
 import type { Failure } from "@/shared/domain/failures/failure";
@@ -24,6 +25,7 @@ import container from "@/shared/infrastructure/service.locator";
 export function useSocialLogin() {
     const queryClient = useQueryClient();
     return useMutation<IAuthResponse, Failure, ISocialLoginCredentials>({
+        mutationKey: authKeys.mutation,
         mutationFn: async (credentials) => {
             const result = await container.cradle.socialLoginUseCase.execute(credentials);
             if (!result.ok) throw result.error;
@@ -31,9 +33,7 @@ export function useSocialLogin() {
         },
         onSuccess: (data) => {
             queryClient.setQueryData(authKeys.me, ok(data.user));
-            const channel = new BroadcastChannel("auth");
-            channel.postMessage("login");
-            channel.close();
+            getAuthChannel()?.postMessage("login");
         }
     });
 }

@@ -1,12 +1,11 @@
 "use client";
 
-import { Play } from "lucide-react";
 import Image from "next/image";
 import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
-
 import type { IShowEntity } from "@/modules/videos/domain/entities/IShowEntity";
 import { Button } from "@/shared/presentation/components/ui/Button";
+import { PlayIcon } from "@/shared/presentation/components/ui/Icon";
 import { withAlpha } from "@/shared/presentation/utils/withAlpha";
 
 interface ShowCardProps {
@@ -83,7 +82,7 @@ export function ShowCard({ show, isHero }: ShowCardProps) {
                 style={{ color: foreground }}
                 className="absolute left-4 top-4 drop-shadow"
             >
-                <Play
+                <PlayIcon
                     aria-hidden
                     className="size-4 fill-current sm:size-5"
                 />
@@ -113,7 +112,7 @@ export function ShowCard({ show, isHero }: ShowCardProps) {
                             className="w-full rounded-lg font-semibold"
                             style={{ backgroundColor: foreground, color: background }}
                         >
-                            <Play className="size-4 fill-current" />
+                            <PlayIcon className="size-4 fill-current" />
                             <span suppressHydrationWarning>{t("videos.home.watchNow")}</span>
                         </Button>
                     </RevealOnHover>

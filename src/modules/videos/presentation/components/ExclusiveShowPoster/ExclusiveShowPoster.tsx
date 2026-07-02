@@ -1,12 +1,11 @@
 "use client";
 
-import { Crown, Play } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
-
 import type { IVideoExclusiveShowEntity } from "@/modules/videos/domain/entities/IVideoExclusiveShowEntity";
 import { Button } from "@/shared/presentation/components/ui/Button";
+import { CrownIcon, PlayIcon } from "@/shared/presentation/components/ui/Icon";
 import { Tag } from "@/shared/presentation/components/ui/Tag";
 import { VIDEOS_PATH } from "@/shared/presentation/constants/paths";
 
@@ -53,7 +52,7 @@ export function ExclusiveShowPoster({ category }: ExclusiveShowPosterProps) {
                     as="span"
                     variant="primary"
                     className="uppercase tracking-wider"
-                    prefix={<Crown className="size-3" />}
+                    prefix={<CrownIcon className="size-3" />}
                 >
                     <span suppressHydrationWarning>{t("videos.exclusiveShow.exclusive")}</span>
                 </Tag>
@@ -72,7 +71,7 @@ export function ExclusiveShowPoster({ category }: ExclusiveShowPosterProps) {
                     className="w-full sm:w-auto"
                 >
                     <Link href={watchHref}>
-                        <Play className="fill-current" />
+                        <PlayIcon className="fill-current" />
                         <span suppressHydrationWarning>{t("videos.home.watchNow")}</span>
                     </Link>
                 </Button>

@@ -1,9 +1,8 @@
 "use client";
 
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import { type ReactNode, useRef, useState } from "react";
-
 import { Button } from "@/shared/presentation/components/ui/Button";
+import { ChevronLeftIcon, ChevronRightIcon } from "@/shared/presentation/components/ui/Icon";
 import { cn } from "@/shared/presentation/utils/cn";
 
 /**
@@ -201,7 +200,7 @@ export function Md3Carousel<T>({
                             aria-label="Previous"
                             className="absolute left-2 top-1/2 z-30 size-14 -translate-y-1/2 bg-black/40 text-white backdrop-blur-sm hover:bg-black/60 hover:text-white [&_svg]:size-7"
                         >
-                            <ChevronLeft />
+                            <ChevronLeftIcon />
                         </Button>
                         <Button
                             size="icon"
@@ -210,7 +209,7 @@ export function Md3Carousel<T>({
                             aria-label="Next"
                             className="absolute right-2 top-1/2 z-30 size-14 -translate-y-1/2 bg-black/40 text-white backdrop-blur-sm hover:bg-black/60 hover:text-white [&_svg]:size-7"
                         >
-                            <ChevronRight />
+                            <ChevronRightIcon />
                         </Button>
                     </>
                 )}
