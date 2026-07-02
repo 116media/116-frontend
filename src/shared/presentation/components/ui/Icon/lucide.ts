@@ -35,6 +35,7 @@ export {
     Heart as HeartIcon,
     Link as LinkIcon,
     ListFilter as FilterIcon,
+    ListPlus as ListPlusIcon,
     Loader2 as SpinnerIcon,
     Lock as LockIcon,
     LogOut as LogOutIcon,
@@ -51,6 +52,7 @@ export {
     SquarePen as EditIcon,
     Star as StarIcon,
     Tablet as TabletIcon,
+    ThumbsUp as ThumbsUpIcon,
     UserRound as UserRoundIcon,
     X as XIcon,
     XCircle as XCircleIcon
