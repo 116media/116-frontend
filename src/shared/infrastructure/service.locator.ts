@@ -39,11 +39,20 @@ import type { UpdateAccountUseCase } from "@/modules/settings/application/usecas
 import type { UpdateAvatarUseCase } from "@/modules/settings/application/usecases/updateavatar.usecase";
 import { registerSettingsDependencies } from "@/modules/settings/infrastructure/dependencies/settings.dependencies";
 import type { IVideosRepositoryPort } from "@/modules/videos/application/repositories/videos.repository.port";
+import type { AddVideoToPlaylistUseCase } from "@/modules/videos/application/usecases/addvideotoplaylist.usecase";
+import type { CreatePlaylistUseCase } from "@/modules/videos/application/usecases/createplaylist.usecase";
+import type { GetMyPlaylistsUseCase } from "@/modules/videos/application/usecases/getmyplaylists.usecase";
 import type { GetPromotedVideosUseCase } from "@/modules/videos/application/usecases/getpromotedvideos.usecase";
+import type { GetPublishedVideosUseCase } from "@/modules/videos/application/usecases/getpublishedvideos.usecase";
 import type { GetShowsUseCase } from "@/modules/videos/application/usecases/getshows.usecase";
+import type { GetVideoBySlugUseCase } from "@/modules/videos/application/usecases/getvideobyslug.usecase";
 import type { GetVideoCategoriesUseCase } from "@/modules/videos/application/usecases/getvideocategories.usecase";
 import type { GetVideoExclusiveShowUseCase } from "@/modules/videos/application/usecases/getvideoexclusiveshow.usecase";
+import type { GetVideoLyricsUseCase } from "@/modules/videos/application/usecases/getvideolyrics.usecase";
 import type { GetVideoPopularTagsUseCase } from "@/modules/videos/application/usecases/getvideopopulartags.usecase";
+import type { GetYoutubeVideoStatsUseCase } from "@/modules/videos/application/usecases/getyoutubevideostats.usecase";
+import type { RateVideoUseCase } from "@/modules/videos/application/usecases/ratevideo.usecase";
+import type { ShareVideoUseCase } from "@/modules/videos/application/usecases/sharevideo.usecase";
 import { registerVideosDependencies } from "@/modules/videos/infrastructure/dependencies/videos.dependencies";
 import { PrefetchNavigationUseCase } from "@/shared/application/usecases/prefetchnavigation.usecase";
 import { apiClient } from "@/shared/infrastructure/api/client";
@@ -94,6 +103,17 @@ export interface Cradle {
     getShowsUseCase: GetShowsUseCase;
     getVideoPopularTagsUseCase: GetVideoPopularTagsUseCase;
     getVideoExclusiveShowUseCase: GetVideoExclusiveShowUseCase;
+    getVideoBySlugUseCase: GetVideoBySlugUseCase;
+    getPublishedVideosUseCase: GetPublishedVideosUseCase;
+    getVideoLyricsUseCase: GetVideoLyricsUseCase;
+    getMyPlaylistsUseCase: GetMyPlaylistsUseCase;
+    getYoutubeVideoStatsUseCase: GetYoutubeVideoStatsUseCase;
+
+    // Videos interaction use cases
+    rateVideoUseCase: RateVideoUseCase;
+    shareVideoUseCase: ShareVideoUseCase;
+    createPlaylistUseCase: CreatePlaylistUseCase;
+    addVideoToPlaylistUseCase: AddVideoToPlaylistUseCase;
 
     // Shared composite use cases
     prefetchNavigationUseCase: PrefetchNavigationUseCase;
