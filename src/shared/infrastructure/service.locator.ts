@@ -25,6 +25,7 @@ import type { ISettingsRepositoryPort } from "@/modules/settings/application/rep
 import type { ChangePasswordUseCase } from "@/modules/settings/application/usecases/changepassword.usecase";
 import type { GetProfileUseCase } from "@/modules/settings/application/usecases/getprofile.usecase";
 import type { UpdateAccountUseCase } from "@/modules/settings/application/usecases/updateaccount.usecase";
+import type { UpdateAvatarUseCase } from "@/modules/settings/application/usecases/updateavatar.usecase";
 import { registerSettingsDependencies } from "@/modules/settings/infrastructure/dependencies/settings.dependencies";
 import type { IVideosRepositoryPort } from "@/modules/videos/application/repositories/videos.repository.port";
 import type { GetPromotedVideosUseCase } from "@/modules/videos/application/usecases/getpromotedvideos.usecase";
@@ -95,6 +96,7 @@ export interface Cradle {
     settingsRepository: ISettingsRepositoryPort;
     getProfileUseCase: GetProfileUseCase;
     updateAccountUseCase: UpdateAccountUseCase;
+    updateAvatarUseCase: UpdateAvatarUseCase;
     changePasswordUseCase: ChangePasswordUseCase;
 }
 

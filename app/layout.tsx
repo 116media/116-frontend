@@ -43,13 +43,14 @@ export default async function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    // Resolve the current user server-side (cookie-authenticated) and seed the `me`
-    // query so the first paint already reflects the real auth state — no guest flash.
     const cradle = await createServerCradle();
     const currentUserResult = await cradle.getProfileUseCase.execute();
 
     const queryClient = new QueryClient();
-    queryClient.setQueryData(authKeys.me, currentUserResult);
+
+    if (currentUserResult.ok) {
+        queryClient.setQueryData(authKeys.me, currentUserResult);
+    }
 
     return (
         <html

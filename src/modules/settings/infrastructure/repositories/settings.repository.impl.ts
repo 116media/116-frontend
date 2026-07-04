@@ -51,4 +51,13 @@ export class SettingsRepositoryImpl implements ISettingsRepositoryPort {
             return err(ProblemMapper.toFailure(error));
         }
     }
+
+    async updateAvatar(file: File): Promise<Result<IProfile>> {
+        try {
+            const response = await this.api.publicUpdateAvatar({ avatarFile: file });
+            return ok(AuthMapper.userFromDto(response.data.user));
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
 }

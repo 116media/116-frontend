@@ -83,6 +83,16 @@
                     }
                 }
             }
+        },
+        {
+            "includes": ["src/shared/presentation/components/ui/CountrySelect/**"],
+            "linter": {
+                "rules": {
+                    "performance": {
+                        "noImgElement": "off"
+                    }
+                }
+            }
         }
     ]
 }

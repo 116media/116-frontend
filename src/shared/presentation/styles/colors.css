@@ -5,6 +5,14 @@
     --primitive-brand-bg-light: #dce0e5;
     --primitive-brand-bg-dark: #34384d;
 
+    /* Sidebar surfaces */
+    --primitive-sidebar-light: var(--color-slate-50);
+    --primitive-sidebar-dark: var(--color-slate-800);
+
+    /* Dialog surfaces */
+    --primitive-dialog-light: var(--color-white);
+    --primitive-dialog-dark: var(--color-slate-900);
+
     /* Base */
     --primitive-white: var(--color-white);
     --primitive-black: var(--color-black);
@@ -41,6 +49,8 @@
 
     /* Borders & surfaces */
     --primitive-border-light: #eaedf2;
+    --primitive-border-subtle-light: #eef1f6;
+    --primitive-border-subtle-dark: #222a3b;
     --primitive-border-table: #edf5ff;
     --primitive-border-table-hr: #e4e7f4;
     --primitive-bg-hover: #f9fafb;

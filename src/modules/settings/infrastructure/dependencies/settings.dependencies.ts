@@ -4,6 +4,7 @@ import { asClass } from "awilix";
 import { ChangePasswordUseCase } from "@/modules/settings/application/usecases/changepassword.usecase";
 import { GetProfileUseCase } from "@/modules/settings/application/usecases/getprofile.usecase";
 import { UpdateAccountUseCase } from "@/modules/settings/application/usecases/updateaccount.usecase";
+import { UpdateAvatarUseCase } from "@/modules/settings/application/usecases/updateavatar.usecase";
 import { SettingsRepositoryImpl } from "@/modules/settings/infrastructure/repositories/settings.repository.impl";
 
 /**
@@ -23,6 +24,7 @@ export function registerSettingsDependencies(container: AwilixContainer): void {
         // Use cases
         getProfileUseCase: asClass(GetProfileUseCase).transient(),
         updateAccountUseCase: asClass(UpdateAccountUseCase).transient(),
+        updateAvatarUseCase: asClass(UpdateAvatarUseCase).transient(),
         changePasswordUseCase: asClass(ChangePasswordUseCase).transient()
     });
 }

@@ -48,7 +48,7 @@ export function CarouselDots({ className }: { className?: string }) {
                     onClick={() => api?.scrollTo(index)}
                     aria-label={`Go to slide ${index + 1}`}
                     className={cn(
-                        "size-1.5 rounded-full transition-colors",
+                        "size-1.5 cursor-pointer rounded-full transition-colors",
                         index === selectedIndex ? "bg-white" : "bg-white/40"
                     )}
                 />

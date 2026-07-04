@@ -13,6 +13,9 @@
     --popover: var(--primitive-white);
     --popover-foreground: var(--primitive-text-primary);
 
+    --dialog: var(--primitive-dialog-light);
+    --dialog-foreground: var(--primitive-text-primary);
+
     --primary: var(--primitive-brand-primary);
     --primary-foreground: var(--primitive-white);
 
@@ -25,6 +28,8 @@
     --accent: var(--primitive-background);
     --accent-foreground: var(--primitive-text-primary);
 
+    --sidebar: var(--primitive-sidebar-light);
+
     --destructive: var(--primitive-error);
     --destructive-foreground: var(--primitive-white);
 
@@ -34,8 +39,8 @@
     --warning: var(--primitive-warning);
     --warning-foreground: var(--primitive-white);
 
-    --border: var(--primitive-border-light);
-    --input: var(--primitive-border-light);
+    --border: var(--primitive-border-subtle-light);
+    --input: var(--primitive-border-subtle-light);
     --ring: var(--primitive-brand-primary);
 
     --radius: 0.5rem;
@@ -62,6 +67,9 @@
     --popover: var(--primitive-neutral-800);
     --popover-foreground: var(--primitive-neutral);
 
+    --dialog: var(--primitive-dialog-dark);
+    --dialog-foreground: var(--primitive-neutral);
+
     --primary: var(--primitive-brand-primary);
     --primary-foreground: var(--primitive-white);
 
@@ -74,6 +82,8 @@
     --accent: var(--primitive-brand-bg-dark);
     --accent-foreground: var(--primitive-neutral);
 
+    --sidebar: var(--primitive-sidebar-dark);
+
     --destructive: var(--primitive-error);
     --destructive-foreground: var(--primitive-white);
 
@@ -83,8 +93,8 @@
     --warning: var(--primitive-warning);
     --warning-foreground: var(--primitive-white);
 
-    --border: var(--primitive-brand-bg-dark);
-    --input: var(--primitive-brand-bg-dark);
+    --border: var(--primitive-border-subtle-dark);
+    --input: var(--primitive-border-subtle-dark);
     --ring: var(--primitive-brand-primary);
 
     /* Surface */
@@ -109,6 +119,9 @@
     --color-popover: var(--popover);
     --color-popover-foreground: var(--popover-foreground);
 
+    --color-dialog: var(--dialog);
+    --color-dialog-foreground: var(--dialog-foreground);
+
     --color-primary: var(--primary);
     --color-primary-foreground: var(--primary-foreground);
 
@@ -120,6 +133,8 @@
 
     --color-accent: var(--accent);
     --color-accent-foreground: var(--accent-foreground);
+
+    --color-sidebar: var(--sidebar);
 
     --color-destructive: var(--destructive);
     --color-destructive-foreground: var(--destructive-foreground);
