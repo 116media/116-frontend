@@ -34,7 +34,7 @@ export function CountryOption({ country, selected, onSelect }: CountryOptionProp
             type="button"
             onClick={() => onSelect(country.name)}
             className={cn(
-                "flex w-full cursor-pointer items-center gap-2 rounded-sm p-2 text-left text-sm", 
+                "flex w-full cursor-pointer items-center gap-2 rounded-sm p-2 text-left text-sm",
                 "transition-colors hover:bg-accent hover:text-accent-foreground",
                 selected && "bg-accent/50"
             )}

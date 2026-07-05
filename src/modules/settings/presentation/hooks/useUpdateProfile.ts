@@ -2,7 +2,7 @@
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { authKeys } from "@/modules/auth/presentation/context/authKeys";
+import { authKeys } from "@/modules/auth/presentation/constants/authKeys";
 import type { IProfile } from "@/modules/settings/domain/entities/IProfile";
 import type { IUpdateAccountCredentials } from "@/modules/settings/presentation/model/IUpdateAccountCredentials";
 import type { Failure } from "@/shared/domain/failures/failure";

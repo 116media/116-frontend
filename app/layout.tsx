@@ -1,9 +1,9 @@
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import type { Metadata } from "next";
 import { Merriweather, Outfit, Playfair_Display } from "next/font/google";
+import { authKeys } from "@/modules/auth/presentation/constants/authKeys";
 import { AuthModalProvider } from "@/modules/auth/presentation/context/AuthModalProvider";
 import { AuthProvider } from "@/modules/auth/presentation/context/AuthProvider";
-import { authKeys } from "@/modules/auth/presentation/context/authKeys";
 import { createServerCradle } from "@/shared/infrastructure/server.cradle";
 import { Toaster } from "@/shared/presentation/components/ui/Toaster";
 import { I18nProvider } from "@/shared/presentation/i18n/I18nProvider";

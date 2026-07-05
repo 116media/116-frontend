@@ -1,10 +1,24 @@
 /**
+ * Minimal author projection for a card byline.
+ *
+ * @interface IArticleAuthor
+ *
+ * @property {string} userName - Author display name
+ * @property {string | null} avatarUrl - Author avatar URL, or null
+ */
+export interface IArticleAuthor {
+    userName: string;
+    avatarUrl: string | null;
+}
+
+/**
  * IArticleSummaryEntity
  *
  * @description
  * Domain entity representing a summary view of a published article.
  * Maps from ArticleSummaryDto — drops audit fields, authorId, and status
  * which are irrelevant to the public-facing mega menu display.
+ * Used by the feed grid and cards.
  *
  * @interface IArticleSummaryEntity
  *
@@ -20,6 +34,9 @@
  * @property {number} likeCount - Cached number of likes
  * @property {number} commentCount - Cached number of comments
  * @property {number} shareCount - Cached number of shares
+ * @property {number} [bookmarkCount] - Cached number of bookmarks
+ * @property {number} [readTimeInMinutes] - Estimated reading time in minutes. Absent on the current summary DTO
+ * @property {IArticleAuthor} [author] - Denormalized author for the byline. Absent on the current summary DTO
  */
 export interface IArticleSummaryEntity {
     id: string;
@@ -34,4 +51,7 @@ export interface IArticleSummaryEntity {
     likeCount: number;
     commentCount: number;
     shareCount: number;
+    bookmarkCount?: number;
+    readTimeInMinutes?: number;
+    author?: IArticleAuthor;
 }

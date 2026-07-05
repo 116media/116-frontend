@@ -3,7 +3,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import type { IVerifyOtpResponse } from "@/modules/auth/domain/entities/IVerifyOtpResponse";
-import { authKeys } from "@/modules/auth/presentation/context/authKeys";
+import { authKeys } from "@/modules/auth/presentation/constants/authKeys";
 import type { IVerifyOtpCredentials } from "@/modules/auth/presentation/model/IVerifyOtpCredentials";
 import type { Failure } from "@/shared/domain/failures/failure";
 import container from "@/shared/infrastructure/service.locator";
