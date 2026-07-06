@@ -26,6 +26,7 @@ export {
     ChevronRight as ChevronRightIcon,
     ChevronsUpDown as ChevronsUpDownIcon,
     CircleHelp as HelpCircleIcon,
+    CircleCheck as CircleCheckIcon,
     Clock as ClockIcon,
     Cpu as CpuIcon,
     Crown as CrownIcon,
@@ -33,6 +34,7 @@ export {
     EyeOff as EyeOffIcon,
     Flame as FlameIcon,
     Heart as HeartIcon,
+    Info as InfoIcon,
     Link as LinkIcon,
     ListFilter as FilterIcon,
     ListPlus as ListPlusIcon,
@@ -53,6 +55,7 @@ export {
     Star as StarIcon,
     Tablet as TabletIcon,
     ThumbsUp as ThumbsUpIcon,
+    TriangleAlert as TriangleAlertIcon,
     UserRound as UserRoundIcon,
     X as XIcon,
     XCircle as XCircleIcon
