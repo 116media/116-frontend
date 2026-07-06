@@ -9,6 +9,7 @@ import { Toaster } from "@/shared/presentation/components/ui/Toaster";
 import { I18nProvider } from "@/shared/presentation/i18n/I18nProvider";
 import { QueryProvider } from "@/shared/presentation/providers/QueryProvider";
 import { ThemeProvider } from "@/shared/presentation/providers/ThemeProvider";
+import { getServerLanguage } from "@/shared/presentation/utils/getServerLanguage";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -43,6 +44,7 @@ export default async function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+    const language = await getServerLanguage();
     const cradle = await createServerCradle();
     const currentUserResult = await cradle.getProfileUseCase.execute();
 
@@ -54,7 +56,7 @@ export default async function RootLayout({
 
     return (
         <html
-            lang="fr"
+            lang={language}
             suppressHydrationWarning
             className={`${outfit.variable} ${playfair.variable} ${merriweather.variable}`}
         >
@@ -66,7 +68,7 @@ export default async function RootLayout({
                     <Toaster />
                     <QueryProvider>
                         <HydrationBoundary state={dehydrate(queryClient)}>
-                            <I18nProvider>
+                            <I18nProvider initialLanguage={language}>
                                 <AuthProvider>
                                     <AuthModalProvider>{children}</AuthModalProvider>
                                 </AuthProvider>
