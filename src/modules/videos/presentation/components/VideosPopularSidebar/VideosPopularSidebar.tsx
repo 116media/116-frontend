@@ -40,7 +40,7 @@ export function VideosPopularSidebar({ currentVideoId }: VideosPopularSidebarPro
 
     if (isPending) {
         return (
-            <aside className="flex flex-col gap-4">
+            <aside className="flex flex-col">
                 <SectionHeader
                     icon={<FlameIcon />}
                     title={t("videos.detail.sidebar.popular")}
