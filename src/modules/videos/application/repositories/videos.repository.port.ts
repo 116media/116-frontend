@@ -47,6 +47,22 @@ export interface IPublishedVideosQuery {
 }
 
 /**
+ * Query for the popularity-ranked video list. Mirrors
+ * GET /api/v1/public/videos/popular — a fixed-size, non-paginated list.
+ *
+ * @interface IPopularVideosQuery
+ *
+ * @property {number} limit - Maximum number of videos to return (10 for the detail sidebar)
+ * @property {string} [excludeId] - Video id to omit, e.g. the video currently open (UUID)
+ * @property {string} [categoryId] - Optional category scope (UUID)
+ */
+export interface IPopularVideosQuery {
+    limit: number;
+    excludeId?: string;
+    categoryId?: string;
+}
+
+/**
  * Repository port for videos data access operations.
  *
  * @description
@@ -109,6 +125,16 @@ export interface IVideosRepositoryPort {
      * @returns `ok(IVideoSummaryEntity[])` on success, `err(Failure)` on failure
      */
     getPublishedVideos(query: IPublishedVideosQuery): Promise<Result<IVideoSummaryEntity[]>>;
+
+    /**
+     * Fetches the most popular published videos — ranked server-side by weighted
+     * engagement — optionally excluding the video currently open. Non-paginated:
+     * the caller receives the whole capped list in one call.
+     *
+     * @param query - Limit plus optional exclusion and category scope
+     * @returns `ok(IVideoSummaryEntity[])` on success, `err(Failure)` on failure
+     */
+    getPopularVideos(query: IPopularVideosQuery): Promise<Result<IVideoSummaryEntity[]>>;
 
     /**
      * Fetches the lyrics linked to a video for the detail page's lyrics tab.
