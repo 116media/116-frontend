@@ -11,6 +11,7 @@ import {
     DialogHeader,
     DialogTitle
 } from "@/shared/presentation/components/ui/Dialog";
+import { Link2Icon } from "@/shared/presentation/components/ui/Icon";
 import { Input } from "@/shared/presentation/components/ui/Input";
 import { showNotification } from "@/shared/presentation/utils/notification";
 
@@ -101,17 +102,19 @@ export function VideoShareModal({
                         </p>
                     </DialogHeader>
 
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 rounded-lg border border-input bg-transparent py-1 pr-2 pl-3 transition-colors focus-within:border-ring focus-within:ring-3 focus-within:ring-ring/20 dark:bg-input/30">
+                        <Link2Icon className="size-4 shrink-0 text-muted-foreground" />
                         <Input
                             readOnly
                             value={url}
                             onFocus={(event) => event.target.select()}
                             aria-label={t("videos.detail.shareModal.linkLabel")}
+                            className="h-9 flex-1 truncate border-0 bg-transparent px-0 focus-visible:border-0 focus-visible:ring-0 dark:bg-transparent"
                         />
                         <Button
+                            size="sm"
                             type="button"
                             onClick={copy}
-                            className="shrink-0"
                         >
                             {t("videos.detail.shareModal.copyAction")}
                         </Button>
@@ -122,6 +125,7 @@ export function VideoShareModal({
                             url={url}
                             title={title}
                             orientation="horizontal"
+                            separated
                             platforms={["facebook", "whatsapp", "x"]}
                             labels={{
                                 facebook: t("videos.detail.shareModal.facebook"),
