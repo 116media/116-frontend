@@ -1,16 +1,11 @@
+const REVALIDATE_SECONDS = 300;
+
 /**
  * The all-null stats shape. Returned whenever the statistics cannot be
  * resolved — missing API key, implausible id, upstream error — so the page's
  * chips hide instead of erroring. Null means hidden/unavailable, never 0.
  */
 const NULL_STATS = { viewCount: null, likeCount: null, commentCount: null };
-
-/**
- * Seconds the Google response is cached per video id. One YouTube Data API
- * call costs 1 quota unit against the 10k/day default, so a 5-minute window
- * keeps the page far from the quota under any realistic traffic.
- */
-const REVALIDATE_SECONDS = 300;
 
 /**
  * isPlausibleYoutubeId
