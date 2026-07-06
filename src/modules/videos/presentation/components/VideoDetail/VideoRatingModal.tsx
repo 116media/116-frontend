@@ -29,10 +29,10 @@ const STAR_POSITIONS = [1, 2, 3, 4, 5] as const;
  * @property {string} slug - The video slug keying the cached detail entity.
  */
 export interface VideoRatingModalProps {
-    open: boolean;
-    onOpenChange: (open: boolean) => void;
-    videoId: string;
     slug: string;
+    open: boolean;
+    videoId: string;
+    onOpenChange: (open: boolean) => void;
 }
 
 /**
@@ -57,8 +57,9 @@ export interface VideoRatingModalProps {
 export function VideoRatingModal({ open, onOpenChange, videoId, slug }: VideoRatingModalProps) {
     const { t } = useTranslation();
     const { submit } = useRateVideo(videoId, slug);
-    const [selected, setSelected] = useState(0);
+
     const [hovered, setHovered] = useState(0);
+    const [selected, setSelected] = useState(0);
 
     const active = hovered || selected;
 
@@ -131,6 +132,7 @@ export function VideoRatingModal({ open, onOpenChange, videoId, slug }: VideoRat
 
                     <div className="grid gap-2">
                         <Button
+                            size="lg"
                             type="button"
                             onClick={rate}
                             disabled={selected === 0}
@@ -138,6 +140,7 @@ export function VideoRatingModal({ open, onOpenChange, videoId, slug }: VideoRat
                             {t("videos.detail.ratingModal.submit")}
                         </Button>
                         <Button
+                            size="lg"
                             type="button"
                             variant="ghost"
                             onClick={() => close(false)}
