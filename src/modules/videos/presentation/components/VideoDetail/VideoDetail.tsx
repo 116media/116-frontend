@@ -8,9 +8,9 @@ import { VideosPopularSidebar } from "@/modules/videos/presentation/components/V
 
 import { VideoDetailHeader } from "./VideoDetail.Header";
 import { VideoDetailTabs } from "./VideoDetail.Tabs";
-import { VideoDetailTags } from "./VideoDetail.Tags";
 import { VideoDetailPlayer } from "./VideoDetailPlayer";
 import { VideoPlaylistModal } from "./VideoPlaylistModal";
+import { VideoRatingModal } from "./VideoRatingModal";
 import { VideoShareModal } from "./VideoShareModal";
 
 /**
@@ -40,19 +40,19 @@ export function VideoDetail({ video }: VideoDetailProps) {
     const requireAuth = useRequireAuth();
     const [shareOpen, setShareOpen] = useState(false);
     const [playlistOpen, setPlaylistOpen] = useState(false);
+    const [ratingOpen, setRatingOpen] = useState(false);
 
     return (
         <div className="flex flex-col gap-6">
-            <div className="lg:grid lg:grid-cols-[minmax(0,2.5fr)_minmax(0,1fr)] lg:gap-6">
-                <div className="flex min-w-0 flex-col gap-6">
+            <div className="lg:grid lg:grid-cols-[minmax(0,1.8fr)_minmax(0,1fr)] lg:gap-6">
+                <div className="flex min-w-0 flex-col gap-2">
                     <VideoDetailPlayer
                         title={video.title}
                         thumbnailUrl={video.thumbnailUrl}
                         youtubeVideoUrl={video.youtubeVideoUrl}
                     />
                     <VideoDetailHeader
-                        slug={video.slug}
-                        videoId={video.id}
+                        tags={video.tags}
                         title={video.title}
                         shareCount={video.shareCount}
                         ratingCount={video.ratingCount}
@@ -60,9 +60,9 @@ export function VideoDetail({ video }: VideoDetailProps) {
                         ratingAverage={video.ratingAverage}
                         youtubeVideoUrl={video.youtubeVideoUrl}
                         onShare={() => setShareOpen(true)}
+                        onOpenRating={() => setRatingOpen(true)}
                         onAddToPlaylist={() => requireAuth(() => setPlaylistOpen(true))}
                     />
-                    <VideoDetailTags tags={video.tags} />
                     <VideoDetailTabs
                         videoId={video.id}
                         hasLyrics={video.hasLyrics}
@@ -87,6 +87,12 @@ export function VideoDetail({ video }: VideoDetailProps) {
                 open={playlistOpen}
                 videoId={video.id}
                 onOpenChange={setPlaylistOpen}
+            />
+            <VideoRatingModal
+                open={ratingOpen}
+                slug={video.slug}
+                videoId={video.id}
+                onOpenChange={setRatingOpen}
             />
         </div>
     );
