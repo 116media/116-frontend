@@ -16,7 +16,7 @@ import type { IVideoTagEntity } from "@/modules/videos/domain/entities/IVideoTag
  * @property {string} categoryName - Display name of the category
  * @property {string} title - Video display title
  * @property {string} slug - URL-safe slug
- * @property {string} description - Plain-text description shown in the description tab
+ * @property {string} description - Rich-text HTML description shown in the description tab
  * @property {string | null} thumbnailUrl - URL of the video thumbnail, or null if not set
  * @property {string | null} youtubeVideoUrl - YouTube video URL, or null if not yet attached
  * @property {boolean} hasLyrics - Whether lyrics are linked to this video
