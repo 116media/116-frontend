@@ -7,6 +7,8 @@ import container from "@/shared/infrastructure/service.locator";
 import { videoKeys } from "../constants/videoKeys";
 import { dummyYoutubeStats } from "../data/video-detail.dummy";
 
+const YOUTUBE_STATS_STALE_TIME_MS = 300_000;
+
 /**
  * The all-null stats shape used when the video has no YouTube id — every
  * chip hides (null means hidden, not 0).
@@ -29,13 +31,6 @@ function isAllNull(stats: IYoutubeVideoStats): boolean {
 }
 
 /**
- * Cache lifetime for the YouTube stat chips. Matches the internal route
- * handler's 5-minute revalidation, so a page revisit inside the window never
- * refires the query.
- */
-const YOUTUBE_STATS_STALE_TIME_MS = 300_000;
-
-/**
  * useYoutubeStats
  *
  * @description
@@ -55,9 +50,9 @@ const YOUTUBE_STATS_STALE_TIME_MS = 300_000;
  */
 export function useYoutubeStats(youtubeId: string | null) {
     return useQuery<IYoutubeVideoStats>({
-        queryKey: videoKeys.youtubeStats(youtubeId ?? "none"),
         enabled: !!youtubeId,
         staleTime: YOUTUBE_STATS_STALE_TIME_MS,
+        queryKey: videoKeys.youtubeStats(youtubeId ?? "none"),
         queryFn: async () => {
             if (!youtubeId) return NULL_STATS;
             const result = await container.cradle.getYoutubeVideoStatsUseCase.execute(youtubeId);
