@@ -6,6 +6,7 @@ import type { IVideoTagEntity } from "@/modules/videos/domain/entities/IVideoTag
 import type { IYoutubeVideoStats } from "@/modules/videos/domain/entities/IYoutubeVideoStats";
 
 import { generateDummyVideoFeed } from "../components/VideoFeedSection/dummy-feed";
+import { POPULAR_VIDEOS_LIMIT, SIMILAR_VIDEOS_PAGE_SIZE } from "../constants/videoKeys";
 
 /**
  * A real, publicly available YouTube video (Blender Foundation's Big Buck
@@ -47,23 +48,93 @@ function buildDummyDescription(title: string): string {
 }
 
 /**
+ * Titles for the dedicated ten-item dummy popular pool — distinct from the feed
+ * titles so the sidebar reads as its own set of videos rather than a repeat of
+ * the homepage feed. Ten matches the popular endpoint's fixed size.
+ */
+const POPULAR_TITLES = [
+    "Rumba Nights: The Full Session",
+    "Kinshasa After Dark",
+    "The Rooftop Cypher, Uncut",
+    "Amapiano Meets Ndombolo",
+    "Live at the Zénith: Encore",
+    "Studio Diaries: Building the Hook",
+    "One Take, No Autotune",
+    "The Block Party Tape",
+    "Brass, Bass and Everything Between",
+    "Sunday Choir to Saturday Club"
+];
+
+/**
+ * Known-good concert/music thumbnails (shared with the feed dummies), cycled
+ * across the popular pool so every dummy row has artwork.
+ */
+const POPULAR_THUMBNAILS = [
+    "https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "https://images.pexels.com/photos/167636/pexels-photo-167636.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "https://images.pexels.com/photos/1190298/pexels-photo-1190298.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "https://images.pexels.com/photos/2240771/pexels-photo-2240771.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "https://images.pexels.com/photos/1105666/pexels-photo-1105666.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "https://images.pexels.com/photos/995301/pexels-photo-995301.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "https://images.pexels.com/photos/1644888/pexels-photo-1644888.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "https://images.pexels.com/photos/210922/pexels-photo-210922.jpeg?auto=compress&cs=tinysrgb&w=600"
+];
+
+/**
+ * generateDummyPopularVideos
+ *
+ * @description
+ * Dummy-data phase: a dedicated pool of ten popular-video summaries with
+ * their own titles and cycled thumbnails, distinct from the homepage feed
+ * dummies. Deterministic (index-seeded, no Math.random / Date.now) so SSR and
+ * client render identically; share counts skew high to read as "popular".
+ *
+ * @returns Ten dummy video summaries, each with a thumbnail.
+ */
+function generateDummyPopularVideos(): IVideoSummaryEntity[] {
+    return POPULAR_TITLES.map((title, index) => {
+        const isUnrated = index % 5 === 4;
+        return {
+            id: `dummy-popular-${index + 1}`,
+            categoryId: "video-popular",
+            categoryName: "Music Videos",
+            title,
+            slug: title
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, "-")
+                .replace(/(^-|-$)/g, ""),
+            thumbnailUrl: POPULAR_THUMBNAILS[index % POPULAR_THUMBNAILS.length],
+            youtubeVideoUrl: null,
+            isPromoted: index < 2,
+            publishedAt: new Date(2026, 5, 15 - index).toISOString(),
+            shareCount: 820 + index * 260,
+            ratingAverage: isUnrated ? 0 : Math.max(3.6, 4.9 - index * 0.12),
+            ratingCount: isUnrated ? 0 : 150 + index * 55
+        };
+    });
+}
+
+/**
  * dummyVideoDetail
  *
  * @description
  * Dummy-data phase: a fully-populated `IVideoDetailEntity` for the detail-page
- * preview while the backend has no published content. Reuses the shared feed
- * dummies (`generateDummyVideoFeed`) so the card a visitor clicked and the
- * video they land on agree on title, thumbnail, and counts. Index-seeded from
- * the slug (no Math.random / Date.now) so SSR and client render identically.
- * Carries a real YouTube URL so the player and the stats chips work, four
- * tags, and `hasLyrics: true` so the lyrics tab is previewable.
+ * preview while the backend has no published content. Resolves the slug
+ * against both the shared feed dummies and the dedicated popular pool, so a
+ * clicked card — whether from the feed or the popular sidebar — and the video
+ * it lands on agree on title, thumbnail, and counts, falling back to the first
+ * feed dummy. Index-seeded from the slug (no Math.random / Date.now) so SSR
+ * and client render identically. Carries a real YouTube URL so the player and
+ * the stats chips work, four tags, and `hasLyrics: true` so the lyrics tab is
+ * previewable.
  *
- * @param slug - The requested slug; matched against the feed dummies, falling back to the first.
+ * @param slug - The requested slug; matched against the dummy pools, falling back to the first.
  * @returns The dummy video detail entity.
  */
 export function dummyVideoDetail(slug: string): IVideoDetailEntity {
     const { videos } = generateDummyVideoFeed();
-    const summary = videos.find((video) => video.slug === slug) ?? videos[0];
+    const pool = [...videos, ...generateDummyPopularVideos()];
+    const summary = pool.find((video) => video.slug === slug) ?? videos[0];
 
     return {
         id: summary.id,
@@ -164,33 +235,101 @@ export function dummyPlaylists(): IPlaylistEntity[] {
  * dummyPopularVideos
  *
  * @description
- * Dummy-data phase: a short list of video summaries for the popular-sidebar
- * preview, each carrying a thumbnail, sourced from the shared feed dummies and
- * excluding the video currently open.
+ * Dummy-data phase: the whole popular sidebar in one shot — the dedicated
+ * ten-item popular pool with the open video excluded, capped at `limit`. Backs
+ * the popular query while the backend has no popular endpoint. Not paginated:
+ * the popular endpoint returns a fixed-size list, so this mirrors it and hands
+ * back the full capped list.
  *
- * @param excludeId - The open video's id, excluded from the list.
- * @param limit - Maximum number of rows to return (default 5).
- * @returns Up to `limit` video summaries, each with a thumbnail.
+ * @param excludeId - The open video's id, excluded from the pool.
+ * @param limit - Maximum rows to return (defaults to the sidebar's ten).
+ * @returns Up to `limit` popular video summaries.
  */
-export function dummyPopularVideos(excludeId: string, limit = 5): IVideoSummaryEntity[] {
-    return generateDummyVideoFeed()
-        .videos.filter((video) => video.id !== excludeId && video.thumbnailUrl)
+export function dummyPopularVideos(
+    excludeId: string,
+    limit = POPULAR_VIDEOS_LIMIT
+): IVideoSummaryEntity[] {
+    return generateDummyPopularVideos()
+        .filter((video) => video.id !== excludeId && video.thumbnailUrl)
         .slice(0, limit);
 }
 
 /**
- * dummySimilarVideos
+ * Supplemental similar-only titles, layered on top of the feed and popular
+ * pools so the similar grid has more than twenty distinct videos to scroll
+ * through — enough to exercise several pages of infinite scroll after the open
+ * video is excluded.
+ */
+const SIMILAR_EXTRA_TITLES = [
+    "Acoustic Rooftop, Golden Hour",
+    "The Remix Nobody Asked For",
+    "Backstage at the Festival",
+    "Two Guitars and a Drum Machine",
+    "Sunrise Set on the River",
+    "The Encore That Never Ended"
+];
+
+/**
+ * generateDummySimilarVideos
  *
  * @description
- * Dummy-data phase: the similar-tab preview grid, sourced from the shared feed
- * dummies with the video currently open excluded. Offset into the pool so the
- * similar grid and the popular sidebar do not show the same three videos.
+ * Dummy-data phase: the similar-videos pool — the shared feed dummies plus the
+ * popular pool plus a supplemental set, so more than twenty distinct videos are
+ * available to page through. Deterministic (index-seeded, no Math.random /
+ * Date.now) so SSR and client render identically; ids are namespaced so the
+ * supplemental items never collide with the feed or popular ids.
  *
- * @param excludeId - The open video's id, excluded from the list.
- * @param limit - Maximum number of cards to return (default 3).
- * @returns Up to `limit` video summaries.
+ * @returns The full similar pool (feed + popular + supplemental).
  */
-export function dummySimilarVideos(excludeId: string, limit = 3): IVideoSummaryEntity[] {
-    const pool = generateDummyVideoFeed().videos.filter((video) => video.id !== excludeId);
-    return [...pool.slice(limit), ...pool.slice(0, limit)].slice(0, limit);
+function generateDummySimilarVideos(): IVideoSummaryEntity[] {
+    const extra = SIMILAR_EXTRA_TITLES.map((title, index) => {
+        const isUnrated = index % 4 === 3;
+        return {
+            id: `dummy-similar-${index + 1}`,
+            categoryId: "video-similar",
+            categoryName: "Music Videos",
+            title,
+            slug: title
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, "-")
+                .replace(/(^-|-$)/g, ""),
+            thumbnailUrl: POPULAR_THUMBNAILS[index % POPULAR_THUMBNAILS.length],
+            youtubeVideoUrl: null,
+            isPromoted: false,
+            publishedAt: new Date(2026, 4, 20 - index).toISOString(),
+            shareCount: 180 + index * 90,
+            ratingAverage: isUnrated ? 0 : Math.max(3.4, 4.6 - index * 0.1),
+            ratingCount: isUnrated ? 0 : 60 + index * 25
+        } satisfies IVideoSummaryEntity;
+    });
+    return [...generateDummyVideoFeed().videos, ...generateDummyPopularVideos(), ...extra];
+}
+
+/**
+ * dummySimilarVideosPage
+ *
+ * @description
+ * Dummy-data phase: one page of the similar-videos grid, sliced by zero-based
+ * `pageIndex` from the twenty-plus-item similar pool (the open video excluded),
+ * rotated by one page so the similar grid and the popular sidebar do not open
+ * on the same rows. Backs the similar infinite query while the backend has no
+ * same-category content — successive pages walk the pool until it runs dry,
+ * then the query stops.
+ *
+ * @param excludeId - The open video's id, excluded from the pool.
+ * @param pageIndex - Zero-based page to slice.
+ * @param pageSize - Cards per page.
+ * @returns The page slice (empty once the pool is exhausted).
+ */
+export function dummySimilarVideosPage(
+    excludeId: string,
+    pageIndex: number,
+    pageSize = SIMILAR_VIDEOS_PAGE_SIZE
+): IVideoSummaryEntity[] {
+    const pool = generateDummySimilarVideos().filter(
+        (video) => video.id !== excludeId && video.thumbnailUrl
+    );
+    const rotated = [...pool.slice(pageSize), ...pool.slice(0, pageSize)];
+    const start = pageIndex * pageSize;
+    return rotated.slice(start, start + pageSize);
 }
