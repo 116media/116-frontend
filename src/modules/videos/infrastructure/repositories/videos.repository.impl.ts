@@ -1,5 +1,6 @@
 import type {
     IAddVideoToPlaylistInput,
+    IPopularVideosQuery,
     IPublishedVideosQuery,
     IVideosRepositoryPort
 } from "@/modules/videos/application/repositories/videos.repository.port";
@@ -38,7 +39,7 @@ export class VideosRepositoryImpl implements IVideosRepositoryPort {
     async getPromotedVideos(): Promise<Result<IVideoSummaryEntity[]>> {
         try {
             const response = await this.api.getPromotedVideos();
-            return ok(response.data.videos.map(VideosMapper.videoSummaryFromDto));
+            return ok(VideosMapper.videoSummaryListFromDto(response.data.videos));
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }
@@ -57,7 +58,7 @@ export class VideosRepositoryImpl implements IVideosRepositoryPort {
                 contentTypeId: videoContentType.id
             });
 
-            return ok(categoriesResponse.data.categories.map(VideosMapper.categoryFromDto));
+            return ok(VideosMapper.categoryListFromDto(categoriesResponse.data.categories));
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }
@@ -76,7 +77,7 @@ export class VideosRepositoryImpl implements IVideosRepositoryPort {
                 contentTypeId: videoContentType.id
             });
 
-            return ok(categoriesResponse.data.categories.map(VideosMapper.showFromDto));
+            return ok(VideosMapper.showListFromDto(categoriesResponse.data.categories));
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }
@@ -87,7 +88,7 @@ export class VideosRepositoryImpl implements IVideosRepositoryPort {
             const response = await this.api.publicGetPopularTags({
                 contentType: EnumCoreContentType.Video
             });
-            return ok(response.data.tags.map(VideosMapper.tagFromDto));
+            return ok(VideosMapper.tagListFromDto(response.data.tags));
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }
@@ -114,7 +115,20 @@ export class VideosRepositoryImpl implements IVideosRepositoryPort {
     async getPublishedVideos(query: IPublishedVideosQuery): Promise<Result<IVideoSummaryEntity[]>> {
         try {
             const response = await this.api.getPublishedVideos(query);
-            return ok(response.data.videos.items.map(VideosMapper.videoSummaryFromDto));
+            return ok(VideosMapper.videoSummaryListFromDto(response.data.videos.items));
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async getPopularVideos(query: IPopularVideosQuery): Promise<Result<IVideoSummaryEntity[]>> {
+        try {
+            const response = await this.api.getPopularVideos({
+                limit: query.limit,
+                excludeId: query.excludeId,
+                categoryId: query.categoryId
+            });
+            return ok(VideosMapper.videoSummaryListFromDto(response.data.videos));
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }
@@ -150,7 +164,7 @@ export class VideosRepositoryImpl implements IVideosRepositoryPort {
     async getMyPlaylists(): Promise<Result<IPlaylistEntity[]>> {
         try {
             const response = await this.api.publicGetMyPlaylists();
-            return ok(response.data.map(VideosMapper.playlistFromDto));
+            return ok(VideosMapper.playlistListFromDto(response.data));
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }
