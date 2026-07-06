@@ -29,21 +29,25 @@ const TAGS: IVideoTagEntity[] = [
  * buildDummyDescription
  *
  * @description
- * Builds the ~500-character plain-text description for a dummy video, woven
- * around its title, so the description tab previews with a realistic long
- * paragraph. Deterministic, so SSR and client render identically.
+ * Builds a rich-text HTML description for a dummy video, woven around its title,
+ * so the description tab previews the sanitized-HTML path with a heading,
+ * paragraphs, a link, and a hashtag line. Deterministic, so SSR and client
+ * render identically.
  *
- * @param title - The video title, woven into the opening line.
- * @returns The description text.
+ * @param title - The video title, woven into the heading and opening line.
+ * @returns The description HTML.
  */
 function buildDummyDescription(title: string): string {
     return (
-        `${title} — filmed over three nights between a packed rehearsal room and the city's ` +
-        "loudest rooftop, this session captures an artist at the exact moment a sound stops " +
-        "being an experiment and becomes a signature. The arrangement folds classic rhumba " +
-        "guitar lines into hard-edged 808s, and the crowd you hear in the final chorus is not " +
-        "an overdub: it is the block itself, singing back. Shot and mixed by the 116 crew, " +
-        "with live percussion, two takes, and no autotune anywhere near the vocal booth."
+        `<p>🎙️ ${title}</p>` +
+        "<p>Filmed over three nights between a packed rehearsal room and the city's loudest " +
+        "rooftop, this session captures an artist at the exact moment a sound stops being an " +
+        "experiment and becomes a signature. The arrangement folds classic <strong>rhumba</strong> " +
+        "guitar lines into hard-edged 808s, and the crowd you hear in the final chorus is not an " +
+        "overdub — it is the block itself, singing back.</p>" +
+        '<p>🌍 Website: <a target="_blank" rel="noopener noreferrer nofollow" href="https://mutombo.dev">mutombo.dev</a></p>' +
+        "<p>📲 Follow for more interviews, beat breakdowns, and behind-the-scenes stories.</p>" +
+        "<p>#116 #CoolBeatz #HipHop #Afrobeat #Rhumba #Producer #Beatmaker</p>"
     );
 }
 
