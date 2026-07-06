@@ -12,6 +12,7 @@ Aucunes
 autotune
 avez
 avons
+Beatmaker
 biso
 blockquotes
 Bolingo
@@ -46,6 +47,7 @@ delà
 depuis
 derniers
 Descr
+detectcountry
 décalé
 Découvrez
 déplacée
@@ -79,6 +81,7 @@ getfeaturedvideos
 getmyplaylists
 getownprofile
 getownsessions
+getpopularvideos
 getpromotedarticles
 getpromotedvideos
 getpublishedarticles
@@ -129,6 +132,7 @@ motema
 moyi
 musiceditor
 Musique
+mutombo
 Mwaka
 Mwaka's
 mêmes
@@ -142,17 +146,22 @@ neighbours
 ngai
 Ninho
 nomme
+noopener
+noreferrer
 nums
 Officiel
 Okafor
 okeyi
 optimisation
+partage
 Partager
 Partages
+Partagez
 partagées
 partout
 pexels
 Playfair
+plusieurs
 POPULAIRES
 pravatar
 prefetchnavigation
@@ -164,6 +173,8 @@ prochain
 produite
 Prêt
 quand
+quel
+Quelle
 ratevideo
 recherchez
 refetches
