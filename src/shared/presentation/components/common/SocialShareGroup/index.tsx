@@ -37,6 +37,8 @@ export interface ISocialShareLabels {
  * @property {ISocialShareLabels} labels - Accessible labels for the four buttons.
  * @property {(platform: string) => void} [onShared] - Fires after a network share completes (telemetry seam).
  * @property {() => void} [onCopied] - Fires after the URL lands in the clipboard (toast seam).
+ * @property {SocialShareKey[]} [platforms] - Which buttons to render, in order.
+ * Defaults to all four (`facebook`, `x`, `whatsapp`, `copy`).
  * @property {string} [className] - Extra classes merged onto the ButtonGroup.
  */
 export interface SocialShareGroupProps {
@@ -46,8 +48,20 @@ export interface SocialShareGroupProps {
     labels: ISocialShareLabels;
     onShared?: (platform: string) => void;
     onCopied?: () => void;
+    platforms?: SocialShareKey[];
     className?: string;
 }
+
+/**
+ * The addressable buttons in the group: the three network intents plus the
+ * copy-link action.
+ */
+export type SocialShareKey = SharePlatform | "copy";
+
+/**
+ * Default button set and order when `platforms` is not supplied.
+ */
+const DEFAULT_PLATFORMS: SocialShareKey[] = ["facebook", "x", "whatsapp", "copy"];
 
 /**
  * One button in the share group. Each button carries a solid background — a
@@ -92,6 +106,7 @@ interface ISocialShareButton {
  * @param labels - Accessible labels for the four buttons.
  * @param onShared - Fires after a network share completes.
  * @param onCopied - Fires after the URL lands in the clipboard.
+ * @param platforms - Which buttons to render, in order (defaults to all four).
  * @param className - Extra classes merged onto the ButtonGroup.
  */
 export function SocialShareGroup({
@@ -101,6 +116,7 @@ export function SocialShareGroup({
     labels,
     onShared,
     onCopied,
+    platforms = DEFAULT_PLATFORMS,
     className
 }: SocialShareGroupProps) {
     const shareTo = (platform: SharePlatform) => async () => {
@@ -153,12 +169,16 @@ export function SocialShareGroup({
         }
     ];
 
+    const buttons = platforms
+        .map((platform) => SHARE_BUTTONS.find((button) => button.key === platform))
+        .filter((button): button is ISocialShareButton => button !== undefined);
+
     return (
         <ButtonGroup
             orientation={orientation}
             className={className}
         >
-            {SHARE_BUTTONS.map(({ key, icon, label, onClick, brand, bgClass }) => (
+            {buttons.map(({ key, icon, label, onClick, brand, bgClass }) => (
                 <Button
                     key={key}
                     size="lg"
