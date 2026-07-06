@@ -34,33 +34,29 @@ export interface ISocialShareLabels {
  * @property {string} url - The absolute URL being shared.
  * @property {string} title - The page title, carried into the share message.
  * @property {"horizontal" | "vertical"} [orientation] - Group direction. Defaults to vertical.
+ * @property {boolean} [separated] - Render the buttons as individually rounded,
+ * gapped buttons instead of one seamless segmented control. Defaults to false.
  * @property {ISocialShareLabels} labels - Accessible labels for the four buttons.
  * @property {(platform: string) => void} [onShared] - Fires after a network share completes (telemetry seam).
  * @property {() => void} [onCopied] - Fires after the URL lands in the clipboard (toast seam).
  * @property {SocialShareKey[]} [platforms] - Which buttons to render, in order.
  * Defaults to all four (`facebook`, `x`, `whatsapp`, `copy`).
- * @property {string} [className] - Extra classes merged onto the ButtonGroup.
+ * @property {string} [className] - Extra classes merged onto the group container.
  */
 export interface SocialShareGroupProps {
     url: string;
     title: string;
-    orientation?: "horizontal" | "vertical";
+    separated?: boolean;
     labels: ISocialShareLabels;
-    onShared?: (platform: string) => void;
+    orientation?: "horizontal" | "vertical";
     onCopied?: () => void;
-    platforms?: SocialShareKey[];
+    onShared?: (platform: string) => void;
     className?: string;
+    platforms?: SocialShareKey[];
 }
 
-/**
- * The addressable buttons in the group: the three network intents plus the
- * copy-link action.
- */
 export type SocialShareKey = SharePlatform | "copy";
 
-/**
- * Default button set and order when `platforms` is not supplied.
- */
 const DEFAULT_PLATFORMS: SocialShareKey[] = ["facebook", "x", "whatsapp", "copy"];
 
 /**
@@ -78,11 +74,11 @@ const DEFAULT_PLATFORMS: SocialShareKey[] = ["facebook", "x", "whatsapp", "copy"
  */
 interface ISocialShareButton {
     key: string;
-    icon: ReactNode;
     label: string;
-    onClick: () => void;
     brand?: string;
+    icon: ReactNode;
     bgClass?: string;
+    onClick: () => void;
 }
 
 /**
@@ -113,6 +109,7 @@ export function SocialShareGroup({
     url,
     title,
     orientation = "vertical",
+    separated = false,
     labels,
     onShared,
     onCopied,
@@ -173,28 +170,45 @@ export function SocialShareGroup({
         .map((platform) => SHARE_BUTTONS.find((button) => button.key === platform))
         .filter((button): button is ISocialShareButton => button !== undefined);
 
+    const renderedButtons = buttons.map(({ key, icon, label, onClick, brand, bgClass }) => (
+        <Button
+            key={key}
+            size="lg"
+            variant="ghost"
+            onClick={onClick}
+            aria-label={label}
+            style={brand ? ({ backgroundColor: brand } as CSSProperties) : undefined}
+            className={cn(
+                "size-12 p-0 text-white transition-all hover:text-white [&_svg]:size-5",
+                "hover:brightness-90 hover:[&_svg]:scale-120 [&_svg]:transition-transform",
+                separated && "rounded-lg",
+                bgClass
+            )}
+        >
+            {icon}
+        </Button>
+    ));
+
+    if (separated) {
+        return (
+            <div
+                className={cn(
+                    "flex w-fit items-stretch gap-2",
+                    orientation === "vertical" && "flex-col",
+                    className
+                )}
+            >
+                {renderedButtons}
+            </div>
+        );
+    }
+
     return (
         <ButtonGroup
-            orientation={orientation}
             className={className}
+            orientation={orientation}
         >
-            {buttons.map(({ key, icon, label, onClick, brand, bgClass }) => (
-                <Button
-                    key={key}
-                    size="lg"
-                    variant="ghost"
-                    onClick={onClick}
-                    aria-label={label}
-                    style={brand ? ({ backgroundColor: brand } as CSSProperties) : undefined}
-                    className={cn(
-                        "size-12 p-0 text-white transition-all hover:text-white [&_svg]:size-5",
-                        "hover:brightness-90 hover:[&_svg]:scale-120 [&_svg]:transition-transform",
-                        bgClass
-                    )}
-                >
-                    {icon}
-                </Button>
-            ))}
+            {renderedButtons}
         </ButtonGroup>
     );
 }
