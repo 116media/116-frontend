@@ -19,12 +19,32 @@ export const videoDetail = {
     detail: {
         share: "Share",
         addToPlaylist: "Add to playlist",
+        save: "Save",
         backToVideos: "Back to videos",
         stats: {
             views: "Views",
             likes: "Likes",
             comments: "Comments",
             shares: "Shares"
+        },
+        scoreboard: {
+            note: "Rating",
+            views: "Views",
+            likes: "Likes",
+            rate: "Rate this video",
+            viewsYoutube: "YouTube views",
+            reviews_one: "{{value}} review",
+            reviews_other: "{{value}} reviews",
+            comments_one: "{{value}} comment",
+            comments_other: "{{value}} comments",
+            shares_one: "{{value}} share",
+            shares_other: "{{value}} shares"
+        },
+        ratingModal: {
+            title: "What is your rating?",
+            subtitle: "Tell us how much you liked this video.",
+            submit: "Submit",
+            cancel: "No thanks"
         },
         rating: {
             label: "Rating",
@@ -55,6 +75,9 @@ export const videoDetail = {
         },
         shareModal: {
             title: "Share this video",
+            subtitle: "Share this video on your networks",
+            linkLabel: "Video link",
+            copyAction: "Copy",
             facebook: "Share on Facebook",
             x: "Share on X",
             whatsapp: "Share on WhatsApp",
@@ -66,7 +89,13 @@ export const videoDetail = {
         },
         playlist: {
             title: "Add to playlist",
+            subtitle: "Select one or more playlists",
             empty: "You have no playlists yet.",
+            createNew: "Create a new playlist",
+            cancel: "Cancel",
+            add: "Add",
+            videos_one: "{{value}} video",
+            videos_other: "{{value}} videos",
             create: {
                 placeholder: "New playlist name…",
                 submit: "Create"
