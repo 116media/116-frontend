@@ -56,6 +56,16 @@ export const VideosMapper = {
     },
 
     /**
+     * Maps a list of VideoSummaryDto to IVideoSummaryEntity domain entities.
+     *
+     * @param {VideoSummaryDto[]} dtos - Video summary data list from API
+     * @returns {IVideoSummaryEntity[]} Mapped video summary entities
+     */
+    videoSummaryListFromDto(dtos: VideoSummaryDto[]): IVideoSummaryEntity[] {
+        return dtos.map(VideosMapper.videoSummaryFromDto);
+    },
+
+    /**
      * Maps CategoryDto to IVideoCategoryEntity domain entity.
      * Drops contentTypeId and contentTypeName because by the time this
      * mapper runs the category list is already scoped to Video.
@@ -71,6 +81,16 @@ export const VideosMapper = {
             description: dto.description,
             isFree: dto.isFree
         };
+    },
+
+    /**
+     * Maps a list of CategoryDto to IVideoCategoryEntity domain entities.
+     *
+     * @param {CategoryDto[]} dtos - Category data list from API
+     * @returns {IVideoCategoryEntity[]} Mapped video category entities
+     */
+    categoryListFromDto(dtos: CategoryDto[]): IVideoCategoryEntity[] {
+        return dtos.map(VideosMapper.categoryFromDto);
     },
 
     /**
@@ -96,6 +116,16 @@ export const VideosMapper = {
     },
 
     /**
+     * Maps a list of CategoryDto to IShowEntity domain entities for the shows carousel.
+     *
+     * @param {CategoryDto[]} dtos - Category data list from API
+     * @returns {IShowEntity[]} Mapped show entities
+     */
+    showListFromDto(dtos: CategoryDto[]): IShowEntity[] {
+        return dtos.map(VideosMapper.showFromDto);
+    },
+
+    /**
      * Maps TagDto to IVideoTagEntity domain entity.
      *
      * @param {TagDto} dto - Tag data from API
@@ -107,6 +137,16 @@ export const VideosMapper = {
             name: dto.name,
             slug: dto.slug
         };
+    },
+
+    /**
+     * Maps a list of TagDto to IVideoTagEntity domain entities.
+     *
+     * @param {TagDto[]} dtos - Tag data list from API
+     * @returns {IVideoTagEntity[]} Mapped video tag entities
+     */
+    tagListFromDto(dtos: TagDto[]): IVideoTagEntity[] {
+        return dtos.map(VideosMapper.tagFromDto);
     },
 
     /**
@@ -124,7 +164,7 @@ export const VideosMapper = {
             slug: dto.category.slug,
             description: dto.category.description,
             posterUrl: dto.category.posterUrl ?? null,
-            episodes: dto.videos.items.map(VideosMapper.videoSummaryFromDto)
+            episodes: VideosMapper.videoSummaryListFromDto(dto.videos.items)
         };
     },
 
@@ -148,7 +188,7 @@ export const VideosMapper = {
             thumbnailUrl: dto.thumbnailUrl ?? null,
             youtubeVideoUrl: dto.youtubeVideoUrl ?? null,
             hasLyrics: dto.hasLyrics,
-            tags: dto.tags.map(VideosMapper.tagFromDto),
+            tags: VideosMapper.tagListFromDto(dto.tags),
             shareCount: dto.shareCount ?? 0,
             ratingAverage: dto.ratingAverage ?? 0,
             ratingCount: dto.ratingCount ?? 0,
@@ -188,6 +228,16 @@ export const VideosMapper = {
             name: dto.name,
             videoCount: dto.videoCount
         };
+    },
+
+    /**
+     * Maps a list of PlaylistDto to IPlaylistEntity domain entities.
+     *
+     * @param {PlaylistDto[]} dtos - Playlist data list from API
+     * @returns {IPlaylistEntity[]} Mapped playlist entities
+     */
+    playlistListFromDto(dtos: PlaylistDto[]): IPlaylistEntity[] {
+        return dtos.map(VideosMapper.playlistFromDto);
     },
 
     /**
