@@ -1850,6 +1850,10 @@ export interface PublicGetPopularTagsResponse {
   tags: TagDto[];
 }
 
+export interface PublicGetPopularVideosResponse {
+  videos: VideoSummaryDto[];
+}
+
 export interface PublicGetPromotedArticlesResponse {
   articles: ArticleSummaryDto[];
 }
@@ -13651,6 +13655,60 @@ export class Api<
       this.request<PublicGetPromotedVideosResponse, ProblemDetails>({
         path: `/api/v1/public/videos/promoted`,
         method: "GET",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Returns published videos ranked by a weighted engagement score
+     * (rating volume weighted by rating quality, plus shares),
+     * tie-broken by publish date descending.
+     * 
+     * YouTube view/like/comment figures are not used; ranking is based only on the
+     * platform's own engagement (ratings and shares).
+     * 
+     * Results are cached server-side for 10 minutes to avoid running the
+     * ranking query on every request.
+     * 
+     * **Query Parameters:**
+     * 
+     * - `limit` (optional, default 10, max 50): maximum number of videos to return
+     * - `categoryId` (optional): rank only videos in this category
+     * - `excludeId` (optional): video id to omit, e.g. the video currently being viewed
+     * This endpoint is publicly accessible and does not require authentication.
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with the list of popular videos on success
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags public::videos
+     * @name GetPopularVideos
+     * @summary Get popular videos
+     * @request GET:/api/v1/public/videos/popular
+     * @secure
+     * @response `200` `PublicGetPopularVideosResponse` OK
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    getPopularVideos: (
+      query?: {
+        /**
+         * @format int32
+         * @default 10
+         */
+        limit?: number;
+        /** @format uuid */
+        categoryId?: string;
+        /** @format uuid */
+        excludeId?: string;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<PublicGetPopularVideosResponse, ProblemDetails>({
+        path: `/api/v1/public/videos/popular`,
+        method: "GET",
+        query: query,
         secure: true,
         format: "json",
         ...params,
