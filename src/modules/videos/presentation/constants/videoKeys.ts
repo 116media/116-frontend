@@ -17,11 +17,14 @@ export const videoKeys = {
 };
 
 /**
- * The number of videos the similar tab shows.
+ * Page size for the infinite-scrolling similar-videos grid — how many cards
+ * each page of `getPublishedVideos` (or its dummy fill) contributes.
  */
-export const SIMILAR_VIDEOS_LIMIT = 3;
+export const SIMILAR_VIDEOS_PAGE_SIZE = 6;
 
 /**
- * The maximum number of popular videos the sidebar shows.
+ * Maximum number of rows the popular-videos sidebar shows. The popular endpoint
+ * is fixed-size (not paginated), so this is both the requested `limit` and the
+ * size of the dummy fallback pool.
  */
-export const POPULAR_VIDEOS_LIMIT = 5;
+export const POPULAR_VIDEOS_LIMIT = 10;
