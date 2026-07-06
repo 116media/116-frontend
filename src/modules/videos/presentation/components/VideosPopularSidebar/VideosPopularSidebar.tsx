@@ -1,6 +1,5 @@
 "use client";
 
-import { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 
 import { VideoCard } from "@/modules/videos/presentation/components/VideoCard";
@@ -24,13 +23,14 @@ export interface VideosPopularSidebarProps {
  * VideosPopularSidebar
  *
  * @description
- * The detail page's popular-videos column: a titled strip of up to five
- * VideoCard.Horizontal rows — the exclusive section's episode cards, in the
- * same muted block with rule separators as the articles' popular sidebar —
- * sourced from `useVideoDetailPopular` (promoted first, published fallback,
- * current video excluded). While loading it shows a matching skeleton block;
- * when the resolved list is empty it renders nothing (no heading, no
- * empty-state box) so an empty column never occupies the layout.
+ * The detail page's popular-videos column: a titled strip of up to ten
+ * `VideoCard.Horizontal` rows in the gossip-strip muted block, sourced from
+ * `useVideoDetailPopular` (the backend's engagement-ranked popular endpoint,
+ * current video excluded, dummy-padded during the empty-backend phase). The
+ * popular endpoint is fixed-size and not paginated, so the strip renders the
+ * whole list at once — no infinite scroll. While the first load is pending it
+ * shows the matching skeleton block; when the resolved list is empty it renders
+ * nothing so an empty column never occupies the layout.
  *
  * @param currentVideoId - The video currently open, excluded from the list.
  */
@@ -58,12 +58,12 @@ export function VideosPopularSidebar({ currentVideoId }: VideosPopularSidebarPro
                 icon={<FlameIcon />}
                 title={t("videos.detail.sidebar.popular")}
             />
-            <div className="flex flex-col gap-4 rounded-xl bg-muted/30 p-3 sm:p-4 md:p-5 lg:p-3 xl:p-5">
-                {data.map((video, index) => (
-                    <Fragment key={video.id}>
-                        <VideoCard.Horizontal video={video} />
-                        {index < data.length - 1 && <hr />}
-                    </Fragment>
+            <div className="flex flex-col gap-4 rounded-xl bg-muted/25 p-3 sm:p-4 md:p-5 lg:p-3 xl:p-5">
+                {data.map((video) => (
+                    <VideoCard.Horizontal
+                        key={video.id}
+                        video={video}
+                    />
                 ))}
             </div>
         </aside>
