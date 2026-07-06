@@ -52,7 +52,7 @@ export class ArticlesRepositoryImpl implements IArticlesRepositoryPort {
     async getPromotedArticles(): Promise<Result<IArticleSummaryEntity[]>> {
         try {
             const response = await this.api.getPromotedArticles();
-            return ok(response.data.articles.map(ArticlesMapper.articleSummaryFromDto));
+            return ok(ArticlesMapper.articleSummaryListFromDto(response.data.articles));
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }
@@ -71,7 +71,7 @@ export class ArticlesRepositoryImpl implements IArticlesRepositoryPort {
                 contentTypeId: articleContentType.id
             });
 
-            return ok(categoriesResponse.data.categories.map(ArticlesMapper.categoryFromDto));
+            return ok(ArticlesMapper.categoryListFromDto(categoriesResponse.data.categories));
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }
@@ -83,7 +83,7 @@ export class ArticlesRepositoryImpl implements IArticlesRepositoryPort {
                 contentType: EnumCoreContentType.Article,
                 limit: POPULAR_TAGS_LIMIT
             });
-            return ok(response.data.tags.map(ArticlesMapper.tagFromDto));
+            return ok(ArticlesMapper.tagListFromDto(response.data.tags));
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }
@@ -120,7 +120,7 @@ export class ArticlesRepositoryImpl implements IArticlesRepositoryPort {
                 contentType: EnumCoreContentType.Article,
                 limit: ALL_TAGS_LIMIT
             });
-            return ok(response.data.tags.map(ArticlesMapper.tagFromDto));
+            return ok(ArticlesMapper.tagListFromDto(response.data.tags));
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }
@@ -214,7 +214,7 @@ export class ArticlesRepositoryImpl implements IArticlesRepositoryPort {
                 excludeId: query.excludeId,
                 categoryId: query.categoryId
             });
-            return ok(response.data.articles.map(ArticlesMapper.articleSummaryFromDto));
+            return ok(ArticlesMapper.articleSummaryListFromDto(response.data.articles));
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }
