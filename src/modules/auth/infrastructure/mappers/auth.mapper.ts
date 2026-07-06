@@ -112,6 +112,16 @@ export const AuthMapper = {
     },
 
     /**
+     * Maps a list of `SessionDto` to `ISession` entities.
+     *
+     * @param dtos - The session DTOs.
+     * @returns The mapped session entities.
+     */
+    sessionListFromDto(dtos: SessionDto[]): ISession[] {
+        return dtos.map(AuthMapper.sessionFromDto);
+    },
+
+    /**
      * Maps any `{ isSuccess }` DTO to an `IActionResponse`-shaped entity. The
      * verify/resend/reset/change/sign-out/revoke responses all reuse this.
      *
