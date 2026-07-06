@@ -4,12 +4,14 @@ import { useTranslation } from "react-i18next";
 
 import { useShareVideo } from "@/modules/videos/presentation/hooks/useShareVideo";
 import { SocialShareGroup } from "@/shared/presentation/components/common/SocialShareGroup";
+import { Button } from "@/shared/presentation/components/ui/Button";
 import {
     Dialog,
     DialogContent,
     DialogHeader,
     DialogTitle
 } from "@/shared/presentation/components/ui/Dialog";
+import { Input } from "@/shared/presentation/components/ui/Input";
 import { showNotification } from "@/shared/presentation/utils/notification";
 
 import { videoLinkCopiedNotification } from "../../notifications/share.notification";
@@ -25,11 +27,11 @@ import { videoLinkCopiedNotification } from "../../notifications/share.notificat
  * @property {string} title - The video title, carried into the share message.
  */
 export interface VideoShareModalProps {
-    open: boolean;
-    onOpenChange: (open: boolean) => void;
-    videoId: string;
     slug: string;
+    open: boolean;
     title: string;
+    videoId: string;
+    onOpenChange: (open: boolean) => void;
 }
 
 /**
@@ -52,11 +54,15 @@ function resolveVideoUrl(slug: string): string {
  * VideoShareModal
  *
  * @description
- * The video's share surface: a dialog holding the shared
- * {@link SocialShareGroup} as a centered horizontal row (Facebook, X,
- * WhatsApp, copy-link). Every action records the share against the backend
- * fire-and-forget and optimistically bumps the cached detail's `shareCount`;
- * the copy-link action additionally toasts and closes the dialog.
+ * The video's share surface: a dialog whose primary affordance is a read-only
+ * link field with a copy button — the universal path that covers every surface
+ * with no web share intent (Instagram, TikTok, DMs). Below it, a centered
+ * {@link SocialShareGroup} row offers the three link-prefilling networks whose
+ * unfurl renders the page's Open Graph / player card (Facebook, WhatsApp, X).
+ * Every action records the share against the backend fire-and-forget and
+ * optimistically bumps the cached detail's `shareCount`; copying additionally
+ * toasts. The dialog stays open after copying so the network buttons remain
+ * available.
  *
  * @param open - Whether the modal is open (controlled).
  * @param onOpenChange - Open-state setter.
@@ -72,7 +78,14 @@ export function VideoShareModal({
     title
 }: VideoShareModalProps) {
     const { t } = useTranslation();
+    const url = resolveVideoUrl(slug);
     const recordShare = useShareVideo(videoId, slug);
+
+    const copy = async () => {
+        await navigator.clipboard.writeText(url);
+        recordShare("clipboard");
+        showNotification(videoLinkCopiedNotification(t));
+    };
 
     return (
         <Dialog
@@ -81,15 +94,35 @@ export function VideoShareModal({
         >
             <DialogContent aria-describedby={undefined}>
                 <div className="relative grid gap-5 rounded-2xl border border-border bg-card p-6 shadow-xl">
-                    <DialogHeader>
+                    <DialogHeader className="gap-1.5">
                         <DialogTitle>{t("videos.detail.shareModal.title")}</DialogTitle>
+                        <p className="text-muted-foreground text-sm">
+                            {t("videos.detail.shareModal.subtitle")}
+                        </p>
                     </DialogHeader>
+
+                    <div className="flex items-center gap-2">
+                        <Input
+                            readOnly
+                            value={url}
+                            onFocus={(event) => event.target.select()}
+                            aria-label={t("videos.detail.shareModal.linkLabel")}
+                        />
+                        <Button
+                            type="button"
+                            onClick={copy}
+                            className="shrink-0"
+                        >
+                            {t("videos.detail.shareModal.copyAction")}
+                        </Button>
+                    </div>
 
                     <div className="flex justify-center">
                         <SocialShareGroup
+                            url={url}
                             title={title}
                             orientation="horizontal"
-                            url={resolveVideoUrl(slug)}
+                            platforms={["facebook", "whatsapp", "x"]}
                             labels={{
                                 facebook: t("videos.detail.shareModal.facebook"),
                                 x: t("videos.detail.shareModal.x"),
@@ -97,10 +130,6 @@ export function VideoShareModal({
                                 copy: t("videos.detail.shareModal.copy")
                             }}
                             onShared={recordShare}
-                            onCopied={() => {
-                                showNotification(videoLinkCopiedNotification(t));
-                                onOpenChange(false);
-                            }}
                         />
                     </div>
                 </div>
