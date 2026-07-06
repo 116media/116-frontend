@@ -17,12 +17,32 @@ export const videoDetail = {
     detail: {
         share: "Partager",
         addToPlaylist: "Ajouter à une playlist",
+        save: "Enregistrer",
         backToVideos: "Retour aux vidéos",
         stats: {
             views: "Vues",
             likes: "Mentions j'aime",
             comments: "Commentaires",
             shares: "Partages"
+        },
+        scoreboard: {
+            note: "Note",
+            views: "Vues",
+            likes: "J'aime",
+            rate: "Noter cette vidéo",
+            viewsYoutube: "vues YouTube",
+            reviews_one: "{{value}} avis",
+            reviews_other: "{{value}} avis",
+            comments_one: "{{value}} commentaire",
+            comments_other: "{{value}} commentaires",
+            shares_one: "{{value}} partage",
+            shares_other: "{{value}} partages"
+        },
+        ratingModal: {
+            title: "Quelle est votre note ?",
+            subtitle: "Dites-nous à quel point vous avez aimé cette vidéo.",
+            submit: "Envoyer",
+            cancel: "Non merci"
         },
         rating: {
             label: "Note",
@@ -53,6 +73,9 @@ export const videoDetail = {
         },
         shareModal: {
             title: "Partager cette vidéo",
+            subtitle: "Partagez cette vidéo sur vos réseaux",
+            linkLabel: "Lien de la vidéo",
+            copyAction: "Copier",
             facebook: "Partager sur Facebook",
             x: "Partager sur X",
             whatsapp: "Partager sur WhatsApp",
@@ -64,7 +87,13 @@ export const videoDetail = {
         },
         playlist: {
             title: "Ajouter à une playlist",
+            subtitle: "Sélectionnez une ou plusieurs playlists",
             empty: "Vous n'avez pas encore de playlist.",
+            createNew: "Créer une nouvelle playlist",
+            cancel: "Annuler",
+            add: "Ajouter",
+            videos_one: "{{value}} vidéo",
+            videos_other: "{{value}} vidéos",
             create: {
                 placeholder: "Nom de la nouvelle playlist…",
                 submit: "Créer"
