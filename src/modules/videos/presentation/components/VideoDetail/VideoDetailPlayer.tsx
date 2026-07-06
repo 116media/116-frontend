@@ -70,8 +70,8 @@ export function VideoDetailPlayer({
         <div className="video-detail-player relative w-full overflow-hidden rounded-lg">
             <div className="absolute inset-0">
                 <VideoDetailPlayerPoster
-                    thumbnailUrl={thumbnailUrl}
                     title={title}
+                    thumbnailUrl={thumbnailUrl}
                 />
             </div>
             <div className="relative">
