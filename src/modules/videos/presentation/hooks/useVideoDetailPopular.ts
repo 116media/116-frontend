@@ -11,40 +11,28 @@ import { dummyPopularVideos } from "../data/video-detail.dummy";
  * useVideoDetailPopular
  *
  * @description
- * Sources the popular-videos sidebar. There is no popular-videos endpoint, so
- * the list is derived client-side: promoted videos first (the editorial
- * "popular" signal), falling back to the first published page when promoted
- * yields nothing usable; the open video is excluded and the list capped at
- * `POPULAR_VIDEOS_LIMIT`. Failures degrade to an empty list so the sidebar
- * disappears quietly rather than erroring.
+ * Sources the popular-videos sidebar from the popularity-ranked endpoint
+ * (`getPopularVideosUseCase`), which orders published videos by weighted
+ * engagement server-side and excludes the video currently open via `excludeId`.
+ * The endpoint is fixed-size (capped at ten) and not paginated, so this is a
+ * single `useQuery`, not an infinite query.
  *
  * Dummy-data phase: while the backend has no published content, a failed or
- * empty result falls back to dummy popular videos (each with a thumbnail, the
- * open video excluded) so the sidebar is previewable.
+ * empty result falls back to the ten-item dummy popular pool (the current video
+ * excluded) so the sidebar is previewable.
  *
  * @param currentVideoId - The video currently open, excluded from the results.
- * @returns The `useQuery` result whose `data` is up to five `IVideoSummaryEntity`.
+ * @returns The TanStack Query result whose `data` is up to ten `IVideoSummaryEntity`.
  */
 export function useVideoDetailPopular(currentVideoId: string) {
     return useQuery<IVideoSummaryEntity[]>({
         queryKey: videoKeys.popular(currentVideoId),
         queryFn: async () => {
-            const promoted = await container.cradle.getPromotedVideosUseCase.execute();
-            let popular = promoted.ok
-                ? promoted.value.filter((video) => video.id !== currentVideoId)
-                : [];
-
-            if (popular.length === 0) {
-                const published = await container.cradle.getPublishedVideosUseCase.execute({
-                    pageIndex: 0,
-                    pageSize: POPULAR_VIDEOS_LIMIT + 1
-                });
-                popular = published.ok
-                    ? published.value.filter((video) => video.id !== currentVideoId)
-                    : [];
-            }
-
-            if (popular.length > 0) return popular.slice(0, POPULAR_VIDEOS_LIMIT);
+            const result = await container.cradle.getPopularVideosUseCase.execute({
+                limit: POPULAR_VIDEOS_LIMIT,
+                excludeId: currentVideoId
+            });
+            if (result.ok && result.value.length > 0) return result.value;
             return dummyPopularVideos(currentVideoId, POPULAR_VIDEOS_LIMIT);
         }
     });
