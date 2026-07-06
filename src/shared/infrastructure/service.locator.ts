@@ -42,6 +42,7 @@ import type { IVideosRepositoryPort } from "@/modules/videos/application/reposit
 import type { AddVideoToPlaylistUseCase } from "@/modules/videos/application/usecases/addvideotoplaylist.usecase";
 import type { CreatePlaylistUseCase } from "@/modules/videos/application/usecases/createplaylist.usecase";
 import type { GetMyPlaylistsUseCase } from "@/modules/videos/application/usecases/getmyplaylists.usecase";
+import type { GetPopularVideosUseCase } from "@/modules/videos/application/usecases/getpopularvideos.usecase";
 import type { GetPromotedVideosUseCase } from "@/modules/videos/application/usecases/getpromotedvideos.usecase";
 import type { GetPublishedVideosUseCase } from "@/modules/videos/application/usecases/getpublishedvideos.usecase";
 import type { GetShowsUseCase } from "@/modules/videos/application/usecases/getshows.usecase";
@@ -54,9 +55,12 @@ import type { GetYoutubeVideoStatsUseCase } from "@/modules/videos/application/u
 import type { RateVideoUseCase } from "@/modules/videos/application/usecases/ratevideo.usecase";
 import type { ShareVideoUseCase } from "@/modules/videos/application/usecases/sharevideo.usecase";
 import { registerVideosDependencies } from "@/modules/videos/infrastructure/dependencies/videos.dependencies";
+import type { IGeoRepositoryPort } from "@/shared/application/repositories/geo.repository.port";
+import { DetectCountryUseCase } from "@/shared/application/usecases/detectcountry.usecase";
 import { PrefetchNavigationUseCase } from "@/shared/application/usecases/prefetchnavigation.usecase";
 import { apiClient } from "@/shared/infrastructure/api/client";
 import type { Api } from "@/shared/infrastructure/api/generated/116.api";
+import { GeoRepositoryImpl } from "@/shared/infrastructure/repositories/geo.repository.impl";
 
 /**
  * Cradle type defining all dependencies available in the DI container.
@@ -105,6 +109,7 @@ export interface Cradle {
     getVideoExclusiveShowUseCase: GetVideoExclusiveShowUseCase;
     getVideoBySlugUseCase: GetVideoBySlugUseCase;
     getPublishedVideosUseCase: GetPublishedVideosUseCase;
+    getPopularVideosUseCase: GetPopularVideosUseCase;
     getVideoLyricsUseCase: GetVideoLyricsUseCase;
     getMyPlaylistsUseCase: GetMyPlaylistsUseCase;
     getYoutubeVideoStatsUseCase: GetYoutubeVideoStatsUseCase;
@@ -115,7 +120,9 @@ export interface Cradle {
     createPlaylistUseCase: CreatePlaylistUseCase;
     addVideoToPlaylistUseCase: AddVideoToPlaylistUseCase;
 
-    // Shared composite use cases
+    // Shared repositories + use cases
+    geoRepository: IGeoRepositoryPort;
+    detectCountryUseCase: DetectCountryUseCase;
     prefetchNavigationUseCase: PrefetchNavigationUseCase;
 
     // Auth repository + use cases
@@ -165,8 +172,10 @@ registerAuthDependencies(container);
 registerSessionDependencies(container);
 registerSettingsDependencies(container);
 
-// Shared composite use cases (depend on both modules)
+// Shared repositories + use cases
 container.register({
+    geoRepository: asClass(GeoRepositoryImpl).singleton(),
+    detectCountryUseCase: asClass(DetectCountryUseCase).transient(),
     prefetchNavigationUseCase: asClass(PrefetchNavigationUseCase).transient()
 });
 
