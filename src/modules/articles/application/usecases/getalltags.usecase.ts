@@ -16,16 +16,15 @@ interface IGetAllTagsUseCase extends IResultUseCase<string | undefined, IArticle
  * @implements {IGetAllTagsUseCase}
  *
  * @description
- * Fetches the article tags — tags used by at least one article — for the "All tags"
- * popover, optionally filtered by a search term (server-side). Video-only tags are
- * excluded so the popover only offers tags that can match an article. Delegates to the
- * articles repository.
+ * Fetches the tags used by at least one article for the "All tags" popover, optionally
+ * filtered by a server-side search term. Video-only tags are excluded so the popover only
+ * offers tags that can match an article.
  */
 export class GetAllTagsUseCase implements IGetAllTagsUseCase {
     private readonly articlesRepository: IArticlesRepositoryPort;
 
     /**
-     * @param {IArticlesRepositoryPort} articlesRepository - Repository for articles operations (injected)
+     * @param articlesRepository - Repository for articles operations (injected)
      */
     constructor({ articlesRepository }: { articlesRepository: IArticlesRepositoryPort }) {
         this.articlesRepository = articlesRepository;
@@ -34,7 +33,7 @@ export class GetAllTagsUseCase implements IGetAllTagsUseCase {
     /**
      * Executes the get all tags use case.
      *
-     * @param {string} [search] - Optional tag-name search term
+     * @param [search] - Optional tag-name search term
      * @returns {Promise<Result<IArticleTagEntity[]>>} `ok(IArticleTagEntity[])` on success, `err(Failure)` on failure
      */
     async execute(search?: string): Promise<Result<IArticleTagEntity[]>> {
