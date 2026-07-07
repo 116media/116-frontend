@@ -2,20 +2,17 @@
 
 import { HeartIcon, ShareIcon } from "@/shared/presentation/components/ui/Icon";
 
-import { cn } from "@/shared/presentation/utils/cn";
-import { formatCount } from "@/shared/presentation/utils/formatCount";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
+import { formatCount } from "@/shared/presentation/utils/format/format.utils";
 import type { ArticlesMegaMenuCardStatsProps } from "./types";
 
 /**
  * ArticlesMegaMenuCardStats
  *
  * @description
- * Engagement stats row composed into ArticlesMegaMenuCard.FeaturedOverlay
- * and ArticlesMegaMenuCard.Compact. Displays like count and share count.
- *
- * The "light" variant uses white/translucent text for rendering over dark
- * image overlays (FeaturedOverlay). The "default" variant uses muted
- * foreground tokens for surface cards (Compact).
+ * Like/share stats row composed into the FeaturedOverlay and Compact variants. The
+ * "light" variant renders over dark image overlays; "default" uses muted foreground
+ * tokens for surface cards.
  */
 export function ArticlesMegaMenuCardStats({
     likeCount,
