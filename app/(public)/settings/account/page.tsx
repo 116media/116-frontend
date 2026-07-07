@@ -1,4 +1,4 @@
-import { AccountSection } from "@/modules/settings/presentation/components/AccountSection";
+import { AccountSectionContainer } from "@/modules/settings/presentation/containers/AccountSectionContainer";
 
 /**
  * AccountSettingsPage
@@ -7,5 +7,5 @@ import { AccountSection } from "@/modules/settings/presentation/components/Accou
  * The account settings tab — sign out and sign out from all devices.
  */
 export default function AccountSettingsPage() {
-    return <AccountSection />;
+    return <AccountSectionContainer />;
 }
