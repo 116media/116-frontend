@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { SocialLogin } from "@/modules/auth/presentation/components/SocialLogin";
+import { SocialLogin } from "@/modules/auth/presentation/components/social/SocialLogin";
 import { useAuthModal } from "@/modules/auth/presentation/context/AuthModalProvider";
 import { useLogin } from "@/modules/auth/presentation/hooks/useLogin";
 import type { ILoginCredentials } from "@/modules/auth/presentation/model/ILoginCredentials";
@@ -16,11 +16,9 @@ import { FloatingField } from "@/shared/presentation/components/ui/FloatingField
  * LoginForm
  *
  * @description
- * Credentials + password login, styled like the kinix auth form: an "or" divider
- * above which the (later) social buttons mount, floating-label fields, a primary
- * block submit, and two text footer links. A backend `Failure` shows in the top
- * `Alert` only when present; client errors render below each field. On success the
- * cache is updated by `useLogin`, the resume action runs, and the modal closes.
+ * Credentials + password login form with social login options. Backend failures
+ * render in a top-level `Alert`; field-level errors render below each field.
+ * On success the resume action runs and the modal closes.
  */
 export function LoginForm() {
     const { t } = useTranslation();
