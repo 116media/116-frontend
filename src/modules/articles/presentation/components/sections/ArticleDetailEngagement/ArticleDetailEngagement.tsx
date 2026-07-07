@@ -10,8 +10,8 @@ import { useRequireAuth } from "@/modules/auth/presentation/hooks/useRequireAuth
 import { UserAvatar } from "@/shared/presentation/components/common/UserAvatar";
 import { Button } from "@/shared/presentation/components/ui/Button";
 import { HeartIcon, MessageSquareIcon, ShareIcon } from "@/shared/presentation/components/ui/Icon";
-import { cn } from "@/shared/presentation/utils/cn";
-import { formatCount } from "@/shared/presentation/utils/formatCount";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
+import { formatCount } from "@/shared/presentation/utils/format/format.utils";
 
 /**
  * One engagement pill in the byline strip.
@@ -61,23 +61,9 @@ export interface ArticleDetailEngagementProps {
  * ArticleDetail.Engagement
  *
  * @description
- * The byline strip directly below the title: the author — avatar, a "written by" label, and
- * the author name — on the left, and the engagement actions (like, comment, share) as
- * outlined count pills on the right. Like reuses the feed's optimistic toggle hook, seeded
- * with the viewer's real `isLiked` state, and is gated behind `useRequireAuth` (a guest tap
- * opens the auth modal and resumes on success). The comment pill invokes `onComment` to
- * smooth-scroll to and focus the composer; the share pill opens the native share sheet
- * (clipboard fallback) and records the share. The liked state uses the destructive token.
- * Bookmarking lives in the meta bar below the headline, not in this strip.
- *
- * @param articleId - The article the like mutation targets.
- * @param slug - The article slug, used to build the share URL.
- * @param author - The byline author, if resolved.
- * @param likeCount - Baseline like count.
- * @param commentCount - Comment count shown on the comment pill.
- * @param shareCount - Share count shown on the share pill.
- * @param isLiked - The viewer's like state baseline.
- * @param onComment - Scrolls to and focuses the on-page comment composer.
+ * Byline strip with the author and the like/comment/share count pills. Like reuses the
+ * optimistic toggle hook gated behind `useRequireAuth`; comment invokes `onComment` to
+ * reach the composer; share opens the native share sheet and records the share.
  */
 export function ArticleDetailEngagement({
     articleId,
