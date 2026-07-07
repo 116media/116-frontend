@@ -20,12 +20,8 @@ export interface ArticleDetailErrorProps {
  * ArticleDetailError
  *
  * @description
- * Retryable error state for the article detail query. Renders the shared `EmptyState`
- * with the error copy and a "Try again" button that re-runs `useArticleDetail`. Used for
- * transient failures (offline, 5xx, rate limit) — a genuinely missing article takes the
- * `notFound()` path instead.
- *
- * @param onRetry - Re-runs the detail query.
+ * Retryable error state for the article detail query, used for transient failures — a
+ * genuinely missing article takes the `notFound()` path instead.
  */
 export function ArticleDetailError({ onRetry }: ArticleDetailErrorProps) {
     const { t } = useTranslation();
