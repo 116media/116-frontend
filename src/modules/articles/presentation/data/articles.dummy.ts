@@ -100,9 +100,8 @@ function isoOffsetFromBase(index: number): string {
  *
  * @description
  * Deterministic list of fully-populated article summaries for the feed grid while the
- * backend has no published content. Index-seeded (no Math.random / Date.now) so SSR and
- * client render identically. Populates every field the card reads, including the
- * card-only additions (`readTimeInMinutes`, `author`).
+ * backend has no published content. Index-seeded so SSR and client render identically;
+ * populates every field the card reads, including `readTimeInMinutes` and `author`.
  *
  * @param count - How many to generate (default 48).
  * @returns An array of article summaries.
