@@ -19,10 +19,8 @@ export interface IArticleFeedFilters {
 
 /**
  * Stable TanStack Query keys for the articles feature. The feed key embeds the active
- * filters so each filter combination caches independently; categories and tags have
- * their own stable entries for the toolbar reads. The detail page adds `detail(slug)`,
- * `comments(articleId)`, and `popular(articleId)` — the latter keyed by the open article
- * so each article's exclusion set caches independently.
+ * filters so each filter combination caches independently; the detail page adds
+ * `detail(slug)`, `comments(articleId)`, and `popular(articleId)` keyed by the open article.
  */
 export const articleKeys = {
     all: ["articles"] as const,
@@ -41,3 +39,15 @@ export const ARTICLES_PAGE_SIZE = 12;
  * Page size for the article comment list.
  */
 export const ARTICLE_COMMENTS_PAGE_SIZE = 10;
+
+/**
+ * Maximum number of article tags requested for the "All tags" popover; tags beyond this
+ * count are reachable through the popover's search box.
+ */
+export const ALL_TAGS_LIMIT = 50;
+
+/**
+ * Maximum number of popular article tags requested for the quick-pick tag strip and the
+ * navigation prefetch that warms it.
+ */
+export const POPULAR_TAGS_LIMIT = 15;
