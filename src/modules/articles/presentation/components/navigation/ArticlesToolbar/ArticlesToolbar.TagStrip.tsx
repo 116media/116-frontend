@@ -1,9 +1,9 @@
 "use client";
 
 import { useArticlePopularTags } from "@/modules/articles/presentation/hooks/useArticlePopularTags";
+import { orderTags } from "@/modules/articles/presentation/utils/tags/tags.utils";
 import { Tag } from "@/shared/presentation/components/ui/Tag";
 import { ArticlesToolbarAllTagsPopover } from "./ArticlesToolbar.AllTagsPopover";
-import { orderTags } from "./orderTags";
 
 /**
  * Props for ArticlesToolbarTagStrip.
@@ -21,12 +21,9 @@ export interface ArticlesToolbarTagStripProps {
  * ArticlesToolbarTagStrip
  *
  * @description
- * A horizontally scrollable row of popular tag pills plus an "All tags" trigger opening
- * {@link ArticlesToolbarAllTagsPopover}. Single-select: the active tag is highlighted and
- * pinned to the front; clicking it clears the filter. Emits `tagSlug | undefined`.
- *
- * @param value - The active tag slug, or undefined.
- * @param onChange - Emits the selected tag slug (undefined to clear).
+ * Scrollable row of popular tag pills plus the {@link ArticlesToolbarAllTagsPopover}
+ * trigger. Single-select: the active tag is pinned to the front and clicking it clears
+ * the filter.
  */
 export function ArticlesToolbarTagStrip({ value, onChange }: ArticlesToolbarTagStripProps) {
     const { data: popular = [] } = useArticlePopularTags();
