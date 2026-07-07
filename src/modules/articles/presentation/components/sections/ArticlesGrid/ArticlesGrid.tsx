@@ -1,5 +1,5 @@
 import type { IArticleSummaryEntity } from "@/modules/articles/domain/entities/IArticleSummaryEntity";
-import { ArticleCard } from "@/modules/articles/presentation/components/ArticleCard";
+import { ArticleCard } from "@/modules/articles/presentation/components/cards/ArticleCard";
 
 /**
  * Props for ArticlesGrid.
@@ -18,8 +18,6 @@ export interface ArticlesGridProps {
  * The responsive grid of article cards — the homepage video-feed layout (1/2/4 columns)
  * without the section title or "view all" link. Purely presentational; the container
  * owns data and paging.
- *
- * @param articles - The accumulated article summaries to render.
  */
 export function ArticlesGrid({ articles }: ArticlesGridProps) {
     return (
