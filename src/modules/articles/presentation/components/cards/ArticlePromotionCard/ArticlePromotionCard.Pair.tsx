@@ -1,31 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
-import {
-    BadgeCheckIcon,
-    CalendarIcon,
-    HeartIcon,
-    MessageSquareIcon,
-    ShareIcon
-} from "@/shared/presentation/components/ui/Icon";
+import { BadgeCheckIcon, CalendarIcon } from "@/shared/presentation/components/ui/Icon";
 
 import { RelativeDate } from "@/shared/presentation/components/ui/RelativeDate";
 import { Tag } from "@/shared/presentation/components/ui/Tag";
-import { formatCount } from "@/shared/presentation/utils/formatCount";
 
+import { Stats } from "./ArticlePromotionCard.Stats";
 import type { ArticlePromotionCardProps } from "./types";
 
 /**
  * Pair
  *
  * @description
- * Spot 3 card variant — magazine-style card with a serif headline,
- * "116 MAGAZINE" header bar with date, category badge with check icon,
- * optional "COVER STORY" label for promoted articles, italic headline
- * excerpt, and bordered engagement stats.
- * All overlay text uses white since it always sits on a dark gradient.
- * Theme token `primary` drives the "COVER STORY" badge foreground
- * for brand consistency.
- * Clicking navigates to the article detail page.
+ * Spot 3 magazine-style variant: "116 MAGAZINE" header bar, category badge, optional
+ * "COVER STORY" label for promoted articles, headline excerpt, and engagement stats,
+ * linking to the article detail page.
  */
 export function Pair({ article }: ArticlePromotionCardProps) {
     return (
@@ -73,18 +62,10 @@ export function Pair({ article }: ArticlePromotionCardProps) {
                 </p>
 
                 <div className="flex items-center justify-between border-t border-white/10 pt-3 text-xs text-white/60 sm:justify-start sm:gap-4 sm:pt-5 md:text-sm lg:pt-2 lg:text-xs xl:pt-4">
-                    <span className="flex items-center gap-1">
-                        <MessageSquareIcon className="size-3 sm:size-4" />
-                        {formatCount(article.commentCount)}
-                    </span>
-                    <span className="flex items-center gap-1">
-                        <HeartIcon className="size-3 sm:size-4" />
-                        {formatCount(article.likeCount)}
-                    </span>
-                    <span className="flex items-center gap-1">
-                        <ShareIcon className="size-3 sm:size-4" />
-                        {formatCount(article.shareCount)}
-                    </span>
+                    <Stats
+                        article={article}
+                        iconClassName="size-3 sm:size-4"
+                    />
                 </div>
             </div>
 
