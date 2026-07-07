@@ -4,9 +4,8 @@ import type { IArticleSummaryEntity } from "@/modules/articles/domain/entities/I
  * IArticlePromotionFeedEntity
  *
  * @description
- * Domain entity representing the homepage article promotion grid.
- * Maps from PublicGetArticlePromotionFeedResult — the mapper resolves
- * backend spots and slots into named arrays ready for direct use by
+ * The homepage article promotion grid, mapped from PublicGetArticlePromotionFeedResult.
+ * The mapper resolves backend spots and slots into named arrays ready for direct use by
  * carousel and strip components.
  *
  * @interface IArticlePromotionFeedEntity
