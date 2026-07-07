@@ -2,16 +2,9 @@
  * articleDetail (en)
  *
  * @description
- * English strings for the single article (article detail) page: the engagement labels,
- * error and not-found states (`detail`), the share rail and copy-link toast (`share`),
- * the comments section — title, composer, empty/error, auth prompt, load-more, post
- * failure (`comments`) — and the popular-articles sidebar (`sidebar`). Owned by the
- * articles module presentation layer; the locale barrel spreads this object alongside the
- * `articles` bundle so call sites reference the keys as `t("articles.detail.<key>")`,
- * `t("articles.share.<key>")`, `t("articles.comments.<key>")` and
- * `t("articles.sidebar.<key>")`. `comments.title` uses i18next plural suffixes and is
- * called as `t("articles.comments.title", { count })`. Read time is not defined here —
- * it reuses `articles.card.readTime`. Must hold the exact same keys as the French mirror.
+ * English strings for the single-article page: engagement labels, error/not-found states,
+ * share rail, comments section, and popular sidebar. Spread by the locale barrel next to
+ * the `articles` bundle. Must hold the exact same keys as the French mirror.
  */
 export const articleDetail = {
     detail: {
