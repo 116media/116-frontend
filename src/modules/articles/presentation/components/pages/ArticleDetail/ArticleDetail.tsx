@@ -3,15 +3,15 @@
 import { type RefObject, useEffect, useRef } from "react";
 
 import type { IArticleDetailEntity } from "@/modules/articles/domain/entities/IArticleDetailEntity";
-import { ArticlesPopularSidebar } from "../ArticlesPopularSidebar";
-import { ArticleDetailBody } from "./ArticleDetail.Body";
-import { ArticleDetailComments } from "./ArticleDetail.Comments";
-import { ArticleDetailEngagement } from "./ArticleDetail.Engagement";
-import { ArticleDetailHero } from "./ArticleDetail.Hero";
-import { ArticleDetailMetaBar } from "./ArticleDetail.MetaBar";
-import { ArticleDetailReadingProgress } from "./ArticleDetail.ReadingProgress";
-import { ArticleDetailShareRail } from "./ArticleDetail.ShareRail";
-import { ArticleDetailTags } from "./ArticleDetail.Tags";
+import { ArticleDetailBody } from "@/modules/articles/presentation/components/sections/ArticleDetailBody";
+import { ArticleDetailComments } from "@/modules/articles/presentation/components/sections/ArticleDetailComments";
+import { ArticleDetailEngagement } from "@/modules/articles/presentation/components/sections/ArticleDetailEngagement";
+import { ArticleDetailHero } from "@/modules/articles/presentation/components/sections/ArticleDetailHero";
+import { ArticleDetailMetaBar } from "@/modules/articles/presentation/components/sections/ArticleDetailMetaBar";
+import { ArticleDetailReadingProgress } from "@/modules/articles/presentation/components/sections/ArticleDetailReadingProgress";
+import { ArticleDetailShareRail } from "@/modules/articles/presentation/components/sections/ArticleDetailShareRail";
+import { ArticleDetailTags } from "@/modules/articles/presentation/components/sections/ArticleDetailTags";
+import { ArticlesPopularSidebar } from "@/modules/articles/presentation/components/sections/ArticlesPopularSidebar";
 
 /**
  * Props for the ArticleDetail assembler.
@@ -27,10 +27,9 @@ export interface ArticleDetailProps {
  * focusComposer
  *
  * @description
- * Smooth-scrolls the comments section into view and focuses the composer's textarea, so a
- * reader who taps the engagement row's comment button lands ready to type. `preventScroll`
- * on focus avoids a second competing jump after the smooth scroll. When the composer is
- * not mounted (a guest sees the login prompt instead), only the section scroll runs.
+ * Scrolls the comments section into view and focuses the composer textarea, using
+ * `preventScroll` so the focus does not compete with the smooth scroll. When the composer
+ * is not mounted (guest view), only the section scroll runs.
  *
  * @param sectionRef - The comments section ref held by the assembler.
  * @param composerRef - The composer textarea ref held by the assembler.
@@ -47,18 +46,9 @@ function focusComposer(
  * ArticleDetail
  *
  * @description
- * The presentation assembler for the single-article page. Holds the whole
- * `IArticleDetailEntity` and distributes scoped props to each sub-composer — reading
- * progress, share rail, hero, body, tags, engagement, comments, and the popular sidebar —
- * laying them out in the two-column reading shell (a sticky share rail on the left, the
- * reading column in the center, the popular sidebar on the right; all stacked on mobile).
- * This is the only component that receives the entire entity; every child takes only the
- * fields it renders. A shared `bodyRef` links the body to the reading-progress bar, and
- * the `commentsRef` / `composerRef` pair links the engagement comment button to the
- * comments section so the button scrolls the reader to the composer instead of
- * navigating. A `?comments=1` query auto-scrolls once on mount.
- *
- * @param article - The fully resolved article to render.
+ * Presentation assembler for the single-article page. The only component that receives the
+ * whole entity; each section child gets only the fields it renders. Wires the shared
+ * body/comments/composer refs and auto-scrolls to comments when `?comments=1` is present.
  */
 export function ArticleDetail({ article }: ArticleDetailProps) {
     const bodyRef = useRef<HTMLDivElement>(null);
