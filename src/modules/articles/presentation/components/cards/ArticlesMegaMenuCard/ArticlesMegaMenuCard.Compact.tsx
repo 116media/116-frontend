@@ -6,8 +6,8 @@ import { ClockIcon } from "@/shared/presentation/components/ui/Icon";
 import { RelativeDate } from "@/shared/presentation/components/ui/RelativeDate";
 import { Tag } from "@/shared/presentation/components/ui/Tag";
 import { ARTICLES_PATH } from "@/shared/presentation/constants/paths";
-import { cn } from "@/shared/presentation/utils/cn";
-import { ArticlesMegaMenuCardStats } from "./ArticlesMegaMenuCardStats";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
+import { ArticlesMegaMenuCardStats } from "./ArticlesMegaMenuCard.Stats";
 import type { ArticlesMegaMenuCardProps } from "./types";
 
 /**
