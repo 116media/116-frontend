@@ -27,7 +27,7 @@ export class GetPublishedArticlesUseCase implements IGetPublishedArticlesUseCase
     private readonly articlesRepository: IArticlesRepositoryPort;
 
     /**
-     * @param {IArticlesRepositoryPort} articlesRepository - Repository for articles operations (injected)
+     * @param articlesRepository - Repository for articles operations (injected)
      */
     constructor({ articlesRepository }: { articlesRepository: IArticlesRepositoryPort }) {
         this.articlesRepository = articlesRepository;
@@ -36,7 +36,7 @@ export class GetPublishedArticlesUseCase implements IGetPublishedArticlesUseCase
     /**
      * Executes the get published articles use case.
      *
-     * @param {IPublishedArticlesQuery} query - Paging plus optional filters
+     * @param query - Paging plus optional filters
      * @returns {Promise<Result<IArticlePage>>} `ok(IArticlePage)` on success, `err(Failure)` on failure
      */
     async execute(query: IPublishedArticlesQuery): Promise<Result<IArticlePage>> {
