@@ -23,10 +23,10 @@ export function useShareArticle(articleId: string, slug: string) {
             } catch {
                 return;
             }
-            container.cradle.shareArticleUseCase.execute(articleId, "web-share");
+            container.cradle.shareArticleUseCase.execute({ articleId, platform: "web-share" });
             return;
         }
         await navigator.clipboard.writeText(url);
-        container.cradle.shareArticleUseCase.execute(articleId, "clipboard");
+        container.cradle.shareArticleUseCase.execute({ articleId, platform: "clipboard" });
     };
 }
