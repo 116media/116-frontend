@@ -37,13 +37,9 @@ function commentDisplayName(comment: IArticleCommentEntity, fallback: string): s
  * ArticleDetailComment
  *
  * @description
- * A single comment row: the author's avatar, display name, relative post date, and body.
- * The name and avatar come from the server-resolved `author` projection and fall back to
- * a neutral generic identity when the projection is absent. A deleted comment
- * (`isDeleted` / null body) renders a muted "comment removed" placeholder while keeping
- * the avatar and date so the thread's shape is preserved.
- *
- * @param comment - The comment to render.
+ * A single comment row: avatar, display name, relative post date, and body. A deleted
+ * comment renders a muted "comment removed" placeholder while keeping the avatar and
+ * date so the thread's shape is preserved.
  */
 export function ArticleDetailComment({ comment }: ArticleDetailCommentProps) {
     const { t } = useTranslation();
