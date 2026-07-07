@@ -8,11 +8,9 @@ const POPULAR_SKELETON_ROWS = 5;
  * ArticlesPopularSidebarLoading
  *
  * @description
- * The loading placeholder for the popular strip: rows shaped like the gossip strip card
- * (a thumbnail block plus title/headline/date lines, separated by rules) inside the same
- * muted block, so no layout shift occurs when the articles resolve. Rendered by
- * {@link ArticlesPopularSidebar} under its section header while the popular query is
- * pending.
+ * The loading placeholder for the popular strip, shaped like the resolved rows so no
+ * layout shift occurs when the articles arrive. Rendered by {@link ArticlesPopularSidebar}
+ * under its section header while the popular query is pending.
  */
 export function ArticlesPopularSidebarLoading() {
     const rows = Array.from({ length: POPULAR_SKELETON_ROWS }, (_, index) => index);
