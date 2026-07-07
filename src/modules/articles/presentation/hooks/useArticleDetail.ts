@@ -3,10 +3,10 @@
 import { useQuery } from "@tanstack/react-query";
 
 import type { IArticleDetailEntity } from "@/modules/articles/domain/entities/IArticleDetailEntity";
+import { articleKeys } from "@/modules/articles/presentation/constants/articleKeys";
+import { dummyArticleDetail } from "@/modules/articles/presentation/data/article-detail.dummy";
 import type { Failure } from "@/shared/domain/failures/failure";
 import container from "@/shared/infrastructure/service.locator";
-import { articleKeys } from "../constants/articleKeys";
-import { dummyArticleDetail } from "../data/article-detail.dummy";
 
 /**
  * Options for {@link useArticleDetail}.
@@ -23,13 +23,9 @@ export interface IUseArticleDetailOptions {
  * useArticleDetail
  *
  * @description
- * Query for a single article by slug. Calls `getArticleBySlugUseCase`. When the route
- * already fetched the article server-side, pass it as `initialData` so the
- * `articleKeys.detail(slug)` cache entry hydrates without a second fetch.
- *
- * Dummy-data phase: while the backend has no published content, a failed client refetch
- * falls back to a fully-populated dummy article (matching the server fallback) so the
- * preview stays stable instead of flipping to the error view.
+ * Query for a single article by slug via `getArticleBySlugUseCase`; a server-fetched
+ * article passed as `initialData` hydrates the cache without a second fetch. Dummy-data
+ * phase: a failed client refetch falls back to the dummy article matching the server fallback.
  *
  * @param slug - The article slug from the route.
  * @param options - Optional `initialData` seeding the cache.
