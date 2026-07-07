@@ -22,12 +22,8 @@ export interface ArticleCardMetaProps {
  * ArticleCardMeta
  *
  * @description
- * The row above the title: the article category as a Tag and the reading time, separated
- * by a vertical rule. Wraps on narrow cards. The publication date is shown separately in
- * the byline row via {@link ArticleCardDate}.
- *
- * @param categoryName - The category display name.
- * @param readTimeInMinutes - Estimated reading time in minutes.
+ * Meta row above the title: the category as a Tag and the reading time. The publication
+ * date is shown separately in the byline row via {@link ArticleCardDate}.
  */
 export function ArticleCardMeta({ categoryName, readTimeInMinutes }: ArticleCardMetaProps) {
     const { t } = useTranslation();
