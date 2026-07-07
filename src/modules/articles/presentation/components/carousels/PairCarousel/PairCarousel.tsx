@@ -4,7 +4,7 @@ import Autoplay from "embla-carousel-autoplay";
 import Fade from "embla-carousel-fade";
 import useEmblaCarousel from "embla-carousel-react";
 import type { IArticleSummaryEntity } from "@/modules/articles/domain/entities/IArticleSummaryEntity";
-import { ArticlePromotionCard } from "@/modules/articles/presentation/components/ArticlePromotionCard";
+import { ArticlePromotionCard } from "@/modules/articles/presentation/components/cards/ArticlePromotionCard";
 import {
     Carousel,
     CarouselContent,
@@ -12,11 +12,11 @@ import {
 } from "@/shared/presentation/components/ui/Carousel";
 import { CarouselDots } from "@/shared/presentation/components/ui/CarouselDots";
 
-interface PairColumnCarouselProps {
+export interface PairColumnCarouselProps {
     articles: IArticleSummaryEntity[];
 }
 
-interface PairCarouselProps {
+export interface PairCarouselProps {
     pairA: IArticleSummaryEntity[];
     pairB: IArticleSummaryEntity[];
 }
@@ -25,9 +25,8 @@ interface PairCarouselProps {
  * PairColumnCarousel
  *
  * @description
- * Single column carousel for spot 3. Uses a fade transition (no slide)
- * with autoplay (40s) and dot indicators inside the card.
- * Renders a static card for a single article.
+ * Single-column fade carousel for spot 3, with autoplay and dot indicators. Renders a
+ * static card for a single article.
  */
 function PairColumnCarousel({ articles }: PairColumnCarouselProps) {
     const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [
@@ -63,9 +62,8 @@ function PairColumnCarousel({ articles }: PairColumnCarouselProps) {
  * PairCarousel
  *
  * @description
- * Spot 3 — two side-by-side carousels (3a + 3b) occupying the bottom-left
- * of the promotion grid. Each column is an independent carousel with its
- * own fade animation, autoplay, and dot indicators.
+ * Spot 3 — two side-by-side columns (3a + 3b) in the promotion grid, each an independent
+ * carousel with its own autoplay and dot indicators.
  */
 export function PairCarousel({ pairA, pairB }: PairCarouselProps) {
     return (
