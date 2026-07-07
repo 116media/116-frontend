@@ -14,33 +14,21 @@ import type { IArticlePromotionFeedEntity } from "@/modules/articles/domain/enti
 import type { IArticleSummaryEntity } from "@/modules/articles/domain/entities/IArticleSummaryEntity";
 import type { IArticleTagEntity } from "@/modules/articles/domain/entities/IArticleTagEntity";
 import { ArticlesMapper } from "@/modules/articles/infrastructure/mappers/articles.mapper";
+import {
+    ALL_TAGS_LIMIT,
+    POPULAR_TAGS_LIMIT
+} from "@/modules/articles/presentation/constants/articleKeys";
 import { err, ok, type Result } from "@/shared/domain/results/result";
 import { type Api, EnumCoreContentType } from "@/shared/infrastructure/api/generated/116.api";
 import { ProblemMapper } from "@/shared/infrastructure/mappers/problem.mapper";
 
 /**
- * Maximum number of article tags requested for the "All tags" popover. Caps the server
- * response so the popover never pulls the full tag vocabulary; matching tags beyond this
- * count are reachable through the popover's search box.
- */
-const ALL_TAGS_LIMIT = 50;
-
-/**
- * Maximum number of popular article tags requested for the quick-pick tag strip and the
- * navigation prefetch that warms it. Keeps the strip to the most-used tags; everything else
- * is reachable through the searchable "All tags" popover.
- */
-const POPULAR_TAGS_LIMIT = 15;
-
-/**
  * Articles repository implementation using the public REST API.
  *
  * @description
- * Implements IArticlesRepositoryPort by delegating to an injected Api instance.
- * Works for both browser (Awilix injects the browser apiClient registered as `api`)
- * and server (layout manually instantiates with createServerApiClient()).
- * All methods return `Result<T>` — errors are caught and converted to
- * typed Failure values via ProblemMapper.
+ * Implements IArticlesRepositoryPort by delegating to an injected Api instance, browser
+ * (Awilix `api`) or server (createServerApiClient()). All methods return `Result<T>`;
+ * errors are converted to typed Failure values via ProblemMapper.
  */
 export class ArticlesRepositoryImpl implements IArticlesRepositoryPort {
     private readonly api: Api<unknown>["api"];
