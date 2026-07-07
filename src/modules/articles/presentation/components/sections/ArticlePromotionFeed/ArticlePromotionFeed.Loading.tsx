@@ -4,13 +4,8 @@ import { Skeleton } from "@/shared/presentation/components/ui/Skeleton";
  * ArticlePromotionFeedLoading
  *
  * @description
- * Skeleton placeholder for the article promotion feed grid.
- * Mirrors the exact grid layout of ArticlePromotionFeed with
- * card-shaped skeleton blocks. Responsive across mobile, tablet,
- * and desktop breakpoints. Built from the shared Skeleton primitive;
- * the lighter `muted-foreground/10` overlay lines layer on the pulsing
- * muted surfaces below them.
- * Used as the Suspense fallback on the homepage.
+ * Skeleton placeholder mirroring the ArticlePromotionFeed grid layout, built from the
+ * shared Skeleton primitive. Used as the Suspense fallback on the homepage.
  */
 export function ArticlePromotionFeedLoading() {
     return (
