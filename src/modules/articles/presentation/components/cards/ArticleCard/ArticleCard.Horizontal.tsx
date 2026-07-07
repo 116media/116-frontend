@@ -19,13 +19,9 @@ export interface ArticleCardHorizontalProps {
  * ArticleCard.Horizontal
  *
  * @description
- * Compact horizontal article card, visually identical to the homepage gossip strip card
- * (`ArticlePromotionCard.Strip`): a left thumbnail that gently zooms on hover, and a right
- * column with a title that tints on hover, the headline, and the relative published date
- * with a calendar icon in the bottom-left. The whole row links to the article. Used in the
- * article detail page's popular-articles sidebar. All colors are theme tokens.
- *
- * @param article - The article summary to render.
+ * Compact horizontal article card matching `ArticlePromotionCard.Strip`: thumbnail plus
+ * title, headline, and relative date, the whole row linking to the article. Used in the
+ * article detail page's popular-articles sidebar.
  */
 export function ArticleCardHorizontal({ article }: ArticleCardHorizontalProps) {
     return (
