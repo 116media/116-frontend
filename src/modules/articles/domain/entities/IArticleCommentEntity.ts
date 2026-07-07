@@ -4,10 +4,9 @@ import type { IArticleAuthor } from "@/modules/articles/domain/entities/IArticle
  * IArticleCommentEntity
  *
  * @description
- * One comment on an article, mapped from ArticleCommentDto. The `author` projection is
- * resolved server-side (user name plus avatar URL) and mapped when the DTO carries it;
- * it stays undefined when the commenter could not be resolved. Deleted comments arrive
- * with `body: null`, `isDeleted: true`, and no author.
+ * One comment on an article, mapped from ArticleCommentDto. The server-resolved `author`
+ * projection stays undefined when the commenter could not be resolved. Deleted comments
+ * arrive with `body: null`, `isDeleted: true`, and no author.
  *
  * @interface IArticleCommentEntity
  *
