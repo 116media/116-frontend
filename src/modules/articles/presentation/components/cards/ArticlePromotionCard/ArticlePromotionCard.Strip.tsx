@@ -8,10 +8,8 @@ import type { ArticlePromotionCardProps } from "./types";
  * Strip
  *
  * @description
- * Gossip strip card variant — compact horizontal card with a
- * thumbnail, article title, headline, and relative published date
- * in the bottom-right corner.
- * Clicking navigates to the article detail page.
+ * Gossip strip variant: compact horizontal card with a thumbnail, title, headline, and
+ * relative published date, linking to the article detail page.
  */
 export function Strip({ article }: ArticlePromotionCardProps) {
     return (
