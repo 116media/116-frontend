@@ -1,4 +1,4 @@
-import { ProfileSection } from "@/modules/settings/presentation/components/ProfileSection";
+import { ProfileSection } from "@/modules/settings/presentation/components/sections/ProfileSection";
 
 /**
  * ProfileSettingsPage
