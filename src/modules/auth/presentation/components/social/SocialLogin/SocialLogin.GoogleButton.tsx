@@ -2,11 +2,10 @@
 
 import { useGoogleLogin } from "@react-oauth/google";
 import { useTranslation } from "react-i18next";
-
-import { EAuthProvider } from "@/modules/auth/domain/enums/EAuthProvider";
-import type { ISocialLoginCredentials } from "@/modules/auth/presentation/model/ISocialLoginCredentials";
+import { EAuthProvider } from "@/shared/domain/enums/EAuthProvider";
 import { Button } from "@/shared/presentation/components/ui/Button";
 import { GoogleIcon } from "@/shared/presentation/components/ui/Icon";
+import type { SocialLoginButtonProps } from "./types";
 
 /**
  * Google's OpenID userinfo endpoint. Called with the implicit-flow access token to
@@ -34,34 +33,16 @@ interface GoogleUserInfo {
 }
 
 /**
- * GoogleLoginButtonProps
+ * SocialLoginGoogleButton
  *
  * @description
- * Props for {@link GoogleLoginButton}.
+ * Google sign-in button. Runs the Google Identity Services implicit OAuth flow,
+ * reads the account profile from the userinfo endpoint, and hands the resolved
+ * credentials to `onProfile`. Must be rendered inside a `GoogleOAuthProvider`.
  *
- * @interface GoogleLoginButtonProps
- * @property {(credentials: ISocialLoginCredentials) => void} onProfile - Receives the
- * resolved Google profile, ready for the backend social-login call.
- * @property {boolean} [disabled] - Disables the button while a sign-in is in flight.
+ * @param props - See {@link SocialLoginButtonProps}.
  */
-interface GoogleLoginButtonProps {
-    onProfile: (credentials: ISocialLoginCredentials) => void;
-    disabled?: boolean;
-}
-
-/**
- * GoogleLoginButton
- *
- * @description
- * Custom-styled Google button. Runs the Google Identity Services implicit OAuth
- * flow via `useGoogleLogin`, then reads the account profile from Google's userinfo
- * endpoint with the returned access token and hands `{ email, userName, avatarUrl,
- * provider }` to `onProfile`. Must be rendered inside a `GoogleOAuthProvider`.
- *
- * @param props - See {@link GoogleLoginButtonProps}.
- * @returns The Google sign-in button.
- */
-export function GoogleLoginButton({ onProfile, disabled }: GoogleLoginButtonProps) {
+export function SocialLoginGoogleButton({ onProfile, disabled }: SocialLoginButtonProps) {
     const { t } = useTranslation();
 
     const login = useGoogleLogin({
