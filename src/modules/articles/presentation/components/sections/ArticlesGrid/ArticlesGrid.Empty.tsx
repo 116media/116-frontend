@@ -24,10 +24,7 @@ export interface ArticlesGridEmptyProps {
  * @description
  * Empty state for the article grid. With `filtered`, the current search/category/tag
  * matched nothing and a "Clear filters" action is offered; without it, the feed itself
- * has no content ("no articles yet"). Centered, muted, icon-led.
- *
- * @param filtered - Whether the emptiness is due to active filters.
- * @param onClear - Clears all filters (shown only when `filtered`).
+ * has no content ("no articles yet").
  */
 export function ArticlesGridEmpty({ filtered, onClear }: ArticlesGridEmptyProps) {
     const { t } = useTranslation();
