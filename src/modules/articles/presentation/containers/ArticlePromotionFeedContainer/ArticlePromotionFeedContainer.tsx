@@ -1,18 +1,14 @@
+import { ArticlePromotionFeed } from "@/modules/articles/presentation/components/sections/ArticlePromotionFeed";
+import { generateDummyFeed } from "@/modules/articles/presentation/data/promotion-feed.dummy";
 import { createServerCradle } from "@/shared/infrastructure/server.cradle";
-
-import { ArticlePromotionFeed } from "./ArticlePromotionFeed";
-import { generateDummyFeed } from "./dummy-feed";
 
 /**
  * ArticlePromotionFeedContainer
  *
  * @description
- * Container component (async RSC) for the homepage article promotion grid.
- * Resolves GetArticlePromotionFeedUseCase from the Awilix server cradle,
- * fetches the feed data, and delegates rendering to the presentation
- * component. Falls back to dummy data when the API returns an error
- * so the feed is always visible during development.
- * Designed to be wrapped in `<Suspense>` by the page.
+ * Async RSC container for the homepage article promotion grid. Fetches the feed via
+ * GetArticlePromotionFeedUseCase from the Awilix server cradle and delegates rendering
+ * to ArticlePromotionFeed, falling back to dummy data on API error. Wrapped in `<Suspense>`.
  */
 export async function ArticlePromotionFeedContainer() {
     const cradle = await createServerCradle();
