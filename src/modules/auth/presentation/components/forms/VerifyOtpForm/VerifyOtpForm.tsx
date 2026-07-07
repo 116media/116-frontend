@@ -4,6 +4,7 @@ import { type SyntheticEvent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { EOtpPurpose } from "@/modules/auth/domain/enums/EOtpPurpose";
+import { OTP_LENGTH, RESEND_COOLDOWN_SECONDS } from "@/modules/auth/presentation/constants/otp";
 import { useAuthModal } from "@/modules/auth/presentation/context/AuthModalProvider";
 import { useResendOtp } from "@/modules/auth/presentation/hooks/useResendOtp";
 import { useVerifyOtp } from "@/modules/auth/presentation/hooks/useVerifyOtp";
@@ -11,19 +12,13 @@ import { Alert } from "@/shared/presentation/components/ui/Alert";
 import { Button } from "@/shared/presentation/components/ui/Button";
 import { OtpInput } from "@/shared/presentation/components/ui/OtpInput";
 
-const OTP_LENGTH = 6;
-const RESEND_COOLDOWN_SECONDS = 60;
-
 /**
  * VerifyOtpForm
  *
  * @description
- * Verifies the 6-digit code. The email + purpose come from the modal context. The
- * single OTP input is a controlled field (local `code` state) — not a
- * react-hook-form control, matching the dashboard's single-input OTP step. On
- * success an email-verification flow runs the resume action and closes; a
- * password-reset flow advances to reset-password, carrying the verified code.
- * Resending starts a 60-second cooldown.
+ * Verifies the 6-digit code; email + purpose come from the modal context.
+ * Email verification runs the resume action and closes; password reset
+ * advances to reset-password with the code. Resend has a cooldown.
  */
 export function VerifyOtpForm() {
     const { t } = useTranslation();
