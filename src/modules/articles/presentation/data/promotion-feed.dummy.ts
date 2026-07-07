@@ -125,11 +125,9 @@ function generateArticle(index: number, categoryIndex: number): IArticleSummaryE
  * generateDummyFeed
  *
  * @description
- * Builds a complete dummy promotion feed with articles spread across
- * all 5 spots (hero, side, pairA, pairB, gossipStrip).
- * Returns deterministic data — no Math.random() or Date.now() so
- * the feed stays stable across server/client renders.
- * Remove this file once real API data is flowing.
+ * Builds a complete dummy promotion feed with articles spread across all 5 spots (hero,
+ * side, pairA, pairB, gossipStrip). Deterministic, so the feed stays stable across
+ * server/client renders. Remove this file once real API data is flowing.
  */
 export function generateDummyFeed(): IArticlePromotionFeedEntity {
     return {
