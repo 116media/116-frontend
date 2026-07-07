@@ -1,7 +1,7 @@
-import { GossipStrip } from "@/modules/articles/presentation/components/GossipStrip";
-import { HeroCarousel } from "@/modules/articles/presentation/components/HeroCarousel";
-import { PairCarousel } from "@/modules/articles/presentation/components/PairCarousel";
-import { SideCarousel } from "@/modules/articles/presentation/components/SideCarousel";
+import { HeroCarousel } from "@/modules/articles/presentation/components/carousels/HeroCarousel";
+import { PairCarousel } from "@/modules/articles/presentation/components/carousels/PairCarousel";
+import { SideCarousel } from "@/modules/articles/presentation/components/carousels/SideCarousel";
+import { GossipStrip } from "@/modules/articles/presentation/components/sections/GossipStrip";
 
 import type { ArticlePromotionFeedViewProps } from "./types";
 
@@ -9,12 +9,9 @@ import type { ArticlePromotionFeedViewProps } from "./types";
  * ArticlePromotionFeed
  *
  * @description
- * Presentation component for the homepage article promotion grid.
- * Desktop layout (md+) uses an explicit viewport-based height so
- * grid `fr` rows divide space proportionally:
- *   Left column  — Hero (60%) + Pair A/B (40%)
- *   Right column — Side carousel + Gossip strip (fills remaining)
- * Mobile layout — single column, auto-height, stacked vertically.
+ * Presentation component for the homepage article promotion grid: hero and pair
+ * carousels on the left, side carousel and gossip strip on the right, stacked into a
+ * single column on mobile.
  */
 export function ArticlePromotionFeed({ feed }: ArticlePromotionFeedViewProps) {
     return (
