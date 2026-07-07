@@ -6,12 +6,9 @@ import { home } from "@/modules/articles/presentation/i18n/locales/fr/home";
  * fr
  *
  * @description
- * French translation catalog for the articles module, mirror of the English barrel.
- * Composes the module's namespaces (one per usage area, e.g. `home`, plus the spread
- * `articles` bundle covering `card`, `grid` and `filters`, and the spread
- * `articleDetail` bundle covering `detail`, `share`, `comments` and `sidebar`) into a
- * single locale object that the composition root nests under the `articles` key. Must
- * stay key-aligned with the English mirror.
+ * French translation catalog for the articles module. Composes the module's namespaces;
+ * the composition root nests the result under the `articles` key, so keys resolve as
+ * `t("articles.home.categories")`. Must stay key-aligned with the English mirror.
  */
 export const fr = {
     ...articles,
