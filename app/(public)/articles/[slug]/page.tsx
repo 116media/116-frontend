@@ -3,9 +3,9 @@ import { notFound } from "next/navigation";
 import { cache } from "react";
 
 import type { IArticleDetailEntity } from "@/modules/articles/domain/entities/IArticleDetailEntity";
-import { ArticleDetailContainer } from "@/modules/articles/presentation/components/ArticleDetail";
-import { articleJsonLd } from "@/modules/articles/presentation/components/ArticleDetail/articleJsonLd";
+import { ArticleDetailContainer } from "@/modules/articles/presentation/containers/ArticleDetailContainer";
 import { dummyArticleDetail } from "@/modules/articles/presentation/data/article-detail.dummy";
+import { articleJsonLd } from "@/modules/articles/presentation/utils/json-ld/article-json-ld.utils";
 import { createServerCradle } from "@/shared/infrastructure/server.cradle";
 
 /**
