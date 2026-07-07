@@ -25,14 +25,8 @@ export interface ArticleCardMediaProps {
  * ArticleCardMedia
  *
  * @description
- * The 16:9 cover image with a hover overlay revealing a "Read Article" button and a
- * gentle image zoom. When the article has no cover, a token-colored fallback (muted
- * surface + icon) is rendered instead of an image, so no placeholder asset is needed.
- * The source design's category badge overlay is omitted.
- *
- * @param slug - The article slug (link target).
- * @param title - The article title (image alt).
- * @param coverImageUrl - The cover image URL, or null for the fallback.
+ * The card's 16:9 cover with a hover "Read Article" overlay. When the article has no
+ * cover, a muted surface with an icon stands in — no placeholder asset.
  */
 export function ArticleCardMedia({ slug, title, coverImageUrl }: ArticleCardMediaProps) {
     const { t } = useTranslation();
