@@ -2,23 +2,16 @@
 
 import { useEffect, useMemo, useState } from "react";
 
-import { ArticlesToolbar } from "@/modules/articles/presentation/components/ArticlesToolbar";
+import { ArticlesToolbar } from "@/modules/articles/presentation/components/navigation/ArticlesToolbar";
+import { ArticlesGrid } from "@/modules/articles/presentation/components/sections/ArticlesGrid";
+import { ArticlesGridEmpty } from "@/modules/articles/presentation/components/sections/ArticlesGrid/ArticlesGrid.Empty";
+import { ArticlesGridEndOfFeed } from "@/modules/articles/presentation/components/sections/ArticlesGrid/ArticlesGrid.EndOfFeed";
+import { ArticlesGridError } from "@/modules/articles/presentation/components/sections/ArticlesGrid/ArticlesGrid.Error";
+import { ArticlesGridLoading } from "@/modules/articles/presentation/components/sections/ArticlesGrid/ArticlesGrid.Loading";
 import { useArticlesFeed } from "@/modules/articles/presentation/hooks/useArticlesFeed";
+import { INFINITE_SCROLL_SENTINEL_OPTIONS } from "@/shared/presentation/constants/infiniteScroll";
 import { useDebouncedValue } from "@/shared/presentation/hooks/useDebouncedValue";
 import { useIntersectionObserver } from "@/shared/presentation/hooks/useIntersectionObserver";
-
-import { ArticlesGrid } from "./ArticlesGrid";
-import { ArticlesGridEmpty } from "./ArticlesGrid.Empty";
-import { ArticlesGridEndOfFeed } from "./ArticlesGrid.EndOfFeed";
-import { ArticlesGridError } from "./ArticlesGrid.Error";
-import { ArticlesGridLoading } from "./ArticlesGrid.Loading";
-
-/**
- * Stable IntersectionObserver options for the infinite-scroll sentinel. Pre-loads the
- * next page ~200px before the sentinel enters the viewport; module scope keeps the
- * identity stable so the observer is not recreated on re-render.
- */
-const SENTINEL_OPTIONS: IntersectionObserverInit = { rootMargin: "200px 0px" };
 
 /**
  * Props for {@link ArticlesFeedContainer}.
@@ -38,20 +31,9 @@ export interface ArticlesFeedContainerProps {
  * ArticlesFeedContainer
  *
  * @description
- * Owns the article feed's filter state (search / category / tag), renders
- * {@link ArticlesToolbar} above the grid, and drives {@link useArticlesFeed} with the
- * debounced filters. The filter state is seeded from the URL query params (`search`,
- * `categoryId`, `tagSlug`) supplied by the route, so a deep link such as
- * `/articles?tagSlug=music` opens pre-filtered and the toolbar reflects the active filter.
- * Flattens the query's pages and renders {@link ArticlesGrid} with a sentinel observed by
- * {@link useIntersectionObserver} that requests the next page as it enters the viewport.
- * Shows skeleton / filtered-empty / error / end-of-feed states. The dummy-data fallback
- * lives in {@link useArticlesFeed} (paged), so an empty unfiltered feed pages through the
- * dummy set here with no special branch.
- *
- * @param initialSearch - Initial search term from the URL.
- * @param initialCategoryId - Initial category filter from the URL.
- * @param initialTagSlug - Initial tag filter from the URL.
+ * Owns the article feed's filter state (search / category / tag), seeded from the URL
+ * query params, and drives {@link useArticlesFeed} with the debounced filters. Renders
+ * {@link ArticlesToolbar} above {@link ArticlesGrid} with infinite scroll and feed states.
  */
 export function ArticlesFeedContainer({
     initialSearch = "",
@@ -72,7 +54,9 @@ export function ArticlesFeedContainer({
     const { data, isLoading, isError, refetch, fetchNextPage, hasNextPage, isFetchingNextPage } =
         useArticlesFeed(filters);
 
-    const [sentinelRef, isSentinelVisible] = useIntersectionObserver(SENTINEL_OPTIONS);
+    const [sentinelRef, isSentinelVisible] = useIntersectionObserver(
+        INFINITE_SCROLL_SENTINEL_OPTIONS
+    );
 
     const articles = data?.pages.flatMap((page) => page.items) ?? [];
 
