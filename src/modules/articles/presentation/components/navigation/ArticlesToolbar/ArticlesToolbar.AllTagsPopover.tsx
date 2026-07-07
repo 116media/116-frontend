@@ -9,7 +9,7 @@ import { CheckIcon } from "@/shared/presentation/components/ui/Icon";
 import { Input } from "@/shared/presentation/components/ui/Input";
 import { useDebouncedValue } from "@/shared/presentation/hooks/useDebouncedValue";
 import { useDismiss } from "@/shared/presentation/hooks/useDismiss";
-import { cn } from "@/shared/presentation/utils/cn";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
  * Props for ArticlesToolbarAllTagsPopover.
@@ -27,13 +27,9 @@ export interface ArticlesToolbarAllTagsPopoverProps {
  * ArticlesToolbarAllTagsPopover
  *
  * @description
- * The "All tags" trigger and its dropdown panel: a search field over the full tag list
- * (from {@link useAllTags}, enabled only while open and keyed by the debounced search
- * term) rendered as selectable rows. Selecting a tag emits its slug and closes; the
- * active tag shows a check. Dismissed on outside-click / Escape via {@link useDismiss}.
- *
- * @param value - The active tag slug, or undefined.
- * @param onChange - Emits the selected tag slug (undefined to clear).
+ * "All tags" trigger and dropdown: a debounced search over {@link useAllTags} (enabled
+ * only while open) rendered as selectable rows. Selecting emits the slug and closes;
+ * dismissed on outside-click / Escape via {@link useDismiss}.
  */
 export function ArticlesToolbarAllTagsPopover({
     value,
