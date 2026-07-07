@@ -17,11 +17,11 @@ export interface ArticlesMegaMenuProps {
 }
 
 /**
- * ArticlesMegaCategoryListProps
+ * ArticlesMegaMenuCategoryListProps
  *
  * @description
  * Props for the category list column inside the articles mega menu.
  */
-export interface ArticlesMegaCategoryListProps {
+export interface ArticlesMegaMenuCategoryListProps {
     categories: IArticleCategoryEntity[];
 }
