@@ -1,11 +1,10 @@
 import { Suspense } from "react";
-
-import { ArticlePromotionFeedContainer } from "@/modules/articles/presentation/components/ArticlePromotionFeed";
-import { ArticlePromotionFeedLoading } from "@/modules/articles/presentation/components/ArticlePromotionFeed/ArticlePromotionFeed.Loading";
-import { ShowsSectionContainer } from "@/modules/videos/presentation/components/ShowsSection";
-import { VideoExclusiveShowContainer } from "@/modules/videos/presentation/components/VideoExclusiveShow";
-import { VideoExclusiveShowLoading } from "@/modules/videos/presentation/components/VideoExclusiveShow/VideoExclusiveShow.Loading";
-import { VideoFeedSectionContainer } from "@/modules/videos/presentation/components/VideoFeedSection";
+import { ArticlePromotionFeedLoading } from "@/modules/articles/presentation/components/sections/ArticlePromotionFeed/ArticlePromotionFeed.Loading";
+import { ArticlePromotionFeedContainer } from "@/modules/articles/presentation/containers/ArticlePromotionFeedContainer";
+import { VideoExclusiveShowLoading } from "@/modules/videos/presentation/components/sections/VideoExclusiveShow/VideoExclusiveShow.Loading";
+import { ShowsSectionContainer } from "@/modules/videos/presentation/containers/ShowsSectionContainer";
+import { VideoExclusiveShowContainer } from "@/modules/videos/presentation/containers/VideoExclusiveShowContainer";
+import { VideoFeedSectionContainer } from "@/modules/videos/presentation/containers/VideoFeedSectionContainer";
 
 /**
  * HomePage
