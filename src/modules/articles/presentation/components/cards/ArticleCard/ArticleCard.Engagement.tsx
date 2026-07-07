@@ -14,7 +14,7 @@ import {
     MessageSquareIcon,
     ShareIcon
 } from "@/shared/presentation/components/ui/Icon";
-import { cn } from "@/shared/presentation/utils/cn";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
  * Props for ArticleCardEngagement.
@@ -38,16 +38,9 @@ export interface ArticleCardEngagementProps {
  * ArticleCardEngagement
  *
  * @description
- * The card's action row with four interactions: like (optimistic toggle, auth-gated),
- * comment (navigates to the article's comments), share, and bookmark (optimistic toggle,
- * auth-gated). Every button stops propagation so it never follows the card's article
- * link.
- *
- * @param articleId - The article the mutations target.
- * @param slug - The article slug (comment link target).
- * @param likeCount - Baseline like count.
- * @param commentCount - Comment count shown on the comment button.
- * @param bookmarkCount - Baseline bookmark count.
+ * Card action row: like and bookmark (optimistic, auth-gated), comment (navigates to the
+ * article's comments), and share. Every button stops propagation so it never follows the
+ * card's article link.
  */
 export function ArticleCardEngagement({
     articleId,
