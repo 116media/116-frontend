@@ -1,8 +1,7 @@
 import { Suspense } from "react";
-
-import { ArticlePromotionFeedContainer } from "@/modules/articles/presentation/components/ArticlePromotionFeed";
-import { ArticlePromotionFeedLoading } from "@/modules/articles/presentation/components/ArticlePromotionFeed/ArticlePromotionFeed.Loading";
-import { ArticlesFeedContainer } from "@/modules/articles/presentation/components/ArticlesGrid";
+import { ArticlePromotionFeedLoading } from "@/modules/articles/presentation/components/sections/ArticlePromotionFeed/ArticlePromotionFeed.Loading";
+import { ArticlePromotionFeedContainer } from "@/modules/articles/presentation/containers/ArticlePromotionFeedContainer";
+import { ArticlesFeedContainer } from "@/modules/articles/presentation/containers/ArticlesFeedContainer";
 
 /**
  * Props for the articles listing route.
