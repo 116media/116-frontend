@@ -3,9 +3,9 @@
 import { useQuery } from "@tanstack/react-query";
 
 import type { IArticleCategoryEntity } from "@/modules/articles/domain/entities/IArticleCategoryEntity";
+import { articleKeys } from "@/modules/articles/presentation/constants/articleKeys";
 import type { Failure } from "@/shared/domain/failures/failure";
 import container from "@/shared/infrastructure/service.locator";
-import { articleKeys } from "../constants/articleKeys";
 
 /**
  * useArticleCategories
