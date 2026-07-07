@@ -12,11 +12,8 @@ import { ARTICLES_PATH } from "@/shared/presentation/constants/paths";
  * ArticleDetailNotFound
  *
  * @description
- * The content of the article route's not-found boundary, rendered when
- * `getArticleBySlug` reports the slug is missing or unpublished and the page calls
- * Next's `notFound()`. Shows the shared `EmptyState` with the not-found copy and a link
- * back to the article feed, so a dead link resolves to a clear dead-end rather than a
- * stack trace.
+ * Content of the article route's not-found boundary, rendered when the slug is missing
+ * or unpublished. Shows the shared `EmptyState` with a link back to the article feed.
  */
 export function ArticleDetailNotFound() {
     const { t } = useTranslation();
