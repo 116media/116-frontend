@@ -5,20 +5,17 @@ import { useTranslation } from "react-i18next";
 import { ChevronRightIcon } from "@/shared/presentation/components/ui/Icon";
 
 import { ARTICLES_PATH } from "@/shared/presentation/constants/paths";
-import { cn } from "@/shared/presentation/utils/cn";
-import type { ArticlesMegaCategoryListProps } from "./types";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
+import type { ArticlesMegaMenuCategoryListProps } from "./types";
 
 /**
- * ArticlesMegaCategoryList
+ * ArticlesMegaMenuCategoryList
  *
  * @description
- * Left column of the articles mega menu.
- * Renders each article category as a link to the articles list
- * filtered by that category. Category names use brighter foreground
- * styling to stand out from the section label. A chevron icon on
- * the right reinforces the navigational intent.
+ * Left column of the articles mega menu: each category links to the articles list
+ * filtered by that category.
  */
-export function ArticlesMegaCategoryList({ categories }: ArticlesMegaCategoryListProps) {
+export function ArticlesMegaMenuCategoryList({ categories }: ArticlesMegaMenuCategoryListProps) {
     const { t } = useTranslation();
 
     return (
