@@ -2,12 +2,10 @@
 
 import { Fragment } from "react";
 import { useTranslation } from "react-i18next";
-
+import { ArticleCard } from "@/modules/articles/presentation/components/cards/ArticleCard";
 import { useArticleDetailPopular } from "@/modules/articles/presentation/hooks/useArticleDetailPopular";
 import { FlameIcon } from "@/shared/presentation/components/ui/Icon";
 import { SectionHeader } from "@/shared/presentation/components/ui/SectionHeader";
-
-import { ArticleCard } from "../ArticleCard";
 import { ArticlesPopularSidebarLoading } from "./ArticlesPopularSidebar.Loading";
 
 /**
@@ -24,14 +22,9 @@ export interface ArticlesPopularSidebarProps {
  * ArticlesPopularSidebar
  *
  * @description
- * The detail page's popular-articles column: a titled strip of up to five
- * ArticleCard.Horizontal rows — the same horizontal cards, in the same muted block with
- * rule separators, as the homepage gossip strip — sourced from `useArticleDetailPopular`
- * (the backend's engagement-ranked popular endpoint, current article excluded). While
- * loading it shows a matching skeleton block; when the resolved list is empty it renders
- * nothing (no heading, no empty-state box) so an empty column never occupies the layout.
- *
- * @param currentArticleId - The article currently open, excluded from the list.
+ * The detail page's popular-articles column: up to five ArticleCard.Horizontal rows
+ * sourced from `useArticleDetailPopular`, with the current article excluded. Shows a
+ * matching skeleton while loading and renders nothing when the resolved list is empty.
  */
 export function ArticlesPopularSidebar({ currentArticleId }: ArticlesPopularSidebarProps) {
     const { t } = useTranslation();
