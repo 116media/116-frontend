@@ -37,7 +37,7 @@ export const ArticlesMapper = {
      * Drops audit fields, authorId, and status which are not needed
      * on the public mega menu display.
      *
-     * @param {ArticleSummaryDto} dto - Article summary data from API
+     * @param dto - Article summary data from API
      * @returns {IArticleSummaryEntity} Mapped article summary entity
      */
     articleSummaryFromDto(dto: ArticleSummaryDto): IArticleSummaryEntity {
@@ -61,7 +61,7 @@ export const ArticlesMapper = {
     /**
      * Maps a list of ArticleSummaryDto to IArticleSummaryEntity domain entities.
      *
-     * @param {ArticleSummaryDto[]} dtos - Article summary data list from API
+     * @param dtos - Article summary data list from API
      * @returns {IArticleSummaryEntity[]} Mapped article summary entities
      */
     articleSummaryListFromDto(dtos: ArticleSummaryDto[]): IArticleSummaryEntity[] {
@@ -72,7 +72,7 @@ export const ArticlesMapper = {
      * Maps a paginated ArticleSummaryDto result to an IArticlePage, deriving
      * hasNextPage from the total count and the current page index.
      *
-     * @param {ArticleSummaryDtoPaginatedResult} dto - Paginated envelope from getPublishedArticles
+     * @param dto - Paginated envelope from getPublishedArticles
      * @returns {IArticlePage} Mapped article page entity
      */
     articlePageFromDto(dto: ArticleSummaryDtoPaginatedResult): IArticlePage {
@@ -90,7 +90,7 @@ export const ArticlesMapper = {
      * Drops contentTypeId and contentTypeName because by the time this
      * mapper runs the category list is already scoped to Article.
      *
-     * @param {CategoryDto} dto - Category data from API
+     * @param dto - Category data from API
      * @returns {IArticleCategoryEntity} Mapped article category entity
      */
     categoryFromDto(dto: CategoryDto): IArticleCategoryEntity {
@@ -106,7 +106,7 @@ export const ArticlesMapper = {
     /**
      * Maps a list of CategoryDto to IArticleCategoryEntity domain entities.
      *
-     * @param {CategoryDto[]} dtos - Category data list from API
+     * @param dtos - Category data list from API
      * @returns {IArticleCategoryEntity[]} Mapped article category entities
      */
     categoryListFromDto(dtos: CategoryDto[]): IArticleCategoryEntity[] {
@@ -116,7 +116,7 @@ export const ArticlesMapper = {
     /**
      * Maps TagDto to IArticleTagEntity domain entity.
      *
-     * @param {TagDto} dto - Tag data from API
+     * @param dto - Tag data from API
      * @returns {IArticleTagEntity} Mapped article tag entity
      */
     tagFromDto(dto: TagDto): IArticleTagEntity {
@@ -130,7 +130,7 @@ export const ArticlesMapper = {
     /**
      * Maps a list of TagDto to IArticleTagEntity domain entities.
      *
-     * @param {TagDto[]} dtos - Tag data list from API
+     * @param dtos - Tag data list from API
      * @returns {IArticleTagEntity[]} Mapped article tag entities
      */
     tagListFromDto(dtos: TagDto[]): IArticleTagEntity[] {
@@ -142,7 +142,7 @@ export const ArticlesMapper = {
      * Resolves backend spots and slots into named arrays and maps each
      * article entry through articleSummaryFromDto.
      *
-     * @param {PublicGetArticlePromotionFeedResponse} dto - Raw API response
+     * @param dto - Raw API response
      * @returns {IArticlePromotionFeedEntity} Mapped promotion feed entity
      */
     promotionFeedFromDto(dto: PublicGetArticlePromotionFeedResponse): IArticlePromotionFeedEntity {
@@ -159,7 +159,7 @@ export const ArticlesMapper = {
      * Maps ArticleImageDto to IArticleImage, dropping the storage key and lowercasing
      * the image type.
      *
-     * @param {ArticleImageDto} dto - Article image data from API
+     * @param dto - Article image data from API
      * @returns {IArticleImage} Mapped article image entity
      */
     articleImageFromDto(dto: ArticleImageDto): IArticleImage {
@@ -173,7 +173,7 @@ export const ArticlesMapper = {
     /**
      * Maps a list of ArticleImageDto to IArticleImage domain entities.
      *
-     * @param {ArticleImageDto[]} dtos - Article image data list from API
+     * @param dtos - Article image data list from API
      * @returns {IArticleImage[]} Mapped article image entities
      */
     articleImageListFromDto(dtos: ArticleImageDto[]): IArticleImage[] {
@@ -181,12 +181,11 @@ export const ArticlesMapper = {
     },
 
     /**
-     * Maps ArticleDetailDto to IArticleDetailEntity. Reuses tagFromDto and
-     * articleImageFromDto for the nested lists and maps the nullable author to
-     * IArticleAuthor. Admin, promotion, and commerce fields are dropped; the caller's
-     * per-user interaction flags are kept so the engagement toggles seed correctly.
+     * Maps ArticleDetailDto to IArticleDetailEntity, reusing tagFromDto and
+     * articleImageFromDto for the nested lists. Admin, promotion, and commerce fields are
+     * dropped; the caller's per-user interaction flags are kept to seed the engagement toggles.
      *
-     * @param {ArticleDetailDto} dto - Full article detail data from API
+     * @param dto - Full article detail data from API
      * @returns {IArticleDetailEntity} Mapped article detail entity
      */
     articleDetailFromDto(dto: ArticleDetailDto): IArticleDetailEntity {
@@ -226,7 +225,7 @@ export const ArticlesMapper = {
      * when the backend resolves it (user name plus avatar URL) and stays undefined for
      * unresolved commenters and deleted comments.
      *
-     * @param {ArticleCommentDto} dto - Article comment data from API
+     * @param dto - Article comment data from API
      * @returns {IArticleCommentEntity} Mapped article comment entity
      */
     articleCommentFromDto(dto: ArticleCommentDto): IArticleCommentEntity {
@@ -249,7 +248,7 @@ export const ArticlesMapper = {
     /**
      * Maps a list of ArticleCommentDto to IArticleCommentEntity domain entities.
      *
-     * @param {ArticleCommentDto[]} dtos - Article comment data list from API
+     * @param dtos - Article comment data list from API
      * @returns {IArticleCommentEntity[]} Mapped article comment entities
      */
     articleCommentListFromDto(dtos: ArticleCommentDto[]): IArticleCommentEntity[] {
@@ -260,7 +259,7 @@ export const ArticlesMapper = {
      * Maps a paginated ArticleCommentDto result to an IArticleCommentPage, deriving
      * hasNextPage from the total count and the current page index.
      *
-     * @param {ArticleCommentDtoPaginatedResult} dto - Paginated comments envelope from API
+     * @param dto - Paginated comments envelope from API
      * @returns {IArticleCommentPage} Mapped article comment page entity
      */
     articleCommentPageFromDto(dto: ArticleCommentDtoPaginatedResult): IArticleCommentPage {
