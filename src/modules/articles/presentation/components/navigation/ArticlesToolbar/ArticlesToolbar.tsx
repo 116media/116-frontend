@@ -33,11 +33,9 @@ export interface ArticlesToolbarProps {
  * ArticlesToolbar
  *
  * @description
- * The filter region under the promoted feed: a category dropdown on the left and a
- * search input on the right (row 1), and the tag pill strip with an "All tags" popover
- * (row 2). Fully controlled — the container owns the filter state and re-queries the
- * feed on change. Shows a "Clear filters" control when any filter is active. On mobile
- * the row stacks and the search goes full-width.
+ * Filter region under the promoted feed: category dropdown, search input, and the tag
+ * strip with the "All tags" popover. Fully controlled — the container owns the filter
+ * state; a "Clear filters" control shows while any filter is active.
  */
 export function ArticlesToolbar(props: ArticlesToolbarProps) {
     return (
