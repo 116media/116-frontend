@@ -27,7 +27,7 @@ export class AddArticleCommentUseCase implements IAddArticleCommentUseCase {
     private readonly articlesRepository: IArticlesRepositoryPort;
 
     /**
-     * @param {IArticlesRepositoryPort} articlesRepository - Repository for articles operations (injected)
+     * @param articlesRepository - Repository for articles operations (injected)
      */
     constructor({ articlesRepository }: { articlesRepository: IArticlesRepositoryPort }) {
         this.articlesRepository = articlesRepository;
@@ -36,7 +36,7 @@ export class AddArticleCommentUseCase implements IAddArticleCommentUseCase {
     /**
      * Executes the add-article-comment use case.
      *
-     * @param {IAddArticleCommentInput} input - Article id plus the comment body
+     * @param input - Article id plus the comment body
      * @returns {Promise<Result<IArticleCommentEntity>>} `ok(IArticleCommentEntity)` on success, `err(Failure)` on failure
      */
     async execute(input: IAddArticleCommentInput): Promise<Result<IArticleCommentEntity>> {
