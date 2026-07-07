@@ -1,24 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
-import { HeartIcon, MessageSquareIcon, ShareIcon } from "@/shared/presentation/components/ui/Icon";
 
 import { Tag } from "@/shared/presentation/components/ui/Tag";
-import { cn } from "@/shared/presentation/utils/cn";
-import { formatCount } from "@/shared/presentation/utils/formatCount";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
+import { Stats } from "./ArticlePromotionCard.Stats";
 import type { ArticlePromotionCardProps } from "./types";
 
 /**
  * Hero
  *
  * @description
- * Spot 1 card variant — cinematic full-width hero card with cover image,
- * dual gradient overlays, animated pulse dot category badge, engagement
- * stats, and an eye icon revealed on hover.
- * All overlay text uses white since it always sits on a dark gradient —
- * theme tokens drive the accent color (primary) for the badge dot and
- * hover gradient.
- * Clicking navigates to the article detail page.
+ * Spot 1 hero variant: full-width cover with gradient overlays, category badge, and
+ * engagement stats, linking to the article detail page. Overlay text is white since it
+ * always sits on a dark gradient.
  */
 export function Hero({ article }: ArticlePromotionCardProps) {
     return (
@@ -65,18 +60,7 @@ export function Hero({ article }: ArticlePromotionCardProps) {
                 </p>
 
                 <div className="flex items-center gap-3 text-xs text-white/60 sm:gap-4 md:text-sm lg:text-xs xl:text-sm">
-                    <span className="flex items-center gap-1">
-                        <MessageSquareIcon className="size-3.5 sm:size-4" />
-                        {formatCount(article.commentCount)}
-                    </span>
-                    <span className="flex items-center gap-1">
-                        <HeartIcon className="size-3.5 sm:size-4" />
-                        {formatCount(article.likeCount)}
-                    </span>
-                    <span className="flex items-center gap-1">
-                        <ShareIcon className="size-3.5 sm:size-4" />
-                        {formatCount(article.shareCount)}
-                    </span>
+                    <Stats article={article} />
                 </div>
             </div>
         </Link>
