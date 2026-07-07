@@ -24,11 +24,8 @@ function SidebarRowSkeleton() {
  * ArticleDetailLoading
  *
  * @description
- * Full-page skeleton for the article detail route. Reproduces the hero block (a large
- * cover rectangle, a category-chip pill, a two-line title, a headline line, and a meta
- * row), a stack of body paragraph lines, and — on wide screens — the popular-sidebar
- * skeleton. Every block is an `animate-pulse` `bg-muted` shape, so shimmer, radius, and
- * spacing match the feed skeletons and no layout shift occurs when the article resolves.
+ * Full-page skeleton for the article detail route, mirroring the hero, body, and
+ * popular-sidebar shapes so no layout shift occurs when the article resolves.
  */
 export function ArticleDetailLoading() {
     const bodyLines = Array.from({ length: 8 }, (_, index) => index);
