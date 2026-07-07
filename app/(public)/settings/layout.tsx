@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
-
-import { SettingsGuard } from "@/modules/settings/presentation/components/SettingsGuard";
-import { SettingsSidebar } from "@/modules/settings/presentation/components/SettingsSidebar";
+import { SettingsSidebar } from "@/modules/settings/presentation/components/navigation/SettingsSidebar";
+import { SettingsGuard } from "@/modules/settings/presentation/containers/SettingsGuard";
 
 /**
  * SettingsLayout
