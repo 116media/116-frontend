@@ -10,21 +10,16 @@ import type { ISocialLoginCredentials } from "@/modules/auth/presentation/model/
 import { FACEBOOK_APP_ID, GOOGLE_CLIENT_ID } from "@/shared/infrastructure/constants/common";
 import { Alert } from "@/shared/presentation/components/ui/Alert";
 
-import { FacebookLoginButton } from "./FacebookLoginButton";
-import { GoogleLoginButton } from "./GoogleLoginButton";
+import { SocialLoginFacebookButton } from "./SocialLogin.FacebookButton";
+import { SocialLoginGoogleButton } from "./SocialLogin.GoogleButton";
 
 /**
  * SocialLogin
  *
  * @description
- * The Google + Facebook sign-in block shared by the login and signup views. Each
- * provider button is mounted only when its client id is configured (and the whole
- * block — including the "or" divider — is hidden when neither is), then wraps the
- * button in the SDK provider it needs. When a button resolves a profile it is sent
- * to the backend via `useSocialLogin`; a success resumes any pending after-login
- * action, and a failure surfaces inline.
- *
- * @returns The social sign-in buttons with divider, or `null` when unconfigured.
+ * Google + Facebook sign-in block shared by the login and signup views. Each
+ * provider button mounts only when its client id is configured; resolved
+ * profiles go to the backend via `useSocialLogin`. Failures surface inline.
  */
 export function SocialLogin() {
     const { t } = useTranslation();
@@ -44,7 +39,7 @@ export function SocialLogin() {
             <div className="flex flex-col gap-2">
                 {GOOGLE_CLIENT_ID && (
                     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-                        <GoogleLoginButton
+                        <SocialLoginGoogleButton
                             onProfile={onProfile}
                             disabled={isPending}
                         />
@@ -53,7 +48,7 @@ export function SocialLogin() {
 
                 {FACEBOOK_APP_ID && (
                     <FacebookProvider appId={FACEBOOK_APP_ID}>
-                        <FacebookLoginButton
+                        <SocialLoginFacebookButton
                             onProfile={onProfile}
                             disabled={isPending}
                         />
