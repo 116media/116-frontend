@@ -24,13 +24,8 @@ export interface ArticleCardFeedProps {
  * ArticleCard.Feed
  *
  * @description
- * The magazine-style article card for the grid. Cover image with a hover "Read Article"
- * overlay, a byline row with the author on the left and the published date in the right
- * corner, a meta row (category Tag · reading time), the title, a 2-line headline, and an
- * engagement bar. All colors are theme tokens. The source design's image category badge is
- * intentionally omitted (category is in the meta row).
- *
- * @param article - The article summary to render.
+ * Magazine-style article card for the feed grid: cover, byline, meta row, title, headline,
+ * and engagement bar composed from the ArticleCard parts.
  */
 export function ArticleCardFeed({ article }: ArticleCardFeedProps) {
     return (
