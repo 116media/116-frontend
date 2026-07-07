@@ -1,28 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
-import {
-    CalendarIcon,
-    HeartIcon,
-    MessageSquareIcon,
-    ShareIcon
-} from "@/shared/presentation/components/ui/Icon";
+import { CalendarIcon } from "@/shared/presentation/components/ui/Icon";
 
 import { RelativeDate } from "@/shared/presentation/components/ui/RelativeDate";
 import { Tag } from "@/shared/presentation/components/ui/Tag";
-import { formatCount } from "@/shared/presentation/utils/formatCount";
 
+import { Stats } from "./ArticlePromotionCard.Stats";
 import type { ArticlePromotionCardProps } from "./types";
 
 /**
  * Side
  *
  * @description
- * Spot 2 card variant — bordered card with hover effect.
- * Features an inline date + category header, horizontal image and text
- * layout, a separator, and engagement stats pinned to the bottom.
- * Uses theme tokens for border, background, and text colors so it
- * adapts to both light and dark modes.
- * Clicking the card navigates to the article detail page.
+ * Spot 2 bordered variant: date + category header, image and text, and engagement stats
+ * pinned to the bottom, linking to the article detail page.
  */
 export function Side({ article }: ArticlePromotionCardProps) {
     return (
@@ -70,18 +61,7 @@ export function Side({ article }: ArticlePromotionCardProps) {
 
                 <div className="mt-auto flex items-center justify-between">
                     <div className="flex items-center gap-3 text-xs text-muted-foreground sm:text-sm md:text-base lg:text-xs xl:text-sm">
-                        <span className="flex items-center gap-1">
-                            <MessageSquareIcon className="size-3.5 sm:size-4" />
-                            {formatCount(article.commentCount)}
-                        </span>
-                        <span className="flex items-center gap-1">
-                            <HeartIcon className="size-3.5 sm:size-4" />
-                            {formatCount(article.likeCount)}
-                        </span>
-                        <span className="flex items-center gap-1">
-                            <ShareIcon className="size-3.5 sm:size-4" />
-                            {formatCount(article.shareCount)}
-                        </span>
+                        <Stats article={article} />
                     </div>
                 </div>
             </div>
