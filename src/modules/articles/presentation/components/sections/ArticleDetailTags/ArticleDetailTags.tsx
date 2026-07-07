@@ -19,12 +19,8 @@ export interface ArticleDetailTagsProps {
  * ArticleDetail.Tags
  *
  * @description
- * The tag block shown at the end of the article body: an uppercase "Tags:" label followed
- * by each article tag as a Tag pill in the hashtag style (prefix "#") linking to the
- * tag-filtered articles feed (/articles?tagSlug=<slug>). Renders nothing when the article
- * has no tags. Set off from the body above by a token-colored top border.
- *
- * @param tags - The article's tags.
+ * Tag block at the end of the article body: each tag is a hashtag pill linking to the
+ * tag-filtered articles feed. Renders nothing when the article has no tags.
  */
 export function ArticleDetailTags({ tags }: ArticleDetailTagsProps) {
     const { t } = useTranslation();
