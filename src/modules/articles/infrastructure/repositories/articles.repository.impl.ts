@@ -1,8 +1,14 @@
 import type {
+    IAddArticleCommentInput,
+    IArticleCommentsQuery,
     IArticlesRepositoryPort,
+    IPopularArticlesQuery,
     IPublishedArticlesQuery
 } from "@/modules/articles/application/repositories/articles.repository.port";
 import type { IArticleCategoryEntity } from "@/modules/articles/domain/entities/IArticleCategoryEntity";
+import type { IArticleCommentEntity } from "@/modules/articles/domain/entities/IArticleCommentEntity";
+import type { IArticleCommentPage } from "@/modules/articles/domain/entities/IArticleCommentPage";
+import type { IArticleDetailEntity } from "@/modules/articles/domain/entities/IArticleDetailEntity";
 import type { IArticlePage } from "@/modules/articles/domain/entities/IArticlePage";
 import type { IArticlePromotionFeedEntity } from "@/modules/articles/domain/entities/IArticlePromotionFeedEntity";
 import type { IArticleSummaryEntity } from "@/modules/articles/domain/entities/IArticleSummaryEntity";
@@ -160,6 +166,55 @@ export class ArticlesRepositoryImpl implements IArticlesRepositoryPort {
         try {
             const response = await this.api.publicShareArticle(id);
             return ok(response.data.isSuccess);
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async getArticleBySlug(slug: string): Promise<Result<IArticleDetailEntity>> {
+        try {
+            const response = await this.api.getArticleBySlug(slug);
+            return ok(ArticlesMapper.articleDetailFromDto(response.data.article));
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async getArticleComments(query: IArticleCommentsQuery): Promise<Result<IArticleCommentPage>> {
+        try {
+            const response = await this.api.publicGetArticleComments(query.articleId, {
+                pageIndex: query.pageIndex,
+                pageSize: query.pageSize
+            });
+            return ok(ArticlesMapper.articleCommentPageFromDto(response.data));
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async addArticleComment(
+        input: IAddArticleCommentInput
+    ): Promise<Result<IArticleCommentEntity>> {
+        try {
+            const response = await this.api.publicAddArticleComment(input.articleId, {
+                body: input.body
+            });
+            return ok(ArticlesMapper.articleCommentFromDto(response.data.comment));
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async getPopularArticles(
+        query: IPopularArticlesQuery
+    ): Promise<Result<IArticleSummaryEntity[]>> {
+        try {
+            const response = await this.api.publicGetPopularArticles({
+                limit: query.limit,
+                excludeId: query.excludeId,
+                categoryId: query.categoryId
+            });
+            return ok(response.data.articles.map(ArticlesMapper.articleSummaryFromDto));
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }

@@ -5,13 +5,13 @@ import { useTranslation } from "react-i18next";
 
 import { useLogout } from "@/modules/auth/presentation/hooks/useLogout";
 import { AccountActionCard } from "@/modules/settings/presentation/components/AccountActionCard";
-import { SettingsPageHeader } from "@/modules/settings/presentation/components/SettingsPageHeader";
 import { ConfirmDialog } from "@/shared/presentation/components/ui/ConfirmDialog";
 import {
     AlertCircleIcon,
     LogOutIcon,
     SettingsIcon
 } from "@/shared/presentation/components/ui/Icon";
+import { SectionHeader } from "@/shared/presentation/components/ui/SectionHeader";
 
 /**
  * AccountSection
@@ -30,7 +30,8 @@ export function AccountSection() {
 
     return (
         <div>
-            <SettingsPageHeader
+            <SectionHeader
+                as="h1"
                 icon={<SettingsIcon />}
                 title={t("settings.account.title")}
                 subtitle={t("settings.account.subtitle")}

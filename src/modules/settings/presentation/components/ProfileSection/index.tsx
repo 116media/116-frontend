@@ -8,7 +8,6 @@ import { useAuth } from "@/modules/auth/presentation/context/AuthProvider";
 import { DetailField } from "@/modules/settings/presentation/components/DetailField";
 import { ProfileEditModal } from "@/modules/settings/presentation/components/ProfileEditModal";
 import { SettingsCard } from "@/modules/settings/presentation/components/SettingsCard";
-import { SettingsPageHeader } from "@/modules/settings/presentation/components/SettingsPageHeader";
 import { useUpdateAvatar } from "@/modules/settings/presentation/hooks/useUpdateAvatar";
 import { Button } from "@/shared/presentation/components/ui/Button";
 import {
@@ -19,6 +18,7 @@ import {
     SpinnerIcon,
     UserRoundIcon
 } from "@/shared/presentation/components/ui/Icon";
+import { SectionHeader } from "@/shared/presentation/components/ui/SectionHeader";
 import { getAvatarColor, getInitials } from "@/shared/presentation/utils/avatar";
 
 /**
@@ -53,7 +53,8 @@ export function ProfileSection() {
 
     return (
         <div>
-            <SettingsPageHeader
+            <SectionHeader
+                as="h1"
                 icon={<UserRoundIcon />}
                 title={t("settings.profile.title")}
                 subtitle={t("settings.profile.subtitle")}

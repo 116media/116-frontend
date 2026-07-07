@@ -4,8 +4,8 @@ import { useTranslation } from "react-i18next";
 
 import { ChangePasswordForm } from "@/modules/settings/presentation/components/ChangePasswordForm";
 import { SessionsList } from "@/modules/settings/presentation/components/SessionsList";
-import { SettingsPageHeader } from "@/modules/settings/presentation/components/SettingsPageHeader";
 import { LockIcon } from "@/shared/presentation/components/ui/Icon";
+import { SectionHeader } from "@/shared/presentation/components/ui/SectionHeader";
 
 /**
  * SecuritySection
@@ -20,7 +20,8 @@ export function SecuritySection() {
 
     return (
         <div>
-            <SettingsPageHeader
+            <SectionHeader
+                as="h1"
                 icon={<LockIcon />}
                 title={t("settings.security.title")}
                 subtitle={t("settings.security.subtitle")}

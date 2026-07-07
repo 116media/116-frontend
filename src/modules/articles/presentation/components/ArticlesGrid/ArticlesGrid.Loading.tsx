@@ -1,6 +1,5 @@
 import { ARTICLES_PAGE_SIZE } from "@/modules/articles/presentation/constants/articleKeys";
-
-import { ArticlesGridCardSkeleton } from "./ArticlesGrid.CardSkeleton";
+import { Skeleton } from "@/shared/presentation/components/ui/Skeleton";
 
 /**
  * Props for ArticlesGridLoading.
@@ -10,6 +9,27 @@ import { ArticlesGridCardSkeleton } from "./ArticlesGrid.CardSkeleton";
  */
 export interface ArticlesGridLoadingProps {
     rows?: number;
+}
+
+/**
+ * ArticlesGridCardSkeleton
+ *
+ * @description
+ * A single card-shaped shimmer block matching the article card layout (16:9 media, meta,
+ * title, and action lines), so replacing skeletons with real cards causes no layout shift.
+ * Built from the shared Skeleton primitive so the shimmer idiom stays consistent.
+ */
+function ArticlesGridCardSkeleton() {
+    return (
+        <div className="overflow-hidden rounded-xl border bg-background">
+            <Skeleton className="aspect-video rounded-none" />
+            <div className="flex flex-col gap-3 p-5">
+                <Skeleton className="h-3 w-1/2" />
+                <Skeleton className="h-5 w-4/5" />
+                <Skeleton className="h-4 w-full" />
+            </div>
+        </div>
+    );
 }
 
 /**
@@ -25,6 +45,7 @@ export interface ArticlesGridLoadingProps {
 export function ArticlesGridLoading({ rows }: ArticlesGridLoadingProps) {
     const count = rows ? rows * 4 : ARTICLES_PAGE_SIZE;
     const slots = Array.from({ length: count }, (_, index) => index);
+
     return (
         <div className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
             {slots.map((slot) => (

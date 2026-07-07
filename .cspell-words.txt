@@ -1,3 +1,4 @@
+addarticlecomment
 Afrobeat
 aligné
 Amapiano
@@ -8,6 +9,7 @@ artificielle
 attendu
 avez
 avons
+blockquotes
 bookmarkarticle
 Branchez
 Cela
@@ -22,6 +24,7 @@ complètes
 compris
 congolaise
 Connectez
+conservé
 Continuez
 coolbeatz
 coupé
@@ -43,6 +46,7 @@ dévoile
 Embla
 Enquête
 enregistrées
+erroné
 errormap
 Essayez
 esthétique
@@ -57,6 +61,7 @@ formulaire
 FOUC
 getarticlebyslug
 getarticlecategories
+getarticlecomments
 getarticlepopulartags
 getarticlepromotionfeed
 getfeaturedarticles
@@ -83,6 +88,7 @@ ipwho
 keyline
 keylines
 Kuduro
+Lecteur
 letterforms
 Lettre
 leur
@@ -125,7 +131,9 @@ POPULAIRES
 pravatar
 prefetchnavigation
 premières
+previewable
 principale
+Priya
 prochain
 produite
 Prêt
@@ -135,6 +143,7 @@ refetches
 refreshtoken
 regarde
 Rejoignez
+rejoindre
 retrouver
 revient
 rgba
@@ -150,11 +159,14 @@ Saisissez
 scène
 scénographie
 sharearticle
+Sharma
 sociallogin
 Soukous
+Soyez
 specced
 Suivez
 suivre
+superfans
 sélectionnée
 Tendances
 throughs
@@ -163,10 +175,12 @@ tournee
 tournée
 tricolore
 triomphal
+unawaited
 unbookmarkarticle
 unconfigured
 Uncontained
 unlikearticle
+unsanitized
 updateownprofile
 uppercased
 utilisent
@@ -177,6 +191,7 @@ voulez
 Vérifiez
 WCAG
 Zouk
+Écrit
 émissions
 Épisodes
 étiquette

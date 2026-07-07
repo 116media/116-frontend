@@ -5,13 +5,15 @@ import { useTranslation } from "react-i18next";
 import { useSessions } from "@/modules/session/presentation/hooks/useSessions";
 import { SessionCard } from "@/modules/settings/presentation/components/SessionCard";
 import { SettingsCard } from "@/modules/settings/presentation/components/SettingsCard";
+import { Skeleton } from "@/shared/presentation/components/ui/Skeleton";
 import { Tag } from "@/shared/presentation/components/ui/Tag";
 
 /**
  * SessionsListSkeleton
  *
  * @description
- * Placeholder rows shown while the sessions query resolves.
+ * Placeholder rows shown while the sessions query resolves, built from the shared
+ * Skeleton primitive.
  */
 function SessionsListSkeleton() {
     return (
@@ -21,10 +23,10 @@ function SessionsListSkeleton() {
                     key={row}
                     className="flex items-center gap-3 rounded-md border p-3"
                 >
-                    <div className="size-10 shrink-0 animate-pulse rounded-md bg-muted" />
+                    <Skeleton className="size-10 shrink-0 rounded-md" />
                     <div className="flex flex-1 flex-col gap-2">
-                        <div className="h-3 w-1/2 animate-pulse rounded bg-muted" />
-                        <div className="h-2 w-1/3 animate-pulse rounded bg-muted" />
+                        <Skeleton className="h-3 w-1/2" />
+                        <Skeleton className="h-2 w-1/3" />
                     </div>
                 </div>
             ))}
