@@ -17,11 +17,8 @@ export interface ArticleCardAuthorProps {
  * ArticleCardAuthor
  *
  * @description
- * The byline row: the author's avatar and display name. Falls back gracefully when the
- * author projection is absent. The published date is not shown here — it appears once,
- * in {@link ArticleCardMeta}.
- *
- * @param author - The author projection (userName + avatarUrl), if resolved.
+ * Byline row with the author's avatar and display name. Falls back gracefully when the
+ * author projection is absent; the published date lives in {@link ArticleCardMeta}.
  */
 export function ArticleCardAuthor({ author }: ArticleCardAuthorProps) {
     return (
