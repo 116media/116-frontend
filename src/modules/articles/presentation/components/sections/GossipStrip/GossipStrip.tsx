@@ -1,8 +1,8 @@
 import { Fragment } from "react";
 import type { IArticleSummaryEntity } from "@/modules/articles/domain/entities/IArticleSummaryEntity";
-import { ArticlePromotionCard } from "@/modules/articles/presentation/components/ArticlePromotionCard";
+import { ArticlePromotionCard } from "@/modules/articles/presentation/components/cards/ArticlePromotionCard";
 
-interface GossipStripProps {
+export interface GossipStripProps {
     articles: IArticleSummaryEntity[];
 }
 
@@ -10,9 +10,8 @@ interface GossipStripProps {
  * GossipStrip
  *
  * @description
- * Static vertical list of gossip articles occupying the bottom-right
- * of the promotion grid. Wrapped in a muted container.
- * Not a carousel — renders server-side with no client interactivity.
+ * Static vertical list of gossip articles in the promotion grid. Not a carousel —
+ * renders server-side with no client interactivity.
  */
 export function GossipStrip({ articles }: GossipStripProps) {
     if (articles.length === 0) return null;
