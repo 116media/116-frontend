@@ -11,7 +11,7 @@ import {
     DropdownMenuTrigger
 } from "@/shared/presentation/components/ui/DropdownMenu";
 import { ChevronDownIcon, FilterIcon } from "@/shared/presentation/components/ui/Icon";
-import { cn } from "@/shared/presentation/utils/cn";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
  * Props for ArticlesToolbarCategorySelect.
@@ -29,13 +29,8 @@ export interface ArticlesToolbarCategorySelectProps {
  * ArticlesToolbarCategorySelect
  *
  * @description
- * Single-select category filter for the article feed, built on the DropdownMenu
- * primitive. Lists the active article categories from {@link useArticleCategories} with
- * an "All categories" default that clears the filter. The trigger shows the current
- * selection's name.
- *
- * @param value - The selected category id, or undefined for all.
- * @param onChange - Emits the selected category id (undefined clears it).
+ * Single-select category filter for the article feed. Lists the active categories from
+ * {@link useArticleCategories} with an "All categories" default that clears the filter.
  */
 export function ArticlesToolbarCategorySelect({
     value,
