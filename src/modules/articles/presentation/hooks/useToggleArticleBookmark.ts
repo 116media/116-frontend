@@ -1,16 +1,15 @@
 "use client";
 
 import container from "@/shared/infrastructure/service.locator";
-import { runInteraction, useToggle } from "./useToggle";
+import { runInteraction, useToggle } from "@/shared/presentation/hooks/useToggle";
 
 /**
  * useToggleArticleBookmark
  *
  * @description
- * Optimistic bookmark toggle for one article. Wraps {@link useToggle} over the bookmark /
- * unbookmark use cases. `initialBookmarked` seeds the toggle from the entity's per-user
- * `isBookmarked` flag where the DTO provides one (the article detail); it defaults to
- * false on surfaces without the flag. Returns `{ bookmarked, count, toggle }`.
+ * Optimistic bookmark toggle for one article, wrapping {@link useToggle} over the
+ * bookmark / unbookmark use cases. `initialBookmarked` seeds the toggle from the entity's
+ * per-user `isBookmarked` flag; it defaults to false on surfaces without the flag.
  *
  * @param articleId - The article to bookmark/unbookmark.
  * @param initialCount - The entity's `bookmarkCount` baseline.
