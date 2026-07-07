@@ -22,13 +22,8 @@ export interface ArticlesToolbarSearchInputProps {
  * ArticlesToolbarSearchInput
  *
  * @description
- * The article search box: the shared Input with a leading search icon and a trailing
- * clear button when non-empty. Controlled and instant — it emits the raw text on every
- * keystroke; the container debounces before feeding the feed query, so paging refires
- * once the user pauses rather than on every keypress.
- *
- * @param value - The raw search text.
- * @param onChange - Emits the search text.
+ * Controlled article search box that emits the raw text on every keystroke; the container
+ * debounces before feeding the feed query.
  */
 export function ArticlesToolbarSearchInput({ value, onChange }: ArticlesToolbarSearchInputProps) {
     const { t } = useTranslation();
