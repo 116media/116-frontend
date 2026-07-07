@@ -1,19 +1,17 @@
 import type { IArticleSummaryEntity } from "@/modules/articles/domain/entities/IArticleSummaryEntity";
+import { ArticlesMegaMenuCard } from "@/modules/articles/presentation/components/cards/ArticlesMegaMenuCard";
 import { ARTICLES_PATH } from "@/shared/presentation/constants/paths";
 import {
     MegaMenuShell,
     MegaMenuShellCards,
     MegaMenuShellCategories
 } from "@/shared/presentation/layouts/MegaMenuShell";
-import { ArticlesMegaMenuCard } from "../ArticlesMegaMenuCard";
-import { ArticlesMegaCategoryList } from "./ArticlesMegaCategoryList";
+import { ArticlesMegaMenuCategoryList } from "./ArticlesMegaMenu.CategoryList";
 import type { ArticlesMegaMenuProps } from "./types";
 
 /**
- * Dummy articles used as placeholders in the À la une column
- * until real promoted articles are available from the API.
- * The first two are shown as Featured (vertical) cards,
- * the last two as Compact (horizontal) cards.
+ * Dummy placeholders for the À la une column until real promoted articles are available:
+ * the first two render as Featured cards, the last two as Compact cards.
  */
 const DUMMY_ARTICLES: IArticleSummaryEntity[] = [
     {
@@ -82,11 +80,9 @@ const DUMMY_ARTICLES: IArticleSummaryEntity[] = [
  * ArticlesMegaMenu
  *
  * @description
- * Mega menu panel for the NEWS nav item.
- * Uses MegaMenuShell for the shared 3-column layout structure.
- * Data is prefetched server-side and received as props — no
- * client-side fetching or loading state.
- * When no promoted articles are available, dummy placeholders are shown.
+ * Mega menu panel for the NEWS nav item, built on MegaMenuShell. Data is prefetched
+ * server-side and received as props; dummy placeholders stand in when no promoted
+ * articles are available.
  */
 export function ArticlesMegaMenu({
     categories,
@@ -103,7 +99,7 @@ export function ArticlesMegaMenu({
             popularTags={popularTags}
         >
             <MegaMenuShellCategories>
-                <ArticlesMegaCategoryList categories={categories} />
+                <ArticlesMegaMenuCategoryList categories={categories} />
             </MegaMenuShellCategories>
 
             <MegaMenuShellCards viewAllHref={ARTICLES_PATH}>
