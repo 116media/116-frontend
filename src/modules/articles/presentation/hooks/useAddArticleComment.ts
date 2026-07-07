@@ -7,14 +7,14 @@ import type { IArticleCommentEntity } from "@/modules/articles/domain/entities/I
 import type { IArticleCommentPage } from "@/modules/articles/domain/entities/IArticleCommentPage";
 import type { IArticleDetailEntity } from "@/modules/articles/domain/entities/IArticleDetailEntity";
 import type { IArticleAuthor } from "@/modules/articles/domain/entities/IArticleSummaryEntity";
-import type { IAuthUser } from "@/modules/auth/domain/entities/IAuthUser";
+import { articleKeys } from "@/modules/articles/presentation/constants/articleKeys";
+import { ArticleCommentNotification } from "@/modules/articles/presentation/utils/notification/articles.comment.notification";
 import { useAuth } from "@/modules/auth/presentation/context/AuthProvider";
 import { useRequireAuth } from "@/modules/auth/presentation/hooks/useRequireAuth";
+import type { IAuthUserEntity } from "@/shared/domain/entities/IAuthUserEntity";
 import type { Failure } from "@/shared/domain/failures/failure";
 import container from "@/shared/infrastructure/service.locator";
-import { showNotification } from "@/shared/presentation/utils/notification";
-import { articleKeys } from "../constants/articleKeys";
-import { commentPostFailedNotification } from "../notifications/comment.notification";
+import { showNotification } from "@/shared/presentation/utils/notification/notification.utils";
 
 /**
  * Builds an IArticleAuthor from the authenticated user for a just-posted comment, so the
@@ -23,7 +23,7 @@ import { commentPostFailedNotification } from "../notifications/comment.notifica
  * @param user - The authenticated user from the auth context, if any.
  * @returns The author projection, or undefined when no user is present.
  */
-function authorFromUser(user: IAuthUser | null): IArticleAuthor | undefined {
+function authorFromUser(user: IAuthUserEntity | null): IArticleAuthor | undefined {
     if (!user) return undefined;
     return { userName: user.userName, avatarUrl: user.avatar?.storageUrl ?? null };
 }
@@ -75,13 +75,9 @@ function bumpCommentCount(queryClient: QueryClient, slug: string, delta: number)
  * useAddArticleComment
  *
  * @description
- * Auth-gated mutation that posts a comment on an article. `submit` runs behind
- * `useRequireAuth`, so a guest is prompted to log in and the post resumes afterward. On
- * success it prepends the new comment (falling back to the current user for the byline
- * when the create response carries no author) to the first cached page, bumps the cached
- * article's `commentCount`, invalidates the comments query to reconcile with the server,
- * and runs the caller's `onPosted` callback. A failed post surfaces as an error toast so
- * the composer keeps what the reader typed.
+ * Auth-gated mutation that posts a comment; `submit` runs behind `useRequireAuth`. On
+ * success it prepends the comment to the first cached page, bumps the cached article's
+ * `commentCount`, invalidates the comments query, and runs the caller's `onPosted`.
  *
  * @param articleId - The article to comment on.
  * @param slug - The article slug, to bump `commentCount` on the cached detail entity.
@@ -103,7 +99,7 @@ export function useAddArticleComment(articleId: string, slug: string) {
             return result.value;
         },
         onError: () => {
-            showNotification(commentPostFailedNotification(t));
+            showNotification(ArticleCommentNotification.postFailed(t));
         }
     });
 
