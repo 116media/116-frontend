@@ -1,4 +1,4 @@
-import { ArticleDetailHeroCover } from "./ArticleDetailHeroCover";
+import { ArticleDetailHeroCover } from "@/modules/articles/presentation/components/sections/ArticleDetailHeroCover";
 
 /**
  * Props for the ArticleDetail.Hero component.
@@ -18,13 +18,8 @@ export interface ArticleDetailHeroProps {
  * ArticleDetail.Hero
  *
  * @description
- * The article header. Renders the cover band — with the category chip in its top-left
- * corner — followed by the title directly below it. The byline strip, headline, and meta
- * bar are composed after the hero by the assembler.
- *
- * @param coverImageUrl - The cover image URL, or null for the fallback.
- * @param categoryName - The category display name (corner chip).
- * @param title - The article title.
+ * Article header: the cover band with its category chip, followed by the title. The
+ * byline, headline, and meta bar are composed after the hero by the assembler.
  */
 export function ArticleDetailHero({ coverImageUrl, categoryName, title }: ArticleDetailHeroProps) {
     return (
