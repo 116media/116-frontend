@@ -18,10 +18,9 @@ type ResetPasswordValues = z.infer<typeof resetPasswordSchema>;
  * ResetPasswordForm
  *
  * @description
- * Sets a new password after the code was verified in the prior verify-otp step.
- * Collects only the new password + a matching confirmation; the email and the
- * verified OTP code come from the modal context. On success the modal returns to the
- * login view. A backend `Failure` shows in the top `Alert`.
+ * Sets a new password after OTP verification. Collects the new password + a
+ * matching confirmation; the email and verified code come from the modal
+ * context. On success the modal returns to the login view.
  */
 export function ResetPasswordForm() {
     const { t } = useTranslation();
