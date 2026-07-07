@@ -21,14 +21,8 @@ export interface ArticleDetailHeroCoverProps {
  * ArticleDetailHeroCover
  *
  * @description
- * The article's cover band: the cover image (next/image, fill, priority, object-cover) in a
- * rounded frame, with the category chip overlaid in the top-left corner. When there is no
- * cover, a token-colored muted surface with a NewspaperIcon stands in — no placeholder
- * asset. The title, byline, headline, and meta row all sit below the cover, not overlaid.
- *
- * @param coverImageUrl - The cover image URL, or null for the fallback.
- * @param categoryName - The category display name (corner chip).
- * @param title - The article title, used as the image alt text.
+ * Cover band with the category chip overlaid in the corner. When there is no cover image,
+ * a muted surface with a NewspaperIcon stands in — no placeholder asset.
  */
 export function ArticleDetailHeroCover({
     coverImageUrl,
