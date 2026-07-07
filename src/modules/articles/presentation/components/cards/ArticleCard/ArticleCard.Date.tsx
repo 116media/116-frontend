@@ -17,11 +17,8 @@ export interface ArticleCardDateProps {
  * ArticleCardDate
  *
  * @description
- * The relative, locale-aware publication date shown at the end of the byline row, aligned
- * to the card's right corner. Rendered via the shared RelativeDate so formatting stays
- * consistent with the rest of the app.
- *
- * @param publishedAt - ISO publication date, or null.
+ * Relative, locale-aware publication date for the byline row, rendered via the shared
+ * RelativeDate so formatting stays consistent with the rest of the app.
  */
 export function ArticleCardDate({ publishedAt }: ArticleCardDateProps) {
     return (
