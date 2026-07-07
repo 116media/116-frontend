@@ -3,18 +3,17 @@
 import { useQuery } from "@tanstack/react-query";
 
 import type { IArticleTagEntity } from "@/modules/articles/domain/entities/IArticleTagEntity";
+import { articleKeys } from "@/modules/articles/presentation/constants/articleKeys";
 import type { Failure } from "@/shared/domain/failures/failure";
 import container from "@/shared/infrastructure/service.locator";
-import { articleKeys } from "../constants/articleKeys";
 
 /**
  * useAllTags
  *
  * @description
- * Fetches every tag for the "All tags" popover, filtered by a (debounced) search term.
- * Only enabled while the popover is open, to avoid loading the full list eagerly. The
- * use case returns a `Result`; this hook unwraps the value on success and throws the
- * typed `Failure` on error.
+ * Fetches every tag for the "All tags" popover, filtered by a (debounced) search term,
+ * enabled only while the popover is open. Unwraps the use case's `Result` on success and
+ * throws the typed `Failure` on error.
  *
  * @param search - The popover's tag search term.
  * @param enabled - Whether the popover is open.
