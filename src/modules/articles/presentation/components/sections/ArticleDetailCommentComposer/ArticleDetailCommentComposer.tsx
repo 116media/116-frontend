@@ -34,17 +34,9 @@ export interface ArticleDetailCommentComposerProps {
  * ArticleDetailCommentComposer
  *
  * @description
- * The comment composer: a `Textarea` and a submit `Button` wired to
- * {@link useAddArticleComment}, which optimistically prepends the new comment (stamped
- * with the current user when the create response carries no author) and bumps the count.
- * The mutation's `submit` is already gated by `useRequireAuth`, so an expired session
- * bounces to login and the post resumes; a guest instead sees a "log in to comment"
- * prompt that opens the auth modal at the login view. Validates a non-empty (trimmed),
- * length-bounded body, disables submit while pending, and clears the field on success.
- *
- * @param articleId - The article the comment is posted to.
- * @param slug - The article slug for the cached count bump.
- * @param composerRef - Ref forwarded to the textarea for the engagement scroll/focus.
+ * Comment composer wired to {@link useAddArticleComment}. Validates a trimmed,
+ * length-bounded body and clears the field on success; guests see a login prompt that
+ * opens the auth modal instead of the form.
  */
 export function ArticleDetailCommentComposer({
     articleId,
