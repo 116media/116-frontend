@@ -1,16 +1,15 @@
 "use client";
 
 import container from "@/shared/infrastructure/service.locator";
-import { runInteraction, useToggle } from "./useToggle";
+import { runInteraction, useToggle } from "@/shared/presentation/hooks/useToggle";
 
 /**
  * useToggleArticleLike
  *
  * @description
- * Optimistic like toggle for one article. Wraps {@link useToggle} over the like / unlike
- * use cases. `initialLiked` seeds the toggle from the entity's per-user `isLiked` flag
- * where the DTO provides one (the article detail); it defaults to false on surfaces
- * without the flag. Returns `{ liked, count, toggle }`.
+ * Optimistic like toggle for one article, wrapping {@link useToggle} over the like /
+ * unlike use cases. `initialLiked` seeds the toggle from the entity's per-user `isLiked`
+ * flag; it defaults to false on surfaces without the flag.
  *
  * @param articleId - The article to like/unlike.
  * @param initialCount - The entity's `likeCount` baseline.
