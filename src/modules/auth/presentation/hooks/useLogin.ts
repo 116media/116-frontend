@@ -14,12 +14,9 @@ import container from "@/shared/infrastructure/service.locator";
  * useLogin
  *
  * @description
- * Logs in with credentials + password. The use case returns a `Result`; this hook
- * folds it into the mutation's two channels — unwrapping the value on success and
- * throwing the `Failure` on error — so `mutation.error`/`isError`/`reset()` are real
- * and truthful (rather than a failure hidden inside `data`). On success the returned
- * user is written into `['auth','me']` (instant, authoritative) and other tabs are
- * pinged; the caller closes the modal.
+ * Logs in with credentials + password, unwrapping the use case `Result` into
+ * the mutation channels — value on success, thrown `Failure` on error. On
+ * success the user is written into the `me` cache and other tabs are pinged.
  *
  * @returns A TanStack mutation for the login action; its `error` is a `Failure`.
  */
