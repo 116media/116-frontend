@@ -21,8 +21,6 @@ export interface ArticlesToolbarClearFiltersProps {
  * @description
  * The "Clear filters" control shown in the toolbar while any filter is active. A single
  * ghost button that resets search, category, and tag in one click via `onClear`.
- *
- * @param onClear - Resets every active filter.
  */
 export function ArticlesToolbarClearFilters({ onClear }: ArticlesToolbarClearFiltersProps) {
     const { t } = useTranslation();
