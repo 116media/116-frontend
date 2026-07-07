@@ -3,7 +3,7 @@
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import type { IArticleSummaryEntity } from "@/modules/articles/domain/entities/IArticleSummaryEntity";
-import { ArticlePromotionCard } from "@/modules/articles/presentation/components/ArticlePromotionCard";
+import { ArticlePromotionCard } from "@/modules/articles/presentation/components/cards/ArticlePromotionCard";
 import {
     Carousel,
     CarouselContent,
@@ -11,7 +11,7 @@ import {
 } from "@/shared/presentation/components/ui/Carousel";
 import { CarouselDots } from "@/shared/presentation/components/ui/CarouselDots";
 
-interface SideCarouselProps {
+export interface SideCarouselProps {
     articles: IArticleSummaryEntity[];
 }
 
@@ -19,11 +19,8 @@ interface SideCarouselProps {
  * SideCarousel
  *
  * @description
- * Spot 2 — tall side carousel occupying the top-right of the promotion grid.
- * Uses slide transition with autoplay (35s) and dot indicators inside
- * the card (bottom-right). No arrows.
- * When only one article is present, renders a static card
- * without carousel wrapping.
+ * Spot 2 — tall side carousel in the promotion grid, with autoplay and dot indicators.
+ * When only one article is present, renders a static card without carousel wrapping.
  */
 export function SideCarousel({ articles }: SideCarouselProps) {
     const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [
