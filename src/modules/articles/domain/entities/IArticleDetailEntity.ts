@@ -7,10 +7,8 @@ import type { IArticleTagEntity } from "@/modules/articles/domain/entities/IArti
  *
  * @description
  * Full view of a single published article behind /articles/[slug], mapped from
- * ArticleDetailDto. Reuses IArticleAuthor for the byline and IArticleTagEntity for the
- * tag block. Drops admin, promotion, and commerce metadata; keeps `metaTitle` and
- * `metaDescription` for SEO. Carries the caller's per-user interaction flags
- * (`isLiked` / `isBookmarked`) so the engagement row seeds its toggles with real state.
+ * ArticleDetailDto. Drops admin, promotion, and commerce metadata; keeps SEO meta fields
+ * and the caller's per-user interaction flags (`isLiked` / `isBookmarked`).
  *
  * @interface IArticleDetailEntity
  *
