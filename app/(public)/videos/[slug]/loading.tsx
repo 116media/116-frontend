@@ -1,4 +1,4 @@
-import { VideoDetailLoading } from "@/modules/videos/presentation/components/VideoDetail/VideoDetail.Loading";
+import { VideoDetailLoading } from "@/modules/videos/presentation/components/pages/VideoDetail/VideoDetail.Loading";
 
 /**
  * Loading
