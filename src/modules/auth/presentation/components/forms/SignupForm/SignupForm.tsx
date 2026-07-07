@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { EOtpPurpose } from "@/modules/auth/domain/enums/EOtpPurpose";
-import { SocialLogin } from "@/modules/auth/presentation/components/SocialLogin";
+import { SocialLogin } from "@/modules/auth/presentation/components/social/SocialLogin";
 import { useAuthModal } from "@/modules/auth/presentation/context/AuthModalProvider";
 import { useSignup } from "@/modules/auth/presentation/hooks/useSignup";
 import type { ISignupCredentials } from "@/modules/auth/presentation/model/ISignupCredentials";
