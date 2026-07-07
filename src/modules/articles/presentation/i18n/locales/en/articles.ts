@@ -2,12 +2,9 @@
  * articles (en)
  *
  * @description
- * English strings for the article card, feed grid, and filter toolbar surfaces. Owned
- * by the articles module presentation layer; the locale barrel spreads this object so
- * call sites reference the keys as `t("articles.card.<key>")`, `t("articles.grid.<key>")`
- * and `t("articles.filters.<key>")`. `readTime` uses i18next plural suffixes and is
- * called as `t("articles.card.readTime", { count })`. Must hold the exact same keys as
- * the French mirror.
+ * English strings for the article card, feed grid, and filter toolbar surfaces. Spread by
+ * the locale barrel so keys resolve as `t("articles.card.<key>")` and siblings; `readTime`
+ * uses i18next plural suffixes. Must hold the exact same keys as the French mirror.
  */
 export const articles = {
     card: {
