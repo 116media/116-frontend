@@ -2,23 +2,16 @@
 
 import { forwardRef, type RefObject, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-
+import { ArticleDetailComment } from "@/modules/articles/presentation/components/sections/ArticleDetailComment";
+import { ArticleDetailCommentComposer } from "@/modules/articles/presentation/components/sections/ArticleDetailCommentComposer";
 import { useArticleComments } from "@/modules/articles/presentation/hooks/useArticleComments";
 import { Button } from "@/shared/presentation/components/ui/Button";
 import { EmptyState } from "@/shared/presentation/components/ui/EmptyState";
 import { AlertCircleIcon, MessageSquareIcon } from "@/shared/presentation/components/ui/Icon";
-import { Skeleton } from "@/shared/presentation/components/ui/Skeleton";
+import { INFINITE_SCROLL_SENTINEL_OPTIONS } from "@/shared/presentation/constants/infiniteScroll";
 import { useIntersectionObserver } from "@/shared/presentation/hooks/useIntersectionObserver";
 
-import { ArticleDetailComment } from "./ArticleDetailComment";
-import { ArticleDetailCommentComposer } from "./ArticleDetailCommentComposer";
-
-/**
- * Stable IntersectionObserver options for the comments load-more sentinel. Pre-loads the
- * next page ~200px before the sentinel enters the viewport; module scope keeps the
- * identity stable so the observer is not recreated on re-render.
- */
-const SENTINEL_OPTIONS: IntersectionObserverInit = { rootMargin: "200px 0px" };
+import { ArticleDetailCommentsLoading } from "./ArticleDetailComments.Loading";
 
 /**
  * Props for ArticleDetailComments.
@@ -38,42 +31,12 @@ export interface ArticleDetailCommentsProps {
 }
 
 /**
- * CommentSkeleton
- *
- * @description
- * A single comment-shaped shimmer block (avatar, name line, two body lines) matching the
- * row layout, so replacing skeletons with real comments causes no layout shift.
- */
-function CommentSkeleton() {
-    return (
-        <div className="flex gap-3">
-            <Skeleton className="size-9 shrink-0 rounded-full" />
-            <div className="flex w-full flex-col gap-2">
-                <Skeleton className="h-3 w-1/4" />
-                <Skeleton className="h-3 w-full" />
-                <Skeleton className="h-3 w-3/4" />
-            </div>
-        </div>
-    );
-}
-
-/**
  * ArticleDetailComments
  *
  * @description
- * The comments section: a heading with the live comment count, the composer at the top,
- * and the infinite comment list. Drives {@link useArticleComments} (infinite), flattens
- * its pages, and renders {@link ArticleDetailComment} rows with a sentinel observed by
- * {@link useIntersectionObserver} that requests the next page as it enters the viewport,
- * plus an explicit "load more" `Button` fallback. Shows loading skeletons, an
- * {@link EmptyState} ("be the first to comment") when there are none, and a retryable
- * error state. Forwards `ref` and carries the `comments` anchor `id` so the engagement
- * comment button can scroll to it and focus the composer.
- *
- * @param articleId - The article whose comments are listed and posted to.
- * @param slug - The article slug, threaded to the composer.
- * @param commentCount - Baseline count for the heading.
- * @param composerRef - Ref threaded to the composer textarea.
+ * Comments section: heading with live count, composer, and the infinite comment list
+ * driven by {@link useArticleComments} with loading, empty, and retryable error states.
+ * Forwards `ref` and the `comments` anchor id so the engagement button can scroll here.
  */
 export const ArticleDetailComments = forwardRef<HTMLElement, ArticleDetailCommentsProps>(
     ({ articleId, slug, commentCount, composerRef }, ref) => {
@@ -88,7 +51,9 @@ export const ArticleDetailComments = forwardRef<HTMLElement, ArticleDetailCommen
             isFetchingNextPage
         } = useArticleComments(articleId);
 
-        const [sentinelRef, isSentinelVisible] = useIntersectionObserver(SENTINEL_OPTIONS);
+        const [sentinelRef, isSentinelVisible] = useIntersectionObserver(
+            INFINITE_SCROLL_SENTINEL_OPTIONS
+        );
 
         const comments = data?.pages.flatMap((page) => page.items) ?? [];
 
@@ -98,12 +63,9 @@ export const ArticleDetailComments = forwardRef<HTMLElement, ArticleDetailCommen
 
         const list = () => {
             if (isLoading) {
-                const slots = Array.from({ length: 4 }, (_, index) => index);
                 return (
                     <div className="flex flex-col gap-6">
-                        {slots.map((slot) => (
-                            <CommentSkeleton key={slot} />
-                        ))}
+                        <ArticleDetailCommentsLoading />
                     </div>
                 );
             }
@@ -144,7 +106,7 @@ export const ArticleDetailComments = forwardRef<HTMLElement, ArticleDetailCommen
                             comment={comment}
                         />
                     ))}
-                    {isFetchingNextPage && <CommentSkeleton />}
+                    {isFetchingNextPage && <ArticleDetailCommentsLoading count={1} />}
                     {hasNextPage && (
                         <div
                             ref={sentinelRef}
