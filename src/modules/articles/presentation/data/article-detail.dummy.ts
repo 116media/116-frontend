@@ -36,10 +36,9 @@ const HEADLINE_FILLER =
  * toMaxLengthHeadline
  *
  * @description
- * Extends a base headline with readable filler and slices the result to exactly
- * `HEADLINE_MAX_LENGTH` characters, so the dummy detail headline matches the backend's
- * maximum and the layout can be checked against the worst case. Deterministic (no
- * randomness), so SSR and client render identically.
+ * Extends a base headline with readable filler and slices it to exactly
+ * `HEADLINE_MAX_LENGTH` characters, so the layout can be checked against the backend's
+ * worst case. Deterministic, so SSR and client render identically.
  *
  * @param base - The seed headline to extend.
  * @returns A headline exactly `HEADLINE_MAX_LENGTH` characters long.
@@ -99,10 +98,9 @@ const COMMENT_BODIES = [
  * buildDummyBody
  *
  * @description
- * Builds the rich-text HTML body for a dummy article. Contains exactly three embedded
- * images (as `figure`/`img`/`figcaption` blocks) alongside headings, paragraphs, a list,
- * and a blockquote, so the Prose typography and the sanitized-HTML path are both exercised
- * in the preview.
+ * Builds the rich-text HTML body for a dummy article: three embedded `figure` images
+ * alongside headings, paragraphs, a list, and a blockquote, so the Prose typography and
+ * the sanitized-HTML path are both exercised in the preview.
  *
  * @param title - The article title, woven into the intro paragraph.
  * @returns The article body as an HTML string.
@@ -160,11 +158,8 @@ function buildDummyBody(title: string): string {
  *
  * @description
  * A fully-populated `IArticleDetailEntity` for the detail-page preview while the backend
- * has no published content. Reuses the shared feed dummies (`generateDummyArticles`) so the
- * card a reader clicked and the article they land on agree on title, cover, author, and
- * counts. Index-seeded from the slug (no Math.random / Date.now) so SSR and client render
- * identically. The body embeds three images; the `images` array carries the cover plus the
- * three body figures.
+ * has no published content. Reuses the shared feed dummies so the clicked card and the
+ * landing article agree; slug-seeded so SSR and client render identically.
  *
  * @param slug - The requested slug; matched against the feed dummies, falling back to the first.
  * @returns The dummy article detail entity.
