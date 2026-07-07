@@ -7,8 +7,8 @@ import { useRequireAuth } from "@/modules/auth/presentation/hooks/useRequireAuth
 import { Button } from "@/shared/presentation/components/ui/Button";
 import { BookmarkPlusIcon, ClockIcon } from "@/shared/presentation/components/ui/Icon";
 import { RelativeDate } from "@/shared/presentation/components/ui/RelativeDate";
-import { cn } from "@/shared/presentation/utils/cn";
-import { formatCount } from "@/shared/presentation/utils/formatCount";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
+import { formatCount } from "@/shared/presentation/utils/format/format.utils";
 
 /**
  * Props for ArticleDetail.MetaBar.
@@ -32,18 +32,9 @@ export interface ArticleDetailMetaBarProps {
  * ArticleDetail.MetaBar
  *
  * @description
- * The meta strip below the headline: the bookmark action and the estimated read time on the
- * left, and the relative published date in the right corner. Bookmark reuses the feed's
- * optimistic toggle hook, seeded with the viewer's real `isBookmarked` state, gated behind
- * `useRequireAuth`; its active state uses the primary token. The bookmark count is shown
- * only when it is greater than zero, otherwise the button is a bare icon. Read time reuses
- * the shared `articles.card.readTime` key.
- *
- * @param articleId - The article the bookmark mutation targets.
- * @param bookmarkCount - Baseline bookmark count.
- * @param isBookmarked - The viewer's bookmark state baseline.
- * @param readTimeInMinutes - Estimated reading time in minutes.
- * @param publishedAt - ISO publication date, or null.
+ * Meta strip below the headline: bookmark action, estimated read time, and relative
+ * published date. Bookmark reuses the optimistic toggle hook seeded with the viewer's
+ * state, gated behind `useRequireAuth`.
  */
 export function ArticleDetailMetaBar({
     articleId,
