@@ -2,10 +2,11 @@
 
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { createContext, type ReactNode, useContext, useEffect, useMemo } from "react";
-import type { IAuthUser } from "@/modules/auth/domain/entities/IAuthUser";
 import type { AuthStatus } from "@/modules/auth/domain/valueobjects/AuthStatus";
 import { authKeys } from "@/modules/auth/presentation/constants/authKeys";
 import { getAuthChannel } from "@/modules/auth/presentation/utils/authChannel";
+import { deriveAuthStatus } from "@/modules/auth/presentation/utils/status/status.utils";
+import type { IAuthUserEntity } from "@/shared/domain/entities/IAuthUserEntity";
 import { REFRESH_TOKEN_EXPIRED_EVENT } from "@/shared/infrastructure/interceptors/refresh-token-expiry.interceptor";
 import container from "@/shared/infrastructure/service.locator";
 
@@ -13,13 +14,13 @@ import container from "@/shared/infrastructure/service.locator";
  * The value exposed by the auth context.
  *
  * @interface AuthContextValue
- * @property {IAuthUser | null} user - The current user, or null when guest.
+ * @property {IAuthUserEntity | null} user - The current user, or null when guest.
  * @property {AuthStatus} status - Derived status: loading | guest | unverified | authenticated.
  * @property {boolean} isAuthenticated - Convenience for `status === "authenticated"`.
  * @property {() => Promise<unknown>} refetch - Re-runs the `me` query; resolves when it settles.
  */
 export interface AuthContextValue {
-    user: IAuthUser | null;
+    user: IAuthUserEntity | null;
     status: AuthStatus;
     isAuthenticated: boolean;
     refetch: () => Promise<unknown>;
@@ -28,32 +29,12 @@ export interface AuthContextValue {
 const AuthContext = createContext<AuthContextValue | null>(null);
 
 /**
- * deriveAuthStatus
- *
- * @description
- * Maps the `me`-query state to the derived auth status using guard clauses (no
- * nested ternaries): still loading, then no user (guest), then unverified email,
- * otherwise fully authenticated.
- *
- * @param isLoading - Whether the `me` query is still resolving.
- * @param user - The resolved user, or null when there is no session.
- * @returns The derived auth status.
- */
-function deriveAuthStatus(isLoading: boolean, user: IAuthUser | null): AuthStatus {
-    if (isLoading) return "loading";
-    if (!user) return "guest";
-    if (!user.isVerified) return "unverified";
-    return "authenticated";
-}
-
-/**
  * AuthProvider
  *
  * @description
- * Runs the `me` query (cookie-authenticated profile) and exposes the resolved user
- * plus derived status to the whole app. Listens for `REFRESH_TOKEN_EXPIRED_EVENT`
- * (drop to guest) and a `BroadcastChannel('auth')` ping (cross-tab invalidation).
- * Must sit inside `QueryProvider`.
+ * Runs the `me` query and exposes the resolved user plus derived status to the
+ * app. Listens for `REFRESH_TOKEN_EXPIRED_EVENT` and cross-tab auth channel
+ * pings. Must sit inside `QueryProvider`.
  *
  * @param children - The subtree that gains `useAuth()`.
  */
