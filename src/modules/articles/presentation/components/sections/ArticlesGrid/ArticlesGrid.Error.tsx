@@ -22,8 +22,6 @@ export interface ArticlesGridErrorProps {
  * @description
  * Retryable error state for the article feed. Renders a short message and a button that
  * re-runs the query. Never falls back to dummy data — a real failure stays visible.
- *
- * @param onRetry - Re-runs the feed query (`refetch`).
  */
 export function ArticlesGridError({ onRetry }: ArticlesGridErrorProps) {
     const { t } = useTranslation();
