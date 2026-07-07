@@ -24,11 +24,9 @@ export interface ArticleDetailReadingProgressProps {
  * readingProgressColor
  *
  * @description
- * Maps a reading-progress percentage to a semantic token background class: `bg-destructive`
- * (red) near the start, `bg-warning` (orange) through the middle, and `bg-success` (green)
- * as the reader approaches the end. Uses the theme tokens verbatim; the Progress indicator's
- * background-color transition morphs smoothly between them as the reader scrolls past a
- * threshold.
+ * Maps a reading-progress percentage to a semantic token background class:
+ * `bg-destructive` near the start, `bg-warning` through the middle, and `bg-success`
+ * approaching the end.
  *
  * @param progress - The reading progress, 0..100.
  * @returns The token background class for the current band.
@@ -43,16 +41,8 @@ function readingProgressColor(progress: number): string {
  * ArticleDetail.ReadingProgress
  *
  * @description
- * The slim reading-progress bar pinned flush to the top of the viewport, above the sticky
- * header (`z-50`), with a transparent track so only the colored fill shows — no white band
- * or gap against the header. It reads the article body's scroll position via
- * useReadingProgress and fills 0..100% as the body scrolls past the viewport. The fill color
- * shifts by reading depth — red near the start, orange through the middle, green approaching
- * the end — using theme tokens, and morphs smoothly thanks to the indicator's
- * background-color transition. The body ref is shared with ArticleDetail.Body so both
- * measure the same element.
- *
- * @param bodyRef - Ref to the article body element.
+ * Reading-progress bar pinned above the sticky header, driven by useReadingProgress over
+ * the shared body ref. The fill color shifts by reading depth using theme tokens.
  */
 export function ArticleDetailReadingProgress({ bodyRef }: ArticleDetailReadingProgressProps) {
     const progress = useReadingProgress(bodyRef);
