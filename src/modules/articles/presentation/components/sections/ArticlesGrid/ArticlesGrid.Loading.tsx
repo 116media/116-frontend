@@ -39,8 +39,6 @@ function ArticlesGridCardSkeleton() {
  * Skeleton placeholder in the same 1/2/4-column grid layout as the real feed. Used on
  * first load (a full page of skeletons) and, with `rows={1}`, as the next-page indicator
  * under the grid while the following page loads.
- *
- * @param rows - How many grid rows of skeletons to render (default one page).
  */
 export function ArticlesGridLoading({ rows }: ArticlesGridLoadingProps) {
     const count = rows ? rows * 4 : ARTICLES_PAGE_SIZE;
