@@ -4,10 +4,9 @@ import type { IVideoSummaryEntity } from "@/modules/videos/domain/entities/IVide
  * IVideoExclusiveShowEntity
  *
  * @description
- * Domain entity representing the homepage "exclusive show" — the single category
- * flagged as exclusive together with its episodes (the videos that belong to it).
- * Maps from the public exclusive-category response, flattening the category into
- * the show's presentational fields and exposing its videos as episodes.
+ * Domain entity for the homepage "exclusive show" — the single category flagged
+ * as exclusive together with its episodes. Maps from the public
+ * exclusive-category response, exposing the category's videos as episodes.
  *
  * @interface IVideoExclusiveShowEntity
  *
