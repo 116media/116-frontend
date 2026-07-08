@@ -39,7 +39,7 @@ export class RateVideoUseCase implements IRateVideoUseCase {
     private readonly videosRepository: IVideosRepositoryPort;
 
     /**
-     * @param {IVideosRepositoryPort} videosRepository - Repository for videos operations (injected)
+     * @param videosRepository - Repository for videos operations (injected)
      */
     constructor({ videosRepository }: { videosRepository: IVideosRepositoryPort }) {
         this.videosRepository = videosRepository;
@@ -48,7 +48,7 @@ export class RateVideoUseCase implements IRateVideoUseCase {
     /**
      * Executes the rate video use case.
      *
-     * @param {IRateVideoInput} input - The video and the star rating
+     * @param input - The video and the star rating
      * @returns {Promise<Result<boolean>>} `ok(boolean)` success flag on success, `err(Failure)` on failure
      */
     async execute(input: IRateVideoInput): Promise<Result<boolean>> {
