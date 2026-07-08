@@ -6,8 +6,7 @@ import type { IShowColors } from "@/modules/videos/domain/entities/IShowColors";
  * @description
  * Domain entity for a "show" — a video category surfaced in the homepage shows
  * carousel and the shows page. Maps from `CategoryDto` (video content type),
- * keeping only what the show card needs: identity, title, slug for navigation,
- * a short description, the poster artwork, and the poster-derived color pair.
+ * keeping only what the show card needs.
  *
  * @interface IShowEntity
  *
