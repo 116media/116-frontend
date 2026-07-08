@@ -24,7 +24,7 @@ export class ChangePasswordUseCase implements IChangePasswordUseCase {
     private readonly settingsRepository: ISettingsRepositoryPort;
 
     /**
-     * @param {ISettingsRepositoryPort} settingsRepository - Repository for settings operations (injected)
+     * @param settingsRepository - Repository for settings operations (injected)
      */
     constructor({ settingsRepository }: { settingsRepository: ISettingsRepositoryPort }) {
         this.settingsRepository = settingsRepository;
@@ -33,7 +33,7 @@ export class ChangePasswordUseCase implements IChangePasswordUseCase {
     /**
      * Executes the change-password use case.
      *
-     * @param {IChangePasswordCredentials} credentials - Current + new password
+     * @param credentials - Current + new password
      * @returns {Promise<Result<IChangePasswordResponse>>} `ok` on success, `err(Failure)` on failure
      */
     execute(credentials: IChangePasswordCredentials): Promise<Result<IChangePasswordResponse>> {
