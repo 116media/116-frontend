@@ -1,35 +1,55 @@
 import type { IVideosRepositoryPort } from "@/modules/videos/application/repositories/videos.repository.port";
+import type { IResultUseCase } from "@/shared/application/usecases/IUseCase";
 import type { Result } from "@/shared/domain/results/result";
 
 /**
- * Use case for recording a video share.
+ * Request payload for {@link ShareVideoUseCase}.
+ *
+ * @interface IShareVideoRequest
+ * @property {string} videoId - The video being shared.
+ * @property {string} platform - The share surface used (e.g. "facebook", "clipboard").
+ */
+export interface IShareVideoRequest {
+    videoId: string;
+    platform: string;
+}
+
+/**
+ * IShareVideoUseCase
+ *
+ * @interface IShareVideoUseCase
+ * @extends {IResultUseCase<IShareVideoRequest, boolean>}
+ */
+interface IShareVideoUseCase extends IResultUseCase<IShareVideoRequest, boolean> {}
+
+/**
+ * ShareVideoUseCase
  *
  * @class ShareVideoUseCase
+ * @implements {IShareVideoUseCase}
  *
  * @description
- * Records a share event for one video via the videos repository.
- * Returns the repository's `Result<boolean>` (success flag) unchanged.
- * The share platform is client-side context only; the backend endpoint
- * accepts no payload.
+ * Records a share event for one video via the videos repository. The platform is
+ * client-side context only; the backend endpoint accepts no payload.
  */
-export class ShareVideoUseCase {
+export class ShareVideoUseCase implements IShareVideoUseCase {
     private readonly videosRepository: IVideosRepositoryPort;
 
     /**
-     * @param {IVideosRepositoryPort} videosRepository - Repository for videos operations (injected)
+     * @param deps - Awilix cradle slice.
+     * @param deps.videosRepository - The videos repository (injected).
      */
     constructor({ videosRepository }: { videosRepository: IVideosRepositoryPort }) {
         this.videosRepository = videosRepository;
     }
 
     /**
-     * Executes the share video use case.
+     * Executes the share-video use case.
      *
-     * @param {string} videoId - The video being shared
-     * @param {string} platform - The share surface used (e.g. "facebook", "clipboard")
-     * @returns {Promise<Result<boolean>>} `ok(boolean)` success flag on success, `err(Failure)` on failure
+     * @param request - The video id and share platform.
+     * @returns `ok(boolean)` success flag on success, `err(Failure)` on failure.
      */
-    async execute(videoId: string, platform: string): Promise<Result<boolean>> {
+    execute({ videoId, platform }: IShareVideoRequest): Promise<Result<boolean>> {
         return this.videosRepository.shareVideo(videoId, platform);
     }
 }
