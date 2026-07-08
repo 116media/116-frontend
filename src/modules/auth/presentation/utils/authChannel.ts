@@ -2,13 +2,9 @@
  * getAuthChannel
  *
  * @description
- * Returns the single per-tab `BroadcastChannel('auth')`, created lazily on first
- * use. Both the listener (`AuthProvider`) and the posters (login/social-login/logout
- * hooks) MUST share this one instance: a `BroadcastChannel` never receives its own
- * posts, so routing every message through the same object means the originating tab
- * is skipped — only other tabs react. Creating a fresh channel per post (as `new
- * BroadcastChannel('auth')` would) makes the current tab receive its own ping and
- * needlessly refetch `me`. Returns `null` on the server, where the API is absent.
+ * Returns the single per-tab `BroadcastChannel('auth')`, created lazily.
+ * Listener and posters must share this one instance so the originating tab
+ * skips its own posts and only other tabs react.
  *
  * @returns The shared auth broadcast channel, or `null` during SSR.
  */
