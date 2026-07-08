@@ -12,11 +12,9 @@ import { VIDEOS_PATH } from "@/shared/presentation/constants/paths";
  * VideoDetailNotFound
  *
  * @description
- * The content of the video route's not-found boundary, rendered when
- * `getVideoBySlug` reports the slug is missing or unpublished and the page
- * calls Next's `notFound()`. Shows the shared `EmptyState` with the not-found
- * copy and a link back to the videos page, so a dead link resolves to a clear
- * dead-end rather than a stack trace.
+ * Content of the video route's not-found boundary, rendered when
+ * `getVideoBySlug` reports the slug missing or unpublished. Shows the shared
+ * `EmptyState` with not-found copy and a link back to the videos page.
  */
 export function VideoDetailNotFound() {
     const { t } = useTranslation();
