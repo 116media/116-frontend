@@ -12,12 +12,8 @@ import {
     DialogTitle
 } from "@/shared/presentation/components/ui/Dialog";
 import { StarIcon } from "@/shared/presentation/components/ui/Icon";
-import { cn } from "@/shared/presentation/utils/cn";
-
-/**
- * The five submittable star positions.
- */
-const STAR_POSITIONS = [1, 2, 3, 4, 5] as const;
+import { STAR_POSITIONS } from "@/shared/presentation/constants/rating";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
  * Props for VideoRatingModal.
@@ -39,20 +35,9 @@ export interface VideoRatingModalProps {
  * VideoRatingModal
  *
  * @description
- * The rate-this-video surface: a dialog with a five-star picker that previews
- * the hovered value in the warning tone and shows the chosen number beside the
- * stars. Submitting sends 1–5 through `useRateVideo` (auth-gated inside the
- * hook — a guest gets the login modal and the rating resumes afterward, toasts
- * on both outcomes, and refetches the detail so the recomputed average returns)
- * and closes the dialog; the selection resets whenever the dialog closes. The
- * submit button stays disabled until a star is picked. The user's own previous
- * rating is not echoed back (the DTO does not carry it), so the picker always
- * opens empty.
- *
- * @param open - Whether the modal is open (controlled).
- * @param onOpenChange - Open-state setter.
- * @param videoId - The video being rated.
- * @param slug - The video slug keying the cached detail entity.
+ * Rate-this-video dialog with a five-star picker. Submitting sends 1–5 through
+ * `useRateVideo` (auth-gated inside the hook) and closes the dialog; the
+ * selection resets on close, and the picker always opens empty.
  */
 export function VideoRatingModal({ open, onOpenChange, videoId, slug }: VideoRatingModalProps) {
     const { t } = useTranslation();
