@@ -3,17 +3,16 @@
 import { useQueryClient } from "@tanstack/react-query";
 
 import type { IVideoDetailEntity } from "@/modules/videos/domain/entities/IVideoDetailEntity";
+import { videoKeys } from "@/modules/videos/presentation/constants/videoKeys";
 import container from "@/shared/infrastructure/service.locator";
-import { videoKeys } from "../constants/videoKeys";
 
 /**
  * useShareVideo
  *
  * @description
- * Records a share event against the video, fire-and-forget: the use case
- * promise is not awaited and its failure is swallowed so telemetry never
- * blocks or breaks the share surface. The cached detail entity's `shareCount`
- * is bumped optimistically so the header pill updates immediately.
+ * Records a share event against the video, fire-and-forget: failures are
+ * swallowed so telemetry never blocks the share surface, and the cached
+ * detail entity's `shareCount` is bumped optimistically.
  *
  * @param videoId - The video the backend share event is recorded against.
  * @param slug - The video slug keying the cached detail entity.
@@ -23,7 +22,7 @@ export function useShareVideo(videoId: string, slug: string) {
     const queryClient = useQueryClient();
 
     return (platform: string) => {
-        void container.cradle.shareVideoUseCase.execute(videoId, platform);
+        void container.cradle.shareVideoUseCase.execute({ videoId, platform });
         queryClient.setQueryData<IVideoDetailEntity>(videoKeys.detail(slug), (current) =>
             current ? { ...current, shareCount: current.shareCount + 1 } : current
         );
