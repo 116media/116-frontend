@@ -1,14 +1,13 @@
 import { i18n } from "@/shared/presentation/i18n/config";
-import type { INotificationConfig } from "@/shared/presentation/utils/notification";
+import type { INotificationConfig } from "@/shared/presentation/utils/notification/notification.utils";
 
 /**
  * AuthNotification
  *
  * @description
- * Toast configurations for auth lifecycle events. Each entry is a factory so the copy
- * is resolved from the auth i18n catalog against the *active* language at call time
- * (not frozen at import). Call sites pass these to `showNotification` — they never
- * hardcode toast text.
+ * Toast configurations for auth lifecycle events. Each entry is a factory so
+ * copy resolves against the active language at call time. Call sites pass
+ * these to `showNotification` — they never hardcode toast text.
  */
 export const AuthNotification = {
     /**
