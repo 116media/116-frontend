@@ -20,10 +20,6 @@ export interface DetailFieldProps {
  * @description
  * A read-only labeled value with a leading icon, used in the profile information
  * grid. Falls back to an em dash when the value is empty.
- *
- * @param icon - The leading field icon.
- * @param label - The field label.
- * @param value - The field value; an em dash renders when empty.
  */
 export function DetailField({ icon, label, value }: DetailFieldProps) {
     return (
