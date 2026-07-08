@@ -4,21 +4,19 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { authKeys } from "@/modules/auth/presentation/constants/authKeys";
 import type { IProfile } from "@/modules/settings/domain/entities/IProfile";
-import { SettingsNotification } from "@/modules/settings/presentation/notifications/settings.notification";
+import { SettingsNotification } from "@/modules/settings/presentation/utils/notification/settings.notification";
 import type { Failure } from "@/shared/domain/failures/failure";
 import { ok } from "@/shared/domain/results/result";
 import container from "@/shared/infrastructure/service.locator";
-import { showNotification } from "@/shared/presentation/utils/notification";
+import { showNotification } from "@/shared/presentation/utils/notification/notification.utils";
 
 /**
  * useUpdateAvatar
  *
  * @description
- * Uploads a new avatar image for the current user. The use case returns a `Result`;
- * this hook folds it into the mutation's channels — unwrapping the value on success and
- * throwing the `Failure` on error. The endpoint returns the updated user, so on success
- * the new user is written straight into `['auth','me']` (authoritative, no refetch) and
- * a toast is shown.
+ * Uploads a new avatar image for the current user. Unwraps the use case `Result`; on
+ * success writes the returned user straight into `['auth','me']` (no refetch) and
+ * shows a toast.
  *
  * @returns A TanStack mutation; call `.mutate(file)`. Its `error` is a `Failure`.
  */
