@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 
-import { VideoCard } from "@/modules/videos/presentation/components/VideoCard";
+import { VideoCard } from "@/modules/videos/presentation/components/cards/VideoCard";
 
 import type { VideoFeedSectionViewProps } from "./types";
 
@@ -12,15 +12,8 @@ import type { VideoFeedSectionViewProps } from "./types";
  *
  * @description
  * Presentation component for a homepage video feed section — a pinned category
- * rendered as a heading row (title on the left, a "view all" link on the right)
- * above a fully responsive grid of vertical video cards (1 column on mobile,
- * 2 on small screens, 4 from large up). The "view all" label reads from the
- * i18n context so it follows the active language live; suppressHydrationWarning
- * guards the streamed-in language swap.
- *
- * @param title - Section heading shown at the top-left
- * @param viewAllHref - Destination of the "view all" link at the top-right
- * @param videos - The videos rendered in the grid
+ * rendered as a heading row with a "view all" link above a responsive grid of
+ * vertical video cards. suppressHydrationWarning guards the streamed-in label.
  */
 export function VideoFeedSection({ title, viewAllHref, videos }: VideoFeedSectionViewProps) {
     const { t } = useTranslation();
