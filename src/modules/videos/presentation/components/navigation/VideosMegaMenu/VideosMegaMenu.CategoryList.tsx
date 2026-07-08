@@ -5,20 +5,17 @@ import { useTranslation } from "react-i18next";
 import { ChevronRightIcon } from "@/shared/presentation/components/ui/Icon";
 
 import { VIDEOS_PATH } from "@/shared/presentation/constants/paths";
-import { cn } from "@/shared/presentation/utils/cn";
-import type { VideosMegaCategoryListProps } from "./types";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
+import type { VideosMegaMenuCategoryListProps } from "./types";
 
 /**
- * VideosMegaCategoryList
+ * VideosMegaMenuCategoryList
  *
  * @description
- * Left column of the videos mega menu.
- * Renders each video category as a link to the videos list
- * filtered by that category. Category names use brighter foreground
- * styling to stand out from the section label. A chevron icon on
- * the right reinforces the navigational intent.
+ * Left column of the videos mega menu. Renders each video category as a link
+ * to the videos list filtered by that category.
  */
-export function VideosMegaCategoryList({ categories }: VideosMegaCategoryListProps) {
+export function VideosMegaMenuCategoryList({ categories }: VideosMegaMenuCategoryListProps) {
     const { t } = useTranslation();
 
     return (
