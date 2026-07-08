@@ -19,14 +19,9 @@ export interface VideoDetailTagsProps {
  * VideoDetail.Tags
  *
  * @description
- * The tag block under the header: an uppercase "Tags:" label followed by each
- * video tag as a Tag pill in the hashtag style (prefix "#"), slate resting
- * fill with the brand hover. Pills render as plain spans — the published
- * videos endpoint has no tag filter, so there is nothing to deep-link to yet.
- * Renders nothing when the video has no tags. Set off from the header above
- * by a token-colored top border.
- *
- * @param tags - The video's tags.
+ * The tag block under the header: a "Tags:" label followed by hashtag-style
+ * Tag pills. Pills render as plain spans — the published videos endpoint has
+ * no tag filter to deep-link to yet. Renders nothing when there are no tags.
  */
 export function VideoDetailTags({ tags }: VideoDetailTagsProps) {
     const { t } = useTranslation();
