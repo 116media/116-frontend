@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import type { z } from "zod";
 
 import { changePasswordSchema } from "@/modules/auth/presentation/validation/changepassword.schema";
-import { SettingsCard } from "@/modules/settings/presentation/components/SettingsCard";
+import { SettingsCard } from "@/modules/settings/presentation/components/cards/SettingsCard";
 import { useChangePassword } from "@/modules/settings/presentation/hooks/useChangePassword";
 import { Alert } from "@/shared/presentation/components/ui/Alert";
 import { Button } from "@/shared/presentation/components/ui/Button";
@@ -21,11 +21,9 @@ type ChangePasswordFormValues = z.infer<typeof changePasswordSchema>;
  * ChangePasswordForm
  *
  * @description
- * The Security tab's change-password block. Three password fields validated by the
- * shared `changePasswordSchema` (strong new password, matching confirmation), wrapped
- * in a `SettingsCard`. Only `oldPassword` + `newPassword` are sent; the confirmation
- * is client-side only. A backend `Failure` renders in the top `Alert`; the form resets
- * on success and `useChangePassword` toasts.
+ * The Security tab's change-password block, validated by the shared
+ * `changePasswordSchema`. Only `oldPassword` + `newPassword` are sent; a backend
+ * `Failure` renders in the top `Alert` and the form resets on success.
  */
 export function ChangePasswordForm() {
     const { t } = useTranslation();
