@@ -2,10 +2,9 @@
  * IVideoSummaryEntity
  *
  * @description
- * Domain entity representing a summary view of a published video.
- * Maps from VideoSummaryDto — drops audit fields, authorId, status,
- * hasLyrics, and shootingScheduledAt which are irrelevant to the
- * public-facing mega menu display.
+ * Domain entity representing a summary view of a published video. Maps from
+ * VideoSummaryDto — drops audit fields, authorId, status, hasLyrics, and
+ * shootingScheduledAt, which are irrelevant to public surfaces.
  *
  * @interface IVideoSummaryEntity
  *
