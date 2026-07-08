@@ -6,9 +6,9 @@ import { useTranslation } from "react-i18next";
 import type { IShowEntity } from "@/modules/videos/domain/entities/IShowEntity";
 import { Button } from "@/shared/presentation/components/ui/Button";
 import { PlayIcon } from "@/shared/presentation/components/ui/Icon";
-import { withAlpha } from "@/shared/presentation/utils/withAlpha";
+import { withAlpha } from "@/shared/presentation/utils/color/color.utils";
 
-interface ShowCardProps {
+export interface ShowCardProps {
     show: IShowEntity;
     isHero: boolean;
 }
@@ -45,9 +45,8 @@ function RevealOnHover({ children }: { children: ReactNode }) {
  *
  * @description
  * Full-bleed poster content for a show inside an MD3 hero carousel slot, themed
- * from the backend `colors` pair (dominant background + contrasting foreground)
- * via inline styles, with a neutral fallback. While focal, it shows the title,
- * description, and a "watch" button over a bottom scrim that grows on hover.
+ * from the backend `colors` pair via inline styles with a neutral fallback.
+ * While focal, it shows the title, description, and a "watch" button.
  *
  * @param show - The show to display
  * @param isHero - Whether this card is the focal hero (drives the caption and CTA)
