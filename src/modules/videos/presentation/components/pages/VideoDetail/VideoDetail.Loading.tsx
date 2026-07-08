@@ -2,7 +2,7 @@
 
 import { useTranslation } from "react-i18next";
 
-import { VideosPopularSidebarLoading } from "@/modules/videos/presentation/components/VideosPopularSidebar/VideosPopularSidebar.Loading";
+import { VideosPopularSidebarLoading } from "@/modules/videos/presentation/components/sections/VideosPopularSidebar/VideosPopularSidebar.Loading";
 import { FlameIcon } from "@/shared/presentation/components/ui/Icon";
 import { SectionHeader } from "@/shared/presentation/components/ui/SectionHeader";
 import { Skeleton } from "@/shared/presentation/components/ui/Skeleton";
@@ -36,14 +36,8 @@ function ScoreboardColumnSkeleton() {
  *
  * @description
  * Full-page skeleton for the video detail route, mirroring the resolved
- * {@link VideoDetail} layout: the player block (a 16:9 rectangle) above the
- * bordered header card (category chip and action-button row, title lines, the
- * three-column scoreboard, and the tag foot), then the bordered tab card with
- * its trigger bar and description lines. On wide screens the popular-videos
- * column reuses the real `SectionHeader` and {@link VideosPopularSidebarLoading}
- * so it is identical to the live sidebar's pending state. Every block is the
- * shared `Skeleton` primitive, so shimmer, radius, and spacing match the page
- * and no layout shift occurs when the video resolves.
+ * {@link VideoDetail} layout. Every block is the shared `Skeleton` primitive,
+ * so no layout shift occurs when the video resolves.
  */
 export function VideoDetailLoading() {
     const { t } = useTranslation();
