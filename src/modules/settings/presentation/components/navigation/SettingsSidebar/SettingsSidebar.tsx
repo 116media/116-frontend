@@ -2,26 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import type { ComponentType } from "react";
 import { useTranslation } from "react-i18next";
+import { SETTINGS_TABS } from "@/modules/settings/presentation/constants/settingsTabs";
 
-import { LockIcon, SettingsIcon, UserRoundIcon } from "@/shared/presentation/components/ui/Icon";
-import {
-    SETTINGS_ACCOUNT_PATH,
-    SETTINGS_PROFILE_PATH,
-    SETTINGS_SECURITY_PATH
-} from "@/shared/presentation/constants/paths";
-import { cn } from "@/shared/presentation/utils/cn";
-
-const SETTINGS_TABS: ReadonlyArray<{
-    href: string;
-    labelKey: string;
-    Icon: ComponentType<{ className?: string }>;
-}> = [
-    { href: SETTINGS_PROFILE_PATH, labelKey: "settings.nav.profile", Icon: UserRoundIcon },
-    { href: SETTINGS_SECURITY_PATH, labelKey: "settings.nav.security", Icon: LockIcon },
-    { href: SETTINGS_ACCOUNT_PATH, labelKey: "settings.nav.account", Icon: SettingsIcon }
-];
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
  * SettingsSidebar
