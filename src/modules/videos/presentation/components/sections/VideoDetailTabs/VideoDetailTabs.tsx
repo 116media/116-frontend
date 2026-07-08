@@ -2,12 +2,10 @@
 
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-
+import { VideoDetailDescription } from "@/modules/videos/presentation/components/sections/VideoDetailDescription";
+import { VideoDetailLyrics } from "@/modules/videos/presentation/components/sections/VideoDetailLyrics";
+import { VideoDetailSimilar } from "@/modules/videos/presentation/components/sections/VideoDetailSimilar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/presentation/components/ui/Tabs";
-
-import { VideoDetailDescription } from "./VideoDetail.Description";
-import { VideoDetailLyrics } from "./VideoDetail.Lyrics";
-import { VideoDetailSimilar } from "./VideoDetail.Similar";
 
 /**
  * Props for VideoDetail.Tabs.
@@ -30,18 +28,8 @@ export interface VideoDetailTabsProps {
  *
  * @description
  * The content tabs below the header: Description (default), Lyrics (only when
- * the video has linked lyrics), and Similar videos, on the shared animated
- * `Tabs` primitive (direction-aware slide+fade between panels, keyboard nav
- * intact). The trigger list and the active panel each sit in their own
- * bordered, padded card (no shadow), split into two stacked surfaces.
- * Opened-tab memory feeds the lazy query flags, so the lyrics and similar
- * queries fire only the first time their tab opens and stay cached across
- * switches.
- *
- * @param videoId - The video's id, for the lyrics query.
- * @param categoryId - The video's category, for the similar query.
- * @param description - The video's plain-text description.
- * @param hasLyrics - Whether the video has linked lyrics.
+ * the video has linked lyrics), and Similar videos. Opened-tab memory feeds
+ * the lazy query flags, so lyrics/similar fire once and stay cached.
  */
 export function VideoDetailTabs({
     videoId,
