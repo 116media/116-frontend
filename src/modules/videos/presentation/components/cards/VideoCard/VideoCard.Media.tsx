@@ -23,15 +23,9 @@ export interface VideoCardMediaProps {
  * VideoCardMedia
  *
  * @description
- * The thumbnail layer shared by every VideoCard variant: a fill image that zooms on hover
- * beneath a dark overlay revealing a frosted play button. It fills its positioned parent, so
- * each variant owns the outer sized and rounded container (and the muted surface shown when
- * no thumbnail is set). Hover effects are driven by the ancestor card's `group` class.
- *
- * @param title - The video title (image alt text).
- * @param thumbnailUrl - The thumbnail URL, or null when unset.
- * @param playSize - Size of the hover play button.
- * @param sizes - The responsive `sizes` hint for the fill image.
+ * The thumbnail layer shared by every VideoCard variant. Fills its positioned parent, so each
+ * variant owns the outer sized and rounded container (and the muted surface when no thumbnail
+ * is set); hover effects are driven by the ancestor card's `group` class.
  */
 export function VideoCardMedia({ title, thumbnailUrl, playSize, sizes }: VideoCardMediaProps) {
     return (
