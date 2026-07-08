@@ -19,15 +19,14 @@ interface IAddVideoToPlaylistUseCase extends IResultUseCase<IAddVideoToPlaylistI
  *
  * @description
  * Adds one video to one of the signed-in user's playlists via the videos
- * repository. Returns the repository's `Result<boolean>` (success flag)
- * unchanged. The add-to-playlist modal fans this use case out over every
- * selected playlist.
+ * repository, returning its `Result<boolean>` unchanged. The add-to-playlist
+ * modal fans this use case out over every selected playlist.
  */
 export class AddVideoToPlaylistUseCase implements IAddVideoToPlaylistUseCase {
     private readonly videosRepository: IVideosRepositoryPort;
 
     /**
-     * @param {IVideosRepositoryPort} videosRepository - Repository for videos operations (injected)
+     * @param videosRepository - Repository for videos operations (injected)
      */
     constructor({ videosRepository }: { videosRepository: IVideosRepositoryPort }) {
         this.videosRepository = videosRepository;
@@ -36,7 +35,7 @@ export class AddVideoToPlaylistUseCase implements IAddVideoToPlaylistUseCase {
     /**
      * Executes the add-video-to-playlist use case.
      *
-     * @param {IAddVideoToPlaylistInput} input - The playlist, video, and target position
+     * @param input - The playlist, video, and target position
      * @returns {Promise<Result<boolean>>} `ok(boolean)` success flag on success, `err(Failure)` on failure
      */
     async execute(input: IAddVideoToPlaylistInput): Promise<Result<boolean>> {
