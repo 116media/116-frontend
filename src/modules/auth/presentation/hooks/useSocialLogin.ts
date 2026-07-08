@@ -14,11 +14,9 @@ import container from "@/shared/infrastructure/service.locator";
  * useSocialLogin
  *
  * @description
- * Logs in with a social provider (Google/Facebook). The use case returns a `Result`;
- * this hook folds it into the mutation's channels — unwrapping the value on success
- * and throwing the `Failure` on error. On success the returned user is written into
- * `['auth','me']` and other tabs are pinged (same write-through as `useLogin`); the
- * caller closes the modal.
+ * Logs in with a social provider (Google/Facebook), unwrapping the use case
+ * `Result` into the mutation channels — value on success, thrown `Failure` on
+ * error. On success the user is written to the `me` cache and tabs are pinged.
  *
  * @returns A TanStack mutation for the social-login action; its `error` is a `Failure`.
  */
