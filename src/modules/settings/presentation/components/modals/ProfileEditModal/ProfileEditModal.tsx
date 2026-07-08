@@ -7,7 +7,7 @@ import type { z } from "zod";
 
 import type { IProfile } from "@/modules/settings/domain/entities/IProfile";
 import { useUpdateProfile } from "@/modules/settings/presentation/hooks/useUpdateProfile";
-import { SettingsNotification } from "@/modules/settings/presentation/notifications/settings.notification";
+import { SettingsNotification } from "@/modules/settings/presentation/utils/notification/settings.notification";
 import { profileSchema } from "@/modules/settings/presentation/validation/profile.schema";
 import { Alert } from "@/shared/presentation/components/ui/Alert";
 import { Button } from "@/shared/presentation/components/ui/Button";
@@ -15,8 +15,8 @@ import { CountrySelect } from "@/shared/presentation/components/ui/CountrySelect
 import { FloatingField } from "@/shared/presentation/components/ui/FloatingField";
 import { ModalForm } from "@/shared/presentation/components/ui/ModalForm";
 import { useDetectedCountry } from "@/shared/presentation/hooks/useDetectedCountry";
-import { findCountryByName } from "@/shared/presentation/utils/country";
-import { showNotification } from "@/shared/presentation/utils/notification";
+import { findCountryByName } from "@/shared/presentation/utils/country/country.utils";
+import { showNotification } from "@/shared/presentation/utils/notification/notification.utils";
 
 /**
  * The profile edit form values — username, country name, and optional phone.
@@ -41,18 +41,9 @@ export interface ProfileEditModalProps {
  * ProfileEditModal
  *
  * @description
- * Edits the current user's account information — username, country, and phone —
- * mirroring the dashboard's account-info modal. Email is shown read-only. The country
- * picker emits a country name from which the ISO and dial codes are derived; the phone
- * field shows the selected country's dial code as a static prefix and stores only the
- * local number. Prefilled from the current user and validated by `profileSchema`. On
- * submit the partial update is sent via `useUpdateProfile`, which writes the updated
- * user into the `me` cache; on success a toast shows and the modal closes. A backend
- * `Failure` renders in the top `Alert`.
- *
- * @param open - Whether the modal is open.
- * @param onOpenChange - Open-state setter.
- * @param user - The current user, used to prefill the form.
+ * Edits the current user's account information — username, country, and phone; email
+ * is read-only. Prefilled from the current user, validated by `profileSchema`, and
+ * submitted via `useUpdateProfile`, which writes the updated user into the `me` cache.
  */
 export function ProfileEditModal({ open, onOpenChange, user }: ProfileEditModalProps) {
     const { t } = useTranslation();
