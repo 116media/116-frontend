@@ -3,23 +3,17 @@
 import { ShareIcon } from "@/shared/presentation/components/ui/Icon";
 
 import { StarRating } from "@/shared/presentation/components/ui/StarRating";
-import { cn } from "@/shared/presentation/utils/cn";
-import { formatCount } from "@/shared/presentation/utils/formatCount";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
+import { formatCount } from "@/shared/presentation/utils/format/format.utils";
 import type { VideosMegaMenuCardStatsProps } from "./types";
 
 /**
  * VideosMegaMenuCardStats
  *
  * @description
- * Rating and share stats row composed into both VideosMegaMenuCard.Featured
- * and VideosMegaMenuCard.Compact.
- *
- * Displays:
- * - Star rating via the shared StarRating component (detailed mode)
- * - Share count with a share icon
- *
- * The "light" variant renders white/translucent for dark image overlays.
- * The "default" variant uses muted foreground tokens for surface cards.
+ * Rating and share stats row composed into the VideosMegaMenuCard variants.
+ * The "light" variant renders white/translucent for dark image overlays;
+ * "default" uses muted foreground tokens for surface cards.
  */
 export function VideosMegaMenuCardStats({
     shareCount,
