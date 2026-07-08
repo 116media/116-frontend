@@ -6,8 +6,7 @@ import type { IVideoTagEntity } from "@/modules/videos/domain/entities/IVideoTag
  * @description
  * Domain entity representing one published video on the public detail page.
  * Maps from VideoDetailDto — drops audit, status, promotion, and commerce
- * fields, and drops the author entirely (product rule: the video detail page
- * shows no author).
+ * fields, and drops the author entirely (the detail page shows no author).
  *
  * @interface IVideoDetailEntity
  *
