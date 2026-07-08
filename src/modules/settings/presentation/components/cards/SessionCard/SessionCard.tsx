@@ -1,69 +1,43 @@
 "use client";
 
-import type { ComponentType } from "react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import type { ISession } from "@/modules/auth/domain/entities/ISession";
+import type { ISessionEntity } from "@/modules/session/domain/entities/ISessionEntity";
 import { useRevokeSession } from "@/modules/session/presentation/hooks/useRevokeSession";
-import { SettingsNotification } from "@/modules/settings/presentation/notifications/settings.notification";
+import { DEVICE_ICONS } from "@/modules/settings/presentation/constants/deviceIcons";
+import { SettingsNotification } from "@/modules/settings/presentation/utils/notification/settings.notification";
 import { Button } from "@/shared/presentation/components/ui/Button";
 import { ConfirmDialog } from "@/shared/presentation/components/ui/ConfirmDialog";
-import {
-    CarIcon,
-    ClockIcon,
-    CpuIcon,
-    HelpCircleIcon,
-    MonitorIcon,
-    SmartphoneIcon,
-    TabletIcon
-} from "@/shared/presentation/components/ui/Icon";
+import { CircleHelpIcon, ClockIcon } from "@/shared/presentation/components/ui/Icon";
 import { RelativeDate } from "@/shared/presentation/components/ui/RelativeDate";
 import { Tag } from "@/shared/presentation/components/ui/Tag";
-import { showNotification } from "@/shared/presentation/utils/notification";
-
-/**
- * Maps a resolved device label to its icon; unknown devices fall back to a help icon.
- */
-const DEVICE_ICONS: Record<string, ComponentType<{ className?: string }>> = {
-    desktop: MonitorIcon,
-    tv: MonitorIcon,
-    console: MonitorIcon,
-    mobile: SmartphoneIcon,
-    tablet: TabletIcon,
-    watch: ClockIcon,
-    car: CarIcon,
-    iot: CpuIcon
-};
+import { showNotification } from "@/shared/presentation/utils/notification/notification.utils";
 
 /**
  * Props for the SessionCard component.
  *
  * @interface SessionCardProps
- * @property {ISession} session - The session to render.
+ * @property {ISessionEntity} session - The session to render.
  */
 export interface SessionCardProps {
-    session: ISession;
+    session: ISessionEntity;
 }
 
 /**
  * SessionCard
  *
  * @description
- * One row in the active-sessions list: a device icon, the device/browser/platform
- * summary, the origin IP and relative creation time, and a trailing action. The
- * current session shows a "this device" tag (no revoke); other active sessions offer a
- * destructive revoke gated behind a confirmation; expired sessions show an "expired"
- * tag. Revoking calls `useRevokeSession`, which refreshes the list, then toasts.
- *
- * @param session - The session to render.
+ * One row in the active-sessions list. The current session shows a "this device" tag
+ * (no revoke), other active sessions offer a confirmation-gated revoke via
+ * `useRevokeSession`, and expired sessions show an "expired" tag.
  */
 export function SessionCard({ session }: SessionCardProps) {
     const { t } = useTranslation();
     const revoke = useRevokeSession();
     const [confirmOpen, setConfirmOpen] = useState(false);
 
-    const DeviceIcon = DEVICE_ICONS[session.device.toLowerCase()] ?? HelpCircleIcon;
+    const DeviceIcon = DEVICE_ICONS[session.device.toLowerCase()] ?? CircleHelpIcon;
     const summary = [session.device, session.browser, session.platform].filter(Boolean).join(" · ");
 
     const onConfirm = () => {
