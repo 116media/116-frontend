@@ -5,9 +5,8 @@ import { Skeleton } from "@/shared/presentation/components/ui/Skeleton";
  *
  * @description
  * Skeleton placeholder for the shows section, shown while the client-side
- * request resolves. Mirrors the layout — a centred title placeholder, a row of
- * 4:5 card placeholders, and a centred button placeholder. Built from the
- * shared Skeleton primitive so the shimmer idiom stays consistent.
+ * request resolves. Mirrors the section layout, built from the shared Skeleton
+ * primitive so the shimmer idiom stays consistent.
  */
 export function ShowsSectionLoading() {
     return (
