@@ -3,23 +3,17 @@
 import { useQuery } from "@tanstack/react-query";
 
 import type { IVideoSummaryEntity } from "@/modules/videos/domain/entities/IVideoSummaryEntity";
+import { POPULAR_VIDEOS_LIMIT, videoKeys } from "@/modules/videos/presentation/constants/videoKeys";
+import { dummyPopularVideos } from "@/modules/videos/presentation/data/video-detail.dummy";
 import container from "@/shared/infrastructure/service.locator";
-import { POPULAR_VIDEOS_LIMIT, videoKeys } from "../constants/videoKeys";
-import { dummyPopularVideos } from "../data/video-detail.dummy";
 
 /**
  * useVideoDetailPopular
  *
  * @description
- * Sources the popular-videos sidebar from the popularity-ranked endpoint
- * (`getPopularVideosUseCase`), which orders published videos by weighted
- * engagement server-side and excludes the video currently open via `excludeId`.
- * The endpoint is fixed-size (capped at ten) and not paginated, so this is a
- * single `useQuery`, not an infinite query.
- *
- * Dummy-data phase: while the backend has no published content, a failed or
- * empty result falls back to the ten-item dummy popular pool (the current video
- * excluded) so the sidebar is previewable.
+ * Sources the popular-videos sidebar from the popularity-ranked endpoint,
+ * excluding the open video. The endpoint is fixed-size (not paginated), so this
+ * is a single query; a failed or empty result falls back to the dummy pool.
  *
  * @param currentVideoId - The video currently open, excluded from the results.
  * @returns The TanStack Query result whose `data` is up to ten `IVideoSummaryEntity`.
