@@ -2,9 +2,7 @@
  * exclusiveShow (en)
  *
  * @description
- * English strings for the homepage exclusive show section. Owned by the videos
- * module presentation layer and exposed under the `exclusiveShow` namespace by
- * the locale barrel, so call sites reference them as
+ * English strings for the homepage exclusive show section, referenced as
  * `t("videos.exclusiveShow.<key>")`. Must hold the exact same keys as the
  * French mirror.
  */
