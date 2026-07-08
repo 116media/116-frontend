@@ -4,9 +4,11 @@ import type { IVideoLyricsEntity } from "@/modules/videos/domain/entities/IVideo
 import type { IVideoSummaryEntity } from "@/modules/videos/domain/entities/IVideoSummaryEntity";
 import type { IVideoTagEntity } from "@/modules/videos/domain/entities/IVideoTagEntity";
 import type { IYoutubeVideoStats } from "@/modules/videos/domain/entities/IYoutubeVideoStats";
-
-import { generateDummyVideoFeed } from "../components/VideoFeedSection/dummy-feed";
-import { POPULAR_VIDEOS_LIMIT, SIMILAR_VIDEOS_PAGE_SIZE } from "../constants/videoKeys";
+import {
+    POPULAR_VIDEOS_LIMIT,
+    SIMILAR_VIDEOS_PAGE_SIZE
+} from "@/modules/videos/presentation/constants/videoKeys";
+import { generateDummyVideoFeed } from "./video-feed.dummy";
 
 /**
  * A real, publicly available YouTube video (Blender Foundation's Big Buck
@@ -29,10 +31,9 @@ const TAGS: IVideoTagEntity[] = [
  * buildDummyDescription
  *
  * @description
- * Builds a rich-text HTML description for a dummy video, woven around its title,
- * so the description tab previews the sanitized-HTML path with a heading,
- * paragraphs, a link, and a hashtag line. Deterministic, so SSR and client
- * render identically.
+ * Builds a rich-text HTML description for a dummy video so the description tab
+ * previews the sanitized-HTML path. Deterministic, so SSR and client render
+ * identically.
  *
  * @param title - The video title, woven into the heading and opening line.
  * @returns The description HTML.
@@ -52,9 +53,9 @@ function buildDummyDescription(title: string): string {
 }
 
 /**
- * Titles for the dedicated ten-item dummy popular pool — distinct from the feed
- * titles so the sidebar reads as its own set of videos rather than a repeat of
- * the homepage feed. Ten matches the popular endpoint's fixed size.
+ * Titles for the dedicated ten-item dummy popular pool — distinct from the
+ * feed titles so the sidebar reads as its own set of videos. Ten matches the
+ * popular endpoint's fixed size.
  */
 const POPULAR_TITLES = [
     "Rumba Nights: The Full Session",
@@ -88,9 +89,8 @@ const POPULAR_THUMBNAILS = [
  * generateDummyPopularVideos
  *
  * @description
- * Dummy-data phase: a dedicated pool of ten popular-video summaries with
- * their own titles and cycled thumbnails, distinct from the homepage feed
- * dummies. Deterministic (index-seeded, no Math.random / Date.now) so SSR and
+ * Dummy-data phase: a dedicated pool of ten popular-video summaries, distinct
+ * from the homepage feed dummies. Deterministic (index-seeded) so SSR and
  * client render identically; share counts skew high to read as "popular".
  *
  * @returns Ten dummy video summaries, each with a thumbnail.
@@ -123,14 +123,8 @@ function generateDummyPopularVideos(): IVideoSummaryEntity[] {
  *
  * @description
  * Dummy-data phase: a fully-populated `IVideoDetailEntity` for the detail-page
- * preview while the backend has no published content. Resolves the slug
- * against both the shared feed dummies and the dedicated popular pool, so a
- * clicked card — whether from the feed or the popular sidebar — and the video
- * it lands on agree on title, thumbnail, and counts, falling back to the first
- * feed dummy. Index-seeded from the slug (no Math.random / Date.now) so SSR
- * and client render identically. Carries a real YouTube URL so the player and
- * the stats chips work, four tags, and `hasLyrics: true` so the lyrics tab is
- * previewable.
+ * preview. Resolves the slug against the feed and popular pools so a clicked
+ * card and its landing page agree; deterministic, with a real YouTube URL.
  *
  * @param slug - The requested slug; matched against the dummy pools, falling back to the first.
  * @returns The dummy video detail entity.
@@ -200,10 +194,8 @@ export function dummyVideoLyrics(videoId: string): IVideoLyricsEntity {
  *
  * @description
  * Dummy-data phase: YouTube stat-chip numbers for the detail-page preview
- * while no `YOUTUBE_API_KEY` is configured (the internal route then returns
- * the all-null shape and the chips would hide). Seeded from the YouTube id's
- * character codes (no Math.random / Date.now) so SSR and client render
- * identically and different videos show different numbers.
+ * while no `YOUTUBE_API_KEY` is configured. Seeded from the YouTube id's
+ * character codes, so renders are deterministic and vary per video.
  *
  * @param youtubeId - The YouTube id the stats are presented for.
  * @returns The dummy stats entity.
@@ -211,6 +203,7 @@ export function dummyVideoLyrics(videoId: string): IVideoLyricsEntity {
 export function dummyYoutubeStats(youtubeId: string): IYoutubeVideoStats {
     const seed = [...youtubeId].reduce((sum, char) => sum + char.charCodeAt(0), 0);
     return {
+        hasStats: true,
         viewCount: 1_200_000 + seed * 1_337,
         likeCount: 24_000 + seed * 41,
         commentCount: 1_300 + seed * 7
@@ -239,11 +232,9 @@ export function dummyPlaylists(): IPlaylistEntity[] {
  * dummyPopularVideos
  *
  * @description
- * Dummy-data phase: the whole popular sidebar in one shot — the dedicated
- * ten-item popular pool with the open video excluded, capped at `limit`. Backs
- * the popular query while the backend has no popular endpoint. Not paginated:
- * the popular endpoint returns a fixed-size list, so this mirrors it and hands
- * back the full capped list.
+ * Dummy-data phase: the popular sidebar in one shot — the ten-item popular
+ * pool with the open video excluded, capped at `limit`. Not paginated,
+ * mirroring the popular endpoint's fixed-size list.
  *
  * @param excludeId - The open video's id, excluded from the pool.
  * @param limit - Maximum rows to return (defaults to the sidebar's ten).
@@ -260,9 +251,8 @@ export function dummyPopularVideos(
 
 /**
  * Supplemental similar-only titles, layered on top of the feed and popular
- * pools so the similar grid has more than twenty distinct videos to scroll
- * through — enough to exercise several pages of infinite scroll after the open
- * video is excluded.
+ * pools so the similar grid has more than twenty distinct videos — enough to
+ * exercise several pages of infinite scroll.
  */
 const SIMILAR_EXTRA_TITLES = [
     "Acoustic Rooftop, Golden Hour",
@@ -277,11 +267,9 @@ const SIMILAR_EXTRA_TITLES = [
  * generateDummySimilarVideos
  *
  * @description
- * Dummy-data phase: the similar-videos pool — the shared feed dummies plus the
- * popular pool plus a supplemental set, so more than twenty distinct videos are
- * available to page through. Deterministic (index-seeded, no Math.random /
- * Date.now) so SSR and client render identically; ids are namespaced so the
- * supplemental items never collide with the feed or popular ids.
+ * Dummy-data phase: the similar-videos pool — feed dummies plus the popular
+ * pool plus a supplemental set (namespaced ids, no collisions). Deterministic
+ * (index-seeded) so SSR and client render identically.
  *
  * @returns The full similar pool (feed + popular + supplemental).
  */
@@ -314,11 +302,8 @@ function generateDummySimilarVideos(): IVideoSummaryEntity[] {
  *
  * @description
  * Dummy-data phase: one page of the similar-videos grid, sliced by zero-based
- * `pageIndex` from the twenty-plus-item similar pool (the open video excluded),
- * rotated by one page so the similar grid and the popular sidebar do not open
- * on the same rows. Backs the similar infinite query while the backend has no
- * same-category content — successive pages walk the pool until it runs dry,
- * then the query stops.
+ * `pageIndex` from the similar pool (open video excluded), rotated by one page
+ * so the similar grid and the popular sidebar do not open on the same rows.
  *
  * @param excludeId - The open video's id, excluded from the pool.
  * @param pageIndex - Zero-based page to slice.
