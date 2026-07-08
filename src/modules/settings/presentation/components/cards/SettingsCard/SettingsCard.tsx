@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import { Button } from "@/shared/presentation/components/ui/Button";
 import { Card } from "@/shared/presentation/components/ui/Card";
 import { EditIcon } from "@/shared/presentation/components/ui/Icon";
-import { cn } from "@/shared/presentation/utils/cn";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
  * Props for the SettingsCard component.
@@ -34,14 +34,6 @@ export interface SettingsCardProps {
  * A titled, optionally subtitled surface used for each block within a settings tab.
  * The header carries an optional right-aligned `extra` slot and an optional edit
  * action. Mirrors the dashboard's `SettingsCard`.
- *
- * @param title - The card title.
- * @param subtitle - Optional supporting line under the title.
- * @param extra - Optional element rendered on the right of the header.
- * @param onEdit - When set, renders an edit button that invokes this handler.
- * @param editLabel - Label for the edit button.
- * @param children - The card body.
- * @param className - Extra classes merged onto the card.
  */
 export function SettingsCard({
     title,
