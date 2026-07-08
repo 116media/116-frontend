@@ -20,12 +20,9 @@ export interface VideoDetailErrorProps {
  * VideoDetailError
  *
  * @description
- * Retryable error state for the video detail query. Renders the shared
- * `EmptyState` with the error copy and a "Try again" button that re-runs
- * `useVideoDetail`. Used for transient failures (offline, 5xx, rate limit) —
- * a genuinely missing video takes the `notFound()` path instead.
- *
- * @param onRetry - Re-runs the detail query.
+ * Retryable error state for the video detail query. Used for transient
+ * failures (offline, 5xx, rate limit) — a genuinely missing video takes the
+ * `notFound()` path instead.
  */
 export function VideoDetailError({ onRetry }: VideoDetailErrorProps) {
     const { t } = useTranslation();
