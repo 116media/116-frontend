@@ -18,7 +18,7 @@ import {
 import { ListPlusIcon } from "@/shared/presentation/components/ui/Icon";
 import { Input } from "@/shared/presentation/components/ui/Input";
 import { Skeleton } from "@/shared/presentation/components/ui/Skeleton";
-import { formatCount } from "@/shared/presentation/utils/formatCount";
+import { formatCount } from "@/shared/presentation/utils/format/format.utils";
 
 /**
  * Props for VideoPlaylistModal.
@@ -39,21 +39,9 @@ export interface VideoPlaylistModalProps {
  * VideoPlaylistModal
  *
  * @description
- * The add-to-playlist surface: a dialog listing the signed-in user's playlists
- * as checkbox rows (name + pluralized video count), a YouTube-style
- * create-playlist affordance (a dashed "create a new playlist" button that
- * reveals an inline name field on demand, submitting on Enter and collapsing on
- * Escape or success), and a two-button footer (cancel / add). Selection lives
- * in a local `Set<string>`; a created playlist is appended to the cached list
- * and auto-checked. The add button stays disabled at zero selection and shows
- * the pending state while the add fans out; success toasts, closes, and resets
- * the selection, while a failure toasts and keeps the selection for a retry.
- * While the playlists load, three skeleton rows hold the space; a failed load
- * shows an inline retry line.
- *
- * @param open - Whether the modal is open (controlled).
- * @param onOpenChange - Open-state setter.
- * @param videoId - The video being added to playlists.
+ * Add-to-playlist dialog listing the signed-in user's playlists as checkbox
+ * rows, with an inline create-playlist affordance (created playlists are
+ * auto-checked) and a cancel/add footer that fans the add out on submit.
  */
 export function VideoPlaylistModal({ open, onOpenChange, videoId }: VideoPlaylistModalProps) {
     const { t } = useTranslation();
