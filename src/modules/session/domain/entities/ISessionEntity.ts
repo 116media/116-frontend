@@ -1,11 +1,11 @@
 /**
- * ISession
+ * ISessionEntity
  *
  * @description
  * A device session row for the (later) sessions UI. Maps from `SessionDto`; the
  * resolved enums (browser/device/platform/client) are flattened to display strings.
  *
- * @interface ISession
+ * @interface ISessionEntity
  * @property {string} id - Session UUID.
  * @property {string | null} ipAddress - Origin IP, or null.
  * @property {string | null} userAgent - Raw user-agent, or null.
@@ -18,7 +18,7 @@
  * @property {boolean} isCurrent - Whether this is the requesting session.
  * @property {string | null} createdAt - ISO creation timestamp.
  */
-export interface ISession {
+export interface ISessionEntity {
     id: string;
     ipAddress: string | null;
     userAgent: string | null;
