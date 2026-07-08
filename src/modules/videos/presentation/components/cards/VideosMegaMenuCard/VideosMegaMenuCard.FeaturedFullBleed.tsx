@@ -8,9 +8,9 @@ import { cardVariants } from "@/shared/presentation/components/ui/Card";
 import { PlayIcon } from "@/shared/presentation/components/ui/Icon";
 import { Tag } from "@/shared/presentation/components/ui/Tag";
 import { VIDEOS_PATH } from "@/shared/presentation/constants/paths";
-import { cn } from "@/shared/presentation/utils/cn";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 import type { VideosMegaMenuCardProps } from "./types";
-import { VideosMegaMenuCardStats } from "./VideosMegaMenuCardStats";
+import { VideosMegaMenuCardStats } from "./VideosMegaMenuCard.Stats";
 
 /**
  * VideosMegaMenuCard.FeaturedFullBleed
