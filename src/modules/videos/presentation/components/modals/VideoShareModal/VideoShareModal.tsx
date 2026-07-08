@@ -3,6 +3,7 @@
 import { useTranslation } from "react-i18next";
 
 import { useShareVideo } from "@/modules/videos/presentation/hooks/useShareVideo";
+import { VideoShareNotification } from "@/modules/videos/presentation/utils/notification/videos.share.notification";
 import { SocialShareGroup } from "@/shared/presentation/components/common/SocialShareGroup";
 import { Button } from "@/shared/presentation/components/ui/Button";
 import {
@@ -13,9 +14,8 @@ import {
 } from "@/shared/presentation/components/ui/Dialog";
 import { Link2Icon } from "@/shared/presentation/components/ui/Icon";
 import { Input } from "@/shared/presentation/components/ui/Input";
-import { showNotification } from "@/shared/presentation/utils/notification";
-
-import { videoLinkCopiedNotification } from "../../notifications/share.notification";
+import { showNotification } from "@/shared/presentation/utils/notification/notification.utils";
+import { resolveShareUrl } from "@/shared/presentation/utils/share/share.utils";
 
 /**
  * Props for VideoShareModal.
@@ -36,40 +36,12 @@ export interface VideoShareModalProps {
 }
 
 /**
- * resolveVideoUrl
- *
- * @description
- * Resolves the absolute video URL. Prefers `window.location.href` in the
- * browser; falls back to the public site base plus the video path so the
- * value is defined outside the browser.
- *
- * @param slug - The video slug, used for the fallback path.
- * @returns The absolute video URL.
- */
-function resolveVideoUrl(slug: string): string {
-    if (typeof window !== "undefined") return window.location.href;
-    return `${process.env.NEXT_PUBLIC_SITE_URL ?? ""}/videos/${slug}`;
-}
-
-/**
  * VideoShareModal
  *
  * @description
- * The video's share surface: a dialog whose primary affordance is a read-only
- * link field with a copy button — the universal path that covers every surface
- * with no web share intent (Instagram, TikTok, DMs). Below it, a centered
- * {@link SocialShareGroup} row offers the three link-prefilling networks whose
- * unfurl renders the page's Open Graph / player card (Facebook, WhatsApp, X).
- * Every action records the share against the backend fire-and-forget and
- * optimistically bumps the cached detail's `shareCount`; copying additionally
- * toasts. The dialog stays open after copying so the network buttons remain
- * available.
- *
- * @param open - Whether the modal is open (controlled).
- * @param onOpenChange - Open-state setter.
- * @param videoId - The video the backend share event is recorded against.
- * @param slug - The video slug, used to build the URL outside the browser.
- * @param title - The video title, carried into the share message.
+ * Share dialog: a read-only copy-link field plus a {@link SocialShareGroup}
+ * row (Facebook, WhatsApp, X). Every action records the share fire-and-forget
+ * and optimistically bumps the cached detail's `shareCount`; copying toasts.
  */
 export function VideoShareModal({
     open,
@@ -79,13 +51,13 @@ export function VideoShareModal({
     title
 }: VideoShareModalProps) {
     const { t } = useTranslation();
-    const url = resolveVideoUrl(slug);
+    const url = resolveShareUrl(`/videos/${slug}`);
     const recordShare = useShareVideo(videoId, slug);
 
     const copy = async () => {
         await navigator.clipboard.writeText(url);
         recordShare("clipboard");
-        showNotification(videoLinkCopiedNotification(t));
+        showNotification(VideoShareNotification.linkCopied(t));
     };
 
     return (
