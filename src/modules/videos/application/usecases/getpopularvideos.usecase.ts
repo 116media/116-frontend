@@ -28,7 +28,7 @@ export class GetPopularVideosUseCase implements IGetPopularVideosUseCase {
     private readonly videosRepository: IVideosRepositoryPort;
 
     /**
-     * @param {IVideosRepositoryPort} videosRepository - Repository for videos operations (injected)
+     * @param videosRepository - Repository for videos operations (injected)
      */
     constructor({ videosRepository }: { videosRepository: IVideosRepositoryPort }) {
         this.videosRepository = videosRepository;
@@ -37,7 +37,7 @@ export class GetPopularVideosUseCase implements IGetPopularVideosUseCase {
     /**
      * Executes the get-popular-videos use case.
      *
-     * @param {IPopularVideosQuery} query - Limit plus optional exclusion and category scope
+     * @param query - Limit plus optional exclusion and category scope
      * @returns {Promise<Result<IVideoSummaryEntity[]>>} `ok(IVideoSummaryEntity[])` on success, `err(Failure)` on failure
      */
     async execute(query: IPopularVideosQuery): Promise<Result<IVideoSummaryEntity[]>> {
