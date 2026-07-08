@@ -11,10 +11,9 @@ import { VideoCardShareCount } from "./VideoCard.ShareCount";
  * Horizontal
  *
  * @description
- * Horizontal VideoCard variant — a full-width bordered row composed of a landscape thumbnail
- * on the left (with a hover play overlay) and the episode content beside it: title, star
- * rating, relative published date, and share count. Used to list a show's episodes in the
- * exclusive section. Clicking navigates to the video detail page.
+ * Horizontal VideoCard variant — a bordered row with a landscape thumbnail and the episode
+ * meta beside it. Used to list a show's episodes in the exclusive section; clicking
+ * navigates to the video detail page.
  *
  * @param video - The episode to display
  */
