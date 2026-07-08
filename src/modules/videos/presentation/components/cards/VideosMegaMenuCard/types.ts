@@ -12,33 +12,6 @@ export interface VideosMegaMenuCardProps {
 }
 
 /**
- * VideosMegaMenuCardImageProps
- *
- * @description
- * Props for the shared image piece used inside both card variants.
- * - size="full"  → full-width aspect-video (Featured)
- * - size="thumb" → fixed square thumbnail with spinning border on hover (Compact)
- */
-export interface VideosMegaMenuCardImageProps {
-    src: string | null;
-    alt: string;
-    categoryName: string;
-    size: "full" | "thumb";
-}
-
-/**
- * VideosMegaMenuCardBodyProps
- *
- * @description
- * Props for the shared text content piece used inside both card variants.
- */
-export interface VideosMegaMenuCardBodyProps {
-    title: string;
-    categoryName: string;
-    publishedAt: string | null;
-}
-
-/**
  * VideosMegaMenuCardStatsProps
  *
  * @description
