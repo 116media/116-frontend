@@ -6,14 +6,10 @@ import { useTranslation } from "react-i18next";
 import { useYoutubeStats } from "@/modules/videos/presentation/hooks/useYoutubeStats";
 import { EyeIcon, StarIcon, ThumbsUpIcon } from "@/shared/presentation/components/ui/Icon";
 import { Skeleton } from "@/shared/presentation/components/ui/Skeleton";
-import { cn } from "@/shared/presentation/utils/cn";
-import { formatCount } from "@/shared/presentation/utils/formatCount";
-import { extractYoutubeId } from "@/shared/presentation/utils/youtube";
-
-/**
- * The five star positions of the rating display row.
- */
-const STAR_POSITIONS = [1, 2, 3, 4, 5] as const;
+import { STAR_POSITIONS } from "@/shared/presentation/constants/rating";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
+import { formatCount } from "@/shared/presentation/utils/format/format.utils";
+import { extractYoutubeId } from "@/shared/presentation/utils/youtube/youtube.utils";
 
 /**
  * Props for VideoDetail.Scoreboard.
@@ -37,10 +33,9 @@ export interface VideoDetailScoreboardProps {
  * ScoreboardColumn
  *
  * @description
- * One column of the scoreboard: an uppercase icon+label header, a large primary
- * value, an optional middle slot (the rating stars), and a muted secondary line.
- * Renders as a button when `onClick` is supplied so the whole column is the
- * rating affordance.
+ * One column of the scoreboard: icon+label header, large primary value,
+ * optional middle slot, and a muted secondary line. Renders as a button when
+ * `onClick` is supplied so the whole column is the rating affordance.
  *
  * @param icon - The header glyph.
  * @param label - The uppercase column label.
@@ -103,21 +98,9 @@ function ScoreboardColumn({
  * VideoDetail.Scoreboard
  *
  * @description
- * The video's headline stats board under the title: a slate/grey gradient
- * surface (muted tokens, light/dark aware) split into three ruled columns —
- * the rating (average, star row, review count; the whole column is a button
- * that opens the rating modal), YouTube views (with the comment count below),
- * and YouTube likes (with the backend share count below). Views, likes, and
- * comments come from the YouTube Data API via `useYoutubeStats`; while that
- * query is in flight the affected values show a skeleton, and a value the API
- * cannot resolve renders as an em dash (hidden, not zero). The rating and share
- * figures come from the entity and are always present.
- *
- * @param ratingAverage - Cached average star rating.
- * @param ratingCount - Cached total number of ratings.
- * @param shareCount - The backend's own share count.
- * @param youtubeVideoUrl - The video's YouTube URL, source of the stats id.
- * @param onOpenRating - Opens the rating modal.
+ * The video's headline stats board, split into three columns: rating (opens
+ * the rating modal), YouTube views + comments, and YouTube likes + shares.
+ * YouTube values come from `useYoutubeStats`; unresolved ones show an em dash.
  */
 export function VideoDetailScoreboard({
     ratingAverage,
