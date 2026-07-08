@@ -3,22 +3,18 @@
 import { useEffect, useState } from "react";
 
 import type { IShowEntity } from "@/modules/videos/domain/entities/IShowEntity";
+import { ShowsSection } from "@/modules/videos/presentation/components/sections/ShowsSection";
+import { ShowsSectionLoading } from "@/modules/videos/presentation/components/sections/ShowsSection/ShowsSection.Loading";
+import { generateDummyShows } from "@/modules/videos/presentation/data/shows.dummy";
 import container from "@/shared/infrastructure/service.locator";
-
-import { generateDummyShows } from "./dummy-shows";
-import { ShowsSection } from "./ShowsSection";
-import { ShowsSectionLoading } from "./ShowsSection.Loading";
 
 /**
  * ShowsSectionContainer
  *
  * @description
- * Client container for the homepage shows section. After mount it issues the
- * request on the client through the videos data layer
- * (`getShowsUseCase` resolved from the DI container, which uses the browser API
- * client), rendering the skeleton while it loads. If the request fails or
- * returns no shows it falls back to ten dummy shows, so the section is always
- * populated during development.
+ * Client container for the homepage shows section. Fetches shows after mount
+ * via `getShowsUseCase` from the DI container, rendering the skeleton while
+ * loading; a failed or empty response falls back to dummy shows.
  */
 export function ShowsSectionContainer() {
     const [shows, setShows] = useState<IShowEntity[] | null>(null);
