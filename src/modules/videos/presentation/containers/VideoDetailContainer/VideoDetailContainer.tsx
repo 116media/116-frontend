@@ -1,11 +1,10 @@
 "use client";
 
 import type { IVideoDetailEntity } from "@/modules/videos/domain/entities/IVideoDetailEntity";
+import { VideoDetail } from "@/modules/videos/presentation/components/pages/VideoDetail";
+import { VideoDetailError } from "@/modules/videos/presentation/components/pages/VideoDetail/VideoDetail.Error";
+import { VideoDetailLoading } from "@/modules/videos/presentation/components/pages/VideoDetail/VideoDetail.Loading";
 import { useVideoDetail } from "@/modules/videos/presentation/hooks/useVideoDetail";
-
-import { VideoDetail } from "./VideoDetail";
-import { VideoDetailError } from "./VideoDetail.Error";
-import { VideoDetailLoading } from "./VideoDetail.Loading";
 
 /**
  * Props for VideoDetailContainer.
@@ -24,16 +23,9 @@ export interface VideoDetailContainerProps {
  * VideoDetailContainer
  *
  * @description
- * The client container for the single-video page. Seeds {@link useVideoDetail}
- * with the server-fetched `initialData`, so the interactive shell hydrates
- * without a second network round-trip, and selects the loading / error / data
- * view. Renders {@link VideoDetail} with the resolved entity. The route
- * already gated a missing video via `notFound()`, so `initialData` is always
- * present on first paint; the loading/error branches cover client refetches
- * and cache invalidations.
- *
- * @param slug - The video slug.
- * @param initialData - The server-fetched video seeding the query.
+ * Client container for the single-video page. Seeds {@link useVideoDetail}
+ * with the server-fetched `initialData` so hydration avoids a refetch, and
+ * selects the loading / error / data view.
  */
 export function VideoDetailContainer({ slug, initialData }: VideoDetailContainerProps) {
     const { data, isLoading, isError, refetch } = useVideoDetail(slug, { initialData });
