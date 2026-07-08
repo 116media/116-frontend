@@ -21,13 +21,8 @@ import type {
  * Mapper for converting API DTOs to domain entities in the videos module.
  *
  * @description
- * Provides pure transformation functions to map data transfer objects (DTOs)
- * from the API layer to clean domain entities.
- *
- * @remarks
- * - All methods are stateless pure functions
- * - Marked as const to prevent accidental mutation
- * - Part of the infrastructure layer
+ * Stateless pure transformation functions mapping API-layer DTOs to clean
+ * domain entities; part of the infrastructure layer.
  */
 export const VideosMapper = {
     /**
@@ -35,7 +30,7 @@ export const VideosMapper = {
      * Drops audit fields, authorId, status, hasLyrics, and
      * shootingScheduledAt which are not needed on the public mega menu display.
      *
-     * @param {VideoSummaryDto} dto - Video summary data from API
+     * @param dto - Video summary data from API
      * @returns {IVideoSummaryEntity} Mapped video summary entity
      */
     videoSummaryFromDto(dto: VideoSummaryDto): IVideoSummaryEntity {
@@ -58,7 +53,7 @@ export const VideosMapper = {
     /**
      * Maps a list of VideoSummaryDto to IVideoSummaryEntity domain entities.
      *
-     * @param {VideoSummaryDto[]} dtos - Video summary data list from API
+     * @param dtos - Video summary data list from API
      * @returns {IVideoSummaryEntity[]} Mapped video summary entities
      */
     videoSummaryListFromDto(dtos: VideoSummaryDto[]): IVideoSummaryEntity[] {
@@ -70,7 +65,7 @@ export const VideosMapper = {
      * Drops contentTypeId and contentTypeName because by the time this
      * mapper runs the category list is already scoped to Video.
      *
-     * @param {CategoryDto} dto - Category data from API
+     * @param dto - Category data from API
      * @returns {IVideoCategoryEntity} Mapped video category entity
      */
     categoryFromDto(dto: CategoryDto): IVideoCategoryEntity {
@@ -86,7 +81,7 @@ export const VideosMapper = {
     /**
      * Maps a list of CategoryDto to IVideoCategoryEntity domain entities.
      *
-     * @param {CategoryDto[]} dtos - Category data list from API
+     * @param dtos - Category data list from API
      * @returns {IVideoCategoryEntity[]} Mapped video category entities
      */
     categoryListFromDto(dtos: CategoryDto[]): IVideoCategoryEntity[] {
@@ -95,11 +90,10 @@ export const VideosMapper = {
 
     /**
      * Maps CategoryDto to IShowEntity domain entity for the shows carousel.
-     * Keeps the poster artwork and description (unlike categoryFromDto), which
-     * the show card needs, and drops the content-type fields since the list is
-     * already scoped to Video.
+     * Keeps the poster artwork and description (unlike categoryFromDto) and
+     * drops the content-type fields since the list is already scoped to Video.
      *
-     * @param {CategoryDto} dto - Category data from API
+     * @param dto - Category data from API
      * @returns {IShowEntity} Mapped show entity
      */
     showFromDto(dto: CategoryDto): IShowEntity {
@@ -118,7 +112,7 @@ export const VideosMapper = {
     /**
      * Maps a list of CategoryDto to IShowEntity domain entities for the shows carousel.
      *
-     * @param {CategoryDto[]} dtos - Category data list from API
+     * @param dtos - Category data list from API
      * @returns {IShowEntity[]} Mapped show entities
      */
     showListFromDto(dtos: CategoryDto[]): IShowEntity[] {
@@ -128,7 +122,7 @@ export const VideosMapper = {
     /**
      * Maps TagDto to IVideoTagEntity domain entity.
      *
-     * @param {TagDto} dto - Tag data from API
+     * @param dto - Tag data from API
      * @returns {IVideoTagEntity} Mapped video tag entity
      */
     tagFromDto(dto: TagDto): IVideoTagEntity {
@@ -142,7 +136,7 @@ export const VideosMapper = {
     /**
      * Maps a list of TagDto to IVideoTagEntity domain entities.
      *
-     * @param {TagDto[]} dtos - Tag data list from API
+     * @param dtos - Tag data list from API
      * @returns {IVideoTagEntity[]} Mapped video tag entities
      */
     tagListFromDto(dtos: TagDto[]): IVideoTagEntity[] {
@@ -154,7 +148,7 @@ export const VideosMapper = {
      * Flattens the category into the show's presentational fields and maps the
      * paginated videos into episodes, carrying the total count for the header.
      *
-     * @param {PublicGetExclusiveCategoryResponse} dto - Exclusive show payload from API
+     * @param dto - Exclusive show payload from API
      * @returns {IVideoExclusiveShowEntity} Mapped exclusive show entity
      */
     exclusiveShowFromDto(dto: PublicGetExclusiveCategoryResponse): IVideoExclusiveShowEntity {
@@ -169,12 +163,11 @@ export const VideosMapper = {
     },
 
     /**
-     * Maps VideoDetailDto to IVideoDetailEntity domain entity.
-     * Drops audit, status, promotion, and commerce fields, and drops the
-     * author entirely — the public detail page shows no author. Nullables are
-     * normalized to null, SEO overrides to undefined, and counts to 0.
+     * Maps VideoDetailDto to IVideoDetailEntity domain entity. Drops audit,
+     * status, promotion, commerce, and author fields; nullables are normalized
+     * to null, SEO overrides to undefined, and counts to 0.
      *
-     * @param {VideoDetailDto} dto - Video detail data from API
+     * @param dto - Video detail data from API
      * @returns {IVideoDetailEntity} Mapped video detail entity
      */
     videoDetailFromDto(dto: VideoDetailDto): IVideoDetailEntity {
@@ -203,7 +196,7 @@ export const VideosMapper = {
      * Drops the author and SEO fields — lyrics render embedded in the video
      * detail page, where the standalone lyrics page owns its own SEO.
      *
-     * @param {LyricsDto} dto - Lyrics data from API
+     * @param dto - Lyrics data from API
      * @returns {IVideoLyricsEntity} Mapped video lyrics entity
      */
     videoLyricsFromDto(dto: LyricsDto): IVideoLyricsEntity {
@@ -219,7 +212,7 @@ export const VideosMapper = {
     /**
      * Maps PlaylistDto to IPlaylistEntity domain entity (1:1).
      *
-     * @param {PlaylistDto} dto - Playlist data from API
+     * @param dto - Playlist data from API
      * @returns {IPlaylistEntity} Mapped playlist entity
      */
     playlistFromDto(dto: PlaylistDto): IPlaylistEntity {
@@ -233,7 +226,7 @@ export const VideosMapper = {
     /**
      * Maps a list of PlaylistDto to IPlaylistEntity domain entities.
      *
-     * @param {PlaylistDto[]} dtos - Playlist data list from API
+     * @param dtos - Playlist data list from API
      * @returns {IPlaylistEntity[]} Mapped playlist entities
      */
     playlistListFromDto(dtos: PlaylistDto[]): IPlaylistEntity[] {
@@ -241,24 +234,30 @@ export const VideosMapper = {
     },
 
     /**
-     * Maps the internal YouTube stats route handler payload to
-     * IYoutubeVideoStats. The payload has no generated DTO, so the parse is
-     * defensive: any field that is not a finite number becomes null, which the
-     * page treats as hidden/unavailable (distinct from a real count of 0).
+     * Maps the internal YouTube stats route payload to IYoutubeVideoStats.
+     * The payload has no generated DTO, so the parse is defensive: any field
+     * that is not a finite number becomes null (hidden/unavailable, not 0).
      *
-     * @param {unknown} json - Raw JSON payload from `/api/youtube/[videoId]`
+     * @param json - Raw JSON payload from `/api/youtube/[videoId]`
      * @returns {IYoutubeVideoStats} Mapped YouTube stats entity
      */
     youtubeStatsFromJson(json: unknown): IYoutubeVideoStats {
         const record =
             typeof json === "object" && json !== null ? (json as Record<string, unknown>) : {};
-        const toCount = (value: unknown): number | null =>
-            typeof value === "number" && Number.isFinite(value) ? value : null;
+
+        const toCount = (value: unknown): number | null => {
+            return typeof value === "number" && Number.isFinite(value) ? value : null;
+        };
+
+        const viewCount = toCount(record.viewCount);
+        const likeCount = toCount(record.likeCount);
+        const commentCount = toCount(record.commentCount);
 
         return {
-            viewCount: toCount(record.viewCount),
-            likeCount: toCount(record.likeCount),
-            commentCount: toCount(record.commentCount)
+            viewCount,
+            likeCount,
+            commentCount,
+            hasStats: viewCount !== null || likeCount !== null || commentCount !== null
         };
     }
 } as const;
