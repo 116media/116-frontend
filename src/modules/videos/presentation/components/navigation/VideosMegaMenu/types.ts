@@ -17,11 +17,11 @@ export interface VideosMegaMenuProps {
 }
 
 /**
- * VideosMegaCategoryListProps
+ * VideosMegaMenuCategoryListProps
  *
  * @description
  * Props for the category list column inside the videos mega menu.
  */
-export interface VideosMegaCategoryListProps {
+export interface VideosMegaMenuCategoryListProps {
     categories: IVideoCategoryEntity[];
 }
