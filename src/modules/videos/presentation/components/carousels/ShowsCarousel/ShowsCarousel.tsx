@@ -3,11 +3,11 @@
 import { useRouter } from "next/navigation";
 
 import type { IShowEntity } from "@/modules/videos/domain/entities/IShowEntity";
-import { ShowCard } from "@/modules/videos/presentation/components/ShowCard";
+import { ShowCard } from "@/modules/videos/presentation/components/cards/ShowCard";
 import { Md3Carousel } from "@/shared/presentation/components/ui/Md3Carousel";
 import { VIDEOS_PATH } from "@/shared/presentation/constants/paths";
 
-interface ShowsCarouselProps {
+export interface ShowsCarouselProps {
     shows: IShowEntity[];
 }
 
