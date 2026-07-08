@@ -1,19 +1,18 @@
 import type { IVideoSummaryEntity } from "@/modules/videos/domain/entities/IVideoSummaryEntity";
+import { VideosMegaMenuCard } from "@/modules/videos/presentation/components/cards/VideosMegaMenuCard";
 import { VIDEOS_PATH } from "@/shared/presentation/constants/paths";
 import {
     MegaMenuShell,
     MegaMenuShellCards,
     MegaMenuShellCategories
 } from "@/shared/presentation/layouts/MegaMenuShell";
-import { VideosMegaMenuCard } from "../VideosMegaMenuCard";
 import type { VideosMegaMenuProps } from "./types";
-import { VideosMegaCategoryList } from "./VideosMegaCategoryList";
+import { VideosMegaMenuCategoryList } from "./VideosMegaMenu.CategoryList";
 
 /**
- * Dummy videos used as placeholders in the À la une column
- * until real promoted videos are available from the API.
- * The first two are shown as Featured (vertical) cards,
- * the last two as Compact (horizontal) list rows with spinning border.
+ * Dummy videos used as placeholders in the À la une column until real
+ * promoted videos are available from the API. The first two render as
+ * Featured cards, the last two as Compact rows.
  */
 const DUMMY_VIDEOS: IVideoSummaryEntity[] = [
     {
@@ -78,11 +77,9 @@ const DUMMY_VIDEOS: IVideoSummaryEntity[] = [
  * VideosMegaMenu
  *
  * @description
- * Mega menu panel for the VIDEOS nav item.
- * Uses MegaMenuShell for the shared 3-column layout structure.
- * Data is prefetched server-side and received as props — no
- * client-side fetching or loading state.
- * When no promoted videos are available, dummy placeholders are shown.
+ * Mega menu panel for the VIDEOS nav item, laid out with MegaMenuShell. Data
+ * is prefetched server-side and received as props — no client-side fetching
+ * or loading state. Dummy placeholders cover an empty promoted list.
  */
 export function VideosMegaMenu({ categories, promotedVideos, popularTags }: VideosMegaMenuProps) {
     const cards = promotedVideos.length > 0 ? promotedVideos.slice(0, 4) : DUMMY_VIDEOS;
@@ -95,7 +92,7 @@ export function VideosMegaMenu({ categories, promotedVideos, popularTags }: Vide
             tagsBasePath={VIDEOS_PATH}
         >
             <MegaMenuShellCategories>
-                <VideosMegaCategoryList categories={categories} />
+                <VideosMegaMenuCategoryList categories={categories} />
             </MegaMenuShellCategories>
 
             <MegaMenuShellCards viewAllHref={VIDEOS_PATH}>
