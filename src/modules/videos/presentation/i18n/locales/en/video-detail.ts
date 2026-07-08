@@ -2,18 +2,9 @@
  * videoDetail (en)
  *
  * @description
- * English strings for the single video (video detail) page: the header
- * actions and stat-chip labels, the rating stars and their toasts, the
- * content tabs (description / lyrics / similar), the tag block, the share
- * modal with its copy-link toast, the add-to-playlist modal (list, inline
- * create, pluralized submit, toasts), the popular-videos sidebar, and the
- * not-found / error states. Owned by the videos module presentation layer;
- * the locale barrel spreads this object alongside the `home` and
- * `exclusiveShow` bundles so call sites reference the keys as
- * `t("videos.detail.<key>")`. `playlist.addCount` uses i18next plural
- * suffixes and is called as `t("videos.detail.playlist.addCount", { count })`;
- * `rating.rateAria` interpolates `{{stars}}`. Must hold the exact same keys
- * as the French mirror.
+ * English strings for the video detail page (header, rating, tabs, share and
+ * playlist modals, popular sidebar, not-found/error states), referenced as
+ * `t("videos.detail.<key>")`. Must hold the exact same keys as the French mirror.
  */
 export const videoDetail = {
     detail: {
