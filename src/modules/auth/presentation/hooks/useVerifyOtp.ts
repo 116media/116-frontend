@@ -12,10 +12,9 @@ import container from "@/shared/infrastructure/service.locator";
  * useVerifyOtp
  *
  * @description
- * Verifies a 6-digit OTP for the given purpose. The use case returns a `Result`;
- * this hook folds it into the mutation's channels — unwrapping the value on success
- * and throwing the `Failure` on error. On success invalidates `me` so the user's
- * `isVerified` flips and the derived status becomes `authenticated`.
+ * Verifies a 6-digit OTP for the given purpose, unwrapping the use case
+ * `Result` into the mutation channels — value on success, thrown `Failure` on
+ * error. On success invalidates `me` so the derived status updates.
  *
  * @returns A TanStack mutation for OTP verification; its `error` is a `Failure`.
  */
