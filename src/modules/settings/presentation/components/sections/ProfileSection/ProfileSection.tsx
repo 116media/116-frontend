@@ -5,9 +5,9 @@ import { type ChangeEvent, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { useAuth } from "@/modules/auth/presentation/context/AuthProvider";
-import { DetailField } from "@/modules/settings/presentation/components/DetailField";
-import { ProfileEditModal } from "@/modules/settings/presentation/components/ProfileEditModal";
-import { SettingsCard } from "@/modules/settings/presentation/components/SettingsCard";
+import { SettingsCard } from "@/modules/settings/presentation/components/cards/SettingsCard";
+import { DetailField } from "@/modules/settings/presentation/components/fields/DetailField";
+import { ProfileEditModal } from "@/modules/settings/presentation/components/modals/ProfileEditModal";
 import { useUpdateAvatar } from "@/modules/settings/presentation/hooks/useUpdateAvatar";
 import { Button } from "@/shared/presentation/components/ui/Button";
 import {
@@ -19,17 +19,15 @@ import {
     UserRoundIcon
 } from "@/shared/presentation/components/ui/Icon";
 import { SectionHeader } from "@/shared/presentation/components/ui/SectionHeader";
-import { getAvatarColor, getInitials } from "@/shared/presentation/utils/avatar";
+import { getAvatarColor, getInitials } from "@/shared/presentation/utils/avatar/avatar.utils";
 
 /**
  * ProfileSection
  *
  * @description
- * The Profile tab: a photo card (avatar with upload + identity) and an account-info
- * card whose edit action opens the {@link ProfileEditModal}. Reads the current user
- * from `useAuth()`; renders nothing when there is no user (the route guard prevents
- * guests from reaching this). Mirrors the dashboard's profile settings, without the
- * role badge.
+ * The Profile tab: a photo card with avatar upload and an account-info card whose edit
+ * action opens the {@link ProfileEditModal}. Reads the current user from `useAuth()`;
+ * renders nothing when there is no user (the route guard keeps guests out).
  */
 export function ProfileSection() {
     const { t } = useTranslation();
