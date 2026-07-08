@@ -6,9 +6,7 @@ import { Skeleton } from "@/shared/presentation/components/ui/Skeleton";
  * @description
  * Skeleton placeholder for the exclusive show section, used as the Suspense
  * fallback on the homepage. Mirrors the layout, spacing, and card heights of
- * VideoExclusiveShow. Built from the shared Skeleton primitive; the hero panel
- * keeps its lighter `muted-foreground/10` overlay lines, which layer on the
- * pulsing muted surface below them.
+ * VideoExclusiveShow, built from the shared Skeleton primitive.
  */
 export function VideoExclusiveShowLoading() {
     return (
