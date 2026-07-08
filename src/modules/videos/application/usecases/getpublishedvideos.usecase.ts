@@ -28,7 +28,7 @@ export class GetPublishedVideosUseCase implements IGetPublishedVideosUseCase {
     private readonly videosRepository: IVideosRepositoryPort;
 
     /**
-     * @param {IVideosRepositoryPort} videosRepository - Repository for videos operations (injected)
+     * @param videosRepository - Repository for videos operations (injected)
      */
     constructor({ videosRepository }: { videosRepository: IVideosRepositoryPort }) {
         this.videosRepository = videosRepository;
@@ -37,7 +37,7 @@ export class GetPublishedVideosUseCase implements IGetPublishedVideosUseCase {
     /**
      * Executes the get published videos use case.
      *
-     * @param {IPublishedVideosQuery} query - Paging plus optional filters
+     * @param query - Paging plus optional filters
      * @returns {Promise<Result<IVideoSummaryEntity[]>>} `ok(IVideoSummaryEntity[])` on success, `err(Failure)` on failure
      */
     async execute(query: IPublishedVideosQuery): Promise<Result<IVideoSummaryEntity[]>> {
