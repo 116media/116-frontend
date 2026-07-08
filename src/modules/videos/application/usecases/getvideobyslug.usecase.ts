@@ -23,7 +23,7 @@ export class GetVideoBySlugUseCase implements IGetVideoBySlugUseCase {
     private readonly videosRepository: IVideosRepositoryPort;
 
     /**
-     * @param {IVideosRepositoryPort} videosRepository - Repository for videos operations (injected)
+     * @param videosRepository - Repository for videos operations (injected)
      */
     constructor({ videosRepository }: { videosRepository: IVideosRepositoryPort }) {
         this.videosRepository = videosRepository;
@@ -32,7 +32,7 @@ export class GetVideoBySlugUseCase implements IGetVideoBySlugUseCase {
     /**
      * Executes the get-video-by-slug use case.
      *
-     * @param {string} slug - The video slug
+     * @param slug - The video slug
      * @returns {Promise<Result<IVideoDetailEntity>>} `ok(IVideoDetailEntity)` on success, `err(Failure)` on failure
      */
     async execute(slug: string): Promise<Result<IVideoDetailEntity>> {
