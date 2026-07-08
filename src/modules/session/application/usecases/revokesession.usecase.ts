@@ -1,5 +1,5 @@
-import type { IRevokeSessionResponse } from "@/modules/auth/domain/entities/IRevokeSessionResponse";
 import type { ISessionRepositoryPort } from "@/modules/session/application/repositories/session.repository.port";
+import type { IRevokeSessionResponse } from "@/modules/session/domain/entities/IRevokeSessionResponse";
 import type { IResultUseCase } from "@/shared/application/usecases/IUseCase";
 import type { Result } from "@/shared/domain/results/result";
 
