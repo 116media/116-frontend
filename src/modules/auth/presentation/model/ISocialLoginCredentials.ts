@@ -1,4 +1,4 @@
-import type { EAuthProvider } from "@/modules/auth/domain/enums/EAuthProvider";
+import type { EAuthProvider } from "@/shared/domain/enums/EAuthProvider";
 
 /**
  * ISocialLoginCredentials
