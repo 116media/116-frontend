@@ -19,9 +19,6 @@ export interface VideoCardDateProps {
  * @description
  * The relative published date for a VideoCard, rendered via the shared RelativeDate. An
  * optional leading clock icon is shown for the episode-row layout; the poster layout omits it.
- *
- * @param publishedAt - ISO publication date, or null.
- * @param withIcon - Whether to show a leading clock icon.
  */
 export function VideoCardDate({ publishedAt, withIcon }: VideoCardDateProps) {
     return (
