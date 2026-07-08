@@ -7,18 +7,17 @@ import { cardVariants } from "@/shared/presentation/components/ui/Card";
 import { CalendarIcon } from "@/shared/presentation/components/ui/Icon";
 import { RelativeDate } from "@/shared/presentation/components/ui/RelativeDate";
 import { VIDEOS_PATH } from "@/shared/presentation/constants/paths";
-import { cn } from "@/shared/presentation/utils/cn";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 import type { VideosMegaMenuCardProps } from "./types";
-import { VideosMegaMenuCardStats } from "./VideosMegaMenuCardStats";
+import { VideosMegaMenuCardStats } from "./VideosMegaMenuCard.Stats";
 
 /**
  * VideosMegaMenuCard.Compact
  *
  * @description
- * Compact video card for the bottom two slots. Black background thumbnail
- * filling the fixed row height, centered frosted-glass play button, bottom
- * gradient strip with title, date, rating and share count. Spinning brand
- * color border on hover via conic-gradient animation.
+ * Compact video card for the bottom two slots: a thumbnail filling the fixed
+ * row height with a bottom gradient strip carrying title, date, rating, and
+ * share count.
  */
 export function Compact({ video }: VideosMegaMenuCardProps) {
     return (
