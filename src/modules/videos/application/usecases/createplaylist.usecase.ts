@@ -24,7 +24,7 @@ export class CreatePlaylistUseCase implements ICreatePlaylistUseCase {
     private readonly videosRepository: IVideosRepositoryPort;
 
     /**
-     * @param {IVideosRepositoryPort} videosRepository - Repository for videos operations (injected)
+     * @param videosRepository - Repository for videos operations (injected)
      */
     constructor({ videosRepository }: { videosRepository: IVideosRepositoryPort }) {
         this.videosRepository = videosRepository;
@@ -33,7 +33,7 @@ export class CreatePlaylistUseCase implements ICreatePlaylistUseCase {
     /**
      * Executes the create playlist use case.
      *
-     * @param {string} name - The playlist name
+     * @param name - The playlist name
      * @returns {Promise<Result<IPlaylistEntity>>} `ok(IPlaylistEntity)` on success, `err(Failure)` on failure
      */
     async execute(name: string): Promise<Result<IPlaylistEntity>> {
