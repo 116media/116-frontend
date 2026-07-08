@@ -8,10 +8,9 @@ import { useAuth } from "@/modules/auth/presentation/context/AuthProvider";
  * useRequireAuth
  *
  * @description
- * Returns a guard that runs an action only when the visitor is authenticated. For a
- * guest, it opens the auth modal at the login view and resumes the action after a
- * successful login (via the modal's `onSuccess` resume hook). Use it to gate
- * actions like liking, bookmarking, or commenting.
+ * Returns a guard that runs an action only when the visitor is authenticated;
+ * a guest gets the auth modal at the login view and the action resumes after
+ * login. Gates actions like liking, bookmarking, or commenting.
  *
  * @returns A function `(action) => void` that gates the action behind auth.
  */
