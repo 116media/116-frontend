@@ -1,12 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
+import { VideoFeedSection } from "@/modules/videos/presentation/components/sections/VideoFeedSection";
+import { VideoFeedSectionLoading } from "@/modules/videos/presentation/components/sections/VideoFeedSection/VideoFeedSection.Loading";
+import { generateDummyVideoFeed } from "@/modules/videos/presentation/data/video-feed.dummy";
 import { VIDEOS_PATH } from "@/shared/presentation/constants/paths";
-
-import { generateDummyVideoFeed } from "./dummy-feed";
-import { VideoFeedSection } from "./VideoFeedSection";
-import { VideoFeedSectionLoading } from "./VideoFeedSection.Loading";
 
 type FeedData = ReturnType<typeof generateDummyVideoFeed>;
 
@@ -14,11 +12,9 @@ type FeedData = ReturnType<typeof generateDummyVideoFeed>;
  * VideoFeedSectionContainer
  *
  * @description
- * Client container for a homepage video feed section. Issues the request on the
- * client after mount, rendering the skeleton until the data resolves. It serves
- * dummy data for now so the section is always visible during development —
- * swap the resolver in the effect for the real client API call once the pinned
- * category feed endpoint exists.
+ * Client container for a homepage video feed section. Issues the request after
+ * mount, rendering the skeleton until the data resolves; serves dummy data
+ * until the pinned category feed endpoint exists.
  */
 export function VideoFeedSectionContainer() {
     const [feed, setFeed] = useState<FeedData | null>(null);
