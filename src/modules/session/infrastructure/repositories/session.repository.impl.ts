@@ -1,9 +1,8 @@
 import axios from "axios";
-
-import type { IRevokeSessionResponse } from "@/modules/auth/domain/entities/IRevokeSessionResponse";
-import type { ISession } from "@/modules/auth/domain/entities/ISession";
-import { AuthMapper } from "@/modules/auth/infrastructure/mappers/auth.mapper";
 import type { ISessionRepositoryPort } from "@/modules/session/application/repositories/session.repository.port";
+import type { IRevokeSessionResponse } from "@/modules/session/domain/entities/IRevokeSessionResponse";
+import type { ISessionEntity } from "@/modules/session/domain/entities/ISessionEntity";
+import { SessionMapper } from "@/modules/session/infrastructure/mappers/session.mapper";
 import { err, ok, type Result } from "@/shared/domain/results/result";
 import type { Api } from "@/shared/infrastructure/api/generated/116.api";
 import { API_URL, CLIENT_APP } from "@/shared/infrastructure/constants/common";
@@ -40,10 +39,10 @@ export class SessionRepositoryImpl implements ISessionRepositoryPort {
         await refreshClient.post("/api/v1/public/sessions/refresh-token");
     }
 
-    async getSessions(isActive?: boolean): Promise<Result<ISession[]>> {
+    async getSessions(isActive?: boolean): Promise<Result<ISessionEntity[]>> {
         try {
             const response = await this.api.publicGetOwnSessions({ isActive });
-            return ok(AuthMapper.sessionListFromDto(response.data.sessions));
+            return ok(SessionMapper.sessionListFromDto(response.data.sessions));
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }
@@ -52,7 +51,7 @@ export class SessionRepositoryImpl implements ISessionRepositoryPort {
     async revokeSession(id: string): Promise<Result<IRevokeSessionResponse>> {
         try {
             const response = await this.api.publicRevokeSession(id);
-            return ok(AuthMapper.actionFromDto(response.data));
+            return ok(SessionMapper.actionFromDto(response.data));
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }
