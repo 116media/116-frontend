@@ -8,18 +8,17 @@ import { cardVariants } from "@/shared/presentation/components/ui/Card";
 import { PlayIcon } from "@/shared/presentation/components/ui/Icon";
 import { Tag } from "@/shared/presentation/components/ui/Tag";
 import { VIDEOS_PATH } from "@/shared/presentation/constants/paths";
-import { cn } from "@/shared/presentation/utils/cn";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 import type { VideosMegaMenuCardProps } from "./types";
-import { VideosMegaMenuCardStats } from "./VideosMegaMenuCardStats";
+import { VideosMegaMenuCardStats } from "./VideosMegaMenuCard.Stats";
 
 /**
  * VideosMegaMenuCard.FeaturedSpotlight
  *
  * @description
- * Second spotlight video card. Gradient background (light/dark aware),
- * category badge + title at the top, widescreen preview banner with
- * frosted-glass play button in the middle, star rating + share count,
- * and a full-width outlined Watch Now CTA.
+ * Second spotlight video card: category badge and title above a widescreen
+ * preview banner, star rating and share count, and a full-width outlined
+ * Watch Now CTA.
  */
 export function FeaturedSpotlight({ video }: VideosMegaMenuCardProps) {
     const { t } = useTranslation();
