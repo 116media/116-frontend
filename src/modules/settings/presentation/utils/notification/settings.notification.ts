@@ -1,14 +1,13 @@
 import { i18n } from "@/shared/presentation/i18n/config";
-import type { INotificationConfig } from "@/shared/presentation/utils/notification";
+import type { INotificationConfig } from "@/shared/presentation/utils/notification/notification.utils";
 
 /**
  * SettingsNotification
  *
  * @description
- * Toast configurations for settings lifecycle events. Each entry is a factory so the
- * copy is resolved from the settings i18n catalog against the active language at call
- * time (not frozen at import). Call sites pass these to `showNotification` — they never
- * hardcode toast text.
+ * Toast configurations for settings lifecycle events, passed to `showNotification`.
+ * Each entry is a factory so the copy resolves from the settings i18n catalog against
+ * the active language at call time (not frozen at import).
  */
 export const SettingsNotification = {
     /**
