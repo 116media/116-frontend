@@ -4,14 +4,13 @@ import { useState } from "react";
 
 import { useRequireAuth } from "@/modules/auth/presentation/hooks/useRequireAuth";
 import type { IVideoDetailEntity } from "@/modules/videos/domain/entities/IVideoDetailEntity";
-import { VideosPopularSidebar } from "@/modules/videos/presentation/components/VideosPopularSidebar";
-
-import { VideoDetailHeader } from "./VideoDetail.Header";
-import { VideoDetailTabs } from "./VideoDetail.Tabs";
-import { VideoDetailPlayer } from "./VideoDetailPlayer";
-import { VideoPlaylistModal } from "./VideoPlaylistModal";
-import { VideoRatingModal } from "./VideoRatingModal";
-import { VideoShareModal } from "./VideoShareModal";
+import { VideoPlaylistModal } from "@/modules/videos/presentation/components/modals/VideoPlaylistModal";
+import { VideoRatingModal } from "@/modules/videos/presentation/components/modals/VideoRatingModal";
+import { VideoShareModal } from "@/modules/videos/presentation/components/modals/VideoShareModal";
+import { VideoDetailHeader } from "@/modules/videos/presentation/components/sections/VideoDetailHeader";
+import { VideoDetailTabs } from "@/modules/videos/presentation/components/sections/VideoDetailTabs";
+import { VideosPopularSidebar } from "@/modules/videos/presentation/components/sections/VideosPopularSidebar";
+import { VideoPlayer } from "@/shared/presentation/components/common/VideoPlayer";
 
 /**
  * Props for the VideoDetail assembler.
@@ -28,13 +27,8 @@ export interface VideoDetailProps {
  *
  * @description
  * The detail page assembler — the only holder of the full entity; every child
- * receives scoped props. Lays the page out as a two-column grid on desktop
- * (player/header/tags/tabs left, popular-videos sidebar right, stacked on
- * mobile) and owns the share/playlist modal open states. The playlist modal
- * opens behind the auth gate, so guests get the login modal and the open
- * resumes after; both modals mount once at the root.
- *
- * @param video - The resolved video entity.
+ * receives scoped props. Owns the share/playlist/rating modal open states;
+ * the playlist modal opens behind the auth gate.
  */
 export function VideoDetail({ video }: VideoDetailProps) {
     const requireAuth = useRequireAuth();
@@ -46,7 +40,7 @@ export function VideoDetail({ video }: VideoDetailProps) {
         <div className="flex flex-col gap-6">
             <div className="lg:grid lg:grid-cols-[minmax(0,1.8fr)_minmax(0,1fr)] lg:gap-6">
                 <div className="flex min-w-0 flex-col gap-2">
-                    <VideoDetailPlayer
+                    <VideoPlayer
                         title={video.title}
                         thumbnailUrl={video.thumbnailUrl}
                         youtubeVideoUrl={video.youtubeVideoUrl}
