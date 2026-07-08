@@ -3,8 +3,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { useLogout } from "@/modules/auth/presentation/hooks/useLogout";
-import { AccountActionCard } from "@/modules/settings/presentation/components/AccountActionCard";
+import { AccountActionCard } from "@/modules/settings/presentation/components/cards/AccountActionCard";
 import { ConfirmDialog } from "@/shared/presentation/components/ui/ConfirmDialog";
 import {
     AlertCircleIcon,
@@ -14,17 +13,28 @@ import {
 import { SectionHeader } from "@/shared/presentation/components/ui/SectionHeader";
 
 /**
+ * Props for AccountSection.
+ *
+ * @interface AccountSectionProps
+ * @property {boolean} signOutPending - Whether a sign-out request is in flight.
+ * @property {(all: boolean, onSuccess: () => void) => void} onSignOut - Runs the sign-out;
+ * `all` targets every device.
+ */
+export interface AccountSectionProps {
+    signOutPending: boolean;
+    onSignOut: (all: boolean, onSuccess: () => void) => void;
+}
+
+/**
  * AccountSection
  *
  * @description
- * The Account tab: two cards for signing out of this device or of all devices. Each
- * action is gated behind a confirmation dialog; sign-out-all uses stronger copy. Both
- * are wired to `useLogout` (`{ all: true }` for the all-devices variant), which tears
- * down auth state and toasts. After success the route guard bounces the guest home.
+ * The Account tab: two cards for signing out of this device or of all devices, each
+ * gated behind a confirmation dialog (sign-out-all uses stronger copy). The sign-out
+ * action itself is owned by {@link AccountSectionContainer}.
  */
-export function AccountSection() {
+export function AccountSection({ signOutPending, onSignOut }: AccountSectionProps) {
     const { t } = useTranslation();
-    const logout = useLogout();
     const [signOutOpen, setSignOutOpen] = useState(false);
     const [signOutAllOpen, setSignOutAllOpen] = useState(false);
 
@@ -60,26 +70,24 @@ export function AccountSection() {
                 destructive
                 open={signOutOpen}
                 onOpenChange={setSignOutOpen}
-                loading={logout.isPending}
+                loading={signOutPending}
                 title={t("auth.session.signOutConfirmTitle")}
                 description={t("auth.session.signOutConfirmDescription")}
                 cancelLabel={t("auth.common.cancel")}
                 confirmLabel={t("settings.account.signOut.action")}
-                onConfirm={() => logout.mutate({}, { onSuccess: () => setSignOutOpen(false) })}
+                onConfirm={() => onSignOut(false, () => setSignOutOpen(false))}
             />
 
             <ConfirmDialog
                 destructive
                 open={signOutAllOpen}
                 onOpenChange={setSignOutAllOpen}
-                loading={logout.isPending}
+                loading={signOutPending}
                 title={t("settings.account.signOutAll.confirmTitle")}
                 description={t("settings.account.signOutAll.confirmDescription")}
                 cancelLabel={t("auth.common.cancel")}
                 confirmLabel={t("settings.account.signOutAll.action")}
-                onConfirm={() =>
-                    logout.mutate({ all: true }, { onSuccess: () => setSignOutAllOpen(false) })
-                }
+                onConfirm={() => onSignOut(true, () => setSignOutAllOpen(false))}
             />
         </div>
     );
