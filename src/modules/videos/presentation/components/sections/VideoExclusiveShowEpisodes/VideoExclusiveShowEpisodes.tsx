@@ -3,24 +3,23 @@
 import { useTranslation } from "react-i18next";
 
 import type { IVideoSummaryEntity } from "@/modules/videos/domain/entities/IVideoSummaryEntity";
-import { VideoCard } from "@/modules/videos/presentation/components/VideoCard";
+import { VideoCard } from "@/modules/videos/presentation/components/cards/VideoCard";
 
-interface ExclusiveShowEpisodesProps {
+export interface VideoExclusiveShowEpisodesProps {
     episodes: IVideoSummaryEntity[];
 }
 
 /**
- * ExclusiveShowEpisodes
+ * VideoExclusiveShowEpisodes
  *
  * @description
  * Right panel of the exclusive show section — the "Episodes" heading and the
- * vertical stack of horizontal episode cards. The heading is read from the i18n
- * context so it updates live on a language change; it uses suppressHydrationWarning
- * because the section streams in after the persisted language has been applied.
+ * vertical stack of horizontal episode cards. suppressHydrationWarning guards
+ * the heading because the section streams in after the persisted language.
  *
  * @param episodes - The show's episodes
  */
-export function ExclusiveShowEpisodes({ episodes }: ExclusiveShowEpisodesProps) {
+export function VideoExclusiveShowEpisodes({ episodes }: VideoExclusiveShowEpisodesProps) {
     const { t } = useTranslation();
 
     return (
