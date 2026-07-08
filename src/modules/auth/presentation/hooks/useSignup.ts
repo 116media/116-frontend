@@ -13,11 +13,9 @@ import container from "@/shared/infrastructure/service.locator";
  * useSignup
  *
  * @description
- * Registers a new account. The use case returns a `Result`; this hook folds it into
- * the mutation's channels — unwrapping the value on success and throwing the
- * `Failure` on error. On success the user is logged in but `unverified`; the user is
- * written to the cache and the caller advances the modal to the verify-otp view (an
- * `EmailVerification` OTP was emailed).
+ * Registers a new account, unwrapping the use case `Result` into the mutation
+ * channels — value on success, thrown `Failure` on error. On success the
+ * (unverified) user is written to the `me` cache.
  *
  * @returns A TanStack mutation for the signup action; its `error` is a `Failure`.
  */
