@@ -11,11 +11,9 @@ import { VideoCardShareCount } from "./VideoCard.ShareCount";
  * Vertical
  *
  * @description
- * Vertical VideoCard variant — a poster-style card with a 16:9 thumbnail on top (rounded,
- * with a hover play overlay and image zoom) and the video meta below: title, relative
- * published date, share count, and average rating. Sized to sit in a responsive grid (see
- * VideoFeedSection). Clicking navigates to the video detail page. Hover effects are scoped to
- * this card via the `group` class, so hovering one card never animates its neighbors.
+ * Vertical VideoCard variant — a poster-style card with a 16:9 thumbnail above the video
+ * meta. Sized for a responsive grid (see VideoFeedSection); clicking navigates to the video
+ * detail page. Hover effects are scoped per card via the `group` class.
  *
  * @param video - The video to display
  */
