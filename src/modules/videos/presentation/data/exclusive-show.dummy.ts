@@ -59,9 +59,8 @@ function generateDummyEpisode(index: number): IVideoSummaryEntity {
  * generateDummyExclusiveShow
  *
  * @description
- * Builds a complete dummy exclusive show with a poster and six episodes.
- * Returns deterministic data — no Math.random() or Date.now() so the section
- * stays stable across server/client renders.
+ * Builds a complete dummy exclusive show with a poster and episodes.
+ * Deterministic, so the section stays stable across server/client renders.
  * Remove this file once real API data is flowing.
  */
 export function generateDummyExclusiveShow(): IVideoExclusiveShowEntity {
