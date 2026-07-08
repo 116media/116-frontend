@@ -21,15 +21,9 @@ export interface SettingsGuardProps {
  * SettingsGuard
  *
  * @description
- * Client-side auth guard for the settings area. Reads the current user from
- * `useAuth()` — the browser query that transparently refreshes the access token — so
- * the check stays reliable across client navigations, where a server-rendered profile
- * fetch can be stale (the SSR client has no refresh interceptor). A signed-in user
- * sees the content immediately; an apparent guest is re-checked once (recovering an
- * expired access token via a refresh) and only a genuinely unauthenticated visitor is
- * redirected home. A spinner shows while the auth state resolves.
- *
- * @param children - The protected settings content.
+ * Client-side auth guard for the settings area, driven by `useAuth()`. An apparent
+ * guest is re-checked once (recovering an expired access token via a refresh) before
+ * a redirect home; a spinner shows while the auth state resolves.
  */
 export function SettingsGuard({ children }: SettingsGuardProps) {
     const router = useRouter();
