@@ -1,7 +1,7 @@
 import { PhoneNumberUtil } from "google-libphonenumber";
 import { z } from "zod";
 import { i18n } from "@/shared/presentation/i18n/config";
-import { findCountryByName } from "@/shared/presentation/utils/country";
+import { findCountryByName } from "@/shared/presentation/utils/country/country.utils";
 import { Validators } from "@/shared/presentation/validation/validators";
 
 /**
