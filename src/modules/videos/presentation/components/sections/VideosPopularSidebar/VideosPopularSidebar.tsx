@@ -2,7 +2,7 @@
 
 import { useTranslation } from "react-i18next";
 
-import { VideoCard } from "@/modules/videos/presentation/components/VideoCard";
+import { VideoCard } from "@/modules/videos/presentation/components/cards/VideoCard";
 import { useVideoDetailPopular } from "@/modules/videos/presentation/hooks/useVideoDetailPopular";
 import { FlameIcon } from "@/shared/presentation/components/ui/Icon";
 import { SectionHeader } from "@/shared/presentation/components/ui/SectionHeader";
@@ -23,16 +23,9 @@ export interface VideosPopularSidebarProps {
  * VideosPopularSidebar
  *
  * @description
- * The detail page's popular-videos column: a titled strip of up to ten
- * `VideoCard.Horizontal` rows in the gossip-strip muted block, sourced from
- * `useVideoDetailPopular` (the backend's engagement-ranked popular endpoint,
- * current video excluded, dummy-padded during the empty-backend phase). The
- * popular endpoint is fixed-size and not paginated, so the strip renders the
- * whole list at once — no infinite scroll. While the first load is pending it
- * shows the matching skeleton block; when the resolved list is empty it renders
- * nothing so an empty column never occupies the layout.
- *
- * @param currentVideoId - The video currently open, excluded from the list.
+ * The detail page's popular-videos column: up to ten `VideoCard.Horizontal`
+ * rows sourced from `useVideoDetailPopular` (current video excluded), rendered
+ * in one shot — no infinite scroll. Renders nothing when the list is empty.
  */
 export function VideosPopularSidebar({ currentVideoId }: VideosPopularSidebarProps) {
     const { t } = useTranslation();
