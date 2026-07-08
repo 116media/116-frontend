@@ -9,24 +9,21 @@ import { CrownIcon, PlayIcon } from "@/shared/presentation/components/ui/Icon";
 import { Tag } from "@/shared/presentation/components/ui/Tag";
 import { VIDEOS_PATH } from "@/shared/presentation/constants/paths";
 
-interface ExclusiveShowPosterProps {
+export interface VideoExclusiveShowPosterProps {
     category: IVideoExclusiveShowEntity;
 }
 
 /**
- * ExclusiveShowPoster
+ * VideoExclusiveShowPoster
  *
  * @description
- * Left panel of the exclusive show section — the landscape poster with a gradient
- * overlay, the exclusive tag, the show title and description, and the watch CTA.
- * The chrome labels are read from the i18n context so they update live on a language
- * change; they use suppressHydrationWarning because the section streams in after the
- * provider has applied the persisted language, so the server (default locale) and the
- * late client hydration (persisted locale) can differ on first paint.
+ * Left panel of the exclusive show section — the landscape poster with a
+ * gradient overlay, the exclusive tag, the show title and description, and the
+ * watch CTA. suppressHydrationWarning guards the streamed-in language labels.
  *
  * @param category - The exclusive category (show)
  */
-export function ExclusiveShowPoster({ category }: ExclusiveShowPosterProps) {
+export function VideoExclusiveShowPoster({ category }: VideoExclusiveShowPosterProps) {
     const { t } = useTranslation();
     const watchHref = category.episodes[0]
         ? `${VIDEOS_PATH}/${category.episodes[0].slug}`
