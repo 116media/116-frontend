@@ -3,10 +3,10 @@
 import { useQuery } from "@tanstack/react-query";
 
 import type { IVideoDetailEntity } from "@/modules/videos/domain/entities/IVideoDetailEntity";
+import { videoKeys } from "@/modules/videos/presentation/constants/videoKeys";
+import { dummyVideoDetail } from "@/modules/videos/presentation/data/video-detail.dummy";
 import type { Failure } from "@/shared/domain/failures/failure";
 import container from "@/shared/infrastructure/service.locator";
-import { videoKeys } from "../constants/videoKeys";
-import { dummyVideoDetail } from "../data/video-detail.dummy";
 
 /**
  * Options for {@link useVideoDetail}.
@@ -23,14 +23,9 @@ export interface IUseVideoDetailOptions {
  * useVideoDetail
  *
  * @description
- * Query for a single video by slug. Calls `getVideoBySlugUseCase`. When the
- * route already fetched the video server-side, pass it as `initialData` so the
- * `videoKeys.detail(slug)` cache entry hydrates without a second fetch.
- *
- * Dummy-data phase: while the backend has no published content, a failed
- * client refetch falls back to a fully-populated dummy video (matching the
- * server fallback) so the preview stays stable instead of flipping to the
- * error view.
+ * Query for a single video by slug via `getVideoBySlugUseCase`. Pass the
+ * server-fetched video as `initialData` to hydrate without a second fetch;
+ * a failed client refetch falls back to a dummy video during the dummy phase.
  *
  * @param slug - The video slug from the route.
  * @param options - Optional `initialData` seeding the cache.
