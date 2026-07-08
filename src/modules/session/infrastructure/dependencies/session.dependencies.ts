@@ -2,7 +2,7 @@ import type { AwilixContainer } from "awilix";
 import { asClass } from "awilix";
 
 import { GetSessionsUseCase } from "@/modules/session/application/usecases/getsessions.usecase";
-import { RefreshTokenUseCase } from "@/modules/session/application/usecases/refresh-token.usecase";
+import { RefreshTokenUseCase } from "@/modules/session/application/usecases/refreshtoken.usecase";
 import { RevokeSessionUseCase } from "@/modules/session/application/usecases/revokesession.usecase";
 import { SessionRepositoryImpl } from "@/modules/session/infrastructure/repositories/session.repository.impl";
 
