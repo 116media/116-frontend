@@ -2,8 +2,8 @@
 
 import { useTranslation } from "react-i18next";
 
-import { ChangePasswordForm } from "@/modules/settings/presentation/components/ChangePasswordForm";
-import { SessionsList } from "@/modules/settings/presentation/components/SessionsList";
+import { ChangePasswordForm } from "@/modules/settings/presentation/components/forms/ChangePasswordForm";
+import { SessionsList } from "@/modules/settings/presentation/components/lists/SessionsList";
 import { LockIcon } from "@/shared/presentation/components/ui/Icon";
 import { SectionHeader } from "@/shared/presentation/components/ui/SectionHeader";
 
