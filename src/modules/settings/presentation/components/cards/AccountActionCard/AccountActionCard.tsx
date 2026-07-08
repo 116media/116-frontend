@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 
 import { Button } from "@/shared/presentation/components/ui/Button";
 import { Card } from "@/shared/presentation/components/ui/Card";
-import { cn } from "@/shared/presentation/utils/cn";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
  * Props for the AccountActionCard component.
@@ -30,18 +30,9 @@ export interface AccountActionCardProps {
  * AccountActionCard
  *
  * @description
- * A borderless card row for a single account action: a tinted icon box, a title and
- * description, and a trailing action button. The `danger` variant styles the more
- * severe action (e.g. sign out from all devices) with a destructive icon box and a
- * solid destructive button; otherwise the icon box is neutral and the button is an
- * outline with destructive text.
- *
- * @param icon - The leading icon.
- * @param title - The action title.
- * @param description - The supporting description.
- * @param actionLabel - The trailing button's label.
- * @param onAction - Invoked when the trailing button is clicked.
- * @param danger - Whether to render the destructive tone.
+ * A card row for a single account action: icon, title, description, and a trailing
+ * action button. The `danger` variant applies the destructive tone for the more
+ * severe actions (e.g. sign out from all devices).
  */
 export function AccountActionCard({
     icon,
