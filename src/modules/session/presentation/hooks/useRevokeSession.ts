@@ -1,9 +1,8 @@
 "use client";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-
-import type { IRevokeSessionResponse } from "@/modules/auth/domain/entities/IRevokeSessionResponse";
 import { authKeys } from "@/modules/auth/presentation/constants/authKeys";
+import type { IRevokeSessionResponse } from "@/modules/session/domain/entities/IRevokeSessionResponse";
 import type { Failure } from "@/shared/domain/failures/failure";
 import container from "@/shared/infrastructure/service.locator";
 
@@ -11,10 +10,9 @@ import container from "@/shared/infrastructure/service.locator";
  * useRevokeSession
  *
  * @description
- * Revokes a single device session by id, disconnecting that device. The use case
- * returns a `Result`; this hook folds it into the mutation's channels — unwrapping the
- * value on success and throwing the `Failure` on error. On success the sessions query
- * is invalidated so the list refetches.
+ * Revokes a single device session by id, disconnecting that device. Unwraps the use
+ * case `Result` (value on success, thrown `Failure` on error) and invalidates the
+ * sessions query on success.
  *
  * @returns A TanStack mutation; call `.mutate(sessionId)`. Its `error` is a `Failure`.
  */
