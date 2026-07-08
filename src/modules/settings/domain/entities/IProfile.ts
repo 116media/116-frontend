@@ -1,4 +1,4 @@
-import type { IAuthUser } from "@/modules/auth/domain/entities/IAuthUser";
+import type { IAuthUserEntity } from "@/shared/domain/entities/IAuthUserEntity";
 
 /**
  * IProfile
@@ -7,4 +7,4 @@ import type { IAuthUser } from "@/modules/auth/domain/entities/IAuthUser";
  * The current user's profile — structurally the authenticated user. Aliased so the
  * settings module reads as "profile" without re-declaring the shape (dashboard parity).
  */
-export type IProfile = IAuthUser;
+export type IProfile = IAuthUserEntity;
