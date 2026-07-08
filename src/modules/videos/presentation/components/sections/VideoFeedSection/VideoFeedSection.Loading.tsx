@@ -5,10 +5,8 @@ import { Skeleton } from "@/shared/presentation/components/ui/Skeleton";
  *
  * @description
  * Skeleton placeholder for the video feed section, shown while the client-side
- * request resolves. Mirrors the layout of VideoFeedSection — a heading row
- * (title + "view all" placeholders) above the same responsive grid of eight
- * vertical card placeholders (16:9 thumbnail block + title/meta lines). Built
- * from the shared Skeleton primitive so the shimmer idiom stays consistent.
+ * request resolves. Mirrors the VideoFeedSection layout, built from the shared
+ * Skeleton primitive so the shimmer idiom stays consistent.
  */
 export function VideoFeedSectionLoading() {
     return (
