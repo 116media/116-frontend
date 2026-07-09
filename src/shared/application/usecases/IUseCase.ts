@@ -12,11 +12,8 @@ export interface IUseCase<TRequest = void, TResponse = void> {
 }
 
 /**
- * Generic use case interface for operations that return a Result.
- *
- * Use cases that call API-backed repositories should implement this
- * interface so errors are represented as typed Failure values rather
- * than thrown exceptions.
+ * Generic use case interface for operations that return a Result. Use cases calling
+ * API-backed repositories implement this so errors are typed Failure values.
  *
  * @template TRequest - The input type for the use case
  * @template TResponse - The success value type inside the Result
