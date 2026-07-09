@@ -4,7 +4,7 @@ import {
 } from "@/shared/presentation/components/ui/DropdownMenu";
 import { CheckIcon } from "@/shared/presentation/components/ui/Icon";
 import { LANGUAGE_LIST } from "@/shared/presentation/constants/languages";
-import { cn } from "@/shared/presentation/utils/cn";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 import type { LanguageDropdownMenuProps } from "./types";
 
 /**
@@ -13,10 +13,6 @@ import type { LanguageDropdownMenuProps } from "./types";
  * @description
  * Renders the list of selectable language options inside the language dropdown.
  * Each item shows a flag icon, the language name, and a checkmark for the active selection.
- *
- * @param placement - Controls whether the menu opens above or below the trigger
- * @param currentCode - The currently active language code
- * @param onSelect - Callback fired with the selected language code
  */
 export function LanguageDropdownMenu({
     placement,
