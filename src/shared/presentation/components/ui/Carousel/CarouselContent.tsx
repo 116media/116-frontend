@@ -2,8 +2,8 @@
 
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
-import { cn } from "@/shared/presentation/utils/cn";
-import { useCarousel } from "./Carousel";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
+import { useCarousel } from "./useCarousel";
 
 /**
  * CarouselContentProps
@@ -15,7 +15,7 @@ import { useCarousel } from "./Carousel";
  *
  * @property {ReactNode} [overlay] - Absolutely-positioned content rendered inside the overflow wrapper
  */
-interface CarouselContentProps extends ComponentPropsWithoutRef<"div"> {
+export interface CarouselContentProps extends ComponentPropsWithoutRef<"div"> {
     overlay?: ReactNode;
     wrapperClassName?: string;
 }
@@ -24,11 +24,9 @@ interface CarouselContentProps extends ComponentPropsWithoutRef<"div"> {
  * CarouselContent
  *
  * @description
- * Scrollable container for carousel slides. Attaches the Embla ref
- * to an inner div for scroll tracking. The outer wrapper provides
- * `relative` + `overflow-hidden` + `rounded-xl` as the positioning
- * boundary for the overlay (e.g. dots). All layers use `h-full` so
- * the carousel fills its grid cell.
+ * Scrollable container for carousel slides. Attaches the Embla ref for scroll
+ * tracking; the outer wrapper is the overflow-clipped positioning boundary for
+ * the `overlay` slot (e.g. dots).
  */
 export function CarouselContent({
     className,
