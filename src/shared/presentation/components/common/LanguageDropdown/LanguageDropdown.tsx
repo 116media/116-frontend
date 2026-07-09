@@ -6,20 +6,16 @@ import {
     DropdownMenuTrigger
 } from "@/shared/presentation/components/ui/DropdownMenu";
 import { ChevronsUpDownIcon } from "@/shared/presentation/components/ui/Icon";
-import { useLanguageDropdown } from "@/shared/presentation/hooks/UseLanguageDropdown";
-import { LanguageDropdownMenu } from "./LanguageDropdownMenu";
+import { useLanguageDropdown } from "@/shared/presentation/hooks/useLanguageDropdown";
+import { LanguageDropdownMenu } from "./LanguageDropdown.Menu";
 import type { LanguageDropdownProps } from "./types";
 
 /**
  * LanguageDropdown
  *
  * @description
- * Trigger button that opens a language selection menu built on the shadcn
- * DropdownMenu (Radix UI). Shows the active language's flag and code.
- * Persists the selected language to localStorage on change.
- * Closes automatically via Radix focus/click-outside handling.
- *
- * @param placement - Direction the dropdown menu opens ("top" | "bottom"), defaults to "bottom"
+ * Trigger button that opens a language selection menu built on the shadcn DropdownMenu.
+ * Shows the active language's flag and code; persists the selection on change.
  */
 export function LanguageDropdown({ placement = "bottom" }: LanguageDropdownProps) {
     const { currentCode, currentLanguage, updateLanguage } = useLanguageDropdown();
