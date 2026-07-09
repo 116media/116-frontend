@@ -1,6 +1,6 @@
 import type { ICountryObject } from "@/shared/infrastructure/constants/countries";
 import { CheckIcon } from "@/shared/presentation/components/ui/Icon";
-import { cn } from "@/shared/presentation/utils/cn";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
  * Props for the CountryOption component.
@@ -23,10 +23,6 @@ export interface CountryOptionProps {
  * A single selectable row inside the {@link CountrySelect} menu: the country flag, dial
  * code, and name, with a trailing check when it is the current selection. Shares the
  * spacing of the app's dropdown menu items (`gap-2 rounded-sm p-2`).
- *
- * @param country - The country the row represents.
- * @param selected - Whether this country is the current selection.
- * @param onSelect - Emits the country name when clicked.
  */
 export function CountryOption({ country, selected, onSelect }: CountryOptionProps) {
     return (
