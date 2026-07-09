@@ -2,7 +2,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import type * as React from "react";
 
 import { badgeVariants } from "@/shared/presentation/components/ui/Badge";
-import { cn } from "@/shared/presentation/utils/cn";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 const tagVariants = cva(
     "inline-flex items-center gap-1 rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors cursor-pointer select-none whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
@@ -64,20 +64,9 @@ export interface TagProps
  * Tag
  *
  * @description
- * Highly customizable pill/badge component for rendering tags, categories,
- * or any label that may or may not be a link.
- * Supports variant, size, shape, prefix, and suffix slots.
- * All colors use theme.css tokens — no hardcoded values.
- *
- * @param variant - Visual style: default | outline | primary | secondary | ghost
- * @param size    - Size preset: sm | md | lg
- * @param shape   - rounded (default) | pill (fully rounded)
- * @param prefix  - Node rendered before the label (e.g. "#" or an icon)
- * @param suffix  - Node rendered after the label (e.g. count badge or icon)
- * @param as      - Underlying element: "a" (default) | "div" | "span"
- * @param href    - Destination URL — only meaningful when as="a"
- * @param target  - Link target attribute — only meaningful when as="a"
- * @param rel     - Link rel attribute — only meaningful when as="a"
+ * Customizable pill/badge component for rendering tags, categories, or any label
+ * that may or may not be a link. Supports variant, size, shape, prefix, and suffix
+ * slots; all colors use theme.css tokens.
  */
 export function Tag({
     className,
