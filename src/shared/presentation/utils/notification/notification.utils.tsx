@@ -26,11 +26,9 @@ export interface INotificationConfig {
  * showNotification
  *
  * @description
- * Displays a flash-message toast via sonner. The single entry point for
- * notifications — pass a config from a `*.notification.ts` file so copy stays
- * centralized and localized. Renders the custom {@link FlashToast} body
- * (`unstyled`, so its filled colored surface wins over sonner's defaults) and
- * wires the toast's own close button to sonner's `dismiss`.
+ * Displays a flash-message toast via sonner — the single entry point for notifications.
+ * Pass a config from a `*.notification.ts` file so copy stays centralized and localized.
+ * Renders the custom {@link FlashToast} body wired to sonner's `dismiss`.
  *
  * @param config - The notification to display. See {@link INotificationConfig}.
  */
