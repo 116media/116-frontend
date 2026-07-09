@@ -28,28 +28,24 @@ const PLYR_OPTIONS: Plyr.Options = {
 };
 
 /**
- * Props for VideoDetailPlayer.Plyr.
+ * Props for VideoPlayer.Plyr.
  *
- * @interface VideoDetailPlayerPlyrProps
+ * @interface VideoPlayerPlyrProps
  * @property {string} youtubeId - The 11-character YouTube video id to embed.
  */
-export interface VideoDetailPlayerPlyrProps {
+export interface VideoPlayerPlyrProps {
     youtubeId: string;
 }
 
 /**
- * VideoDetailPlayer.Plyr
+ * VideoPlayer.Plyr
  *
  * @description
- * The client-only inner player: a plyr-react YouTube embed carrying the
- * brand skin (`video-plyr.css` binds Plyr's CSS variables to theme tokens, so
- * the accent is primary in light mode and secondary in dark). Plyr touches
- * `window` at import time, so this file is only ever loaded through
- * `next/dynamic(..., { ssr: false })` in {@link VideoDetailPlayer}.
- *
- * @param youtubeId - The 11-character YouTube video id to embed.
+ * The client-only inner player: a plyr-react YouTube embed carrying the brand skin
+ * (`video-plyr.css` binds Plyr's CSS variables to theme tokens). Plyr touches `window`
+ * at import time, so this file is only loaded through `next/dynamic(..., { ssr: false })`.
  */
-export default function VideoDetailPlayerPlyr({ youtubeId }: VideoDetailPlayerPlyrProps) {
+export default function VideoPlayerPlyr({ youtubeId }: VideoPlayerPlyrProps) {
     return (
         <PlyrReact
             options={PLYR_OPTIONS}
