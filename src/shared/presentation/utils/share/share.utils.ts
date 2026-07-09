@@ -8,13 +8,28 @@
 export type SharePlatform = "facebook" | "x" | "whatsapp";
 
 /**
+ * resolveShareUrl
+ *
+ * @description
+ * Resolves the absolute URL of the page being shared. Prefers `window.location.href` in
+ * the browser; falls back to the public site base plus the given path so the value is
+ * defined outside the browser.
+ *
+ * @param path - The site-relative path to the shared page (e.g. `/videos/{slug}`)
+ * @returns The absolute page URL
+ */
+export function resolveShareUrl(path: string): string {
+    if (typeof window !== "undefined") return window.location.href;
+    return `${process.env.NEXT_PUBLIC_SITE_URL ?? ""}${path}`;
+}
+
+/**
  * buildShareUrl
  *
  * @description
  * Builds the share-intent URL for one network from an absolute page URL and title.
- * Pure and side-effect free: both inputs are URL-encoded and interpolated into the
- * network's documented share endpoint. Facebook ignores custom text (it scrapes Open
- * Graph); X and WhatsApp carry the title as the message.
+ * Facebook ignores custom text (it scrapes Open Graph); X and WhatsApp carry the
+ * title as the message.
  *
  * @param platform - The target network.
  * @param url - The absolute URL to share (for example `https://host/articles/{slug}`).
