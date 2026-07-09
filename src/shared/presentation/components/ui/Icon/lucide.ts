@@ -26,7 +26,7 @@ export {
     ChevronRight as ChevronRightIcon,
     ChevronsUpDown as ChevronsUpDownIcon,
     CircleCheck as CircleCheckIcon,
-    CircleHelp as HelpCircleIcon,
+    CircleHelp as CircleHelpIcon,
     Clock as ClockIcon,
     Cpu as CpuIcon,
     Crown as CrownIcon,
