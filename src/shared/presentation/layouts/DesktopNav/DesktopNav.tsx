@@ -2,10 +2,10 @@
 
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import Link from "next/link";
-import { ArticlesMegaMenu } from "@/modules/articles/presentation/components/ArticlesMegaMenu";
-import type { ArticlesMegaMenuProps } from "@/modules/articles/presentation/components/ArticlesMegaMenu/types";
-import { VideosMegaMenu } from "@/modules/videos/presentation/components/VideosMegaMenu";
-import type { VideosMegaMenuProps } from "@/modules/videos/presentation/components/VideosMegaMenu/types";
+import { ArticlesMegaMenu } from "@/modules/articles/presentation/components/navigation/ArticlesMegaMenu";
+import type { ArticlesMegaMenuProps } from "@/modules/articles/presentation/components/navigation/ArticlesMegaMenu/types";
+import { VideosMegaMenu } from "@/modules/videos/presentation/components/navigation/VideosMegaMenu";
+import type { VideosMegaMenuProps } from "@/modules/videos/presentation/components/navigation/VideosMegaMenu/types";
 import { Button } from "@/shared/presentation/components/ui/Button";
 import { ChevronDownIcon, SearchIcon } from "@/shared/presentation/components/ui/Icon";
 
@@ -18,9 +18,9 @@ import {
     NavigationMenuViewport
 } from "@/shared/presentation/components/ui/NavigationMenu";
 import { NAV_LINKS } from "@/shared/presentation/layouts/Header/constants";
-import { cn } from "@/shared/presentation/utils/cn";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
-interface DesktopNavProps {
+export interface DesktopNavProps {
     articles: ArticlesMegaMenuProps;
     videos: VideosMegaMenuProps;
 }
@@ -29,13 +29,9 @@ interface DesktopNavProps {
  * DesktopNav
  *
  * @description
- * Centre section of the Header for desktop viewports.
- * Renders primary nav links using Radix UI NavigationMenu so that
- * NEWS and VIDEOS items open mega menu panels on hover.
- * LYRICS and ARTISTES remain plain links with no sub-menu.
- * All mega menu data is prefetched server-side in PublicLayout and
- * passed in as props — no data fetching happens inside this component.
- * A search icon button sits to the right of the link group.
+ * Centre section of the Header for desktop viewports: primary nav links via Radix
+ * NavigationMenu, with mega menu panels on hover for NEWS and VIDEOS. Mega menu data
+ * is prefetched server-side in PublicLayout and passed in as props.
  */
 export function DesktopNav({ articles, videos }: DesktopNavProps) {
     return (
