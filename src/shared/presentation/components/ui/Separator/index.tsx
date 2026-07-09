@@ -1,4 +1,4 @@
-import { cn } from "@/shared/presentation/utils/cn";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
  * Props for the Separator component.
@@ -19,9 +19,6 @@ export interface SeparatorProps {
  * A thin themed divider. Horizontal spans full width (`h-px`), vertical spans full
  * height (`w-px`); both use the `--border` token. Rendered as an `<hr>` so the
  * separator role is implicit; `aria-orientation` marks the vertical variant.
- *
- * @param orientation - Rule direction (default "horizontal").
- * @param className - Extra classes (e.g. `h-4` for a vertical rule in a meta row).
  */
 export function Separator({ orientation = "horizontal", className }: SeparatorProps) {
     return (
