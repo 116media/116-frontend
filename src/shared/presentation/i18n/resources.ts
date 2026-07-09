@@ -9,11 +9,9 @@ import sharedFr from "@/shared/presentation/i18n/locales/fr";
  * en
  *
  * @description
- * The composed English translation catalog. Spreads the shared cross-cutting namespaces
- * (general, navigation, form, validator, apiErrors) and nests each module's English bundle
- * under its module key. This object's type is the canonical key shape consumed by the
- * react-i18next augmentation in `resources.d.ts`, so it must stay key-complete:
- * `t("general.viewAll")` for shared keys, `t("videos.home.watchNow")` for module keys.
+ * The composed English translation catalog: shared cross-cutting namespaces plus each
+ * module's bundle nested under its module key. Its type is the canonical key shape
+ * consumed by the react-i18next augmentation, so it must stay key-complete.
  */
 export const en = {
     ...sharedEn,
@@ -42,12 +40,9 @@ export const fr = {
  * resources
  *
  * @description
- * The i18n composition root for the frontend — the translation analogue of
- * `service.locator.ts`. Just as the DI container aggregates each module's
- * `registerXDependencies`, this file aggregates each module's `<m>Messages` alongside the
- * shared namespaces into one resource store, one entry per locale. Modules own their
- * strings; this root composes them. Each locale exposes a single `translation` namespace
- * (the flat composed object) that `config.ts` registers with i18next.
+ * The i18n composition root: aggregates each module's `<m>Messages` alongside the shared
+ * namespaces into one resource store, one entry per locale. Each locale exposes a single
+ * `translation` namespace that `config.ts` registers with i18next.
  */
 export const resources = {
     fr: { translation: fr },
