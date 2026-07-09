@@ -12,11 +12,9 @@ export const REFRESH_TOKEN_EXPIRED_EVENT = "refresh-token-expired";
  * refreshTokenExpiryInterceptor
  *
  * @description
- * Axios response error interceptor that handles expired refresh tokens. On
- * `403 RefreshTokenExpiryException`, dispatches {@link REFRESH_TOKEN_EXPIRED_EVENT}
- * on `window` so the presentation layer can react (drop to guest, open the login
- * modal). Runs AFTER the access-token-expiry interceptor so a normal refresh is
- * attempted first.
+ * Response error interceptor that dispatches {@link REFRESH_TOKEN_EXPIRED_EVENT} on
+ * `403 RefreshTokenExpiryException` so the presentation layer can drop to guest.
+ * Runs after the access-token-expiry interceptor, so a normal refresh is attempted first.
  *
  * @param error - The axios error.
  * @returns A rejected promise (always re-throws).
