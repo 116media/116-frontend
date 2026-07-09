@@ -2,7 +2,7 @@
 
 import { PlayIcon } from "@/shared/presentation/components/ui/Icon";
 
-import { cn } from "@/shared/presentation/utils/cn";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
  * Props for the ButtonFrostedPlay component.
@@ -22,8 +22,6 @@ export interface ButtonFrostedPlayProps {
  * Frosted-glass circular play button for overlaying on video thumbnails.
  * Scales up on parent group hover. Shared across all VideosMegaMenuCard variants.
  * Exported from the Button barrel alongside Button and buttonVariants.
- *
- * @param size - Size preset: sm | md | lg. Defaults to "md"
  */
 export function ButtonFrostedPlay({ size = "md" }: ButtonFrostedPlayProps) {
     return (
