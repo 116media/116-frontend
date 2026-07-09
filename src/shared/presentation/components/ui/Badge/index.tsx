@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import type { HTMLAttributes } from "react";
 
-import { cn } from "@/shared/presentation/utils/cn";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 const badgeVariants = cva(
     "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
@@ -31,12 +31,9 @@ export interface BadgeProps
  * Badge
  *
  * @description
- * Compact inline label for status, category, or count indicators.
- * Built on CVA with the four standard shadcn variants: default, secondary,
- * destructive, and outline. All colors use theme.css tokens — no hardcoded values.
- *
- * For a richer tag/pill component with link support, prefix/suffix slots,
- * and additional variants, use the Tag component instead.
+ * Compact inline label for status, category, or count indicators, with the four
+ * standard shadcn variants. All colors use theme.css tokens. For a richer tag/pill
+ * with link support and slots, use the Tag component instead.
  *
  * @param variant - Visual style: default | secondary | destructive | outline
  */
