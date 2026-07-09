@@ -1,15 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import type { ArticlesMegaMenuProps } from "@/modules/articles/presentation/components/ArticlesMegaMenu/types";
-import type { VideosMegaMenuProps } from "@/modules/videos/presentation/components/VideosMegaMenu/types";
+import type { ArticlesMegaMenuProps } from "@/modules/articles/presentation/components/navigation/ArticlesMegaMenu/types";
+import type { VideosMegaMenuProps } from "@/modules/videos/presentation/components/navigation/VideosMegaMenu/types";
 import { LanguageDropdown } from "@/shared/presentation/components/common/LanguageDropdown";
 import { ThemeToggle } from "@/shared/presentation/components/common/ThemeToggle";
 import { UserAccountControl } from "@/shared/presentation/components/common/UserAccountControl";
-import { DesktopNav } from "@/shared/presentation/layouts/Navigation/DesktopNav";
+import { DesktopNav } from "@/shared/presentation/layouts/DesktopNav";
 import { PageContainer } from "@/shared/presentation/layouts/PageContainer";
 
-interface HeaderProps {
+export interface HeaderProps {
     articles: ArticlesMegaMenuProps;
     videos: VideosMegaMenuProps;
 }
@@ -18,16 +18,9 @@ interface HeaderProps {
  * Header
  *
  * @description
- * Main navigation header displayed below the TopBar on every public page.
- * Three-column layout: logo (left) | nav + search (centre) | auth + theme toggle (right).
- * Sticky with backdrop blur. Uses PageContainer for consistent horizontal padding.
- * Shows the correct logo variant per theme (light/dark).
- *
- * The centre column (DesktopNav) is hidden on mobile — a hamburger drawer
- * will be added in a later iteration.
- * UserAccountControl shows "Se connecter" for anonymous visitors or an avatar
- * for authenticated users. User is null until auth is wired up.
- * Mega menu data is prefetched server-side in PublicLayout and forwarded here.
+ * Main navigation header below the TopBar on every public page: logo, DesktopNav,
+ * and account/theme/language controls. Mega menu data is prefetched server-side in
+ * PublicLayout and forwarded here.
  */
 export function Header({ articles, videos }: HeaderProps) {
     return (
