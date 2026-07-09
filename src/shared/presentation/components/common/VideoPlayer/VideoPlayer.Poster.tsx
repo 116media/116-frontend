@@ -3,31 +3,26 @@ import Image from "next/image";
 import { PlayIcon } from "@/shared/presentation/components/ui/Icon";
 
 /**
- * Props for VideoDetailPlayer.Poster.
+ * Props for VideoPlayer.Poster.
  *
- * @interface VideoDetailPlayerPosterProps
+ * @interface VideoPlayerPosterProps
  * @property {string | null} thumbnailUrl - The video thumbnail, or null when unset.
  * @property {string} title - The video title, used as the image alt text.
  */
-export interface VideoDetailPlayerPosterProps {
+export interface VideoPlayerPosterProps {
     thumbnailUrl: string | null;
     title: string;
 }
 
 /**
- * VideoDetailPlayer.Poster
+ * VideoPlayer.Poster
  *
  * @description
- * The 16:9 poster frame shown in place of the player: as the dynamic-import
- * loading fallback (so the layout never shifts and the server HTML still
- * shows the cover) and as the permanent surface when the video has no YouTube
- * URL. Renders the thumbnail with a centered play glyph, or a muted glyph-only
- * surface when the thumbnail is also missing — never an empty Plyr shell.
- *
- * @param thumbnailUrl - The video thumbnail, or null when unset.
- * @param title - The video title (image alt text).
+ * The 16:9 poster frame shown in place of the player: the dynamic-import loading
+ * fallback and the permanent surface when the video has no YouTube URL. Renders the
+ * thumbnail with a play glyph, or a muted glyph-only surface when both are missing.
  */
-export function VideoDetailPlayerPoster({ thumbnailUrl, title }: VideoDetailPlayerPosterProps) {
+export function VideoPlayerPoster({ thumbnailUrl, title }: VideoPlayerPosterProps) {
     return (
         <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-muted">
             {thumbnailUrl && (
