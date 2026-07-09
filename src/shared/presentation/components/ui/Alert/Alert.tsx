@@ -17,10 +17,7 @@ export interface AlertProps {
  * @description
  * Renders a backend `Failure` (already localized `title` + `detail`) at the top of
  * a form, styled with destructive theme tokens. Renders nothing when there is no
- * error. The frontend equivalent of the dashboard's `ErrorAlert` — backend errors
- * surface here, never on individual fields.
- *
- * @param error - The failure to display, or null/undefined for no alert.
+ * error; backend errors surface here, never on individual fields.
  */
 export function Alert({ error }: AlertProps) {
     if (!error) return null;
