@@ -4,15 +4,12 @@ import { err, ok, type Result } from "@/shared/domain/results/result";
 import { ProblemMapper } from "@/shared/infrastructure/mappers/problem.mapper";
 
 /**
- * Geolocation repository implementation backed by the internal `/api/geo`
- * route handler.
+ * GeoRepositoryImpl
  *
  * @description
- * Implements IGeoRepositoryPort by calling the same-origin `/api/geo` endpoint,
- * which resolves the country server-side (keeping any third-party IP lookup off
- * the browser). Browser-only — outside the browser the relative URL cannot
- * resolve, so it returns a failure without touching the network. All outcomes
- * are `Result<T>`; errors are converted to typed Failure values.
+ * Implements IGeoRepositoryPort via the same-origin `/api/geo` route, which resolves
+ * the country server-side. Browser-only: outside the browser it returns a failure
+ * without touching the network. Errors are converted to typed Failure values.
  */
 export class GeoRepositoryImpl implements IGeoRepositoryPort {
     /**
