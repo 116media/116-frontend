@@ -1,10 +1,10 @@
 /*
  * Brand skin for the detail-page Plyr player, scoped under
- * .video-detail-player. Every color binds to a theme token so dark/light
+ * .video-player. Every color binds to a theme token so dark/light
  * follows automatically: primary drives the accent in light mode, secondary
  * in dark — the same duality the rest of the app uses.
  */
-.video-detail-player .plyr {
+.video-player .plyr {
     --plyr-color-main: var(--primary);
     --plyr-video-control-color: var(--primitive-white);
     --plyr-video-control-background-hover: var(--primary);
@@ -17,7 +17,7 @@
     overflow: hidden;
 }
 
-.dark .video-detail-player .plyr {
+.dark .video-player .plyr {
     --plyr-color-main: var(--secondary);
     --plyr-video-control-background-hover: var(--secondary);
     --plyr-range-fill-background: var(--secondary);
