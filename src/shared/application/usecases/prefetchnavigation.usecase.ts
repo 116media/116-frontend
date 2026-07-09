@@ -1,15 +1,14 @@
 import type { GetArticleCategoriesUseCase } from "@/modules/articles/application/usecases/getarticlecategories.usecase";
 import type { GetArticlePopularTagsUseCase } from "@/modules/articles/application/usecases/getarticlepopulartags.usecase";
 import type { GetPromotedArticlesUseCase } from "@/modules/articles/application/usecases/getpromotedarticles.usecase";
-import type { ArticlesMegaMenuProps } from "@/modules/articles/presentation/components/ArticlesMegaMenu/types";
+import type { ArticlesMegaMenuProps } from "@/modules/articles/presentation/components/navigation/ArticlesMegaMenu/types";
 import type { GetPromotedVideosUseCase } from "@/modules/videos/application/usecases/getpromotedvideos.usecase";
 import type { GetVideoCategoriesUseCase } from "@/modules/videos/application/usecases/getvideocategories.usecase";
 import type { GetVideoPopularTagsUseCase } from "@/modules/videos/application/usecases/getvideopopulartags.usecase";
-import type { VideosMegaMenuProps } from "@/modules/videos/presentation/components/VideosMegaMenu/types";
+import type { VideosMegaMenuProps } from "@/modules/videos/presentation/components/navigation/VideosMegaMenu/types";
 import type { IResultUseCase } from "@/shared/application/usecases/IUseCase";
 import { ok, type Result, unwrap } from "@/shared/domain/results/result";
-
-const PROMOTED_LIMIT = 4;
+import { PROMOTED_LIMIT } from "@/shared/presentation/constants/limits";
 
 /**
  * Shape returned by PrefetchNavigationUseCase on success.
@@ -36,12 +35,9 @@ interface IPrefetchNavigationUseCase extends IResultUseCase<void, INavigationDat
  * @implements {IPrefetchNavigationUseCase}
  *
  * @description
- * Orchestrates six child use cases (article categories, promoted articles,
- * article popular tags, video categories, promoted videos, video popular tags)
- * into a single parallel call. Unwraps each `Result` with a safe fallback to
- * an empty array so the navigation always renders — even if one API call fails.
- * Designed to be resolved from the Awilix container and called once per request
- * in the public layout server component.
+ * Orchestrates the six navigation child use cases into a single parallel call,
+ * unwrapping each `Result` to an empty-array fallback so the navigation always
+ * renders. Called once per request in the public layout server component.
  */
 export class PrefetchNavigationUseCase implements IPrefetchNavigationUseCase {
     private readonly getArticleCategoriesUseCase: GetArticleCategoriesUseCase;
