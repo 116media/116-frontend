@@ -10,11 +10,9 @@ import type { Result } from "@/shared/domain/results/result";
  * useToggle
  *
  * @description
- * Shared optimistic toggle used by like and bookmark: owns a boolean `on` state and a
- * displayed `count`, flips them immediately on `toggle`, runs the on/off use case, and
- * rolls both back on failure. `initialOn` seeds the state from the entity's per-user
- * flag where the DTO provides one (the article detail); it defaults to false for
- * surfaces whose summary DTO exposes no per-user flag (the feed).
+ * Shared optimistic toggle used by like and bookmark: flips `on` and `count`
+ * immediately, runs the on/off use case, and rolls both back on failure.
+ * `initialOn` seeds the state from the entity's per-user flag when the DTO has one.
  *
  * @param initialCount - The baseline count from the entity.
  * @param onExecute - Runs the "on" (true) or "off" (false) mutation; resolves the success flag.
