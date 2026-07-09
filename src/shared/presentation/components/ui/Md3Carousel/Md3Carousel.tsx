@@ -3,7 +3,7 @@
 import { type ReactNode, useRef, useState } from "react";
 import { Button } from "@/shared/presentation/components/ui/Button";
 import { ChevronLeftIcon, ChevronRightIcon } from "@/shared/presentation/components/ui/Icon";
-import { cn } from "@/shared/presentation/utils/cn";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
  * Shared width/opacity transition driving the hero expand/collapse. The
@@ -62,19 +62,9 @@ export interface Md3CarouselProps<T> {
  * Md3Carousel
  *
  * @description
- * Generic Material 3 multi-browse carousel. It keeps a fixed window of
- * `heroCount + visibleChildren` cards visible at all times, filling the parent
- * width: `heroCount` large focal cards plus `visibleChildren` small "keyline"
- * cards. The small cards sit at whichever edge has off-screen content — trailing
- * at the start, splitting to one per side in the middle, and leading once the
- * end is reached — so they appear to migrate across as you swipe. Advancing
- * animates each card's explicit `width`, and because the card content is
- * `object-cover`, that width animation *masks* the artwork (crops, never
- * squishes), the MD3 signature.
- *
- * Advancing happens three ways: clicking a card, dragging/swiping horizontally,
- * and the corner arrows (step, with wrap-around). Clicking a hero invokes
- * `onHeroActivate`. Content is supplied by the consumer via `renderItem`.
+ * Generic Material 3 multi-browse carousel: a fixed window of `heroCount` focal
+ * cards plus `visibleChildren` small keyline cards, advanced by click, swipe, or
+ * the corner arrows. Consumers supply card content via `renderItem`.
  */
 export function Md3Carousel<T>({
     items,
