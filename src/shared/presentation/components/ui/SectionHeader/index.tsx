@@ -21,15 +21,9 @@ export interface SectionHeaderProps {
  * SectionHeader
  *
  * @description
- * A shared header row for a page or section: a boxed leading icon followed by the title and
- * an optional subtitle, set off by a bottom divider. Used by the settings tabs (as an `h1`
- * page header) and the article detail sidebar (as an `h2` section header). Colors are theme
- * tokens.
- *
- * @param icon - The leading icon element.
- * @param title - The section title.
- * @param subtitle - Optional supporting line under the title.
- * @param as - Heading level for the title (defaults to `h2`).
+ * A shared header row for a page or section: a boxed leading icon followed by the
+ * title and an optional subtitle, set off by a bottom divider. Used by the settings
+ * tabs (as `h1`) and the article detail sidebar (as `h2`).
  */
 export function SectionHeader({ icon, title, subtitle, as = "h2" }: SectionHeaderProps) {
     const Heading = as;
