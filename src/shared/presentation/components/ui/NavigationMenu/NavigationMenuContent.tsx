@@ -4,17 +4,15 @@ import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import type { ComponentPropsWithoutRef, ComponentRef } from "react";
 import { forwardRef } from "react";
 
-import { cn } from "@/shared/presentation/utils/cn";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
  * NavigationMenuContent
  *
  * @description
  * The panel that appears when a NavigationMenuTrigger is activated.
- * Rendered inside the NavigationMenuViewport so it slides in from
- * below the header bar. Uses popover tokens for background, border,
- * and text color — consistent with DropdownMenuContent.
- * Animates in/out using Tailwind animation utilities.
+ * Rendered inside the NavigationMenuViewport; uses popover tokens for
+ * background, border, and text color — consistent with DropdownMenuContent.
  */
 export const NavigationMenuContent = forwardRef<
     ComponentRef<typeof NavigationMenuPrimitive.Content>,
