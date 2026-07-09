@@ -3,17 +3,15 @@
 import { useCallback, useEffect, useState } from "react";
 
 import { useCarousel } from "@/shared/presentation/components/ui/Carousel";
-import { cn } from "@/shared/presentation/utils/cn";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
  * CarouselDots
  *
  * @description
- * Dot indicator component for the Carousel compound.
- * Reads the Embla API from the Carousel context to determine the
- * number of slides and the currently selected index.
- * Each dot is a clickable button that scrolls to the corresponding slide.
- * Positioned via the `className` prop (e.g. `absolute bottom-3 right-3`).
+ * Dot indicator for the Carousel compound. Reads the Embla API from context for
+ * the slide count and selected index; each dot scrolls to its slide. Positioned
+ * via the `className` prop (e.g. `absolute bottom-3 right-3`).
  */
 export function CarouselDots({ className }: { className?: string }) {
     const { api } = useCarousel();
