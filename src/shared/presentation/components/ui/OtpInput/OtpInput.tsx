@@ -23,13 +23,7 @@ export interface OtpInputProps {
  *
  * @description
  * Segmented numeric one-time-code input: `length` single-digit boxes with
- * auto-advance, backspace navigation, and paste-to-fill. Numeric `inputmode`.
- * Mirrors the mobile OTP UX. The one auth control not wrapped in a floating-label
- * field, though the boxes use the shared gray `bg-muted` + `rounded-sm` styling.
- *
- * @param value - The current code.
- * @param onChange - Emits the joined code on every edit.
- * @param length - Digit count (default 6).
+ * auto-advance, backspace navigation, and paste-to-fill.
  */
 export function OtpInput({ value, onChange, length = 6 }: OtpInputProps) {
     const refs = useRef<Array<HTMLInputElement | null>>([]);
