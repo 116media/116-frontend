@@ -4,12 +4,8 @@ import { type RefObject, useEffect, useState } from "react";
  * useReadingProgress
  *
  * @description
- * Tracks how far a target element (typically the article body) has scrolled past the
- * viewport, as a 0..100 percentage. The percentage is the fraction of the element that has
- * passed the bottom of the viewport: 0 at the element's top, 100 once its bottom reaches
- * the viewport bottom. Scroll and resize handlers are rAF-throttled and passive; all window
- * access is guarded so the hook is SSR-safe and returns 0 on the server. Listeners and any
- * pending animation frame are cleaned up on unmount.
+ * Tracks the fraction of a target element that has passed the viewport bottom, as a
+ * 0..100 percentage. Handlers are rAF-throttled and passive; SSR-safe (0 on the server).
  *
  * @param targetRef - A ref to the element whose reading progress is measured.
  * @returns The reading progress, 0..100.
