@@ -7,55 +7,9 @@ import { Button } from "@/shared/presentation/components/ui/Button";
 import { ButtonGroup } from "@/shared/presentation/components/ui/ButtonGroup";
 import { LinkIcon } from "@/shared/presentation/components/ui/Icon";
 import { Colors } from "@/shared/presentation/constants/colors";
-import { cn } from "@/shared/presentation/utils/cn";
-import { buildShareUrl, type SharePlatform } from "@/shared/presentation/utils/shareUrl";
-
-/**
- * Accessible labels for the four share buttons, provided by the caller so the
- * group stays i18n-namespace-agnostic.
- *
- * @interface ISocialShareLabels
- * @property {string} facebook - Label for the Facebook button.
- * @property {string} x - Label for the X button.
- * @property {string} whatsapp - Label for the WhatsApp button.
- * @property {string} copy - Label for the copy-link button.
- */
-export interface ISocialShareLabels {
-    facebook: string;
-    x: string;
-    whatsapp: string;
-    copy: string;
-}
-
-/**
- * Props for SocialShareGroup.
- *
- * @interface SocialShareGroupProps
- * @property {string} url - The absolute URL being shared.
- * @property {string} title - The page title, carried into the share message.
- * @property {"horizontal" | "vertical"} [orientation] - Group direction. Defaults to vertical.
- * @property {boolean} [separated] - Render the buttons as individually rounded,
- * gapped buttons instead of one seamless segmented control. Defaults to false.
- * @property {ISocialShareLabels} labels - Accessible labels for the four buttons.
- * @property {(platform: string) => void} [onShared] - Fires after a network share completes (telemetry seam).
- * @property {() => void} [onCopied] - Fires after the URL lands in the clipboard (toast seam).
- * @property {SocialShareKey[]} [platforms] - Which buttons to render, in order.
- * Defaults to all four (`facebook`, `x`, `whatsapp`, `copy`).
- * @property {string} [className] - Extra classes merged onto the group container.
- */
-export interface SocialShareGroupProps {
-    url: string;
-    title: string;
-    separated?: boolean;
-    labels: ISocialShareLabels;
-    orientation?: "horizontal" | "vertical";
-    onCopied?: () => void;
-    onShared?: (platform: string) => void;
-    className?: string;
-    platforms?: SocialShareKey[];
-}
-
-export type SocialShareKey = SharePlatform | "copy";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
+import { buildShareUrl, type SharePlatform } from "@/shared/presentation/utils/share/share.utils";
+import type { SocialShareGroupProps, SocialShareKey } from "./types";
 
 const DEFAULT_PLATFORMS: SocialShareKey[] = ["facebook", "x", "whatsapp", "copy"];
 
@@ -85,25 +39,9 @@ interface ISocialShareButton {
  * SocialShareGroup
  *
  * @description
- * The shared share affordance: Facebook, X, WhatsApp, and copy-link buttons
- * rendered as one segmented `ButtonGroup` (vertical for the article rail,
- * horizontal for the video share modal). Each network button carries its
- * brand color as a solid background with a white glyph; the copy-link button
- * uses the adaptive accent token. Network buttons prefer the native Web Share
- * API and fall back to opening the platform's intent URL in a new window; the
- * copy-link button writes the URL to the clipboard. Side effects stay with
- * the caller: `onShared(platform)` is the telemetry seam and `onCopied` the
- * toast seam. The solid brand backgrounds are the one documented brand-color
- * exception; all other colors are tokens.
- *
- * @param url - The absolute URL being shared.
- * @param title - The page title, carried into the share message.
- * @param orientation - Group direction. Defaults to vertical.
- * @param labels - Accessible labels for the four buttons.
- * @param onShared - Fires after a network share completes.
- * @param onCopied - Fires after the URL lands in the clipboard.
- * @param platforms - Which buttons to render, in order (defaults to all four).
- * @param className - Extra classes merged onto the ButtonGroup.
+ * The shared share affordance: Facebook, X, WhatsApp, and copy-link buttons in one
+ * `ButtonGroup`. Network buttons prefer the native Web Share API and fall back to the
+ * platform's intent URL; the solid brand backgrounds are the one brand-color exception.
  */
 export function SocialShareGroup({
     url,
