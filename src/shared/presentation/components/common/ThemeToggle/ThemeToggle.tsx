@@ -22,11 +22,8 @@ import {
  * ThemeToggle
  *
  * @description
- * Animated icon button that switches between light and dark mode.
- * The icon morphs between a sun (light) and a moon (dark) with animated
- * rays and shine effects powered by Motion.
- * Uses the shadcn Button with ghost + icon variant.
- * All colors reference CSS tokens from theme.css.
+ * Animated icon button that switches between light and dark mode, morphing between
+ * a sun and a moon via Motion. All colors reference CSS tokens from theme.css.
  */
 export function ThemeToggle() {
     const { theme, setTheme } = useTheme();
