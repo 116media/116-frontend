@@ -1,12 +1,13 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { type ComponentType, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { useAuthModal } from "@/modules/auth/presentation/context/AuthModalProvider";
 import { useAuth } from "@/modules/auth/presentation/context/AuthProvider";
 import { useLogout } from "@/modules/auth/presentation/hooks/useLogout";
+import { UserAvatar } from "@/shared/presentation/components/common/UserAvatar";
 import { Button } from "@/shared/presentation/components/ui/Button";
 import { ConfirmDialog } from "@/shared/presentation/components/ui/ConfirmDialog";
 import {
@@ -17,51 +18,22 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger
 } from "@/shared/presentation/components/ui/DropdownMenu";
-import { LockIcon, LogOutIcon, UserRoundIcon } from "@/shared/presentation/components/ui/Icon";
+import { LogOutIcon } from "@/shared/presentation/components/ui/Icon";
 import { Skeleton } from "@/shared/presentation/components/ui/Skeleton";
-import {
-    SETTINGS_PROFILE_PATH,
-    SETTINGS_SECURITY_PATH
-} from "@/shared/presentation/constants/paths";
-import { cn } from "@/shared/presentation/utils/cn";
-import { UserAvatar } from "../UserAvatar";
+import { USER_MENU_ITEMS } from "@/shared/presentation/constants/userMenu";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
-interface UserAccountControlProps {
+export interface UserAccountControlProps {
     className?: string;
 }
-
-const USER_MENU_ITEMS: ReadonlyArray<{
-    key: string;
-    labelKey: string;
-    path: string;
-    Icon: ComponentType<{ className?: string }>;
-}> = [
-    {
-        key: "profile",
-        Icon: UserRoundIcon,
-        labelKey: "settings.menu.myProfile",
-        path: SETTINGS_PROFILE_PATH
-    },
-    {
-        key: "security",
-        Icon: LockIcon,
-        labelKey: "settings.menu.changePassword",
-        path: SETTINGS_SECURITY_PATH
-    }
-];
 
 /**
  * UserAccountControl
  *
  * @description
- * The Header's auth control, driven by `useAuth()`:
- *
- * - **Guest** — renders a "Log in" button that opens the auth modal at the login
- *   view via `useAuthModal().open("login")`.
- * - **Authenticated** — renders the user's avatar as a dropdown trigger. The menu
- *   shows the avatar, username, and email (no role), an "Account" group whose entries
- *   come from {@link USER_MENU_ITEMS}, and a destructive "Sign out" action gated behind
- *   a confirmation dialog wired to `useLogout`.
+ * The Header's auth control, driven by `useAuth()`. Guests get a "Log in" button that
+ * opens the auth modal; authenticated users get an avatar dropdown with the
+ * {@link USER_MENU_ITEMS} entries and a confirm-gated sign-out wired to `useLogout`.
  *
  * @param className - Additional classes to merge onto the trigger.
  */
