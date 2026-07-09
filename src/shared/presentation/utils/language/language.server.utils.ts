@@ -1,7 +1,7 @@
 import { getCookie } from "cookies-next/server";
 import { cookies } from "next/headers";
 import { USER_LANG } from "@/shared/presentation/constants/languages";
-import { resolveLanguage } from "@/shared/presentation/utils/resolveLanguage";
+import { resolveLanguage } from "@/shared/presentation/utils/language/language.utils";
 
 /**
  * getServerLanguage
