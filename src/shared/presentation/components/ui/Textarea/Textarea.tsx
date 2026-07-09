@@ -2,19 +2,15 @@
 
 import { forwardRef, type TextareaHTMLAttributes } from "react";
 
-import { cn } from "@/shared/presentation/utils/cn";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
  * Textarea
  *
  * @description
- * The base multiline text primitive — the textarea sibling of `Input`. Mirrors `Input`'s
- * tokens exactly: transparent surface (`dark:bg-input/30` in dark), `border-input`
- * border, rounded corners, the shadcn focus ring (`ring-3 ring-ring/20` +
- * `border-ring`), and the disabled + `aria-invalid` states (light and dark). Adds a
- * comfortable auto min-height (`min-h-24`) and vertical-only resize. All theme tokens, so
- * light/dark is automatic; callers override sizing or radius via `className` (merged by
- * `cn`, so later utilities win).
+ * The base multiline text primitive — the textarea sibling of `Input`, mirroring its
+ * tokens, focus ring, and disabled + `aria-invalid` states. Adds a comfortable
+ * min-height and vertical-only resize; callers override styles via `className`.
  *
  * @param className - Extra classes merged onto (and overriding) the base styles.
  */
