@@ -3,9 +3,8 @@
  *
  * @description
  * Miroir français des messages de validation. Chaque message nomme son champ via
- * l'interpolation `{{field}}` (le libellé localisé du champ, fourni par
- * `Validators`) — p. ex. « E-mail ou nom d'utilisateur est obligatoire ». Doit
- * rester aligné avec l'anglais.
+ * l'interpolation `{{field}}` (le libellé localisé du champ, fourni par `Validators`).
+ * Doit rester aligné avec l'anglais.
  */
 export const validator = {
     required: "{{field}} est obligatoire",
