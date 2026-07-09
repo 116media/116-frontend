@@ -10,7 +10,7 @@ import {
     DialogTitle
 } from "@/shared/presentation/components/ui/Dialog";
 import { XIcon } from "@/shared/presentation/components/ui/Icon";
-import { cn } from "@/shared/presentation/utils/cn";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
  * Props for the ModalForm component.
@@ -42,26 +42,9 @@ export interface ModalFormProps {
  * ModalForm
  *
  * @description
- * The shared chrome for every form-bearing modal in the app, so they all share the same
- * layout: a header with the title and a close button separated from the body by a bottom
- * border, a body holding the fields, and a footer holding the actions separated by a top
- * border and laid out with space-between. Renders its own panel surface (`bg-dialog`,
- * border, radius, shadow) over the bare `DialogContent` shell and is controlled via
- * `open`. Consumers supply the field rows as `children` and the action buttons as
- * `footer`; the `<form>` wraps both so a footer submit button drives `onSubmit`. An
- * optional `subtitle` renders as the dialog's accessible description. The body is not
- * clipped, so an in-flow field popover (e.g. `CountrySelect`) can overlay the rows and
- * footer below it.
- *
- * @param open - Whether the modal is open.
- * @param onOpenChange - Open-state setter.
- * @param header - The header title.
- * @param subtitle - Optional supporting text under the header.
- * @param onSubmit - Submit handler for the body form.
- * @param children - The form body.
- * @param footer - The footer actions.
- * @param className - Extra classes merged onto the panel.
- * @param describedById - Id of the describing element, if any.
+ * Shared chrome for every form-bearing modal: header with title and close button,
+ * a form body, and a footer of actions, wrapped in one `<form>` so a footer submit
+ * button drives `onSubmit`. Controlled via `open`/`onOpenChange`.
  */
 export function ModalForm({
     open,
