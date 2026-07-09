@@ -1,18 +1,17 @@
-import type { IFile } from "@/modules/auth/domain/entities/IFile";
-import type { IPermission } from "@/modules/auth/domain/entities/IPermission";
-import type { IRole } from "@/modules/auth/domain/entities/IRole";
-import type { EAuthProvider } from "@/modules/auth/domain/enums/EAuthProvider";
+import type { IFile } from "@/shared/domain/entities/IFile";
+import type { IPermission } from "@/shared/domain/entities/IPermission";
+import type { IRole } from "@/shared/domain/entities/IRole";
+import type { EAuthProvider } from "@/shared/domain/enums/EAuthProvider";
 
 /**
  * Authenticated user entity, shared app-wide via `useAuth()`.
  *
- * @interface IAuthUser
+ * @interface IAuthUserEntity
  *
  * @description
  * Core domain entity for the authenticated user. Maps 1:1 from the backend
- * `UserResponseDto` — country and phone stay as flat fields (not nested), matching
- * the dashboard's `IUser`. `isVerified`/`isActive` drive the derived auth status;
- * the avatar is the whole file object.
+ * `UserResponseDto`, with country and phone as flat fields (not nested).
+ * `isVerified`/`isActive` drive the derived auth status; the avatar is the whole file object.
  *
  * @property {string} id - Unique user identifier.
  * @property {string | null} [email] - Email address, or null for some providers.
@@ -31,7 +30,7 @@ import type { EAuthProvider } from "@/modules/auth/domain/enums/EAuthProvider";
  * @property {string | null} [createdAt] - ISO account creation timestamp.
  * @property {string | null} [updatedAt] - ISO last-update timestamp.
  */
-export interface IAuthUser {
+export interface IAuthUserEntity {
     id: string;
     email?: string | null;
     userName: string;
