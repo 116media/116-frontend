@@ -14,11 +14,9 @@ const translate = (key: string, params?: Record<string, unknown>): string => {
 };
 
 /**
- * Builds a lazy, field-aware zod 4 `error` callback. zod calls it when an issue is
- * created (validation time), so the message is localized in the **active** language
- * and names the field via its i18n label key — e.g. "Email or username is required".
- * This replaces the old descriptor + global error map: in zod an explicit message
- * always wins over the error map, so localization must happen in the message itself.
+ * Builds a lazy, field-aware zod 4 `error` callback, invoked at validation time so the
+ * message is localized in the active language and names the field via its i18n label
+ * key. In zod an explicit message wins over the error map, so localization lives here.
  *
  * @param key - The `validator.*` message key.
  * @param field - The i18n key of the field's label (interpolated as `{{field}}`).
@@ -29,10 +27,8 @@ const fieldError = (key: string, field: string, params?: Record<string, number>)
     translate(key, { field: translate(field), ...params });
 
 /**
- * Shared, reusable zod field builders — the frontend analogue of the dashboard's
- * `ValidatorUtils`. Each builder takes the field's i18n label key (e.g.
- * `"auth.login.credentialsLabel"`) so its message names the field, exactly like the
- * dashboard passes `"Adresse e-mail"` to `LoginValidator.email(...)`.
+ * Shared, reusable zod field builders. Each builder takes the field's i18n label key
+ * (e.g. `"auth.login.credentialsLabel"`) so its error messages name the field.
  */
 export const Validators = {
     /**
