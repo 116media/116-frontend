@@ -4,9 +4,11 @@ import dayjs from "dayjs";
 import { useCallback, useMemo, useSyncExternalStore } from "react";
 import { LANGUAGE_LIST, USER_LANG } from "@/shared/presentation/constants/languages";
 import { i18n } from "@/shared/presentation/i18n/config";
-import { getClientLanguage } from "@/shared/presentation/utils/getClientLanguage";
-import { setClientLanguage } from "@/shared/presentation/utils/setClientLanguage";
-import { setLanguageCookie } from "@/shared/presentation/utils/setLanguageCookie";
+import {
+    getClientLanguage,
+    setClientLanguage,
+    setLanguageCookie
+} from "@/shared/presentation/utils/language/language.client.utils";
 
 function subscribeToLanguage(callback: () => void) {
     window.addEventListener("storage", callback);
@@ -17,15 +19,9 @@ function subscribeToLanguage(callback: () => void) {
  * useLanguageDropdown
  *
  * @description
- * Encapsulates current language resolution and language update logic
- * for the language dropdown.
- * Uses useSyncExternalStore so the server always renders the static default
- * snapshot while the client reads from localStorage — eliminating the
- * hydration mismatch without needing useEffect or hardcoded strings.
- *
- * On update it persists the choice, switches the shared i18next instance and the dayjs
- * locale, then dispatches a StorageEvent so every subscriber (including I18nProvider,
- * which mirrors <html lang>) reacts to the change.
+ * Current-language resolution and update logic for the language dropdown. Uses
+ * useSyncExternalStore to avoid hydration mismatches; updates persist the choice,
+ * switch i18next and dayjs, and dispatch a StorageEvent for subscribers.
  *
  * @returns currentCode, currentLanguage, updateLanguage
  */
