@@ -1,22 +1,6 @@
 /**
- * Application route path constants.
- *
- * @description
- * Centralized route paths for consistent navigation throughout the application.
- * Use these constants instead of hardcoded strings to avoid typos and ease refactoring.
- *
- * **Public Routes:**
- * - Home: Landing page with the content feed
- * - Articles: Article listing and detail pages
- * - Videos: Video listing and detail pages
- * - Lyrics: Lyrics listing and detail pages
- * - Artistes: Artist profile listing and detail pages
- *
- * **User Routes:**
- * - Profile: Authenticated user profile page
- * - Bookmarks: Saved content
- * - Playlists: User playlists
- * - Settings: User preferences
+ * Application route path constants, used instead of hardcoded strings for
+ * consistent navigation. Detail paths carry a `:slug` placeholder.
  */
 
 export const HOME_PATH = "/";
