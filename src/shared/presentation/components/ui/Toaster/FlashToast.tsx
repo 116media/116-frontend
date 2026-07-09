@@ -2,24 +2,22 @@
 
 import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
-
+import { Button } from "@/shared/presentation/components/ui/Button";
 import {
     CircleCheckIcon,
     InfoIcon,
     TriangleAlertIcon,
     XCircleIcon,
-    XIcon,
+    XIcon
 } from "@/shared/presentation/components/ui/Icon";
-import { cn } from "@/shared/presentation/utils/cn";
-import { Button } from "../Button";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 export type FlashType = "success" | "error" | "info" | "warning";
 
 /**
- * Per-type surface (background + foreground tokens) and leading glyph. `info`
- * maps to the brand primary, the other three to their status tokens; every
- * foreground token resolves to white, so the icon disc and close ring are
- * white overlays that read on any of the four surfaces in both themes.
+ * Per-type surface (background + foreground tokens) and leading glyph. Every
+ * foreground token resolves to white, so the icon disc and close ring read on
+ * all four surfaces in both themes.
  */
 const TYPE_STYLES: Record<FlashType, { surface: string; icon: ReactNode }> = {
     info: {
@@ -60,44 +58,25 @@ export interface FlashToastProps {
  * FlashToast
  *
  * @description
- * The flash-message toast body rendered inside sonner: a fully filled,
- * `rounded-lg` colored surface with a circular leading icon (white glyph on a
- * translucent white disc), a bold title over an optional muted description, and
- * a circular outline close button on the trailing edge. The surface color and
- * glyph follow the variant; every variant uses a white foreground, so the
- * overlays stay legible in light and dark. Dismissal is delegated to the caller
- * (sonner's `toast.dismiss`).
- *
- * @param type - The variant, selecting the surface and glyph.
- * @param title - The localized headline.
- * @param description - The localized supporting line.
- * @param onDismiss - Dismisses the toast.
+ * The flash-message toast body rendered inside sonner: a colored surface with a
+ * leading icon, a title over an optional description, and a close button. The
+ * surface and glyph follow the variant; dismissal is delegated to the caller.
  */
-export function FlashToast({
-    type,
-    title,
-    description,
-    onDismiss
-}: FlashToastProps) {
+export function FlashToast({ type, title, description, onDismiss }: FlashToastProps) {
     const { t } = useTranslation();
     const { surface, icon } = TYPE_STYLES[type];
 
     return (
         <div
             role="alert"
-            className={cn(
-                "inline-flex items-start gap-3 rounded-lg p-4 shadow-lg",
-                surface
-            )}
+            className={cn("inline-flex items-start gap-3 rounded-lg p-4 shadow-lg", surface)}
         >
             <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-white/25">
                 {icon}
             </span>
 
             <div className="flex flex-col">
-                <p className="font-semibold text-sm leading-snug whitespace-nowrap">
-                    {title}
-                </p>
+                <p className="font-semibold text-sm leading-snug whitespace-nowrap">{title}</p>
 
                 {description && (
                     <p className="text-sm leading-snug opacity-70 whitespace-nowrap">
