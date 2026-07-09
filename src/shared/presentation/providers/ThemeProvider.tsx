@@ -9,13 +9,11 @@ type ThemeProviderProps = ComponentProps<typeof NextThemesProvider>;
  * ThemeProvider
  *
  * @description
- * Enables light/dark mode switching via next-themes.
- * Applies the active theme as a `class` on `<html>`, activating the `.dark`
- * CSS variable overrides defined in theme.css.
- *
+ * Enables light/dark mode switching via next-themes, applying the active theme as a
+ * `class` on `<html>` to activate the `.dark` CSS variable overrides in theme.css.
  * Defaults to the system preference.
  *
- * @param {ThemeProviderProps} props - Forwarded to NextThemesProvider
+ * @param props - Forwarded to NextThemesProvider
  */
 export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
     return (
