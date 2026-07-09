@@ -32,17 +32,8 @@ export interface CountrySelectMenuProps {
  *
  * @description
  * The floating panel of {@link CountrySelect}: a pinned search field over a scrollable
- * list of {@link CountryOption} rows. Rendered in flow (absolutely positioned under the
- * trigger by the parent's `relative` container) so it stays inside any surrounding
- * focus/scroll scope — a modal keeps the search typeable and the list scrollable.
- *
- * @param results - The filtered countries to list.
- * @param query - The current search text.
- * @param onQueryChange - Emits the search text on input.
- * @param onSelect - Emits the chosen country name.
- * @param searchRef - Ref to the search input.
- * @param value - The selected country name.
- * @param placeholder - Search prompt inside the field.
+ * list of {@link CountryOption} rows. Rendered in flow under the trigger so it stays
+ * inside any surrounding focus/scroll scope (e.g. a modal dialog).
  */
 export function CountrySelectMenu({
     results,
