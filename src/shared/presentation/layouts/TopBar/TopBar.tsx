@@ -2,7 +2,7 @@
 
 import { useTranslation } from "react-i18next";
 import { Button } from "@/shared/presentation/components/ui/Button";
-import { cn } from "@/shared/presentation/utils/cn";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 import { SOCIAL_LINKS } from "./constants";
 
@@ -10,11 +10,8 @@ import { SOCIAL_LINKS } from "./constants";
  * TopBar
  *
  * @description
- * Gradient bar displayed above the main header on every public page.
- * Shows a "Nous suivre" label alongside social media icon links (YouTube,
- * Instagram, Facebook, TikTok, Twitter/X), all centered on one line.
- * Background is a left-to-right gradient from brand primary to brand secondary.
- * This is a Client Component so the follow label resolves through the active language.
+ * Gradient bar above the main header on every public page, showing a follow label and
+ * social icon links. Client Component so the label resolves through the active language.
  */
 export function TopBar() {
     const { t } = useTranslation();
