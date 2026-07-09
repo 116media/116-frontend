@@ -1,9 +1,9 @@
 import { StarIcon } from "@/shared/presentation/components/ui/Icon";
 
-import { cn } from "@/shared/presentation/utils/cn";
-import { formatCount } from "@/shared/presentation/utils/formatCount";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
+import { formatCount } from "@/shared/presentation/utils/format/format.utils";
 
-interface StarRatingProps {
+export interface StarRatingProps {
     ratingAverage: number;
     ratingCount: number;
     mode?: "compact" | "detailed";
@@ -15,19 +15,9 @@ interface StarRatingProps {
  * StarRating
  *
  * @description
- * Presentational rating display with two modes, so it can replace the ad-hoc
- * star markup repeated across the article and video cards:
- *
- * - "detailed" (default): a five-star row filled to the rounded average. When the
- *   item has ratings it also shows the numeric average and the total count
- *   (compacted via formatCount); when no one has rated it shows the five empty
- *   stars alone.
- * - "compact": a single star with a number — the average when rated, or an
- *   outlined star with the zero count when not yet rated. Suited to dense card
- *   meta rows.
- *
- * The "light" variant renders white/translucent stars and text for dark image
- * overlays; "default" uses muted foreground tokens for surface cards.
+ * Presentational rating display shared by article and video cards. "detailed" mode
+ * renders a five-star row with the average and count; "compact" renders a single
+ * star with a number. The "light" variant suits dark image overlays.
  *
  * @param ratingAverage - Average star rating (1–5)
  * @param ratingCount - Total number of ratings
