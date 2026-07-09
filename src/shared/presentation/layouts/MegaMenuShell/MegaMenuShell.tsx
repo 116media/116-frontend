@@ -31,11 +31,8 @@ export interface MegaMenuShellProps {
  * MegaMenuShell
  *
  * @description
- * Root compound component providing the shared 3-column mega menu layout.
- * Owns the outer wrapper, grid, and right-column tags.
- * Use the named sub-components as slots:
- * - MegaMenuShell.Categories — left column
- * - MegaMenuShell.Cards — centre column
+ * Root compound component for the shared 3-column mega menu layout. Owns the wrapper
+ * and right-column tags; MegaMenuShell.Categories and MegaMenuShell.Cards fill the slots.
  */
 export function MegaMenuShell({ tagsBasePath, popularTags, children }: MegaMenuShellProps) {
     const { t } = useTranslation();
