@@ -1,11 +1,10 @@
 "use client";
 
 import { forwardRef, type InputHTMLAttributes, type ReactNode, useState } from "react";
-
+import { Button } from "@/shared/presentation/components/ui/Button";
 import { EyeIcon, EyeOffIcon } from "@/shared/presentation/components/ui/Icon";
 import { Input } from "@/shared/presentation/components/ui/Input";
-import { cn } from "@/shared/presentation/utils/cn";
-import { Button } from "../Button";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
  * Props for the FloatingField component.
@@ -28,15 +27,9 @@ export interface FloatingFieldProps
  * FloatingField
  *
  * @description
- * Floating-label text field — the kinix `FloatTextInput` look. Renders the shared
- * `Input` primitive (bg-muted surface, border, focus ring, `aria-invalid`, all theme
- * tokens) and layers on the floating label: it overlaps the field as its placeholder
- * and floats to the top (10px, bold, primary — secondary in dark mode) on focus or
- * when filled, purely via CSS (`peer` + `:placeholder-shown`, no JS state), with extra
- * top padding to make room. A `type="password"` field gets an accessible show/hide
- * toggle. When a `prefix` is supplied the field keeps the same chrome but the label
- * stays floated and the prefix sits before the input (used for the phone dial code).
- * The inline `error` renders below; backend failures still go to the top `Alert`.
+ * Floating-label text field built on the shared `Input` primitive: the label rests
+ * as the placeholder and floats on focus or when filled, purely via CSS. Password
+ * fields get a show/hide toggle; an optional `prefix` sits before the input.
  *
  * @param label - The floating label (doubles as the resting placeholder).
  * @param error - The inline (zod) error, shown below the field.
