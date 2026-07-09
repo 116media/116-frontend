@@ -3,8 +3,7 @@
  *
  * @description
  * Maps backend exception types (ProblemDetails `title` field) to translation keys in the
- * `apiErrors` namespace. The API client resolves the key to a localised title at runtime
- * using the active language.
+ * `apiErrors` namespace; the API client resolves the key against the active language.
  */
 export const apiErrors = {
     validation: { code: "ValidationException", key: "apiErrors.validation" },
