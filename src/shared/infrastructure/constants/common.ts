@@ -1,16 +1,6 @@
 /**
- * Common application constants and environment variables.
- *
- * @description
- * Centralized configuration for the frontend application including:
- *
- * **Environment Variables:**
- * - Application URLs (API base URL)
- * - Client-App identifier header value
- *
- * **Application Identity:**
- * - App name, author, social media handles, description
- * - Logo asset paths (light/dark themes)
+ * Common application constants: environment-driven URLs and identifiers,
+ * plus static app identity values (name, author, description, logo paths).
  */
 
 export const API_URL = process.env.NEXT_PUBLIC_API_URL;
