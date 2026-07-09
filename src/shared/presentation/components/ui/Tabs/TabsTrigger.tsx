@@ -10,16 +10,10 @@ import {
     useEffect
 } from "react";
 
-import { cn } from "@/shared/presentation/utils/cn";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
-import {
-    TAB_SPRING,
-    TabsActiveContext,
-    TabsOrderContext,
-    type TabsSize,
-    TabsSizeContext,
-    tabsTriggerVariants
-} from "./Tabs";
+import { TAB_SPRING, TabsActiveContext, TabsOrderContext, TabsSizeContext } from "./tabsContext";
+import { type TabsSize, tabsTriggerVariants } from "./tabsVariants";
 
 /**
  * Props for the {@link TabsTrigger}.
@@ -35,17 +29,9 @@ export interface TabsTriggerProps extends ComponentPropsWithoutRef<typeof TabsPr
  * TabsTrigger
  *
  * @description
- * One tab button in the shadcn anatomy: muted at rest, lifted onto the
- * background surface when active. The active fill is a single shared
- * `motion.span` (keyed by the root's `layoutId`) rendered only inside the
- * active trigger, so switching tabs springs the pill from the old trigger to
- * the new one — the label sits above it on its own layer. Registers its value
- * in the root's mount-ordered list so the content layer can tell which way to
- * travel. Sizing follows `size` (inherited from the `Tabs` root, or overridden
- * here).
- *
- * @param size - Overrides the size inherited from the `Tabs` root.
- * @param value - The tab value this trigger activates.
+ * One tab button in the shadcn anatomy: muted at rest, lifted onto the background
+ * surface when active. A shared `motion.span` springs the active pill between
+ * triggers; each trigger registers its value so the content layer knows the direction.
  */
 export const TabsTrigger = forwardRef<ComponentRef<typeof TabsPrimitive.Trigger>, TabsTriggerProps>(
     ({ className, size, value, children, ...props }, ref) => {
