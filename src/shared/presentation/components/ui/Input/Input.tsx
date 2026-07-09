@@ -2,19 +2,15 @@
 
 import { forwardRef, type InputHTMLAttributes } from "react";
 
-import { cn } from "@/shared/presentation/utils/cn";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
  * Input
  *
  * @description
- * The base text-input primitive — the shadcn/ui input: transparent surface
- * (`dark:bg-input/30` in dark), `border-input` border, `rounded-lg` corners, the shadcn
- * focus ring (`ring-3 ring-ring/50` + `border-ring`), file-input styling, and the
- * disabled + `aria-invalid` states (light and dark) — all theme tokens, so light/dark
- * are automatic. Specialized fields (the floating-label `FloatingField`, the segmented
- * `OtpInput`) render this and override sizing, padding, or radius via `className`
- * (merged by `cn`, so later utilities win).
+ * The base text-input primitive — the shadcn/ui input with theme-token borders,
+ * focus ring, file-input styling, and disabled + `aria-invalid` states. Specialized
+ * fields (`FloatingField`, `OtpInput`) render this and override styles via `className`.
  *
  * @param className - Extra classes merged onto (and overriding) the base styles.
  */
