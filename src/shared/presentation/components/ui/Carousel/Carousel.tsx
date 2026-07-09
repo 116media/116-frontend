@@ -2,47 +2,13 @@
 
 import type useEmblaCarousel from "embla-carousel-react";
 import type { ComponentPropsWithoutRef } from "react";
-import { createContext, useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
-import { cn } from "@/shared/presentation/utils/cn";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
+
+import { CarouselContext } from "./useCarousel";
 
 type UseEmblaCarouselType = ReturnType<typeof useEmblaCarousel>;
-
-/**
- * CarouselContextValue
- *
- * @description
- * Internal context value shared between Carousel compound components.
- * Provides the Embla carousel ref, API instance, and scroll helpers.
- */
-interface CarouselContextValue {
-    emblaRef: UseEmblaCarouselType[0];
-    api: UseEmblaCarouselType[1];
-    scrollPrev: () => void;
-    scrollNext: () => void;
-    canScrollPrev: boolean;
-    canScrollNext: boolean;
-}
-
-const CarouselContext = createContext<CarouselContextValue | null>(null);
-
-/**
- * useCarousel
- *
- * @description
- * Hook to access the Carousel context from child components.
- * Must be used within a `<Carousel>` component.
- *
- * @returns {CarouselContextValue} The carousel context value
- * @throws {Error} If used outside of a Carousel component
- */
-export function useCarousel(): CarouselContextValue {
-    const context = useContext(CarouselContext);
-    if (!context) {
-        throw new Error("useCarousel must be used within a <Carousel />");
-    }
-    return context;
-}
 
 /**
  * CarouselProps
@@ -64,11 +30,9 @@ export interface CarouselProps extends ComponentPropsWithoutRef<"div"> {
  * Carousel
  *
  * @description
- * Root container for the Carousel compound component.
- * Wraps children in a context provider that exposes the Embla API,
- * scroll helpers, and ref to all child components.
- * Accepts pre-created emblaRef and api from the parent (created via
- * useEmblaCarousel in the consuming client component).
+ * Root container for the Carousel compound component. Exposes the Embla API,
+ * scroll helpers, and ref to child components via context; accepts a pre-created
+ * emblaRef and api from the consuming client component.
  */
 export function Carousel({ emblaRef, api, className, children, ...props }: CarouselProps) {
     const [canScrollPrev, setCanScrollPrev] = useState(false);
