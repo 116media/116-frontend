@@ -5,8 +5,6 @@
  * Renders the Facebook "f" mark in brand blue as an inline SVG (lucide ships no
  * brand glyphs), used on the Facebook social-login button. Decorative
  * (`aria-hidden`) — the accessible label lives on the button.
- *
- * @returns The Facebook logo, sized to the button's icon slot.
  */
 export function FacebookIcon() {
     return (
