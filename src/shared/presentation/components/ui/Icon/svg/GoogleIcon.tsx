@@ -5,8 +5,6 @@
  * Renders the four-color Google "G" mark as an inline SVG (lucide ships no brand
  * glyphs), used on the Google social-login button. Decorative (`aria-hidden`) — the
  * accessible label lives on the button.
- *
- * @returns The Google logo, sized to the button's icon slot.
  */
 export function GoogleIcon() {
     return (
