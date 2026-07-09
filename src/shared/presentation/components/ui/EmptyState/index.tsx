@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react";
 
-import { cn } from "@/shared/presentation/utils/cn";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
  * Props for EmptyState.
@@ -33,18 +33,9 @@ export interface EmptyStateProps {
  * EmptyState
  *
  * @description
- * A reusable full-area placeholder for "no data", "no results", and error conditions. The
- * container is a rounded, muted-gray surface that fills the available width and stands tall
- * enough to dominate the viewport, with the icon, title, optional subtitle, and optional
- * action stacked and centered. Copy, icon, and action are supplied by the caller so the
- * same shell serves any feature; `context` records where it is used.
- *
- * @param context - Identifies the data type or place the state is shown.
- * @param icon - The illustrative icon.
- * @param title - The primary message.
- * @param subtitle - An optional secondary message.
- * @param action - An optional action element.
- * @param className - Extra classes merged onto the container.
+ * A reusable full-area placeholder for "no data", "no results", and error
+ * conditions. Copy, icon, and action are supplied by the caller so the same
+ * shell serves any feature; `context` records where it is used.
  */
 export function EmptyState({ context, icon, title, subtitle, action, className }: EmptyStateProps) {
     return (
