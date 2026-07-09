@@ -5,7 +5,7 @@ import type { ComponentPropsWithoutRef, ComponentRef } from "react";
 import { forwardRef } from "react";
 import { ChevronDownIcon } from "@/shared/presentation/components/ui/Icon";
 
-import { cn } from "@/shared/presentation/utils/cn";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
  * NavigationMenuTrigger
@@ -14,8 +14,6 @@ import { cn } from "@/shared/presentation/utils/cn";
  * Button that opens the associated NavigationMenuContent panel on hover.
  * Styled to match the plain nav link appearance so it is visually
  * indistinguishable from non-mega-menu items at rest.
- * The chevron rotates 180 ° when the panel is open via the
- * data-[state=open] selector.
  */
 export const NavigationMenuTrigger = forwardRef<
     ComponentRef<typeof NavigationMenuPrimitive.Trigger>,
