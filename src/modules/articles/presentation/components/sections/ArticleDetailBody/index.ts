@@ -1,0 +1,1 @@
+export { ArticleDetailBody } from "./ArticleDetailBody";
