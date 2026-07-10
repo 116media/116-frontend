@@ -1,10 +1,20 @@
-import type { IVideosRepositoryPort } from "@/modules/videos/application/repositories/videos.repository.port";
+import type {
+    IAddVideoToPlaylistInput,
+    IPopularVideosQuery,
+    IPublishedVideosQuery,
+    IVideosRepositoryPort
+} from "@/modules/videos/application/repositories/videos.repository.port";
+import type { IPlaylistEntity } from "@/modules/videos/domain/entities/IPlaylistEntity";
 import type { IShowEntity } from "@/modules/videos/domain/entities/IShowEntity";
 import type { IVideoCategoryEntity } from "@/modules/videos/domain/entities/IVideoCategoryEntity";
+import type { IVideoDetailEntity } from "@/modules/videos/domain/entities/IVideoDetailEntity";
 import type { IVideoExclusiveShowEntity } from "@/modules/videos/domain/entities/IVideoExclusiveShowEntity";
+import type { IVideoLyricsEntity } from "@/modules/videos/domain/entities/IVideoLyricsEntity";
 import type { IVideoSummaryEntity } from "@/modules/videos/domain/entities/IVideoSummaryEntity";
 import type { IVideoTagEntity } from "@/modules/videos/domain/entities/IVideoTagEntity";
+import type { IYoutubeVideoStats } from "@/modules/videos/domain/entities/IYoutubeVideoStats";
 import { VideosMapper } from "@/modules/videos/infrastructure/mappers/videos.mapper";
+import { unknownFailure } from "@/shared/domain/failures/failure";
 import { err, ok, type Result } from "@/shared/domain/results/result";
 import { type Api, EnumCoreContentType } from "@/shared/infrastructure/api/generated/116.api";
 import { ProblemMapper } from "@/shared/infrastructure/mappers/problem.mapper";
@@ -29,7 +39,7 @@ export class VideosRepositoryImpl implements IVideosRepositoryPort {
     async getPromotedVideos(): Promise<Result<IVideoSummaryEntity[]>> {
         try {
             const response = await this.api.getPromotedVideos();
-            return ok(response.data.videos.map(VideosMapper.videoSummaryFromDto));
+            return ok(VideosMapper.videoSummaryListFromDto(response.data.videos));
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }
@@ -48,7 +58,7 @@ export class VideosRepositoryImpl implements IVideosRepositoryPort {
                 contentTypeId: videoContentType.id
             });
 
-            return ok(categoriesResponse.data.categories.map(VideosMapper.categoryFromDto));
+            return ok(VideosMapper.categoryListFromDto(categoriesResponse.data.categories));
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }
@@ -67,7 +77,7 @@ export class VideosRepositoryImpl implements IVideosRepositoryPort {
                 contentTypeId: videoContentType.id
             });
 
-            return ok(categoriesResponse.data.categories.map(VideosMapper.showFromDto));
+            return ok(VideosMapper.showListFromDto(categoriesResponse.data.categories));
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }
@@ -78,7 +88,7 @@ export class VideosRepositoryImpl implements IVideosRepositoryPort {
             const response = await this.api.publicGetPopularTags({
                 contentType: EnumCoreContentType.Video
             });
-            return ok(response.data.tags.map(VideosMapper.tagFromDto));
+            return ok(VideosMapper.tagListFromDto(response.data.tags));
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }
@@ -88,6 +98,106 @@ export class VideosRepositoryImpl implements IVideosRepositoryPort {
         try {
             const response = await this.api.publicGetExclusiveCategory();
             return ok(VideosMapper.exclusiveShowFromDto(response.data));
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async getVideoBySlug(slug: string): Promise<Result<IVideoDetailEntity>> {
+        try {
+            const response = await this.api.getVideoBySlug(slug);
+            return ok(VideosMapper.videoDetailFromDto(response.data.video));
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async getPublishedVideos(query: IPublishedVideosQuery): Promise<Result<IVideoSummaryEntity[]>> {
+        try {
+            const response = await this.api.getPublishedVideos(query);
+            return ok(VideosMapper.videoSummaryListFromDto(response.data.videos.items));
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async getPopularVideos(query: IPopularVideosQuery): Promise<Result<IVideoSummaryEntity[]>> {
+        try {
+            const response = await this.api.getPopularVideos({
+                limit: query.limit,
+                excludeId: query.excludeId,
+                categoryId: query.categoryId
+            });
+            return ok(VideosMapper.videoSummaryListFromDto(response.data.videos));
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async getVideoLyrics(videoId: string): Promise<Result<IVideoLyricsEntity>> {
+        try {
+            const response = await this.api.getLyricsByVideoId(videoId);
+            return ok(VideosMapper.videoLyricsFromDto(response.data.lyrics));
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async rateVideo(id: string, stars: number): Promise<Result<boolean>> {
+        try {
+            const response = await this.api.publicRateVideo(id, { stars });
+            return ok(response.data.isSuccess);
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async shareVideo(id: string, _platform: string): Promise<Result<boolean>> {
+        try {
+            const response = await this.api.publicShareVideo(id);
+            return ok(response.data.isSuccess);
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async getMyPlaylists(): Promise<Result<IPlaylistEntity[]>> {
+        try {
+            const response = await this.api.publicGetMyPlaylists();
+            return ok(VideosMapper.playlistListFromDto(response.data));
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async createPlaylist(name: string): Promise<Result<IPlaylistEntity>> {
+        try {
+            const response = await this.api.publicCreatePlaylist({ name });
+            return ok(VideosMapper.playlistFromDto(response.data.playlist));
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async addVideoToPlaylist(input: IAddVideoToPlaylistInput): Promise<Result<boolean>> {
+        try {
+            const response = await this.api.publicAddVideoToPlaylist(input.playlistId, {
+                videoId: input.videoId,
+                sortOrder: input.sortOrder
+            });
+            return ok(response.data.isSuccess);
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async getYoutubeStats(youtubeId: string): Promise<Result<IYoutubeVideoStats>> {
+        if (typeof window === "undefined") return err(unknownFailure());
+
+        try {
+            const response = await fetch(`/api/youtube/${youtubeId}`);
+            if (!response.ok) return err(unknownFailure());
+            return ok(VideosMapper.youtubeStatsFromJson(await response.json()));
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }

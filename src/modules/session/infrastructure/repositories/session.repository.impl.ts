@@ -43,7 +43,7 @@ export class SessionRepositoryImpl implements ISessionRepositoryPort {
     async getSessions(isActive?: boolean): Promise<Result<ISession[]>> {
         try {
             const response = await this.api.publicGetOwnSessions({ isActive });
-            return ok(response.data.sessions.map(AuthMapper.sessionFromDto));
+            return ok(AuthMapper.sessionListFromDto(response.data.sessions));
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }

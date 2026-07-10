@@ -59,6 +59,16 @@ export const ArticlesMapper = {
     },
 
     /**
+     * Maps a list of ArticleSummaryDto to IArticleSummaryEntity domain entities.
+     *
+     * @param {ArticleSummaryDto[]} dtos - Article summary data list from API
+     * @returns {IArticleSummaryEntity[]} Mapped article summary entities
+     */
+    articleSummaryListFromDto(dtos: ArticleSummaryDto[]): IArticleSummaryEntity[] {
+        return dtos.map(ArticlesMapper.articleSummaryFromDto);
+    },
+
+    /**
      * Maps a paginated ArticleSummaryDto result to an IArticlePage, deriving
      * hasNextPage from the total count and the current page index.
      *
@@ -67,7 +77,7 @@ export const ArticlesMapper = {
      */
     articlePageFromDto(dto: ArticleSummaryDtoPaginatedResult): IArticlePage {
         return {
-            items: dto.items.map(ArticlesMapper.articleSummaryFromDto),
+            items: ArticlesMapper.articleSummaryListFromDto(dto.items),
             pageIndex: dto.pageIndex,
             pageSize: dto.pageSize,
             count: dto.count,
@@ -94,6 +104,16 @@ export const ArticlesMapper = {
     },
 
     /**
+     * Maps a list of CategoryDto to IArticleCategoryEntity domain entities.
+     *
+     * @param {CategoryDto[]} dtos - Category data list from API
+     * @returns {IArticleCategoryEntity[]} Mapped article category entities
+     */
+    categoryListFromDto(dtos: CategoryDto[]): IArticleCategoryEntity[] {
+        return dtos.map(ArticlesMapper.categoryFromDto);
+    },
+
+    /**
      * Maps TagDto to IArticleTagEntity domain entity.
      *
      * @param {TagDto} dto - Tag data from API
@@ -108,6 +128,16 @@ export const ArticlesMapper = {
     },
 
     /**
+     * Maps a list of TagDto to IArticleTagEntity domain entities.
+     *
+     * @param {TagDto[]} dtos - Tag data list from API
+     * @returns {IArticleTagEntity[]} Mapped article tag entities
+     */
+    tagListFromDto(dtos: TagDto[]): IArticleTagEntity[] {
+        return dtos.map(ArticlesMapper.tagFromDto);
+    },
+
+    /**
      * Maps the article promotion feed API response to a clean domain entity.
      * Resolves backend spots and slots into named arrays and maps each
      * article entry through articleSummaryFromDto.
@@ -117,11 +147,11 @@ export const ArticlesMapper = {
      */
     promotionFeedFromDto(dto: PublicGetArticlePromotionFeedResponse): IArticlePromotionFeedEntity {
         return {
-            hero: dto.spot1.articles.map(ArticlesMapper.articleSummaryFromDto),
-            side: dto.spot2.articles.map(ArticlesMapper.articleSummaryFromDto),
-            pairA: (dto.spot3.slots[0]?.articles ?? []).map(ArticlesMapper.articleSummaryFromDto),
-            pairB: (dto.spot3.slots[1]?.articles ?? []).map(ArticlesMapper.articleSummaryFromDto),
-            gossipStrip: dto.gossipStrip.map(ArticlesMapper.articleSummaryFromDto)
+            hero: ArticlesMapper.articleSummaryListFromDto(dto.spot1.articles),
+            side: ArticlesMapper.articleSummaryListFromDto(dto.spot2.articles),
+            pairA: ArticlesMapper.articleSummaryListFromDto(dto.spot3.slots[0]?.articles ?? []),
+            pairB: ArticlesMapper.articleSummaryListFromDto(dto.spot3.slots[1]?.articles ?? []),
+            gossipStrip: ArticlesMapper.articleSummaryListFromDto(dto.gossipStrip)
         };
     },
 
@@ -138,6 +168,16 @@ export const ArticlesMapper = {
             url: dto.url,
             type: dto.imageType === "Cover" ? "cover" : "body"
         };
+    },
+
+    /**
+     * Maps a list of ArticleImageDto to IArticleImage domain entities.
+     *
+     * @param {ArticleImageDto[]} dtos - Article image data list from API
+     * @returns {IArticleImage[]} Mapped article image entities
+     */
+    articleImageListFromDto(dtos: ArticleImageDto[]): IArticleImage[] {
+        return dtos.map(ArticlesMapper.articleImageFromDto);
     },
 
     /**
@@ -166,8 +206,8 @@ export const ArticlesMapper = {
                       role: dto.author.role ?? undefined
                   }
                 : null,
-            tags: dto.tags.map(ArticlesMapper.tagFromDto),
-            images: dto.images.map(ArticlesMapper.articleImageFromDto),
+            tags: ArticlesMapper.tagListFromDto(dto.tags),
+            images: ArticlesMapper.articleImageListFromDto(dto.images),
             readTimeInMinutes: dto.readTimeInMinutes ?? 0,
             likeCount: dto.likeCount ?? 0,
             commentCount: dto.commentCount ?? 0,
@@ -207,6 +247,16 @@ export const ArticlesMapper = {
     },
 
     /**
+     * Maps a list of ArticleCommentDto to IArticleCommentEntity domain entities.
+     *
+     * @param {ArticleCommentDto[]} dtos - Article comment data list from API
+     * @returns {IArticleCommentEntity[]} Mapped article comment entities
+     */
+    articleCommentListFromDto(dtos: ArticleCommentDto[]): IArticleCommentEntity[] {
+        return dtos.map(ArticlesMapper.articleCommentFromDto);
+    },
+
+    /**
      * Maps a paginated ArticleCommentDto result to an IArticleCommentPage, deriving
      * hasNextPage from the total count and the current page index.
      *
@@ -215,7 +265,7 @@ export const ArticlesMapper = {
      */
     articleCommentPageFromDto(dto: ArticleCommentDtoPaginatedResult): IArticleCommentPage {
         return {
-            items: dto.items.map(ArticlesMapper.articleCommentFromDto),
+            items: ArticlesMapper.articleCommentListFromDto(dto.items),
             pageIndex: dto.pageIndex,
             pageSize: dto.pageSize,
             count: dto.count,
