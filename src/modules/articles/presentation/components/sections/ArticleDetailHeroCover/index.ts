@@ -1,0 +1,1 @@
+export { ArticleDetailHeroCover } from "./ArticleDetailHeroCover";
