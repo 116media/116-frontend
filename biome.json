@@ -104,6 +104,16 @@
                     }
                 }
             }
+        },
+        {
+            "includes": ["src/shared/presentation/styles/progressbar.css"],
+            "linter": {
+                "rules": {
+                    "complexity": {
+                        "noImportantStyles": "off"
+                    }
+                }
+            }
         }
     ]
 }
