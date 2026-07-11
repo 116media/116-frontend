@@ -13580,8 +13580,9 @@ export class Api<
     /**
      * @description Retrieves a paginated list of all published videos for public consumption.
      * 
-     * Supports optional filtering by category. Results are returned as a paginated list
-     * with summary information suitable for video feed and browsing views.
+     * Supports optional filtering by category, tag slug, and search term. Results are
+     * returned as a paginated list with summary information suitable for video feed
+     * and browsing views.
      * 
      * **Authentication Requirements:**
      * 
@@ -13615,6 +13616,7 @@ export class Api<
         search?: string;
         /** @format uuid */
         categoryId?: string;
+        tagSlug?: string;
       },
       params: RequestParams = {},
     ) =>
