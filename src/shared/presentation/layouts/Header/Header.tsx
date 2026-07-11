@@ -9,6 +9,13 @@ import { UserAccountControl } from "@/shared/presentation/components/common/User
 import { DesktopNav } from "@/shared/presentation/layouts/DesktopNav";
 import { PageContainer } from "@/shared/presentation/layouts/PageContainer";
 
+/**
+ * Props for the Header component.
+ *
+ * @interface HeaderProps
+ * @property {ArticlesMegaMenuProps} articles - Prefetched data for the articles mega menu.
+ * @property {VideosMegaMenuProps} videos - Prefetched data for the videos mega menu.
+ */
 export interface HeaderProps {
     articles: ArticlesMegaMenuProps;
     videos: VideosMegaMenuProps;
