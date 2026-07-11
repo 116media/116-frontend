@@ -5,6 +5,12 @@ import { useTranslation } from "react-i18next";
 import type { IVideoSummaryEntity } from "@/modules/videos/domain/entities/IVideoSummaryEntity";
 import { VideoCard } from "@/modules/videos/presentation/components/cards/VideoCard";
 
+/**
+ * Props for the VideoExclusiveShowEpisodes component.
+ *
+ * @interface VideoExclusiveShowEpisodesProps
+ * @property {IVideoSummaryEntity[]} episodes - Episodes listed for the exclusive show.
+ */
 export interface VideoExclusiveShowEpisodesProps {
     episodes: IVideoSummaryEntity[];
 }
@@ -16,8 +22,6 @@ export interface VideoExclusiveShowEpisodesProps {
  * Right panel of the exclusive show section — the "Episodes" heading and the
  * vertical stack of horizontal episode cards. suppressHydrationWarning guards
  * the heading because the section streams in after the persisted language.
- *
- * @param episodes - The show's episodes
  */
 export function VideoExclusiveShowEpisodes({ episodes }: VideoExclusiveShowEpisodesProps) {
     const { t } = useTranslation();
