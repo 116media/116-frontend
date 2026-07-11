@@ -8,6 +8,13 @@ import { Button } from "@/shared/presentation/components/ui/Button";
 import { PlayIcon } from "@/shared/presentation/components/ui/Icon";
 import { withAlpha } from "@/shared/presentation/utils/color/color.utils";
 
+/**
+ * Props for the ShowCard component.
+ *
+ * @interface ShowCardProps
+ * @property {IShowEntity} show - The show to display.
+ * @property {boolean} isHero - Whether to render the larger hero variant.
+ */
 export interface ShowCardProps {
     show: IShowEntity;
     isHero: boolean;
@@ -47,9 +54,6 @@ function RevealOnHover({ children }: { children: ReactNode }) {
  * Full-bleed poster content for a show inside an MD3 hero carousel slot, themed
  * from the backend `colors` pair via inline styles with a neutral fallback.
  * While focal, it shows the title, description, and a "watch" button.
- *
- * @param show - The show to display
- * @param isHero - Whether this card is the focal hero (drives the caption and CTA)
  */
 export function ShowCard({ show, isHero }: ShowCardProps) {
     const { t } = useTranslation();
