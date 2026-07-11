@@ -7,6 +7,7 @@
  * English mirror.
  */
 export const exclusiveShow = {
+    allEpisodes: "Tous les épisodes",
     episodes: "Épisodes",
     exclusive: "Exclusif"
 } as const;
