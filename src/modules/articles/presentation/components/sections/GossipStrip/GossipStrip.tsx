@@ -2,6 +2,12 @@ import { Fragment } from "react";
 import type { IArticleSummaryEntity } from "@/modules/articles/domain/entities/IArticleSummaryEntity";
 import { ArticlePromotionCard } from "@/modules/articles/presentation/components/cards/ArticlePromotionCard";
 
+/**
+ * Props for the GossipStrip component.
+ *
+ * @interface GossipStripProps
+ * @property {IArticleSummaryEntity[]} articles - Articles rendered in the strip.
+ */
 export interface GossipStripProps {
     articles: IArticleSummaryEntity[];
 }
