@@ -2,6 +2,7 @@ import type { AwilixContainer } from "awilix";
 import { asClass } from "awilix";
 import { AddVideoToPlaylistUseCase } from "@/modules/videos/application/usecases/addvideotoplaylist.usecase";
 import { CreatePlaylistUseCase } from "@/modules/videos/application/usecases/createplaylist.usecase";
+import { GetAllVideoTagsUseCase } from "@/modules/videos/application/usecases/getallvideotags.usecase";
 import { GetMyPlaylistsUseCase } from "@/modules/videos/application/usecases/getmyplaylists.usecase";
 import { GetPopularVideosUseCase } from "@/modules/videos/application/usecases/getpopularvideos.usecase";
 import { GetPromotedVideosUseCase } from "@/modules/videos/application/usecases/getpromotedvideos.usecase";
@@ -36,6 +37,7 @@ export function registerVideosDependencies(container: AwilixContainer): void {
         getVideoCategoriesUseCase: asClass(GetVideoCategoriesUseCase).transient(),
         getShowsUseCase: asClass(GetShowsUseCase).transient(),
         getVideoPopularTagsUseCase: asClass(GetVideoPopularTagsUseCase).transient(),
+        getAllVideoTagsUseCase: asClass(GetAllVideoTagsUseCase).transient(),
         getVideoExclusiveShowUseCase: asClass(GetVideoExclusiveShowUseCase).transient(),
         getVideoBySlugUseCase: asClass(GetVideoBySlugUseCase).transient(),
         getPublishedVideosUseCase: asClass(GetPublishedVideosUseCase).transient(),
