@@ -5,6 +5,15 @@ import { UserRoundIcon } from "@/shared/presentation/components/ui/Icon";
 import { getAvatarColor, getInitials } from "@/shared/presentation/utils/avatar/avatar.utils";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
+/**
+ * Props for the UserAvatar component.
+ *
+ * @interface UserAvatarProps
+ * @property {number} [size] - Edge length in pixels; defaults to 36.
+ * @property {string} [image] - Optional profile picture URL.
+ * @property {string} userName - Display name, used for color, initials, and alt text.
+ * @property {string} [className] - Extra classes merged onto the avatar.
+ */
 export interface UserAvatarProps {
     size?: number;
     image?: string;
@@ -21,11 +30,6 @@ const DEFAULT_AVATAR_SIZE = 36;
  * A self-contained circular user avatar: the profile picture when `image` is set,
  * otherwise a deterministic brand-colored circle with the user's initials (generic
  * icon when empty). The size is applied inline so any pixel value works.
- *
- * @param userName  - The user's display name (used for the color, initials, and alt text).
- * @param image     - Optional profile picture URL.
- * @param size      - Edge length in pixels (default 36, the previous `size-9`).
- * @param className - Extra classes merged onto the avatar (e.g. a ring).
  */
 export function UserAvatar({
     userName,
