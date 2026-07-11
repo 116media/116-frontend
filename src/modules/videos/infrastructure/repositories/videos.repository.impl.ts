@@ -10,10 +10,12 @@ import type { IVideoCategoryEntity } from "@/modules/videos/domain/entities/IVid
 import type { IVideoDetailEntity } from "@/modules/videos/domain/entities/IVideoDetailEntity";
 import type { IVideoExclusiveShowEntity } from "@/modules/videos/domain/entities/IVideoExclusiveShowEntity";
 import type { IVideoLyricsEntity } from "@/modules/videos/domain/entities/IVideoLyricsEntity";
+import type { IVideoPage } from "@/modules/videos/domain/entities/IVideoPage";
 import type { IVideoSummaryEntity } from "@/modules/videos/domain/entities/IVideoSummaryEntity";
 import type { IVideoTagEntity } from "@/modules/videos/domain/entities/IVideoTagEntity";
 import type { IYoutubeVideoStats } from "@/modules/videos/domain/entities/IYoutubeVideoStats";
 import { VideosMapper } from "@/modules/videos/infrastructure/mappers/videos.mapper";
+import { ALL_VIDEO_TAGS_LIMIT } from "@/modules/videos/presentation/constants/videoKeys";
 import { unknownFailure } from "@/shared/domain/failures/failure";
 import { err, ok, type Result } from "@/shared/domain/results/result";
 import { type Api, EnumCoreContentType } from "@/shared/infrastructure/api/generated/116.api";
@@ -110,10 +112,23 @@ export class VideosRepositoryImpl implements IVideosRepositoryPort {
         }
     }
 
-    async getPublishedVideos(query: IPublishedVideosQuery): Promise<Result<IVideoSummaryEntity[]>> {
+    async getPublishedVideos(query: IPublishedVideosQuery): Promise<Result<IVideoPage>> {
         try {
             const response = await this.api.getPublishedVideos(query);
-            return ok(VideosMapper.videoSummaryListFromDto(response.data.videos.items));
+            return ok(VideosMapper.videoPageFromDto(response.data.videos));
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async getAllVideoTags(search?: string): Promise<Result<IVideoTagEntity[]>> {
+        try {
+            const response = await this.api.publicGetAllTags({
+                search,
+                contentType: EnumCoreContentType.Video,
+                limit: ALL_VIDEO_TAGS_LIMIT
+            });
+            return ok(VideosMapper.tagListFromDto(response.data.tags));
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }
