@@ -11,6 +11,12 @@ import {
 } from "@/shared/presentation/components/ui/Carousel";
 import { CarouselDots } from "@/shared/presentation/components/ui/CarouselDots";
 
+/**
+ * Props for the SideCarousel component.
+ *
+ * @interface SideCarouselProps
+ * @property {IArticleSummaryEntity[]} articles - Articles shown in the side carousel.
+ */
 export interface SideCarouselProps {
     articles: IArticleSummaryEntity[];
 }
