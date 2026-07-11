@@ -9,6 +9,12 @@ import { cn } from "@/shared/presentation/utils/cn/cn.utils";
  */
 export const cardVariants = "rounded-lg border shadow-none hover:shadow-lg transition-shadow";
 
+/**
+ * Props for the Card component.
+ *
+ * @interface CardProps
+ * @augments HTMLAttributes<HTMLDivElement>
+ */
 export type CardProps = HTMLAttributes<HTMLDivElement>;
 
 /**
