@@ -68,11 +68,12 @@ export function generateDummyExclusiveShow(): IVideoExclusiveShowEntity {
 
     return {
         id: SHOW_ID,
-        title: SHOW_NAME,
+        name: SHOW_NAME,
         slug: "chronique-sale",
         description:
             "An unfiltered look inside the studios, late-night sessions, and untold stories shaping the sound of a generation. Each week we sit down with the artists, producers, and dreamers rewriting the rules — raw conversations, exclusive performances, and the moments that never make the headlines. Real, raw.",
         posterUrl,
+        colors: { background: "#1C0E08", foreground: "#FFFFFF" },
         episodes
     };
 }
