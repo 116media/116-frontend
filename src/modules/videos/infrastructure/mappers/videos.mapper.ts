@@ -4,6 +4,7 @@ import type { IVideoCategoryEntity } from "@/modules/videos/domain/entities/IVid
 import type { IVideoDetailEntity } from "@/modules/videos/domain/entities/IVideoDetailEntity";
 import type { IVideoExclusiveShowEntity } from "@/modules/videos/domain/entities/IVideoExclusiveShowEntity";
 import type { IVideoLyricsEntity } from "@/modules/videos/domain/entities/IVideoLyricsEntity";
+import type { IVideoPage } from "@/modules/videos/domain/entities/IVideoPage";
 import type { IVideoSummaryEntity } from "@/modules/videos/domain/entities/IVideoSummaryEntity";
 import type { IVideoTagEntity } from "@/modules/videos/domain/entities/IVideoTagEntity";
 import type { IYoutubeVideoStats } from "@/modules/videos/domain/entities/IYoutubeVideoStats";
@@ -14,7 +15,8 @@ import type {
     PublicGetExclusiveCategoryResponse,
     TagDto,
     VideoDetailDto,
-    VideoSummaryDto
+    VideoSummaryDto,
+    VideoSummaryDtoPaginatedResult
 } from "@/shared/infrastructure/api/generated/116.api";
 
 /**
@@ -58,6 +60,23 @@ export const VideosMapper = {
      */
     videoSummaryListFromDto(dtos: VideoSummaryDto[]): IVideoSummaryEntity[] {
         return dtos.map(VideosMapper.videoSummaryFromDto);
+    },
+
+    /**
+     * Maps a paginated VideoSummaryDto result to an IVideoPage, deriving
+     * hasNextPage from the total count and the current page index.
+     *
+     * @param dto - Paginated envelope from getPublishedVideos
+     * @returns {IVideoPage} Mapped video page entity
+     */
+    videoPageFromDto(dto: VideoSummaryDtoPaginatedResult): IVideoPage {
+        return {
+            items: VideosMapper.videoSummaryListFromDto(dto.items),
+            pageIndex: dto.pageIndex,
+            pageSize: dto.pageSize,
+            count: dto.count,
+            hasNextPage: (dto.pageIndex + 1) * dto.pageSize < dto.count
+        };
     },
 
     /**
@@ -145,19 +164,15 @@ export const VideosMapper = {
 
     /**
      * Maps the public exclusive-category response to IVideoExclusiveShowEntity.
-     * Flattens the category into the show's presentational fields and maps the
-     * paginated videos into episodes, carrying the total count for the header.
+     * Reuses the show mapping for the category fields and maps the paginated
+     * videos into episodes.
      *
      * @param dto - Exclusive show payload from API
      * @returns {IVideoExclusiveShowEntity} Mapped exclusive show entity
      */
     exclusiveShowFromDto(dto: PublicGetExclusiveCategoryResponse): IVideoExclusiveShowEntity {
         return {
-            id: dto.category.id,
-            title: dto.category.name,
-            slug: dto.category.slug,
-            description: dto.category.description,
-            posterUrl: dto.category.posterUrl ?? null,
+            ...VideosMapper.showFromDto(dto.category),
             episodes: VideosMapper.videoSummaryListFromDto(dto.videos.items)
         };
     },
