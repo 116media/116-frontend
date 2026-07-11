@@ -8,6 +8,12 @@ import { ShowsCarousel } from "@/modules/videos/presentation/components/carousel
 import { Button } from "@/shared/presentation/components/ui/Button";
 import { SHOWS_PATH } from "@/shared/presentation/constants/paths";
 
+/**
+ * Props for the ShowsSection component.
+ *
+ * @interface ShowsSectionProps
+ * @property {IShowEntity[]} shows - Shows rendered in the section.
+ */
 export interface ShowsSectionProps {
     shows: IShowEntity[];
 }
@@ -19,8 +25,6 @@ export interface ShowsSectionProps {
  * Homepage "shows" section: a centred i18n title, the swipeable focal carousel
  * of shows, and a centred "view all" button linking to the shows page.
  * suppressHydrationWarning guards the streamed-in language.
- *
- * @param shows - The shows rendered in the carousel
  */
 export function ShowsSection({ shows }: ShowsSectionProps) {
     const { t } = useTranslation();
