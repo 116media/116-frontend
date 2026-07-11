@@ -2,6 +2,7 @@
 
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import Link from "next/link";
+import { type MouseEvent, useState } from "react";
 import { ArticlesMegaMenu } from "@/modules/articles/presentation/components/navigation/ArticlesMegaMenu";
 import type { ArticlesMegaMenuProps } from "@/modules/articles/presentation/components/navigation/ArticlesMegaMenu/types";
 import { VideosMegaMenu } from "@/modules/videos/presentation/components/navigation/VideosMegaMenu";
@@ -20,9 +21,16 @@ import {
 import { NAV_LINKS } from "@/shared/presentation/layouts/Header/constants";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
+/**
+ * Props for the DesktopNav component.
+ *
+ * @interface DesktopNavProps
+ * @property {VideosMegaMenuProps} videos - Prefetched data for the videos mega menu.
+ * @property {ArticlesMegaMenuProps} articles - Prefetched data for the articles mega menu.
+ */
 export interface DesktopNavProps {
-    articles: ArticlesMegaMenuProps;
     videos: VideosMegaMenuProps;
+    articles: ArticlesMegaMenuProps;
 }
 
 /**
@@ -34,9 +42,18 @@ export interface DesktopNavProps {
  * is prefetched server-side in PublicLayout and passed in as props.
  */
 export function DesktopNav({ articles, videos }: DesktopNavProps) {
+    const [openMenu, setOpenMenu] = useState("");
+
+    const closeOnLinkClick = (event: MouseEvent<HTMLDivElement>) => {
+        if ((event.target as HTMLElement).closest("a")) setOpenMenu("");
+    };
+
     return (
         <div className="hidden items-center gap-1 md:flex">
-            <NavigationMenu>
+            <NavigationMenu
+                value={openMenu}
+                onValueChange={setOpenMenu}
+            >
                 <NavigationMenuList>
                     {NAV_LINKS.map(({ label, href, hasMegaMenu }) => (
                         <NavigationMenuItem
@@ -62,7 +79,7 @@ export function DesktopNav({ articles, videos }: DesktopNavProps) {
                                             />
                                         </Link>
                                     </NavigationMenuPrimitive.Trigger>
-                                    <NavigationMenuContent>
+                                    <NavigationMenuContent onClick={closeOnLinkClick}>
                                         {label === "NEWS" ? (
                                             <ArticlesMegaMenu {...articles} />
                                         ) : (
