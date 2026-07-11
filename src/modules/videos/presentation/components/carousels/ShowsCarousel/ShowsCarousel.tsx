@@ -7,6 +7,12 @@ import { ShowCard } from "@/modules/videos/presentation/components/cards/ShowCar
 import { Md3Carousel } from "@/shared/presentation/components/ui/Md3Carousel";
 import { VIDEOS_PATH } from "@/shared/presentation/constants/paths";
 
+/**
+ * Props for the ShowsCarousel component.
+ *
+ * @interface ShowsCarouselProps
+ * @property {IShowEntity[]} shows - Shows rendered in the carousel.
+ */
 export interface ShowsCarouselProps {
     shows: IShowEntity[];
 }
@@ -17,8 +23,6 @@ export interface ShowsCarouselProps {
  * @description
  * Shows configuration of the shared MD3 hero carousel: renders each show with
  * `ShowCard` and opens the show's page when its hero card is clicked.
- *
- * @param shows - The shows rendered in the carousel
  */
 export function ShowsCarousel({ shows }: ShowsCarouselProps) {
     const router = useRouter();
