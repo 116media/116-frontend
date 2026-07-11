@@ -4,6 +4,12 @@ import { useTranslation } from "react-i18next";
 
 import { formatRelativeDate } from "@/shared/presentation/utils/format/format.utils";
 
+/**
+ * Props for the RelativeDate component.
+ *
+ * @interface RelativeDateProps
+ * @property {string | null} date - ISO date string, or null when unset.
+ */
 export interface RelativeDateProps {
     date: string | null;
 }
@@ -15,8 +21,6 @@ export interface RelativeDateProps {
  * Renders a relative published date (e.g. "3 days ago") in the user's active
  * language, read live from the i18n context. Renders nothing without a date;
  * suppressHydrationWarning guards server/client time drift.
- *
- * @param date - ISO 8601 date string, or null
  */
 export function RelativeDate({ date }: RelativeDateProps) {
     const { i18n } = useTranslation();
