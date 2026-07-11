@@ -15,6 +15,7 @@
         "api:generate": "yarn dlx swagger-typescript-api generate -p http://localhost:5025/swagger/v1/swagger.json -o ./src/shared/infrastructure/api/generated/ -n 116.api.ts --axios --responses && node scripts/format-api-docs.js"
     },
     "dependencies": {
+        "@bprogress/next": "3.2.12",
         "@hookform/resolvers": "5.4.0",
         "@icons-pack/react-simple-icons": "^13.13.0",
         "@radix-ui/react-avatar": "1.1.12",
