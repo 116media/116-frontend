@@ -4,6 +4,7 @@ import type { IVideoCategoryEntity } from "@/modules/videos/domain/entities/IVid
 import type { IVideoDetailEntity } from "@/modules/videos/domain/entities/IVideoDetailEntity";
 import type { IVideoExclusiveShowEntity } from "@/modules/videos/domain/entities/IVideoExclusiveShowEntity";
 import type { IVideoLyricsEntity } from "@/modules/videos/domain/entities/IVideoLyricsEntity";
+import type { IVideoPage } from "@/modules/videos/domain/entities/IVideoPage";
 import type { IVideoSummaryEntity } from "@/modules/videos/domain/entities/IVideoSummaryEntity";
 import type { IVideoTagEntity } from "@/modules/videos/domain/entities/IVideoTagEntity";
 import type { IYoutubeVideoStats } from "@/modules/videos/domain/entities/IYoutubeVideoStats";
@@ -38,12 +39,14 @@ export interface IAddVideoToPlaylistInput {
  * @property {number} pageSize - Items per page
  * @property {string} [search] - Optional full-text search term
  * @property {string} [categoryId] - Optional category filter (UUID)
+ * @property {string} [tagSlug] - Optional tag filter
  */
 export interface IPublishedVideosQuery {
     pageIndex: number;
     pageSize: number;
     search?: string;
     categoryId?: string;
+    tagSlug?: string;
 }
 
 /**
@@ -117,14 +120,23 @@ export interface IVideosRepositoryPort {
     getVideoBySlug(slug: string): Promise<Result<IVideoDetailEntity>>;
 
     /**
-     * Fetches one page of published videos, optionally scoped by category or
-     * search term. Pagination metadata is dropped — the detail page only
-     * consumes the items (similar grid, popular fallback).
+     * Fetches one page of published videos, optionally scoped by category,
+     * tag, or search term. Keeps the pagination metadata so infinite feeds
+     * can derive the next page.
      *
      * @param query - Paging plus optional filters
-     * @returns `ok(IVideoSummaryEntity[])` on success, `err(Failure)` on failure
+     * @returns `ok(IVideoPage)` on success, `err(Failure)` on failure
      */
-    getPublishedVideos(query: IPublishedVideosQuery): Promise<Result<IVideoSummaryEntity[]>>;
+    getPublishedVideos(query: IPublishedVideosQuery): Promise<Result<IVideoPage>>;
+
+    /**
+     * Fetches every tag scoped to the Video content type, optionally filtered
+     * by a search term, for the "All tags" popover.
+     *
+     * @param search - Optional tag search term
+     * @returns `ok(IVideoTagEntity[])` on success, `err(Failure)` on failure
+     */
+    getAllVideoTags(search?: string): Promise<Result<IVideoTagEntity[]>>;
 
     /**
      * Fetches the most popular published videos — ranked server-side by weighted
