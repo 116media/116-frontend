@@ -6,6 +6,12 @@ import { forwardRef } from "react";
 
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
+/**
+ * Props for the Avatar component.
+ *
+ * @interface AvatarProps
+ * @augments ComponentPropsWithoutRef<typeof AvatarPrimitive.Root>
+ */
 export type AvatarProps = ComponentPropsWithoutRef<typeof AvatarPrimitive.Root>;
 
 /**
