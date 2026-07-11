@@ -3,6 +3,10 @@
 import { useRouter } from "next/navigation";
 import { type ReactNode, useEffect, useState } from "react";
 
+import {
+    isAuthenticatedStatus,
+    needsVerification
+} from "@/modules/auth/domain/valueobjects/AuthStatus";
 import { useAuth } from "@/modules/auth/presentation/context/AuthProvider";
 import { SpinnerIcon } from "@/shared/presentation/components/ui/Icon";
 import { HOME_PATH } from "@/shared/presentation/constants/paths";
@@ -28,18 +32,17 @@ export interface SettingsGuardProps {
 export function SettingsGuard({ children }: SettingsGuardProps) {
     const router = useRouter();
     const { status, refetch } = useAuth();
-    const [recovering, setRecovering] = useState(status === "guest");
+    const [rechecked, setRechecked] = useState(false);
 
     useEffect(() => {
         if (status !== "guest") {
-            setRecovering(false);
+            setRechecked(false);
             return;
         }
 
         let active = true;
-        setRecovering(true);
         refetch().finally(() => {
-            if (active) setRecovering(false);
+            if (active) setRechecked(true);
         });
 
         return () => {
@@ -47,11 +50,12 @@ export function SettingsGuard({ children }: SettingsGuardProps) {
         };
     }, [status, refetch]);
 
+    // Redirect only once the recheck has settled and the visitor is still a guest.
     useEffect(() => {
-        if (status === "guest" && !recovering) router.replace(HOME_PATH);
-    }, [status, recovering, router]);
+        if (status === "guest" && rechecked) router.replace(HOME_PATH);
+    }, [status, rechecked, router]);
 
-    if (status === "authenticated" || status === "unverified") return <>{children}</>;
+    if (isAuthenticatedStatus(status) || needsVerification(status)) return <>{children}</>;
 
     return (
         <div className="flex min-h-64 items-center justify-center">
