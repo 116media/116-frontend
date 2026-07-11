@@ -3,6 +3,16 @@ import { StarIcon } from "@/shared/presentation/components/ui/Icon";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 import { formatCount } from "@/shared/presentation/utils/format/format.utils";
 
+/**
+ * Props for the StarRating component.
+ *
+ * @interface StarRatingProps
+ * @property {number} ratingAverage - Average star rating, 0–5.
+ * @property {number} ratingCount - Total number of ratings.
+ * @property {"compact" | "detailed"} [mode] - Layout mode; defaults to compact.
+ * @property {"default" | "light"} [variant] - Color scheme for light or dark surfaces.
+ * @property {string} [className] - Extra classes merged onto the row.
+ */
 export interface StarRatingProps {
     ratingAverage: number;
     ratingCount: number;
@@ -18,12 +28,6 @@ export interface StarRatingProps {
  * Presentational rating display shared by article and video cards. "detailed" mode
  * renders a five-star row with the average and count; "compact" renders a single
  * star with a number. The "light" variant suits dark image overlays.
- *
- * @param ratingAverage - Average star rating (1–5)
- * @param ratingCount - Total number of ratings
- * @param mode - "detailed" (five stars) | "compact" (single star)
- * @param variant - Visual treatment: "default" (surface) | "light" (dark overlays)
- * @param className - Optional extra classes for the wrapper
  */
 export function StarRating({
     ratingAverage,
