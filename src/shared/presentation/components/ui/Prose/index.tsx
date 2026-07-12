@@ -32,9 +32,9 @@ export const Prose = forwardRef<HTMLDivElement, ProseProps>(
                 "[&_a]:text-primary [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary/80",
                 "[&_img]:my-6 [&_img]:h-auto [&_img]:w-full [&_img]:rounded-lg",
                 "[&_iframe]:my-6 [&_iframe]:aspect-video [&_iframe]:w-full [&_iframe]:rounded-lg",
-                "[&_blockquote]:border-border [&_blockquote]:border-l-4 [&_blockquote]:pl-4 [&_blockquote]:text-muted-foreground [&_blockquote]:italic",
+                "[&_blockquote]:border-l-4 [&_blockquote]:pl-4 [&_blockquote]:text-muted-foreground [&_blockquote]:italic",
                 "[&_ol]:my-4 [&_ol]:list-decimal [&_ol]:pl-6 [&_ul]:my-4 [&_ul]:list-disc [&_ul]:pl-6",
-                "[&_hr]:my-8 [&_hr]:border-border",
+                "[&_hr]:my-8 ",
                 className
             )}
             {...props}
