@@ -1,0 +1,1 @@
+export { VideoDetailSimilar } from "./VideoDetailSimilar";

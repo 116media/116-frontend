@@ -119,10 +119,9 @@ export interface IArticlesRepositoryPort {
     getPublishedArticles(query: IPublishedArticlesQuery): Promise<Result<IArticlePage>>;
 
     /**
-     * Fetches article tags — tags used by at least one article — optionally filtered
-     * by a search term (case-insensitive partial match on name and slug, server-side)
-     * and capped to a bounded count. Video-only tags are excluded so the result only
-     * holds tags that can match an article in the feed.
+     * Fetches the tags used by at least one article, optionally filtered by a server-side
+     * search term (partial match on name and slug) and capped to a bounded count.
+     * Video-only tags are excluded so the result only holds tags that can match an article.
      *
      * @param search - Optional tag-name search term
      * @returns `ok(IArticleTagEntity[])` on success, `err(Failure)` on failure

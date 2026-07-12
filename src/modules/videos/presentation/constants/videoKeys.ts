@@ -1,10 +1,7 @@
 /**
- * Stable TanStack Query keys for the videos feature. The detail page adds
- * `detail(slug)`, `lyrics(videoId)`, `similar(videoId)`, and
- * `popular(videoId)` — the latter two keyed by the open video so each video's
- * exclusion set caches independently. `youtubeStats(youtubeId)` caches the
- * YouTube Data API chips per YouTube id, and `myPlaylists` is the signed-in
- * user's playlist list for the add-to-playlist modal.
+ * Stable TanStack Query keys for the videos feature. `similar` and `popular`
+ * are keyed by the open video so each video's exclusion set caches
+ * independently; `myPlaylists` backs the add-to-playlist modal.
  */
 export const videoKeys = {
     all: ["videos"] as const,

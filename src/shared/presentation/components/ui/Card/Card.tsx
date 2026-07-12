@@ -1,6 +1,6 @@
 import type { HTMLAttributes } from "react";
 
-import { cn } from "@/shared/presentation/utils/cn";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
  * Base class string for the Card primitive.
@@ -15,13 +15,9 @@ export type CardProps = HTMLAttributes<HTMLDivElement>;
  * Card
  *
  * @description
- * Root container for the Card compound component.
- * Renders a rounded bordered surface with a subtle shadow.
- * All colors use theme.css tokens — no hardcoded values.
- *
- * For cases where adding a wrapper div would break layout (e.g. interactive
- * Link elements or elements with fill images), import cardVariants directly
- * and merge it into the existing element's className via cn().
+ * Root container for the Card compound component: a rounded bordered surface
+ * using theme.css tokens. Where a wrapper div would break layout, import
+ * cardVariants directly and merge it into the existing element's className.
  */
 export function Card({ className, ...props }: CardProps) {
     return (

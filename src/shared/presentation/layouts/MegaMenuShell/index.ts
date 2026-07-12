@@ -1,6 +1,6 @@
 export type { MegaMenuShellProps, MegaMenuTagItem } from "./MegaMenuShell";
 export { MegaMenuShell } from "./MegaMenuShell";
-export type { MegaMenuShellCardsProps } from "./MegaMenuShellCards";
-export { MegaMenuShellCards } from "./MegaMenuShellCards";
-export type { MegaMenuShellCategoriesProps } from "./MegaMenuShellCategories";
-export { MegaMenuShellCategories } from "./MegaMenuShellCategories";
+export type { MegaMenuShellCardsProps } from "./MegaMenuShell.Cards";
+export { MegaMenuShellCards } from "./MegaMenuShell.Cards";
+export type { MegaMenuShellCategoriesProps } from "./MegaMenuShell.Categories";
+export { MegaMenuShellCategories } from "./MegaMenuShell.Categories";

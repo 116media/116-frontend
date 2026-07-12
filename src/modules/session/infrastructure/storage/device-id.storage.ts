@@ -1,13 +1,11 @@
-import { DEVICE_ID_STORAGE_KEY } from "@/modules/session/infrastructure/constants/storage.constants";
+import { DEVICE_ID_STORAGE_KEY } from "@/modules/session/infrastructure/constants/storage";
 
 /**
  * getDeviceId
  *
  * @description
- * Returns a stable per-browser device id (UUID v4), creating and persisting one on
- * first read. The id is a tracking identifier (not a secret), so localStorage is
- * acceptable. Returns `null` during SSR (no `window`), in which case the header is
- * simply omitted.
+ * Stable per-browser device id (UUID v4), created and persisted in localStorage on
+ * first read (a tracking identifier, not a secret). Returns `null` during SSR.
  *
  * @returns The persisted device id, or null on the server.
  */

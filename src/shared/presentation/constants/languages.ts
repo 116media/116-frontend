@@ -18,18 +18,12 @@ export interface ILanguage {
 }
 
 /**
- * USER_LANG
- *
- * @description
- * localStorage key used to persist the user's selected language across sessions.
+ * localStorage key persisting the user's selected language across sessions.
  */
 export const USER_LANG = "116-lang";
 
 /**
- * LANGUAGE_LIST
- *
- * @description
- * Ordered list of supported languages. The first entry is the default fallback.
+ * Ordered list of supported languages; the first entry is the default fallback.
  */
 export const LANGUAGE_LIST: ILanguage[] = [
     { code: "fr", name: "Français", FlagIcon: FrenchFlagIcon },

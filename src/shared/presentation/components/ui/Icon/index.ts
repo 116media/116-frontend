@@ -13,8 +13,9 @@
  * `./svg` file, so the icon set stays in one place and the vendor dependency
  * stays isolated in `./lucide`.
  */
+
+export { EnglishFlagIcon } from "@/shared/presentation/components/ui/Icon/svg/EnglishFlagIcon";
+export { FacebookIcon } from "@/shared/presentation/components/ui/Icon/svg/FacebookIcon";
+export { FrenchFlagIcon } from "@/shared/presentation/components/ui/Icon/svg/FrenchFlagIcon";
+export { GoogleIcon } from "@/shared/presentation/components/ui/Icon/svg/GoogleIcon";
 export * from "./lucide";
-export { EnglishFlagIcon } from "./svg/EnglishFlagIcon";
-export { FacebookIcon } from "./svg/FacebookIcon";
-export { FrenchFlagIcon } from "./svg/FrenchFlagIcon";
-export { GoogleIcon } from "./svg/GoogleIcon";

@@ -1,5 +1,5 @@
-import type { IRevokeSessionResponse } from "@/modules/auth/domain/entities/IRevokeSessionResponse";
-import type { ISession } from "@/modules/auth/domain/entities/ISession";
+import type { IRevokeSessionResponse } from "@/modules/session/domain/entities/IRevokeSessionResponse";
+import type { ISessionEntity } from "@/modules/session/domain/entities/ISessionEntity";
 import type { Result } from "@/shared/domain/results/result";
 
 /**
@@ -8,8 +8,7 @@ import type { Result } from "@/shared/domain/results/result";
  * @description
  * Session operations. `refreshToken` MUST use a bare axios client (no interceptors)
  * to avoid refresh recursion, and stays Promise/throw-based (no `Result` wrapper)
- * because the expiry interceptor relies on a thrown rejection to know the refresh
- * failed — matching the dashboard's `SessionRepositoryPort.refreshToken`.
+ * because the expiry interceptor relies on a thrown rejection to detect failure.
  *
  * @interface ISessionRepositoryPort
  */
@@ -25,9 +24,9 @@ export interface ISessionRepositoryPort {
      * Lists the current user's sessions.
      *
      * @param isActive - Optional filter for active sessions only.
-     * @returns `ok(ISession[])` on success, `err(Failure)` on failure
+     * @returns `ok(ISessionEntity[])` on success, `err(Failure)` on failure
      */
-    getSessions(isActive?: boolean): Promise<Result<ISession[]>>;
+    getSessions(isActive?: boolean): Promise<Result<ISessionEntity[]>>;
 
     /**
      * Revokes a single device session, disconnecting that device.

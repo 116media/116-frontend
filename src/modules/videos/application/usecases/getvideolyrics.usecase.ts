@@ -16,16 +16,15 @@ interface IGetVideoLyricsUseCase extends IResultUseCase<string, IVideoLyricsEnti
  * @implements {IGetVideoLyricsUseCase}
  *
  * @description
- * Fetches the lyrics linked to one video via the videos repository. A video
- * without lyrics resolves to a 404 failure, which the lyrics tab renders as
- * its empty state. Returns the repository's `Result<IVideoLyricsEntity>`
- * unchanged.
+ * Fetches the lyrics linked to one video via the videos repository, returning
+ * its `Result<IVideoLyricsEntity>` unchanged. A video without lyrics resolves
+ * to a 404 failure, which the lyrics tab renders as its empty state.
  */
 export class GetVideoLyricsUseCase implements IGetVideoLyricsUseCase {
     private readonly videosRepository: IVideosRepositoryPort;
 
     /**
-     * @param {IVideosRepositoryPort} videosRepository - Repository for videos operations (injected)
+     * @param videosRepository - Repository for videos operations (injected)
      */
     constructor({ videosRepository }: { videosRepository: IVideosRepositoryPort }) {
         this.videosRepository = videosRepository;
@@ -34,7 +33,7 @@ export class GetVideoLyricsUseCase implements IGetVideoLyricsUseCase {
     /**
      * Executes the get-video-lyrics use case.
      *
-     * @param {string} videoId - The video whose lyrics to fetch (UUID)
+     * @param videoId - The video whose lyrics to fetch (UUID)
      * @returns {Promise<Result<IVideoLyricsEntity>>} `ok(IVideoLyricsEntity)` on success, `err(Failure)` on failure
      */
     async execute(videoId: string): Promise<Result<IVideoLyricsEntity>> {

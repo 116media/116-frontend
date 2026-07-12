@@ -23,7 +23,7 @@ export class GetArticleBySlugUseCase implements IGetArticleBySlugUseCase {
     private readonly articlesRepository: IArticlesRepositoryPort;
 
     /**
-     * @param {IArticlesRepositoryPort} articlesRepository - Repository for articles operations (injected)
+     * @param articlesRepository - Repository for articles operations (injected)
      */
     constructor({ articlesRepository }: { articlesRepository: IArticlesRepositoryPort }) {
         this.articlesRepository = articlesRepository;
@@ -32,7 +32,7 @@ export class GetArticleBySlugUseCase implements IGetArticleBySlugUseCase {
     /**
      * Executes the get-article-by-slug use case.
      *
-     * @param {string} slug - The article slug
+     * @param slug - The article slug
      * @returns {Promise<Result<IArticleDetailEntity>>} `ok(IArticleDetailEntity)` on success, `err(Failure)` on failure
      */
     async execute(slug: string): Promise<Result<IArticleDetailEntity>> {

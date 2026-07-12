@@ -1,0 +1,1 @@
+export { ArticleDetailMetaBar } from "./ArticleDetailMetaBar";

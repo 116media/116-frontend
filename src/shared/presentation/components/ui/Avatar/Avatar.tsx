@@ -4,7 +4,7 @@ import * as AvatarPrimitive from "@radix-ui/react-avatar";
 import type { ComponentPropsWithoutRef, ComponentRef } from "react";
 import { forwardRef } from "react";
 
-import { cn } from "@/shared/presentation/utils/cn";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 export type AvatarProps = ComponentPropsWithoutRef<typeof AvatarPrimitive.Root>;
 
@@ -12,13 +12,9 @@ export type AvatarProps = ComponentPropsWithoutRef<typeof AvatarPrimitive.Root>;
  * Avatar
  *
  * @description
- * Root container for the Avatar compound component.
- * Renders a fixed-size circular container with overflow hidden so that
- * child images and fallback content are clipped to the circle shape.
- * Built on Radix UI Avatar primitive for accessible load-state management.
- *
- * Compose with next/image directly inside this root (alongside AvatarFallback)
- * to take advantage of Next.js image optimization.
+ * Root container for the Avatar compound component: a circular clipping container
+ * built on the Radix Avatar primitive. Compose with next/image directly inside
+ * (alongside AvatarFallback) for Next.js image optimization.
  */
 export const Avatar = forwardRef<ComponentRef<typeof AvatarPrimitive.Root>, AvatarProps>(
     ({ className, ...props }, ref) => (

@@ -17,13 +17,9 @@ export const DEFAULT_LANGUAGE = LANGUAGE_LIST[0].code;
  * BASE_INIT_OPTIONS
  *
  * @description
- * The i18next init options shared by every instance (the browser singleton and the
- * per-request server instances). Only the active language (`lng`) varies between them,
- * so it is supplied by `createI18nInstance` rather than baked in here.
- *
- * - `fallbackLng` is "fr" so missing keys resolve to French rather than the raw key
- * - `supportedLngs` restricts switching to the configured locales
- * - `interpolation.escapeValue` is false because React already escapes rendered output
+ * The i18next init options shared by every instance (browser singleton and per-request
+ * server instances). Only the active language varies, so `lng` is supplied by
+ * `createI18nInstance`. French is the fallback for missing keys.
  */
 const BASE_INIT_OPTIONS = {
     resources,
@@ -60,11 +56,9 @@ export function createI18nInstance(lng: string): I18nInstance {
  * i18n
  *
  * @description
- * The browser-side singleton, shared by the client-runtime consumers that read the
- * active language outside React (the API client's `Accept-Language` header, the
- * notification configs, the validation messages). It is seeded to DEFAULT_LANGUAGE at
- * module load; I18nProvider aligns it with the server-rendered language before the first
- * client paint, so the browser never falls back to French when the user picked English.
+ * The browser-side singleton shared by consumers that read the active language outside
+ * React (API client headers, notification configs, validation messages). Seeded to
+ * DEFAULT_LANGUAGE; I18nProvider aligns it with the server language before first paint.
  */
 export const i18n: I18nInstance = createI18nInstance(DEFAULT_LANGUAGE);
 

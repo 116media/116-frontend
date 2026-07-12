@@ -24,7 +24,7 @@ export class UpdateAccountUseCase implements IUpdateAccountUseCase {
     private readonly settingsRepository: ISettingsRepositoryPort;
 
     /**
-     * @param {ISettingsRepositoryPort} settingsRepository - Repository for settings operations (injected)
+     * @param settingsRepository - Repository for settings operations (injected)
      */
     constructor({ settingsRepository }: { settingsRepository: ISettingsRepositoryPort }) {
         this.settingsRepository = settingsRepository;
@@ -33,7 +33,7 @@ export class UpdateAccountUseCase implements IUpdateAccountUseCase {
     /**
      * Executes the update-account use case.
      *
-     * @param {IUpdateAccountCredentials} credentials - The partial account update
+     * @param credentials - The partial account update
      * @returns {Promise<Result<IProfile>>} `ok(IProfile)` on success, `err(Failure)` on failure
      */
     execute(credentials: IUpdateAccountCredentials): Promise<Result<IProfile>> {

@@ -1,6 +1,6 @@
 import type { InternalAxiosRequestConfig } from "axios";
 
-import { X_DEVICE_ID_HEADER } from "@/modules/session/infrastructure/constants/storage.constants";
+import { X_DEVICE_ID_HEADER } from "@/modules/session/infrastructure/constants/storage";
 import { getDeviceId } from "@/modules/session/infrastructure/storage/device-id.storage";
 
 /**
@@ -8,8 +8,7 @@ import { getDeviceId } from "@/modules/session/infrastructure/storage/device-id.
  *
  * @description
  * Axios request interceptor that attaches the `X-Device-Id` header so the backend
- * can attribute sessions per device (parity with dashboard/mobile). On the server
- * (no device id) the header is omitted.
+ * can attribute sessions per device. Omitted on the server, where no device id exists.
  *
  * @param config - Axios request configuration.
  * @returns The config with the `X-Device-Id` header attached when available.

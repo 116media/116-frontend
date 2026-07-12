@@ -12,10 +12,8 @@ import container from "@/shared/infrastructure/service.locator";
  * useResetPassword
  *
  * @description
- * Sets a new password using the recovery OTP. The use case returns a `Result`; this
- * hook folds it into the mutation's channels — unwrapping the value on success and
- * throwing the `Failure` on error. On success the caller switches the modal to the
- * login view.
+ * Sets a new password using the recovery OTP, unwrapping the use case `Result`
+ * into the mutation channels — value on success, thrown `Failure` on error.
  *
  * @returns A TanStack mutation for the reset-password action; its `error` is a `Failure`.
  */

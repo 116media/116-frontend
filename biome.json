@@ -29,7 +29,18 @@
         "rules": {
             "preset": "recommended",
             "style": {
-                "useNodejsImportProtocol": "off"
+                "useNodejsImportProtocol": "off",
+                "noRestrictedImports": {
+                    "level": "error",
+                    "options": {
+                        "patterns": [
+                            {
+                                "group": ["../**"],
+                                "message": "Use the @/ alias instead of parent-relative imports; ./ is only for same-folder siblings."
+                            }
+                        ]
+                    }
+                }
             },
             "correctness": {
                 "noUnusedVariables": "error",

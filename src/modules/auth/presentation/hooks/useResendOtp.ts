@@ -12,10 +12,8 @@ import container from "@/shared/infrastructure/service.locator";
  * useResendOtp
  *
  * @description
- * Re-sends an OTP for the given purpose. The use case returns a `Result`; this hook
- * folds it into the mutation's channels — unwrapping the value on success and
- * throwing the `Failure` on error. The form starts a 60-second cooldown on success
- * (mobile parity).
+ * Re-sends an OTP for the given purpose, unwrapping the use case `Result` into
+ * the mutation channels — value on success, thrown `Failure` on error.
  *
  * @returns A TanStack mutation for resending an OTP; its `error` is a `Failure`.
  */

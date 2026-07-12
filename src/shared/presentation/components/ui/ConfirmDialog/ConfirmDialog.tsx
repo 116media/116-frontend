@@ -24,7 +24,7 @@ import {
  * @property {boolean} [loading] - Disables both actions while the confirm action is in flight.
  * @property {boolean} [destructive] - Renders the confirm button in the destructive style.
  */
-interface ConfirmDialogProps {
+export interface ConfirmDialogProps {
     open: boolean;
     onOpenChange: (open: boolean) => void;
     title: string;
@@ -43,8 +43,6 @@ interface ConfirmDialogProps {
  * A small, themed yes/no dialog for confirming an action (e.g. signing out). Supplies
  * its own `bg-card` panel chrome (the generic `DialogContent` is a bare shell) plus a
  * centered title/description and a cancel + confirm button row. Controlled via `open`.
- *
- * @param props - See {@link ConfirmDialogProps}.
  */
 export function ConfirmDialog({
     open,

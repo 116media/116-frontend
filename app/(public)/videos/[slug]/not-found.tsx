@@ -1,4 +1,4 @@
-import { VideoDetailNotFound } from "@/modules/videos/presentation/components/VideoDetail/VideoDetail.NotFound";
+import { VideoDetailNotFound } from "@/modules/videos/presentation/components/pages/VideoDetail/VideoDetail.NotFound";
 
 /**
  * NotFound

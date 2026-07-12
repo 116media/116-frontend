@@ -19,13 +19,7 @@ export interface ICountryObject {
 }
 
 /**
- * Comprehensive list of countries with their metadata.
- *
- * Contains country information including:
- * - Country name
- * - ISO 3166-1 alpha-2 code
- * - International dialing code
- * - Country flag SVG URL
+ * Comprehensive list of countries with name, ISO code, dial code, and flag URL.
  *
  * @see https://gist.github.com/kcak11/4a2f22fb8422342b3b3daa7a1965f4e4
  */

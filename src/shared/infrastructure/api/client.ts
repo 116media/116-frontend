@@ -8,17 +8,14 @@ import { accessTokenExpiryInterceptor } from "@/shared/infrastructure/intercepto
 import { deviceIdInterceptor } from "@/shared/infrastructure/interceptors/device-id.interceptor";
 import { refreshTokenExpiryInterceptor } from "@/shared/infrastructure/interceptors/refresh-token-expiry.interceptor";
 import { i18n } from "@/shared/presentation/i18n/config";
-import { getClientLanguage } from "@/shared/presentation/utils/getClientLanguage";
+import { getClientLanguage } from "@/shared/presentation/utils/language/language.client.utils";
 
 /**
  * Configured API client instance.
  *
  * @description
- * Auto-generated API client from swagger with:
- * - Dynamic Accept-Language header (request interceptor reads the active language)
- * - Client-App identification header
- * - HttpOnly cookie-based authentication (withCredentials)
- * - Response/error interceptors for normalized error handling
+ * Swagger-generated API client with dynamic Accept-Language and Client-App headers,
+ * HttpOnly cookie authentication, and interceptors for normalized error handling.
  */
 export const apiClient = new Api({
     baseURL: API_URL,
@@ -33,10 +30,8 @@ export const apiClient = new Api({
  *
  * @description
  * Reads the active i18n language on every request so the backend negotiates content
- * language and localised error `detail` against exactly what the UI is rendering. The
- * live `i18n.language` is the source of truth (it always reflects the active locale
- * even if `localStorage` is blocked or stale); `getClientLanguage()` is the SSR-safe
- * fallback for the pre-init window.
+ * language against what the UI renders. Live `i18n.language` is the source of truth;
+ * `getClientLanguage()` is the SSR-safe fallback for the pre-init window.
  */
 apiClient.instance.interceptors.request.use((config) => {
     config.headers.set("Accept-Language", i18n.language || getClientLanguage());
@@ -55,11 +50,9 @@ const responseHandler = (response: AxiosResponse): AxiosResponse => response;
  * Axios error interceptor — handles and normalizes API errors.
  *
  * @description
- * Handles the following cases in order:
- * - 400 ValidationException: Normalize title, set detail to first error message, preserve errors array
- * - 429 responses: Parse Retry-After header, attach as retryAfter
- * - Other API errors: Map exception codes to localised titles via the active language
- * - Network errors: Return structured error with status 0
+ * Normalizes API errors into localized `IApiProblemDetails`: validation errors keep
+ * their errors array, 429s gain `retryAfter`, exception codes map to localised
+ * titles, and network errors become a structured error with status 0.
  */
 const errorHandler = async (error: AxiosError<IApiProblemDetails>): Promise<never> => {
     if (error.response) {

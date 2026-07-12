@@ -3,9 +3,10 @@
 import * as TabsPrimitive from "@radix-ui/react-tabs";
 import { type ComponentPropsWithoutRef, type ComponentRef, forwardRef, useContext } from "react";
 
-import { cn } from "@/shared/presentation/utils/cn";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
-import { type TabsSize, TabsSizeContext, tabsListVariants } from "./Tabs";
+import { TabsSizeContext } from "./tabsContext";
+import { type TabsSize, tabsListVariants } from "./tabsVariants";
 
 /**
  * Props for the {@link TabsList}.
@@ -24,8 +25,6 @@ export interface TabsListProps extends ComponentPropsWithoutRef<typeof TabsPrimi
  * The trigger strip: an inline muted pill container in the shadcn anatomy.
  * Padding scales with `size` (inherited from the `Tabs` root, or overridden
  * here); `className` is merged last so surfaces can override per usage.
- *
- * @param size - Overrides the size inherited from the `Tabs` root.
  */
 export const TabsList = forwardRef<ComponentRef<typeof TabsPrimitive.List>, TabsListProps>(
     ({ className, size, ...props }, ref) => {

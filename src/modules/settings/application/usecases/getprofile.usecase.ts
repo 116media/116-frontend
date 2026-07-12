@@ -23,7 +23,7 @@ export class GetProfileUseCase implements IGetProfileUseCase {
     private readonly settingsRepository: ISettingsRepositoryPort;
 
     /**
-     * @param {ISettingsRepositoryPort} settingsRepository - Repository for settings operations (injected)
+     * @param settingsRepository - Repository for settings operations (injected)
      */
     constructor({ settingsRepository }: { settingsRepository: ISettingsRepositoryPort }) {
         this.settingsRepository = settingsRepository;

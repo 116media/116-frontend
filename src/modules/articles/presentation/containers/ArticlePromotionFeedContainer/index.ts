@@ -1,0 +1,1 @@
+export { ArticlePromotionFeedContainer } from "./ArticlePromotionFeedContainer";

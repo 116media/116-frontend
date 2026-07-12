@@ -4,15 +4,14 @@ import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import type { ComponentPropsWithoutRef, ComponentRef } from "react";
 import { forwardRef } from "react";
 
-import { cn } from "@/shared/presentation/utils/cn";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
  * NavigationMenuViewport
  *
  * @description
- * The container that renders the active NavigationMenuContent panel.
- * The outer wrapper spans the full viewport width and is anchored to
- * the left edge of the page so the mega menu panel appears edge-to-edge.
+ * The container that renders the active NavigationMenuContent panel, anchored
+ * edge-to-edge below the header so the mega menu spans the full viewport width.
  * The primitive handles open/close sizing and slide transitions.
  */
 export const NavigationMenuViewport = forwardRef<

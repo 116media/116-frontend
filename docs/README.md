@@ -4,6 +4,14 @@ Technical documentation for the 116 public-facing website built with Next.js 16,
 
 ## Table of Contents
 
+### Architecture — Consistency Audit & Conventions
+- [Refactoring architecture — overview](refactoring-architecture/README.md)
+- [Audit index & master inventory](refactoring-architecture/00-index.md)
+- [Canonical conventions (the contract)](refactoring-architecture/01-canonical-conventions.md)
+- [Component & folder structure](refactoring-architecture/component-folder-structure/README.md)
+- [Remediation roadmap](refactoring-architecture/08-remediation-roadmap.md)
+- [Implementation specs](refactoring-architecture/specs/00-index.md)
+
 ### Architecture
 - [Project Structure](architecture/01-project-structure.md)
 - [Clean Architecture Layers](architecture/02-clean-architecture.md)

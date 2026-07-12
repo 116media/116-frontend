@@ -17,10 +17,9 @@ export interface IArticleAuthor {
  * IArticleSummaryEntity
  *
  * @description
- * Domain entity representing a summary view of a published article.
- * Maps from ArticleSummaryDto — drops audit fields, authorId, and status
- * which are irrelevant to the public-facing mega menu display.
- * Used by the feed grid and cards.
+ * Summary view of a published article, mapped from ArticleSummaryDto. Drops audit
+ * fields, authorId, and status, which public surfaces never read. Used by the mega
+ * menu, feed grid, and cards.
  *
  * @interface IArticleSummaryEntity
  *

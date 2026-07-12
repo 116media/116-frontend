@@ -13,12 +13,9 @@ import container from "@/shared/infrastructure/service.locator";
  * useUpdateProfile
  *
  * @description
- * Updates the current user's profile. The use case returns a `Result`; this hook
- * folds it into the mutation's channels — unwrapping the value on success and
- * throwing the `Failure` on error. The endpoint returns the updated user, so on
- * success we write it straight into `['auth','me']` — authoritative and instant, no
- * refetch, no stale data anywhere `useAuth()` is read. (Used by the later Settings
- * page.)
+ * Updates the current user's profile. Unwraps the use case `Result`; on success
+ * writes the returned user straight into `['auth','me']` — no refetch, no stale data
+ * anywhere `useAuth()` is read.
  *
  * @returns A TanStack mutation for updating the profile; its `error` is a `Failure`.
  */

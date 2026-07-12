@@ -1,0 +1,46 @@
+"use client";
+
+import Link from "next/link";
+import { useTranslation } from "react-i18next";
+import { ChevronRightIcon } from "@/shared/presentation/components/ui/Icon";
+
+import { ARTICLES_PATH } from "@/shared/presentation/constants/paths";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
+import type { ArticlesMegaMenuCategoryListProps } from "./types";
+
+/**
+ * ArticlesMegaMenuCategoryList
+ *
+ * @description
+ * Left column of the articles mega menu: each category links to the articles list
+ * filtered by that category.
+ */
+export function ArticlesMegaMenuCategoryList({ categories }: ArticlesMegaMenuCategoryListProps) {
+    const { t } = useTranslation();
+
+    return (
+        <div className="flex flex-col">
+            <p className="mb-2 pr-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                {t("articles.home.categories")}
+            </p>
+            <div className="mb-2 h-px bg-border/60 mr-3" />
+            {categories.map((category) => (
+                <Link
+                    key={category.id}
+                    href={`${ARTICLES_PATH}?categoryId=${category.id}`}
+                    className={cn(
+                        "group flex items-center justify-between rounded-md px-3 py-2 transition-colors",
+                        "hover:bg-accent"
+                    )}
+                >
+                    <span className="text-xs font-medium text-foreground group-hover:text-accent-foreground lg:text-sm">
+                        {category.name}
+                    </span>
+                    <div className="flex items-center gap-1.5 shrink-0">
+                        <ChevronRightIcon className="h-3.5 w-3.5 text-muted-foreground group-hover:text-accent-foreground" />
+                    </div>
+                </Link>
+            ))}
+        </div>
+    );
+}

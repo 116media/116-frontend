@@ -24,7 +24,7 @@ export class SocialLoginUseCase implements ISocialLoginUseCase {
     private readonly authRepository: IAuthRepositoryPort;
 
     /**
-     * @param {IAuthRepositoryPort} authRepository - Repository for auth operations (injected)
+     * @param authRepository - Repository for auth operations (injected)
      */
     constructor({ authRepository }: { authRepository: IAuthRepositoryPort }) {
         this.authRepository = authRepository;
@@ -33,7 +33,7 @@ export class SocialLoginUseCase implements ISocialLoginUseCase {
     /**
      * Executes the social-login use case.
      *
-     * @param {ISocialLoginCredentials} credentials - Provider profile + provider name
+     * @param credentials - Provider profile + provider name
      * @returns {Promise<Result<IAuthResponse>>} `ok(IAuthResponse)` on success, `err(Failure)` on failure
      */
     execute(credentials: ISocialLoginCredentials): Promise<Result<IAuthResponse>> {

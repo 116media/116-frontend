@@ -1,5 +1,5 @@
-import type { ISession } from "@/modules/auth/domain/entities/ISession";
 import type { ISessionRepositoryPort } from "@/modules/session/application/repositories/session.repository.port";
+import type { ISessionEntity } from "@/modules/session/domain/entities/ISessionEntity";
 import type { IResultUseCase } from "@/shared/application/usecases/IUseCase";
 import type { Result } from "@/shared/domain/results/result";
 
@@ -7,9 +7,9 @@ import type { Result } from "@/shared/domain/results/result";
  * IGetSessionsUseCase
  *
  * @interface IGetSessionsUseCase
- * @extends {IResultUseCase<boolean, ISession[]>}
+ * @extends {IResultUseCase<boolean, ISessionEntity[]>}
  */
-interface IGetSessionsUseCase extends IResultUseCase<boolean, ISession[]> {}
+interface IGetSessionsUseCase extends IResultUseCase<boolean, ISessionEntity[]> {}
 
 /**
  * GetSessionsUseCase
@@ -35,9 +35,9 @@ export class GetSessionsUseCase implements IGetSessionsUseCase {
      * Executes the get-sessions use case.
      *
      * @param isActive - Optional filter for active sessions only.
-     * @returns `ok(ISession[])` on success, `err(Failure)` on failure.
+     * @returns `ok(ISessionEntity[])` on success, `err(Failure)` on failure.
      */
-    execute(isActive?: boolean): Promise<Result<ISession[]>> {
+    execute(isActive?: boolean): Promise<Result<ISessionEntity[]>> {
         return this.sessionRepository.getSessions(isActive);
     }
 }

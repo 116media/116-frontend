@@ -27,7 +27,7 @@ export class GetArticleCommentsUseCase implements IGetArticleCommentsUseCase {
     private readonly articlesRepository: IArticlesRepositoryPort;
 
     /**
-     * @param {IArticlesRepositoryPort} articlesRepository - Repository for articles operations (injected)
+     * @param articlesRepository - Repository for articles operations (injected)
      */
     constructor({ articlesRepository }: { articlesRepository: IArticlesRepositoryPort }) {
         this.articlesRepository = articlesRepository;
@@ -36,7 +36,7 @@ export class GetArticleCommentsUseCase implements IGetArticleCommentsUseCase {
     /**
      * Executes the get-article-comments use case.
      *
-     * @param {IArticleCommentsQuery} query - Article id plus paging
+     * @param query - Article id plus paging
      * @returns {Promise<Result<IArticleCommentPage>>} `ok(IArticleCommentPage)` on success, `err(Failure)` on failure
      */
     async execute(query: IArticleCommentsQuery): Promise<Result<IArticleCommentPage>> {

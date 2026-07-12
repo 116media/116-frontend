@@ -24,7 +24,7 @@ export class GetMyPlaylistsUseCase implements IGetMyPlaylistsUseCase {
     private readonly videosRepository: IVideosRepositoryPort;
 
     /**
-     * @param {IVideosRepositoryPort} videosRepository - Repository for videos operations (injected)
+     * @param videosRepository - Repository for videos operations (injected)
      */
     constructor({ videosRepository }: { videosRepository: IVideosRepositoryPort }) {
         this.videosRepository = videosRepository;

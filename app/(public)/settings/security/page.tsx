@@ -1,4 +1,4 @@
-import { SecuritySection } from "@/modules/settings/presentation/components/SecuritySection";
+import { SecuritySection } from "@/modules/settings/presentation/components/sections/SecuritySection";
 
 /**
  * SecuritySettingsPage

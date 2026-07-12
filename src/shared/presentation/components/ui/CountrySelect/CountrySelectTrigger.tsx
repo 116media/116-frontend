@@ -1,6 +1,6 @@
 import type { ICountryObject } from "@/shared/infrastructure/constants/countries";
 import { ChevronsUpDownIcon } from "@/shared/presentation/components/ui/Icon";
-import { cn } from "@/shared/presentation/utils/cn";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
  * Props for the CountrySelectTrigger component.
@@ -28,18 +28,9 @@ export interface CountrySelectTriggerProps {
  * CountrySelectTrigger
  *
  * @description
- * The button that opens the {@link CountrySelect} menu, wearing the shared floating-label
- * chrome so it lines up with the other form fields. Shows the selected flag, dial code,
- * and name; the label floats to the top once a country is selected or the menu opens,
- * and rests as the placeholder otherwise.
- *
- * @param label - The floating label.
- * @param open - Whether the menu is open.
- * @param onToggle - Toggles the menu.
- * @param selected - The selected country.
- * @param id - Id applied to the button.
- * @param required - Appends a `*` marker to the label.
- * @param error - Renders the invalid state.
+ * The button that opens the {@link CountrySelect} menu, wearing the shared
+ * floating-label chrome so it lines up with the other form fields. Shows the
+ * selected flag, dial code, and name.
  */
 export function CountrySelectTrigger({
     label,

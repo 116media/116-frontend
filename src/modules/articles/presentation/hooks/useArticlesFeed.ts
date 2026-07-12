@@ -3,29 +3,22 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 import type { IArticlePage } from "@/modules/articles/domain/entities/IArticlePage";
-import { dummyArticlePage } from "@/modules/articles/presentation/data/articles.dummy";
-import type { Failure } from "@/shared/domain/failures/failure";
-import container from "@/shared/infrastructure/service.locator";
 import {
     ARTICLES_PAGE_SIZE,
     articleKeys,
     type IArticleFeedFilters
-} from "../constants/articleKeys";
+} from "@/modules/articles/presentation/constants/articleKeys";
+import { dummyArticlePage } from "@/modules/articles/presentation/data/articles.dummy";
+import type { Failure } from "@/shared/domain/failures/failure";
+import container from "@/shared/infrastructure/service.locator";
 
 /**
  * useArticlesFeed
  *
  * @description
- * Infinite query for the public article feed. Each page calls
- * `getPublishedArticlesUseCase` with the next zero-based `pageIndex`; pages accumulate
- * in the TanStack cache. `getNextPageParam` returns the next index while the mapped
- * `hasNextPage` is true, else `undefined` (which sets the query's `hasNextPage` false).
- * Errors surface as the typed `Failure`.
- *
- * Dummy-data phase: while the backend has no published content, an empty **unfiltered**
- * feed is served as paged dummy articles (`dummyArticlePage`) so infinite scroll pages
- * through the full dummy set exactly like real data. Dummy never stands in for a filtered
- * query — an empty filtered result stays empty (the grid shows "no articles match").
+ * Infinite query over the published-articles feed, keyed by the active filters. While the
+ * backend has no published content, an empty unfiltered page is served as paged dummy
+ * articles; a filtered query never falls back and stays empty.
  *
  * @param filters - Optional search / category / tag scoping.
  * @returns The `useInfiniteQuery` result for the feed.

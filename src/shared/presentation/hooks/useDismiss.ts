@@ -6,10 +6,9 @@ import { type RefObject, useEffect, useRef } from "react";
  * useDismiss
  *
  * @description
- * Closes an open overlay (dropdown, popover, menu) on an outside pointer-down or an
- * Escape key press. Only listens while `open` is true, and treats pointer-downs inside
- * `ref` as internal (no dismiss). The latest `onDismiss` is read through a ref, so the
- * listeners are not re-bound on every render even when an inline callback is passed.
+ * Closes an open overlay on an outside pointer-down or Escape. Listens only while
+ * `open` is true; `onDismiss` is read through a ref so listeners are not re-bound
+ * on every render even when an inline callback is passed.
  *
  * @typeParam T - The element type the container ref points at.
  * @param open - Whether the overlay is currently open (listeners are active only then).

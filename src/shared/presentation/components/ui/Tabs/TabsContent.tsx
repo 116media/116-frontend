@@ -4,9 +4,9 @@ import * as TabsPrimitive from "@radix-ui/react-tabs";
 import { motion } from "motion/react";
 import { type ComponentPropsWithoutRef, type ComponentRef, forwardRef, useContext } from "react";
 
-import { cn } from "@/shared/presentation/utils/cn";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
-import { TabsDirectionContext } from "./Tabs";
+import { TabsDirectionContext } from "./tabsContext";
 
 /**
  * Props for the {@link TabsContent}.
@@ -23,13 +23,9 @@ export interface TabsContentProps extends ComponentPropsWithoutRef<typeof TabsPr
  * TabsContent
  *
  * @description
- * One tab panel. Radix unmounts inactive content, so the mount animation is
- * the transition: a direction-aware slide+fade (in from the right when moving
- * to a later tab, from the left when moving back) driven by the root's
- * direction context. Set `animated={false}` for consumers that don't want
- * motion.
- *
- * @param animated - Whether to run the mount animation. Defaults to true.
+ * One tab panel. Radix unmounts inactive content, so the mount animation is the
+ * transition: a direction-aware slide+fade driven by the root's direction context.
+ * Set `animated={false}` for consumers that don't want motion.
  */
 export const TabsContent = forwardRef<ComponentRef<typeof TabsPrimitive.Content>, TabsContentProps>(
     ({ className, animated = true, children, ...props }, ref) => {

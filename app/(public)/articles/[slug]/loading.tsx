@@ -1,4 +1,4 @@
-import { ArticleDetailLoading } from "@/modules/articles/presentation/components/ArticleDetail/ArticleDetail.Loading";
+import { ArticleDetailLoading } from "@/modules/articles/presentation/components/pages/ArticleDetail/ArticleDetail.Loading";
 
 /**
  * Loading

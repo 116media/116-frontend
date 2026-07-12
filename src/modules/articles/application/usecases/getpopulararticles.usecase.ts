@@ -28,7 +28,7 @@ export class GetPopularArticlesUseCase implements IGetPopularArticlesUseCase {
     private readonly articlesRepository: IArticlesRepositoryPort;
 
     /**
-     * @param {IArticlesRepositoryPort} articlesRepository - Repository for articles operations (injected)
+     * @param articlesRepository - Repository for articles operations (injected)
      */
     constructor({ articlesRepository }: { articlesRepository: IArticlesRepositoryPort }) {
         this.articlesRepository = articlesRepository;
@@ -37,7 +37,7 @@ export class GetPopularArticlesUseCase implements IGetPopularArticlesUseCase {
     /**
      * Executes the get-popular-articles use case.
      *
-     * @param {IPopularArticlesQuery} query - Limit plus optional exclusion and category scope
+     * @param query - Limit plus optional exclusion and category scope
      * @returns {Promise<Result<IArticleSummaryEntity[]>>} `ok(IArticleSummaryEntity[])` on success, `err(Failure)` on failure
      */
     async execute(query: IPopularArticlesQuery): Promise<Result<IArticleSummaryEntity[]>> {

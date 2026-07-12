@@ -65,11 +65,9 @@ const AuthModalContext = createContext<AuthModalApi | null>(null);
  * AuthModalProvider
  *
  * @description
- * Holds the auth modal's open state, a view-history stack, and the small context
- * shared between views (email + OTP purpose during a flow, plus an optional
- * resume-after-login action). There is exactly one `AuthModal` rendered here:
- * switching views never mounts a second modal — `go()` swaps the body of the open
- * dialog in place and `back()` returns to the previous view.
+ * Holds the auth modal's open state, a view-history stack, and the context
+ * shared between views (email, OTP purpose, resume-after-login action).
+ * Renders the single `AuthModal`; `go()` swaps its body in place.
  *
  * @param children - The app subtree that can open the modal.
  */

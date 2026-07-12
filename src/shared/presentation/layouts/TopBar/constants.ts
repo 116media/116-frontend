@@ -1,18 +1,8 @@
 import { SiFacebook, SiInstagram, SiTiktok, SiX, SiYoutube } from "@icons-pack/react-simple-icons";
 
 /**
- * SOCIAL_LINKS
- *
- * @description
- * Ordered list of social media platforms displayed in the TopBar.
- * Each entry provides the icon component, the platform URL, an accessible label,
- * and a static Tailwind hover class for the brand color on hover.
- * Colors use the social tokens registered in theme.css.
- *
- * @property icon - React component for the platform icon (from react-simple-icons)
- * @property href - External URL to the 116 Media account on that platform
- * @property label - Accessible label used as aria-label on the link
- * @property hoverClass - Static Tailwind class applied on hover to restore brand color
+ * Ordered social platform links shown in the TopBar; `hoverClass` must be a static
+ * Tailwind class backed by the social brand tokens registered in theme.css.
  */
 export const SOCIAL_LINKS = [
     {

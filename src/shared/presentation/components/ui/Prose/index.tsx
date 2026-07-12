@@ -1,6 +1,6 @@
 import { forwardRef, type HTMLAttributes } from "react";
 
-import { cn } from "@/shared/presentation/utils/cn";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
  * Props for the Prose component.
@@ -14,20 +14,14 @@ export type ProseProps = HTMLAttributes<HTMLDivElement>;
  * Prose
  *
  * @description
- * A typographic container for rendered rich-text HTML. Applies a curated set of descendant
- * styles (headings, paragraphs, links, images, blockquotes, lists, embeds, rules) using
- * theme tokens so content reads consistently in light and dark mode. Images are
- * full-width, auto-height and rounded; iframes are responsive. Forwards its ref to the
- * underlying div so the content element can be measured for reading progress. No global
- * typography plugin is required.
+ * A typographic container for rendered rich-text HTML. Applies a curated set of
+ * descendant styles (headings, links, images, embeds, lists) using theme tokens;
+ * forwards its ref so the content element can be measured for reading progress.
  *
  * @param className - Extra classes merged onto the container.
  */
-export const Prose = forwardRef<HTMLDivElement, ProseProps>(function Prose(
-    { className, children, ...props },
-    ref
-) {
-    return (
+export const Prose = forwardRef<HTMLDivElement, ProseProps>(
+    ({ className, children, ...props }, ref) => (
         <div
             ref={ref}
             className={cn(
@@ -47,5 +41,6 @@ export const Prose = forwardRef<HTMLDivElement, ProseProps>(function Prose(
         >
             {children}
         </div>
-    );
-});
+    )
+);
+Prose.displayName = "Prose";

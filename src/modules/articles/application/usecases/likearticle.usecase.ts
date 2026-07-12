@@ -22,7 +22,7 @@ export class LikeArticleUseCase implements ILikeArticleUseCase {
     private readonly articlesRepository: IArticlesRepositoryPort;
 
     /**
-     * @param {IArticlesRepositoryPort} articlesRepository - Repository for articles operations (injected)
+     * @param articlesRepository - Repository for articles operations (injected)
      */
     constructor({ articlesRepository }: { articlesRepository: IArticlesRepositoryPort }) {
         this.articlesRepository = articlesRepository;
@@ -31,7 +31,7 @@ export class LikeArticleUseCase implements ILikeArticleUseCase {
     /**
      * Executes the like article use case.
      *
-     * @param {string} articleId - The article to like
+     * @param articleId - The article to like
      * @returns {Promise<Result<boolean>>} `ok(boolean)` success flag on success, `err(Failure)` on failure
      */
     async execute(articleId: string): Promise<Result<boolean>> {

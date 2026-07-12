@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import type * as React from "react";
 import { SpinnerIcon } from "@/shared/presentation/components/ui/Icon";
 
-import { cn } from "@/shared/presentation/utils/cn";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 export const buttonVariants = cva(
     "inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
@@ -56,14 +56,6 @@ export interface ButtonProps
  * shadcn/ui button component with variant and size support.
  * All colors reference CSS tokens from theme.css — no hardcoded values.
  * Pass `asChild` to render as a different element (e.g. an anchor tag).
- *
- * @param className - Additional class names to merge
- * @param variant - Visual style: default | destructive | outline | secondary | ghost | link
- * @param size - Size preset: default | sm | lg | icon
- * @param asChild - Render as the child element using Radix Slot
- * @param loading - Overlays a centered spinner on the label and disables the button
- * @param disabled - Native disabled state (implied while `loading`)
- * @param children - The button label / content
  */
 export function Button({
     className,

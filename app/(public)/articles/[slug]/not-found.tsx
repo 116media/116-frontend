@@ -1,4 +1,4 @@
-import { ArticleDetailNotFound } from "@/modules/articles/presentation/components/ArticleDetail/ArticleDetail.NotFound";
+import { ArticleDetailNotFound } from "@/modules/articles/presentation/components/pages/ArticleDetail/ArticleDetail.NotFound";
 
 /**
  * NotFound

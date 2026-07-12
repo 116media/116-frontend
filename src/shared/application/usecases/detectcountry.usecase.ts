@@ -23,7 +23,7 @@ export class DetectCountryUseCase implements IDetectCountryUseCase {
     private readonly geoRepository: IGeoRepositoryPort;
 
     /**
-     * @param {IGeoRepositoryPort} geoRepository - Repository for geolocation operations (injected)
+     * @param geoRepository - Repository for geolocation operations (injected)
      */
     constructor({ geoRepository }: { geoRepository: IGeoRepositoryPort }) {
         this.geoRepository = geoRepository;

@@ -1,6 +1,6 @@
 import type { HTMLAttributes } from "react";
 
-import { cn } from "@/shared/presentation/utils/cn";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
  * Props for the Progress component.
@@ -20,16 +20,9 @@ export interface ProgressProps extends HTMLAttributes<HTMLDivElement> {
  * Progress
  *
  * @description
- * A slim themed progress bar. A muted track holds a primary-colored indicator whose width
- * tracks `value` (0..100, clamped). Exposes the progressbar ARIA role and value bounds.
- * Colors are theme tokens; only the indicator width is inline, a computed geometric value.
- * The indicator transitions width (snappy, so it can track continuous updates like scroll)
- * and background-color (slower, so a token color swap via `indicatorClassName` morphs
- * smoothly rather than snapping) with per-property durations.
- *
- * @param value - The current progress, 0..100 (clamped).
- * @param className - Extra classes merged onto the track.
- * @param indicatorClassName - Extra classes merged onto the indicator (e.g. a token color).
+ * A slim themed progress bar: a muted track holding a primary-colored indicator
+ * whose width tracks `value` (0..100, clamped). Exposes the progressbar ARIA role;
+ * width and background-color transition with per-property durations.
  */
 export function Progress({ value, className, indicatorClassName, ...props }: ProgressProps) {
     const clamped = Math.min(100, Math.max(0, value));

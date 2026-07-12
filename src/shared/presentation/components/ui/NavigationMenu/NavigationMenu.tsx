@@ -4,7 +4,7 @@ import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import type { ComponentPropsWithoutRef, ComponentRef } from "react";
 import { forwardRef } from "react";
 
-import { cn } from "@/shared/presentation/utils/cn";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
  * NavigationMenu
@@ -12,8 +12,6 @@ import { cn } from "@/shared/presentation/utils/cn";
  * @description
  * Root container for the navigation menu. Manages open/close state
  * and positions the viewport relative to the trigger items.
- * Rendered as a relative-positioned element so the viewport can be
- * anchored below it.
  */
 export const NavigationMenu = forwardRef<
     ComponentRef<typeof NavigationMenuPrimitive.Root>,

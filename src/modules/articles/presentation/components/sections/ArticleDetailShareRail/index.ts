@@ -1,0 +1,1 @@
+export { ArticleDetailShareRail } from "./ArticleDetailShareRail";

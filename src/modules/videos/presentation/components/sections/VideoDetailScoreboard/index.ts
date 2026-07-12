@@ -1,0 +1,1 @@
+export { VideoDetailScoreboard } from "./VideoDetailScoreboard";

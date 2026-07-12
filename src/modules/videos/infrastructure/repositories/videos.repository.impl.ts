@@ -23,11 +23,9 @@ import { ProblemMapper } from "@/shared/infrastructure/mappers/problem.mapper";
  * Videos repository implementation using the public REST API.
  *
  * @description
- * Implements IVideosRepositoryPort by delegating to an injected Api instance.
- * Works for both browser (Awilix injects the browser apiClient registered as `api`)
- * and server (layout manually instantiates with createServerApiClient()).
- * All methods return `Result<T>` — errors are caught and converted to
- * typed Failure values via ProblemMapper.
+ * Implements IVideosRepositoryPort by delegating to an injected Api instance,
+ * usable from both the browser and server clients. All methods return
+ * `Result<T>` — errors are converted to typed Failure values via ProblemMapper.
  */
 export class VideosRepositoryImpl implements IVideosRepositoryPort {
     private readonly api: Api<unknown>["api"];

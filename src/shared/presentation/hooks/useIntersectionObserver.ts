@@ -6,9 +6,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
  * useIntersectionObserver
  *
  * @description
- * Observes a target element and reports whether it currently intersects the viewport
- * (or a given root). Returns a callback ref to attach to the target and the latest
- * intersection state. The observer is recreated only when the options identity changes.
+ * Reports whether a target element intersects the viewport (or a given root) via a
+ * callback ref. The observer is recreated only when the options identity changes.
  *
  * @param options - Standard IntersectionObserver options (rootMargin, threshold, root).
  * @returns A tuple `[ref, isIntersecting]` — attach `ref` to the sentinel.

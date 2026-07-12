@@ -2,20 +2,19 @@
  * IYoutubeVideoStats
  *
  * @description
- * Domain entity representing the YouTube Data API statistics for the video's
- * YouTube upload, displayed as stat chips on the detail page. There is no DTO
- * on the generated client — the internal `/api/youtube/[videoId]` route
- * handler's JSON is the source shape. A null field means the statistic is
- * hidden or unavailable upstream, which is distinct from a real count of 0:
- * null chips are hidden, zero chips render.
+ * Domain entity for the YouTube Data API statistics of a video's upload,
+ * sourced from the internal `/api/youtube/[videoId]` route (no generated DTO).
+ * Null means hidden or unavailable upstream, distinct from a real count of 0.
  *
  * @interface IYoutubeVideoStats
  *
  * @property {number | null} viewCount - Total YouTube views, or null when hidden/unavailable
  * @property {number | null} likeCount - Total YouTube likes, or null when hidden/unavailable
  * @property {number | null} commentCount - Total YouTube comments, or null when hidden/unavailable
+ * @property {boolean} hasStats - True when at least one statistic carries a value; derived by the mapper
  */
 export interface IYoutubeVideoStats {
+    hasStats: boolean;
     viewCount: number | null;
     likeCount: number | null;
     commentCount: number | null;

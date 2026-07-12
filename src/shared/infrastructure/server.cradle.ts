@@ -7,11 +7,9 @@ import container, { type Cradle } from "@/shared/infrastructure/service.locator"
  * createServerCradle
  *
  * @description
- * Creates a per-request Awilix scope for server-side rendering.
- * Internally calls `createServerApiClient()` to build the SSR client
- * (with cookies and internal URL), then overrides the browser `client`
- * registration so every use case resolved from this scope uses the
- * server client.
+ * Creates a per-request Awilix scope for SSR, overriding the browser `client`
+ * registration with a cookie-aware server API client so every use case
+ * resolved from the scope talks to the backend as the current request.
  *
  * @returns The scoped cradle with all use cases ready to call
  */

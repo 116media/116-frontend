@@ -6,16 +6,7 @@ import {
 } from "@/shared/presentation/constants/paths";
 
 /**
- * NAV_LINKS
- *
- * @description
- * Primary navigation items displayed in the centre of the Header.
- * Articles and Vidéos trigger a mega menu on hover.
- * Lyrics and Artistes are plain links with no sub-menu.
- *
- * @property label - Visible link text
- * @property href - Navigation target sourced from route path constants
- * @property hasMegaMenu - Whether this item opens a mega menu on hover
+ * Primary Header navigation items; entries with `hasMegaMenu` open a mega menu on hover.
  */
 export const NAV_LINKS = [
     { label: "NEWS", href: ARTICLES_PATH, hasMegaMenu: true },

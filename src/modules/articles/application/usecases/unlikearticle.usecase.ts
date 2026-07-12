@@ -23,7 +23,7 @@ export class UnlikeArticleUseCase implements IUnlikeArticleUseCase {
     private readonly articlesRepository: IArticlesRepositoryPort;
 
     /**
-     * @param {IArticlesRepositoryPort} articlesRepository - Repository for articles operations (injected)
+     * @param articlesRepository - Repository for articles operations (injected)
      */
     constructor({ articlesRepository }: { articlesRepository: IArticlesRepositoryPort }) {
         this.articlesRepository = articlesRepository;
@@ -32,7 +32,7 @@ export class UnlikeArticleUseCase implements IUnlikeArticleUseCase {
     /**
      * Executes the unlike article use case.
      *
-     * @param {string} articleId - The article to unlike
+     * @param articleId - The article to unlike
      * @returns {Promise<Result<boolean>>} `ok(boolean)` success flag on success, `err(Failure)` on failure
      */
     async execute(articleId: string): Promise<Result<boolean>> {

@@ -3,9 +3,9 @@ import { notFound } from "next/navigation";
 import { cache } from "react";
 
 import type { IVideoDetailEntity } from "@/modules/videos/domain/entities/IVideoDetailEntity";
-import { VideoDetailContainer } from "@/modules/videos/presentation/components/VideoDetail";
-import { videoJsonLd } from "@/modules/videos/presentation/components/VideoDetail/videoJsonLd";
+import { VideoDetailContainer } from "@/modules/videos/presentation/containers/VideoDetailContainer";
 import { dummyVideoDetail } from "@/modules/videos/presentation/data/video-detail.dummy";
+import { videoJsonLd } from "@/modules/videos/presentation/utils/json-ld/video-json-ld.utils";
 import { createServerCradle } from "@/shared/infrastructure/server.cradle";
 
 /**

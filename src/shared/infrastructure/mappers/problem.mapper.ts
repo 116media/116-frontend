@@ -3,19 +3,13 @@ import { serverFailure, unknownFailure } from "@/shared/domain/failures/failure"
 import type { IApiProblemDetails } from "@/shared/infrastructure/api/type";
 
 /**
- * Converts caught errors into typed domain failures.
- *
- * Centralizes the exception-to-failure conversion at the infrastructure
- * boundary. Repositories call this in their catch blocks to produce
- * a `Failure` for the `Result` return type.
+ * Converts caught errors into typed domain failures at the infrastructure boundary.
+ * Repositories call this in catch blocks to produce a `Failure` for `Result` returns.
  */
 export const ProblemMapper = {
     /**
-     * Converts an unknown caught error into a typed Failure.
-     *
-     * If the error has a `title` and `detail` (i.e. it was normalized
-     * by the Axios error handler into IApiProblemDetails), it becomes
-     * a ServerFailure. Otherwise, it becomes an UnknownFailure.
+     * Converts an unknown caught error into a typed Failure: a ServerFailure when it
+     * carries normalized IApiProblemDetails fields, an UnknownFailure otherwise.
      */
     toFailure(error: unknown): Failure {
         if (isApiProblemDetails(error)) {

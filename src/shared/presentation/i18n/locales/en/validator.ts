@@ -2,10 +2,9 @@
  * validator (en)
  *
  * @description
- * English validation messages, resolved by the zod error map at validation time.
- * Every message names its field via the `{{field}}` interpolation (the localized
- * field label, supplied by `Validators`) — e.g. "Email or username is required".
- * Must stay key-complete with the French mirror.
+ * English validation messages, resolved at validation time. Every message names its
+ * field via the `{{field}}` interpolation (the localized field label supplied by
+ * `Validators`). Must stay key-complete with the French mirror.
  */
 export const validator = {
     required: "{{field}} is required",

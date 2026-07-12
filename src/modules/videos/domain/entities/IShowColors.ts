@@ -2,11 +2,9 @@
  * IShowColors
  *
  * @description
- * Poster-derived color pair used to theme a show card. Both values are plain
- * `#RRGGBB` hex strings produced by the backend at upload time: `background` is
- * the poster's dominant color and `foreground` is its WCAG-contrasting text
- * color (black or white). Ready to drop straight into inline styles. Embedded in
- * `IShowEntity` and resolved from `CategoryColorsDto`.
+ * Poster-derived color pair used to theme a show card, resolved from
+ * `CategoryColorsDto`. Both values are backend-produced `#RRGGBB` hex strings
+ * (dominant poster color plus its WCAG-contrasting text color).
  *
  * @interface IShowColors
  *

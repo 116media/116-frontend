@@ -3,22 +3,17 @@
 import { useQuery } from "@tanstack/react-query";
 
 import type { IVideoLyricsEntity } from "@/modules/videos/domain/entities/IVideoLyricsEntity";
+import { videoKeys } from "@/modules/videos/presentation/constants/videoKeys";
+import { dummyVideoLyrics } from "@/modules/videos/presentation/data/video-detail.dummy";
 import container from "@/shared/infrastructure/service.locator";
-import { videoKeys } from "../constants/videoKeys";
-import { dummyVideoLyrics } from "../data/video-detail.dummy";
 
 /**
  * useVideoLyrics
  *
  * @description
  * Query for the lyrics linked to a video, driving the detail page's lyrics
- * tab. Lazy — `enabled` is passed by the tab so the fetch only fires once the
- * lyrics tab has been opened, then stays cached. A missing-lyrics 404 resolves
- * to `null`, which the tab renders as its empty state.
- *
- * Dummy-data phase: while the backend has no linked lyrics, a failed fetch
- * falls back to dummy lyrics so the tab is previewable; the `null` empty seam
- * stays in place for when the backend is wired.
+ * tab. Lazy — fetches only once the tab opens; a missing-lyrics 404 resolves
+ * to `null` (the tab's empty state) and a failed fetch falls back to dummies.
  *
  * @param videoId - The video whose lyrics to fetch.
  * @param enabled - Whether the query may run (the lyrics tab has been opened).

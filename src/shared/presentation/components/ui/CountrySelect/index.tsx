@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { COUNTRY_LIST } from "@/shared/infrastructure/constants/countries";
 import { useDismiss } from "@/shared/presentation/hooks/useDismiss";
-import { findCountryByName } from "@/shared/presentation/utils/country";
+import { findCountryByName } from "@/shared/presentation/utils/country/country.utils";
 
 import { CountrySelectMenu } from "./CountrySelectMenu";
 import { CountrySelectTrigger } from "./CountrySelectTrigger";
@@ -35,25 +35,9 @@ export interface CountrySelectProps {
  * CountrySelect
  *
  * @description
- * A searchable country picker composed from small parts: the floating-label
- * {@link CountrySelectTrigger}, the searchable {@link CountrySelectMenu} (a list of
- * {@link CountryOption} rows), and the shared {@link useDismiss} hook for outside-click /
- * Escape handling. This component owns only the state — open/close, the
- * search query, filtering the country list, and focusing the search field on open — and
- * emits the selected country name; the parent derives the ISO and dial codes.
- *
- * The menu renders in flow (absolutely positioned under the trigger), so it stays inside
- * any surrounding focus/scroll scope — a modal dialog keeps its search input typeable and
- * its list scrollable. It relies on its host container not clipping it, so a dialog that
- * hosts it must not put an `overflow` boundary between the field and the panel edge.
- *
- * @param value - The selected country name.
- * @param onChange - Emits the selected country name.
- * @param label - The floating label.
- * @param error - Inline error, shown below the field.
- * @param required - Appends a `*` marker to the label.
- * @param id - Id applied to the trigger for label association.
- * @param placeholder - Search prompt inside the popover.
+ * A searchable country picker composed from {@link CountrySelectTrigger} and
+ * {@link CountrySelectMenu}. Owns the open/search/filter state and emits the selected
+ * country name; the menu renders in flow so it stays usable inside modal dialogs.
  */
 export function CountrySelect({
     value,

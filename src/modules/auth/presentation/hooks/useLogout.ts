@@ -5,22 +5,20 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { ISignOutAllResponse } from "@/modules/auth/domain/entities/ISignOutAllResponse";
 import type { ISignOutResponse } from "@/modules/auth/domain/entities/ISignOutResponse";
 import { authKeys } from "@/modules/auth/presentation/constants/authKeys";
-import { AuthNotification } from "@/modules/auth/presentation/notifications/auth.notification";
 import { getAuthChannel } from "@/modules/auth/presentation/utils/authChannel";
+import { AuthNotification } from "@/modules/auth/presentation/utils/notification/auth.notification";
 import type { Failure } from "@/shared/domain/failures/failure";
 import { err } from "@/shared/domain/results/result";
 import container from "@/shared/infrastructure/service.locator";
-import { showNotification } from "@/shared/presentation/utils/notification";
+import { showNotification } from "@/shared/presentation/utils/notification/notification.utils";
 
 /**
  * useLogout
  *
  * @description
- * Signs the user out — this device by default, or everywhere when `all` is true. The
- * use case returns a `Result`; this hook folds it into the mutation's channels —
- * unwrapping the value on success and throwing the `Failure` on error. The backend
- * expires the cookies; on success the client clears the query cache (→ guest) and
- * pings other tabs. A failed sign-out throws (leaving the session intact).
+ * Signs the user out — this device by default, or everywhere when `all` is
+ * true. On success the client clears the query cache (→ guest) and pings other
+ * tabs; a failed sign-out throws a `Failure`, leaving the session intact.
  *
  * @returns A TanStack mutation; call `.mutate({ all })`. Its `error` is a `Failure`.
  */

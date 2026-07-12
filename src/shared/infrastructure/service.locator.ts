@@ -29,7 +29,7 @@ import type { VerifyOtpUseCase } from "@/modules/auth/application/usecases/verif
 import { registerAuthDependencies } from "@/modules/auth/infrastructure/dependencies/auth.dependencies";
 import type { ISessionRepositoryPort } from "@/modules/session/application/repositories/session.repository.port";
 import type { GetSessionsUseCase } from "@/modules/session/application/usecases/getsessions.usecase";
-import type { RefreshTokenUseCase } from "@/modules/session/application/usecases/refresh-token.usecase";
+import type { RefreshTokenUseCase } from "@/modules/session/application/usecases/refreshtoken.usecase";
 import type { RevokeSessionUseCase } from "@/modules/session/application/usecases/revokesession.usecase";
 import { registerSessionDependencies } from "@/modules/session/infrastructure/dependencies/session.dependencies";
 import type { ISettingsRepositoryPort } from "@/modules/settings/application/repositories/settings.repository.port";
@@ -155,9 +155,8 @@ export interface Cradle {
  * Awilix DI container — the composition root for the frontend.
  *
  * @description
- * Creates a single container with PROXY injection mode and strict lifetime
- * checks. Each feature module registers its own dependencies via a
- * dedicated registration function.
+ * Single container with PROXY injection mode and strict lifetime checks.
+ * Each feature module registers its own dependencies via a dedicated registration function.
  */
 const container = createContainer<Cradle>({
     injectionMode: InjectionMode.PROXY,

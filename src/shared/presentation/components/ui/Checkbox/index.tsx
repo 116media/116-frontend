@@ -4,18 +4,15 @@ import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
 import { type ComponentPropsWithoutRef, type ComponentRef, forwardRef } from "react";
 
 import { CheckIcon } from "@/shared/presentation/components/ui/Icon";
-import { cn } from "@/shared/presentation/utils/cn";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
  * Checkbox
  *
  * @description
- * The base checkbox primitive — a Radix checkbox with the token skin:
- * transparent resting surface with the `border-input` border, the brand fill
- * when checked (primary in light mode, secondary in dark), a `CheckIcon`
- * indicator, the standard focus ring, and the disabled state. All colors are
- * theme tokens, so light/dark are automatic. Radix keeps the semantics
- * (`role="checkbox"`, keyboard toggling, `aria-checked`).
+ * The base checkbox primitive — a Radix checkbox with the token skin: brand fill
+ * when checked, standard focus ring, and disabled state. All colors are theme
+ * tokens; Radix keeps the checkbox semantics.
  *
  * @param className - Extra classes merged onto (and overriding) the base styles.
  */

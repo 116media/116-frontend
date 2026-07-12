@@ -2,7 +2,7 @@
 
 import type { ComponentPropsWithoutRef } from "react";
 
-import { cn } from "@/shared/presentation/utils/cn";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
  * CarouselItem

@@ -17,15 +17,14 @@ interface IGetYoutubeVideoStatsUseCase extends IResultUseCase<string, IYoutubeVi
  *
  * @description
  * Fetches the YouTube Data API statistics (views, likes, comments) for one
- * YouTube video id via the videos repository, which proxies through the
- * internal `/api/youtube/[videoId]` route so the API key stays server-side.
- * Returns the repository's `Result<IYoutubeVideoStats>` unchanged.
+ * video id via the repository, which proxies through `/api/youtube/[videoId]`
+ * so the API key stays server-side. Returns the `Result` unchanged.
  */
 export class GetYoutubeVideoStatsUseCase implements IGetYoutubeVideoStatsUseCase {
     private readonly videosRepository: IVideosRepositoryPort;
 
     /**
-     * @param {IVideosRepositoryPort} videosRepository - Repository for videos operations (injected)
+     * @param videosRepository - Repository for videos operations (injected)
      */
     constructor({ videosRepository }: { videosRepository: IVideosRepositoryPort }) {
         this.videosRepository = videosRepository;
@@ -34,7 +33,7 @@ export class GetYoutubeVideoStatsUseCase implements IGetYoutubeVideoStatsUseCase
     /**
      * Executes the get-YouTube-video-stats use case.
      *
-     * @param {string} youtubeId - The 11-character YouTube video id
+     * @param youtubeId - The 11-character YouTube video id
      * @returns {Promise<Result<IYoutubeVideoStats>>} `ok(IYoutubeVideoStats)` on success, `err(Failure)` on failure
      */
     async execute(youtubeId: string): Promise<Result<IYoutubeVideoStats>> {

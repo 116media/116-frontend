@@ -34,9 +34,7 @@ const processQueue = (error: AxiosError | null): void => {
 
 /**
  * Refreshes the session via the DI container's `refreshTokenUseCase`. The container
- * is imported lazily (dynamic `import`) to avoid a static cycle between this module
- * and the API client (the container registers `apiClient`); by the time a 401 fires,
- * every module is fully initialized.
+ * is imported lazily to avoid a static cycle with the API client it registers.
  *
  * @returns Resolves on success, rejects on failure.
  */
@@ -49,12 +47,9 @@ const runRefresh = async (): Promise<void> => {
  * accessTokenExpiryInterceptor
  *
  * @description
- * Creates the access-token-expiry response interceptor bound to `instance`. On
- * `401 AccessTokenExpiryException`, refreshes the session once (single-flight) while
- * queueing concurrent 401s, then retries the original request(s). If the refresh
- * fails with a `403 RefreshTokenExpiryException`, dispatches
- * {@link REFRESH_TOKEN_EXPIRED_EVENT}. Runs BEFORE the error handler so it gets first
- * chance at 401s. The `_retry` flag prevents loops.
+ * Response interceptor that refreshes the session once (single-flight) on
+ * `401 AccessTokenExpiryException` and retries queued requests; a failed refresh with
+ * `403 RefreshTokenExpiryException` dispatches {@link REFRESH_TOKEN_EXPIRED_EVENT}.
  *
  * @param instance - The axios instance to retry requests against.
  * @returns The rejected-response handler for `interceptors.response.use`.
