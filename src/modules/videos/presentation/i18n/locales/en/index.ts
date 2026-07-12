@@ -1,6 +1,7 @@
 import { browse } from "@/modules/videos/presentation/i18n/locales/en/browse";
 import { exclusiveShow } from "@/modules/videos/presentation/i18n/locales/en/exclusiveshow";
 import { home } from "@/modules/videos/presentation/i18n/locales/en/home";
+import { shows } from "@/modules/videos/presentation/i18n/locales/en/shows";
 import { videoDetail } from "@/modules/videos/presentation/i18n/locales/en/video-detail";
 
 /**
@@ -13,6 +14,7 @@ import { videoDetail } from "@/modules/videos/presentation/i18n/locales/en/video
  */
 export const en = {
     home,
+    shows,
     browse,
     exclusiveShow,
     ...videoDetail
