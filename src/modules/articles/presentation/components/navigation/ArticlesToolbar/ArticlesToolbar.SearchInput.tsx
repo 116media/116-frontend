@@ -33,7 +33,7 @@ export function ArticlesToolbarSearchInput({ value, onChange }: ArticlesToolbarS
             <Input
                 value={value}
                 className="h-10 bg-muted px-9 dark:bg-muted"
-                onChange={(e) => onChange(e.target.value)}
+                onChange={(event) => onChange(event.target.value)}
                 placeholder={t("articles.filters.searchPlaceholder")}
             />
             {value && (
