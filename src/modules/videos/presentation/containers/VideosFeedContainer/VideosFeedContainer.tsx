@@ -9,6 +9,7 @@ import { VideosGridEndOfFeed } from "@/modules/videos/presentation/components/se
 import { VideosGridError } from "@/modules/videos/presentation/components/sections/VideosGrid/VideosGrid.Error";
 import { VideosGridLoading } from "@/modules/videos/presentation/components/sections/VideosGrid/VideosGrid.Loading";
 import { useVideosFeed } from "@/modules/videos/presentation/hooks/useVideosFeed";
+import { StateRenderer } from "@/shared/presentation/components/ui/StateRenderer";
 import { INFINITE_SCROLL_SENTINEL_OPTIONS } from "@/shared/presentation/constants/infiniteScroll";
 import { useDebouncedValue } from "@/shared/presentation/hooks/useDebouncedValue";
 import { useIntersectionObserver } from "@/shared/presentation/hooks/useIntersectionObserver";
@@ -71,47 +72,44 @@ export function VideosFeedContainer({
         setTagSlug(undefined);
     };
 
-    const grid = () => {
-        if (isLoading) return <VideosGridLoading />;
-        if (isError) return <VideosGridError onRetry={refetch} />;
-        if (videos.length === 0) {
-            return hasActiveFilters ? (
-                <VideosGridEmpty
-                    filtered
-                    onClear={clear}
-                />
-            ) : (
-                <VideosGridEmpty />
-            );
-        }
-        return (
-            <div className="flex flex-col gap-8">
-                <VideosGrid videos={videos} />
-                {isFetchingNextPage && <VideosGridLoading rows={1} />}
-                {hasNextPage ? (
-                    <div
-                        ref={sentinelRef}
-                        aria-hidden
-                        className="h-px"
-                    />
-                ) : (
-                    <VideosGridEndOfFeed />
-                )}
-            </div>
-        );
-    };
-
     return (
         <section className="flex flex-col gap-6">
             <VideosToolbar
                 search={search}
-                onSearchChange={setSearch}
-                categoryId={categoryId}
-                onCategoryChange={setCategoryId}
                 tagSlug={tagSlug}
+                categoryId={categoryId}
                 onTagChange={setTagSlug}
+                onSearchChange={setSearch}
+                onCategoryChange={setCategoryId}
             />
-            {grid()}
+            <StateRenderer
+                data={videos}
+                error={isError}
+                loading={isLoading}
+                skeleton={<VideosGridLoading />}
+                errorState={<VideosGridError onRetry={refetch} />}
+                empty={
+                    <VideosGridEmpty
+                        filtered={hasActiveFilters}
+                        onClear={clear}
+                    />
+                }
+                render={(items) => (
+                    <div className="flex flex-col gap-8">
+                        <VideosGrid videos={items} />
+                        {isFetchingNextPage && <VideosGridLoading rows={1} />}
+                        {hasNextPage ? (
+                            <div
+                                aria-hidden
+                                ref={sentinelRef}
+                                className="h-px"
+                            />
+                        ) : (
+                            <VideosGridEndOfFeed />
+                        )}
+                    </div>
+                )}
+            />
         </section>
     );
 }
