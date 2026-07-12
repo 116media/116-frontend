@@ -5,6 +5,7 @@ import { ArticleDetail } from "@/modules/articles/presentation/components/pages/
 import { ArticleDetailError } from "@/modules/articles/presentation/components/pages/ArticleDetail/ArticleDetail.Error";
 import { ArticleDetailLoading } from "@/modules/articles/presentation/components/pages/ArticleDetail/ArticleDetail.Loading";
 import { useArticleDetail } from "@/modules/articles/presentation/hooks/useArticleDetail";
+import { StateRenderer } from "@/shared/presentation/components/ui/StateRenderer";
 
 /**
  * Props for ArticleDetailContainer.
@@ -30,8 +31,15 @@ export interface ArticleDetailContainerProps {
 export function ArticleDetailContainer({ slug, initialData }: ArticleDetailContainerProps) {
     const { data, isLoading, isError, refetch } = useArticleDetail(slug, { initialData });
 
-    if (isLoading) return <ArticleDetailLoading />;
-    if (isError || !data) return <ArticleDetailError onRetry={() => refetch()} />;
-
-    return <ArticleDetail article={data} />;
+    return (
+        <StateRenderer
+            data={data}
+            error={isError}
+            loading={isLoading}
+            skeleton={<ArticleDetailLoading />}
+            errorState={<ArticleDetailError onRetry={() => refetch()} />}
+            empty={<ArticleDetailError onRetry={() => refetch()} />}
+            render={(article) => <ArticleDetail article={article} />}
+        />
+    );
 }
