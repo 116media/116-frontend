@@ -61,7 +61,7 @@ export function ConfirmDialog({
             onOpenChange={onOpenChange}
         >
             <DialogContent {...(description ? {} : { "aria-describedby": undefined })}>
-                <div className="relative grid gap-5 rounded-2xl border border-border bg-card p-6 shadow-xl">
+                <div className="relative grid gap-5 rounded-2xl border bg-card p-6 shadow-xl">
                     <div className="grid gap-1.5 text-center">
                         <DialogTitle>{title}</DialogTitle>
                         {description && <DialogDescription>{description}</DialogDescription>}
