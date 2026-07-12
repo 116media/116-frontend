@@ -2,17 +2,28 @@
 
 import { withAlpha } from "@/shared/presentation/utils/color/color.utils";
 import { useExclusiveShow } from "@/modules/videos/presentation/context/ExclusiveShowProvider";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
+/**
+ * Props for the VideoExclusiveShowHeading component.
+ *
+ * @interface VideoExclusiveShowHeadingProps
+ * @property {boolean} [clamp] - Whether the description is clamped to three
+ * lines (default); pass false to render the full text.
+ */
+export interface VideoExclusiveShowHeadingProps {
+    clamp?: boolean;
+}
 
 /**
  * VideoExclusiveShowHeading
  *
  * @description
- * The show title and description shared by both layouts. Rendered as a
- * fragment so the parent's vertical rhythm applies between title, description,
- * and the sibling CTA row.
+ * The show title and description shared by the exclusive show layouts and the
+ * show hero. Rendered as a fragment so the parent's vertical rhythm applies
+ * between title, description, and the sibling CTA row.
  */
-export function VideoExclusiveShowHeading() {
+export function VideoExclusiveShowHeading({ clamp = true }: VideoExclusiveShowHeadingProps) {
     const { category, foreground } = useExclusiveShow();
 
     return (
@@ -25,7 +36,10 @@ export function VideoExclusiveShowHeading() {
             </h1>
             <p
                 style={{ color: withAlpha(foreground, 0.85) }}
-                className="max-w-2xl text-sm leading-relaxed line-clamp-3 sm:text-base"
+                className={cn(
+                    "max-w-2xl text-sm leading-relaxed sm:text-base",
+                    clamp && "line-clamp-3"
+                )}
             >
                 {category.description}
             </p>
