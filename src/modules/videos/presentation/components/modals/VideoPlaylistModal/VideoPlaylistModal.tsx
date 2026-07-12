@@ -18,6 +18,7 @@ import {
 import { ListPlusIcon } from "@/shared/presentation/components/ui/Icon";
 import { Input } from "@/shared/presentation/components/ui/Input";
 import { Skeleton } from "@/shared/presentation/components/ui/Skeleton";
+import { StateRenderer } from "@/shared/presentation/components/ui/StateRenderer";
 import { formatCount } from "@/shared/presentation/utils/format/format.utils";
 
 /**
@@ -100,8 +101,11 @@ export function VideoPlaylistModal({ open, onOpenChange, videoId }: VideoPlaylis
                     </DialogHeader>
 
                     <div className="flex max-h-64 flex-col gap-1 overflow-y-auto">
-                        {isPending &&
-                            [0, 1, 2].map((row) => (
+                        <StateRenderer
+                            data={playlists}
+                            loading={isPending}
+                            error={isError}
+                            skeleton={[0, 1, 2].map((row) => (
                                 <div
                                     key={row}
                                     className="flex items-center gap-3 rounded-lg p-2"
@@ -110,50 +114,50 @@ export function VideoPlaylistModal({ open, onOpenChange, videoId }: VideoPlaylis
                                     <Skeleton className="h-4 w-40" />
                                 </div>
                             ))}
-
-                        {isError && (
-                            <button
-                                type="button"
-                                onClick={() => refetch()}
-                                className="rounded-lg p-2 text-left text-destructive text-sm hover:bg-muted/50"
-                            >
-                                {t("videos.detail.error.retry")}
-                            </button>
-                        )}
-
-                        {!isPending && !isError && playlists?.length === 0 && (
-                            <p className="p-2 text-muted-foreground text-sm">
-                                {t("videos.detail.playlist.empty")}
-                            </p>
-                        )}
-
-                        {playlists?.map((playlist: IPlaylistEntity) => (
-                            <label
-                                key={playlist.id}
-                                htmlFor={`playlist-${playlist.id}`}
-                                className="flex cursor-pointer items-center gap-3 rounded-lg border border-border p-3 transition-colors hover:bg-muted/50"
-                            >
-                                <Checkbox
-                                    id={`playlist-${playlist.id}`}
-                                    checked={selected.has(playlist.id)}
-                                    onCheckedChange={(checked) =>
-                                        toggle(playlist.id, checked === true)
-                                    }
-                                />
-                                <span className="flex min-w-0 flex-1 flex-col">
-                                    <span className="truncate font-medium text-foreground text-sm">
-                                        {playlist.name}
-                                    </span>
-                                    <span className="text-muted-foreground text-xs tabular-nums">
-                                        {t("videos.detail.playlist.videos", {
-                                            count: playlist.videoCount,
-                                            value: formatCount(playlist.videoCount)
-                                        })}
-                                    </span>
-                                </span>
-                                <ListPlusIcon className="size-4 shrink-0 text-muted-foreground" />
-                            </label>
-                        ))}
+                            errorState={
+                                <button
+                                    type="button"
+                                    onClick={() => refetch()}
+                                    className="rounded-lg p-2 text-left text-destructive text-sm hover:bg-muted/50"
+                                >
+                                    {t("videos.detail.error.retry")}
+                                </button>
+                            }
+                            empty={
+                                <p className="p-2 text-muted-foreground text-sm">
+                                    {t("videos.detail.playlist.empty")}
+                                </p>
+                            }
+                            render={(items) =>
+                                items.map((playlist: IPlaylistEntity) => (
+                                    <label
+                                        key={playlist.id}
+                                        htmlFor={`playlist-${playlist.id}`}
+                                        className="flex cursor-pointer items-center gap-3 rounded-lg border border-border p-3 transition-colors hover:bg-muted/50"
+                                    >
+                                        <Checkbox
+                                            id={`playlist-${playlist.id}`}
+                                            checked={selected.has(playlist.id)}
+                                            onCheckedChange={(checked) =>
+                                                toggle(playlist.id, checked === true)
+                                            }
+                                        />
+                                        <span className="flex min-w-0 flex-1 flex-col">
+                                            <span className="truncate font-medium text-foreground text-sm">
+                                                {playlist.name}
+                                            </span>
+                                            <span className="text-muted-foreground text-xs tabular-nums">
+                                                {t("videos.detail.playlist.videos", {
+                                                    count: playlist.videoCount,
+                                                    value: formatCount(playlist.videoCount)
+                                                })}
+                                            </span>
+                                        </span>
+                                        <ListPlusIcon className="size-4 shrink-0 text-muted-foreground" />
+                                    </label>
+                                ))
+                            }
+                        />
                     </div>
 
                     {creating ? (
