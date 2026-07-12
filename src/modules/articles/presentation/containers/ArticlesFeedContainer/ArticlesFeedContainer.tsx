@@ -9,6 +9,7 @@ import { ArticlesGridEndOfFeed } from "@/modules/articles/presentation/component
 import { ArticlesGridError } from "@/modules/articles/presentation/components/sections/ArticlesGrid/ArticlesGrid.Error";
 import { ArticlesGridLoading } from "@/modules/articles/presentation/components/sections/ArticlesGrid/ArticlesGrid.Loading";
 import { useArticlesFeed } from "@/modules/articles/presentation/hooks/useArticlesFeed";
+import { StateRenderer } from "@/shared/presentation/components/ui/StateRenderer";
 import { INFINITE_SCROLL_SENTINEL_OPTIONS } from "@/shared/presentation/constants/infiniteScroll";
 import { useDebouncedValue } from "@/shared/presentation/hooks/useDebouncedValue";
 import { useIntersectionObserver } from "@/shared/presentation/hooks/useIntersectionObserver";
@@ -70,36 +71,6 @@ export function ArticlesFeedContainer({
         setTagSlug(undefined);
     };
 
-    const grid = () => {
-        if (isLoading) return <ArticlesGridLoading />;
-        if (isError) return <ArticlesGridError onRetry={refetch} />;
-        if (articles.length === 0) {
-            return hasActiveFilters ? (
-                <ArticlesGridEmpty
-                    filtered
-                    onClear={clear}
-                />
-            ) : (
-                <ArticlesGridEmpty />
-            );
-        }
-        return (
-            <div className="flex flex-col gap-8">
-                <ArticlesGrid articles={articles} />
-                {isFetchingNextPage && <ArticlesGridLoading rows={1} />}
-                {hasNextPage ? (
-                    <div
-                        ref={sentinelRef}
-                        aria-hidden
-                        className="h-px"
-                    />
-                ) : (
-                    <ArticlesGridEndOfFeed />
-                )}
-            </div>
-        );
-    };
-
     return (
         <div className="flex flex-col gap-6">
             <ArticlesToolbar
@@ -112,7 +83,34 @@ export function ArticlesFeedContainer({
                 hasActiveFilters={hasActiveFilters}
                 onClear={clear}
             />
-            {grid()}
+            <StateRenderer
+                data={articles}
+                error={isError}
+                loading={isLoading}
+                skeleton={<ArticlesGridLoading />}
+                errorState={<ArticlesGridError onRetry={refetch} />}
+                empty={
+                    <ArticlesGridEmpty
+                        filtered={hasActiveFilters}
+                        onClear={clear}
+                    />
+                }
+                render={(items) => (
+                    <div className="flex flex-col gap-8">
+                        <ArticlesGrid articles={items} />
+                        {isFetchingNextPage && <ArticlesGridLoading rows={1} />}
+                        {hasNextPage ? (
+                            <div
+                                aria-hidden
+                                ref={sentinelRef}
+                                className="h-px"
+                            />
+                        ) : (
+                            <ArticlesGridEndOfFeed />
+                        )}
+                    </div>
+                )}
+            />
         </div>
     );
 }
