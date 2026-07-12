@@ -22,7 +22,7 @@ export interface ShowsCarouselProps {
  *
  * @description
  * Shows configuration of the shared MD3 hero carousel: renders each show with
- * `ShowCard` and opens the show's page when its hero card is clicked.
+ * `ShowCard.Poster` and opens the show's page when its hero card is clicked.
  */
 export function ShowsCarousel({ shows }: ShowsCarouselProps) {
     const router = useRouter();
@@ -37,7 +37,7 @@ export function ShowsCarousel({ shows }: ShowsCarouselProps) {
             heightClassName="h-72 sm:h-80 lg:h-96"
             onHeroActivate={(show) => router.push(`${VIDEOS_PATH}/${show.slug}`)}
             renderItem={(show, { isHero }) => (
-                <ShowCard
+                <ShowCard.Poster
                     show={show}
                     isHero={isHero}
                 />
