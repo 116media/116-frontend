@@ -21,7 +21,7 @@ export function Horizontal({ video }: VideoCardProps) {
     return (
         <Link
             href={`${VIDEOS_PATH}/${video.slug}`}
-            className="group flex gap-3 rounded-xl border border-border p-3 transition-all hover:bg-muted/50"
+            className="group flex gap-3 rounded-xl border p-3 transition-all hover:bg-muted/50"
         >
             <div className="relative min-h-18 w-28 shrink-0 self-stretch overflow-hidden rounded-md bg-muted sm:w-24 md:w-32 lg:w-20 xl:w-32">
                 <VideoCardMedia
