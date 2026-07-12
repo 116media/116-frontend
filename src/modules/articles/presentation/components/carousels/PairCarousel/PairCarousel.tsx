@@ -12,10 +12,23 @@ import {
 } from "@/shared/presentation/components/ui/Carousel";
 import { CarouselDots } from "@/shared/presentation/components/ui/CarouselDots";
 
+/**
+ * Props for the PairColumnCarousel sub-component.
+ *
+ * @interface PairColumnCarouselProps
+ * @property {IArticleSummaryEntity[]} articles - Articles for one paired column.
+ */
 export interface PairColumnCarouselProps {
     articles: IArticleSummaryEntity[];
 }
 
+/**
+ * Props for the PairCarousel component.
+ *
+ * @interface PairCarouselProps
+ * @property {IArticleSummaryEntity[]} pairA - Articles for the first paired column.
+ * @property {IArticleSummaryEntity[]} pairB - Articles for the second paired column.
+ */
 export interface PairCarouselProps {
     pairA: IArticleSummaryEntity[];
     pairB: IArticleSummaryEntity[];

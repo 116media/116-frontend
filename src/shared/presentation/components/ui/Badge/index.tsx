@@ -23,6 +23,13 @@ const badgeVariants = cva(
     }
 );
 
+/**
+ * Props for the Badge component.
+ *
+ * @interface BadgeProps
+ * @augments HTMLAttributes<HTMLDivElement>
+ * @augments VariantProps<typeof badgeVariants>
+ */
 export interface BadgeProps
     extends HTMLAttributes<HTMLDivElement>,
         VariantProps<typeof badgeVariants> {}

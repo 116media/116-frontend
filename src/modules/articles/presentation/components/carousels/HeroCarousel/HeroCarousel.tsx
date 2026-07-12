@@ -11,6 +11,12 @@ import {
 } from "@/shared/presentation/components/ui/Carousel";
 import { CarouselDots } from "@/shared/presentation/components/ui/CarouselDots";
 
+/**
+ * Props for the HeroCarousel component.
+ *
+ * @interface HeroCarouselProps
+ * @property {IArticleSummaryEntity[]} articles - Articles shown in the hero carousel.
+ */
 export interface HeroCarouselProps {
     articles: IArticleSummaryEntity[];
 }

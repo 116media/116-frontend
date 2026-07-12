@@ -9,6 +9,12 @@ import { CrownIcon, PlayIcon } from "@/shared/presentation/components/ui/Icon";
 import { Tag } from "@/shared/presentation/components/ui/Tag";
 import { VIDEOS_PATH } from "@/shared/presentation/constants/paths";
 
+/**
+ * Props for the VideoExclusiveShowPoster component.
+ *
+ * @interface VideoExclusiveShowPosterProps
+ * @property {IVideoExclusiveShowEntity} category - The exclusive show rendered as a poster.
+ */
 export interface VideoExclusiveShowPosterProps {
     category: IVideoExclusiveShowEntity;
 }
@@ -20,8 +26,6 @@ export interface VideoExclusiveShowPosterProps {
  * Left panel of the exclusive show section — the landscape poster with a
  * gradient overlay, the exclusive tag, the show title and description, and the
  * watch CTA. suppressHydrationWarning guards the streamed-in language labels.
- *
- * @param category - The exclusive category (show)
  */
 export function VideoExclusiveShowPoster({ category }: VideoExclusiveShowPosterProps) {
     const { t } = useTranslation();

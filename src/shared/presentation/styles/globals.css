@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "./fonts.css";
 @import "./theme.css";
+@import "./progressbar.css";
 
 @keyframes mega-menu-slide-down {
     from {

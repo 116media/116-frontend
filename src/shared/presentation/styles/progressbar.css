@@ -1,0 +1,28 @@
+/*
+ * Navigation progress bar (BProgress) theming. BProgress renders the bar inside a
+ * `.bprogress` container and owns its positioning, height, and transition; this
+ * overrides only the color with an animated bright-to-primary gradient. !important is
+ * required because BProgress injects its own `.bprogress .bar` rule into <head> at
+ * runtime (same specificity, later in the cascade). All colors are theme.css tokens.
+ */
+.bprogress .bar {
+    background-image: linear-gradient(
+        90deg,
+        var(--primary),
+        var(--success),
+        var(--warning),
+        var(--secondary),
+        var(--destructive)
+    ) !important;
+    background-size: 300% 100% !important;
+    animation: bprogress-gradient 1.2s ease-in-out infinite alternate !important;
+}
+
+@keyframes bprogress-gradient {
+    from {
+        background-position: 0% 0;
+    }
+    to {
+        background-position: 100% 0;
+    }
+}

@@ -2,11 +2,13 @@
 
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { createContext, type ReactNode, useContext, useEffect, useMemo } from "react";
-import type { AuthStatus } from "@/modules/auth/domain/valueobjects/AuthStatus";
+import { type AuthStatus, isAuthenticatedStatus } from "@/modules/auth/domain/valueobjects/AuthStatus";
 import { authKeys } from "@/modules/auth/presentation/constants/authKeys";
 import { getAuthChannel } from "@/modules/auth/presentation/utils/authChannel";
 import { deriveAuthStatus } from "@/modules/auth/presentation/utils/status/status.utils";
 import type { IAuthUserEntity } from "@/shared/domain/entities/IAuthUserEntity";
+import { unknownFailure } from "@/shared/domain/failures/failure";
+import { err } from "@/shared/domain/results/result";
 import { REFRESH_TOKEN_EXPIRED_EVENT } from "@/shared/infrastructure/interceptors/refresh-token-expiry.interceptor";
 import container from "@/shared/infrastructure/service.locator";
 
@@ -50,10 +52,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     });
 
     const user = meQuery.data ?? null;
-    const status = deriveAuthStatus(meQuery.isLoading, user);
+    const status = deriveAuthStatus(meQuery.isPending, user);
 
     useEffect(() => {
-        const onExpired = () => queryClient.removeQueries({ queryKey: authKeys.me });
+        const onExpired = () => queryClient.setQueryData(authKeys.me, err(unknownFailure()));
         window.addEventListener(REFRESH_TOKEN_EXPIRED_EVENT, onExpired);
 
         const channel = getAuthChannel();
@@ -70,7 +72,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         () => ({
             user,
             status,
-            isAuthenticated: status === "authenticated",
+            isAuthenticated: isAuthenticatedStatus(status),
             refetch: () => meQuery.refetch()
         }),
         [user, status, meQuery.refetch]
