@@ -27,7 +27,7 @@ export function ArticleDetailTags({ tags }: ArticleDetailTagsProps) {
 
     if (tags.length === 0) return null;
     return (
-        <div className="flex flex-wrap items-center gap-1 border-border border-t pt-6">
+        <div className="flex flex-wrap items-center gap-1 border-t pt-6">
             <span className="mr-2 font-semibold text-muted-foreground text-sm uppercase tracking-wide">
                 {t("articles.detail.tags")}:
             </span>
