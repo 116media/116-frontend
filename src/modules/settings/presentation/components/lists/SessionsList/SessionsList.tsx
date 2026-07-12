@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useSessions } from "@/modules/session/presentation/hooks/useSessions";
 import { SessionCard } from "@/modules/settings/presentation/components/cards/SessionCard";
 import { SettingsCard } from "@/modules/settings/presentation/components/cards/SettingsCard";
+import { StateRenderer } from "@/shared/presentation/components/ui/StateRenderer";
 import { Tag } from "@/shared/presentation/components/ui/Tag";
 
 import { SessionsListLoading } from "./SessionsList.Loading";
@@ -32,22 +33,26 @@ export function SessionsList() {
                 ) : undefined
             }
         >
-            {isLoading && <SessionsListLoading />}
-            {!isLoading && count === 0 && (
-                <p className="text-muted-foreground text-sm">
-                    {t("settings.security.sessions.empty")}
-                </p>
-            )}
-            {!isLoading && count > 0 && (
-                <div className="flex flex-col gap-3">
-                    {sessions?.map((session) => (
-                        <SessionCard
-                            key={session.id}
-                            session={session}
-                        />
-                    ))}
-                </div>
-            )}
+            <StateRenderer
+                data={sessions}
+                loading={isLoading}
+                skeleton={<SessionsListLoading />}
+                empty={
+                    <p className="text-muted-foreground text-sm">
+                        {t("settings.security.sessions.empty")}
+                    </p>
+                }
+                render={(items) => (
+                    <div className="flex flex-col gap-3">
+                        {items.map((session) => (
+                            <SessionCard
+                                key={session.id}
+                                session={session}
+                            />
+                        ))}
+                    </div>
+                )}
+            />
         </SettingsCard>
     );
 }
