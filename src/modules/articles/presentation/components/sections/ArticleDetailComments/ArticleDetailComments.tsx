@@ -8,6 +8,7 @@ import { useArticleComments } from "@/modules/articles/presentation/hooks/useArt
 import { Button } from "@/shared/presentation/components/ui/Button";
 import { EmptyState } from "@/shared/presentation/components/ui/EmptyState";
 import { AlertCircleIcon, MessageSquareIcon } from "@/shared/presentation/components/ui/Icon";
+import { StateRenderer } from "@/shared/presentation/components/ui/StateRenderer";
 import { INFINITE_SCROLL_SENTINEL_OPTIONS } from "@/shared/presentation/constants/infiniteScroll";
 import { useIntersectionObserver } from "@/shared/presentation/hooks/useIntersectionObserver";
 
@@ -61,70 +62,6 @@ export const ArticleDetailComments = forwardRef<HTMLElement, ArticleDetailCommen
             if (isSentinelVisible && hasNextPage && !isFetchingNextPage) fetchNextPage();
         }, [isSentinelVisible, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-        const list = () => {
-            if (isLoading) {
-                return (
-                    <div className="flex flex-col gap-6">
-                        <ArticleDetailCommentsLoading />
-                    </div>
-                );
-            }
-            if (isError) {
-                return (
-                    <EmptyState
-                        context="article-comments-error"
-                        icon={<AlertCircleIcon className="size-10" />}
-                        title={t("articles.comments.error.title")}
-                        action={
-                            <Button
-                                variant="outline"
-                                onClick={() => refetch()}
-                            >
-                                {t("articles.comments.error.retry")}
-                            </Button>
-                        }
-                        className="min-h-0 py-12"
-                    />
-                );
-            }
-            if (comments.length === 0) {
-                return (
-                    <EmptyState
-                        context="article-comments-empty"
-                        icon={<MessageSquareIcon className="size-10" />}
-                        title={t("articles.comments.empty.title")}
-                        subtitle={t("articles.comments.empty.body")}
-                        className="min-h-0 py-12"
-                    />
-                );
-            }
-            return (
-                <div className="flex flex-col gap-6">
-                    {comments.map((comment) => (
-                        <ArticleDetailComment
-                            key={comment.id}
-                            comment={comment}
-                        />
-                    ))}
-                    {isFetchingNextPage && <ArticleDetailCommentsLoading count={1} />}
-                    {hasNextPage && (
-                        <div
-                            ref={sentinelRef}
-                            className="flex justify-center"
-                        >
-                            <Button
-                                variant="ghost"
-                                onClick={() => fetchNextPage()}
-                                disabled={isFetchingNextPage}
-                            >
-                                {t("articles.comments.loadMore")}
-                            </Button>
-                        </div>
-                    )}
-                </div>
-            );
-        };
-
         return (
             <section
                 ref={ref}
@@ -139,7 +76,66 @@ export const ArticleDetailComments = forwardRef<HTMLElement, ArticleDetailCommen
                     slug={slug}
                     composerRef={composerRef}
                 />
-                {list()}
+                <StateRenderer
+                    data={comments}
+                    loading={isLoading}
+                    error={isError}
+                    skeleton={
+                        <div className="flex flex-col gap-6">
+                            <ArticleDetailCommentsLoading />
+                        </div>
+                    }
+                    errorState={
+                        <EmptyState
+                            context="article-comments-error"
+                            icon={<AlertCircleIcon className="size-10" />}
+                            title={t("articles.comments.error.title")}
+                            action={
+                                <Button
+                                    variant="outline"
+                                    onClick={() => refetch()}
+                                >
+                                    {t("articles.comments.error.retry")}
+                                </Button>
+                            }
+                            className="min-h-0 py-12"
+                        />
+                    }
+                    empty={
+                        <EmptyState
+                            context="article-comments-empty"
+                            icon={<MessageSquareIcon className="size-10" />}
+                            title={t("articles.comments.empty.title")}
+                            subtitle={t("articles.comments.empty.body")}
+                            className="min-h-0 py-12"
+                        />
+                    }
+                    render={(items) => (
+                        <div className="flex flex-col gap-6">
+                            {items.map((comment) => (
+                                <ArticleDetailComment
+                                    key={comment.id}
+                                    comment={comment}
+                                />
+                            ))}
+                            {isFetchingNextPage && <ArticleDetailCommentsLoading count={1} />}
+                            {hasNextPage && (
+                                <div
+                                    ref={sentinelRef}
+                                    className="flex justify-center"
+                                >
+                                    <Button
+                                        variant="ghost"
+                                        onClick={() => fetchNextPage()}
+                                        disabled={isFetchingNextPage}
+                                    >
+                                        {t("articles.comments.loadMore")}
+                                    </Button>
+                                </div>
+                            )}
+                        </div>
+                    )}
+                />
             </section>
         );
     }
