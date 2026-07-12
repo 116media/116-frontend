@@ -66,11 +66,11 @@ export function ModalForm({
                 <form
                     onSubmit={onSubmit}
                     className={cn(
-                        "relative flex max-h-[85vh] flex-col rounded-2xl border border-border bg-dialog shadow-xl",
+                        "relative flex max-h-[85vh] flex-col rounded-2xl border bg-dialog shadow-xl",
                         className
                     )}
                 >
-                    <header className="flex shrink-0 items-start justify-between gap-4 border-border border-b px-6 py-4">
+                    <header className="flex shrink-0 items-start justify-between gap-4 border-b px-6 py-4">
                         <div className="grid min-w-0 gap-1">
                             <DialogTitle>{header}</DialogTitle>
                             {subtitle && <DialogDescription>{subtitle}</DialogDescription>}
@@ -78,8 +78,7 @@ export function ModalForm({
                         <DialogClose
                             type="button"
                             aria-label={header}
-                            className="mt-0.5 shrink-0 cursor-pointer rounded-md p-1 text-muted-foreground transition-colors hover:bg-accent 
-                            hover:text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                            className="mt-0.5 shrink-0 cursor-pointer rounded-md p-1 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                         >
                             <XIcon className="size-5" />
                         </DialogClose>
@@ -87,7 +86,7 @@ export function ModalForm({
 
                     <div className="grid gap-5 px-6 py-8">{children}</div>
 
-                    <footer className="flex shrink-0 items-center justify-between gap-3 border-border border-t px-6 py-4">
+                    <footer className="flex shrink-0 items-center justify-between gap-3 border-t px-6 py-4">
                         {footer}
                     </footer>
                 </form>
