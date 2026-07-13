@@ -148,6 +148,8 @@ export function dummyVideoDetail(slug: string): IVideoDetailEntity {
         shareCount: summary.shareCount,
         ratingAverage: summary.ratingAverage,
         ratingCount: summary.ratingCount,
+        isRated: false,
+        ratedStars: null,
         publishedAt: summary.publishedAt,
         metaTitle: summary.title,
         metaDescription: buildDummyDescription(summary.title).slice(0, 160)
