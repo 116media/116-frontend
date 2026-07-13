@@ -1,1 +1,0 @@
-export { ArticleDetailComment } from "./ArticleDetailComment";
