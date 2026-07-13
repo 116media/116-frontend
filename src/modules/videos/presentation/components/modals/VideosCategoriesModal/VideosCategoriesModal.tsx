@@ -52,7 +52,7 @@ export function VideosCategoriesModal({ open, onOpenChange }: VideosCategoriesMo
             onOpenChange={onOpenChange}
         >
             <DialogContent className="flex max-h-[80vh] flex-col gap-0 overflow-hidden p-0 sm:max-w-lg">
-                <DialogHeader className="border-b border-border p-4">
+                <DialogHeader className="border-b p-4">
                     <DialogTitle>{t("videos.browse.modal.title")}</DialogTitle>
                 </DialogHeader>
 
