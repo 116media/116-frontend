@@ -39,7 +39,7 @@ ever wanted, `as="span"` drops the link; the default here is the link.
 export function ArticleDetailTags({ tags }: ArticleDetailTagsProps) {
     if (tags.length === 0) return null;
     return (
-        <div className="flex flex-wrap items-center gap-2 border-border border-t pt-6">
+        <div className="flex flex-wrap items-center gap-2  border-t pt-6">
             {tags.map((tag) => (
                 <Tag
                     key={tag.id}
@@ -59,7 +59,7 @@ export function ArticleDetailTags({ tags }: ArticleDetailTagsProps) {
 
 - **Empty guard.** When `tags` is empty the component renders nothing — no empty rule, no
   dangling border.
-- **Separation.** A `border-t border-border` with `pt-6` sets the block off from the body
+- **Separation.** A `border-t ` with `pt-6` sets the block off from the body
   above it, consistent with the token-only rule (no hardcoded color).
 - **Wrapping.** `flex flex-wrap gap-2` lets a long tag list flow onto multiple rows.
 
