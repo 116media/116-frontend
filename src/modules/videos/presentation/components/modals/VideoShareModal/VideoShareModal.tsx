@@ -66,7 +66,7 @@ export function VideoShareModal({
             onOpenChange={onOpenChange}
         >
             <DialogContent aria-describedby={undefined}>
-                <div className="relative grid gap-5 rounded-2xl border border-border bg-card p-6 shadow-xl">
+                <div className="relative grid gap-5 rounded-2xl border bg-card p-6 shadow-xl">
                     <DialogHeader className="gap-1.5">
                         <DialogTitle>{t("videos.detail.shareModal.title")}</DialogTitle>
                         <p className="text-muted-foreground text-sm">
