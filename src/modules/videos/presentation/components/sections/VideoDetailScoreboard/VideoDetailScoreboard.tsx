@@ -123,7 +123,7 @@ export function VideoDetailScoreboard({
     };
 
     const stars = (
-        <span className="flex items-center gap-1 ">
+        <span className="flex items-center gap-1">
             {STAR_POSITIONS.map((position) => (
                 <StarIcon
                     key={position}
