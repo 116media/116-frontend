@@ -46,6 +46,28 @@ export const articleDetail = {
         loginCta: "Log in to comment",
         removed: "This comment was removed",
         loadMore: "Load more comments",
+        like: "Like this comment",
+        unlike: "Remove like from this comment",
+        reply: "Reply",
+        replyPlaceholder: "Write a reply…",
+        replySubmit: "Post reply",
+        replyCancel: "Cancel",
+        viewReplies_one: "View {{count}} reply",
+        viewReplies_other: "View {{count}} replies",
+        hideReplies: "Hide replies",
+        loadMoreReplies: "Load more replies",
+        repliesError: {
+            title: "Couldn't load replies",
+            retry: "Try again"
+        },
+        edit: "Edit",
+        editSave: "Save",
+        editCancel: "Cancel",
+        delete: "Delete",
+        deleteConfirmTitle: "Delete this comment?",
+        deleteConfirmBody: "Replies to it stay visible. This can't be undone.",
+        deleteConfirm: "Delete comment",
+        deleteCancel: "Keep comment",
         empty: {
             title: "No comments yet",
             body: "Be the first to share your thoughts."
@@ -57,6 +79,18 @@ export const articleDetail = {
         postError: {
             title: "Comment not posted",
             description: "Something went wrong. Your text is still here — try again."
+        },
+        replyError: {
+            title: "Reply not posted",
+            description: "Something went wrong. Your text is still here — try again."
+        },
+        editError: {
+            title: "Changes not saved",
+            description: "Something went wrong. Your edit is still here — try again."
+        },
+        deleteError: {
+            title: "Comment not deleted",
+            description: "Something went wrong. Try again."
         }
     },
     sidebar: {
