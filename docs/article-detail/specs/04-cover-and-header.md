@@ -257,7 +257,7 @@ export interface ArticleDetailTagsProps {
 export function ArticleDetailTags({ tags }: ArticleDetailTagsProps) {
     if (tags.length === 0) return null;
     return (
-        <div className="flex flex-wrap items-center gap-2 border-border border-t pt-6">
+        <div className="flex flex-wrap items-center gap-2  border-t pt-6">
             {tags.map((tag) => (
                 <Tag
                     key={tag.id}
