@@ -176,7 +176,7 @@ export function ArticlesMegaTagList({ popularTags }: ArticlesMegaTagListProps) {
                         key={tag.id}
                         href={`${ARTICLES_PATH}?tagSlug=${tag.slug}`}
                         className={cn(
-                            "rounded-full border border-border px-2.5 py-0.5 text-xs text-foreground transition-colors",
+                            "rounded-full border px-2.5 py-0.5 text-xs text-foreground transition-colors",
                             "hover:border-primary hover:text-primary"
                         )}
                     >
@@ -381,7 +381,7 @@ export function VideosMegaTagList({ popularTags }: VideosMegaTagListProps) {
                         key={tag.id}
                         href={VIDEOS_PATH}
                         className={cn(
-                            "rounded-full border border-border px-2.5 py-0.5 text-xs text-foreground transition-colors",
+                            "rounded-full border px-2.5 py-0.5 text-xs text-foreground transition-colors",
                             "hover:border-primary hover:text-primary"
                         )}
                     >
@@ -457,6 +457,6 @@ All colors reference `theme.css` tokens — no hardcoded hex values anywhere.
 | `bg-muted` | Image placeholder background |
 | `bg-surface-raised` | Fallback image placeholder surface |
 | `text-primary` | "Voir tout" link and tag hover color |
-| `border-border` | Tag chip border (default state) |
+| `border` | Tag chip border (default state) |
 | `border-primary` | Tag chip border (hover state) |
-| `bg-popover` / `border-border` | Panel background and border (set in NavigationMenuViewport) |
+| `bg-popover` / `` | Panel background and border (set in NavigationMenuViewport) |
