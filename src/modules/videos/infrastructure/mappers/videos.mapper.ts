@@ -200,6 +200,8 @@ export const VideosMapper = {
             shareCount: dto.shareCount ?? 0,
             ratingAverage: dto.ratingAverage ?? 0,
             ratingCount: dto.ratingCount ?? 0,
+            isRated: dto.isRated ?? false,
+            ratedStars: dto.ratedStars ?? null,
             publishedAt: dto.publishedAt ?? null,
             metaTitle: dto.metaTitle ?? undefined,
             metaDescription: dto.metaDescription ?? undefined
