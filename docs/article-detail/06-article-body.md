@@ -36,10 +36,10 @@ What `Prose` styles:
 | `p` | `leading-relaxed`, `text-foreground`, paragraph spacing |
 | `a` | `text-primary underline underline-offset-4 hover:text-primary/80` |
 | `img` | `w-full h-auto rounded-lg my-6` — responsive, rounded, never overflowing |
-| `blockquote` | left `border-l-4 border-border`, `pl-4 italic text-muted-foreground` |
+| `blockquote` | left `border-l-4 `, `pl-4 italic text-muted-foreground` |
 | `ul` / `ol` | list markers, `pl-6`, item spacing |
 | `iframe` / embeds | `w-full aspect-video rounded-lg` — responsive video/embeds |
-| `hr` | `border-border` |
+| `hr` | `` |
 
 ```tsx
 /**
@@ -63,9 +63,9 @@ export function Prose({ className, children, ...props }: ProseProps) {
                 "[&_a]:text-primary [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary/80",
                 "[&_img]:my-6 [&_img]:h-auto [&_img]:w-full [&_img]:rounded-lg",
                 "[&_iframe]:my-6 [&_iframe]:aspect-video [&_iframe]:w-full [&_iframe]:rounded-lg",
-                "[&_blockquote]:border-border [&_blockquote]:border-l-4 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-muted-foreground",
+                "[&_blockquote]:border-l-4 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-muted-foreground",
                 "[&_ul]:my-4 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:my-4 [&_ol]:list-decimal [&_ol]:pl-6",
-                "[&_hr]:my-8 [&_hr]:border-border",
+                "[&_hr]:my-8 ",
                 className
             )}
             {...props}
