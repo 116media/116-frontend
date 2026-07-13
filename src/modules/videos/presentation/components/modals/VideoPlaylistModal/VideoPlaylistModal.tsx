@@ -92,7 +92,7 @@ export function VideoPlaylistModal({ open, onOpenChange, videoId }: VideoPlaylis
             onOpenChange={onOpenChange}
         >
             <DialogContent aria-describedby={undefined}>
-                <div className="relative grid gap-5 rounded-2xl border border-border bg-card p-6 shadow-xl">
+                <div className="relative grid gap-5 rounded-2xl border bg-card p-6 shadow-xl">
                     <DialogHeader className="gap-1.5">
                         <DialogTitle>{t("videos.detail.playlist.title")}</DialogTitle>
                         <p className="text-muted-foreground text-sm">
@@ -133,7 +133,7 @@ export function VideoPlaylistModal({ open, onOpenChange, videoId }: VideoPlaylis
                                     <label
                                         key={playlist.id}
                                         htmlFor={`playlist-${playlist.id}`}
-                                        className="flex cursor-pointer items-center gap-3 rounded-lg border border-border p-3 transition-colors hover:bg-muted/50"
+                                        className="flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-colors hover:bg-muted/50"
                                     >
                                         <Checkbox
                                             id={`playlist-${playlist.id}`}
@@ -188,7 +188,7 @@ export function VideoPlaylistModal({ open, onOpenChange, videoId }: VideoPlaylis
                         <button
                             type="button"
                             onClick={() => setCreating(true)}
-                            className="flex items-center justify-center gap-2 rounded-lg border border-border border-dashed p-3 text-muted-foreground text-sm transition-colors hover:bg-muted/50 hover:text-foreground"
+                            className="flex items-center justify-center gap-2 rounded-lg border border-dashed p-3 text-muted-foreground text-sm transition-colors hover:bg-muted/50 hover:text-foreground"
                         >
                             <ListPlusIcon className="size-4" />
                             {t("videos.detail.playlist.createNew")}
