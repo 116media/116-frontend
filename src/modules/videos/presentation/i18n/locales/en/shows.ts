@@ -8,6 +8,7 @@
  */
 export const shows = {
     title: "All Shows",
+    backToShows: "Back to shows",
     empty: {
         title: "No shows yet",
         body: "Check back soon for new shows."
@@ -15,5 +16,9 @@ export const shows = {
     error: {
         title: "Couldn't load shows",
         retry: "Try again"
+    },
+    notFound: {
+        title: "Show not found",
+        subtitle: "This show may have been removed or is no longer available."
     }
 } as const;
