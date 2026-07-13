@@ -58,6 +58,82 @@ export interface IAddArticleCommentInput {
 }
 
 /**
+ * Query for a page of a comment's replies. Mirrors
+ * GET /api/v1/public/articles/comments/{commentId}/replies.
+ *
+ * @interface ICommentRepliesQuery
+ *
+ * @property {string} commentId - The top-level comment whose replies to page through (UUID)
+ * @property {number} pageIndex - Zero-based page number
+ * @property {number} pageSize - Items per page
+ */
+export interface ICommentRepliesQuery {
+    commentId: string;
+    pageIndex: number;
+    pageSize: number;
+}
+
+/**
+ * Input for replying to a top-level comment. Mirrors
+ * POST /api/v1/public/articles/{id}/comments/{commentId}/replies.
+ *
+ * @interface IAddCommentReplyInput
+ *
+ * @property {string} articleId - The article the parent comment belongs to (UUID)
+ * @property {string} commentId - The top-level comment being replied to (UUID)
+ * @property {string} body - The reply text
+ */
+export interface IAddCommentReplyInput {
+    articleId: string;
+    commentId: string;
+    body: string;
+}
+
+/**
+ * Input for editing the caller's own comment. Mirrors
+ * PUT /api/v1/public/articles/{id}/comments/{commentId}.
+ *
+ * @interface IEditArticleCommentInput
+ *
+ * @property {string} articleId - The article the comment belongs to (UUID)
+ * @property {string} commentId - The comment to edit (UUID)
+ * @property {string} body - The replacement comment text
+ */
+export interface IEditArticleCommentInput {
+    articleId: string;
+    commentId: string;
+    body: string;
+}
+
+/**
+ * Input for deleting the caller's own comment. Mirrors
+ * DELETE /api/v1/public/articles/{id}/comments/{commentId}.
+ *
+ * @interface IDeleteArticleCommentInput
+ *
+ * @property {string} articleId - The article the comment belongs to (UUID)
+ * @property {string} commentId - The comment to delete (UUID)
+ */
+export interface IDeleteArticleCommentInput {
+    articleId: string;
+    commentId: string;
+}
+
+/**
+ * Query for a page of the authenticated user's bookmarked articles. Mirrors
+ * GET /api/v1/public/articles/bookmarks.
+ *
+ * @interface IMyArticleBookmarksQuery
+ *
+ * @property {number} pageIndex - Zero-based page number
+ * @property {number} pageSize - Items per page
+ */
+export interface IMyArticleBookmarksQuery {
+    pageIndex: number;
+    pageSize: number;
+}
+
+/**
  * Query for the popularity-ranked article list. Mirrors
  * GET /api/v1/public/articles/popular.
  *
@@ -161,9 +237,8 @@ export interface IArticlesRepositoryPort {
     unbookmarkArticle(id: string): Promise<Result<boolean>>;
 
     /**
-     * Records a share event for an article. Anonymous access is permitted.
-     * The share endpoint accepts no payload, so `platform` is client-side
-     * context only and is not transmitted.
+     * Records a share event for an article. Anonymous access is permitted; the
+     * `platform` label is stored server-side for per-channel share analytics.
      *
      * @param id - The article identifier (UUID)
      * @param platform - The share surface used (e.g. "web-share", "clipboard")
@@ -188,14 +263,68 @@ export interface IArticlesRepositoryPort {
     getArticleComments(query: IArticleCommentsQuery): Promise<Result<IArticleCommentPage>>;
 
     /**
-     * Adds a comment to an article. Requires authentication. Editing and deleting a
-     * comment are deferred — the endpoints exist but the first cut ships create + list
-     * only.
+     * Adds a comment to an article. Requires authentication.
      *
      * @param input - Article id plus the comment body
      * @returns `ok(IArticleCommentEntity)` on success, `err(Failure)` on failure
      */
     addArticleComment(input: IAddArticleCommentInput): Promise<Result<IArticleCommentEntity>>;
+
+    /**
+     * Fetches one page of a top-level comment's replies.
+     *
+     * @param query - Comment id plus paging
+     * @returns `ok(IArticleCommentPage)` on success, `err(Failure)` on failure
+     */
+    getCommentReplies(query: ICommentRepliesQuery): Promise<Result<IArticleCommentPage>>;
+
+    /**
+     * Posts a single-level reply to a top-level comment. Requires authentication.
+     *
+     * @param input - Article id, parent comment id, and the reply body
+     * @returns `ok(IArticleCommentEntity)` on success, `err(Failure)` on failure
+     */
+    addCommentReply(input: IAddCommentReplyInput): Promise<Result<IArticleCommentEntity>>;
+
+    /**
+     * Edits the authenticated user's own comment; the backend enforces ownership.
+     *
+     * @param input - Article id, comment id, and the replacement body
+     * @returns `ok(boolean)` success flag on success, `err(Failure)` on failure
+     */
+    editArticleComment(input: IEditArticleCommentInput): Promise<Result<boolean>>;
+
+    /**
+     * Soft-deletes the authenticated user's own comment; the backend enforces ownership.
+     *
+     * @param input - Article id plus the comment id
+     * @returns `ok(boolean)` success flag on success, `err(Failure)` on failure
+     */
+    deleteArticleComment(input: IDeleteArticleCommentInput): Promise<Result<boolean>>;
+
+    /**
+     * Records that the authenticated user likes a comment.
+     *
+     * @param commentId - The comment identifier (UUID)
+     * @returns `ok(boolean)` success flag on success, `err(Failure)` on failure
+     */
+    likeArticleComment(commentId: string): Promise<Result<boolean>>;
+
+    /**
+     * Removes the authenticated user's like from a comment.
+     *
+     * @param commentId - The comment identifier (UUID)
+     * @returns `ok(boolean)` success flag on success, `err(Failure)` on failure
+     */
+    unlikeArticleComment(commentId: string): Promise<Result<boolean>>;
+
+    /**
+     * Fetches one page of the authenticated user's bookmarked articles, newest first.
+     *
+     * @param query - Paging
+     * @returns `ok(IArticlePage)` on success, `err(Failure)` on failure
+     */
+    getMyArticleBookmarks(query: IMyArticleBookmarksQuery): Promise<Result<IArticlePage>>;
 
     /**
      * Fetches the most popular published articles, ranked server-side by weighted
