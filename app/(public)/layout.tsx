@@ -28,7 +28,10 @@ export default async function PublicLayout({ children }: { children: React.React
 
     return (
         <>
-            <div className="sticky top-0 z-40">
+            <div
+                data-site-header
+                className="sticky top-0 z-40"
+            >
                 <TopBar />
                 <Header
                     videos={videos}
