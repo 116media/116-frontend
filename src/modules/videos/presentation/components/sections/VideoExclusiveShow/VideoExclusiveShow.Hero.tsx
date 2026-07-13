@@ -21,7 +21,7 @@ export function Hero({ category }: VideoExclusiveShowViewProps) {
     return (
         <VideoExclusiveShowRoot
             category={category}
-            className="always-dark dark relative overflow-hidden rounded-2xl border border-border"
+            className="always-dark dark relative overflow-hidden rounded-2xl border"
         >
             <VideoExclusiveShowPoster bleed />
             <VideoExclusiveShowScrim direction="right" />
