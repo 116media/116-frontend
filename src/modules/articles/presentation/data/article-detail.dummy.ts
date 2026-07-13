@@ -94,6 +94,14 @@ const COMMENT_BODIES = [
     "Sharing this with my whole team. Excellent perspective."
 ];
 
+const COMMENT_REPLY_BODIES = [
+    "Totally agree — the live-show angle is the part most people miss.",
+    "Same here, this changed how I think about release schedules.",
+    "There's a great podcast episode on exactly this if you want more.",
+    "Not sure I follow the numbers, but the direction feels right.",
+    "Came here to say this. Well put."
+];
+
 /**
  * buildDummyBody
  *
@@ -222,9 +230,90 @@ export function generateDummyComments(count = 8): IArticleCommentEntity[] {
             body: COMMENT_BODIES[index % COMMENT_BODIES.length],
             isDeleted: false,
             createdAt: new Date(DUMMY_BASE_MS - index * HOUR_MS).toISOString(),
+            parentCommentId: null,
+            replyCount: dummyReplyCount(index),
+            likeCount: (index * 3) % 7,
+            isLiked: false,
             author
         };
     });
+}
+
+/**
+ * dummyReplyCount
+ *
+ * @description
+ * Reply count for a dummy comment: every third comment carries a small thread (3, 2, or
+ * 1 replies by position) so the nested-reply design is visible in the preview, and the
+ * rest stay flat.
+ *
+ * @param index - The dummy comment's position.
+ * @returns The number of dummy replies under that comment.
+ */
+function dummyReplyCount(index: number): number {
+    if (index % 3 !== 0) return 0;
+    return 3 - Math.min(2, index / 3);
+}
+
+/**
+ * generateDummyCommentReplies
+ *
+ * @description
+ * Deterministic replies for one dummy comment, authored by the neighboring dummy
+ * authors and timestamped shortly after the parent so the thread reads naturally.
+ * Replies never carry their own thread (one level deep).
+ *
+ * @param parentIndex - The parent dummy comment's position.
+ * @returns An array of dummy replies for that comment.
+ */
+function generateDummyCommentReplies(parentIndex: number): IArticleCommentEntity[] {
+    return Array.from({ length: dummyReplyCount(parentIndex) }, (_, index) => {
+        const authorIndex = (parentIndex + index + 1) % COMMENT_AUTHORS.length;
+        return {
+            id: `dummy-reply-${parentIndex}-${index}`,
+            userId: `dummy-user-${authorIndex}`,
+            body: COMMENT_REPLY_BODIES[(parentIndex + index) % COMMENT_REPLY_BODIES.length],
+            isDeleted: false,
+            createdAt: new Date(
+                DUMMY_BASE_MS - parentIndex * HOUR_MS + (index + 1) * (HOUR_MS / 4)
+            ).toISOString(),
+            parentCommentId: `dummy-comment-${parentIndex}`,
+            replyCount: 0,
+            likeCount: (parentIndex + index) % 3,
+            isLiked: false,
+            author: COMMENT_AUTHORS[authorIndex]
+        };
+    });
+}
+
+/**
+ * dummyCommentRepliesPage
+ *
+ * @description
+ * One page of a dummy comment's replies as an `IArticleCommentPage`, so
+ * `useCommentReplies` can fall back to it exactly like the backend during the
+ * dummy-data phase. Unknown (real) comment ids yield an empty page.
+ *
+ * @param commentId - The parent comment id; dummy ids resolve to their seeded thread.
+ * @param pageIndex - Zero-based page to slice.
+ * @param pageSize - Items per page.
+ * @returns The dummy reply page for that comment and index.
+ */
+export function dummyCommentRepliesPage(
+    commentId: string,
+    pageIndex: number,
+    pageSize: number
+): IArticleCommentPage {
+    const match = commentId.match(/^dummy-comment-(\d+)$/);
+    const all = match ? generateDummyCommentReplies(Number(match[1])) : [];
+    const start = pageIndex * pageSize;
+    return {
+        items: all.slice(start, start + pageSize),
+        pageIndex,
+        pageSize,
+        count: all.length,
+        hasNextPage: start + pageSize < all.length
+    };
 }
 
 /**
