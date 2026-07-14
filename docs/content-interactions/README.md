@@ -62,7 +62,7 @@ That pattern is centralized in the shared `useToggle` hook
 | [05-likes.md](05-likes.md) | Like / unlike toggle: articles (live), the video gap, comment likes |
 | [06-comments.md](06-comments.md) | Post / list / reply / edit / delete / like — current cut vs. deferred |
 | [07-bookmarks.md](07-bookmarks.md) | Bookmark toggle + the "my bookmarks" list |
-| [08-shares.md](08-shares.md) | Share event recording, the missing platform param, Web Share API |
+| [08-shares.md](08-shares.md) | Share event recording, the `shareChannel` field, Web Share API |
 | [09-ratings.md](09-ratings.md) | Star rating upsert, the missing `myRating` readback |
 | [10-state-management-and-hooks.md](10-state-management-and-hooks.md) | Hooks, query keys, the optimistic `useToggle` pattern |
 | [11-loading-empty-error.md](11-loading-empty-error.md) | Skeletons, empty threads, retryable errors, auth-gate flow |
