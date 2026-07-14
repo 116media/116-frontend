@@ -105,7 +105,7 @@ Do **not** over-engineer shares:
 - So **`shareCount` as a raw event count is defensible**; naive increment is acceptable for
   shares. Only add dedup if product wants a distinct metric such as *"unique sharers"*, keyed
   by the same composite identity.
-- The one worthwhile share addition is the **`platform`** already flagged in
+- The one worthwhile share addition is the **`shareChannel`** flagged in
   [14 — G1](14-open-questions.md), so shares can be broken down by channel.
 
 Views, by contrast, drive social proof and (eventually) ranking, so they warrant the full
@@ -158,5 +158,5 @@ backend.
 - **Phase 2 (engagement gate) waits for the surface.** The short-video content type is
   **not modeled** in the frontend ([02 — Support Matrix](02-support-matrix.md)), so the
   play-time gate ships with that feature.
-- **Shares stay naive by design**, now with `platform` recorded per event (see
+- **Shares stay naive by design**, now with `shareChannel` recorded per event (see
   [14 — G1](14-open-questions.md)).
