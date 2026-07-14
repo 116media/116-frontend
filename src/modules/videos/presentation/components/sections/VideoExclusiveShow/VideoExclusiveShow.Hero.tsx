@@ -1,3 +1,4 @@
+import type { VideoExclusiveShowViewProps } from "./types";
 import { VideoExclusiveShowAllEpisodesLink } from "./VideoExclusiveShow.AllEpisodesLink";
 import { VideoExclusiveShowEpisodes } from "./VideoExclusiveShow.Episodes";
 import { VideoExclusiveShowHeading } from "./VideoExclusiveShow.Heading";
@@ -6,7 +7,6 @@ import { VideoExclusiveShowRoot } from "./VideoExclusiveShow.Root";
 import { VideoExclusiveShowScrim } from "./VideoExclusiveShow.Scrim";
 import { VideoExclusiveShowTag } from "./VideoExclusiveShow.Tag";
 import { VideoExclusiveShowWatchButton } from "./VideoExclusiveShow.WatchButton";
-import type { VideoExclusiveShowViewProps } from "./types";
 
 /**
  * Hero
