@@ -2,7 +2,10 @@
 
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { createContext, type ReactNode, useContext, useEffect, useMemo } from "react";
-import { type AuthStatus, isAuthenticatedStatus } from "@/modules/auth/domain/valueobjects/AuthStatus";
+import {
+    type AuthStatus,
+    isAuthenticatedStatus
+} from "@/modules/auth/domain/valueobjects/AuthStatus";
 import { authKeys } from "@/modules/auth/presentation/constants/authKeys";
 import { getAuthChannel } from "@/modules/auth/presentation/utils/authChannel";
 import { deriveAuthStatus } from "@/modules/auth/presentation/utils/status/status.utils";
