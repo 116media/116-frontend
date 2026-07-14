@@ -32,10 +32,7 @@ export interface VideosToolbarAllTagsPopoverProps {
  * rows. Selecting emits the slug and closes; dismissed on outside-click /
  * Escape via {@link useDismiss}.
  */
-export function VideosToolbarAllTagsPopover({
-    value,
-    onChange
-}: VideosToolbarAllTagsPopoverProps) {
+export function VideosToolbarAllTagsPopover({ value, onChange }: VideosToolbarAllTagsPopoverProps) {
     const { t } = useTranslation();
     const containerRef = useRef<HTMLDivElement>(null);
     const [open, setOpen] = useState(false);
