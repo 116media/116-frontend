@@ -33,14 +33,15 @@ Decisions locked, backend gaps, and assumptions for the content-interactions fea
 
 ## Backend gaps (closed backend-side; frontend wiring lands with the next client regen)
 
-### G1 — Shares drop the `platform` — **closed in the backend**
+### G1 — Shares had no channel — **closed, end to end**
 
-The share command, `*ShareEntity` (article, video, short video), and endpoints now accept and
-store an optional `platform` (nullable, max 50). The endpoints take an optional JSON body
-`{ "platform": "facebook" | "x" | "whatsapp" | "clipboard" | "web-share" }`.
-**Remaining:** regenerate the API client, then forward the `platform` the repository impls
-already receive (today it is dropped at the impl because the old generated methods take no
-body).
+The share command, `*ShareEntity` (article, video, short video), and endpoints now carry a
+`ShareChannel` (an `EnumShareChannel` — `Facebook`/`X`/`WhatsApp`/`Clipboard`/`WebShare` —
+stored via the `ShareChannel` value object, `share_channel` column). Named `ShareChannel`,
+not `Platform`, to avoid colliding with the Identity module's `EnumPlatform` (OS). The
+endpoints take an optional JSON body `{ "shareChannel": "..." }`, parsed case-insensitively
+(unrecognized → ignored). The frontend sends it from the share hooks and rail; see
+[08 — Shares](08-shares.md).
 
 ### G2 — No rating readback — **closed in the backend**
 
