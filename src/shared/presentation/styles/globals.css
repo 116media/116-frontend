@@ -3,6 +3,21 @@
 @import "./theme.css";
 @import "./progressbar.css";
 
+/*
+ * scrollbar-hide
+ *
+ * Hides the scrollbar on an overflow container while keeping it scrollable,
+ * used by horizontally swipeable rails (e.g. the exclusive show episodes).
+ */
+@utility scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
 @keyframes mega-menu-slide-down {
     from {
         transform: translateY(-100%);
@@ -109,6 +124,7 @@
         font-family: var(--font-sans);
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
+        overflow-x: clip;
     }
 }
 

@@ -41,6 +41,7 @@ import { registerSettingsDependencies } from "@/modules/settings/infrastructure/
 import type { IVideosRepositoryPort } from "@/modules/videos/application/repositories/videos.repository.port";
 import type { AddVideoToPlaylistUseCase } from "@/modules/videos/application/usecases/addvideotoplaylist.usecase";
 import type { CreatePlaylistUseCase } from "@/modules/videos/application/usecases/createplaylist.usecase";
+import type { GetAllVideoTagsUseCase } from "@/modules/videos/application/usecases/getallvideotags.usecase";
 import type { GetMyPlaylistsUseCase } from "@/modules/videos/application/usecases/getmyplaylists.usecase";
 import type { GetPopularVideosUseCase } from "@/modules/videos/application/usecases/getpopularvideos.usecase";
 import type { GetPromotedVideosUseCase } from "@/modules/videos/application/usecases/getpromotedvideos.usecase";
@@ -106,6 +107,7 @@ export interface Cradle {
     getVideoCategoriesUseCase: GetVideoCategoriesUseCase;
     getShowsUseCase: GetShowsUseCase;
     getVideoPopularTagsUseCase: GetVideoPopularTagsUseCase;
+    getAllVideoTagsUseCase: GetAllVideoTagsUseCase;
     getVideoExclusiveShowUseCase: GetVideoExclusiveShowUseCase;
     getVideoBySlugUseCase: GetVideoBySlugUseCase;
     getPublishedVideosUseCase: GetPublishedVideosUseCase;

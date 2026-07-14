@@ -4,7 +4,7 @@ import type { IVideoExclusiveShowEntity } from "@/modules/videos/domain/entities
  * VideoExclusiveShowViewProps
  *
  * @description
- * Props for the exclusive show presentation component.
+ * Props shared by the exclusive show layouts and the Root provider.
  *
  * @property {IVideoExclusiveShowEntity} category - Pre-mapped exclusive category (show) with its episodes
  */

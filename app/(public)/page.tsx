@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { ArticlePromotionFeedLoading } from "@/modules/articles/presentation/components/sections/ArticlePromotionFeed/ArticlePromotionFeed.Loading";
 import { ArticlePromotionFeedContainer } from "@/modules/articles/presentation/containers/ArticlePromotionFeedContainer";
-import { VideoExclusiveShowLoading } from "@/modules/videos/presentation/components/sections/VideoExclusiveShow/VideoExclusiveShow.Loading";
+import { VideoExclusiveShowSplitLoading } from "@/modules/videos/presentation/components/sections/VideoExclusiveShow/VideoExclusiveShow.Split.Loading";
 import { ShowsSectionContainer } from "@/modules/videos/presentation/containers/ShowsSectionContainer";
 import { VideoExclusiveShowContainer } from "@/modules/videos/presentation/containers/VideoExclusiveShowContainer";
 import { VideoFeedSectionContainer } from "@/modules/videos/presentation/containers/VideoFeedSectionContainer";
@@ -24,8 +24,8 @@ export default function HomePage() {
             </Suspense>
 
             {/* Exclusive show — featured category and its episodes */}
-            <Suspense fallback={<VideoExclusiveShowLoading />}>
-                <VideoExclusiveShowContainer />
+            <Suspense fallback={<VideoExclusiveShowSplitLoading />}>
+                <VideoExclusiveShowContainer variant="split" />
             </Suspense>
 
             {/* Shows — swipeable carousel of video categories */}

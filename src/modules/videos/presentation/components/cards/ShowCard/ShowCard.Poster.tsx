@@ -4,28 +4,22 @@ import Image from "next/image";
 import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import type { IShowEntity } from "@/modules/videos/domain/entities/IShowEntity";
+import { SHOW_FALLBACK_COLORS } from "@/modules/videos/presentation/constants/showColors";
 import { Button } from "@/shared/presentation/components/ui/Button";
 import { PlayIcon } from "@/shared/presentation/components/ui/Icon";
 import { withAlpha } from "@/shared/presentation/utils/color/color.utils";
 
 /**
- * Props for the ShowCard component.
+ * Props for the Poster show card variant.
  *
- * @interface ShowCardProps
+ * @interface ShowCardPosterProps
  * @property {IShowEntity} show - The show to display.
  * @property {boolean} isHero - Whether to render the larger hero variant.
  */
-export interface ShowCardProps {
+export interface ShowCardPosterProps {
     show: IShowEntity;
     isHero: boolean;
 }
-
-/**
- * Fallback colors used when a show has no poster-derived palette (e.g. no poster
- * yet, or extraction returned nothing): a near-black scrim with white text.
- */
-const FALLBACK_BACKGROUND = "#0A0A0A";
-const FALLBACK_FOREGROUND = "#FFFFFF";
 
 /**
  * RevealOnHover
@@ -48,18 +42,18 @@ function RevealOnHover({ children }: { children: ReactNode }) {
 }
 
 /**
- * ShowCard
+ * Poster
  *
  * @description
  * Full-bleed poster content for a show inside an MD3 hero carousel slot, themed
  * from the backend `colors` pair via inline styles with a neutral fallback.
  * While focal, it shows the title, description, and a "watch" button.
  */
-export function ShowCard({ show, isHero }: ShowCardProps) {
+export function Poster({ show, isHero }: ShowCardPosterProps) {
     const { t } = useTranslation();
 
-    const background = show.colors?.background ?? FALLBACK_BACKGROUND;
-    const foreground = show.colors?.foreground ?? FALLBACK_FOREGROUND;
+    const background = show.colors?.background ?? SHOW_FALLBACK_COLORS.background;
+    const foreground = show.colors?.foreground ?? SHOW_FALLBACK_COLORS.foreground;
 
     return (
         <>

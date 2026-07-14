@@ -35,8 +35,9 @@ export function ArticlesToolbarTagStrip({ value, onChange }: ArticlesToolbarTagS
                         size="lg"
                         as="span"
                         prefix="#"
+                        shape="pill"
                         key={tag.slug}
-                        variant={tag.slug === value ? "primary" : "outline"}
+                        variant={tag.slug === value ? "primary" : "default"}
                         onClick={() => onChange(tag.slug === value ? undefined : tag.slug)}
                     >
                         {tag.name}

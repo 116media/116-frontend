@@ -1,37 +1,37 @@
 import { Skeleton } from "@/shared/presentation/components/ui/Skeleton";
 
 /**
- * VideoExclusiveShowLoading
+ * VideoExclusiveShowSplitLoading
  *
  * @description
- * Skeleton placeholder for the exclusive show section, used as the Suspense
- * fallback on the homepage. Mirrors the layout, spacing, and card heights of
- * VideoExclusiveShow, built from the shared Skeleton primitive.
+ * Skeleton placeholder for the split exclusive show variant, used as the
+ * Suspense fallback on the homepage. Mirrors the poster and episodes panels
+ * so the layout does not shift when the data streams in.
  */
-export function VideoExclusiveShowLoading() {
+export function VideoExclusiveShowSplitLoading() {
     return (
         <article className="grid grid-cols-1 overflow-hidden rounded-2xl border border-border bg-card lg:grid-cols-[1.1fr_1fr]">
-            <Skeleton className="relative min-h-112 rounded-none lg:min-h-130 lg:border-r lg:border-border">
-                <div className="absolute top-5 left-5 h-6 w-28 rounded-md bg-muted-foreground/10" />
+            <div className="relative min-h-112 lg:min-h-130 lg:border-r lg:border-border">
+                <Skeleton className="absolute left-5 top-5 h-6 w-28 rounded-md" />
 
                 <div className="absolute inset-x-2 bottom-5 space-y-3 sm:inset-x-3 md:inset-x-6">
-                    <div className="h-8 w-3/4 rounded bg-muted-foreground/10" />
+                    <Skeleton className="h-8 w-3/4" />
                     <div className="mb-6 space-y-2">
-                        <div className="h-3.5 w-full rounded bg-muted-foreground/10" />
-                        <div className="h-3.5 w-full rounded bg-muted-foreground/10" />
-                        <div className="h-3.5 w-4/5 rounded bg-muted-foreground/10" />
+                        <Skeleton className="h-3.5 w-full" />
+                        <Skeleton className="h-3.5 w-full" />
+                        <Skeleton className="h-3.5 w-4/5" />
                     </div>
-                    <div className="h-10 w-full rounded-md bg-muted-foreground/10 sm:w-44" />
+                    <Skeleton className="h-10 w-full rounded-md sm:w-44" />
                 </div>
-            </Skeleton>
+            </div>
 
             <div className="p-2 sm:p-3 md:p-6">
                 <Skeleton className="mb-4 h-4 w-24" />
 
                 <div className="flex flex-col gap-3">
-                    {[0, 1, 2, 3, 4].map((i) => (
+                    {[0, 1, 2, 3, 4].map((index) => (
                         <div
-                            key={i}
+                            key={index}
                             className="flex gap-3 rounded-xl border border-border p-3"
                         >
                             <Skeleton className="min-h-18 w-28 shrink-0 self-stretch rounded-md sm:w-24 md:w-32 lg:w-20 xl:w-32" />

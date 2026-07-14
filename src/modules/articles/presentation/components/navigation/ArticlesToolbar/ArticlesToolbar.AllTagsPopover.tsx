@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 
 import { useAllTags } from "@/modules/articles/presentation/hooks/useAllTags";
 import { Button } from "@/shared/presentation/components/ui/Button";
-import { CheckIcon } from "@/shared/presentation/components/ui/Icon";
+import { CheckIcon, TagsIcon } from "@/shared/presentation/components/ui/Icon";
 import { Input } from "@/shared/presentation/components/ui/Input";
 import { useDebouncedValue } from "@/shared/presentation/hooks/useDebouncedValue";
 import { useDismiss } from "@/shared/presentation/hooks/useDismiss";
@@ -59,6 +59,7 @@ export function ArticlesToolbarAllTagsPopover({
                 variant="outline"
                 onClick={() => setOpen((previous) => !previous)}
             >
+                <TagsIcon className="size-4" />
                 {t("articles.filters.allTags")}
             </Button>
             {open && (

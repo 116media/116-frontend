@@ -43,7 +43,7 @@ export function useSimilarVideos(categoryId: string, currentVideoId: string, ena
                 categoryId
             });
             const real = result.ok
-                ? result.value.filter((video) => video.id !== currentVideoId)
+                ? result.value.items.filter((video) => video.id !== currentVideoId)
                 : [];
             if (real.length > 0) return real;
             await new Promise((resolve) => setTimeout(resolve, DUMMY_PAGE_LATENCY_MS));
