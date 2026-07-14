@@ -7,11 +7,11 @@ import type { Result } from "@/shared/domain/results/result";
  *
  * @interface IShareArticleRequest
  * @property {string} articleId - The article being shared.
- * @property {string} platform - The share surface used (e.g. "web-share", "clipboard").
+ * @property {string} shareChannel - The share channel (e.g. "WebShare", "Clipboard").
  */
 export interface IShareArticleRequest {
     articleId: string;
-    platform: string;
+    shareChannel: string;
 }
 
 /**
@@ -29,8 +29,8 @@ interface IShareArticleUseCase extends IResultUseCase<IShareArticleRequest, bool
  * @implements {IShareArticleUseCase}
  *
  * @description
- * Records a share event for one article via the articles repository. The platform is
- * client-side context only; the backend endpoint accepts no payload.
+ * Records a share event for one article via the articles repository, tagged with the
+ * share channel for per-channel analytics.
  */
 export class ShareArticleUseCase implements IShareArticleUseCase {
     private readonly articlesRepository: IArticlesRepositoryPort;
@@ -46,10 +46,10 @@ export class ShareArticleUseCase implements IShareArticleUseCase {
     /**
      * Executes the share-article use case.
      *
-     * @param request - The article id and share platform.
+     * @param request - The article id and share channel.
      * @returns `ok(boolean)` success flag on success, `err(Failure)` on failure.
      */
-    execute({ articleId, platform }: IShareArticleRequest): Promise<Result<boolean>> {
-        return this.articlesRepository.shareArticle(articleId, platform);
+    execute({ articleId, shareChannel }: IShareArticleRequest): Promise<Result<boolean>> {
+        return this.articlesRepository.shareArticle(articleId, shareChannel);
     }
 }
