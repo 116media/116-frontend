@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
+import { useExclusiveShow } from "@/modules/videos/presentation/context/ExclusiveShowProvider";
 import { Button } from "@/shared/presentation/components/ui/Button";
 import { PlayIcon } from "@/shared/presentation/components/ui/Icon";
-import { useExclusiveShow } from "@/modules/videos/presentation/context/ExclusiveShowProvider";
 
 /**
  * Props for the VideoExclusiveShowWatchButton component.
