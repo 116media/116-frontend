@@ -84,14 +84,15 @@ the article read DTOs.
 
 | Method | Path | Auth | Body | Response | Client method |
 |---|---|---|---|---|---|
-| POST | `/public/articles/{id}/shares` | anon | — | `{ isSuccess }` | `publicShareArticle` |
-| POST | `/public/videos/{id}/shares` | anon | — | `{ isSuccess }` | `publicShareVideo` |
-| POST | `/public/shorts/{id}/shares` | anon | — | `{ isSuccess }` | `publicShareShortVideo` |
+| POST | `/public/articles/{id}/shares` | anon | `{ shareChannel? }` | `{ isSuccess }` | `publicShareArticle` |
+| POST | `/public/videos/{id}/shares` | anon | `{ shareChannel? }` | `{ isSuccess }` | `publicShareVideo` |
+| POST | `/public/shorts/{id}/shares` | anon | `{ shareChannel? }` | `{ isSuccess }` | `publicShareShortVideo` |
 
-**Rules.** All anonymous-allowed. **No `platform` parameter** — the backend records only
-`(contentId, userId?, timestamp)`. **No deduplication** — every call inserts a share row
-and increments `shareCount`. 404 if the content is missing. The frontend's `platform`
-argument is not sent to (or stored by) the backend; see [08](08-shares.md).
+**Rules.** All anonymous-allowed. The optional `shareChannel` body is parsed into
+`EnumShareChannel` (`Facebook`/`X`/`WhatsApp`/`Clipboard`/`WebShare`, case-insensitive,
+unrecognized → ignored) and stored on the `*ShareEntity` (`share_channel` column). **No
+deduplication** — every call inserts a share row and increments `shareCount`. 404 if the
+content is missing. See [08](08-shares.md).
 
 Related (not a share): **POST `/public/shorts/{id}/views`** (anon, no user id) increments a
 short video's `viewCount`.
