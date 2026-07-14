@@ -39,13 +39,14 @@ Shipped signatures (documented) plus the deferred additions:
     unbookmarkArticle(id: string): Promise<Result<boolean>>;
 
     /**
-     * Records a share event for an article. The `platform` label is client-side context
-     * only — the backend stores a bare share event and never receives the platform.
+     * Records a share event for an article, tagged with the `shareChannel` the backend
+     * parses and stores for per-channel analytics.
      *
-     * @param input - The article id and the client-side platform label.
+     * @param id - The article id.
+     * @param shareChannel - The share channel label (e.g. "webshare", "facebook").
      * @returns `ok(true)` on success, `err(Failure)` on failure.
      */
-    shareArticle(input: { articleId: string; platform: string }): Promise<Result<boolean>>;
+    shareArticle(id: string, shareChannel: string): Promise<Result<boolean>>;
 
     /**
      * Fetches one page of an article's comments.
@@ -203,13 +204,12 @@ on catch. The deferred methods follow the shipped shape exactly:
     }
 ```
 
-The share impl **drops `platform`** before the network call — it accepts the label for the
-frontend contract but sends only the id:
+The share impl **sends `shareChannel`** in the request body:
 
 ```ts
-    async shareArticle(input: { articleId: string; platform: string }): Promise<Result<boolean>> {
+    async shareArticle(id: string, shareChannel: string): Promise<Result<boolean>> {
         try {
-            const response = await this.api.publicShareArticle(input.articleId);
+            const response = await this.api.publicShareArticle(id, { shareChannel });
             return ok(response.data.isSuccess);
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
@@ -241,7 +241,7 @@ getMyArticleBookmarksUseCase: GetMyArticleBookmarksUseCase;
 
 - [ ] Port: comment like/unlike, reply list/post, edit, delete, my-bookmarks methods added.
 - [ ] Impl: each wraps the generated client, maps via `ArticlesMapper`, `Result<T>` + `ProblemMapper`.
-- [ ] `shareArticle` accepts `platform` but sends only the id (documented discrepancy).
+- [ ] `shareArticle` / `shareVideo` forward `shareChannel` in the request body.
 - [ ] Use cases created for each deferred method, registered in DI + typed on the cradle.
 - [ ] Existing shipped methods unchanged.
 - [ ] `tsc` + biome clean.
