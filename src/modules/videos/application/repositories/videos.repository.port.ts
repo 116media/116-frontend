@@ -166,9 +166,8 @@ export interface IVideosRepositoryPort {
     rateVideo(id: string, stars: number): Promise<Result<boolean>>;
 
     /**
-     * Records a share event against a video. The platform label is client-side
-     * context only — the backend stores a bare share event and never receives
-     * the platform.
+     * Records a share event against a video. Anonymous access is permitted; the
+     * `platform` label is stored server-side for per-channel share analytics.
      *
      * @param id - The video being shared (UUID)
      * @param platform - The share surface used (e.g. "facebook", "clipboard")
