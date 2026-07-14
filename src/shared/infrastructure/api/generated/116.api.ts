@@ -1878,6 +1878,11 @@ export interface PublicGetPublishedVideosResponse {
   videos: VideoSummaryDtoPaginatedResult;
 }
 
+export interface PublicGetShortsFeedResponse {
+  items: ShortVideoDto[];
+  nextCursor?: string | null;
+}
+
 export interface PublicGetVideoBySlugResponse {
   video: VideoDetailDto;
 }
@@ -2175,6 +2180,7 @@ export interface ShortVideoDto {
   thumbnailUrl?: string | null;
   /** @format uuid */
   videoId?: string | null;
+  videoSlug?: string | null;
   hasFullVideo: boolean;
   isActive: boolean;
   /** @format int32 */
@@ -2187,6 +2193,8 @@ export interface ShortVideoDto {
   bookmarkCount: number;
   authorId: string;
   author?: AuthorDto | null;
+  isLiked: boolean;
+  isBookmarked: boolean;
 }
 
 export interface ShortVideoDtoPaginatedResult {
@@ -13241,6 +13249,51 @@ export class Api<
       this.request<PublicRecordShortVideoViewResponse, ProblemDetails>({
         path: `/api/v1/public/shorts/${id}/views`,
         method: "POST",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Returns a cursor-paginated, seeded pseudo-random ("for you") feed of active short videos.
+     * The ordering is stable for a given cursor session, so paging never drifts or repeats items.
+     * \n
+     * **Pagination:**\n
+     * - Omit the cursor to start a fresh randomized session; the first page returns a `nextCursor`.\n
+     * - Pass the returned `nextCursor` to fetch the following page.\n
+     * - A null `nextCursor` means the feed is exhausted.\n
+     * \n
+     * **Authentication Requirements:**\n
+     * - No authentication required (public endpoint).\n
+     * - When authenticated, each item carries the caller's `isLiked` / `isBookmarked` flags.\n
+     * \n
+     * **Response Codes:**\n
+     * - Returns 200 OK with the feed page on success.\n
+     * - Returns 429 Too Many Requests if rate limit is exceeded.\n
+     *
+     * @tags public::shorts
+     * @name GetShortsFeed
+     * @summary Get the for-you short videos feed
+     * @request GET:/api/v1/public/shorts/feed
+     * @secure
+     * @response `200` `PublicGetShortsFeedResponse` OK
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    getShortsFeed: (
+      query?: {
+        cursor?: string;
+        /**
+         * @format int32
+         * @default 10
+         */
+        pageSize?: number;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<PublicGetShortsFeedResponse, ProblemDetails>({
+        path: `/api/v1/public/shorts/feed`,
+        method: "GET",
+        query: query,
         secure: true,
         format: "json",
         ...params,
