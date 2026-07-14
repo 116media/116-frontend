@@ -16,13 +16,13 @@ import container from "@/shared/infrastructure/service.locator";
  *
  * @param videoId - The video the backend share event is recorded against.
  * @param slug - The video slug keying the cached detail entity.
- * @returns A `recordShare(platform)` function for the share modal.
+ * @returns A `recordShare(target)` function for the share modal.
  */
 export function useShareVideo(videoId: string, slug: string) {
     const queryClient = useQueryClient();
 
-    return (platform: string) => {
-        void container.cradle.shareVideoUseCase.execute({ videoId, platform });
+    return (shareChannel: string) => {
+        void container.cradle.shareVideoUseCase.execute({ videoId, shareChannel });
         queryClient.setQueryData<IVideoDetailEntity>(videoKeys.detail(slug), (current) =>
             current ? { ...current, shareCount: current.shareCount + 1 } : current
         );
