@@ -1,8 +1,8 @@
 "use client";
 
-import { withAlpha } from "@/shared/presentation/utils/color/color.utils";
 import { useExclusiveShow } from "@/modules/videos/presentation/context/ExclusiveShowProvider";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
+import { withAlpha } from "@/shared/presentation/utils/color/color.utils";
 
 /**
  * Props for the VideoExclusiveShowHeading component.
@@ -45,5 +45,4 @@ export function VideoExclusiveShowHeading({ clamp = true }: VideoExclusiveShowHe
             </p>
         </>
     );
-
 }
