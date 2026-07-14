@@ -36,17 +36,17 @@ export function ArticleDetailShareRail({ articleId, slug, title }: ArticleDetail
         <SocialShareGroup
             title={title}
             orientation="vertical"
-            url={resolveShareUrl(`/articles/${slug}`)}
             className="lg:sticky lg:top-32"
+            url={resolveShareUrl(`/articles/${slug}`)}
             labels={{
-                facebook: t("articles.share.facebook"),
                 x: t("articles.share.x"),
+                facebook: t("articles.share.facebook"),
                 whatsapp: t("articles.share.whatsapp"),
                 copy: t("articles.share.copy")
             }}
             onCopied={() => showNotification(ArticleShareNotification.linkCopied(t))}
-            onShared={(platform) => {
-                void container.cradle.shareArticleUseCase.execute({ articleId, platform });
+            onShared={(shareChannel) => {
+                void container.cradle.shareArticleUseCase.execute({ articleId, shareChannel });
             }}
         />
     );
