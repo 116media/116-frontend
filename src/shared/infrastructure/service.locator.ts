@@ -45,6 +45,16 @@ import type { GetProfileUseCase } from "@/modules/settings/application/usecases/
 import type { UpdateAccountUseCase } from "@/modules/settings/application/usecases/updateaccount.usecase";
 import type { UpdateAvatarUseCase } from "@/modules/settings/application/usecases/updateavatar.usecase";
 import { registerSettingsDependencies } from "@/modules/settings/infrastructure/dependencies/settings.dependencies";
+import type { IShortsRepositoryPort } from "@/modules/shorts/application/repositories/shorts.repository.port";
+import type { BookmarkShortUseCase } from "@/modules/shorts/application/usecases/bookmarkshort.usecase";
+import type { GetShortBySlugUseCase } from "@/modules/shorts/application/usecases/getshortbyslug.usecase";
+import type { GetShortsFeedUseCase } from "@/modules/shorts/application/usecases/getshortsfeed.usecase";
+import type { LikeShortUseCase } from "@/modules/shorts/application/usecases/likeshort.usecase";
+import type { RecordShortViewUseCase } from "@/modules/shorts/application/usecases/recordshortview.usecase";
+import type { ShareShortUseCase } from "@/modules/shorts/application/usecases/shareshort.usecase";
+import type { UnbookmarkShortUseCase } from "@/modules/shorts/application/usecases/unbookmarkshort.usecase";
+import type { UnlikeShortUseCase } from "@/modules/shorts/application/usecases/unlikeshort.usecase";
+import { registerShortsDependencies } from "@/modules/shorts/infrastructure/dependencies/shorts.dependencies";
 import type { IVideosRepositoryPort } from "@/modules/videos/application/repositories/videos.repository.port";
 import type { AddVideoToPlaylistUseCase } from "@/modules/videos/application/usecases/addvideotoplaylist.usecase";
 import type { CreatePlaylistUseCase } from "@/modules/videos/application/usecases/createplaylist.usecase";
@@ -112,6 +122,21 @@ export interface Cradle {
     deleteArticleCommentUseCase: DeleteArticleCommentUseCase;
     likeArticleCommentUseCase: LikeArticleCommentUseCase;
     unlikeArticleCommentUseCase: UnlikeArticleCommentUseCase;
+
+    // Shorts repository
+    shortsRepository: IShortsRepositoryPort;
+
+    // Shorts use cases
+    getShortsFeedUseCase: GetShortsFeedUseCase;
+    getShortBySlugUseCase: GetShortBySlugUseCase;
+
+    // Shorts interaction use cases
+    likeShortUseCase: LikeShortUseCase;
+    unlikeShortUseCase: UnlikeShortUseCase;
+    bookmarkShortUseCase: BookmarkShortUseCase;
+    unbookmarkShortUseCase: UnbookmarkShortUseCase;
+    shareShortUseCase: ShareShortUseCase;
+    recordShortViewUseCase: RecordShortViewUseCase;
 
     // Videos repository
     videosRepository: IVideosRepositoryPort;
@@ -183,6 +208,7 @@ container.register({ client: asValue(apiClient) });
 
 registerArticlesDependencies(container);
 registerVideosDependencies(container);
+registerShortsDependencies(container);
 registerAuthDependencies(container);
 registerSessionDependencies(container);
 registerSettingsDependencies(container);
