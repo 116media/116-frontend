@@ -25,6 +25,7 @@ export {
     ChevronLeft as ChevronLeftIcon,
     ChevronRight as ChevronRightIcon,
     ChevronsUpDown as ChevronsUpDownIcon,
+    ChevronUp as ChevronUpIcon,
     CircleCheck as CircleCheckIcon,
     CircleHelp as CircleHelpIcon,
     Clock as ClockIcon,
@@ -33,6 +34,7 @@ export {
     Crown as CrownIcon,
     Eye as EyeIcon,
     EyeOff as EyeOffIcon,
+    Film as FilmIcon,
     Flame as FlameIcon,
     Heart as HeartIcon,
     Info as InfoIcon,
@@ -63,6 +65,8 @@ export {
     Trash2 as TrashIcon,
     TriangleAlert as TriangleAlertIcon,
     UserRound as UserRoundIcon,
+    Volume2 as VolumeIcon,
+    VolumeX as VolumeOffIcon,
     X as XIcon,
     XCircle as XCircleIcon
 } from "lucide-react";
