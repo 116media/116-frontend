@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, MotionValue, useMotionTemplate, useTransform } from "motion/react";
+import { type MotionValue, motion, useMotionTemplate, useTransform } from "motion/react";
 
 /**
  * Props for the GradientLayer part.
@@ -13,11 +13,11 @@ import { motion, MotionValue, useMotionTemplate, useTransform } from "motion/rea
  * @property {number} multiplier - Position scale, staggering stacked layers for depth.
  */
 export interface GradientLayerProps {
-    springX: MotionValue<number>;
-    springY: MotionValue<number>;
-    gradientColor: string;
     opacity: number;
     multiplier: number;
+    gradientColor: string;
+    springX: MotionValue<number>;
+    springY: MotionValue<number>;
 }
 
 /**
