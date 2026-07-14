@@ -28,7 +28,11 @@ export function ShowDetailLoading() {
                         {DESCRIPTION_LINES.map((line) => (
                             <Skeleton
                                 key={line}
-                                className={line === DESCRIPTION_LINES.length - 1 ? "h-4 w-4/5" : "h-4 w-full"}
+                                className={
+                                    line === DESCRIPTION_LINES.length - 1
+                                        ? "h-4 w-4/5"
+                                        : "h-4 w-full"
+                                }
                             />
                         ))}
                     </div>
