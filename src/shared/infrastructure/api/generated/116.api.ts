@@ -1925,6 +1925,7 @@ export interface PublicRateVideoResponse {
 
 export interface PublicRecordShortVideoViewResponse {
   isSuccess: boolean;
+  isCounted: boolean;
 }
 
 export interface PublicRefreshTokenRequest {
@@ -1978,12 +1979,24 @@ export interface PublicSetPasswordResponse {
   isSuccess: boolean;
 }
 
+export interface PublicShareArticleRequest {
+  platform?: string | null;
+}
+
 export interface PublicShareArticleResponse {
   isSuccess: boolean;
 }
 
+export interface PublicShareShortVideoRequest {
+  platform?: string | null;
+}
+
 export interface PublicShareShortVideoResponse {
   isSuccess: boolean;
+}
+
+export interface PublicShareVideoRequest {
+  platform?: string | null;
 }
 
 export interface PublicShareVideoResponse {
@@ -2264,6 +2277,9 @@ export interface VideoDetailDto {
   /** @format uuid */
   orderItemId?: string | null;
   author?: AuthorDto | null;
+  isRated: boolean;
+  /** @format int32 */
+  ratedStars?: number | null;
 }
 
 export interface VideoFeedSectionDto {
@@ -10811,11 +10827,17 @@ export class Api<
      * @response `404` `ProblemDetails` Not Found
      * @response `429` `ProblemDetails` Too Many Requests
      */
-    publicShareArticle: (id: string, params: RequestParams = {}) =>
+    publicShareArticle: (
+      id: string,
+      data: PublicShareArticleRequest,
+      params: RequestParams = {},
+    ) =>
       this.request<PublicShareArticleResponse, ProblemDetails>({
         path: `/api/v1/public/articles/${id}/shares`,
         method: "POST",
+        body: data,
         secure: true,
+        type: ContentType.Json,
         format: "json",
         ...params,
       }),
@@ -13177,11 +13199,17 @@ export class Api<
      * @response `404` `ProblemDetails` Not Found
      * @response `429` `ProblemDetails` Too Many Requests
      */
-    publicShareShortVideo: (id: string, params: RequestParams = {}) =>
+    publicShareShortVideo: (
+      id: string,
+      data: PublicShareShortVideoRequest,
+      params: RequestParams = {},
+    ) =>
       this.request<PublicShareShortVideoResponse, ProblemDetails>({
         path: `/api/v1/public/shorts/${id}/shares`,
         method: "POST",
+        body: data,
         secure: true,
+        type: ContentType.Json,
         format: "json",
         ...params,
       }),
@@ -13420,11 +13448,17 @@ export class Api<
      * @response `404` `ProblemDetails` Not Found
      * @response `429` `ProblemDetails` Too Many Requests
      */
-    publicShareVideo: (id: string, params: RequestParams = {}) =>
+    publicShareVideo: (
+      id: string,
+      data: PublicShareVideoRequest,
+      params: RequestParams = {},
+    ) =>
       this.request<PublicShareVideoResponse, ProblemDetails>({
         path: `/api/v1/public/videos/${id}/shares`,
         method: "POST",
+        body: data,
         secure: true,
+        type: ContentType.Json,
         format: "json",
         ...params,
       }),
