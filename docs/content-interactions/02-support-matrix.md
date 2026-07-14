@@ -37,9 +37,9 @@ Cross-referencing the matrix above with what the frontend actually has today:
 | Article comment like/unlike | ✅ | DTO carries `isLiked`/`likeCount`; no UI | **deferred** — spec [05](specs/05-comments.md) |
 | Article bookmark/unbookmark | ✅ | full stack | **shipped** |
 | Article "my bookmarks" list | ✅ | `getMyArticleBookmarks` API exists; no port/hook/page | **deferred** — spec [06](specs/06-bookmarks.md) |
-| Article share | ✅ | use case, hook, share rail, notification | **shipped** *(platform inert)* |
-| Video rating | ✅ | entity fields, port, use case, hook, modal, i18n | **shipped** *(no `myRating`)* |
-| Video share | ✅ | use case, hook, modal, notification | **shipped** *(platform inert)* |
+| Article share | ✅ | use case, hook, share rail, notification | **shipped** *(with `shareChannel`)* |
+| Video rating | ✅ | entity fields, port, use case, hook, modal, i18n | **shipped** *(with rating readback)* |
+| Video share | ✅ | use case, hook, modal, notification | **shipped** *(with `shareChannel`)* |
 | Full-video like/bookmark/comment | ❌ | — | **by design** — like/comment come from YouTube; "save" is add-to-playlist |
 | Short-video anything | ✅ | short-video type not modeled | **out of scope** |
 
@@ -50,8 +50,9 @@ Cross-referencing the matrix above with what the frontend actually has today:
 - **Green + shipped** → documented as the reference; no work.
 - **Green + deferred** → the backend is ready and the frontend is missing; these are the
   actual build items, specced in this folder.
-- **Green + shipped with a caveat** (share platform, rating readback) → documented gaps,
-  tracked in [14](14-open-questions.md), not blocking.
+- **Formerly gaps, now shipped** — the share **channel** (`shareChannel`) and the video
+  **rating readback** (`isRated`/`ratedStars`) were once documented gaps; both are now wired
+  end-to-end (see [14](14-open-questions.md)).
 - **Red (by design)** → never attempt. Video like/comment come from **YouTube**
   (`IYoutubeVideoStats`, scoreboard); the video "save" concept is **add-to-playlist**. These
   are deliberate product choices, not missing endpoints — see decision 9 in
