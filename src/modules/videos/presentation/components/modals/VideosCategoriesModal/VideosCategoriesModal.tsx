@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-
+import { ShowCard } from "@/modules/videos/presentation/components/cards/ShowCard";
 import { useShows } from "@/modules/videos/presentation/hooks/useShows";
 import {
     Dialog,
@@ -13,7 +13,6 @@ import {
 import { EmptyState } from "@/shared/presentation/components/ui/EmptyState";
 import { SearchIcon } from "@/shared/presentation/components/ui/Icon";
 import { Input } from "@/shared/presentation/components/ui/Input";
-import { ShowCard } from "@/modules/videos/presentation/components/cards/ShowCard";
 
 /**
  * Props for VideosCategoriesModal.
@@ -42,9 +41,7 @@ export function VideosCategoriesModal({ open, onOpenChange }: VideosCategoriesMo
     const { data: shows = [] } = useShows();
 
     const term = search.trim().toLowerCase();
-    const filtered = term
-        ? shows.filter((show) => show.name.toLowerCase().includes(term))
-        : shows;
+    const filtered = term ? shows.filter((show) => show.name.toLowerCase().includes(term)) : shows;
 
     return (
         <Dialog
