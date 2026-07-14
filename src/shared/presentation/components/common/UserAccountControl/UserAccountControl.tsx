@@ -1,11 +1,11 @@
 "use client";
 
 import { useAuth } from "@/modules/auth/presentation/context/AuthProvider";
+import type { AccountControlViewProps, UserAccountControlProps } from "./types";
 import { UserAccountControlGuestButton } from "./UserAccountControl.GuestButton";
 import { UserAccountControlLoading } from "./UserAccountControl.Loading";
 import { UserAccountControlMenu } from "./UserAccountControl.Menu";
 import { UserAccountControlSlot } from "./UserAccountControl.Slot";
-import type { AccountControlViewProps, UserAccountControlProps } from "./types";
 
 /**
  * AccountControlView
@@ -17,7 +17,7 @@ import type { AccountControlViewProps, UserAccountControlProps } from "./types";
 function AccountControlView({ status, user }: AccountControlViewProps) {
     if (status === "loading") return <UserAccountControlLoading />;
     if (!user) return <UserAccountControlGuestButton />;
-    
+
     return <UserAccountControlMenu user={user} />;
 }
 
