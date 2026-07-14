@@ -238,13 +238,13 @@ export interface IArticlesRepositoryPort {
 
     /**
      * Records a share event for an article. Anonymous access is permitted; the
-     * `platform` label is stored server-side for per-channel share analytics.
+     * `shareChannel` is stored server-side for per-channel share analytics.
      *
      * @param id - The article identifier (UUID)
-     * @param platform - The share surface used (e.g. "web-share", "clipboard")
+     * @param shareChannel - The share channel (e.g. "WebShare", "Clipboard", "Facebook")
      * @returns `ok(boolean)` success flag on success, `err(Failure)` on failure
      */
-    shareArticle(id: string, platform: string): Promise<Result<boolean>>;
+    shareArticle(id: string, shareChannel: string): Promise<Result<boolean>>;
 
     /**
      * Fetches one article by its slug.
