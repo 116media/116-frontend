@@ -6,8 +6,8 @@
  * `t("shorts.share.<key>")`. Must hold the exact same keys as the French mirror.
  */
 export const share = {
-    title: "Share",
-    subtitle: "Share this short",
+    title: "Share this short",
+    subtitle: "Share this short on your social media",
     linkLabel: "Short link",
     copyAction: "Copy",
     facebook: "Share on Facebook",
