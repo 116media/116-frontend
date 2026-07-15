@@ -1,20 +1,27 @@
 import { asClass, asValue, createContainer, InjectionMode } from "awilix";
 import type { IArticlesRepositoryPort } from "@/modules/articles/application/repositories/articles.repository.port";
 import type { AddArticleCommentUseCase } from "@/modules/articles/application/usecases/addarticlecomment.usecase";
+import type { AddCommentReplyUseCase } from "@/modules/articles/application/usecases/addcommentreply.usecase";
 import type { BookmarkArticleUseCase } from "@/modules/articles/application/usecases/bookmarkarticle.usecase";
+import type { DeleteArticleCommentUseCase } from "@/modules/articles/application/usecases/deletearticlecomment.usecase";
+import type { EditArticleCommentUseCase } from "@/modules/articles/application/usecases/editarticlecomment.usecase";
 import type { GetAllTagsUseCase } from "@/modules/articles/application/usecases/getalltags.usecase";
 import type { GetArticleBySlugUseCase } from "@/modules/articles/application/usecases/getarticlebyslug.usecase";
 import type { GetArticleCategoriesUseCase } from "@/modules/articles/application/usecases/getarticlecategories.usecase";
 import type { GetArticleCommentsUseCase } from "@/modules/articles/application/usecases/getarticlecomments.usecase";
 import type { GetArticlePopularTagsUseCase } from "@/modules/articles/application/usecases/getarticlepopulartags.usecase";
 import type { GetArticlePromotionFeedUseCase } from "@/modules/articles/application/usecases/getarticlepromotionfeed.usecase";
+import type { GetCommentRepliesUseCase } from "@/modules/articles/application/usecases/getcommentreplies.usecase";
+import type { GetMyArticleBookmarksUseCase } from "@/modules/articles/application/usecases/getmyarticlebookmarks.usecase";
 import type { GetPopularArticlesUseCase } from "@/modules/articles/application/usecases/getpopulararticles.usecase";
 import type { GetPromotedArticlesUseCase } from "@/modules/articles/application/usecases/getpromotedarticles.usecase";
 import type { GetPublishedArticlesUseCase } from "@/modules/articles/application/usecases/getpublishedarticles.usecase";
 import type { LikeArticleUseCase } from "@/modules/articles/application/usecases/likearticle.usecase";
+import type { LikeArticleCommentUseCase } from "@/modules/articles/application/usecases/likearticlecomment.usecase";
 import type { ShareArticleUseCase } from "@/modules/articles/application/usecases/sharearticle.usecase";
 import type { UnbookmarkArticleUseCase } from "@/modules/articles/application/usecases/unbookmarkarticle.usecase";
 import type { UnlikeArticleUseCase } from "@/modules/articles/application/usecases/unlikearticle.usecase";
+import type { UnlikeArticleCommentUseCase } from "@/modules/articles/application/usecases/unlikearticlecomment.usecase";
 import { registerArticlesDependencies } from "@/modules/articles/infrastructure/dependencies/articles.dependencies";
 import type { IAuthRepositoryPort } from "@/modules/auth/application/repositories/auth.repository.port";
 import type { ForgotPasswordUseCase } from "@/modules/auth/application/usecases/forgotpassword.usecase";
@@ -96,8 +103,15 @@ export interface Cradle {
     unlikeArticleUseCase: UnlikeArticleUseCase;
     bookmarkArticleUseCase: BookmarkArticleUseCase;
     unbookmarkArticleUseCase: UnbookmarkArticleUseCase;
+    getMyArticleBookmarksUseCase: GetMyArticleBookmarksUseCase;
     shareArticleUseCase: ShareArticleUseCase;
     addArticleCommentUseCase: AddArticleCommentUseCase;
+    getCommentRepliesUseCase: GetCommentRepliesUseCase;
+    addCommentReplyUseCase: AddCommentReplyUseCase;
+    editArticleCommentUseCase: EditArticleCommentUseCase;
+    deleteArticleCommentUseCase: DeleteArticleCommentUseCase;
+    likeArticleCommentUseCase: LikeArticleCommentUseCase;
+    unlikeArticleCommentUseCase: UnlikeArticleCommentUseCase;
 
     // Videos repository
     videosRepository: IVideosRepositoryPort;

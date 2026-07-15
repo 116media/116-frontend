@@ -10,8 +10,7 @@ import type { Result } from "@/shared/domain/results/result";
  * @interface IGetPublishedVideosUseCase
  * @extends {IResultUseCase<IPublishedVideosQuery, IVideoPage>}
  */
-interface IGetPublishedVideosUseCase
-    extends IResultUseCase<IPublishedVideosQuery, IVideoPage> {}
+interface IGetPublishedVideosUseCase extends IResultUseCase<IPublishedVideosQuery, IVideoPage> {}
 
 /**
  * Use case for fetching one page of published videos.

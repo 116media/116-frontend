@@ -23,6 +23,8 @@ import type { IVideoTagEntity } from "@/modules/videos/domain/entities/IVideoTag
  * @property {number} shareCount - Cached number of shares
  * @property {number} ratingAverage - Cached average star rating (1–5)
  * @property {number} ratingCount - Cached total number of ratings
+ * @property {boolean} isRated - Whether the requesting user has rated this video
+ * @property {number | null} ratedStars - The requesting user's own star value (1–5), or null when anonymous or unrated
  * @property {string | null} publishedAt - ISO timestamp of publication, or null if unpublished
  * @property {string} [metaTitle] - SEO title override, when set
  * @property {string} [metaDescription] - SEO description override, when set
@@ -41,6 +43,8 @@ export interface IVideoDetailEntity {
     shareCount: number;
     ratingAverage: number;
     ratingCount: number;
+    isRated: boolean;
+    ratedStars: number | null;
     publishedAt: string | null;
     metaTitle?: string;
     metaDescription?: string;

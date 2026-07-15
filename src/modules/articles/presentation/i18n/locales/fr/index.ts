@@ -1,5 +1,6 @@
 import { articleDetail } from "@/modules/articles/presentation/i18n/locales/fr/article-detail";
 import { articles } from "@/modules/articles/presentation/i18n/locales/fr/articles";
+import { bookmarks } from "@/modules/articles/presentation/i18n/locales/fr/bookmarks";
 import { home } from "@/modules/articles/presentation/i18n/locales/fr/home";
 
 /**
@@ -13,5 +14,6 @@ import { home } from "@/modules/articles/presentation/i18n/locales/fr/home";
 export const fr = {
     ...articles,
     ...articleDetail,
+    ...bookmarks,
     home
 } as const;

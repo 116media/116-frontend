@@ -18,23 +18,23 @@ function CommentSkeleton() {
 }
 
 /**
- * Props for ArticleDetailComments.Loading.
+ * Props for CommentList.Loading.
  *
- * @interface ArticleDetailCommentsLoadingProps
+ * @interface CommentListLoadingProps
  * @property {number} [count] - How many comment skeleton rows to render. Defaults to 4.
  */
-export interface ArticleDetailCommentsLoadingProps {
+export interface CommentListLoadingProps {
     count?: number;
 }
 
 /**
- * ArticleDetailComments.Loading
+ * CommentList.Loading
  *
  * @description
  * A run of comment-row skeletons rendered inside the caller's list wrapper — used for the
  * first load and the next-page fetching tail.
  */
-export function ArticleDetailCommentsLoading({ count = 4 }: ArticleDetailCommentsLoadingProps) {
+export function CommentListLoading({ count = 4 }: CommentListLoadingProps) {
     return (
         <>
             {Array.from({ length: count }, (_, index) => index).map((slot) => (

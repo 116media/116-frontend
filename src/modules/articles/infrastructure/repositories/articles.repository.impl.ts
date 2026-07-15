@@ -1,7 +1,12 @@
 import type {
     IAddArticleCommentInput,
+    IAddCommentReplyInput,
     IArticleCommentsQuery,
     IArticlesRepositoryPort,
+    ICommentRepliesQuery,
+    IDeleteArticleCommentInput,
+    IEditArticleCommentInput,
+    IMyArticleBookmarksQuery,
     IPopularArticlesQuery,
     IPublishedArticlesQuery
 } from "@/modules/articles/application/repositories/articles.repository.port";
@@ -150,9 +155,9 @@ export class ArticlesRepositoryImpl implements IArticlesRepositoryPort {
         }
     }
 
-    async shareArticle(id: string, _platform: string): Promise<Result<boolean>> {
+    async shareArticle(id: string, platform: string): Promise<Result<boolean>> {
         try {
-            const response = await this.api.publicShareArticle(id);
+            const response = await this.api.publicShareArticle(id, { platform });
             return ok(response.data.isSuccess);
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
@@ -188,6 +193,86 @@ export class ArticlesRepositoryImpl implements IArticlesRepositoryPort {
                 body: input.body
             });
             return ok(ArticlesMapper.articleCommentFromDto(response.data.comment));
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async getCommentReplies(query: ICommentRepliesQuery): Promise<Result<IArticleCommentPage>> {
+        try {
+            const response = await this.api.publicGetCommentReplies(query.commentId, {
+                pageIndex: query.pageIndex,
+                pageSize: query.pageSize
+            });
+            return ok(ArticlesMapper.articleCommentPageFromDto(response.data));
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async addCommentReply(input: IAddCommentReplyInput): Promise<Result<IArticleCommentEntity>> {
+        try {
+            const response = await this.api.publicAddCommentReply(
+                input.articleId,
+                input.commentId,
+                { body: input.body }
+            );
+            return ok(ArticlesMapper.articleCommentFromDto(response.data.reply));
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async editArticleComment(input: IEditArticleCommentInput): Promise<Result<boolean>> {
+        try {
+            const response = await this.api.publicEditArticleComment(
+                input.articleId,
+                input.commentId,
+                { body: input.body }
+            );
+            return ok(response.data.isSuccess);
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async deleteArticleComment(input: IDeleteArticleCommentInput): Promise<Result<boolean>> {
+        try {
+            const response = await this.api.publicDeleteArticleComment(
+                input.articleId,
+                input.commentId
+            );
+            return ok(response.data.isSuccess);
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async likeArticleComment(commentId: string): Promise<Result<boolean>> {
+        try {
+            const response = await this.api.publicLikeArticleComment(commentId);
+            return ok(response.data.isSuccess);
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async unlikeArticleComment(commentId: string): Promise<Result<boolean>> {
+        try {
+            const response = await this.api.publicUnlikeArticleComment(commentId);
+            return ok(response.data.isSuccess);
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async getMyArticleBookmarks(query: IMyArticleBookmarksQuery): Promise<Result<IArticlePage>> {
+        try {
+            const response = await this.api.publicGetMyArticleBookmarks({
+                pageIndex: query.pageIndex,
+                pageSize: query.pageSize
+            });
+            return ok(ArticlesMapper.articlePageFromDto(response.data));
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }

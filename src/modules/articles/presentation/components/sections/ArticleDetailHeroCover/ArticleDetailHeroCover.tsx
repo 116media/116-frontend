@@ -12,9 +12,9 @@ import { Tag } from "@/shared/presentation/components/ui/Tag";
  * @property {string} title - The article title, used as the image alt text.
  */
 export interface ArticleDetailHeroCoverProps {
-    coverImageUrl: string | null;
-    categoryName: string;
     title: string;
+    categoryName: string;
+    coverImageUrl: string | null;
 }
 
 /**
@@ -25,9 +25,9 @@ export interface ArticleDetailHeroCoverProps {
  * a muted surface with a NewspaperIcon stands in — no placeholder asset.
  */
 export function ArticleDetailHeroCover({
-    coverImageUrl,
+    title,
     categoryName,
-    title
+    coverImageUrl
 }: ArticleDetailHeroCoverProps) {
     return (
         <div className="relative aspect-video w-full overflow-hidden rounded-xl md:aspect-auto md:h-[60vh]">
@@ -35,9 +35,9 @@ export function ArticleDetailHeroCover({
                 <Image
                     fill
                     priority
-                    src={coverImageUrl}
                     alt={title}
                     sizes="100vw"
+                    src={coverImageUrl}
                     className="object-cover"
                 />
             ) : (

@@ -71,7 +71,8 @@ export function VideosToolbar(props: VideosToolbarProps) {
                 className={cn(
                     "sticky top-28 z-30 flex flex-col gap-3 py-3",
                     "before:-z-10 before:-translate-x-1/2 before:absolute before:inset-y-0 before:left-1/2 before:w-screen before:bg-background/95 before:backdrop-blur",
-                    isPinned && "before:border-b before:border-border/50 transition-all duration-300",
+                    isPinned &&
+                        "before:border-b before:border-border/50 transition-all duration-300",
                     isHidden && "-translate-y-2 pointer-events-none opacity-0"
                 )}
             >

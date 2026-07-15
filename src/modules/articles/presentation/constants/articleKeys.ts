@@ -30,6 +30,8 @@ export const articleKeys = {
     allTags: (search: string) => [...articleKeys.all, "tags", "all", search] as const,
     detail: (slug: string) => [...articleKeys.all, "detail", slug] as const,
     comments: (articleId: string) => [...articleKeys.all, "detail", articleId, "comments"] as const,
+    replies: (commentId: string) => [...articleKeys.all, "comments", commentId, "replies"] as const,
+    bookmarks: ["articles", "bookmarks"] as const,
     popular: (articleId: string) => [...articleKeys.all, "popular", articleId] as const
 };
 
@@ -39,6 +41,21 @@ export const ARTICLES_PAGE_SIZE = 12;
  * Page size for the article comment list.
  */
 export const ARTICLE_COMMENTS_PAGE_SIZE = 10;
+
+/**
+ * Page size for a comment's reply thread; small because replies expand inline.
+ */
+export const COMMENT_REPLIES_PAGE_SIZE = 5;
+
+/**
+ * Maximum comment/reply body length the composers accept before blocking submit.
+ */
+export const MAX_COMMENT_LENGTH = 1000;
+
+/**
+ * Page size for the "my bookmarks" article grid.
+ */
+export const BOOKMARKS_PAGE_SIZE = 12;
 
 /**
  * Maximum number of article tags requested for the "All tags" popover; tags beyond this

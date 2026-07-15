@@ -1,8 +1,9 @@
 "use client";
 
-import { type FormEvent, type RefObject, useState } from "react";
+import { type RefObject, type SyntheticEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import { MAX_COMMENT_LENGTH } from "@/modules/articles/presentation/constants/articleKeys";
 import { useAddArticleComment } from "@/modules/articles/presentation/hooks/useAddArticleComment";
 import { useAuthModal } from "@/modules/auth/presentation/context/AuthModalProvider";
 import { useAuth } from "@/modules/auth/presentation/context/AuthProvider";
@@ -10,42 +11,32 @@ import { Button } from "@/shared/presentation/components/ui/Button";
 import { Textarea } from "@/shared/presentation/components/ui/Textarea";
 
 /**
- * Maximum comment length accepted by the composer before submit is blocked. Mirrors the
- * backend's comment body limit.
- */
-const MAX_COMMENT_LENGTH = 1000;
-
-/**
- * Props for ArticleDetailCommentComposer.
+ * Props for CommentComposer.
  *
- * @interface ArticleDetailCommentComposerProps
+ * @interface CommentComposerProps
  * @property {string} articleId - The article the comment is posted to and the mutation targets.
  * @property {string} slug - The article slug, used to bump the cached detail comment count.
  * @property {RefObject<HTMLTextAreaElement | null>} [composerRef] - Ref forwarded to the
  * textarea so the engagement comment button can scroll to and focus it.
  */
-export interface ArticleDetailCommentComposerProps {
+export interface CommentComposerProps {
     slug: string;
     articleId: string;
     composerRef?: RefObject<HTMLTextAreaElement | null>;
 }
 
 /**
- * ArticleDetailCommentComposer
+ * CommentComposer
  *
  * @description
- * Comment composer wired to {@link useAddArticleComment}. Validates a trimmed,
- * length-bounded body and clears the field on success; guests see a login prompt that
- * opens the auth modal instead of the form.
+ * Top-level "add a comment" form wired to {@link useAddArticleComment}. Validates a
+ * trimmed, length-bounded body and clears the field on success; guests see a login prompt
+ * that opens the auth modal instead of the form.
  */
-export function ArticleDetailCommentComposer({
-    articleId,
-    slug,
-    composerRef
-}: ArticleDetailCommentComposerProps) {
+export function CommentComposer({ articleId, slug, composerRef }: CommentComposerProps) {
     const { t } = useTranslation();
-    const { isAuthenticated } = useAuth();
     const { open } = useAuthModal();
+    const { isAuthenticated } = useAuth();
     const addComment = useAddArticleComment(articleId, slug);
 
     const [value, setValue] = useState("");
@@ -53,7 +44,7 @@ export function ArticleDetailCommentComposer({
     const trimmed = value.trim();
     const isValid = trimmed.length > 0 && trimmed.length <= MAX_COMMENT_LENGTH;
 
-    const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+    const onSubmit = (event: SyntheticEvent) => {
         event.preventDefault();
         if (!isValid) return;
         addComment.submit(trimmed, () => setValue(""));
@@ -85,8 +76,8 @@ export function ArticleDetailCommentComposer({
                 ref={composerRef}
                 maxLength={MAX_COMMENT_LENGTH}
                 disabled={addComment.isPending}
-                onChange={(event) => setValue(event.target.value)}
                 placeholder={t("articles.comments.placeholder")}
+                onChange={(event) => setValue(event.target.value)}
                 aria-label={t("articles.comments.composerLabel")}
             />
             <div className="flex items-center justify-end">

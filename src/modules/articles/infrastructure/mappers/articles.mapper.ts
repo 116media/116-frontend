@@ -235,6 +235,10 @@ export const ArticlesMapper = {
             body: dto.body ?? null,
             isDeleted: dto.isDeleted,
             createdAt: dto.createdAt ?? null,
+            parentCommentId: dto.parentCommentId ?? null,
+            replyCount: dto.replyCount,
+            likeCount: dto.likeCount,
+            isLiked: dto.isLiked,
             author: dto.author
                 ? {
                       userName: dto.author.userName,

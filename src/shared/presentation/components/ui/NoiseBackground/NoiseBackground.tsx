@@ -1,14 +1,7 @@
 "use client";
 
-import {
-    motion,
-    useAnimationFrame,
-    useMotionTemplate,
-    useMotionValue,
-    useSpring,
-    useTransform
-} from "motion/react";
-import { ReactNode, useEffect, useRef } from "react";
+import { motion, useAnimationFrame, useMotionValue, useSpring, useTransform } from "motion/react";
+import { type ReactNode, useEffect, useRef } from "react";
 
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 import { NoiseBackgroundGradientLayer } from "./NoiseBackground.GradientLayer";
@@ -45,7 +38,6 @@ export interface NoiseBackgroundProps {
     backdropBlur?: boolean;
     animating?: boolean;
 }
-
 
 /**
  * NoiseBackground

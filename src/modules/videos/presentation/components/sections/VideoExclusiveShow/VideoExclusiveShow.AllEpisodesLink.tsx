@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
+import { useExclusiveShow } from "@/modules/videos/presentation/context/ExclusiveShowProvider";
 import { Button } from "@/shared/presentation/components/ui/Button";
 import { SHOWS_PATH } from "@/shared/presentation/constants/paths";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 import { withAlpha } from "@/shared/presentation/utils/color/color.utils";
-import { useExclusiveShow } from "@/modules/videos/presentation/context/ExclusiveShowProvider";
 
 /**
  * Props for the VideoExclusiveShowAllEpisodesLink component.

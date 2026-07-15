@@ -2,8 +2,9 @@
 
 import { forwardRef, type RefObject, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { ArticleDetailComment } from "@/modules/articles/presentation/components/sections/ArticleDetailComment";
-import { ArticleDetailCommentComposer } from "@/modules/articles/presentation/components/sections/ArticleDetailCommentComposer";
+
+import { Comment } from "@/modules/articles/presentation/components/comments/Comment";
+import { CommentComposer } from "@/modules/articles/presentation/components/comments/CommentComposer";
 import { useArticleComments } from "@/modules/articles/presentation/hooks/useArticleComments";
 import { Button } from "@/shared/presentation/components/ui/Button";
 import { EmptyState } from "@/shared/presentation/components/ui/EmptyState";
@@ -12,19 +13,19 @@ import { StateRenderer } from "@/shared/presentation/components/ui/StateRenderer
 import { INFINITE_SCROLL_SENTINEL_OPTIONS } from "@/shared/presentation/constants/infiniteScroll";
 import { useIntersectionObserver } from "@/shared/presentation/hooks/useIntersectionObserver";
 
-import { ArticleDetailCommentsLoading } from "./ArticleDetailComments.Loading";
+import { CommentListLoading } from "./CommentList.Loading";
 
 /**
- * Props for ArticleDetailComments.
+ * Props for CommentList.
  *
- * @interface ArticleDetailCommentsProps
+ * @interface CommentListProps
  * @property {string} articleId - The article whose comments are listed and posted to.
- * @property {string} slug - The article slug, threaded to the composer for the count bump.
+ * @property {string} slug - The article slug, threaded to the composer and rows.
  * @property {number} commentCount - Baseline count for the section heading (kept live by the mutation).
  * @property {RefObject<HTMLTextAreaElement | null>} [composerRef] - Ref threaded to the
  * composer textarea so the engagement comment button can focus it.
  */
-export interface ArticleDetailCommentsProps {
+export interface CommentListProps {
     slug: string;
     articleId: string;
     commentCount: number;
@@ -32,14 +33,15 @@ export interface ArticleDetailCommentsProps {
 }
 
 /**
- * ArticleDetailComments
+ * CommentList
  *
  * @description
- * Comments section: heading with live count, composer, and the infinite comment list
- * driven by {@link useArticleComments} with loading, empty, and retryable error states.
- * Forwards `ref` and the `comments` anchor id so the engagement button can scroll here.
+ * Comments section island: heading with live count, the top-level composer, and the
+ * infinite comment list driven by {@link useArticleComments} with loading, empty, and
+ * retryable error states. Each row is a {@link Comment} compound. Forwards `ref` and the
+ * `comments` anchor id so the engagement button can scroll here.
  */
-export const ArticleDetailComments = forwardRef<HTMLElement, ArticleDetailCommentsProps>(
+export const CommentList = forwardRef<HTMLElement, CommentListProps>(
     ({ articleId, slug, commentCount, composerRef }, ref) => {
         const { t } = useTranslation();
         const {
@@ -71,25 +73,26 @@ export const ArticleDetailComments = forwardRef<HTMLElement, ArticleDetailCommen
                 <h2 className="font-semibold text-foreground text-xl">
                     {t("articles.comments.title", { count: commentCount })}
                 </h2>
-                <ArticleDetailCommentComposer
-                    articleId={articleId}
+                <CommentComposer
                     slug={slug}
+                    articleId={articleId}
                     composerRef={composerRef}
                 />
                 <StateRenderer
                     data={comments}
-                    loading={isLoading}
                     error={isError}
+                    loading={isLoading}
                     skeleton={
                         <div className="flex flex-col gap-6">
-                            <ArticleDetailCommentsLoading />
+                            <CommentListLoading />
                         </div>
                     }
                     errorState={
                         <EmptyState
+                            className="min-h-0 py-12"
                             context="article-comments-error"
-                            icon={<AlertCircleIcon className="size-10" />}
                             title={t("articles.comments.error.title")}
+                            icon={<AlertCircleIcon className="size-10" />}
                             action={
                                 <Button
                                     variant="outline"
@@ -98,27 +101,28 @@ export const ArticleDetailComments = forwardRef<HTMLElement, ArticleDetailCommen
                                     {t("articles.comments.error.retry")}
                                 </Button>
                             }
-                            className="min-h-0 py-12"
                         />
                     }
                     empty={
                         <EmptyState
+                            className="min-h-0 py-12"
                             context="article-comments-empty"
-                            icon={<MessageSquareIcon className="size-10" />}
                             title={t("articles.comments.empty.title")}
                             subtitle={t("articles.comments.empty.body")}
-                            className="min-h-0 py-12"
+                            icon={<MessageSquareIcon className="size-10" />}
                         />
                     }
                     render={(items) => (
                         <div className="flex flex-col gap-6">
                             {items.map((comment) => (
-                                <ArticleDetailComment
+                                <Comment.View
+                                    slug={slug}
                                     key={comment.id}
                                     comment={comment}
+                                    articleId={articleId}
                                 />
                             ))}
-                            {isFetchingNextPage && <ArticleDetailCommentsLoading count={1} />}
+                            {isFetchingNextPage && <CommentListLoading count={1} />}
                             {hasNextPage && (
                                 <div
                                     ref={sentinelRef}
@@ -140,4 +144,4 @@ export const ArticleDetailComments = forwardRef<HTMLElement, ArticleDetailCommen
         );
     }
 );
-ArticleDetailComments.displayName = "ArticleDetailComments";
+CommentList.displayName = "CommentList";

@@ -32,8 +32,8 @@ const ExclusiveShowContext = createContext<ExclusiveShowContextValue | null>(nul
  * @property {ReactNode} children - The subtree that gains `useExclusiveShow()`.
  */
 export interface ExclusiveShowProviderProps {
-    category: IVideoExclusiveShowEntity;
     children: ReactNode;
+    category: IVideoExclusiveShowEntity;
 }
 
 /**

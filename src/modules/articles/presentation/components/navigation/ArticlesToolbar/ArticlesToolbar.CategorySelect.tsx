@@ -58,7 +58,9 @@ export function ArticlesToolbarCategorySelect({
                         <FilterIcon
                             className={cn(
                                 "size-4 shrink-0",
-                                isActive ? "text-primary-foreground" : "text-primary dark:text-secondary"
+                                isActive
+                                    ? "text-primary-foreground"
+                                    : "text-primary dark:text-secondary"
                             )}
                         />
                         <span className="truncate">

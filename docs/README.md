@@ -68,6 +68,25 @@ See [settings/README.md](settings/README.md) for the full index.
 - [Components & Icons](settings/11-components.md)
 - [Implementation Plan](settings/12-implementation-plan.md)
 
+### Content Interactions
+See [content-interactions/README.md](content-interactions/README.md) for the full index.
+- [Overview](content-interactions/01-overview.md)
+- [Support Matrix](content-interactions/02-support-matrix.md)
+- [Backend API Reference](content-interactions/03-backend-api-reference.md)
+- [Domain Entities & Mappers](content-interactions/04-domain-entities-and-mappers.md)
+- [Likes](content-interactions/05-likes.md)
+- [Comments](content-interactions/06-comments.md)
+- [Bookmarks](content-interactions/07-bookmarks.md)
+- [Shares](content-interactions/08-shares.md)
+- [Ratings](content-interactions/09-ratings.md)
+- [State Management & Hooks](content-interactions/10-state-management-and-hooks.md)
+- [Loading, Empty & Error](content-interactions/11-loading-empty-error.md)
+- [i18n & Notifications](content-interactions/12-i18n-and-notifications.md)
+- [Implementation Plan](content-interactions/13-implementation-plan.md)
+- [Open Questions](content-interactions/14-open-questions.md)
+- [Counting Anonymous Actions (Shares & Views)](content-interactions/15-counting-anonymous-actions.md)
+- [Implementation Specs](content-interactions/specs/00-index.md)
+
 ### Styling
 - [Tailwind CSS 4 Setup](styling/01-tailwind-setup.md)
 - [Theming and Design Tokens](styling/02-theming.md)

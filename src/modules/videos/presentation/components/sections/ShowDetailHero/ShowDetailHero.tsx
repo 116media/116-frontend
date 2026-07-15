@@ -1,9 +1,8 @@
 import Image from "next/image";
-
+import type { VideoExclusiveShowViewProps } from "@/modules/videos/presentation/components/sections/VideoExclusiveShow/types";
 import { VideoExclusiveShowHeading } from "@/modules/videos/presentation/components/sections/VideoExclusiveShow/VideoExclusiveShow.Heading";
 import { VideoExclusiveShowRoot } from "@/modules/videos/presentation/components/sections/VideoExclusiveShow/VideoExclusiveShow.Root";
 import { VideoExclusiveShowWatchButton } from "@/modules/videos/presentation/components/sections/VideoExclusiveShow/VideoExclusiveShow.WatchButton";
-import type { VideoExclusiveShowViewProps } from "@/modules/videos/presentation/components/sections/VideoExclusiveShow/types";
 import { SHOW_FALLBACK_COLORS } from "@/modules/videos/presentation/constants/showColors";
 import { NoiseBackground } from "@/shared/presentation/components/ui/NoiseBackground";
 import { withAlpha } from "@/shared/presentation/utils/color/color.utils";

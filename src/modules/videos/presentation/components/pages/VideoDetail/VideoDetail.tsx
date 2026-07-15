@@ -86,6 +86,7 @@ export function VideoDetail({ video }: VideoDetailProps) {
                 open={ratingOpen}
                 slug={video.slug}
                 videoId={video.id}
+                initialStars={video.ratedStars}
                 onOpenChange={setRatingOpen}
             />
         </div>

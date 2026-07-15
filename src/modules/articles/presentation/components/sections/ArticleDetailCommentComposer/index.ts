@@ -1,1 +1,0 @@
-export { ArticleDetailCommentComposer } from "./ArticleDetailCommentComposer";

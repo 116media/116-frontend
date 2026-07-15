@@ -3,8 +3,8 @@
 import { type RefObject, useEffect, useRef } from "react";
 
 import type { IArticleDetailEntity } from "@/modules/articles/domain/entities/IArticleDetailEntity";
+import { CommentList } from "@/modules/articles/presentation/components/comments/CommentList";
 import { ArticleDetailBody } from "@/modules/articles/presentation/components/sections/ArticleDetailBody";
-import { ArticleDetailComments } from "@/modules/articles/presentation/components/sections/ArticleDetailComments";
 import { ArticleDetailEngagement } from "@/modules/articles/presentation/components/sections/ArticleDetailEngagement";
 import { ArticleDetailHero } from "@/modules/articles/presentation/components/sections/ArticleDetailHero";
 import { ArticleDetailMetaBar } from "@/modules/articles/presentation/components/sections/ArticleDetailMetaBar";
@@ -106,7 +106,7 @@ export function ArticleDetail({ article }: ArticleDetailProps) {
                         body={article.body}
                     />
                     <ArticleDetailTags tags={article.tags} />
-                    <ArticleDetailComments
+                    <CommentList
                         ref={commentsRef}
                         slug={article.slug}
                         articleId={article.id}

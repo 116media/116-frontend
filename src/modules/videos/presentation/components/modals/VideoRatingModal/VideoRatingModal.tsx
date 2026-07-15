@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { useRateVideo } from "@/modules/videos/presentation/hooks/useRateVideo";
@@ -23,11 +23,13 @@ import { cn } from "@/shared/presentation/utils/cn/cn.utils";
  * @property {(open: boolean) => void} onOpenChange - Open-state setter (backdrop/esc/close).
  * @property {string} videoId - The video being rated.
  * @property {string} slug - The video slug keying the cached detail entity.
+ * @property {number | null} [initialStars] - The caller's prior rating, seeding the picker so a returning rater sees their star.
  */
 export interface VideoRatingModalProps {
     slug: string;
     open: boolean;
     videoId: string;
+    initialStars?: number | null;
     onOpenChange: (open: boolean) => void;
 }
 
@@ -36,22 +38,33 @@ export interface VideoRatingModalProps {
  *
  * @description
  * Rate-this-video dialog with a five-star picker. Submitting sends 1–5 through
- * `useRateVideo` (auth-gated inside the hook) and closes the dialog; the
- * selection resets on close, and the picker always opens empty.
+ * `useRateVideo` (auth-gated inside the hook) and closes the dialog. The picker
+ * re-seeds from `initialStars` on every open, so a returning rater sees their
+ * prior choice and an unrated visitor starts empty.
  */
-export function VideoRatingModal({ open, onOpenChange, videoId, slug }: VideoRatingModalProps) {
+export function VideoRatingModal({
+    open,
+    onOpenChange,
+    videoId,
+    slug,
+    initialStars = null
+}: VideoRatingModalProps) {
     const { t } = useTranslation();
     const { submit } = useRateVideo(videoId, slug);
 
     const [hovered, setHovered] = useState(0);
-    const [selected, setSelected] = useState(0);
+    const [selected, setSelected] = useState(initialStars ?? 0);
 
     const active = hovered || selected;
+
+    useEffect(() => {
+        if (open) setSelected(initialStars ?? 0);
+    }, [open, initialStars]);
 
     const close = (next: boolean) => {
         onOpenChange(next);
         if (!next) {
-            setSelected(0);
+            setSelected(initialStars ?? 0);
             setHovered(0);
         }
     };

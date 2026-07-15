@@ -325,9 +325,7 @@ export function paddedVideoPage(page: IVideoPage, filters: IVideoFeedFilters = {
 
     const dummyStart = Math.max(0, start - page.count);
     const remaining = page.pageSize - page.items.length;
-    const dummies = pool
-        .slice(dummyStart, dummyStart + remaining)
-        .map(generateDummyBrowseVideo);
+    const dummies = pool.slice(dummyStart, dummyStart + remaining).map(generateDummyBrowseVideo);
 
     return {
         items: [...page.items, ...dummies],
