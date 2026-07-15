@@ -19,7 +19,7 @@ interface IGetShortsFeedUseCase extends IResultUseCase<IShortsFeedQuery, IShortV
  * @implements {IGetShortsFeedUseCase}
  *
  * @description
- * Fetches one cursor page of the seeded "for you" feed backing the homepage strip
+ * Fetches one cursor page of the seeded randomized feed backing the homepage strip
  * and the vertical player.
  */
 export class GetShortsFeedUseCase implements IGetShortsFeedUseCase {
