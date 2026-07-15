@@ -18,4 +18,5 @@ export { EnglishFlagIcon } from "@/shared/presentation/components/ui/Icon/svg/En
 export { FacebookIcon } from "@/shared/presentation/components/ui/Icon/svg/FacebookIcon";
 export { FrenchFlagIcon } from "@/shared/presentation/components/ui/Icon/svg/FrenchFlagIcon";
 export { GoogleIcon } from "@/shared/presentation/components/ui/Icon/svg/GoogleIcon";
+export { YoutubeIcon } from "@/shared/presentation/components/ui/Icon/svg/YoutubeIcon";
 export * from "./lucide";
