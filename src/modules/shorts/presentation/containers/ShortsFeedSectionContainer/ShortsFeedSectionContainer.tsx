@@ -16,7 +16,7 @@ import { ShortsFeedSectionContainerLoading } from "./ShortsFeedSectionContainer.
  * ShortsFeedSectionContainer
  *
  * @description
- * Homepage shorts section: owns the shared "for you" feed query used by the strip
+ * Homepage shorts section: owns the shared randomized feed query used by the strip
  * and the player, plus the modal open index. Shows a skeleton while the first page
  * loads and renders nothing on error or an empty feed, so the homepage simply skips
  * the section.
@@ -56,13 +56,10 @@ export function ShortsFeedSectionContainer() {
                     className="flex flex-col gap-3"
                     aria-label={t("shorts.section.title")}
                 >
-                    <header className="flex flex-col gap-0.5">
+                    <header>
                         <h2 className="font-bold text-foreground text-lg uppercase sm:text-xl">
                             {t("shorts.section.title")}
                         </h2>
-                        <p className="text-muted-foreground text-sm">
-                            {t("shorts.section.subtitle")}
-                        </p>
                     </header>
 
                     <ShortsStrip
