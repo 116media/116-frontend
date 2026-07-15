@@ -6,6 +6,5 @@
  * `t("shorts.section.<key>")`. Must hold the exact same keys as the French mirror.
  */
 export const section = {
-    title: "Shorts",
-    subtitle: "Quick clips to watch"
+    title: "Shorts"
 } as const;
