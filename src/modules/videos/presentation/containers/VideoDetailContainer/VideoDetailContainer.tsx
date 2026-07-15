@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect } from "react";
+
 import type { IVideoDetailEntity } from "@/modules/videos/domain/entities/IVideoDetailEntity";
 import { VideoDetail } from "@/modules/videos/presentation/components/pages/VideoDetail";
 import { VideoDetailError } from "@/modules/videos/presentation/components/pages/VideoDetail/VideoDetail.Error";
@@ -31,14 +33,19 @@ export interface VideoDetailContainerProps {
 export function VideoDetailContainer({ slug, initialData }: VideoDetailContainerProps) {
     const { data, isLoading, isError, refetch } = useVideoDetail(slug, { initialData });
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: reset scroll on each video slug change
+    useEffect(() => {
+        window.scrollTo({ top: 0 });
+    }, [slug]);
+
     return (
         <StateRenderer
             data={data}
-            loading={isLoading}
             error={isError}
+            loading={isLoading}
             skeleton={<VideoDetailLoading />}
-            errorState={<VideoDetailError onRetry={() => refetch()} />}
             empty={<VideoDetailError onRetry={() => refetch()} />}
+            errorState={<VideoDetailError onRetry={() => refetch()} />}
             render={(video) => <VideoDetail video={video} />}
         />
     );
