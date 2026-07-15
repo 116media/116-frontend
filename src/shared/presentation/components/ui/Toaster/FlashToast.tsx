@@ -79,7 +79,7 @@ export function FlashToast({ type, title, description, onDismiss }: FlashToastPr
                 <p className="font-semibold text-sm leading-snug whitespace-nowrap">{title}</p>
 
                 {description && (
-                    <p className="text-sm leading-snug opacity-70 whitespace-nowrap">
+                    <p className="text-sm leading-snug opacity-90 whitespace-nowrap">
                         {description}
                     </p>
                 )}
