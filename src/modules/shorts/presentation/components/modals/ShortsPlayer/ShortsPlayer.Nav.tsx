@@ -6,10 +6,6 @@ import { useShortsPlayer } from "@/modules/shorts/presentation/context/ShortsPla
 import { Button } from "@/shared/presentation/components/ui/Button";
 import { ChevronDownIcon, ChevronUpIcon } from "@/shared/presentation/components/ui/Icon";
 
-/**
- * Shared frosted, dark ghost button styling — the same recipe as the shows
- * carousel's navigation arrows.
- */
 const NAV_BUTTON_CLASS =
     "size-12 bg-black/40 text-white backdrop-blur-sm hover:bg-black/60 hover:text-white disabled:opacity-40 [&_svg]:size-6";
 
