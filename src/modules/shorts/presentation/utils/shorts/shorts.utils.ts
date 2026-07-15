@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/shared/infrastructure/constants/common";
 import { SHORTS_PATH } from "@/shared/presentation/constants/paths";
 
 /**
@@ -15,7 +16,7 @@ import { SHORTS_PATH } from "@/shared/presentation/constants/paths";
 export function shortShareUrl(slug: string): string {
     const path = `${SHORTS_PATH}/${slug}`;
     if (typeof window !== "undefined") return `${window.location.origin}${path}`;
-    return `${process.env.NEXT_PUBLIC_SITE_URL ?? ""}${path}`;
+    return `${SITE_URL}${path}`;
 }
 
 /**
