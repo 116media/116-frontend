@@ -54,6 +54,14 @@ export function ArticleDetailLoading() {
                         />
                     ))}
                 </div>
+
+                <div className="flex flex-wrap items-center gap-2 border-t pt-6">
+                    <Skeleton className="h-4 w-14" />
+                    <Skeleton className="h-8 w-16 rounded-md" />
+                    <Skeleton className="h-8 w-24 rounded-md" />
+                    <Skeleton className="h-8 w-20 rounded-md" />
+                    <Skeleton className="h-8 w-16 rounded-md" />
+                </div>
             </div>
 
             <aside className="hidden lg:flex lg:flex-col lg:gap-3">
