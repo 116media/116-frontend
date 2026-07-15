@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { useAuthModal } from "@/modules/auth/presentation/context/AuthModalProvider";
 import { useSocialLogin } from "@/modules/auth/presentation/hooks/useSocialLogin";
 import type { ISocialLoginCredentials } from "@/modules/auth/presentation/model/ISocialLoginCredentials";
+import { EAuthProvider } from "@/shared/domain/enums/EAuthProvider";
 import { FACEBOOK_APP_ID, GOOGLE_CLIENT_ID } from "@/shared/infrastructure/constants/common";
 import { Alert } from "@/shared/presentation/components/ui/Alert";
 
@@ -24,7 +25,7 @@ import { SocialLoginGoogleButton } from "./SocialLogin.GoogleButton";
 export function SocialLogin() {
     const { t } = useTranslation();
     const { runOnSuccess } = useAuthModal();
-    const { mutate, error, isPending } = useSocialLogin();
+    const { mutate, error, isPending, variables } = useSocialLogin();
 
     if (!GOOGLE_CLIENT_ID && !FACEBOOK_APP_ID) return null;
 
@@ -40,8 +41,9 @@ export function SocialLogin() {
                 {GOOGLE_CLIENT_ID && (
                     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
                         <SocialLoginGoogleButton
-                            onProfile={onProfile}
                             disabled={isPending}
+                            onProfile={onProfile}
+                            loading={isPending && variables?.provider === EAuthProvider.Google}
                         />
                     </GoogleOAuthProvider>
                 )}
@@ -49,8 +51,9 @@ export function SocialLogin() {
                 {FACEBOOK_APP_ID && (
                     <FacebookProvider appId={FACEBOOK_APP_ID}>
                         <SocialLoginFacebookButton
-                            onProfile={onProfile}
                             disabled={isPending}
+                            onProfile={onProfile}
+                            loading={isPending && variables?.provider === EAuthProvider.Facebook}
                         />
                     </FacebookProvider>
                 )}
