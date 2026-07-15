@@ -4,6 +4,7 @@ import { cache } from "react";
 import type { IShortVideoEntity } from "@/modules/shorts/domain/entities/IShortVideoEntity";
 import { ShortDetailContainer } from "@/modules/shorts/presentation/containers/ShortDetailContainer";
 import { createServerCradle } from "@/shared/infrastructure/server.cradle";
+import { htmlToPlainText } from "@/shared/presentation/utils/html/html.utils";
 
 /**
  * Props for the short detail route and its metadata.
@@ -49,22 +50,23 @@ export async function generateMetadata({ params }: ShortDetailRouteProps): Promi
 
     if (!short) return { title: "Shorts" };
 
+    const title = htmlToPlainText(short.title);
     const canonical = `/shorts/${short.slug}`;
     const images = short.thumbnailUrl ? [short.thumbnailUrl] : [];
 
     return {
-        title: short.title,
+        title,
         alternates: { canonical },
         openGraph: {
             type: "video.other",
-            title: short.title,
+            title,
             url: canonical,
             images,
             videos: short.videoUrl ? [short.videoUrl] : undefined
         },
         twitter: {
-            card: "player",
-            title: short.title,
+            card: "summary_large_image",
+            title,
             images
         }
     };
