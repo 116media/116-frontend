@@ -7,6 +7,7 @@ import { VideoDetailContainer } from "@/modules/videos/presentation/containers/V
 import { dummyVideoDetail } from "@/modules/videos/presentation/data/video-detail.dummy";
 import { videoJsonLd } from "@/modules/videos/presentation/utils/json-ld/video-json-ld.utils";
 import { createServerCradle } from "@/shared/infrastructure/server.cradle";
+import { htmlToPlainText } from "@/shared/presentation/utils/html/html.utils";
 
 /**
  * Length the meta description is truncated to when derived from the raw
@@ -57,10 +58,9 @@ const fetchVideo = cache(async (slug: string): Promise<IVideoDetailEntity | null
  * `notFound()`. Returns the title (`metaTitle` first, else the video title),
  * description (`metaDescription` first, else the description truncated to
  * ~160 chars), the canonical `/videos/{slug}` URL, an Open Graph
- * "video.other" object (thumbnail plus the YouTube URL), and a Twitter
- * card — `player` when a YouTube URL exists, else the large-image
- * summary. Image entries are omitted when there is no thumbnail so a share
- * preview is never broken.
+ * "video.other" object (thumbnail plus the YouTube URL), and a
+ * `summary_large_image` Twitter card. Image entries are omitted when there is
+ * no thumbnail so a share preview is never broken.
  *
  * @param params - The route params promise carrying the video `slug`.
  * @returns The metadata for the video page.
@@ -72,8 +72,10 @@ export async function generateMetadata({ params }: VideoDetailRouteProps): Promi
     if (!video) notFound();
 
     const title = video.metaTitle ?? video.title;
-    const description =
-        video.metaDescription ?? video.description.slice(0, META_DESCRIPTION_LENGTH);
+    const description = htmlToPlainText(video.metaDescription ?? video.description).slice(
+        0,
+        META_DESCRIPTION_LENGTH
+    );
     const canonical = `/videos/${video.slug}`;
     const images = video.thumbnailUrl ? [video.thumbnailUrl] : [];
 
@@ -90,7 +92,7 @@ export async function generateMetadata({ params }: VideoDetailRouteProps): Promi
             videos: video.youtubeVideoUrl ? [video.youtubeVideoUrl] : undefined
         },
         twitter: {
-            card: video.youtubeVideoUrl ? "player" : "summary_large_image",
+            card: "summary_large_image",
             title,
             description,
             images
