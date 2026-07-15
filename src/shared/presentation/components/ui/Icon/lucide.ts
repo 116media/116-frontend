@@ -47,6 +47,7 @@ export {
     MapPin as MapPinIcon,
     MessageSquare as MessageSquareIcon,
     Monitor as MonitorIcon,
+    Music as MusicIcon,
     Newspaper as NewspaperIcon,
     Play as PlayIcon,
     Search as SearchIcon,

@@ -44,6 +44,12 @@ export const videoKeys = {
 export const VIDEOS_PAGE_SIZE = 12;
 
 /**
+ * Window size for the shows page grid — how many show tiles each scroll
+ * increment reveals from the loaded category list.
+ */
+export const SHOWS_PAGE_SIZE = 12;
+
+/**
  * Maximum number of category chips shown inline in the browse toolbar; the
  * remaining categories are reachable through the "browse all shows" modal.
  */

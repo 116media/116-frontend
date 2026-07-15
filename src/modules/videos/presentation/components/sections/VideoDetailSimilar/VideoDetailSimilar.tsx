@@ -5,6 +5,9 @@ import { useTranslation } from "react-i18next";
 
 import { VideoCard } from "@/modules/videos/presentation/components/cards/VideoCard";
 import { useSimilarVideos } from "@/modules/videos/presentation/hooks/useSimilarVideos";
+import { EmptyState } from "@/shared/presentation/components/ui/EmptyState";
+import { PlayIcon } from "@/shared/presentation/components/ui/Icon";
+import { StateRenderer } from "@/shared/presentation/components/ui/StateRenderer";
 import { INFINITE_SCROLL_SENTINEL_OPTIONS } from "@/shared/presentation/constants/infiniteScroll";
 import { useIntersectionObserver } from "@/shared/presentation/hooks/useIntersectionObserver";
 import { dedupeById } from "@/shared/presentation/utils/collection/collection.utils";
@@ -54,36 +57,43 @@ export function VideoDetailSimilar({
         if (isSentinelVisible && hasNextPage && !isFetchingNextPage) fetchNextPage();
     }, [isSentinelVisible, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-    if (isLoading) {
-        return (
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                <VideoDetailSimilarLoading />
-            </div>
-        );
-    }
-
-    if (videos.length === 0) {
-        return <p className="text-muted-foreground text-sm">{t("videos.detail.similar.empty")}</p>;
-    }
-
     return (
-        <div className="flex flex-col gap-4">
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {videos.map((video) => (
-                    <VideoCard.Vertical
-                        key={video.id}
-                        video={video}
-                    />
-                ))}
-                {isFetchingNextPage && <VideoDetailSimilarLoading count={3} />}
-            </div>
-            {hasNextPage && (
-                <div
-                    ref={sentinelRef}
-                    aria-hidden
-                    className="h-px"
+        <StateRenderer
+            data={videos}
+            loading={isLoading}
+            skeleton={
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    <VideoDetailSimilarLoading />
+                </div>
+            }
+            empty={
+                <EmptyState
+                    context="video-similar-empty"
+                    icon={<PlayIcon className="size-10" />}
+                    title={t("videos.detail.similar.empty")}
+                    className="min-h-0 bg-transparent py-12"
                 />
+            }
+            render={(items) => (
+                <div className="flex flex-col gap-4">
+                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                        {items.map((video) => (
+                            <VideoCard.Vertical
+                                key={video.id}
+                                video={video}
+                            />
+                        ))}
+                        {isFetchingNextPage && <VideoDetailSimilarLoading count={3} />}
+                    </div>
+                    {hasNextPage && (
+                        <div
+                            aria-hidden
+                            ref={sentinelRef}
+                            className="h-px"
+                        />
+                    )}
+                </div>
             )}
-        </div>
+        />
     );
 }

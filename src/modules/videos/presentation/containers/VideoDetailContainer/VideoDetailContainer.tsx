@@ -5,6 +5,7 @@ import { VideoDetail } from "@/modules/videos/presentation/components/pages/Vide
 import { VideoDetailError } from "@/modules/videos/presentation/components/pages/VideoDetail/VideoDetail.Error";
 import { VideoDetailLoading } from "@/modules/videos/presentation/components/pages/VideoDetail/VideoDetail.Loading";
 import { useVideoDetail } from "@/modules/videos/presentation/hooks/useVideoDetail";
+import { StateRenderer } from "@/shared/presentation/components/ui/StateRenderer";
 
 /**
  * Props for VideoDetailContainer.
@@ -30,8 +31,15 @@ export interface VideoDetailContainerProps {
 export function VideoDetailContainer({ slug, initialData }: VideoDetailContainerProps) {
     const { data, isLoading, isError, refetch } = useVideoDetail(slug, { initialData });
 
-    if (isLoading) return <VideoDetailLoading />;
-    if (isError || !data) return <VideoDetailError onRetry={() => refetch()} />;
-
-    return <VideoDetail video={data} />;
+    return (
+        <StateRenderer
+            data={data}
+            loading={isLoading}
+            error={isError}
+            skeleton={<VideoDetailLoading />}
+            errorState={<VideoDetailError onRetry={() => refetch()} />}
+            empty={<VideoDetailError onRetry={() => refetch()} />}
+            render={(video) => <VideoDetail video={video} />}
+        />
+    );
 }

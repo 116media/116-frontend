@@ -6,6 +6,7 @@ import { ArticleCard } from "@/modules/articles/presentation/components/cards/Ar
 import { useArticleDetailPopular } from "@/modules/articles/presentation/hooks/useArticleDetailPopular";
 import { FlameIcon } from "@/shared/presentation/components/ui/Icon";
 import { SectionHeader } from "@/shared/presentation/components/ui/SectionHeader";
+import { StateRenderer } from "@/shared/presentation/components/ui/StateRenderer";
 import { ArticlesPopularSidebarLoading } from "./ArticlesPopularSidebar.Loading";
 
 /**
@@ -30,34 +31,36 @@ export function ArticlesPopularSidebar({ currentArticleId }: ArticlesPopularSide
     const { t } = useTranslation();
     const { data, isPending } = useArticleDetailPopular(currentArticleId);
 
-    if (isPending) {
-        return (
-            <aside className="flex flex-col gap-4">
-                <SectionHeader
-                    icon={<FlameIcon />}
-                    title={t("articles.sidebar.popular")}
-                />
-                <ArticlesPopularSidebarLoading />
-            </aside>
-        );
-    }
-
-    if (!data || data.length === 0) return null;
+    const header = (
+        <SectionHeader
+            icon={<FlameIcon />}
+            title={t("articles.sidebar.popular")}
+        />
+    );
 
     return (
-        <aside className="flex flex-col">
-            <SectionHeader
-                icon={<FlameIcon />}
-                title={t("articles.sidebar.popular")}
-            />
-            <div className="flex flex-col gap-4 rounded-xl bg-muted/30 p-3 sm:p-4 md:p-5 lg:p-3 xl:p-5">
-                {data.map((article, index) => (
-                    <Fragment key={article.id}>
-                        <ArticleCard.Horizontal article={article} />
-                        {index < data.length - 1 && <hr />}
-                    </Fragment>
-                ))}
-            </div>
-        </aside>
+        <StateRenderer
+            data={data}
+            loading={isPending}
+            skeleton={
+                <aside className="flex flex-col gap-4">
+                    {header}
+                    <ArticlesPopularSidebarLoading />
+                </aside>
+            }
+            render={(articles) => (
+                <aside className="flex flex-col">
+                    {header}
+                    <div className="flex flex-col gap-4 rounded-xl bg-muted/30 p-3 sm:p-4 md:p-5 lg:p-3 xl:p-5">
+                        {articles.map((article, index) => (
+                            <Fragment key={article.id}>
+                                <ArticleCard.Horizontal article={article} />
+                                {index < articles.length - 1 && <hr />}
+                            </Fragment>
+                        ))}
+                    </div>
+                </aside>
+            )}
+        />
     );
 }

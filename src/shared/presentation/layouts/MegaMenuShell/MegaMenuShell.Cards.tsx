@@ -26,7 +26,7 @@ export function MegaMenuShellCards({ viewAllHref, children }: MegaMenuShellCards
     const { t } = useTranslation();
 
     return (
-        <div className="flex flex-col gap-2 border-x border-border px-3 lg:gap-3 lg:px-4">
+        <div className="flex flex-col gap-2 border-x px-3 lg:gap-3 lg:px-4">
             <div className="flex items-center justify-between">
                 <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                     {t("general.featured")}

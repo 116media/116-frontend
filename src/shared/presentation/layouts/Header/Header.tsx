@@ -31,7 +31,7 @@ export interface HeaderProps {
  */
 export function Header({ articles, videos }: HeaderProps) {
     return (
-        <header className="w-full border-b border-border bg-background/80 backdrop-blur-lg">
+        <header className="w-full border-b bg-background/80 backdrop-blur-lg">
             <PageContainer>
                 <div className="flex h-16 items-center justify-between">
                     <Link

@@ -10,9 +10,9 @@ const tagVariants = cva(
         variants: {
             variant: {
                 default:
-                    "border-border bg-background text-foreground hover:bg-primary hover:border-primary hover:text-primary-foreground dark:hover:bg-secondary dark:hover:border-secondary dark:hover:text-secondary-foreground",
+                    "bg-background text-foreground hover:bg-primary hover:border-primary hover:text-primary-foreground dark:hover:bg-secondary dark:hover:border-secondary dark:hover:text-secondary-foreground",
                 outline:
-                    "border-border bg-transparent text-foreground hover:bg-surface-raised hover:text-primary dark:hover:text-secondary",
+                    "bg-transparent text-foreground hover:bg-surface-raised hover:text-primary dark:hover:text-secondary",
                 primary:
                     "border-transparent bg-primary text-primary-foreground hover:bg-primary/80",
                 secondary:

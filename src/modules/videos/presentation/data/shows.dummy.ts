@@ -1,9 +1,10 @@
 import type { IShowEntity } from "@/modules/videos/domain/entities/IShowEntity";
 
 /**
- * Number of dummy shows used as a fallback for the shows carousel.
+ * Number of dummy shows used as a fallback for the shows surfaces (carousel,
+ * browse modal, and the shows page grid).
  */
-const SHOWS_COUNT = 10;
+const SHOWS_COUNT = 60;
 
 const posters = [
     "https://images.pexels.com/photos/7586662/pexels-photo-7586662.jpeg?auto=compress&cs=tinysrgb&w=800",
@@ -88,11 +89,13 @@ const shows = [
  */
 function generateDummyShow(index: number): IShowEntity {
     const show = shows[index % shows.length];
+    const season = Math.floor(index / shows.length) + 1;
+    const name = season > 1 ? `${show.name} S${season}` : show.name;
 
     return {
         id: `dummy-show-${index + 1}`,
-        name: show.name,
-        slug: show.name
+        name,
+        slug: name
             .toLowerCase()
             .replace(/\s+/g, "-")
             .replace(/[^a-z0-9-]/g, ""),
@@ -106,11 +109,11 @@ function generateDummyShow(index: number): IShowEntity {
  * generateDummyShows
  *
  * @description
- * Builds the fallback list of ten dummy shows, used while the request is in
- * flight or when the public categories endpoint returns nothing. Mirrors the
- * dummy-data approach of the video feed section.
+ * Builds the fallback list of dummy shows, used while the request is in
+ * flight or when the public categories endpoint returns nothing. Base names
+ * repeat with a season suffix so every entry stays unique and deterministic.
  *
- * @returns Ten deterministic dummy shows
+ * @returns Sixty deterministic dummy shows
  */
 export function generateDummyShows(): IShowEntity[] {
     return Array.from({ length: SHOWS_COUNT }, (_, index) => generateDummyShow(index));

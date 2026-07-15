@@ -67,7 +67,7 @@ export function VideoDetailLoading() {
                         ))}
                     </div>
 
-                    <div className="flex flex-wrap items-center gap-1 border-border border-t pt-4">
+                    <div className="flex flex-wrap items-center gap-1 border-t pt-4">
                         <Skeleton className="mr-2 h-4 w-16" />
                         {TAG_CHIPS.map((tag) => (
                             <Skeleton

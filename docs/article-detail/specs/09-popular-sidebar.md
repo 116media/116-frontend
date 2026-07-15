@@ -56,7 +56,7 @@ export function ArticleCardHorizontal({ article }: ArticleCardHorizontalProps) {
     return (
         <Link
             href={`/articles/${article.slug}`}
-            className="group flex gap-3 rounded-xl border border-border p-3 transition-all hover:bg-muted/50"
+            className="group flex gap-3 rounded-xl border p-3 transition-all hover:bg-muted/50"
         >
             <div className="relative w-28 shrink-0 self-start overflow-hidden rounded-md sm:w-24 md:w-32 lg:w-28">
                 <ArticleCardMedia
@@ -234,7 +234,7 @@ export interface ArticleDetailPopularSidebarProps {
  */
 function PopularSkeleton() {
     return (
-        <div className="flex gap-3 rounded-xl border border-border p-3">
+        <div className="flex gap-3 rounded-xl border p-3">
             <Skeleton className="aspect-video w-28 shrink-0 rounded-md" />
             <div className="flex flex-1 flex-col gap-2 pt-1">
                 <Skeleton className="h-4 w-full" />

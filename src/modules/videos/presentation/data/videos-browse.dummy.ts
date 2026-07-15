@@ -214,6 +214,25 @@ function generateDummyBrowseVideo(index: number): IVideoSummaryEntity {
 }
 
 /**
+ * normalizeDummyCategoryId
+ *
+ * @description
+ * Dummy-phase shim: maps any category id that is not part of the dummy pool
+ * (dummy show ids, real backend UUIDs) onto a deterministic dummy category, so
+ * every show page and category filter stays previewable. Removed with the
+ * dummy data once the backend is seeded.
+ *
+ * @param categoryId - The requested category filter.
+ * @returns A category id present in the dummy pool.
+ */
+function normalizeDummyCategoryId(categoryId: string): string {
+    if (/^dummy-category-\d+$/.test(categoryId)) return categoryId;
+    let hash = 0;
+    for (const char of categoryId) hash = (hash + char.charCodeAt(0)) % CATEGORIES.length;
+    return `dummy-category-${hash + 1}`;
+}
+
+/**
  * matchesFilters
  *
  * @description
@@ -230,7 +249,9 @@ function matchesFilters(
     index: number,
     filters: IVideoFeedFilters
 ): boolean {
-    if (filters.categoryId && video.categoryId !== filters.categoryId) return false;
+    if (filters.categoryId && video.categoryId !== normalizeDummyCategoryId(filters.categoryId)) {
+        return false;
+    }
     if (filters.tagSlug && !dummyTagsForVideo(index).includes(filters.tagSlug)) return false;
     if (filters.search && !video.title.toLowerCase().includes(filters.search.toLowerCase())) {
         return false;

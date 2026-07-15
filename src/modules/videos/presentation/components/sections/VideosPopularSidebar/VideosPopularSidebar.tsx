@@ -6,6 +6,7 @@ import { VideoCard } from "@/modules/videos/presentation/components/cards/VideoC
 import { useVideoDetailPopular } from "@/modules/videos/presentation/hooks/useVideoDetailPopular";
 import { FlameIcon } from "@/shared/presentation/components/ui/Icon";
 import { SectionHeader } from "@/shared/presentation/components/ui/SectionHeader";
+import { StateRenderer } from "@/shared/presentation/components/ui/StateRenderer";
 
 import { VideosPopularSidebarLoading } from "./VideosPopularSidebar.Loading";
 
@@ -31,34 +32,36 @@ export function VideosPopularSidebar({ currentVideoId }: VideosPopularSidebarPro
     const { t } = useTranslation();
     const { data, isPending } = useVideoDetailPopular(currentVideoId);
 
-    if (isPending) {
-        return (
-            <aside className="flex flex-col">
-                <SectionHeader
-                    icon={<FlameIcon />}
-                    title={t("videos.detail.sidebar.popular")}
-                />
-                <VideosPopularSidebarLoading />
-            </aside>
-        );
-    }
-
-    if (!data || data.length === 0) return null;
+    const header = (
+        <SectionHeader
+            icon={<FlameIcon />}
+            title={t("videos.detail.sidebar.popular")}
+        />
+    );
 
     return (
-        <aside className="flex flex-col">
-            <SectionHeader
-                icon={<FlameIcon />}
-                title={t("videos.detail.sidebar.popular")}
-            />
-            <div className="flex flex-col gap-4 rounded-xl bg-muted/25 p-3 sm:p-4 md:p-5 lg:p-3 xl:p-5">
-                {data.map((video) => (
-                    <VideoCard.Horizontal
-                        key={video.id}
-                        video={video}
-                    />
-                ))}
-            </div>
-        </aside>
+        <StateRenderer
+            data={data}
+            loading={isPending}
+            skeleton={
+                <aside className="flex flex-col">
+                    {header}
+                    <VideosPopularSidebarLoading />
+                </aside>
+            }
+            render={(videos) => (
+                <aside className="flex flex-col">
+                    {header}
+                    <div className="flex flex-col gap-4 rounded-xl bg-muted/25 p-3 sm:p-4 md:p-5 lg:p-3 xl:p-5">
+                        {videos.map((video) => (
+                            <VideoCard.Horizontal
+                                key={video.id}
+                                video={video}
+                            />
+                        ))}
+                    </div>
+                </aside>
+            )}
+        />
     );
 }

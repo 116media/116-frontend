@@ -61,7 +61,7 @@ export function AuthModal() {
                         if (event.animationName === "dialog-shake") setShaking(false);
                     }}
                     className={cn(
-                        "relative grid gap-4 rounded-2xl border border-border bg-card p-6 shadow-xl",
+                        "relative grid gap-4 rounded-2xl border bg-card p-6 shadow-xl",
                         shaking && "animate-dialog-shake"
                     )}
                 >

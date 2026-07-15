@@ -11,7 +11,7 @@ import { Skeleton } from "@/shared/presentation/components/ui/Skeleton";
  */
 export function VideoExclusiveShowHeroLoading() {
     return (
-        <section className="overflow-hidden rounded-2xl border border-border bg-card">
+        <section className="overflow-hidden rounded-2xl border bg-card">
             <div className="space-y-4 p-5 sm:p-8 lg:p-10">
                 <Skeleton className="h-6 w-28 rounded-md" />
 

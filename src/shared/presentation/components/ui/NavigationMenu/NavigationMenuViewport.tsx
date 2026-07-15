@@ -23,7 +23,7 @@ export const NavigationMenuViewport = forwardRef<
             ref={ref}
             className={cn(
                 "relative w-full overflow-hidden",
-                "border-b border-border bg-mega-menu text-popover-foreground shadow-lg",
+                "border-b bg-mega-menu text-popover-foreground shadow-lg",
                 "data-[state=open]:animate-mega-menu-slide-down data-[state=closed]:animate-mega-menu-slide-up",
                 className
             )}

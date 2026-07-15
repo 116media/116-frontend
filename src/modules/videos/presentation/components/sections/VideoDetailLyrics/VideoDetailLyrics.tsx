@@ -3,6 +3,9 @@
 import { useTranslation } from "react-i18next";
 
 import { useVideoLyrics } from "@/modules/videos/presentation/hooks/useVideoLyrics";
+import { EmptyState } from "@/shared/presentation/components/ui/EmptyState";
+import { MusicIcon } from "@/shared/presentation/components/ui/Icon";
+import { StateRenderer } from "@/shared/presentation/components/ui/StateRenderer";
 
 import { VideoDetailLyricsLoading } from "./VideoDetailLyrics.Loading";
 
@@ -30,25 +33,32 @@ export function VideoDetailLyrics({ videoId, enabled }: VideoDetailLyricsProps) 
     const { t } = useTranslation();
     const { data, isLoading } = useVideoLyrics(videoId, enabled);
 
-    if (isLoading) {
-        return <VideoDetailLyricsLoading />;
-    }
-
-    if (!data) {
-        return <p className="text-muted-foreground text-sm">{t("videos.detail.lyrics.empty")}</p>;
-    }
-
     return (
-        <div className="flex flex-col gap-4">
-            <div>
-                <h3 className="font-bold text-foreground text-xl">{data.songTitle}</h3>
-                <p className="text-muted-foreground text-sm">
-                    {t("videos.detail.lyrics.by")} {data.artistName}
-                </p>
-            </div>
-            <p className="whitespace-pre-wrap text-muted-foreground leading-relaxed">
-                {data.lyricsText}
-            </p>
-        </div>
+        <StateRenderer
+            data={data}
+            loading={isLoading}
+            skeleton={<VideoDetailLyricsLoading />}
+            empty={
+                <EmptyState
+                    context="video-lyrics-empty"
+                    icon={<MusicIcon className="size-10" />}
+                    title={t("videos.detail.lyrics.empty")}
+                    className="min-h-0 bg-transparent py-12"
+                />
+            }
+            render={(lyrics) => (
+                <div className="flex flex-col gap-4">
+                    <div>
+                        <h3 className="font-bold text-foreground text-xl">{lyrics.songTitle}</h3>
+                        <p className="text-muted-foreground text-sm">
+                            {t("videos.detail.lyrics.by")} {lyrics.artistName}
+                        </p>
+                    </div>
+                    <p className="whitespace-pre-wrap text-muted-foreground leading-relaxed">
+                        {lyrics.lyricsText}
+                    </p>
+                </div>
+            )}
+        />
     );
 }

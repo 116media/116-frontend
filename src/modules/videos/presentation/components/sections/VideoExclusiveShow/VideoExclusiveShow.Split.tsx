@@ -20,9 +20,9 @@ export function Split({ category }: VideoExclusiveShowViewProps) {
     return (
         <VideoExclusiveShowRoot
             category={category}
-            className="always-dark dark grid grid-cols-1 overflow-hidden rounded-2xl border border-border lg:grid-cols-[1.2fr_1fr]"
+            className="always-dark dark grid grid-cols-1 overflow-hidden rounded-2xl border lg:grid-cols-[1.2fr_1fr]"
         >
-            <div className="relative flex min-h-112 flex-col lg:min-h-130 lg:border-r lg:border-border">
+            <div className="relative flex min-h-112 flex-col lg:min-h-130 lg:border-r">
                 <VideoExclusiveShowPoster />
                 <VideoExclusiveShowScrim direction="panel" />
 
