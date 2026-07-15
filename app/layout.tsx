@@ -4,6 +4,7 @@ import { Merriweather, Outfit, Playfair_Display } from "next/font/google";
 import { authKeys } from "@/modules/auth/presentation/constants/authKeys";
 import { AuthModalProvider } from "@/modules/auth/presentation/context/AuthModalProvider";
 import { AuthProvider } from "@/modules/auth/presentation/context/AuthProvider";
+import { SITE_URL } from "@/shared/infrastructure/constants/common";
 import { createServerCradle } from "@/shared/infrastructure/server.cradle";
 import { Toaster } from "@/shared/presentation/components/ui/Toaster";
 import { I18nProvider } from "@/shared/presentation/i18n/I18nProvider";
@@ -33,6 +34,7 @@ const merriweather = Merriweather({
 });
 
 export const metadata: Metadata = {
+    metadataBase: new URL(SITE_URL),
     title: {
         template: "%s | 116",
         default: "116 - Musique & Culture Hip-Hop"
