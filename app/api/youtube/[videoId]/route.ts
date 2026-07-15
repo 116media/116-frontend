@@ -1,3 +1,5 @@
+import { YOUTUBE_API_KEY } from "@/shared/infrastructure/constants/common";
+
 const REVALIDATE_SECONDS = 300;
 
 /**
@@ -59,7 +61,7 @@ export async function GET(
     context: { params: Promise<{ videoId: string }> }
 ): Promise<Response> {
     const { videoId } = await context.params;
-    const key = process.env.YOUTUBE_API_KEY;
+    const key = YOUTUBE_API_KEY;
 
     if (!key || !isPlausibleYoutubeId(videoId)) return Response.json(NULL_STATS);
 
