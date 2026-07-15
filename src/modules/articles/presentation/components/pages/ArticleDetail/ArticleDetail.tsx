@@ -83,6 +83,7 @@ export function ArticleDetail({ article }: ArticleDetailProps) {
                     />
                     <ArticleDetailEngagement
                         slug={article.slug}
+                        title={article.title}
                         articleId={article.id}
                         isLiked={article.isLiked}
                         likeCount={article.likeCount}
