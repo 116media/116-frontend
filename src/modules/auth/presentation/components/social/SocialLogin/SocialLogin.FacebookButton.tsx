@@ -40,9 +40,13 @@ interface FacebookProfile {
  *
  * @param props - See {@link SocialLoginButtonProps}.
  */
-export function SocialLoginFacebookButton({ onProfile, disabled }: SocialLoginButtonProps) {
+export function SocialLoginFacebookButton({
+    onProfile,
+    disabled,
+    loading
+}: SocialLoginButtonProps) {
     const { t } = useTranslation();
-    const { login, loading } = useLogin();
+    const { login, loading: providerLoading } = useLogin();
     const { api } = useFacebook();
 
     const handleClick = async () => {
@@ -69,7 +73,8 @@ export function SocialLoginFacebookButton({ onProfile, disabled }: SocialLoginBu
             variant="outline"
             className="w-full"
             onClick={handleClick}
-            loading={disabled || loading}
+            disabled={disabled}
+            loading={loading || providerLoading}
         >
             <FacebookIcon />
             {t("auth.common.continueWithFacebook")}
