@@ -4,7 +4,12 @@ import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 
 import { useYoutubeStats } from "@/modules/videos/presentation/hooks/useYoutubeStats";
-import { EyeIcon, StarIcon, ThumbsUpIcon } from "@/shared/presentation/components/ui/Icon";
+import {
+    EyeIcon,
+    StarIcon,
+    ThumbsUpIcon,
+    YoutubeIcon
+} from "@/shared/presentation/components/ui/Icon";
 import { Skeleton } from "@/shared/presentation/components/ui/Skeleton";
 import { STAR_POSITIONS } from "@/shared/presentation/constants/rating";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
@@ -122,6 +127,13 @@ export function VideoDetailScoreboard({
         return formatCount(value);
     };
 
+    const youtubeValue = (value: number | null | undefined): ReactNode => (
+        <span className="flex items-center gap-1.5">
+            {bigValue(value)}
+            <YoutubeIcon />
+        </span>
+    );
+
     const stars = (
         <span className="flex items-center gap-1">
             {STAR_POSITIONS.map((position) => (
@@ -141,16 +153,21 @@ export function VideoDetailScoreboard({
     return (
         <div className="grid grid-cols-3 gap-2 rounded-2xl bg-muted/20 p-2">
             <ScoreboardColumn
-                value={bigValue(data?.viewCount)}
+                value={youtubeValue(data?.viewCount)}
                 icon={<EyeIcon className="size-3.5" />}
                 label={t("videos.detail.scoreboard.views")}
                 secondary={
-                    data?.commentCount == null && !pending
-                        ? t("videos.detail.scoreboard.viewsYoutube")
-                        : t("videos.detail.scoreboard.comments", {
-                              count: data?.commentCount ?? 0,
-                              value: formatCount(data?.commentCount ?? 0)
-                          })
+                    data?.commentCount == null && !pending ? (
+                        t("videos.detail.scoreboard.viewsYoutube")
+                    ) : (
+                        <span className="flex items-center gap-1.5">
+                            {t("videos.detail.scoreboard.comments", {
+                                count: data?.commentCount ?? 0,
+                                value: formatCount(data?.commentCount ?? 0)
+                            })}
+                            <YoutubeIcon />
+                        </span>
+                    )
                 }
             />
             <ScoreboardColumn
@@ -159,14 +176,22 @@ export function VideoDetailScoreboard({
                 icon={<StarIcon className="size-3.5" />}
                 label={t("videos.detail.scoreboard.note")}
                 ariaLabel={t("videos.detail.scoreboard.rate")}
-                value={hasRatings ? ratingAverage.toFixed(1) : "—"}
-                secondary={t("videos.detail.scoreboard.reviews", {
-                    count: ratingCount,
-                    value: formatCount(ratingCount)
-                })}
+                value={
+                    hasRatings
+                        ? ratingAverage.toFixed(1)
+                        : t("videos.detail.scoreboard.ratingEmpty")
+                }
+                secondary={
+                    hasRatings
+                        ? t("videos.detail.scoreboard.reviews", {
+                              count: ratingCount,
+                              value: formatCount(ratingCount)
+                          })
+                        : t("videos.detail.scoreboard.clickToRate")
+                }
             />
             <ScoreboardColumn
-                value={bigValue(data?.likeCount)}
+                value={youtubeValue(data?.likeCount)}
                 icon={<ThumbsUpIcon className="size-3.5" />}
                 label={t("videos.detail.scoreboard.likes")}
                 secondary={t("videos.detail.scoreboard.shares", {
