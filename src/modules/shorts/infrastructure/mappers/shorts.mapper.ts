@@ -60,7 +60,7 @@ export const ShortsMapper = {
      * Maps a cursor-paginated feed response to an IShortVideoFeedPage,
      * normalizing the optional cursor to null when exhausted.
      *
-     * @param dto - The for-you feed envelope from getShortsFeed.
+     * @param dto - The randomized feed envelope from getShortsFeed.
      * @returns {IShortVideoFeedPage} Mapped feed page entity.
      */
     shortFeedPageFromDto(dto: PublicGetShortsFeedResponse): IShortVideoFeedPage {
