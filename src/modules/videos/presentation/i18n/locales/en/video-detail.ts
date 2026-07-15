@@ -23,6 +23,8 @@ export const videoDetail = {
             views: "Views",
             likes: "Likes",
             rate: "Rate this video",
+            ratingEmpty: "New",
+            clickToRate: "Click to rate",
             viewsYoutube: "YouTube views",
             reviews_one: "{{value}} review",
             reviews_other: "{{value}} reviews",
@@ -66,7 +68,7 @@ export const videoDetail = {
         },
         shareModal: {
             title: "Share this video",
-            subtitle: "Share this video on your networks",
+            subtitle: "Share this video on your social media",
             linkLabel: "Video link",
             copyAction: "Copy",
             facebook: "Share on Facebook",
