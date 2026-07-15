@@ -4,12 +4,10 @@ import type { ComponentProps, ReactNode } from "react";
 
 import {
     Dialog,
-    DialogClose,
     DialogContent,
     DialogDescription,
     DialogTitle
 } from "@/shared/presentation/components/ui/Dialog";
-import { XIcon } from "@/shared/presentation/components/ui/Icon";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
@@ -62,7 +60,10 @@ export function ModalForm({
             open={open}
             onOpenChange={onOpenChange}
         >
-            <DialogContent aria-describedby={subtitle ? undefined : describedById}>
+            <DialogContent
+                closeClassName="top-5 right-6"
+                aria-describedby={subtitle ? undefined : describedById}
+            >
                 <form
                     onSubmit={onSubmit}
                     className={cn(
@@ -70,18 +71,11 @@ export function ModalForm({
                         className
                     )}
                 >
-                    <header className="flex shrink-0 items-start justify-between gap-4 border-b px-6 py-4">
+                    <header className="flex shrink-0 items-start border-b py-4 pr-12 pl-6">
                         <div className="grid min-w-0 gap-1">
                             <DialogTitle>{header}</DialogTitle>
                             {subtitle && <DialogDescription>{subtitle}</DialogDescription>}
                         </div>
-                        <DialogClose
-                            type="button"
-                            aria-label={header}
-                            className="mt-0.5 shrink-0 cursor-pointer rounded-md p-1 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                        >
-                            <XIcon className="size-5" />
-                        </DialogClose>
                     </header>
 
                     <div className="grid gap-5 px-6 py-8">{children}</div>
