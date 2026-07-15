@@ -6,7 +6,7 @@ import type { Result } from "@/shared/domain/results/result";
  * IShortsFeedQuery
  *
  * @description
- * Cursor paging for the seeded "for you" shorts feed. Omit the cursor to start a
+ * Cursor paging for the seeded randomized shorts feed. Omit the cursor to start a
  * fresh randomized session; pass the previous page's cursor to continue it.
  *
  * @interface IShortsFeedQuery
@@ -42,7 +42,7 @@ export interface IShareShortInput {
  */
 export interface IShortsRepositoryPort {
     /**
-     * Fetches one cursor page of the seeded "for you" feed.
+     * Fetches one cursor page of the seeded randomized feed.
      *
      * @param query - Cursor + page size.
      * @returns `ok(IShortVideoFeedPage)` on success, `err(Failure)` on failure.
