@@ -1,5 +1,9 @@
+import type { IPlaylistDetailEntity } from "@/modules/videos/domain/entities/IPlaylistDetailEntity";
 import type { IPlaylistEntity } from "@/modules/videos/domain/entities/IPlaylistEntity";
+import type { IPlaylistVideoEntity } from "@/modules/videos/domain/entities/IPlaylistVideoEntity";
 import type { IShowEntity } from "@/modules/videos/domain/entities/IShowEntity";
+import type { IVideoActivityEntity } from "@/modules/videos/domain/entities/IVideoActivityEntity";
+import type { IVideoActivityPage } from "@/modules/videos/domain/entities/IVideoActivityPage";
 import type { IVideoCategoryEntity } from "@/modules/videos/domain/entities/IVideoCategoryEntity";
 import type { IVideoDetailEntity } from "@/modules/videos/domain/entities/IVideoDetailEntity";
 import type { IVideoExclusiveShowEntity } from "@/modules/videos/domain/entities/IVideoExclusiveShowEntity";
@@ -11,10 +15,14 @@ import type { IYoutubeVideoStats } from "@/modules/videos/domain/entities/IYoutu
 import type {
     CategoryDto,
     LyricsDto,
+    PlaylistDetailDto,
     PlaylistDto,
     PublicGetExclusiveCategoryResponse,
     TagDto,
+    UserVideoActivityDto,
+    UserVideoActivityDtoPaginatedResult,
     VideoDetailDto,
+    VideoInPlaylistDto,
     VideoSummaryDto,
     VideoSummaryDtoPaginatedResult
 } from "@/shared/infrastructure/api/generated/116.api";
@@ -123,7 +131,10 @@ export const VideosMapper = {
             description: dto.description,
             posterUrl: dto.posterUrl ?? null,
             colors: dto.colors
-                ? { background: dto.colors.background, foreground: dto.colors.foreground }
+                ? {
+                      background: dto.colors.background,
+                      foreground: dto.colors.foreground
+                  }
                 : null
         };
     },
@@ -227,7 +238,8 @@ export const VideosMapper = {
     },
 
     /**
-     * Maps PlaylistDto to IPlaylistEntity domain entity (1:1).
+     * Maps PlaylistDto to IPlaylistEntity domain entity, capping the cover
+     * thumbnails at the first four ordered slots used by the cover collage.
      *
      * @param dto - Playlist data from API
      * @returns {IPlaylistEntity} Mapped playlist entity
@@ -236,7 +248,8 @@ export const VideosMapper = {
         return {
             id: dto.id,
             name: dto.name,
-            videoCount: dto.videoCount
+            videoCount: dto.videoCount,
+            thumbnailUrls: dto.thumbnailUrls.slice(0, 4)
         };
     },
 
@@ -248,6 +261,102 @@ export const VideosMapper = {
      */
     playlistListFromDto(dtos: PlaylistDto[]): IPlaylistEntity[] {
         return dtos.map(VideosMapper.playlistFromDto);
+    },
+
+    /**
+     * Maps VideoInPlaylistDto to IPlaylistVideoEntity domain entity, keeping the
+     * playlist position and normalizing nullables to null / counts to 0.
+     *
+     * @param dto - Video-in-playlist data from API
+     * @returns {IPlaylistVideoEntity} Mapped playlist video entity
+     */
+    playlistVideoFromDto(dto: VideoInPlaylistDto): IPlaylistVideoEntity {
+        return {
+            videoId: dto.videoId,
+            slug: dto.slug,
+            title: dto.title,
+            thumbnailUrl: dto.thumbnailUrl ?? null,
+            categoryName: dto.categoryName,
+            publishedAt: dto.publishedAt ?? null,
+            ratingAverage: dto.ratingAverage ?? 0,
+            ratingCount: dto.ratingCount ?? 0,
+            sortOrder: dto.sortOrder
+        };
+    },
+
+    /**
+     * Maps a list of VideoInPlaylistDto to IPlaylistVideoEntity domain entities.
+     *
+     * @param dtos - Video-in-playlist data list from API
+     * @returns {IPlaylistVideoEntity[]} Mapped playlist video entities
+     */
+    playlistVideoListFromDto(dtos: VideoInPlaylistDto[]): IPlaylistVideoEntity[] {
+        return dtos.map(VideosMapper.playlistVideoFromDto);
+    },
+
+    /**
+     * Maps PlaylistDetailDto to IPlaylistDetailEntity, mapping the videos into
+     * ordered playlist rows.
+     *
+     * @param dto - Playlist detail data from API
+     * @returns {IPlaylistDetailEntity} Mapped playlist detail entity
+     */
+    playlistDetailFromDto(dto: PlaylistDetailDto): IPlaylistDetailEntity {
+        return {
+            id: dto.id,
+            name: dto.name,
+            videos: VideosMapper.playlistVideoListFromDto(dto.videos)
+        };
+    },
+
+    /**
+     * Maps UserVideoActivityDto to IVideoActivityEntity. Reuses the video summary
+     * mapper; discards out-of-range star ratings (only 1–5 survive) and normalizes
+     * a null share channel to undefined.
+     *
+     * @param dto - User video-activity data from API
+     * @returns {IVideoActivityEntity} Mapped video activity entity
+     */
+    videoActivityFromDto(dto: UserVideoActivityDto): IVideoActivityEntity {
+        const ratedStars =
+            typeof dto.ratedStars === "number" && dto.ratedStars >= 1 && dto.ratedStars <= 5
+                ? dto.ratedStars
+                : undefined;
+
+        return {
+            video: VideosMapper.videoSummaryFromDto(dto.video),
+            lastInteractedAt: dto.lastInteractedAt,
+            interactionCount: dto.interactionCount,
+            ratedStars,
+            lastShareChannel: dto.lastShareChannel ?? undefined
+        };
+    },
+
+    /**
+     * Maps a list of UserVideoActivityDto to IVideoActivityEntity domain entities.
+     *
+     * @param dtos - User video-activity data list from API
+     * @returns {IVideoActivityEntity[]} Mapped video activity entities
+     */
+    videoActivityListFromDto(dtos: UserVideoActivityDto[]): IVideoActivityEntity[] {
+        return dtos.map(VideosMapper.videoActivityFromDto);
+    },
+
+    /**
+     * Maps a paginated UserVideoActivityDto result to an IVideoActivityPage,
+     * deriving hasNextPage from the total count and the current page index.
+     *
+     * @param dto - Paginated envelope from the rated / shared feeds
+     * @returns {IVideoActivityPage} Mapped video activity page entity
+     */
+    videoActivityPageFromDto(dto: UserVideoActivityDtoPaginatedResult): IVideoActivityPage {
+        return {
+            items: VideosMapper.videoActivityListFromDto(dto.items),
+            pageIndex: dto.pageIndex,
+            pageSize: dto.pageSize,
+            count: dto.count,
+            hasNextPage: (dto.pageIndex + 1) * dto.pageSize < dto.count
+        };
     },
 
     /**
