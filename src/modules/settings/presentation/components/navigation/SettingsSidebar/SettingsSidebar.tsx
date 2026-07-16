@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import { SETTINGS_TABS } from "@/modules/settings/presentation/constants/settingsTabs";
 
+import { useScrollDirection } from "@/shared/presentation/hooks/useScrollDirection";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
@@ -18,27 +19,36 @@ import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 export function SettingsSidebar() {
     const pathname = usePathname();
     const { t } = useTranslation();
+    const direction = useScrollDirection();
 
     return (
-        <nav className="flex gap-2 overflow-x-auto border-b bg-sidebar p-4 md:w-60 md:flex-col md:overflow-visible md:border-r md:border-b-0">
-            {SETTINGS_TABS.map(({ href, labelKey, Icon }) => {
-                const isActive = pathname === href || pathname.startsWith(`${href}/`);
-                return (
-                    <Link
-                        key={href}
-                        href={href}
-                        className={cn(
-                            "flex items-center gap-2 whitespace-nowrap rounded-md px-3 py-2 font-medium text-sm transition-colors",
-                            isActive
-                                ? "bg-primary/10 text-primary dark:bg-secondary/15 dark:text-secondary"
-                                : "text-foreground/80 hover:bg-foreground/5 hover:text-foreground"
-                        )}
-                    >
-                        <Icon className="size-4" />
-                        {t(labelKey)}
-                    </Link>
-                );
-            })}
-        </nav>
+        <div className="md:w-60 md:shrink-0 md:rounded-l-lg md:bg-sidebar">
+            <nav
+                className={cn(
+                    "sticky top-28 z-20 flex gap-2 overflow-x-auto rounded-t-lg border-b bg-sidebar p-4 transition-all duration-300",
+                    "md:flex-col md:overflow-visible md:rounded-none md:border-b-0 md:bg-transparent",
+                    direction === "down" && "-translate-y-2 pointer-events-none opacity-0"
+                )}
+            >
+                {SETTINGS_TABS.map(({ href, labelKey, Icon }) => {
+                    const isActive = pathname === href || pathname.startsWith(`${href}/`);
+                    return (
+                        <Link
+                            key={href}
+                            href={href}
+                            className={cn(
+                                "flex items-center gap-2 whitespace-nowrap rounded-md px-3 py-2 font-medium text-sm transition-colors",
+                                isActive
+                                    ? "bg-primary/10 text-primary dark:bg-secondary/15 dark:text-secondary"
+                                    : "text-foreground/80 hover:bg-foreground/5 hover:text-foreground"
+                            )}
+                        >
+                            <Icon className="size-4" />
+                            {t(labelKey)}
+                        </Link>
+                    );
+                })}
+            </nav>
+        </div>
     );
 }
