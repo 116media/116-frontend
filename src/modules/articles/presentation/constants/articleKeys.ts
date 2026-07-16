@@ -32,7 +32,15 @@ export const articleKeys = {
     comments: (articleId: string) => [...articleKeys.all, "detail", articleId, "comments"] as const,
     replies: (commentId: string) => [...articleKeys.all, "comments", commentId, "replies"] as const,
     bookmarks: ["articles", "bookmarks"] as const,
-    popular: (articleId: string) => [...articleKeys.all, "popular", articleId] as const
+    popular: (articleId: string) => [...articleKeys.all, "popular", articleId] as const,
+    favorites: {
+        bookmarked: ["articles", "favorites", "bookmarked"] as const,
+        commented: ["articles", "favorites", "commented"] as const,
+        liked: ["articles", "favorites", "liked"] as const,
+        shared: ["articles", "favorites", "shared"] as const,
+        myComments: (articleId: string) =>
+            [...articleKeys.all, "favorites", "myComments", articleId] as const
+    }
 };
 
 export const ARTICLES_PAGE_SIZE = 12;
@@ -56,6 +64,16 @@ export const MAX_COMMENT_LENGTH = 1000;
  * Page size for the "my bookmarks" article grid.
  */
 export const BOOKMARKS_PAGE_SIZE = 12;
+
+/**
+ * Page size for the favorites collection lists (bookmarked, commented, liked, shared).
+ */
+export const FAVORITES_PAGE_SIZE = 12;
+
+/**
+ * Page size for the per-article "my comments" drawer list.
+ */
+export const FAVORITES_MY_COMMENTS_PAGE_SIZE = 20;
 
 /**
  * Maximum number of article tags requested for the "All tags" popover; tags beyond this
