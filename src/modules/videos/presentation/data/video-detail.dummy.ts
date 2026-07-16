@@ -216,17 +216,38 @@ export function dummyYoutubeStats(youtubeId: string): IYoutubeVideoStats {
  * dummyPlaylists
  *
  * @description
- * Dummy-data phase: three playlists for the add-to-playlist modal preview
- * while the backend has no account data to serve. Deterministic ids and
- * counts.
+ * Dummy-data phase: three playlists for the add-to-playlist modal and the
+ * favorites playlists grid while the backend has no account data to serve.
+ * Deterministic ids and counts; `thumbnailUrls` slots vary (four, two + nulls,
+ * empty) so the 2x2 cover collage can be previewed in every state.
  *
  * @returns Three dummy playlists.
  */
 export function dummyPlaylists(): IPlaylistEntity[] {
     return [
-        { id: "dummy-playlist-favorites", name: "Favorites", videoCount: 12 },
-        { id: "dummy-playlist-late-night", name: "Late Night Drive", videoCount: 7 },
-        { id: "dummy-playlist-workout", name: "Workout Energy", videoCount: 23 }
+        {
+            id: "dummy-playlist-favorites",
+            name: "Favorites",
+            videoCount: 12,
+            thumbnailUrls: [
+                POPULAR_THUMBNAILS[0],
+                POPULAR_THUMBNAILS[1],
+                POPULAR_THUMBNAILS[2],
+                POPULAR_THUMBNAILS[3]
+            ]
+        },
+        {
+            id: "dummy-playlist-late-night",
+            name: "Late Night Drive",
+            videoCount: 7,
+            thumbnailUrls: [POPULAR_THUMBNAILS[4], null, POPULAR_THUMBNAILS[5], null]
+        },
+        {
+            id: "dummy-playlist-workout",
+            name: "Workout Energy",
+            videoCount: 23,
+            thumbnailUrls: []
+        }
     ];
 }
 
