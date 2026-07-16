@@ -39,6 +39,7 @@ export function useRateVideo(videoId: string, slug: string) {
         onSuccess: () => {
             showNotification(RatingNotification.success(t));
             queryClient.invalidateQueries({ queryKey: videoKeys.detail(slug) });
+            queryClient.invalidateQueries({ queryKey: videoKeys.favorites.rated });
         },
         onError: () => {
             showNotification(RatingNotification.failed(t));
