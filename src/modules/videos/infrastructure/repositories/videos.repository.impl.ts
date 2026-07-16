@@ -1,11 +1,16 @@
 import type {
     IAddVideoToPlaylistInput,
+    IOwnVideoActivityQuery,
     IPopularVideosQuery,
     IPublishedVideosQuery,
+    IRemoveVideoFromPlaylistInput,
+    IRenamePlaylistInput,
     IVideosRepositoryPort
 } from "@/modules/videos/application/repositories/videos.repository.port";
+import type { IPlaylistDetailEntity } from "@/modules/videos/domain/entities/IPlaylistDetailEntity";
 import type { IPlaylistEntity } from "@/modules/videos/domain/entities/IPlaylistEntity";
 import type { IShowEntity } from "@/modules/videos/domain/entities/IShowEntity";
+import type { IVideoActivityPage } from "@/modules/videos/domain/entities/IVideoActivityPage";
 import type { IVideoCategoryEntity } from "@/modules/videos/domain/entities/IVideoCategoryEntity";
 import type { IVideoDetailEntity } from "@/modules/videos/domain/entities/IVideoDetailEntity";
 import type { IVideoExclusiveShowEntity } from "@/modules/videos/domain/entities/IVideoExclusiveShowEntity";
@@ -174,10 +179,69 @@ export class VideosRepositoryImpl implements IVideosRepositoryPort {
         }
     }
 
+    async getOwnRatedVideos(query: IOwnVideoActivityQuery): Promise<Result<IVideoActivityPage>> {
+        try {
+            const response = await this.api.publicGetOwnRatedVideos(query);
+            return ok(VideosMapper.videoActivityPageFromDto(response.data));
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async getOwnSharedVideos(query: IOwnVideoActivityQuery): Promise<Result<IVideoActivityPage>> {
+        try {
+            const response = await this.api.publicGetOwnSharedVideos(query);
+            return ok(VideosMapper.videoActivityPageFromDto(response.data));
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
     async getMyPlaylists(): Promise<Result<IPlaylistEntity[]>> {
         try {
-            const response = await this.api.publicGetMyPlaylists();
+            const response = await this.api.publicGetOwnPlaylists();
             return ok(VideosMapper.playlistListFromDto(response.data));
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async getPlaylistById(id: string): Promise<Result<IPlaylistDetailEntity>> {
+        try {
+            const response = await this.api.publicGetPlaylistById(id);
+            return ok(VideosMapper.playlistDetailFromDto(response.data));
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async renamePlaylist(input: IRenamePlaylistInput): Promise<Result<boolean>> {
+        try {
+            const response = await this.api.publicRenamePlaylist(input.id, {
+                name: input.name
+            });
+            return ok(response.data.isSuccess);
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async deletePlaylist(id: string): Promise<Result<boolean>> {
+        try {
+            const response = await this.api.publicDeletePlaylist(id);
+            return ok(response.data.isSuccess);
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async removeVideoFromPlaylist(input: IRemoveVideoFromPlaylistInput): Promise<Result<boolean>> {
+        try {
+            const response = await this.api.publicRemoveVideoFromPlaylist(
+                input.playlistId,
+                input.videoId
+            );
+            return ok(response.data.isSuccess);
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }
