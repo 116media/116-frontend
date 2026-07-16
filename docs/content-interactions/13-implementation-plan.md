@@ -13,8 +13,9 @@ and maps to a spec.
   `ConfirmDialog`, `StateRenderer`, `EmptyState`, the barrel icons).
 - Backend endpoints for every deferred item **already exist** — no backend work is required
   for comment reply/edit/delete/like or my-bookmarks.
-- The share `platform` gap and rating `myRating` gap are **backend changes**, out of this
-  plan's scope; tracked in [14](14-open-questions.md).
+- The share **channel** (`shareChannel`) and video **rating readback**
+  (`isRated`/`ratedStars`) were backend changes that have since landed; both are now wired
+  through the frontend. See [14](14-open-questions.md).
 - Run `npm show <pkg> dist-tags.latest` before pinning anything only if a new dep is ever
   proposed (none is).
 

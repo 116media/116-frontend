@@ -47,8 +47,8 @@ Five interaction kinds:
   *(Backend ready; frontend deferred — specced here.)*
 - Article **"my bookmarks"** list. *(Backend ready; no frontend surface — specced here.)*
 - Video: share, rating. *(Shipped — documented.)*
-- The **share platform-param discrepancy** and the **missing `myRating` readback** —
-  documented as known gaps ([14](14-open-questions.md)).
+- The share **channel** (`shareChannel`) and the video **rating readback**
+  (`isRated`/`ratedStars`) — once gaps, now wired end-to-end ([14](14-open-questions.md)).
 
 **Out of scope:**
 
@@ -72,10 +72,11 @@ Five interaction kinds:
    server-side, invalidate the detail query instead.
 3. **Shares are fire-and-forget.** Failures are swallowed — share telemetry never blocks or
    toasts. The share still "works" (the sheet opened / URL copied) even if recording fails.
-4. **`platform` is dropped at the backend.** The frontend passes a `platform` label to the
-   share use case, but the backend records only `(contentId, userId?, timestamp)`. The
-   label is kept in the frontend contract for future use and analytics parity; today it is
-   inert. See [08](08-shares.md) and [14](14-open-questions.md).
+4. **The share channel is recorded.** The frontend passes a `shareChannel` label to the
+   share use case; the backend parses it (case-insensitive, via the `ShareChannel` value
+   object) and stores an `EnumShareChannel` on the share row. Named `ShareChannel`, not
+   `Platform`, to avoid the Identity module's `EnumPlatform` (OS). See [08](08-shares.md)
+   and [14](14-open-questions.md).
 5. **Comment thread is one level deep.** A reply-to-a-reply is rejected by the backend
    (400). The UI never offers a reply affordance on a reply.
 6. **Rating cannot show "your rating".** No endpoint returns the caller's own star value,

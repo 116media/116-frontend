@@ -17,7 +17,7 @@ scope).
 | Recording | Fire-and-forget; failures swallowed, never toasted |
 | Count | `shareCount` bumped optimistically in the cache |
 | Dedup | None — every share is a new row; the count is a running total (see [15](15-counting-anonymous-actions.md)) |
-| Platform | The frontend picks a target (Facebook / X / WhatsApp / copy / Web Share) |
+| Channel | The frontend reports a `shareChannel` (Facebook / X / WhatsApp / Clipboard / WebShare) |
 
 ---
 
@@ -29,7 +29,7 @@ scope).
   `useShareVideo`.
 
 Both build the canonical URL (`{origin}/articles/{slug}` or `/videos/{slug}`), hand off to
-the platform (deep link, Web Share sheet, or clipboard), then record the event.
+the channel (deep link, Web Share sheet, or clipboard), then record the event.
 
 `useShareArticle` additionally uses the **Web Share API** when available
 (`navigator.share`), falling back to `clipboard.writeText`. `useShareVideo` bumps the cached
@@ -37,29 +37,29 @@ detail entity's `shareCount` optimistically.
 
 ---
 
-## The platform-param discrepancy
+## The share channel
 
-The frontend passes a `platform` label to the share use case:
+The frontend passes a `shareChannel` label to the share use case:
 
 ```ts
-container.cradle.shareArticleUseCase.execute({ articleId, platform: "web-share" });
-container.cradle.shareVideoUseCase.execute({ videoId, platform });
+container.cradle.shareArticleUseCase.execute({ articleId, shareChannel: "webshare" });
+container.cradle.shareVideoUseCase.execute({ videoId, shareChannel });
 ```
 
-**The backend does not accept or store a platform.** Its share command is
-`(contentId, userId?, timestamp)` only. So today the `platform` value is **inert** — it
-travels through the frontend use case but is dropped before the network call (or ignored by
-the endpoint).
+The backend **accepts and stores it**. The share endpoints take an optional JSON body
+`{ "shareChannel": "..." }`; the endpoint resolves it through the `ShareChannel` value
+object (`ShareChannel.TryFrom`, case-insensitive, unrecognized → ignored) into an
+`EnumShareChannel` — `Facebook`, `X`, `WhatsApp`, `Clipboard`, `WebShare` — persisted on the
+`*ShareEntity` (`share_channel` column). Naming note: this is deliberately **not** called
+`Platform` — the backend already uses `EnumPlatform` for the session's OS.
 
-Why keep it:
+Client contract:
 
-- It documents intent at the call site (which button was pressed).
-- It is analytics-ready if a client-side telemetry sink is added.
-- It matches the mobile app's contract, easing a future backend `platform` column.
-
-This is a **known, non-blocking gap** — tracked in [14](14-open-questions.md). Do not "fix"
-it by removing the param; if per-platform share breakdown is wanted, it is a backend change
-(add `platform` to the share command + entity), then the frontend already supplies it.
+- The frontend sends its UI identifiers as-is (`facebook`, `x`, `whatsapp`, `clipboard`);
+  the backend parses them case-insensitively and stores the canonical enum name.
+- The one exception is the Web Share sheet, sent as `webshare` (not `web-share`) so it
+  parses to `WebShare`.
+- An unrecognized channel is stored as null (the share still succeeds — fire-and-forget).
 
 ---
 

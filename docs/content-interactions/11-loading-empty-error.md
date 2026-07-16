@@ -21,7 +21,7 @@ No spinners, no toasts. The interaction feels synchronous.
 
 - **Loading** — none. Fire-and-forget.
 - **Error** — swallowed; no toast (see [08](08-shares.md)).
-- The only visible failure is the platform's own (e.g. the user cancels the Web Share
+- The only visible failure is the browser's own (e.g. the user cancels the Web Share
   sheet), which is caught and ignored.
 
 ---

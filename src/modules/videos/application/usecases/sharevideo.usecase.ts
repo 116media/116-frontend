@@ -7,11 +7,11 @@ import type { Result } from "@/shared/domain/results/result";
  *
  * @interface IShareVideoRequest
  * @property {string} videoId - The video being shared.
- * @property {string} platform - The share surface used (e.g. "facebook", "clipboard").
+ * @property {string} shareChannel - The share channel (e.g. "Facebook", "Clipboard").
  */
 export interface IShareVideoRequest {
     videoId: string;
-    platform: string;
+    shareChannel: string;
 }
 
 /**
@@ -29,8 +29,8 @@ interface IShareVideoUseCase extends IResultUseCase<IShareVideoRequest, boolean>
  * @implements {IShareVideoUseCase}
  *
  * @description
- * Records a share event for one video via the videos repository. The platform is
- * client-side context only; the backend endpoint accepts no payload.
+ * Records a share event for one video via the videos repository, tagged with the share
+ * channel for per-channel analytics.
  */
 export class ShareVideoUseCase implements IShareVideoUseCase {
     private readonly videosRepository: IVideosRepositoryPort;
@@ -46,10 +46,10 @@ export class ShareVideoUseCase implements IShareVideoUseCase {
     /**
      * Executes the share-video use case.
      *
-     * @param request - The video id and share platform.
+     * @param request - The video id and share channel.
      * @returns `ok(boolean)` success flag on success, `err(Failure)` on failure.
      */
-    execute({ videoId, platform }: IShareVideoRequest): Promise<Result<boolean>> {
-        return this.videosRepository.shareVideo(videoId, platform);
+    execute({ videoId, shareChannel }: IShareVideoRequest): Promise<Result<boolean>> {
+        return this.videosRepository.shareVideo(videoId, shareChannel);
     }
 }

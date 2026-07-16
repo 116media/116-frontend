@@ -165,9 +165,9 @@ export class VideosRepositoryImpl implements IVideosRepositoryPort {
         }
     }
 
-    async shareVideo(id: string, platform: string): Promise<Result<boolean>> {
+    async shareVideo(id: string, shareChannel: string): Promise<Result<boolean>> {
         try {
-            const response = await this.api.publicShareVideo(id, { platform });
+            const response = await this.api.publicShareVideo(id, { shareChannel });
             return ok(response.data.isSuccess);
         } catch (error) {
             return err(ProblemMapper.toFailure(error));

@@ -58,7 +58,7 @@ Notes:
 | `useArticleComments(id)` | comment list | infinite query | shipped |
 | `useAddArticleComment(id, slug)` | comment post | `{ submit, isPending }` | shipped |
 | `useRateVideo(id, slug)` | rating | `{ submit, isPending }` | shipped |
-| `useShareVideo(id, slug)` | share | `(platform) => void` | shipped |
+| `useShareVideo(id, slug)` | share | `(shareChannel) => void` | shipped |
 | `useToggleArticleCommentLike(commentId, count, liked)` | comment like | `{ liked, count, toggle }` | **deferred** |
 | `useReplyToComment(articleId, parentId)` | reply | `{ submit, isPending }` | **deferred** |
 | `useEditArticleComment(articleId, commentId)` | edit | `{ submit, isPending }` | **deferred** |

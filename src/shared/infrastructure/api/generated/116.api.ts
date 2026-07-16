@@ -1980,7 +1980,7 @@ export interface PublicSetPasswordResponse {
 }
 
 export interface PublicShareArticleRequest {
-  platform?: string | null;
+  shareChannel?: string | null;
 }
 
 export interface PublicShareArticleResponse {
@@ -1988,7 +1988,7 @@ export interface PublicShareArticleResponse {
 }
 
 export interface PublicShareShortVideoRequest {
-  platform?: string | null;
+  shareChannel?: string | null;
 }
 
 export interface PublicShareShortVideoResponse {
@@ -1996,7 +1996,7 @@ export interface PublicShareShortVideoResponse {
 }
 
 export interface PublicShareVideoRequest {
-  platform?: string | null;
+  shareChannel?: string | null;
 }
 
 export interface PublicShareVideoResponse {

@@ -1,7 +1,7 @@
 # Spec 07 — Shares
 
 Design ref: [../08-shares.md](../08-shares.md). Both share hooks are **shipped** — documented
-here as the contract, including the inert `platform` label and the fire-and-forget rule.
+here as the contract, including the `shareChannel` label and the fire-and-forget rule.
 
 ---
 
@@ -35,11 +35,11 @@ export function useShareArticle(articleId: string, slug: string) {
             } catch {
                 return;
             }
-            container.cradle.shareArticleUseCase.execute({ articleId, platform: "web-share" });
+            container.cradle.shareArticleUseCase.execute({ articleId, shareChannel: "webshare" });
             return;
         }
         await navigator.clipboard.writeText(url);
-        container.cradle.shareArticleUseCase.execute({ articleId, platform: "clipboard" });
+        container.cradle.shareArticleUseCase.execute({ articleId, shareChannel: "clipboard" });
     };
 }
 ```
@@ -69,13 +69,13 @@ import container from "@/shared/infrastructure/service.locator";
  *
  * @param videoId - The video the backend share event is recorded against.
  * @param slug - The video slug keying the cached detail entity.
- * @returns A `recordShare(platform)` function for the share modal.
+ * @returns A `recordShare(shareChannel)` function for the share modal.
  */
 export function useShareVideo(videoId: string, slug: string) {
     const queryClient = useQueryClient();
 
-    return (platform: string) => {
-        void container.cradle.shareVideoUseCase.execute({ videoId, platform });
+    return (shareChannel: string) => {
+        void container.cradle.shareVideoUseCase.execute({ videoId, shareChannel });
         queryClient.setQueryData<IVideoDetailEntity>(videoKeys.detail(slug), (current) =>
             current ? { ...current, shareCount: current.shareCount + 1 } : current
         );
@@ -87,9 +87,11 @@ export function useShareVideo(videoId: string, slug: string) {
 
 ## Contract notes
 
-- **`platform` is inert at the backend.** Both hooks pass a label; the repository impl sends
-  only the content id (see [02-repository-and-usecases.md](02-repository-and-usecases.md)).
-  Keep the label — it documents which target was used and is analytics-ready. Do not remove it.
+- **`shareChannel` is recorded by the backend.** Both hooks pass a label; the repository
+  impl sends it in the request body, and the backend parses it (case-insensitive) into an
+  `EnumShareChannel` (see [02-repository-and-usecases.md](02-repository-and-usecases.md)).
+  The UI identifiers pass through as-is — only the Web Share sheet is sent as `webshare`
+  (not `web-share`) so it parses to `WebShare`.
 - **Fire-and-forget.** The recording call is not awaited for feedback; its errors are caught
   (`useShareArticle`) or discarded via `void` (`useShareVideo`). No spinner, no failure toast.
 - **Anonymous.** Share endpoints are `AllowAnonymous`; the hooks never gate through
@@ -107,7 +109,7 @@ labels through i18n ([09-i18n-and-notifications.md](09-i18n-and-notifications.md
 
 - [ ] `useShareArticle` — Web Share API + clipboard fallback; records fire-and-forget.
 - [ ] `useShareVideo` — records fire-and-forget; optimistic `shareCount` bump.
-- [ ] `platform` label retained end-to-end but dropped before the network call.
+- [ ] `shareChannel` label forwarded in the request body and stored by the backend.
 - [ ] No auth gate on share; no failure toast.
 - [ ] Share targets resolve through i18n; brand icons from `@icons-pack/react-simple-icons`.
 - [ ] `tsc` + biome clean.

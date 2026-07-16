@@ -155,9 +155,9 @@ export class ArticlesRepositoryImpl implements IArticlesRepositoryPort {
         }
     }
 
-    async shareArticle(id: string, platform: string): Promise<Result<boolean>> {
+    async shareArticle(id: string, shareChannel: string): Promise<Result<boolean>> {
         try {
-            const response = await this.api.publicShareArticle(id, { platform });
+            const response = await this.api.publicShareArticle(id, { shareChannel });
             return ok(response.data.isSuccess);
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
