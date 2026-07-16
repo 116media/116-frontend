@@ -13,5 +13,9 @@ export const nav = {
 export const menu = {
     group: "Compte",
     myProfile: "Mon profil",
-    changePassword: "Changer le mot de passe"
+    changePassword: "Changer le mot de passe",
+    favoriteGroup: "Favoris",
+    favoriteArticles: "Articles favoris",
+    favoriteVideos: "Vidéos favorites",
+    favoriteShortVideos: "Vidéos courtes favorites"
 } as const;
