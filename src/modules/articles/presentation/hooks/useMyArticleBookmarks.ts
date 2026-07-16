@@ -2,11 +2,12 @@
 
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-import type { IArticlePage } from "@/modules/articles/domain/entities/IArticlePage";
+import type { IArticleBookmarkPage } from "@/modules/articles/domain/entities/IArticleBookmarkEntity";
 import {
     articleKeys,
-    BOOKMARKS_PAGE_SIZE
+    FAVORITES_PAGE_SIZE
 } from "@/modules/articles/presentation/constants/articleKeys";
+import { dummyArticleBookmarkPage } from "@/modules/articles/presentation/data/favorites.dummy";
 import type { Failure } from "@/shared/domain/failures/failure";
 import container from "@/shared/infrastructure/service.locator";
 
@@ -15,25 +16,26 @@ import container from "@/shared/infrastructure/service.locator";
  *
  * @description
  * Infinite query for the authenticated user's bookmarked articles via
- * `getMyArticleBookmarksUseCase`, newest first. Gated by `enabled` so the page only
- * fetches once the session is known to be authenticated; errors surface through the
- * query state with no dummy fallback.
+ * `getOwnArticleBookmarksUseCase`, newest first. Gated by `enabled` so the list only
+ * fetches once the session is known to be authenticated; a failed fetch falls back to a
+ * dummy bookmarks page.
  *
  * @param enabled - Whether the caller is authenticated and the list should fetch.
- * @returns The `useInfiniteQuery` result for the bookmarks grid.
+ * @returns The `useInfiniteQuery` result for the bookmarked-articles list.
  */
 export function useMyArticleBookmarks(enabled: boolean) {
-    return useInfiniteQuery<IArticlePage, Failure>({
-        queryKey: articleKeys.bookmarks,
+    return useInfiniteQuery<IArticleBookmarkPage, Failure>({
+        queryKey: articleKeys.favorites.bookmarked,
         enabled,
         initialPageParam: 0,
         queryFn: async ({ pageParam }) => {
-            const result = await container.cradle.getMyArticleBookmarksUseCase.execute({
+            const result = await container.cradle.getOwnArticleBookmarksUseCase.execute({
                 pageIndex: pageParam as number,
-                pageSize: BOOKMARKS_PAGE_SIZE
+                pageSize: FAVORITES_PAGE_SIZE
             });
-            if (!result.ok) throw result.error;
-            return result.value;
+            return result.ok && result.value.items.length > 0
+                ? result.value
+                : dummyArticleBookmarkPage(pageParam as number);
         },
         getNextPageParam: (lastPage) => (lastPage.hasNextPage ? lastPage.pageIndex + 1 : undefined)
     });
