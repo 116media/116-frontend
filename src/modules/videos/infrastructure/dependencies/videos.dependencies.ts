@@ -2,8 +2,12 @@ import type { AwilixContainer } from "awilix";
 import { asClass } from "awilix";
 import { AddVideoToPlaylistUseCase } from "@/modules/videos/application/usecases/addvideotoplaylist.usecase";
 import { CreatePlaylistUseCase } from "@/modules/videos/application/usecases/createplaylist.usecase";
+import { DeletePlaylistUseCase } from "@/modules/videos/application/usecases/deleteplaylist.usecase";
 import { GetAllVideoTagsUseCase } from "@/modules/videos/application/usecases/getallvideotags.usecase";
 import { GetMyPlaylistsUseCase } from "@/modules/videos/application/usecases/getmyplaylists.usecase";
+import { GetOwnRatedVideosUseCase } from "@/modules/videos/application/usecases/getownratedvideos.usecase";
+import { GetOwnSharedVideosUseCase } from "@/modules/videos/application/usecases/getownsharedvideos.usecase";
+import { GetPlaylistByIdUseCase } from "@/modules/videos/application/usecases/getplaylistbyid.usecase";
 import { GetPopularVideosUseCase } from "@/modules/videos/application/usecases/getpopularvideos.usecase";
 import { GetPromotedVideosUseCase } from "@/modules/videos/application/usecases/getpromotedvideos.usecase";
 import { GetPublishedVideosUseCase } from "@/modules/videos/application/usecases/getpublishedvideos.usecase";
@@ -15,6 +19,8 @@ import { GetVideoLyricsUseCase } from "@/modules/videos/application/usecases/get
 import { GetVideoPopularTagsUseCase } from "@/modules/videos/application/usecases/getvideopopulartags.usecase";
 import { GetYoutubeVideoStatsUseCase } from "@/modules/videos/application/usecases/getyoutubevideostats.usecase";
 import { RateVideoUseCase } from "@/modules/videos/application/usecases/ratevideo.usecase";
+import { RemoveVideoFromPlaylistUseCase } from "@/modules/videos/application/usecases/removevideofromplaylist.usecase";
+import { RenamePlaylistUseCase } from "@/modules/videos/application/usecases/renameplaylist.usecase";
 import { ShareVideoUseCase } from "@/modules/videos/application/usecases/sharevideo.usecase";
 import { VideosRepositoryImpl } from "@/modules/videos/infrastructure/repositories/videos.repository.impl";
 
@@ -44,12 +50,18 @@ export function registerVideosDependencies(container: AwilixContainer): void {
         getPopularVideosUseCase: asClass(GetPopularVideosUseCase).transient(),
         getVideoLyricsUseCase: asClass(GetVideoLyricsUseCase).transient(),
         getMyPlaylistsUseCase: asClass(GetMyPlaylistsUseCase).transient(),
+        getOwnRatedVideosUseCase: asClass(GetOwnRatedVideosUseCase).transient(),
+        getOwnSharedVideosUseCase: asClass(GetOwnSharedVideosUseCase).transient(),
+        getPlaylistByIdUseCase: asClass(GetPlaylistByIdUseCase).transient(),
         getYoutubeVideoStatsUseCase: asClass(GetYoutubeVideoStatsUseCase).transient(),
 
         // Interactions
         rateVideoUseCase: asClass(RateVideoUseCase).transient(),
         shareVideoUseCase: asClass(ShareVideoUseCase).transient(),
         createPlaylistUseCase: asClass(CreatePlaylistUseCase).transient(),
-        addVideoToPlaylistUseCase: asClass(AddVideoToPlaylistUseCase).transient()
+        addVideoToPlaylistUseCase: asClass(AddVideoToPlaylistUseCase).transient(),
+        renamePlaylistUseCase: asClass(RenamePlaylistUseCase).transient(),
+        deletePlaylistUseCase: asClass(DeletePlaylistUseCase).transient(),
+        removeVideoFromPlaylistUseCase: asClass(RemoveVideoFromPlaylistUseCase).transient()
     });
 }
