@@ -1,3 +1,4 @@
+import type { IShortVideoActivityPage } from "@/modules/shorts/domain/entities/IShortVideoActivityPage";
 import type { IShortVideoEntity } from "@/modules/shorts/domain/entities/IShortVideoEntity";
 import type { IShortVideoFeedPage } from "@/modules/shorts/domain/entities/IShortVideoFeedPage";
 import type { Result } from "@/shared/domain/results/result";
@@ -31,6 +32,22 @@ export interface IShortsFeedQuery {
 export interface IShareShortInput {
     shortId: string;
     shareChannel?: string;
+}
+
+/**
+ * IShortVideoActivityQuery
+ *
+ * @description
+ * Zero-based paging for the signed-in user's short-video favorites lists (liked,
+ * saved, shared).
+ *
+ * @interface IShortVideoActivityQuery
+ * @property {number} pageIndex - Zero-based page number.
+ * @property {number} pageSize - Items per page.
+ */
+export interface IShortVideoActivityQuery {
+    pageIndex: number;
+    pageSize: number;
 }
 
 /**
@@ -104,4 +121,29 @@ export interface IShortsRepositoryPort {
      * @returns `ok(boolean)` success flag on success, `err(Failure)` on failure.
      */
     recordShortView(shortId: string): Promise<Result<boolean>>;
+
+    /**
+     * Fetches one page of the signed-in user's liked shorts, newest first.
+     *
+     * @param query - Zero-based paging.
+     * @returns `ok(IShortVideoActivityPage)` on success, `err(Failure)` on failure.
+     */
+    getOwnLikedShorts(query: IShortVideoActivityQuery): Promise<Result<IShortVideoActivityPage>>;
+
+    /**
+     * Fetches one page of the signed-in user's saved shorts, newest first. Maps to
+     * the backend BOOKMARKED route; "Saved" is the frontend label.
+     *
+     * @param query - Zero-based paging.
+     * @returns `ok(IShortVideoActivityPage)` on success, `err(Failure)` on failure.
+     */
+    getOwnSavedShorts(query: IShortVideoActivityQuery): Promise<Result<IShortVideoActivityPage>>;
+
+    /**
+     * Fetches one page of the signed-in user's shared shorts, newest first.
+     *
+     * @param query - Zero-based paging.
+     * @returns `ok(IShortVideoActivityPage)` on success, `err(Failure)` on failure.
+     */
+    getOwnSharedShorts(query: IShortVideoActivityQuery): Promise<Result<IShortVideoActivityPage>>;
 }
