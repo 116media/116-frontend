@@ -23,8 +23,12 @@ export const ARTISTES_PATH = "/artistes";
 export const ARTISTE_DETAIL_PATH = "/artistes/:slug";
 
 export const PROFILE_PATH = "/profile";
-export const BOOKMARKS_PATH = "/profile/bookmarks";
 export const PLAYLISTS_PATH = "/profile/playlists";
+
+export const FAVORITES_PATH = "/favorites";
+export const FAVORITE_ARTICLES_PATH = "/favorites/articles";
+export const FAVORITE_VIDEOS_PATH = "/favorites/videos";
+export const FAVORITE_SHORTS_PATH = "/favorites/shorts";
 
 export const SETTINGS_PATH = "/settings";
 export const SETTINGS_PROFILE_PATH = "/settings/profile";
