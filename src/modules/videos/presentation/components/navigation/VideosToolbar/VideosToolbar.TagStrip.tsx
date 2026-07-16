@@ -43,19 +43,21 @@ export function VideosToolbarTagStrip({ value, onChange }: VideosToolbarTagStrip
                     ))}
                 {!isPending &&
                     orderTags(popular, value).map((tag) => (
-                    <Tag
-                        size="lg"
-                        as="span"
-                        prefix="#"
-                        shape="pill"
-                        key={tag.slug}
-                        variant={tag.slug === value ? "primary" : "default"}
-                        onClick={() => onChange(tag.slug === value ? undefined : tag.slug)}
-                        className={tag.slug === value ? undefined : "border-border bg-surface-raised"}
-                    >
-                        {tag.name}
-                    </Tag>
-                ))}
+                        <Tag
+                            size="lg"
+                            as="span"
+                            prefix="#"
+                            shape="pill"
+                            key={tag.slug}
+                            variant={tag.slug === value ? "primary" : "default"}
+                            onClick={() => onChange(tag.slug === value ? undefined : tag.slug)}
+                            className={
+                                tag.slug === value ? undefined : "border-border bg-surface-raised"
+                            }
+                        >
+                            {tag.name}
+                        </Tag>
+                    ))}
             </div>
             <VideosToolbarAllTagsPopover
                 value={value}
