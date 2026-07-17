@@ -47,6 +47,7 @@ export function SharedArticleCard({ activity }: SharedArticleCardProps) {
                     date={activity.lastInteractedAt}
                     shareCount={activity.interactionCount}
                     shareChannel={activity.lastShareChannel}
+                    className="-mx-3 -mb-3 mt-1 flex justify-between gap-3 rounded-lg bg-accent/50 p-3"
                 />
             </FavoriteArticleContent>
         </FavoriteCard>
