@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import { FavoriteShortCard } from "@/modules/favorites/presentation/components/cards/FavoriteShortCard";
 import { FavoriteShortsGrid } from "@/modules/favorites/presentation/components/sections/FavoriteShortsGrid";
@@ -11,7 +10,6 @@ import { FeedError } from "@/shared/presentation/components/ui/FeedError";
 import { HeartIcon } from "@/shared/presentation/components/ui/Icon";
 import { InfiniteScrollFooter } from "@/shared/presentation/components/ui/InfiniteScrollFooter";
 import { StateRenderer } from "@/shared/presentation/components/ui/StateRenderer";
-import { SHORT_DETAIL_PATH } from "@/shared/presentation/constants/paths";
 
 /**
  * LikedShortsSection
@@ -22,7 +20,6 @@ import { SHORT_DETAIL_PATH } from "@/shared/presentation/constants/paths";
  */
 export function LikedShortsSection() {
     const { t } = useTranslation();
-    const router = useRouter();
 
     const { data, isLoading, isError, refetch, fetchNextPage, hasNextPage, isFetchingNextPage } =
         useMyLikedShorts(true);
@@ -59,11 +56,6 @@ export function LikedShortsSection() {
                                 key={activity.shortVideo.id}
                                 variant="liked"
                                 activity={activity}
-                                onOpen={() =>
-                                    router.push(
-                                        SHORT_DETAIL_PATH.replace(":slug", activity.shortVideo.slug)
-                                    )
-                                }
                             />
                         ))}
                     </FavoriteShortsGrid>
