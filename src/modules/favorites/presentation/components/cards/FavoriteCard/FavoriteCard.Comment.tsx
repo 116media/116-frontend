@@ -24,14 +24,14 @@ export interface FavoriteCardCommentProps {
  *
  * @description
  * The latest-comment block inside the body: a labelled header with the relative date, the
- * clamped comment text, and an optional total-comment count. Separated from the rows above
- * by a top border.
+ * clamped comment text, and an optional total-comment count. Any separator from the rows
+ * above is owned by the container.
  */
 export function FavoriteCardComment({ body, commentCount, date }: FavoriteCardCommentProps) {
     const { t } = useTranslation();
 
     return (
-        <div className="flex flex-col gap-2 border-t pt-2">
+        <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between gap-2">
                 <span className="font-medium text-foreground text-sm">
                     {t("favorites.activity.latestComment")}
@@ -44,7 +44,7 @@ export function FavoriteCardComment({ body, commentCount, date }: FavoriteCardCo
             </div>
 
             {body && (
-                <p className="line-clamp-3 whitespace-pre-wrap text-muted-foreground text-sm">
+                <p className="line-clamp-1 min-h-[2lh] whitespace-pre-wrap text-muted-foreground text-sm">
                     {body}
                 </p>
             )}
