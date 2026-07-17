@@ -1,0 +1,150 @@
+import type {
+    IShareShortInput,
+    IShortsFeedQuery,
+    IShortsRepositoryPort
+} from "@/modules/shorts/application/repositories/shorts.repository.port";
+import type { IShortVideoEntity } from "@/modules/shorts/domain/entities/IShortVideoEntity";
+import type { IShortVideoFeedPage } from "@/modules/shorts/domain/entities/IShortVideoFeedPage";
+import { ShortsMapper } from "@/modules/shorts/infrastructure/mappers/shorts.mapper";
+import { err, ok, type Result } from "@/shared/domain/results/result";
+import type { Api } from "@/shared/infrastructure/api/generated/116.api";
+import { ProblemMapper } from "@/shared/infrastructure/mappers/problem.mapper";
+
+/**
+ * ShortsRepositoryImpl
+ *
+ * @description
+ * Wraps the generated short-video client calls, mapping success through
+ * `ShortsMapper` and failure through `ProblemMapper.toFailure`. Interaction calls
+ * resolve the backend `isSuccess` flag.
+ */
+export class ShortsRepositoryImpl implements IShortsRepositoryPort {
+    private readonly api: Api<unknown>["api"];
+
+    constructor({ client }: { client: Api<unknown> }) {
+        this.api = client.api;
+    }
+
+    /**
+     * Fetches one cursor page of the seeded "for you" feed.
+     *
+     * @param query - Cursor + page size.
+     * @returns {Promise<Result<IShortVideoFeedPage>>} The mapped feed page or a failure.
+     */
+    async getShortsFeed(query: IShortsFeedQuery): Promise<Result<IShortVideoFeedPage>> {
+        try {
+            const response = await this.api.getShortsFeed({
+                cursor: query.cursor,
+                pageSize: query.pageSize
+            });
+            return ok(ShortsMapper.shortFeedPageFromDto(response.data));
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    /**
+     * Fetches one short by slug.
+     *
+     * @param slug - The short's slug.
+     * @returns {Promise<Result<IShortVideoEntity>>} The mapped short or a failure.
+     */
+    async getShortBySlug(slug: string): Promise<Result<IShortVideoEntity>> {
+        try {
+            const response = await this.api.getPublicShortBySlug(slug);
+            return ok(ShortsMapper.shortFromDto(response.data.shortVideo));
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    /**
+     * Likes a short.
+     *
+     * @param shortId - The short to like.
+     * @returns {Promise<Result<boolean>>} The success flag or a failure.
+     */
+    async likeShort(shortId: string): Promise<Result<boolean>> {
+        try {
+            const response = await this.api.publicLikeShortVideo(shortId);
+            return ok(response.data.isSuccess);
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    /**
+     * Removes a like from a short.
+     *
+     * @param shortId - The short to unlike.
+     * @returns {Promise<Result<boolean>>} The success flag or a failure.
+     */
+    async unlikeShort(shortId: string): Promise<Result<boolean>> {
+        try {
+            const response = await this.api.publicUnlikeShortVideo(shortId);
+            return ok(response.data.isSuccess);
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    /**
+     * Bookmarks a short.
+     *
+     * @param shortId - The short to bookmark.
+     * @returns {Promise<Result<boolean>>} The success flag or a failure.
+     */
+    async bookmarkShort(shortId: string): Promise<Result<boolean>> {
+        try {
+            const response = await this.api.publicBookmarkShortVideo(shortId);
+            return ok(response.data.isSuccess);
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    /**
+     * Removes a bookmark from a short.
+     *
+     * @param shortId - The short to unbookmark.
+     * @returns {Promise<Result<boolean>>} The success flag or a failure.
+     */
+    async unbookmarkShort(shortId: string): Promise<Result<boolean>> {
+        try {
+            const response = await this.api.publicUnbookmarkShortVideo(shortId);
+            return ok(response.data.isSuccess);
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    /**
+     * Records a share event against a short.
+     *
+     * @param input - The short id and optional channel.
+     * @returns {Promise<Result<boolean>>} The success flag or a failure.
+     */
+    async shareShort({ shortId, shareChannel }: IShareShortInput): Promise<Result<boolean>> {
+        try {
+            const response = await this.api.publicShareShortVideo(shortId, { shareChannel });
+            return ok(response.data.isSuccess);
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    /**
+     * Records a view event against a short (engagement-gated by the caller).
+     *
+     * @param shortId - The short viewed.
+     * @returns {Promise<Result<boolean>>} The success flag or a failure.
+     */
+    async recordShortView(shortId: string): Promise<Result<boolean>> {
+        try {
+            const response = await this.api.publicRecordShortVideoView(shortId);
+            return ok(response.data.isSuccess);
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+}

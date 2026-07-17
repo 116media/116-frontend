@@ -24,8 +24,8 @@ export function VideoFeedSection({ title, viewAllHref, videos }: VideoFeedSectio
                 <h2 className="text-lg uppercase font-bold text-foreground sm:text-xl">{title}</h2>
                 <Link
                     href={viewAllHref}
-                    className="shrink-0 text-sm text-primary transition-colors hover:underline dark:text-secondary"
                     suppressHydrationWarning
+                    className="shrink-0 text-sm text-primary transition-colors hover:underline dark:text-secondary"
                 >
                     {t("general.viewAll")} →
                 </Link>
