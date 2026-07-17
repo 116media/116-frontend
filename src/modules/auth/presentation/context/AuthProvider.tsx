@@ -10,10 +10,20 @@ import { authKeys } from "@/modules/auth/presentation/constants/authKeys";
 import { getAuthChannel } from "@/modules/auth/presentation/utils/authChannel";
 import { deriveAuthStatus } from "@/modules/auth/presentation/utils/status/status.utils";
 import type { IAuthUserEntity } from "@/shared/domain/entities/IAuthUserEntity";
-import { unknownFailure } from "@/shared/domain/failures/failure";
+import { type Failure, unknownFailure } from "@/shared/domain/failures/failure";
 import { err } from "@/shared/domain/results/result";
 import { REFRESH_TOKEN_EXPIRED_EVENT } from "@/shared/infrastructure/interceptors/refresh-token-expiry.interceptor";
 import container from "@/shared/infrastructure/service.locator";
+
+/**
+ * Identifies profile failures that definitively invalidate the browser session.
+ *
+ * @param failure - The profile request failure.
+ * @returns Whether the user must be treated as signed out.
+ */
+function isSessionFailure(failure: Failure): boolean {
+    return "status" in failure && (failure.status === 401 || failure.status === 403);
+}
 
 /**
  * The value exposed by the auth context.
@@ -48,14 +58,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     const meQuery = useQuery({
         queryKey: authKeys.me,
-        queryFn: () => container.cradle.getProfileUseCase.execute(),
+        queryFn: async () => {
+            const result = await container.cradle.getProfileUseCase.execute();
+            if (!result.ok && !isSessionFailure(result.error)) throw result.error;
+            return result;
+        },
         select: (result) => (result.ok ? result.value : null),
         staleTime: 5 * 60_000,
-        retry: false
+        retry: 1,
+        refetchOnMount: "always",
+        refetchOnReconnect: "always",
+        refetchOnWindowFocus: "always"
     });
 
     const user = meQuery.data ?? null;
-    const status = deriveAuthStatus(meQuery.isPending, user);
+    const status = deriveAuthStatus(meQuery.isPending, meQuery.isError, user);
 
     useEffect(() => {
         const onExpired = () => queryClient.setQueryData(authKeys.me, err(unknownFailure()));
