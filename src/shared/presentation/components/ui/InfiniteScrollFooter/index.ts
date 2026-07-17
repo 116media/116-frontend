@@ -1,0 +1,1 @@
+export { InfiniteScrollFooter } from "./InfiniteScrollFooter";
