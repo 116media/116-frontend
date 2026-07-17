@@ -26,7 +26,7 @@ export function FavoriteCardRoot({ children, className }: FavoriteCardProps) {
     return (
         <article
             className={cn(
-                "group flex flex-col overflow-hidden rounded-xl border bg-card transition-shadow hover:shadow-md",
+                "group flex flex-col overflow-hidden rounded-xl border bg-card",
                 className
             )}
         >
