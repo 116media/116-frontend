@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FavoriteShortCard } from "@/modules/favorites/presentation/components/cards/FavoriteShortCard";
@@ -12,7 +11,6 @@ import { FeedError } from "@/shared/presentation/components/ui/FeedError";
 import { BookmarkIcon } from "@/shared/presentation/components/ui/Icon";
 import { InfiniteScrollFooter } from "@/shared/presentation/components/ui/InfiniteScrollFooter";
 import { StateRenderer } from "@/shared/presentation/components/ui/StateRenderer";
-import { SHORT_DETAIL_PATH } from "@/shared/presentation/constants/paths";
 
 /**
  * SavedShortsSection
@@ -23,7 +21,6 @@ import { SHORT_DETAIL_PATH } from "@/shared/presentation/constants/paths";
  * short and drops it from the grid.
  */
 export function SavedShortsSection() {
-    const router = useRouter();
     const { t } = useTranslation();
     const [removed, setRemoved] = useState<ReadonlySet<string>>(new Set());
 
@@ -67,11 +64,6 @@ export function SavedShortsSection() {
                                 variant="saved"
                                 activity={activity}
                                 onRemoved={onRemoved}
-                                onOpen={() =>
-                                    router.push(
-                                        SHORT_DETAIL_PATH.replace(":slug", activity.shortVideo.slug)
-                                    )
-                                }
                             />
                         ))}
                     </FavoriteShortsGrid>
