@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import { FavoriteCard } from "@/modules/favorites/presentation/components/cards/FavoriteCard";
 import type { IShortVideoActivityEntity } from "@/modules/shorts/domain/entities/IShortVideoActivityEntity";
+import { useOpenShort } from "@/modules/shorts/presentation/hooks/useOpenShort";
 import { useToggleShortBookmark } from "@/modules/shorts/presentation/hooks/useToggleShortBookmark";
 import { PlayIcon } from "@/shared/presentation/components/ui/Icon";
 
@@ -12,12 +13,10 @@ import { PlayIcon } from "@/shared/presentation/components/ui/Icon";
  *
  * @interface FavoriteShortCardProps
  * @property {IShortVideoActivityEntity} activity - The short and its interaction metadata.
- * @property {() => void} onOpen - Opens the short (navigates to its detail page).
  * @property {"liked" | "saved" | "shared"} variant - Which favorites collection this tile belongs to.
  * @property {(shortId: string) => void} [onRemoved] - Called after an optimistic unbookmark, for the saved variant.
  */
 export interface FavoriteShortCardProps {
-    onOpen: () => void;
     onRemoved?: (shortId: string) => void;
     variant: "liked" | "saved" | "shared";
     activity: IShortVideoActivityEntity;
@@ -31,15 +30,12 @@ export interface FavoriteShortCardProps {
  * the saved variant adds the saved date and an optimistic unsave overlay; the shared
  * variant shows the caller's own share count and latest date; liked is title-only.
  */
-export function FavoriteShortCard({
-    activity,
-    onOpen,
-    variant,
-    onRemoved
-}: FavoriteShortCardProps) {
+export function FavoriteShortCard({ activity, variant, onRemoved }: FavoriteShortCardProps) {
     const { t } = useTranslation();
     const short = activity.shortVideo;
+    const openShort = useOpenShort();
     const { toggle } = useToggleShortBookmark(short.id, short.bookmarkCount, true);
+    const onOpen = () => openShort(short.slug);
 
     const remove = () => {
         toggle();
