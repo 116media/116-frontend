@@ -81,7 +81,7 @@ export function FavoriteCardMeta({
                 <span className="flex items-center gap-1">
                     <ShareIcon className="size-3.5" />
                     {t("favorites.activity.shareCount", { count: shareCount })}
-                    {shareChannel ? ` · ${shareChannel}` : null}
+                    {shareChannel ? `: ${shareChannel}` : null}
                 </span>
             )}
 
