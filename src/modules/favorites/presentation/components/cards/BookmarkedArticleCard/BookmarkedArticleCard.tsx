@@ -45,6 +45,7 @@ export function BookmarkedArticleCard({ bookmark }: BookmarkedArticleCardProps) 
                 <FavoriteCard.Meta
                     dateKind="bookmarked"
                     date={bookmark.bookmarkedAt}
+                    className="-mx-3 -mb-3 mt-1 flex flex-col gap-3 rounded-lg bg-accent/50 p-3"
                 />
             </FavoriteArticleContent>
         </FavoriteCard>
