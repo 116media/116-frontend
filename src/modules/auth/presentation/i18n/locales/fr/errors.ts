@@ -3,5 +3,8 @@
  */
 export const errors = {
     generic: "Une erreur s'est produite. Veuillez réessayer.",
-    network: "Erreur réseau. Vérifiez votre connexion et réessayez."
+    network: "Erreur réseau. Vérifiez votre connexion et réessayez.",
+    sessionUnavailable:
+        "Impossible de vérifier votre session. Vérifiez votre connexion et réessayez.",
+    retry: "Réessayer"
 } as const;
