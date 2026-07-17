@@ -24,7 +24,12 @@ export interface FavoriteCardActionsProps {
  */
 export function FavoriteCardActions({ children, className }: FavoriteCardActionsProps) {
     return (
-        <div className={cn("mt-auto flex flex-wrap gap-2 border-t pt-2", className)}>
+        <div
+            className={cn(
+                "mt-auto flex flex-wrap gap-2 border-foreground/5 border-t pt-2",
+                className
+            )}
+        >
             {children}
         </div>
     );
