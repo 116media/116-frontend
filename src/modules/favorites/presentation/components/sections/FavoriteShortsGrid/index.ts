@@ -1,0 +1,1 @@
+export { FavoriteShortsGrid } from "./FavoriteShortsGrid";
