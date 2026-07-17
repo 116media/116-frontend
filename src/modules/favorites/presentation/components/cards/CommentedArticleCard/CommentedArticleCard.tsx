@@ -48,27 +48,29 @@ export function CommentedArticleCard({ item, onViewComments }: CommentedArticleC
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
             />
             <FavoriteArticleContent article={article}>
-                <FavoriteCard.Comment
-                    body={item.latestComment.body}
-                    commentCount={item.commentCount}
-                    date={item.lastCommentedAt}
-                />
-                <FavoriteCard.Actions>
-                    <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={onViewComments}
-                    >
-                        {t("favorites.comments.viewComments")}
-                    </Button>
-                    <Button
-                        asChild
-                        size="sm"
-                        variant="ghost"
-                    >
-                        <Link href={href}>{t("favorites.comments.viewArticle")}</Link>
-                    </Button>
-                </FavoriteCard.Actions>
+                <div className="-mx-3 -mb-3 mt-1 flex flex-col gap-3 rounded-lg bg-accent/50 p-3">
+                    <FavoriteCard.Comment
+                        date={item.lastCommentedAt}
+                        body={item.latestComment.body}
+                        commentCount={item.commentCount}
+                    />
+                    <FavoriteCard.Actions className="flex justify-between pt-3">
+                        <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={onViewComments}
+                        >
+                            {t("favorites.comments.viewComments")}
+                        </Button>
+                        <Button
+                            asChild
+                            size="sm"
+                            variant="brand-outline"
+                        >
+                            <Link href={href}>{t("favorites.comments.viewArticle")}</Link>
+                        </Button>
+                    </FavoriteCard.Actions>
+                </div>
             </FavoriteArticleContent>
         </FavoriteCard>
     );
