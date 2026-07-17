@@ -1,0 +1,1 @@
+export { FeedError } from "./FeedError";
