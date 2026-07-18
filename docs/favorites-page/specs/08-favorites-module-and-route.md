@@ -1,22 +1,23 @@
 # 08 — Favorites Shell & Routes
 
-Create a presentation-only Favorites module composing public article/video/short hooks.
+Compose the private Favorites routes from the existing article, video, and shorts modules.
+Favorites is a route grouping, not a business capability, so it does not get a module.
 
 ## Files
 
 ```text
-app/(public)/favorites/layout.tsx
-app/(public)/favorites/page.tsx
-app/(public)/favorites/articles/page.tsx
-app/(public)/favorites/videos/page.tsx
-app/(public)/favorites/shorts/page.tsx
-src/modules/favorites/presentation/components/navigation/FavoritesSidebar/
-src/modules/favorites/presentation/components/navigation/FavoriteCollectionTabs/
-src/modules/favorites/presentation/components/sections/**
-src/modules/favorites/presentation/components/cards/{CommentedArticleCard,PlaylistCard}/
-src/modules/favorites/presentation/components/modals/MyArticleCommentsDrawer/
-src/modules/favorites/presentation/containers/{FavoriteArticlesContainer,FavoriteVideosContainer,FavoriteShortVideosContainer}/
-src/modules/favorites/presentation/{constants,i18n,utils}/
+app/(private)/favorites/layout.tsx
+app/(private)/favorites/page.tsx
+app/(private)/favorites/articles/page.tsx
+app/(private)/favorites/videos/page.tsx
+app/(private)/favorites/shorts/page.tsx
+src/modules/articles/presentation/{components,constants,containers,hooks}/
+src/modules/videos/presentation/{components,constants,containers,hooks,validation}/
+src/modules/shorts/presentation/{components,constants,containers,hooks}/
+src/shared/presentation/components/common/FavoriteCard/
+src/shared/presentation/layouts/FavoriteLayout/
+src/shared/presentation/constants/favorites.ts
+src/shared/presentation/i18n/locales/{en,fr}/favorites.ts
 ```
 
 ## Shell contract
@@ -28,11 +29,13 @@ import `SettingsSidebar` or settings constants; share primitives/tokens only.
 `/favorites` redirects to `/favorites/articles`. Each page sets private robots metadata and
 normalizes only its own `collection` values.
 
-## Tasks
+## Ownership rules
 
-- [ ] Add shell, guard/auth states, three route pages, redirect, and metadata.
-- [ ] Build the accessible three-link sidebar matching settings behavior.
-- [ ] Build route-scoped inner collection selectors (4/3/3).
-- [ ] Keep all data infrastructure in owner modules.
-- [ ] Verify server/client boundaries, responsive navigation, and private cache behavior.
-
+- Article favorites UI and orchestration belong to `articles`.
+- Playlist, rated-video, and shared-video UI and orchestration belong to `videos`.
+- Liked, saved, and shared short-video UI and orchestration belong to `shorts`.
+- Only content-agnostic presentation primitives belong to `shared`.
+- Domain models, use cases, repositories, adapters, and query hooks remain in their owning
+  content module. Do not add forwarding facades to a Favorites module.
+- Authentication is enforced once at the `(private)` route boundary; shared favorites
+  components remain presentational.
