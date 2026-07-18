@@ -1,4 +1,5 @@
 import { apiErrors } from "@/shared/presentation/i18n/locales/fr/apiErrors";
+import { favorites } from "@/shared/presentation/i18n/locales/fr/favorites";
 import { form } from "@/shared/presentation/i18n/locales/fr/form";
 import { general } from "@/shared/presentation/i18n/locales/fr/general";
 import { navigation } from "@/shared/presentation/i18n/locales/fr/navigation";
@@ -16,7 +17,8 @@ const fr = {
     navigation,
     form,
     validator,
-    apiErrors
+    apiErrors,
+    favorites
 } as const;
 
 export default fr;
