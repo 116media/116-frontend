@@ -1,6 +1,6 @@
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import type { Metadata } from "next";
-import { Merriweather, Outfit, Playfair_Display } from "next/font/google";
+import localFont from "next/font/local";
 import { authKeys } from "@/modules/auth/presentation/constants/authKeys";
 import { AuthModalProvider } from "@/modules/auth/presentation/context/AuthModalProvider";
 import { AuthProvider } from "@/modules/auth/presentation/context/AuthProvider";
@@ -14,21 +14,26 @@ import { ThemeProvider } from "@/shared/presentation/providers/ThemeProvider";
 import { getServerLanguage } from "@/shared/presentation/utils/language/language.server.utils";
 import "./globals.css";
 
-const outfit = Outfit({
-    subsets: ["latin"],
+const outfit = localFont({
+    src: "../public/fonts/outfit-latin-variable.woff2",
+    weight: "100 900",
+    style: "normal",
     variable: "--font-sans",
     display: "swap"
 });
 
-const playfair = Playfair_Display({
-    subsets: ["latin"],
+const playfair = localFont({
+    src: "../public/fonts/playfair-display-latin-variable.woff2",
+    weight: "400 900",
+    style: "normal",
     variable: "--font-serif",
     display: "swap"
 });
 
-const merriweather = Merriweather({
-    subsets: ["latin"],
-    weight: ["300", "400", "700"],
+const merriweather = localFont({
+    src: "../public/fonts/merriweather-latin-variable.woff2",
+    weight: "300 900",
+    style: "normal",
     variable: "--font-article",
     display: "swap"
 });
