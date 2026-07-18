@@ -11,17 +11,19 @@
 ## Likely frontend files
 
 ```text
-app/(public)/favorites/{layout,page}.tsx
-app/(public)/favorites/{articles,videos,shorts}/page.tsx
+app/(private)/favorites/{layout,page}.tsx
+app/(private)/favorites/{articles,videos,shorts}/page.tsx
 app/(public)/bookmarks/page.tsx
 src/shared/presentation/constants/{paths,userMenu}.ts
 src/shared/presentation/components/common/UserAccountControl/UserAccountControl.Menu.tsx
 src/modules/settings/presentation/i18n/locales/{en,fr}/nav.ts
 src/modules/{articles,videos,shorts}/{domain,application,infrastructure,presentation}/...
-src/modules/favorites/presentation/**
+src/shared/presentation/components/common/FavoriteCard/
+src/shared/presentation/layouts/FavoriteLayout/
 ```
 
-Generated client and locale files are expected. A Favorites application/infrastructure layer is not.
+Generated client and locale files are expected. There is intentionally no Favorites module:
+each content module owns its complete vertical slice, while the app routes compose those slices.
 
 ## Release gate
 
@@ -34,4 +36,3 @@ Generated client and locale files are expected. A Favorites application/infrastr
 - [ ] Bookmark/save date/removal, re-rating, and personal share-count flows pass.
 - [ ] Type check, format/lint, tests, en/fr, accessibility, responsive, and noindex checks pass.
 - [ ] Backend deploys before or with its consuming frontend; unavailable collections are gated.
-
