@@ -1,9 +1,8 @@
 import Image from "next/image";
 
 import type { IShortVideoEntity } from "@/modules/shorts/domain/entities/IShortVideoEntity";
-import { PlayIcon } from "@/shared/presentation/components/ui/Icon";
+import { ShortCardOverlay } from "@/modules/shorts/presentation/components/cards/ShortCard/ShortCard.Overlay";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
-import { formatCount } from "@/shared/presentation/utils/format/format.utils";
 
 /**
  * Props for the ShortCard component.
@@ -45,14 +44,10 @@ export function ShortCard({ short, onOpen, className }: ShortCardProps) {
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
                 />
             )}
-            <div className="absolute inset-0 bg-linear-to-t from-black/70 to-transparent" />
-            <div className="absolute inset-x-0 bottom-0 flex flex-col gap-1 p-2 text-left">
-                <span className="line-clamp-2 font-medium text-sm text-white">{short.title}</span>
-                <span className="flex items-center gap-1 text-white/80 text-xs">
-                    <PlayIcon className="size-3" />
-                    {formatCount(short.viewCount)}
-                </span>
-            </div>
+            <ShortCardOverlay
+                title={short.title}
+                viewCount={short.viewCount}
+            />
         </button>
     );
 }
