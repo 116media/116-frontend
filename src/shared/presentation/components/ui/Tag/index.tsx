@@ -1,7 +1,6 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import type * as React from "react";
 
-import { badgeVariants } from "@/shared/presentation/components/ui/Badge";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 const tagVariants = cva(
@@ -10,9 +9,9 @@ const tagVariants = cva(
         variants: {
             variant: {
                 default:
-                    "bg-background text-foreground hover:bg-primary hover:border-primary hover:text-primary-foreground dark:hover:bg-secondary dark:hover:border-secondary dark:hover:text-secondary-foreground",
+                    "border-border bg-background text-foreground hover:border-primary hover:bg-primary hover:text-primary-foreground dark:hover:border-secondary dark:hover:bg-secondary dark:hover:text-secondary-foreground",
                 outline:
-                    "bg-transparent text-foreground hover:bg-surface-raised hover:text-primary dark:hover:text-secondary",
+                    "border-border bg-transparent text-foreground hover:bg-surface-raised hover:text-primary dark:border-foreground/10 dark:hover:text-secondary",
                 primary:
                     "border-transparent bg-primary text-primary-foreground hover:bg-primary/80",
                 secondary:
@@ -81,7 +80,7 @@ export function Tag({
 }: TagProps) {
     return (
         <Comp
-            className={cn(badgeVariants(), tagVariants({ variant, size, shape }), className)}
+            className={cn(tagVariants({ variant, size, shape }), className)}
             {...(props as React.HTMLAttributes<HTMLElement>)}
         >
             {prefix && <span className="shrink-0">{prefix}</span>}
