@@ -39,7 +39,7 @@ export function MegaMenuShell({ tagsBasePath, popularTags, children }: MegaMenuS
 
     return (
         <div className="w-full">
-            <div className="mx-auto grid max-w-7xl grid-cols-[2fr_5fr] gap-0 px-4 sm:px-6 lg:grid-cols-[3fr_5fr_3fr] lg:px-8 xl:px-10">
+            <div className="mx-auto grid max-w-7xl grid-cols-[2fr_5fr] gap-0 px-4 sm:px-6 lg:grid-cols-[3fr_5fr_3fr] lg:px-8 xl:px-10 3xl:max-w-8xl">
                 {children}
 
                 {popularTags.length > 0 && (
