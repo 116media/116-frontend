@@ -40,8 +40,9 @@ interface ISocialShareButton {
  *
  * @description
  * The shared share affordance: Facebook, X, WhatsApp, and copy-link buttons in one
- * `ButtonGroup`. Network buttons prefer the native Web Share API and fall back to the
- * platform's intent URL; the solid brand backgrounds are the one brand-color exception.
+ * `ButtonGroup`. Each network button opens that platform's own compose page (intent URL)
+ * so the post preview is built from the target page's meta tags; the solid brand
+ * backgrounds are the one brand-color exception.
  */
 export function SocialShareGroup({
     url,
@@ -54,16 +55,8 @@ export function SocialShareGroup({
     platforms = DEFAULT_PLATFORMS,
     className
 }: SocialShareGroupProps) {
-    const shareTo = (platform: SharePlatform) => async () => {
-        if (typeof navigator !== "undefined" && navigator.share) {
-            try {
-                await navigator.share({ url, title });
-            } catch {
-                return;
-            }
-        } else {
-            window.open(buildShareUrl(platform, url, title), "_blank", "noopener");
-        }
+    const shareTo = (platform: SharePlatform) => () => {
+        window.open(buildShareUrl(platform, url, title), "_blank", "noopener");
         onShared?.(platform);
     };
 

@@ -7,6 +7,7 @@ import { ArticleDetailContainer } from "@/modules/articles/presentation/containe
 import { dummyArticleDetail } from "@/modules/articles/presentation/data/article-detail.dummy";
 import { articleJsonLd } from "@/modules/articles/presentation/utils/json-ld/article-json-ld.utils";
 import { createServerCradle } from "@/shared/infrastructure/server.cradle";
+import { htmlToPlainText } from "@/shared/presentation/utils/html/html.utils";
 
 /**
  * Props for the article detail route and its metadata.
@@ -63,7 +64,7 @@ export async function generateMetadata({ params }: ArticleDetailRouteProps): Pro
     if (!article) notFound();
 
     const title = article.metaTitle ?? article.title;
-    const description = article.metaDescription ?? article.headline;
+    const description = htmlToPlainText(article.metaDescription ?? article.headline);
     const canonical = `/articles/${article.slug}`;
     const images = article.coverImageUrl ? [article.coverImageUrl] : [];
 

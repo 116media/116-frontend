@@ -13255,25 +13255,28 @@ export class Api<
       }),
 
     /**
-     * @description Returns a cursor-paginated, seeded pseudo-random ("for you") feed of active short videos.
+     * @description Returns a cursor-paginated, seeded pseudo-random feed of active short videos.
      * The ordering is stable for a given cursor session, so paging never drifts or repeats items.
-     * \n
-     * **Pagination:**\n
-     * - Omit the cursor to start a fresh randomized session; the first page returns a `nextCursor`.\n
-     * - Pass the returned `nextCursor` to fetch the following page.\n
-     * - A null `nextCursor` means the feed is exhausted.\n
-     * \n
-     * **Authentication Requirements:**\n
-     * - No authentication required (public endpoint).\n
-     * - When authenticated, each item carries the caller's `isLiked` / `isBookmarked` flags.\n
-     * \n
-     * **Response Codes:**\n
-     * - Returns 200 OK with the feed page on success.\n
-     * - Returns 429 Too Many Requests if rate limit is exceeded.\n
+     * 
+     * **Pagination:**
+     * 
+     * - Omit the cursor to start a fresh randomized session; the first page returns a `nextCursor`.
+     * - Pass the returned `nextCursor` to fetch the following page.
+     * - A null `nextCursor` means the feed is exhausted.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - No authentication required (public endpoint).
+     * - When authenticated, each item carries the caller's `isLiked` / `isBookmarked` flags.
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with the feed page on success.
+     * - Returns 429 Too Many Requests if rate limit is exceeded.
      *
      * @tags public::shorts
      * @name GetShortsFeed
-     * @summary Get the for-you short videos feed
+     * @summary Get the randomized short videos feed
      * @request GET:/api/v1/public/shorts/feed
      * @secure
      * @response `200` `PublicGetShortsFeedResponse` OK

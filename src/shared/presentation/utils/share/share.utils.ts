@@ -1,3 +1,5 @@
+import { SITE_URL } from "@/shared/infrastructure/constants/common";
+
 /**
  * SharePlatform
  *
@@ -20,20 +22,21 @@ export type SharePlatform = "facebook" | "x" | "whatsapp";
  */
 export function resolveShareUrl(path: string): string {
     if (typeof window !== "undefined") return window.location.href;
-    return `${process.env.NEXT_PUBLIC_SITE_URL ?? ""}${path}`;
+    return `${SITE_URL}${path}`;
 }
 
 /**
  * buildShareUrl
  *
  * @description
- * Builds the share-intent URL for one network from an absolute page URL and title.
- * Facebook ignores custom text (it scrapes Open Graph); X and WhatsApp carry the
- * title as the message.
+ * Builds the share-intent URL for one network from an absolute page URL and title. Each
+ * network is prefilled with the title — Facebook via `quote`, X via `text`, WhatsApp
+ * inline with the URL — while the preview card itself is built by the target from the
+ * page's Open Graph tags.
  *
  * @param platform - The target network.
  * @param url - The absolute URL to share (for example `https://host/articles/{slug}`).
- * @param title - The page title, used as the share message where the network supports it.
+ * @param title - The page title, used as the prefilled share message.
  * @returns The fully-qualified share-intent URL to open in a new window.
  */
 export function buildShareUrl(platform: SharePlatform, url: string, title: string): string {
@@ -42,7 +45,7 @@ export function buildShareUrl(platform: SharePlatform, url: string, title: strin
 
     switch (platform) {
         case "facebook":
-            return `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
+            return `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedTitle}`;
         case "x":
             return `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`;
         case "whatsapp":

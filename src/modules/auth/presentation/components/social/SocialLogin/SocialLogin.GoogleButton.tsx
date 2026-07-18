@@ -42,7 +42,7 @@ interface GoogleUserInfo {
  *
  * @param props - See {@link SocialLoginButtonProps}.
  */
-export function SocialLoginGoogleButton({ onProfile, disabled }: SocialLoginButtonProps) {
+export function SocialLoginGoogleButton({ onProfile, disabled, loading }: SocialLoginButtonProps) {
     const { t } = useTranslation();
 
     const login = useGoogleLogin({
@@ -70,7 +70,8 @@ export function SocialLoginGoogleButton({ onProfile, disabled }: SocialLoginButt
             type="button"
             variant="outline"
             className="w-full"
-            loading={disabled}
+            disabled={disabled}
+            loading={loading}
             onClick={() => login()}
         >
             <GoogleIcon />

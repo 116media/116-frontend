@@ -13,13 +13,12 @@ import { useAuthModal } from "@/modules/auth/presentation/context/AuthModalProvi
 import { Button } from "@/shared/presentation/components/ui/Button";
 import {
     Dialog,
-    DialogClose,
     DialogContent,
     DialogDescription,
     DialogHeader,
     DialogTitle
 } from "@/shared/presentation/components/ui/Dialog";
-import { ArrowLeftIcon, XCircleIcon } from "@/shared/presentation/components/ui/Icon";
+import { ArrowLeftIcon } from "@/shared/presentation/components/ui/Icon";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
@@ -55,7 +54,10 @@ export function AuthModal() {
             open={isOpen}
             onOpenChange={(open) => !open && close()}
         >
-            <DialogContent aria-describedby="auth-desc">
+            <DialogContent
+                aria-describedby="auth-desc"
+                closeLabel={t("auth.common.close")}
+            >
                 <div
                     onAnimationEnd={(event) => {
                         if (event.animationName === "dialog-shake") setShaking(false);
@@ -65,13 +67,6 @@ export function AuthModal() {
                         shaking && "animate-dialog-shake"
                     )}
                 >
-                    <DialogClose
-                        className="absolute right-4 top-4 cursor-pointer rounded-full text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                        aria-label={t("auth.common.close")}
-                    >
-                        <XCircleIcon className="size-5" />
-                    </DialogClose>
-
                     <DialogHeader>
                         {canGoBack && (
                             <Button

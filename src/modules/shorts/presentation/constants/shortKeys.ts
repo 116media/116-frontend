@@ -1,6 +1,6 @@
 /**
  * Stable TanStack Query keys for the shorts feature. The feed key backs the
- * shared "for you" cursor feed (strip + player); `detail` keys a by-slug short
+ * shared randomized cursor feed (strip + player); `detail` keys a by-slug short
  * for a future deep-link route.
  */
 export const shortKeys = {
@@ -10,6 +10,6 @@ export const shortKeys = {
 };
 
 /**
- * Page size for the shorts "for you" feed (strip + player share one infinite query).
+ * Page size for the shorts randomized feed (strip + player share one infinite query).
  */
 export const SHORTS_PAGE_SIZE = 10;

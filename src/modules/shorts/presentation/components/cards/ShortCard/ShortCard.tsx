@@ -39,9 +39,9 @@ export function ShortCard({ short, onOpen, className }: ShortCardProps) {
             {short.thumbnailUrl && (
                 <Image
                     fill
-                    src={short.thumbnailUrl}
-                    alt={short.title}
                     sizes="160px"
+                    alt={short.title}
+                    src={short.thumbnailUrl}
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
                 />
             )}

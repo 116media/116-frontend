@@ -49,6 +49,7 @@
     --surface-raised: var(--primitive-neutral-50);
     --surface-hover: var(--primitive-neutral-200);
     --mega-menu: var(--primitive-neutral-50);
+    --mega-menu-cards: var(--primitive-neutral-100);
 
     /* Decorative */
     --sun: var(--primitive-yellow);
@@ -101,6 +102,7 @@
     --surface-raised: var(--primitive-neutral-800);
     --surface-hover: var(--primitive-neutral-700);
     --mega-menu: var(--primitive-neutral-800);
+    --mega-menu-cards: var(--primitive-neutral-900);
 
     /* Decorative */
     --sun: var(--primitive-yellow);
@@ -181,6 +183,7 @@
     --color-surface-raised: var(--surface-raised);
     --color-surface-hover: var(--surface-hover);
     --color-mega-menu: var(--mega-menu);
+    --color-mega-menu-cards: var(--mega-menu-cards);
 
     /* Decorative */
     --color-sun: var(--sun);

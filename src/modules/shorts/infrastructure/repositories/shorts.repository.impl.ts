@@ -25,12 +25,6 @@ export class ShortsRepositoryImpl implements IShortsRepositoryPort {
         this.api = client.api;
     }
 
-    /**
-     * Fetches one cursor page of the seeded "for you" feed.
-     *
-     * @param query - Cursor + page size.
-     * @returns {Promise<Result<IShortVideoFeedPage>>} The mapped feed page or a failure.
-     */
     async getShortsFeed(query: IShortsFeedQuery): Promise<Result<IShortVideoFeedPage>> {
         try {
             const response = await this.api.getShortsFeed({
@@ -43,12 +37,6 @@ export class ShortsRepositoryImpl implements IShortsRepositoryPort {
         }
     }
 
-    /**
-     * Fetches one short by slug.
-     *
-     * @param slug - The short's slug.
-     * @returns {Promise<Result<IShortVideoEntity>>} The mapped short or a failure.
-     */
     async getShortBySlug(slug: string): Promise<Result<IShortVideoEntity>> {
         try {
             const response = await this.api.getPublicShortBySlug(slug);
@@ -58,12 +46,6 @@ export class ShortsRepositoryImpl implements IShortsRepositoryPort {
         }
     }
 
-    /**
-     * Likes a short.
-     *
-     * @param shortId - The short to like.
-     * @returns {Promise<Result<boolean>>} The success flag or a failure.
-     */
     async likeShort(shortId: string): Promise<Result<boolean>> {
         try {
             const response = await this.api.publicLikeShortVideo(shortId);
@@ -73,12 +55,6 @@ export class ShortsRepositoryImpl implements IShortsRepositoryPort {
         }
     }
 
-    /**
-     * Removes a like from a short.
-     *
-     * @param shortId - The short to unlike.
-     * @returns {Promise<Result<boolean>>} The success flag or a failure.
-     */
     async unlikeShort(shortId: string): Promise<Result<boolean>> {
         try {
             const response = await this.api.publicUnlikeShortVideo(shortId);
@@ -88,12 +64,6 @@ export class ShortsRepositoryImpl implements IShortsRepositoryPort {
         }
     }
 
-    /**
-     * Bookmarks a short.
-     *
-     * @param shortId - The short to bookmark.
-     * @returns {Promise<Result<boolean>>} The success flag or a failure.
-     */
     async bookmarkShort(shortId: string): Promise<Result<boolean>> {
         try {
             const response = await this.api.publicBookmarkShortVideo(shortId);
@@ -103,12 +73,6 @@ export class ShortsRepositoryImpl implements IShortsRepositoryPort {
         }
     }
 
-    /**
-     * Removes a bookmark from a short.
-     *
-     * @param shortId - The short to unbookmark.
-     * @returns {Promise<Result<boolean>>} The success flag or a failure.
-     */
     async unbookmarkShort(shortId: string): Promise<Result<boolean>> {
         try {
             const response = await this.api.publicUnbookmarkShortVideo(shortId);
@@ -118,12 +82,6 @@ export class ShortsRepositoryImpl implements IShortsRepositoryPort {
         }
     }
 
-    /**
-     * Records a share event against a short.
-     *
-     * @param input - The short id and optional channel.
-     * @returns {Promise<Result<boolean>>} The success flag or a failure.
-     */
     async shareShort({ shortId, shareChannel }: IShareShortInput): Promise<Result<boolean>> {
         try {
             const response = await this.api.publicShareShortVideo(shortId, { shareChannel });
@@ -133,12 +91,6 @@ export class ShortsRepositoryImpl implements IShortsRepositoryPort {
         }
     }
 
-    /**
-     * Records a view event against a short (engagement-gated by the caller).
-     *
-     * @param shortId - The short viewed.
-     * @returns {Promise<Result<boolean>>} The success flag or a failure.
-     */
     async recordShortView(shortId: string): Promise<Result<boolean>> {
         try {
             const response = await this.api.publicRecordShortVideoView(shortId);

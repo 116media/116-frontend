@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 import { VideosPopularSidebarLoading } from "@/modules/videos/presentation/components/sections/VideosPopularSidebar/VideosPopularSidebar.Loading";
@@ -41,6 +42,10 @@ function ScoreboardColumnSkeleton() {
  */
 export function VideoDetailLoading() {
     const { t } = useTranslation();
+
+    useEffect(() => {
+        window.scrollTo({ top: 0 });
+    }, []);
 
     return (
         <div className="lg:grid lg:grid-cols-[minmax(0,1.8fr)_minmax(0,1fr)] lg:gap-6">

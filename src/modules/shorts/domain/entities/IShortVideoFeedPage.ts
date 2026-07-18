@@ -4,7 +4,7 @@ import type { IShortVideoEntity } from "@/modules/shorts/domain/entities/IShortV
  * IShortVideoFeedPage
  *
  * @description
- * One cursor-paginated page of the seeded "for you" shorts feed. `nextCursor`
+ * One cursor-paginated page of the seeded randomized shorts feed. `nextCursor`
  * carries the seed and keyset for the following page; a null cursor means the
  * feed is exhausted.
  *

@@ -26,6 +26,10 @@ export const articleDetail = {
         }
     },
     share: {
+        title: "Share this article",
+        subtitle: "Share this article on your social media",
+        linkLabel: "Article link",
+        copyAction: "Copy",
         facebook: "Share on Facebook",
         x: "Share on X",
         whatsapp: "Share on WhatsApp",

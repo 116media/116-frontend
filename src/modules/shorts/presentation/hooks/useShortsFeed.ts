@@ -19,7 +19,7 @@ const DUMMY_SHORTS_COUNT = 200;
  * useShortsFeed
  *
  * @description
- * Infinite query over the seeded "for you" shorts feed. Backs both the homepage
+ * Infinite query over the seeded randomized shorts feed. Backs both the homepage
  * strip and the player modal, so a like or share stays consistent across both
  * through the shared cache. An empty cursor starts a fresh randomized session;
  * each page carries the cursor for the next.

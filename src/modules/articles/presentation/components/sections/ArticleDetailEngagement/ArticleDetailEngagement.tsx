@@ -1,17 +1,20 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { type ReactNode, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import type { IArticleAuthor } from "@/modules/articles/domain/entities/IArticleSummaryEntity";
-import { useShareArticle } from "@/modules/articles/presentation/hooks/useShareArticle";
 import { useToggleArticleLike } from "@/modules/articles/presentation/hooks/useToggleArticleLike";
+import { ArticleShareNotification } from "@/modules/articles/presentation/utils/notification/articles.share.notification";
 import { useRequireAuth } from "@/modules/auth/presentation/hooks/useRequireAuth";
+import container from "@/shared/infrastructure/service.locator";
+import { ShareModal } from "@/shared/presentation/components/common/ShareModal";
 import { UserAvatar } from "@/shared/presentation/components/common/UserAvatar";
 import { Button } from "@/shared/presentation/components/ui/Button";
 import { HeartIcon, MessageSquareIcon, ShareIcon } from "@/shared/presentation/components/ui/Icon";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 import { formatCount } from "@/shared/presentation/utils/format/format.utils";
+import { resolveShareUrl } from "@/shared/presentation/utils/share/share.utils";
 
 /**
  * One engagement pill in the byline strip.
@@ -39,6 +42,7 @@ interface IEngagementAction {
  * @interface ArticleDetailEngagementProps
  * @property {string} articleId - The article the like mutation targets.
  * @property {string} slug - The article slug, used to build the share URL.
+ * @property {string} title - The article title, carried into the share message.
  * @property {IArticleAuthor} [author] - The byline author (avatar, name).
  * @property {number} likeCount - Baseline like count for the optimistic toggle.
  * @property {number} commentCount - Comment count shown on the comment pill.
@@ -48,6 +52,7 @@ interface IEngagementAction {
  */
 export interface ArticleDetailEngagementProps {
     slug: string;
+    title: string;
     isLiked: boolean;
     articleId: string;
     likeCount: number;
@@ -63,11 +68,12 @@ export interface ArticleDetailEngagementProps {
  * @description
  * Byline strip with the author and the like/comment/share count pills. Like reuses the
  * optimistic toggle hook gated behind `useRequireAuth`; comment invokes `onComment` to
- * reach the composer; share opens the native share sheet and records the share.
+ * reach the composer; share opens the shared {@link ShareModal} and records the share.
  */
 export function ArticleDetailEngagement({
     articleId,
     slug,
+    title,
     author,
     likeCount,
     commentCount,
@@ -77,8 +83,12 @@ export function ArticleDetailEngagement({
 }: ArticleDetailEngagementProps) {
     const { t } = useTranslation();
     const requireAuth = useRequireAuth();
-    const share = useShareArticle(articleId, slug);
+    const [shareOpen, setShareOpen] = useState(false);
     const like = useToggleArticleLike(articleId, likeCount, isLiked);
+
+    const recordShare = (channel: string) => {
+        container.cradle.shareArticleUseCase.execute({ articleId, shareChannel: channel });
+    };
 
     const actions: IEngagementAction[] = [
         {
@@ -105,7 +115,7 @@ export function ArticleDetailEngagement({
             icon: <ShareIcon className="size-5" />,
             label: t("articles.detail.share"),
             count: shareCount,
-            onClick: () => share()
+            onClick: () => setShareOpen(true)
         }
     ];
 
@@ -144,6 +154,26 @@ export function ArticleDetailEngagement({
                     </Button>
                 ))}
             </div>
+
+            <ShareModal
+                title={title}
+                open={shareOpen}
+                onShared={recordShare}
+                onOpenChange={setShareOpen}
+                heading={t("articles.share.title")}
+                subtitle={t("articles.share.subtitle")}
+                linkLabel={t("articles.share.linkLabel")}
+                copyAction={t("articles.share.copyAction")}
+                nativeShareLabel={t("articles.detail.share")}
+                url={resolveShareUrl(`/articles/${slug}`)}
+                copiedNotification={ArticleShareNotification.linkCopied(t)}
+                labels={{
+                    facebook: t("articles.share.facebook"),
+                    x: t("articles.share.x"),
+                    whatsapp: t("articles.share.whatsapp"),
+                    copy: t("articles.share.copy")
+                }}
+            />
         </div>
     );
 }

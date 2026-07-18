@@ -95,8 +95,8 @@ export function ArticlesMegaMenu({
 
     return (
         <MegaMenuShell
-            tagsBasePath={ARTICLES_PATH}
             popularTags={popularTags}
+            tagsBasePath={ARTICLES_PATH}
         >
             <MegaMenuShellCategories>
                 <ArticlesMegaMenuCategoryList categories={categories} />

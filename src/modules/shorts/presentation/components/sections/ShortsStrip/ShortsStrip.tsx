@@ -1,10 +1,6 @@
 import type { IShortVideoEntity } from "@/modules/shorts/domain/entities/IShortVideoEntity";
 import { ShortCard } from "@/modules/shorts/presentation/components/cards/ShortCard";
 
-/**
- * Maximum number of teaser tiles shown in the strip. The player still receives the
- * full feed, and a tile's index maps directly since the strip is a prefix.
- */
 const STRIP_TILE_LIMIT = 15;
 
 /**

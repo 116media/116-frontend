@@ -15,18 +15,47 @@ export interface ArticlesGridLoadingProps {
  * ArticlesGridCardSkeleton
  *
  * @description
- * A single card-shaped shimmer block matching the article card layout (16:9 media, meta,
- * title, and action lines), so replacing skeletons with real cards causes no layout shift.
- * Built from the shared Skeleton primitive so the shimmer idiom stays consistent.
+ * A single card-shaped shimmer mirroring {@link ArticleCard.Feed}: 16:9 media, the
+ * author/date byline row, the category tag + read-time meta row, a two-line title, a
+ * two-line headline, and the engagement bar — so swapping skeletons for real cards
+ * causes no layout shift. Built from the shared Skeleton primitive.
  */
 function ArticlesGridCardSkeleton() {
     return (
         <div className="overflow-hidden rounded-xl border bg-background">
             <Skeleton className="aspect-video rounded-none" />
-            <div className="flex flex-col gap-3 p-5">
-                <Skeleton className="h-3 w-1/2" />
-                <Skeleton className="h-5 w-4/5" />
-                <Skeleton className="h-4 w-full" />
+            <div className="p-4">
+                <div className="mb-3 flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2">
+                        <Skeleton className="size-8 rounded-full" />
+                        <Skeleton className="h-4 w-24" />
+                    </div>
+                    <Skeleton className="h-3 w-16" />
+                </div>
+
+                <div className="mb-4 flex flex-wrap items-center gap-3">
+                    <Skeleton className="h-6 w-20 rounded-md" />
+                    <Skeleton className="h-3 w-14" />
+                </div>
+
+                <div className="mb-3 flex flex-col gap-2">
+                    <Skeleton className="h-5 w-full" />
+                    <Skeleton className="h-5 w-3/4" />
+                </div>
+
+                <div className="mb-4 flex flex-col gap-2">
+                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-4 w-2/3" />
+                </div>
+
+                <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                        <Skeleton className="h-8 w-12 rounded-md" />
+                        <Skeleton className="h-8 w-12 rounded-md" />
+                        <Skeleton className="h-8 w-12 rounded-md" />
+                    </div>
+                    <Skeleton className="size-8 rounded-md" />
+                </div>
             </div>
         </div>
     );
