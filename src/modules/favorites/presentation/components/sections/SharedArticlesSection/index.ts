@@ -1,1 +1,0 @@
-export { SharedArticlesSection } from "./SharedArticlesSection";
