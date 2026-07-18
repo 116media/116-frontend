@@ -3,16 +3,16 @@
 ## Route tree
 
 ```text
-app/(public)/favorites/layout.tsx
-app/(public)/favorites/page.tsx                 -> redirect /favorites/articles
-app/(public)/favorites/articles/page.tsx
-app/(public)/favorites/videos/page.tsx
-app/(public)/favorites/shorts/page.tsx
+app/(private)/favorites/layout.tsx
+app/(private)/favorites/page.tsx                 -> redirect /favorites/articles
+app/(private)/favorites/articles/page.tsx
+app/(private)/favorites/videos/page.tsx
+app/(private)/favorites/shorts/page.tsx
 ```
 
-The layout mirrors `app/(public)/settings/layout.tsx`: a bordered responsive shell,
-`FavoritesSidebar`, and an authenticated content region. The parent public layout continues
-to supply the site header and page container.
+The layout uses the shared `FavoriteLayout` presentation frame. The parent `(private)` layout
+owns the authentication boundary, while the root layout supplies the site header and page
+container.
 
 ## Auth behavior
 
@@ -46,4 +46,3 @@ Sign out remains the final destructive row after a separator.
 
 `/bookmarks` redirects to `/favorites/articles?collection=bookmarked`. Replace the stale
 `/profile/bookmarks` constant and preserve saved external links.
-
