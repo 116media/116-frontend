@@ -4,8 +4,8 @@
 
 | Component | Responsibility |
 |---|---|
-| `FavoritesSidebar` | three pathname-backed content destinations |
-| `FavoriteCollectionTabs` | route-scoped inner collections, maximum four |
+| `FavoriteLayout.Sidebar` | three pathname-backed content destinations |
+| `FavoriteLayout.Tabs` | route-scoped inner collections, maximum four |
 | `FavoriteArticlesContainer` | article collection orchestration |
 | `FavoriteVideosContainer` | video/playlist collection orchestration |
 | `FavoriteShortVideosContainer` | short collection orchestration |
@@ -25,4 +25,3 @@
 - Reuse `VideoRatingModal` for re-rating.
 - Reuse `ConfirmDialog` and form/dialog primitives for delete/rename actions.
 - Cards remain presentational; route/section containers own collection queries.
-
