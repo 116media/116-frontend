@@ -1,1 +1,0 @@
-export { FavoritesSidebar } from "./FavoritesSidebar";
