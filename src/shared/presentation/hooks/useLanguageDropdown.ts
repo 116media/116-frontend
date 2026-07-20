@@ -1,6 +1,7 @@
 "use client";
 
 import dayjs from "dayjs";
+import { useRouter } from "next/navigation";
 import { useCallback, useMemo, useSyncExternalStore } from "react";
 import { LANGUAGE_LIST, USER_LANG } from "@/shared/presentation/constants/languages";
 import { i18n } from "@/shared/presentation/i18n/config";
@@ -21,11 +22,15 @@ function subscribeToLanguage(callback: () => void) {
  * @description
  * Current-language resolution and update logic for the language dropdown. Uses
  * useSyncExternalStore to avoid hydration mismatches; updates persist the choice,
- * switch i18next and dayjs, and dispatch a StorageEvent for subscribers.
+ * switch i18next and dayjs, dispatch a StorageEvent for subscribers, and refresh the
+ * current route so server-rendered, language-dependent output (page `<title>`, any
+ * server-fetched content) picks up the new language immediately.
  *
  * @returns currentCode, currentLanguage, updateLanguage
  */
 export function useLanguageDropdown() {
+    const router = useRouter();
+
     const currentCode = useSyncExternalStore(
         subscribeToLanguage,
         () => getClientLanguage(),
@@ -48,8 +53,9 @@ export function useLanguageDropdown() {
             dayjs.locale(code);
 
             window.dispatchEvent(new StorageEvent("storage", { key: USER_LANG, newValue: code }));
+            router.refresh();
         },
-        [currentCode]
+        [currentCode, router]
     );
 
     return { currentCode, currentLanguage, updateLanguage };
