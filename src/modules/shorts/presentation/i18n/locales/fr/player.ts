@@ -6,6 +6,7 @@
  * `t("shorts.player.<key>")`. Must hold the exact same keys as the English mirror.
  */
 export const player = {
+    notFound: "Réel introuvable",
     close: "Fermer",
     previous: "Réel précédent",
     next: "Réel suivant",
