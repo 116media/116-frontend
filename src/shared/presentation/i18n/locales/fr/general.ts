@@ -9,7 +9,6 @@ export const general = {
     featured: "À la une",
     viewAll: "Voir tout",
     popularTags: "Tags populaires",
-    metaTitleTemplate: "{{page}} | 116",
     metaTitleDefault: "116 - Musique & Culture Hip-Hop",
     metaDescription: "Articles, vidéos et paroles de la culture hip-hop en RDC et au-delà."
 } as const;
