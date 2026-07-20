@@ -7,7 +7,7 @@
  * Must hold the exact same keys as the French mirror.
  */
 export const browse = {
-    title: "Explore the collection",
+    title: "Explore Video Collections",
     filters: {
         all: "All",
         searchPlaceholder: "Search videos…",
