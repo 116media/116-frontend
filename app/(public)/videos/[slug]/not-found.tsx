@@ -1,4 +1,20 @@
+import type { Metadata } from "next";
 import { VideoDetailNotFound } from "@/modules/videos/presentation/components/pages/VideoDetail/VideoDetail.NotFound";
+import { getServerTranslation } from "@/shared/presentation/utils/i18n/i18n.server.utils";
+
+/**
+ * generateMetadata
+ *
+ * @description
+ * Sets the not-found boundary's title from the active server language, reusing the same
+ * string rendered as the empty-state heading.
+ *
+ * @returns The route metadata for the current request's language.
+ */
+export async function generateMetadata(): Promise<Metadata> {
+    const { t } = await getServerTranslation();
+    return { title: t("videos.detail.notFound.title") };
+}
 
 /**
  * NotFound
