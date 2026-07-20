@@ -1,7 +1,9 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import { ArticlePromotionFeedLoading } from "@/modules/articles/presentation/components/sections/ArticlePromotionFeed/ArticlePromotionFeed.Loading";
 import { ArticlePromotionFeedContainer } from "@/modules/articles/presentation/containers/ArticlePromotionFeedContainer";
 import { ArticlesFeedContainer } from "@/modules/articles/presentation/containers/ArticlesFeedContainer";
+import { getServerTranslation } from "@/shared/presentation/utils/i18n/i18n.server.utils";
 
 /**
  * Props for the articles listing route.
@@ -26,6 +28,19 @@ interface ArticlesPageProps {
  */
 function firstParam(value: string | string[] | undefined): string | undefined {
     return Array.isArray(value) ? value[0] : value;
+}
+
+/**
+ * generateMetadata
+ *
+ * @description
+ * Sets the articles listing's title from the active server language.
+ *
+ * @returns The route metadata for the current request's language.
+ */
+export async function generateMetadata(): Promise<Metadata> {
+    const { t } = await getServerTranslation();
+    return { title: t("articles.pageTitle") };
 }
 
 /**
