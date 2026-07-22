@@ -17,15 +17,15 @@ import {
     DropdownMenuTrigger
 } from "@/shared/presentation/components/ui/DropdownMenu";
 import { LogOutIcon } from "@/shared/presentation/components/ui/Icon";
-import { USER_MENU_ITEMS } from "@/shared/presentation/constants/userMenu";
+import { USER_MENU_GROUPS } from "@/shared/presentation/constants/userMenu";
 import type { UserAccountControlMenuProps } from "./types";
 
 /**
  * UserAccountControlMenu
  *
  * @description
- * The authenticated state: an avatar dropdown with the {@link USER_MENU_ITEMS}
- * entries and a confirm-gated sign-out wired to `useLogout`.
+ * The authenticated state: an avatar dropdown with the {@link USER_MENU_GROUPS}
+ * groups and a confirm-gated sign-out wired to `useLogout`.
  */
 export function UserAccountControlMenu({ user }: UserAccountControlMenuProps) {
     const { t } = useTranslation();
@@ -78,16 +78,20 @@ export function UserAccountControlMenu({ user }: UserAccountControlMenuProps) {
 
                     <DropdownMenuSeparator />
 
-                    <DropdownMenuLabel>{t("settings.menu.group")}</DropdownMenuLabel>
-                    {USER_MENU_ITEMS.map(({ key, labelKey, path, Icon }) => (
-                        <DropdownMenuItem
-                            key={key}
-                            className="p-2"
-                            onSelect={() => router.push(path)}
-                        >
-                            <Icon className="size-4" />
-                            {t(labelKey)}
-                        </DropdownMenuItem>
+                    {USER_MENU_GROUPS.map((group) => (
+                        <div key={group.key}>
+                            <DropdownMenuLabel>{t(group.labelKey)}</DropdownMenuLabel>
+                            {group.items.map(({ key, labelKey, path, Icon }) => (
+                                <DropdownMenuItem
+                                    key={key}
+                                    className="p-2"
+                                    onSelect={() => router.push(path)}
+                                >
+                                    <Icon className="size-5" />
+                                    {t(labelKey)}
+                                </DropdownMenuItem>
+                            ))}
+                        </div>
                     ))}
 
                     <DropdownMenuSeparator className="mx-0! my-2" />
@@ -96,7 +100,7 @@ export function UserAccountControlMenu({ user }: UserAccountControlMenuProps) {
                         onSelect={() => setConfirmOpen(true)}
                         className="py-2 text-destructive focus:text-destructive"
                     >
-                        <LogOutIcon className="size-4" />
+                        <LogOutIcon className="size-5" />
                         {t("auth.session.signOut")}
                     </DropdownMenuItem>
                 </DropdownMenuContent>

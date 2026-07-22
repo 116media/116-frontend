@@ -1,3 +1,5 @@
+import type { IArticleActivityPage } from "@/modules/articles/domain/entities/IArticleActivityEntity";
+import type { IArticleBookmarkPage } from "@/modules/articles/domain/entities/IArticleBookmarkEntity";
 import type { IArticleCategoryEntity } from "@/modules/articles/domain/entities/IArticleCategoryEntity";
 import type { IArticleCommentEntity } from "@/modules/articles/domain/entities/IArticleCommentEntity";
 import type { IArticleCommentPage } from "@/modules/articles/domain/entities/IArticleCommentPage";
@@ -6,6 +8,8 @@ import type { IArticlePage } from "@/modules/articles/domain/entities/IArticlePa
 import type { IArticlePromotionFeedEntity } from "@/modules/articles/domain/entities/IArticlePromotionFeedEntity";
 import type { IArticleSummaryEntity } from "@/modules/articles/domain/entities/IArticleSummaryEntity";
 import type { IArticleTagEntity } from "@/modules/articles/domain/entities/IArticleTagEntity";
+import type { ICommentedArticlePage } from "@/modules/articles/domain/entities/ICommentedArticleEntity";
+import type { IMyArticleCommentsPage } from "@/modules/articles/domain/entities/IMyArticleCommentsPage";
 import type { Result } from "@/shared/domain/results/result";
 
 /**
@@ -129,6 +133,64 @@ export interface IDeleteArticleCommentInput {
  * @property {number} pageSize - Items per page
  */
 export interface IMyArticleBookmarksQuery {
+    pageIndex: number;
+    pageSize: number;
+}
+
+/**
+ * Query for a page of the articles the authenticated user has commented on. Mirrors
+ * GET /api/v1/public/articles/commented.
+ *
+ * @interface IOwnCommentedArticlesQuery
+ *
+ * @property {number} pageIndex - Zero-based page number
+ * @property {number} pageSize - Items per page
+ */
+export interface IOwnCommentedArticlesQuery {
+    pageIndex: number;
+    pageSize: number;
+}
+
+/**
+ * Query for a page of the articles the authenticated user has liked. Mirrors
+ * GET /api/v1/public/articles/liked.
+ *
+ * @interface IOwnLikedArticlesQuery
+ *
+ * @property {number} pageIndex - Zero-based page number
+ * @property {number} pageSize - Items per page
+ */
+export interface IOwnLikedArticlesQuery {
+    pageIndex: number;
+    pageSize: number;
+}
+
+/**
+ * Query for a page of the articles the authenticated user has shared. Mirrors
+ * GET /api/v1/public/articles/shared.
+ *
+ * @interface IOwnSharedArticlesQuery
+ *
+ * @property {number} pageIndex - Zero-based page number
+ * @property {number} pageSize - Items per page
+ */
+export interface IOwnSharedArticlesQuery {
+    pageIndex: number;
+    pageSize: number;
+}
+
+/**
+ * Query for a page of the authenticated user's own comments on one article. Mirrors
+ * GET /api/v1/public/articles/{id}/comments/me.
+ *
+ * @interface IOwnArticleCommentsQuery
+ *
+ * @property {string} articleId - The article whose own-comments to page through (UUID)
+ * @property {number} pageIndex - Zero-based page number
+ * @property {number} pageSize - Items per page
+ */
+export interface IOwnArticleCommentsQuery {
+    articleId: string;
     pageIndex: number;
     pageSize: number;
 }
@@ -322,9 +384,48 @@ export interface IArticlesRepositoryPort {
      * Fetches one page of the authenticated user's bookmarked articles, newest first.
      *
      * @param query - Paging
-     * @returns `ok(IArticlePage)` on success, `err(Failure)` on failure
+     * @returns `ok(IArticleBookmarkPage)` on success, `err(Failure)` on failure
      */
-    getMyArticleBookmarks(query: IMyArticleBookmarksQuery): Promise<Result<IArticlePage>>;
+    getOwnArticleBookmarks(query: IMyArticleBookmarksQuery): Promise<Result<IArticleBookmarkPage>>;
+
+    /**
+     * Fetches one page of the articles the authenticated user has commented on, grouped
+     * per article with the latest comment and total count, newest activity first.
+     *
+     * @param query - Paging
+     * @returns `ok(ICommentedArticlePage)` on success, `err(Failure)` on failure
+     */
+    getOwnCommentedArticles(
+        query: IOwnCommentedArticlesQuery
+    ): Promise<Result<ICommentedArticlePage>>;
+
+    /**
+     * Fetches one page of the articles the authenticated user has liked, newest like first.
+     *
+     * @param query - Paging
+     * @returns `ok(IArticleActivityPage)` on success, `err(Failure)` on failure
+     */
+    getOwnLikedArticles(query: IOwnLikedArticlesQuery): Promise<Result<IArticleActivityPage>>;
+
+    /**
+     * Fetches one page of the articles the authenticated user has shared, newest share
+     * first, each carrying the most recent share channel.
+     *
+     * @param query - Paging
+     * @returns `ok(IArticleActivityPage)` on success, `err(Failure)` on failure
+     */
+    getOwnSharedArticles(query: IOwnSharedArticlesQuery): Promise<Result<IArticleActivityPage>>;
+
+    /**
+     * Fetches one page of the authenticated user's own comments on a single article,
+     * newest first.
+     *
+     * @param query - Article id plus paging
+     * @returns `ok(IMyArticleCommentsPage)` on success, `err(Failure)` on failure
+     */
+    getOwnCommentsForArticle(
+        query: IOwnArticleCommentsQuery
+    ): Promise<Result<IMyArticleCommentsPage>>;
 
     /**
      * Fetches the most popular published articles, ranked server-side by weighted

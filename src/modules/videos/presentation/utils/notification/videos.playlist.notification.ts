@@ -45,5 +45,71 @@ export const PlaylistNotification = {
         type: "error",
         title: t("videos.detail.playlist.error.title"),
         description: t("videos.detail.playlist.error.description")
+    }),
+
+    /**
+     * Success toast shown after a playlist is renamed from the favorites view.
+     *
+     * @param t - The i18next translation function bound to the active locale.
+     * @returns The playlist-renamed notification config.
+     */
+    renamed: (t: TFunction): INotificationConfig => ({
+        type: "success",
+        title: t("videos.favorites.playlist.renamed.title")
+    }),
+
+    /**
+     * Error toast shown when renaming a playlist fails.
+     *
+     * @param t - The i18next translation function bound to the active locale.
+     * @returns The rename-failed notification config.
+     */
+    renameFailed: (t: TFunction): INotificationConfig => ({
+        type: "error",
+        title: t("videos.favorites.playlist.renameError.title")
+    }),
+
+    /**
+     * Success toast shown after a playlist is deleted from the favorites view.
+     *
+     * @param t - The i18next translation function bound to the active locale.
+     * @returns The playlist-deleted notification config.
+     */
+    deleted: (t: TFunction): INotificationConfig => ({
+        type: "success",
+        title: t("videos.favorites.playlist.deleted.title")
+    }),
+
+    /**
+     * Error toast shown when deleting a playlist fails.
+     *
+     * @param t - The i18next translation function bound to the active locale.
+     * @returns The delete-failed notification config.
+     */
+    deleteFailed: (t: TFunction): INotificationConfig => ({
+        type: "error",
+        title: t("videos.favorites.playlist.deleteError.title")
+    }),
+
+    /**
+     * Success toast shown after a video is removed from a playlist.
+     *
+     * @param t - The i18next translation function bound to the active locale.
+     * @returns The video-removed notification config.
+     */
+    videoRemoved: (t: TFunction): INotificationConfig => ({
+        type: "success",
+        title: t("videos.favorites.playlist.videoRemoved.title")
+    }),
+
+    /**
+     * Error toast shown when removing a video from a playlist fails.
+     *
+     * @param t - The i18next translation function bound to the active locale.
+     * @returns The remove-failed notification config.
+     */
+    removeFailed: (t: TFunction): INotificationConfig => ({
+        type: "error",
+        title: t("videos.favorites.playlist.removeError.title")
     })
 } as const;

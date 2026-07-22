@@ -35,13 +35,24 @@ export const videoKeys = {
     similar: (videoId: string) => [...videoKeys.all, "similar", videoId] as const,
     popular: (videoId: string) => [...videoKeys.all, "popular", videoId] as const,
     youtubeStats: (youtubeId: string) => [...videoKeys.all, "youtube", youtubeId] as const,
-    myPlaylists: ["videos", "playlists", "mine"] as const
+    myPlaylists: ["videos", "playlists", "mine"] as const,
+    favorites: {
+        rated: ["videos", "favorites", "rated"] as const,
+        shared: ["videos", "favorites", "shared"] as const,
+        playlists: ["videos", "favorites", "playlists"] as const,
+        playlist: (id: string) => ["videos", "favorites", "playlists", id] as const
+    }
 };
 
 /**
  * Page size for the videos browse feed grid.
  */
 export const VIDEOS_PAGE_SIZE = 12;
+
+/**
+ * Page size for the favorites rated/shared video grids.
+ */
+export const FAVORITES_VIDEOS_PAGE_SIZE = 12;
 
 /**
  * Window size for the shows page grid — how many show tiles each scroll

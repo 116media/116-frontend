@@ -7,9 +7,15 @@ import type {
     IDeleteArticleCommentInput,
     IEditArticleCommentInput,
     IMyArticleBookmarksQuery,
+    IOwnArticleCommentsQuery,
+    IOwnCommentedArticlesQuery,
+    IOwnLikedArticlesQuery,
+    IOwnSharedArticlesQuery,
     IPopularArticlesQuery,
     IPublishedArticlesQuery
 } from "@/modules/articles/application/repositories/articles.repository.port";
+import type { IArticleActivityPage } from "@/modules/articles/domain/entities/IArticleActivityEntity";
+import type { IArticleBookmarkPage } from "@/modules/articles/domain/entities/IArticleBookmarkEntity";
 import type { IArticleCategoryEntity } from "@/modules/articles/domain/entities/IArticleCategoryEntity";
 import type { IArticleCommentEntity } from "@/modules/articles/domain/entities/IArticleCommentEntity";
 import type { IArticleCommentPage } from "@/modules/articles/domain/entities/IArticleCommentPage";
@@ -18,6 +24,8 @@ import type { IArticlePage } from "@/modules/articles/domain/entities/IArticlePa
 import type { IArticlePromotionFeedEntity } from "@/modules/articles/domain/entities/IArticlePromotionFeedEntity";
 import type { IArticleSummaryEntity } from "@/modules/articles/domain/entities/IArticleSummaryEntity";
 import type { IArticleTagEntity } from "@/modules/articles/domain/entities/IArticleTagEntity";
+import type { ICommentedArticlePage } from "@/modules/articles/domain/entities/ICommentedArticleEntity";
+import type { IMyArticleCommentsPage } from "@/modules/articles/domain/entities/IMyArticleCommentsPage";
 import { ArticlesMapper } from "@/modules/articles/infrastructure/mappers/articles.mapper";
 import {
     ALL_TAGS_LIMIT,
@@ -266,13 +274,71 @@ export class ArticlesRepositoryImpl implements IArticlesRepositoryPort {
         }
     }
 
-    async getMyArticleBookmarks(query: IMyArticleBookmarksQuery): Promise<Result<IArticlePage>> {
+    async getOwnArticleBookmarks(
+        query: IMyArticleBookmarksQuery
+    ): Promise<Result<IArticleBookmarkPage>> {
         try {
-            const response = await this.api.publicGetMyArticleBookmarks({
+            const response = await this.api.publicGetOwnArticleBookmarks({
                 pageIndex: query.pageIndex,
                 pageSize: query.pageSize
             });
-            return ok(ArticlesMapper.articlePageFromDto(response.data));
+            return ok(ArticlesMapper.articleBookmarkPageFromDto(response.data));
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async getOwnCommentedArticles(
+        query: IOwnCommentedArticlesQuery
+    ): Promise<Result<ICommentedArticlePage>> {
+        try {
+            const response = await this.api.publicGetOwnCommentedArticles({
+                pageIndex: query.pageIndex,
+                pageSize: query.pageSize
+            });
+            return ok(ArticlesMapper.commentedArticlePageFromDto(response.data));
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async getOwnLikedArticles(
+        query: IOwnLikedArticlesQuery
+    ): Promise<Result<IArticleActivityPage>> {
+        try {
+            const response = await this.api.publicGetOwnLikedArticles({
+                pageIndex: query.pageIndex,
+                pageSize: query.pageSize
+            });
+            return ok(ArticlesMapper.articleActivityPageFromDto(response.data));
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async getOwnSharedArticles(
+        query: IOwnSharedArticlesQuery
+    ): Promise<Result<IArticleActivityPage>> {
+        try {
+            const response = await this.api.publicGetOwnSharedArticles({
+                pageIndex: query.pageIndex,
+                pageSize: query.pageSize
+            });
+            return ok(ArticlesMapper.articleActivityPageFromDto(response.data));
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async getOwnCommentsForArticle(
+        query: IOwnArticleCommentsQuery
+    ): Promise<Result<IMyArticleCommentsPage>> {
+        try {
+            const response = await this.api.publicGetOwnCommentsForArticle(query.articleId, {
+                pageIndex: query.pageIndex,
+                pageSize: query.pageSize
+            });
+            return ok(ArticlesMapper.myArticleCommentsPageFromDto(response.data));
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }

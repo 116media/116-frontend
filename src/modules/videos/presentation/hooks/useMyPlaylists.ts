@@ -24,7 +24,7 @@ export function useMyPlaylists(enabled: boolean) {
         enabled,
         queryFn: async () => {
             const result = await container.cradle.getMyPlaylistsUseCase.execute();
-            return result.ok ? result.value : dummyPlaylists();
+            return result.ok && result.value.length > 0 ? result.value : dummyPlaylists();
         }
     });
 }

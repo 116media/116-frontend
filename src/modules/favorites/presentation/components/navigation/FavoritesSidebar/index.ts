@@ -1,0 +1,1 @@
+export { FavoritesSidebar } from "./FavoritesSidebar";

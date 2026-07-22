@@ -2,6 +2,9 @@ import type { AwilixContainer } from "awilix";
 import { asClass } from "awilix";
 
 import { BookmarkShortUseCase } from "@/modules/shorts/application/usecases/bookmarkshort.usecase";
+import { GetOwnLikedShortsUseCase } from "@/modules/shorts/application/usecases/getownlikedshorts.usecase";
+import { GetOwnSavedShortsUseCase } from "@/modules/shorts/application/usecases/getownsavedshorts.usecase";
+import { GetOwnSharedShortsUseCase } from "@/modules/shorts/application/usecases/getownsharedshorts.usecase";
 import { GetShortBySlugUseCase } from "@/modules/shorts/application/usecases/getshortbyslug.usecase";
 import { GetShortsFeedUseCase } from "@/modules/shorts/application/usecases/getshortsfeed.usecase";
 import { LikeShortUseCase } from "@/modules/shorts/application/usecases/likeshort.usecase";
@@ -28,6 +31,11 @@ export function registerShortsDependencies(container: AwilixContainer): void {
         // Queries
         getShortsFeedUseCase: asClass(GetShortsFeedUseCase).transient(),
         getShortBySlugUseCase: asClass(GetShortBySlugUseCase).transient(),
+
+        // Favorites
+        getOwnLikedShortsUseCase: asClass(GetOwnLikedShortsUseCase).transient(),
+        getOwnSavedShortsUseCase: asClass(GetOwnSavedShortsUseCase).transient(),
+        getOwnSharedShortsUseCase: asClass(GetOwnSharedShortsUseCase).transient(),
 
         // Interactions
         likeShortUseCase: asClass(LikeShortUseCase).transient(),

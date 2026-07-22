@@ -33,7 +33,13 @@ export interface VideoShareModalProps {
  * the video share copy, and the share-recording hook (which optimistically bumps the
  * cached `shareCount`).
  */
-export function VideoShareModal({ open, onOpenChange, videoId, slug, title }: VideoShareModalProps) {
+export function VideoShareModal({
+    open,
+    onOpenChange,
+    videoId,
+    slug,
+    title
+}: VideoShareModalProps) {
     const { t } = useTranslation();
     const recordShare = useShareVideo(videoId, slug);
 

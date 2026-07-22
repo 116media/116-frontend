@@ -12,7 +12,11 @@ import { GetArticleCommentsUseCase } from "@/modules/articles/application/usecas
 import { GetArticlePopularTagsUseCase } from "@/modules/articles/application/usecases/getarticlepopulartags.usecase";
 import { GetArticlePromotionFeedUseCase } from "@/modules/articles/application/usecases/getarticlepromotionfeed.usecase";
 import { GetCommentRepliesUseCase } from "@/modules/articles/application/usecases/getcommentreplies.usecase";
-import { GetMyArticleBookmarksUseCase } from "@/modules/articles/application/usecases/getmyarticlebookmarks.usecase";
+import { GetOwnArticleBookmarksUseCase } from "@/modules/articles/application/usecases/getownarticlebookmarks.usecase";
+import { GetOwnCommentedArticlesUseCase } from "@/modules/articles/application/usecases/getowncommentedarticles.usecase";
+import { GetOwnCommentsForArticleUseCase } from "@/modules/articles/application/usecases/getowncommentsforarticle.usecase";
+import { GetOwnLikedArticlesUseCase } from "@/modules/articles/application/usecases/getownlikedarticles.usecase";
+import { GetOwnSharedArticlesUseCase } from "@/modules/articles/application/usecases/getownsharedarticles.usecase";
 import { GetPopularArticlesUseCase } from "@/modules/articles/application/usecases/getpopulararticles.usecase";
 import { GetPromotedArticlesUseCase } from "@/modules/articles/application/usecases/getpromotedarticles.usecase";
 import { GetPublishedArticlesUseCase } from "@/modules/articles/application/usecases/getpublishedarticles.usecase";
@@ -54,7 +58,11 @@ export function registerArticlesDependencies(container: AwilixContainer): void {
         unlikeArticleUseCase: asClass(UnlikeArticleUseCase).transient(),
         bookmarkArticleUseCase: asClass(BookmarkArticleUseCase).transient(),
         unbookmarkArticleUseCase: asClass(UnbookmarkArticleUseCase).transient(),
-        getMyArticleBookmarksUseCase: asClass(GetMyArticleBookmarksUseCase).transient(),
+        getOwnArticleBookmarksUseCase: asClass(GetOwnArticleBookmarksUseCase).transient(),
+        getOwnCommentedArticlesUseCase: asClass(GetOwnCommentedArticlesUseCase).transient(),
+        getOwnLikedArticlesUseCase: asClass(GetOwnLikedArticlesUseCase).transient(),
+        getOwnSharedArticlesUseCase: asClass(GetOwnSharedArticlesUseCase).transient(),
+        getOwnCommentsForArticleUseCase: asClass(GetOwnCommentsForArticleUseCase).transient(),
         shareArticleUseCase: asClass(ShareArticleUseCase).transient(),
         addArticleCommentUseCase: asClass(AddArticleCommentUseCase).transient(),
         getCommentRepliesUseCase: asClass(GetCommentRepliesUseCase).transient(),

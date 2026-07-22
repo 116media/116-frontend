@@ -14,7 +14,10 @@ const SHIMMER_TILE_COUNT = 8;
  */
 export function ShortsFeedSectionContainerLoading() {
     return (
-        <section className="flex flex-col gap-3" aria-hidden>
+        <section
+            className="flex flex-col gap-3"
+            aria-hidden
+        >
             <header>
                 <Skeleton className="h-5 w-24" />
             </header>

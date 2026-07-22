@@ -1,8 +1,10 @@
 import type {
     IShareShortInput,
     IShortsFeedQuery,
-    IShortsRepositoryPort
+    IShortsRepositoryPort,
+    IShortVideoActivityQuery
 } from "@/modules/shorts/application/repositories/shorts.repository.port";
+import type { IShortVideoActivityPage } from "@/modules/shorts/domain/entities/IShortVideoActivityPage";
 import type { IShortVideoEntity } from "@/modules/shorts/domain/entities/IShortVideoEntity";
 import type { IShortVideoFeedPage } from "@/modules/shorts/domain/entities/IShortVideoFeedPage";
 import { ShortsMapper } from "@/modules/shorts/infrastructure/mappers/shorts.mapper";
@@ -95,6 +97,48 @@ export class ShortsRepositoryImpl implements IShortsRepositoryPort {
         try {
             const response = await this.api.publicRecordShortVideoView(shortId);
             return ok(response.data.isSuccess);
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async getOwnLikedShorts(
+        query: IShortVideoActivityQuery
+    ): Promise<Result<IShortVideoActivityPage>> {
+        try {
+            const response = await this.api.publicGetOwnLikedShortVideos({
+                pageIndex: query.pageIndex,
+                pageSize: query.pageSize
+            });
+            return ok(ShortsMapper.shortVideoActivityPageFromDto(response.data));
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async getOwnSavedShorts(
+        query: IShortVideoActivityQuery
+    ): Promise<Result<IShortVideoActivityPage>> {
+        try {
+            const response = await this.api.publicGetOwnBookmarkedShortVideos({
+                pageIndex: query.pageIndex,
+                pageSize: query.pageSize
+            });
+            return ok(ShortsMapper.shortVideoActivityPageFromDto(response.data));
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
+    }
+
+    async getOwnSharedShorts(
+        query: IShortVideoActivityQuery
+    ): Promise<Result<IShortVideoActivityPage>> {
+        try {
+            const response = await this.api.publicGetOwnSharedShortVideos({
+                pageIndex: query.pageIndex,
+                pageSize: query.pageSize
+            });
+            return ok(ShortsMapper.shortVideoActivityPageFromDto(response.data));
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }

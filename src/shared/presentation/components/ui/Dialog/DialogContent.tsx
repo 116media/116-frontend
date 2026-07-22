@@ -44,33 +44,41 @@ export const DialogContent = forwardRef<
     DialogContentProps
 >(
     (
-        { className, children, showCloseButton = true, closeLabel = "Close", closeClassName, ...props },
+        {
+            className,
+            children,
+            showCloseButton = true,
+            closeLabel = "Close",
+            closeClassName,
+            ...props
+        },
         ref
     ) => (
-    <DialogPrimitive.Portal>
-        <DialogOverlay />
-        <DialogPrimitive.Content
-            ref={ref}
-            className={cn(
-                "fixed left-1/2 top-1/2 z-50 w-full max-w-md -translate-x-1/2 -translate-y-1/2 focus:outline-none",
-                "data-[state=open]:animate-dialog-in data-[state=closed]:animate-dialog-out",
-                className
-            )}
-            {...props}
-        >
-            {children}
-            {showCloseButton && (
-                <DialogPrimitive.Close
-                    aria-label={closeLabel}
-                    className={cn(
-                        "absolute top-4 right-4 z-10 cursor-pointer rounded-full text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                        closeClassName
-                    )}
-                >
-                    <XCircleIcon className="size-5" />
-                </DialogPrimitive.Close>
-            )}
-        </DialogPrimitive.Content>
-    </DialogPrimitive.Portal>
-));
+        <DialogPrimitive.Portal>
+            <DialogOverlay />
+            <DialogPrimitive.Content
+                ref={ref}
+                className={cn(
+                    "fixed left-1/2 top-1/2 z-50 w-full max-w-md -translate-x-1/2 -translate-y-1/2 focus:outline-none",
+                    "data-[state=open]:animate-dialog-in data-[state=closed]:animate-dialog-out",
+                    className
+                )}
+                {...props}
+            >
+                {children}
+                {showCloseButton && (
+                    <DialogPrimitive.Close
+                        aria-label={closeLabel}
+                        className={cn(
+                            "absolute top-4 right-4 z-10 cursor-pointer rounded-full text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                            closeClassName
+                        )}
+                    >
+                        <XCircleIcon className="size-5" />
+                    </DialogPrimitive.Close>
+                )}
+            </DialogPrimitive.Content>
+        </DialogPrimitive.Portal>
+    )
+);
 DialogContent.displayName = DialogPrimitive.Content.displayName;

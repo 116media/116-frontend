@@ -1,3 +1,11 @@
+import type {
+    IArticleActivityEntity,
+    IArticleActivityPage
+} from "@/modules/articles/domain/entities/IArticleActivityEntity";
+import type {
+    IArticleBookmarkEntity,
+    IArticleBookmarkPage
+} from "@/modules/articles/domain/entities/IArticleBookmarkEntity";
 import type { IArticleCategoryEntity } from "@/modules/articles/domain/entities/IArticleCategoryEntity";
 import type { IArticleCommentEntity } from "@/modules/articles/domain/entities/IArticleCommentEntity";
 import type { IArticleCommentPage } from "@/modules/articles/domain/entities/IArticleCommentPage";
@@ -8,6 +16,11 @@ import type { IArticlePromotionFeedEntity } from "@/modules/articles/domain/enti
 import type { IArticleSummaryEntity } from "@/modules/articles/domain/entities/IArticleSummaryEntity";
 import type { IArticleTagEntity } from "@/modules/articles/domain/entities/IArticleTagEntity";
 import type {
+    ICommentedArticleEntity,
+    ICommentedArticlePage
+} from "@/modules/articles/domain/entities/ICommentedArticleEntity";
+import type { IMyArticleCommentsPage } from "@/modules/articles/domain/entities/IMyArticleCommentsPage";
+import type {
     ArticleCommentDto,
     ArticleCommentDtoPaginatedResult,
     ArticleDetailDto,
@@ -16,7 +29,13 @@ import type {
     ArticleSummaryDtoPaginatedResult,
     CategoryDto,
     PublicGetArticlePromotionFeedResponse,
-    TagDto
+    TagDto,
+    UserArticleActivityDto,
+    UserArticleActivityDtoPaginatedResult,
+    UserBookmarkedArticleDto,
+    UserBookmarkedArticleDtoPaginatedResult,
+    UserCommentedArticleDto,
+    UserCommentedArticleDtoPaginatedResult
 } from "@/shared/infrastructure/api/generated/116.api";
 
 /**
@@ -267,6 +286,165 @@ export const ArticlesMapper = {
      * @returns {IArticleCommentPage} Mapped article comment page entity
      */
     articleCommentPageFromDto(dto: ArticleCommentDtoPaginatedResult): IArticleCommentPage {
+        return {
+            items: ArticlesMapper.articleCommentListFromDto(dto.items),
+            pageIndex: dto.pageIndex,
+            pageSize: dto.pageSize,
+            count: dto.count,
+            hasNextPage: (dto.pageIndex + 1) * dto.pageSize < dto.count
+        };
+    },
+
+    /**
+     * Maps UserBookmarkedArticleDto to IArticleBookmarkEntity, reusing articleSummaryFromDto
+     * for the nested article. Throws when the bookmark timestamp is missing so the failure
+     * surfaces through the repository's Result rather than yielding an undated entry.
+     *
+     * @param dto - User bookmarked-article data from API
+     * @returns {IArticleBookmarkEntity} Mapped bookmark entity
+     */
+    articleBookmarkFromDto(dto: UserBookmarkedArticleDto): IArticleBookmarkEntity {
+        if (!dto.bookmarkedAt) throw new Error("UserBookmarkedArticleDto is missing bookmarkedAt");
+        return {
+            article: ArticlesMapper.articleSummaryFromDto(dto.article),
+            bookmarkedAt: dto.bookmarkedAt
+        };
+    },
+
+    /**
+     * Maps a list of UserBookmarkedArticleDto to IArticleBookmarkEntity domain entities.
+     *
+     * @param dtos - User bookmarked-article data list from API
+     * @returns {IArticleBookmarkEntity[]} Mapped bookmark entities
+     */
+    articleBookmarkListFromDto(dtos: UserBookmarkedArticleDto[]): IArticleBookmarkEntity[] {
+        return dtos.map(ArticlesMapper.articleBookmarkFromDto);
+    },
+
+    /**
+     * Maps a paginated UserBookmarkedArticleDto result to an IArticleBookmarkPage, deriving
+     * hasNextPage from the total count and the current page index.
+     *
+     * @param dto - Paginated bookmarks envelope from API
+     * @returns {IArticleBookmarkPage} Mapped bookmark page entity
+     */
+    articleBookmarkPageFromDto(dto: UserBookmarkedArticleDtoPaginatedResult): IArticleBookmarkPage {
+        return {
+            items: ArticlesMapper.articleBookmarkListFromDto(dto.items),
+            pageIndex: dto.pageIndex,
+            pageSize: dto.pageSize,
+            count: dto.count,
+            hasNextPage: (dto.pageIndex + 1) * dto.pageSize < dto.count
+        };
+    },
+
+    /**
+     * Maps UserCommentedArticleDto to ICommentedArticleEntity, reusing articleSummaryFromDto
+     * for the article and articleCommentFromDto for the latest comment. Throws when the
+     * last-commented timestamp is missing so the failure surfaces through the Result.
+     *
+     * @param dto - User commented-article data from API
+     * @returns {ICommentedArticleEntity} Mapped commented-article entity
+     */
+    commentedArticleFromDto(dto: UserCommentedArticleDto): ICommentedArticleEntity {
+        if (!dto.lastCommentedAt) {
+            throw new Error("UserCommentedArticleDto is missing lastCommentedAt");
+        }
+        return {
+            article: ArticlesMapper.articleSummaryFromDto(dto.article),
+            latestComment: ArticlesMapper.articleCommentFromDto(dto.latestComment),
+            commentCount: dto.commentCount,
+            lastCommentedAt: dto.lastCommentedAt
+        };
+    },
+
+    /**
+     * Maps a list of UserCommentedArticleDto to ICommentedArticleEntity domain entities.
+     *
+     * @param dtos - User commented-article data list from API
+     * @returns {ICommentedArticleEntity[]} Mapped commented-article entities
+     */
+    commentedArticleListFromDto(dtos: UserCommentedArticleDto[]): ICommentedArticleEntity[] {
+        return dtos.map(ArticlesMapper.commentedArticleFromDto);
+    },
+
+    /**
+     * Maps a paginated UserCommentedArticleDto result to an ICommentedArticlePage, deriving
+     * hasNextPage from the total count and the current page index.
+     *
+     * @param dto - Paginated commented-articles envelope from API
+     * @returns {ICommentedArticlePage} Mapped commented-article page entity
+     */
+    commentedArticlePageFromDto(
+        dto: UserCommentedArticleDtoPaginatedResult
+    ): ICommentedArticlePage {
+        return {
+            items: ArticlesMapper.commentedArticleListFromDto(dto.items),
+            pageIndex: dto.pageIndex,
+            pageSize: dto.pageSize,
+            count: dto.count,
+            hasNextPage: (dto.pageIndex + 1) * dto.pageSize < dto.count
+        };
+    },
+
+    /**
+     * Maps UserArticleActivityDto to IArticleActivityEntity, reusing articleSummaryFromDto
+     * for the article and normalizing a null share channel to undefined. Throws when the
+     * last-interacted timestamp is missing so the failure surfaces through the Result;
+     * publish dates are never substituted. Backs both the liked and shared lists.
+     *
+     * @param dto - User article-activity data from API
+     * @returns {IArticleActivityEntity} Mapped article-activity entity
+     */
+    articleActivityFromDto(dto: UserArticleActivityDto): IArticleActivityEntity {
+        if (!dto.lastInteractedAt) {
+            throw new Error("UserArticleActivityDto is missing lastInteractedAt");
+        }
+        return {
+            article: ArticlesMapper.articleSummaryFromDto(dto.article),
+            lastInteractedAt: dto.lastInteractedAt,
+            interactionCount: dto.interactionCount,
+            lastShareChannel: dto.lastShareChannel ?? undefined
+        };
+    },
+
+    /**
+     * Maps a list of UserArticleActivityDto to IArticleActivityEntity domain entities.
+     *
+     * @param dtos - User article-activity data list from API
+     * @returns {IArticleActivityEntity[]} Mapped article-activity entities
+     */
+    articleActivityListFromDto(dtos: UserArticleActivityDto[]): IArticleActivityEntity[] {
+        return dtos.map(ArticlesMapper.articleActivityFromDto);
+    },
+
+    /**
+     * Maps a paginated UserArticleActivityDto result to an IArticleActivityPage, deriving
+     * hasNextPage from the total count and the current page index. Shared by the liked and
+     * shared lists.
+     *
+     * @param dto - Paginated article-activity envelope from API
+     * @returns {IArticleActivityPage} Mapped article-activity page entity
+     */
+    articleActivityPageFromDto(dto: UserArticleActivityDtoPaginatedResult): IArticleActivityPage {
+        return {
+            items: ArticlesMapper.articleActivityListFromDto(dto.items),
+            pageIndex: dto.pageIndex,
+            pageSize: dto.pageSize,
+            count: dto.count,
+            hasNextPage: (dto.pageIndex + 1) * dto.pageSize < dto.count
+        };
+    },
+
+    /**
+     * Maps a paginated ArticleCommentDto result to an IMyArticleCommentsPage, reusing
+     * articleCommentListFromDto and deriving hasNextPage from the total count and the
+     * current page index.
+     *
+     * @param dto - Paginated own-comments envelope from API
+     * @returns {IMyArticleCommentsPage} Mapped own-comments page entity
+     */
+    myArticleCommentsPageFromDto(dto: ArticleCommentDtoPaginatedResult): IMyArticleCommentsPage {
         return {
             items: ArticlesMapper.articleCommentListFromDto(dto.items),
             pageIndex: dto.pageIndex,

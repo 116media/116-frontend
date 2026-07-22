@@ -100,7 +100,10 @@ export function ShareModal({
     };
 
     return (
-        <Dialog open={open} onOpenChange={onOpenChange}>
+        <Dialog
+            open={open}
+            onOpenChange={onOpenChange}
+        >
             <DialogContent aria-describedby={undefined}>
                 <div className="relative grid gap-5 rounded-2xl border bg-card p-6 shadow-xl">
                     <DialogHeader className="gap-1.5">
@@ -128,7 +131,11 @@ export function ShareModal({
                             onFocus={(event) => event.target.select()}
                             className="h-9 flex-1 truncate border-0 bg-transparent px-0 focus-visible:border-0 focus-visible:ring-0 dark:bg-transparent"
                         />
-                        <Button size="sm" type="button" onClick={copy}>
+                        <Button
+                            size="sm"
+                            type="button"
+                            onClick={copy}
+                        >
                             {copyAction}
                         </Button>
                     </div>

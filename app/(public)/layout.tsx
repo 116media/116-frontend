@@ -1,46 +1,18 @@
-import { unwrap } from "@/shared/domain/results/result";
-import { createServerCradle } from "@/shared/infrastructure/server.cradle";
-import { Header } from "@/shared/presentation/layouts/Header";
-import { PageContainer } from "@/shared/presentation/layouts/PageContainer";
-import { TopBar } from "@/shared/presentation/layouts/TopBar";
+import type { ReactNode } from "react";
+
+import { AppShell } from "@/shared/presentation/layouts/AppShell";
 
 /**
  * PublicLayout
  *
  * @description
- * Root layout for all public-facing pages under the `(public)` route group.
- * Prefetches all navigation data in parallel server-side via
- * `PrefetchNavigationUseCase` so the mega menus are fully populated the
- * instant the page becomes interactive — no loading flash on first hover.
- * TopBar and Header are wrapped in a single sticky container so they scroll
- * together and never overlap page content.
+ * Root layout for all public-facing pages under the `(public)` route group. Renders the
+ * universal {@link AppShell} chrome (sticky TopBar + Header with server-prefetched
+ * navigation) around the page content. Open to guests; the `(private)` group renders the
+ * same shell behind an auth guard.
  *
- * @param children - Page content rendered within the layout
+ * @param children - Page content rendered within the layout.
  */
-export default async function PublicLayout({ children }: { children: React.ReactNode }) {
-    const cradle = await createServerCradle();
-    const result = await cradle.prefetchNavigationUseCase.execute();
-
-    const { articles, videos } = unwrap(result, {
-        videos: { categories: [], promotedVideos: [], popularTags: [] },
-        articles: { categories: [], promotedArticles: [], popularTags: [] }
-    });
-
-    return (
-        <>
-            <div
-                data-site-header
-                className="sticky top-0 z-40"
-            >
-                <TopBar />
-                <Header
-                    videos={videos}
-                    articles={articles}
-                />
-            </div>
-            <main className="min-h-screen py-4">
-                <PageContainer>{children}</PageContainer>
-            </main>
-        </>
-    );
+export default function PublicLayout({ children }: { children: ReactNode }) {
+    return <AppShell>{children}</AppShell>;
 }

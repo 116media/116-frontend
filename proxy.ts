@@ -4,7 +4,7 @@ import { type NextRequest, NextResponse } from "next/server";
  * proxy
  *
  * @description
- * Server-side guard for the authenticated `(user)` route group (Next.js 16 renamed
+ * Server-side guard for the authenticated `(private)` route group (Next.js 16 renamed
  * the former `middleware` file convention to `proxy`). Runs before those routes
  * render: if the `accessToken` cookie is absent, the visitor is redirected to the
  * home page, where they can open the login modal. Cookie presence is a cheap gate —
@@ -25,15 +25,9 @@ export function proxy(request: NextRequest) {
 }
 
 /**
- * Scopes the proxy to the authenticated `(user)` route group so only those paths pay
+ * Scopes the proxy to the authenticated `(private)` route group so only those paths pay
  * the cookie check; everything public is untouched.
  */
 export const config = {
-    matcher: [
-        "/profile/:path*",
-        "/bookmarks/:path*",
-        "/playlists/:path*",
-        "/settings/:path*",
-        "/favorites/:path*"
-    ]
+    matcher: ["/profile/:path*", "/playlists/:path*", "/settings/:path*", "/favorites/:path*"]
 };

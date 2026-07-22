@@ -12,7 +12,11 @@ import type { GetArticleCommentsUseCase } from "@/modules/articles/application/u
 import type { GetArticlePopularTagsUseCase } from "@/modules/articles/application/usecases/getarticlepopulartags.usecase";
 import type { GetArticlePromotionFeedUseCase } from "@/modules/articles/application/usecases/getarticlepromotionfeed.usecase";
 import type { GetCommentRepliesUseCase } from "@/modules/articles/application/usecases/getcommentreplies.usecase";
-import type { GetMyArticleBookmarksUseCase } from "@/modules/articles/application/usecases/getmyarticlebookmarks.usecase";
+import type { GetOwnArticleBookmarksUseCase } from "@/modules/articles/application/usecases/getownarticlebookmarks.usecase";
+import type { GetOwnCommentedArticlesUseCase } from "@/modules/articles/application/usecases/getowncommentedarticles.usecase";
+import type { GetOwnCommentsForArticleUseCase } from "@/modules/articles/application/usecases/getowncommentsforarticle.usecase";
+import type { GetOwnLikedArticlesUseCase } from "@/modules/articles/application/usecases/getownlikedarticles.usecase";
+import type { GetOwnSharedArticlesUseCase } from "@/modules/articles/application/usecases/getownsharedarticles.usecase";
 import type { GetPopularArticlesUseCase } from "@/modules/articles/application/usecases/getpopulararticles.usecase";
 import type { GetPromotedArticlesUseCase } from "@/modules/articles/application/usecases/getpromotedarticles.usecase";
 import type { GetPublishedArticlesUseCase } from "@/modules/articles/application/usecases/getpublishedarticles.usecase";
@@ -47,6 +51,9 @@ import type { UpdateAvatarUseCase } from "@/modules/settings/application/usecase
 import { registerSettingsDependencies } from "@/modules/settings/infrastructure/dependencies/settings.dependencies";
 import type { IShortsRepositoryPort } from "@/modules/shorts/application/repositories/shorts.repository.port";
 import type { BookmarkShortUseCase } from "@/modules/shorts/application/usecases/bookmarkshort.usecase";
+import type { GetOwnLikedShortsUseCase } from "@/modules/shorts/application/usecases/getownlikedshorts.usecase";
+import type { GetOwnSavedShortsUseCase } from "@/modules/shorts/application/usecases/getownsavedshorts.usecase";
+import type { GetOwnSharedShortsUseCase } from "@/modules/shorts/application/usecases/getownsharedshorts.usecase";
 import type { GetShortBySlugUseCase } from "@/modules/shorts/application/usecases/getshortbyslug.usecase";
 import type { GetShortsFeedUseCase } from "@/modules/shorts/application/usecases/getshortsfeed.usecase";
 import type { LikeShortUseCase } from "@/modules/shorts/application/usecases/likeshort.usecase";
@@ -58,8 +65,12 @@ import { registerShortsDependencies } from "@/modules/shorts/infrastructure/depe
 import type { IVideosRepositoryPort } from "@/modules/videos/application/repositories/videos.repository.port";
 import type { AddVideoToPlaylistUseCase } from "@/modules/videos/application/usecases/addvideotoplaylist.usecase";
 import type { CreatePlaylistUseCase } from "@/modules/videos/application/usecases/createplaylist.usecase";
+import type { DeletePlaylistUseCase } from "@/modules/videos/application/usecases/deleteplaylist.usecase";
 import type { GetAllVideoTagsUseCase } from "@/modules/videos/application/usecases/getallvideotags.usecase";
 import type { GetMyPlaylistsUseCase } from "@/modules/videos/application/usecases/getmyplaylists.usecase";
+import type { GetOwnRatedVideosUseCase } from "@/modules/videos/application/usecases/getownratedvideos.usecase";
+import type { GetOwnSharedVideosUseCase } from "@/modules/videos/application/usecases/getownsharedvideos.usecase";
+import type { GetPlaylistByIdUseCase } from "@/modules/videos/application/usecases/getplaylistbyid.usecase";
 import type { GetPopularVideosUseCase } from "@/modules/videos/application/usecases/getpopularvideos.usecase";
 import type { GetPromotedVideosUseCase } from "@/modules/videos/application/usecases/getpromotedvideos.usecase";
 import type { GetPublishedVideosUseCase } from "@/modules/videos/application/usecases/getpublishedvideos.usecase";
@@ -71,6 +82,8 @@ import type { GetVideoLyricsUseCase } from "@/modules/videos/application/usecase
 import type { GetVideoPopularTagsUseCase } from "@/modules/videos/application/usecases/getvideopopulartags.usecase";
 import type { GetYoutubeVideoStatsUseCase } from "@/modules/videos/application/usecases/getyoutubevideostats.usecase";
 import type { RateVideoUseCase } from "@/modules/videos/application/usecases/ratevideo.usecase";
+import type { RemoveVideoFromPlaylistUseCase } from "@/modules/videos/application/usecases/removevideofromplaylist.usecase";
+import type { RenamePlaylistUseCase } from "@/modules/videos/application/usecases/renameplaylist.usecase";
 import type { ShareVideoUseCase } from "@/modules/videos/application/usecases/sharevideo.usecase";
 import { registerVideosDependencies } from "@/modules/videos/infrastructure/dependencies/videos.dependencies";
 import type { IGeoRepositoryPort } from "@/shared/application/repositories/geo.repository.port";
@@ -113,7 +126,11 @@ export interface Cradle {
     unlikeArticleUseCase: UnlikeArticleUseCase;
     bookmarkArticleUseCase: BookmarkArticleUseCase;
     unbookmarkArticleUseCase: UnbookmarkArticleUseCase;
-    getMyArticleBookmarksUseCase: GetMyArticleBookmarksUseCase;
+    getOwnArticleBookmarksUseCase: GetOwnArticleBookmarksUseCase;
+    getOwnCommentedArticlesUseCase: GetOwnCommentedArticlesUseCase;
+    getOwnLikedArticlesUseCase: GetOwnLikedArticlesUseCase;
+    getOwnSharedArticlesUseCase: GetOwnSharedArticlesUseCase;
+    getOwnCommentsForArticleUseCase: GetOwnCommentsForArticleUseCase;
     shareArticleUseCase: ShareArticleUseCase;
     addArticleCommentUseCase: AddArticleCommentUseCase;
     getCommentRepliesUseCase: GetCommentRepliesUseCase;
@@ -129,6 +146,9 @@ export interface Cradle {
     // Shorts use cases
     getShortsFeedUseCase: GetShortsFeedUseCase;
     getShortBySlugUseCase: GetShortBySlugUseCase;
+    getOwnLikedShortsUseCase: GetOwnLikedShortsUseCase;
+    getOwnSavedShortsUseCase: GetOwnSavedShortsUseCase;
+    getOwnSharedShortsUseCase: GetOwnSharedShortsUseCase;
 
     // Shorts interaction use cases
     likeShortUseCase: LikeShortUseCase;
@@ -154,12 +174,18 @@ export interface Cradle {
     getVideoLyricsUseCase: GetVideoLyricsUseCase;
     getMyPlaylistsUseCase: GetMyPlaylistsUseCase;
     getYoutubeVideoStatsUseCase: GetYoutubeVideoStatsUseCase;
+    getOwnRatedVideosUseCase: GetOwnRatedVideosUseCase;
+    getOwnSharedVideosUseCase: GetOwnSharedVideosUseCase;
+    getPlaylistByIdUseCase: GetPlaylistByIdUseCase;
 
     // Videos interaction use cases
     rateVideoUseCase: RateVideoUseCase;
     shareVideoUseCase: ShareVideoUseCase;
     createPlaylistUseCase: CreatePlaylistUseCase;
     addVideoToPlaylistUseCase: AddVideoToPlaylistUseCase;
+    renamePlaylistUseCase: RenamePlaylistUseCase;
+    deletePlaylistUseCase: DeletePlaylistUseCase;
+    removeVideoFromPlaylistUseCase: RemoveVideoFromPlaylistUseCase;
 
     // Shared repositories + use cases
     geoRepository: IGeoRepositoryPort;

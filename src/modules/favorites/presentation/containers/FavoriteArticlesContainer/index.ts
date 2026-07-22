@@ -1,0 +1,1 @@
+export { FavoriteArticlesContainer } from "./FavoriteArticlesContainer";

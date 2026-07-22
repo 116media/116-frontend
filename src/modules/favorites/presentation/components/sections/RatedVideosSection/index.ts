@@ -1,0 +1,1 @@
+export { RatedVideosSection } from "./RatedVideosSection";

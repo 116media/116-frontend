@@ -1,5 +1,7 @@
+import type { IPlaylistDetailEntity } from "@/modules/videos/domain/entities/IPlaylistDetailEntity";
 import type { IPlaylistEntity } from "@/modules/videos/domain/entities/IPlaylistEntity";
 import type { IShowEntity } from "@/modules/videos/domain/entities/IShowEntity";
+import type { IVideoActivityPage } from "@/modules/videos/domain/entities/IVideoActivityPage";
 import type { IVideoCategoryEntity } from "@/modules/videos/domain/entities/IVideoCategoryEntity";
 import type { IVideoDetailEntity } from "@/modules/videos/domain/entities/IVideoDetailEntity";
 import type { IVideoExclusiveShowEntity } from "@/modules/videos/domain/entities/IVideoExclusiveShowEntity";
@@ -63,6 +65,46 @@ export interface IPopularVideosQuery {
     limit: number;
     excludeId?: string;
     categoryId?: string;
+}
+
+/**
+ * Query for a page of the signed-in user's video activity (rated or shared).
+ * Mirrors GET /api/v1/public/videos/rated and /shared.
+ *
+ * @interface IOwnVideoActivityQuery
+ *
+ * @property {number} pageIndex - Zero-based page number
+ * @property {number} pageSize - Items per page
+ */
+export interface IOwnVideoActivityQuery {
+    pageIndex: number;
+    pageSize: number;
+}
+
+/**
+ * Input contract for renaming one of the signed-in user's playlists.
+ *
+ * @interface IRenamePlaylistInput
+ *
+ * @property {string} id - The playlist being renamed (UUID)
+ * @property {string} name - The new playlist name
+ */
+export interface IRenamePlaylistInput {
+    id: string;
+    name: string;
+}
+
+/**
+ * Input contract for removing one video from one of the signed-in user's playlists.
+ *
+ * @interface IRemoveVideoFromPlaylistInput
+ *
+ * @property {string} playlistId - The playlist to remove the video from (UUID)
+ * @property {string} videoId - The video being removed (UUID)
+ */
+export interface IRemoveVideoFromPlaylistInput {
+    playlistId: string;
+    videoId: string;
 }
 
 /**
@@ -176,11 +218,62 @@ export interface IVideosRepositoryPort {
     shareVideo(id: string, shareChannel: string): Promise<Result<boolean>>;
 
     /**
-     * Fetches the signed-in user's playlists for the add-to-playlist modal.
+     * Fetches one page of published videos the signed-in user has rated, exposing
+     * the user's own star rating, newest interaction first.
+     *
+     * @param query - Paging for the rated feed
+     * @returns `ok(IVideoActivityPage)` on success, `err(Failure)` on failure
+     */
+    getOwnRatedVideos(query: IOwnVideoActivityQuery): Promise<Result<IVideoActivityPage>>;
+
+    /**
+     * Fetches one page of published videos the signed-in user has shared, exposing
+     * the user's latest share channel, newest share first.
+     *
+     * @param query - Paging for the shared feed
+     * @returns `ok(IVideoActivityPage)` on success, `err(Failure)` on failure
+     */
+    getOwnSharedVideos(query: IOwnVideoActivityQuery): Promise<Result<IVideoActivityPage>>;
+
+    /**
+     * Fetches the signed-in user's playlists for the add-to-playlist modal and the
+     * favorites playlists grid, each with up to four ordered cover thumbnails.
      *
      * @returns `ok(IPlaylistEntity[])` on success, `err(Failure)` on failure
      */
     getMyPlaylists(): Promise<Result<IPlaylistEntity[]>>;
+
+    /**
+     * Fetches one of the signed-in user's playlists with its ordered videos.
+     *
+     * @param id - The playlist to fetch (UUID)
+     * @returns `ok(IPlaylistDetailEntity)` on success, `err(Failure)` on failure
+     */
+    getPlaylistById(id: string): Promise<Result<IPlaylistDetailEntity>>;
+
+    /**
+     * Renames one of the signed-in user's playlists.
+     *
+     * @param input - The playlist and its new name
+     * @returns `ok(boolean)` success flag on success, `err(Failure)` on failure
+     */
+    renamePlaylist(input: IRenamePlaylistInput): Promise<Result<boolean>>;
+
+    /**
+     * Permanently deletes one of the signed-in user's playlists.
+     *
+     * @param id - The playlist to delete (UUID)
+     * @returns `ok(boolean)` success flag on success, `err(Failure)` on failure
+     */
+    deletePlaylist(id: string): Promise<Result<boolean>>;
+
+    /**
+     * Removes one video from one of the signed-in user's playlists.
+     *
+     * @param input - The playlist and the video being removed
+     * @returns `ok(boolean)` success flag on success, `err(Failure)` on failure
+     */
+    removeVideoFromPlaylist(input: IRemoveVideoFromPlaylistInput): Promise<Result<boolean>>;
 
     /**
      * Creates a new playlist owned by the signed-in user.
