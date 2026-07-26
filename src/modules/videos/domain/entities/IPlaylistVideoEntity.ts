@@ -13,6 +13,7 @@
  * @property {string | null} [thumbnailUrl] - URL of the video thumbnail, or null if not set
  * @property {string} categoryName - Display name of the category
  * @property {string | null} [publishedAt] - ISO timestamp of publication, or null if unpublished
+ * @property {number} shareCount - Cached number of shares
  * @property {number} ratingAverage - Cached average star rating (1–5)
  * @property {number} ratingCount - Cached total number of ratings
  * @property {number} sortOrder - Zero-based position of the video in the playlist
@@ -24,6 +25,7 @@ export interface IPlaylistVideoEntity {
     thumbnailUrl?: string | null;
     categoryName: string;
     publishedAt?: string | null;
+    shareCount: number;
     ratingAverage: number;
     ratingCount: number;
     sortOrder: number;

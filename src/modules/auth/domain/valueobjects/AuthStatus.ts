@@ -4,7 +4,7 @@
  * @description
  * The derived authentication status of the current visitor.
  */
-export type AuthStatus = "loading" | "guest" | "unverified" | "authenticated";
+export type AuthStatus = "loading" | "error" | "guest" | "unverified" | "authenticated";
 
 /**
  * Whether the status grants full (verified) access.

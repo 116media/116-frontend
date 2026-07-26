@@ -39,7 +39,7 @@ Cap content width to keep text readable. Long lines are hard to read.
 </article>
 
 <!-- Grid pages: wider for cards -->
-<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<section class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
     {grid}
 </section>
 

@@ -3,8 +3,8 @@
 ## Shared shell
 
 ```text
-FavoritesLayout
-├── FavoritesSidebar
+FavoriteLayout
+├── FavoriteLayoutSidebar
 │   ├── Favorite articles
 │   ├── Favorite videos
 │   └── Favorite short videos

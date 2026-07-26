@@ -372,7 +372,7 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
         <>
             <TopBar />
             <Header />
-            <div className="mx-auto flex max-w-7xl gap-6 px-4 py-8">
+            <div className="mx-auto flex max-w-8xl gap-6 px-4 py-8">
                 <UserSidebar className="hidden lg:block w-64 shrink-0" />
                 <main className="min-w-0 flex-1">{children}</main>
             </div>
@@ -399,7 +399,7 @@ export function PageContainer({
     className?: string;
 }) {
     return (
-        <div className={cn("mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8", className)}>
+        <div className={cn("mx-auto max-w-8xl px-4 sm:px-6 lg:px-8 py-8", className)}>
             {children}
         </div>
     );

@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { cache } from "react";
 
 import type { IShortVideoEntity } from "@/modules/shorts/domain/entities/IShortVideoEntity";
+import { SHORT_RETURN_TO_PARAM } from "@/modules/shorts/presentation/constants/shortRoutes";
 import { ShortDetailContainer } from "@/modules/shorts/presentation/containers/ShortDetailContainer";
+import { resolveShortReturnPath } from "@/modules/shorts/presentation/utils/navigation/navigation.utils";
 import { createServerCradle } from "@/shared/infrastructure/server.cradle";
 import { htmlToPlainText } from "@/shared/presentation/utils/html/html.utils";
 
@@ -11,9 +13,11 @@ import { htmlToPlainText } from "@/shared/presentation/utils/html/html.utils";
  *
  * @interface ShortDetailRouteProps
  * @property {Promise<{ slug: string }>} params - The route params promise carrying the short `slug`.
+ * @property {Promise<Record<string, string | string[] | undefined>>} searchParams - Route query parameters.
  */
 interface ShortDetailRouteProps {
     params: Promise<{ slug: string }>;
+    searchParams: Promise<Record<string, string | string[] | undefined>>;
 }
 
 /**
@@ -82,13 +86,15 @@ export async function generateMetadata({ params }: ShortDetailRouteProps): Promi
  *
  * @param params - The route params promise carrying the short `slug`.
  */
-export default async function ShortDetailPage({ params }: ShortDetailRouteProps) {
-    const { slug } = await params;
+export default async function ShortDetailPage({ params, searchParams }: ShortDetailRouteProps) {
+    const [{ slug }, query] = await Promise.all([params, searchParams]);
     const short = await fetchShort(slug);
+    const returnTo = resolveShortReturnPath(query[SHORT_RETURN_TO_PARAM]);
 
     return (
         <ShortDetailContainer
             slug={slug}
+            returnTo={returnTo}
             initialData={short ?? undefined}
         />
     );

@@ -22,9 +22,9 @@ export interface ArticlesGridLoadingProps {
  */
 function ArticlesGridCardSkeleton() {
     return (
-        <div className="overflow-hidden rounded-xl border bg-background">
+        <div className="flex h-full flex-col overflow-hidden rounded-xl border bg-background">
             <Skeleton className="aspect-video rounded-none" />
-            <div className="p-4">
+            <div className="flex flex-1 flex-col p-4">
                 <div className="mb-3 flex items-center justify-between gap-2">
                     <div className="flex items-center gap-2">
                         <Skeleton className="size-8 rounded-full" />
@@ -48,7 +48,7 @@ function ArticlesGridCardSkeleton() {
                     <Skeleton className="h-4 w-2/3" />
                 </div>
 
-                <div className="flex items-center justify-between">
+                <div className="mt-auto flex items-center justify-between">
                     <div className="flex items-center gap-3">
                         <Skeleton className="h-8 w-12 rounded-md" />
                         <Skeleton className="h-8 w-12 rounded-md" />

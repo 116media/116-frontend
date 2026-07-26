@@ -43,7 +43,7 @@ frontend. The backend work is complete; generated-client and frontend phases rem
 - [ ] 05 — Generated client
 - [ ] 06 — Frontend article data
 - [ ] 07 — Frontend video & playlist data
-- [ ] 08 — Favorites module & route
+- [x] 08 — Favorites route composition
 - [ ] 09 — Article sections & comment drawer
 - [ ] 10 — Playlists section
 - [ ] 11 — Video sections

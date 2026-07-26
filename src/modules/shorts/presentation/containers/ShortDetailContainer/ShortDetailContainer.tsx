@@ -6,17 +6,18 @@ import { useMemo } from "react";
 import type { IShortVideoEntity } from "@/modules/shorts/domain/entities/IShortVideoEntity";
 import { ShortsPlayer } from "@/modules/shorts/presentation/components/modals/ShortsPlayer";
 import { useShortBySlug } from "@/modules/shorts/presentation/hooks/useShortBySlug";
-import { HOME_PATH } from "@/shared/presentation/constants/paths";
 
 /**
  * Props for the ShortDetailContainer component.
  *
  * @interface ShortDetailContainerProps
  * @property {string} slug - The short slug from the route.
+ * @property {string} returnTo - Validated internal route restored on close.
  * @property {IShortVideoEntity} [initialData] - Server-fetched short seeding the query.
  */
 export interface ShortDetailContainerProps {
     slug: string;
+    returnTo: string;
     initialData?: IShortVideoEntity;
 }
 
@@ -25,10 +26,9 @@ export interface ShortDetailContainerProps {
  *
  * @description
  * The by-slug short surface (`/shorts/{slug}`): opens the full-screen player straight
- * onto that short. Closing the player returns to the homepage. A dark backdrop covers
- * the page while the short resolves so the route never flashes an empty screen.
+ * onto that short. Closing restores the validated route that opened it.
  */
-export function ShortDetailContainer({ slug, initialData }: ShortDetailContainerProps) {
+export function ShortDetailContainer({ slug, returnTo, initialData }: ShortDetailContainerProps) {
     const router = useRouter();
     const { data: short } = useShortBySlug(slug, { initialData });
 
@@ -44,7 +44,7 @@ export function ShortDetailContainer({ slug, initialData }: ShortDetailContainer
             initialIndex={0}
             hasNextPage={false}
             onLoadMore={() => undefined}
-            onClose={() => router.push(HOME_PATH)}
+            onClose={() => router.replace(returnTo)}
         />
     );
 }

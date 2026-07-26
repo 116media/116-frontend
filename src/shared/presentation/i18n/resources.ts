@@ -1,6 +1,5 @@
 import { articlesMessages } from "@/modules/articles/presentation/i18n";
 import { authMessages } from "@/modules/auth/presentation/i18n";
-import { favoritesMessages } from "@/modules/favorites/presentation/i18n";
 import { settingsMessages } from "@/modules/settings/presentation/i18n";
 import { shortsMessages } from "@/modules/shorts/presentation/i18n";
 import { videosMessages } from "@/modules/videos/presentation/i18n";
@@ -21,8 +20,7 @@ export const en = {
     videos: videosMessages.en,
     shorts: shortsMessages.en,
     auth: authMessages.en,
-    settings: settingsMessages.en,
-    favorites: favoritesMessages.en
+    settings: settingsMessages.en
 } as const;
 
 /**
@@ -38,8 +36,7 @@ export const fr = {
     videos: videosMessages.fr,
     shorts: shortsMessages.fr,
     auth: authMessages.fr,
-    settings: settingsMessages.fr,
-    favorites: favoritesMessages.fr
+    settings: settingsMessages.fr
 } as const;
 
 /**

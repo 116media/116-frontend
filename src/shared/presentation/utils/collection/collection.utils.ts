@@ -19,3 +19,14 @@ export function dedupeById<T extends { id: string }>(pages: T[][] | undefined): 
     }
     return flat;
 }
+
+/**
+ * Resolves an untrusted search-param value against an ordered allow-list.
+ * The first allowed value is the route default.
+ */
+export function normalizeCollection<const T extends readonly [string, ...string[]]>(
+    raw: string | null | undefined,
+    allowed: T
+): T[number] {
+    return allowed.find((value) => value === raw) ?? allowed[0];
+}

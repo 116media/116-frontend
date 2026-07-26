@@ -1,9 +1,9 @@
 import type { ReactNode } from "react";
 
-import { FavoritesSidebar } from "@/modules/favorites/presentation/components/navigation/FavoritesSidebar";
+import { FavoriteLayout as FavoriteLayoutFrame } from "@/shared/presentation/layouts/FavoriteLayout";
 
 /**
- * FavoritesLayout
+ * FavoriteLayout
  *
  * @description
  * Renders the favorites shell — the content-type sidebar beside the active route's content.
@@ -12,15 +12,6 @@ import { FavoritesSidebar } from "@/modules/favorites/presentation/components/na
  *
  * @param children - The active favorites route.
  */
-export default function FavoritesLayout({ children }: { children: ReactNode }) {
-    return (
-        <div className="mx-auto w-full pb-8">
-            <div className="flex min-h-[calc(100vh-140px)] flex-col rounded-lg border bg-background md:flex-row">
-                <FavoritesSidebar />
-                <div className="min-w-0 flex-1 rounded-b-lg bg-background p-4 md:rounded-b-none md:rounded-r-lg md:border-l">
-                    {children}
-                </div>
-            </div>
-        </div>
-    );
+export default function FavoriteLayout({ children }: { children: ReactNode }) {
+    return <FavoriteLayoutFrame>{children}</FavoriteLayoutFrame>;
 }

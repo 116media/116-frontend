@@ -124,6 +124,7 @@ export function dummyPlaylistDetail(id: string): IPlaylistDetailEntity {
             thumbnailUrl: video.thumbnailUrl,
             categoryName: video.categoryName,
             publishedAt: video.publishedAt,
+            shareCount: video.shareCount,
             ratingAverage: video.ratingAverage,
             ratingCount: video.ratingCount,
             sortOrder: index

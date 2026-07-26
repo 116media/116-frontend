@@ -1,26 +1,26 @@
 import { type NextRequest, NextResponse } from "next/server";
 
+const ACCESS_TOKEN_COOKIE = "accessToken";
+const REFRESH_TOKEN_COOKIE = "refreshToken";
+
 /**
  * proxy
  *
  * @description
- * Server-side guard for the authenticated `(private)` route group (Next.js 16 renamed
- * the former `middleware` file convention to `proxy`). Runs before those routes
- * render: if the `accessToken` cookie is absent, the visitor is redirected to the
- * home page, where they can open the login modal. Cookie presence is a cheap gate —
- * the backend still authorizes every request, and an expired access token is renewed
- * once on the page by the client refresh interceptor.
- *
- * Kept dependency-light (only `next/server`) as the Proxy runtime advises against
- * relying on shared app modules.
+ * Admits protected routes while either session cookie can recover the user.
+ * API authorization and the client auth guard remain the security boundary.
  *
  * @param request - The incoming request.
- * @returns A redirect to `/` when unauthenticated, otherwise continues.
+ * @returns A redirect when no recoverable session cookie exists.
  */
 export function proxy(request: NextRequest) {
-    if (!request.cookies.has("accessToken")) {
+    const hasAccessToken = request.cookies.has(ACCESS_TOKEN_COOKIE);
+    const hasRefreshToken = request.cookies.has(REFRESH_TOKEN_COOKIE);
+
+    if (!hasAccessToken && !hasRefreshToken) {
         return NextResponse.redirect(new URL("/", request.url));
     }
+
     return NextResponse.next();
 }
 

@@ -10,7 +10,7 @@ The three side-menu links use pathnames, exactly like settings:
 /favorites/shorts
 ```
 
-`FavoritesSidebar` uses `usePathname()` for active-route styling. On mobile the same links become
+`FavoriteLayoutSidebar` uses `usePathname()` for active-route styling. On mobile the same links become
 a horizontal strip; do not replace them with an inaccessible custom dropdown.
 
 ## Inner collection state

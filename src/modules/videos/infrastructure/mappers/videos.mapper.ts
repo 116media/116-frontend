@@ -278,6 +278,7 @@ export const VideosMapper = {
             thumbnailUrl: dto.thumbnailUrl ?? null,
             categoryName: dto.categoryName,
             publishedAt: dto.publishedAt ?? null,
+            shareCount: dto.shareCount ?? 0,
             ratingAverage: dto.ratingAverage ?? 0,
             ratingCount: dto.ratingCount ?? 0,
             sortOrder: dto.sortOrder

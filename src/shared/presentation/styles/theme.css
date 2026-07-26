@@ -111,6 +111,10 @@
 }
 
 @theme {
+    /* Layout */
+    --container-8xl: 96rem;
+    --breakpoint-3xl: 120rem;
+
     /* Semantic colors */
     --color-background: var(--background);
     --color-foreground: var(--foreground);

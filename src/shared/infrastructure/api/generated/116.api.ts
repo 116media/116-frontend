@@ -2406,6 +2406,8 @@ export interface VideoInPlaylistDto {
   thumbnailUrl?: string | null;
   /** @format date-time */
   publishedAt?: string | null;
+  /** @format int32 */
+  shareCount: number;
   /** @format double */
   ratingAverage: number;
   /** @format int32 */

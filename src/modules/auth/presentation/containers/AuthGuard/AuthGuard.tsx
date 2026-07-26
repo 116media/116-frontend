@@ -2,12 +2,14 @@
 
 import { useRouter } from "next/navigation";
 import { type ReactNode, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import {
     isAuthenticatedStatus,
     needsVerification
 } from "@/modules/auth/domain/valueobjects/AuthStatus";
 import { useAuth } from "@/modules/auth/presentation/context/AuthProvider";
+import { FeedError } from "@/shared/presentation/components/ui/FeedError";
 import { SpinnerIcon } from "@/shared/presentation/components/ui/Icon";
 import { HOME_PATH } from "@/shared/presentation/constants/paths";
 
@@ -33,6 +35,7 @@ export interface AuthGuardProps {
 export function AuthGuard({ children }: AuthGuardProps) {
     const router = useRouter();
     const { status, refetch } = useAuth();
+    const { t } = useTranslation();
     const [rechecked, setRechecked] = useState(false);
 
     useEffect(() => {
@@ -56,6 +59,19 @@ export function AuthGuard({ children }: AuthGuardProps) {
     }, [status, rechecked, router]);
 
     if (isAuthenticatedStatus(status) || needsVerification(status)) return <>{children}</>;
+
+    if (status === "error") {
+        return (
+            <div className="flex min-h-64 items-center justify-center">
+                <FeedError
+                    context="auth-guard-error"
+                    title={t("auth.errors.sessionUnavailable")}
+                    retryLabel={t("auth.errors.retry")}
+                    onRetry={() => void refetch()}
+                />
+            </div>
+        );
+    }
 
     return (
         <div className="flex min-h-64 items-center justify-center">

@@ -1,6 +1,12 @@
 import { Horizontal } from "./VideoCard.Horizontal";
 import { Vertical } from "./VideoCard.Vertical";
 
+export type {
+    VideoCardHorizontalProps,
+    VideoCardHorizontalVideo,
+    VideoCardProps
+} from "./types";
+
 /**
  * VideoCard
  *

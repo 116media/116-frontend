@@ -1,4 +1,5 @@
 import { apiErrors } from "@/shared/presentation/i18n/locales/en/apiErrors";
+import { favorites } from "@/shared/presentation/i18n/locales/en/favorites";
 import { form } from "@/shared/presentation/i18n/locales/en/form";
 import { general } from "@/shared/presentation/i18n/locales/en/general";
 import { navigation } from "@/shared/presentation/i18n/locales/en/navigation";
@@ -16,7 +17,8 @@ const en = {
     navigation,
     form,
     validator,
-    apiErrors
+    apiErrors,
+    favorites
 } as const;
 
 export default en;

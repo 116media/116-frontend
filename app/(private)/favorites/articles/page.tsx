@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
-import { FavoriteArticlesContainer } from "@/modules/favorites/presentation/containers/FavoriteArticlesContainer";
+import { FavoriteArticlesContainer } from "@/modules/articles/presentation/containers/FavoriteArticlesContainer";
 
 /**
  * Route metadata for the favorite-articles page: kept out of search indexes since it is a

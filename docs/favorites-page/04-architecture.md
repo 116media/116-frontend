@@ -1,7 +1,7 @@
 # 04 — Architecture
 
-Favorites is a cross-content presentation shell. Article, video, and short data remain owned by
-their existing clean-architecture modules.
+Favorites is a private route composition, not a domain or feature module. Article, video, and
+short behavior remains in its existing clean-architecture vertical slice.
 
 ## Frontend ownership
 
@@ -15,15 +15,16 @@ videos module
 shorts module
   liked/saved/shared lists and existing like/save/share mutations
 
-favorites module
-  layout, three-route side menu, inner collection controls, page composition, i18n
+shared presentation
+  content-agnostic card anatomy, collection tabs/shell, route layout, shared route copy
 
-app/(public)/favorites/*
-  metadata, redirects, route containers
+app/(private)/favorites/*
+  metadata, redirects, thin composition entry points
 ```
 
-Do not create a Favorites repository or copy article/video/short entities into the presentation
-module. The module consumes public hooks and mapped domain entities from each owner.
+Do not create a Favorites module, repository, facade, proxy use case, or duplicate model. Each
+content module owns its favorites containers, components, constants, hooks, use cases, entities,
+ports, and adapters end to end.
 
 ## Backend ownership
 
@@ -45,26 +46,30 @@ New private reads stay in the Content module's public interaction query slices. 
 | `ConfirmDialog`, `ModalForm` | destructive/rename playlist and comment actions |
 | existing `Dialog` foundation | add a reusable accessible right-side Sheet/Drawer primitive if the chosen UI requires it; none exists today |
 
-## Proposed presentation tree
+## Presentation tree
 
 ```text
-modules/favorites/presentation/
-  components/navigation/FavoritesSidebar/
-  components/navigation/FavoriteCollectionTabs/
-  components/sections/FavoritesHeader/
-  components/sections/FavoriteArticleCollection/
-  components/sections/FavoriteVideoCollection/
-  components/sections/FavoriteShortCollection/
-  components/sections/FavoritePlaylists/
-  components/cards/CommentedArticleCard/
-  components/cards/PlaylistCard/
-  components/modals/MyArticleCommentsDrawer/
+modules/articles/presentation/
+  components/{cards,modals,sections}/
   containers/FavoriteArticlesContainer/
+  constants/favoriteArticleCollections.ts
+
+modules/videos/presentation/
+  components/{cards,forms,lists,navigation,sections}/
   containers/FavoriteVideosContainer/
+  constants/favoriteVideoCollections.ts
+  validation/playlist.schema.ts
+
+modules/shorts/presentation/
+  components/{cards,sections}/
   containers/FavoriteShortVideosContainer/
-  constants/favoriteNavigation.ts
-  i18n/locales/{en,fr}/
-  utils/navigation/
+  constants/favoriteShortCollections.ts
+
+shared/presentation/
+  components/common/FavoriteCard/
+  layouts/FavoriteLayout/{FavoriteLayout,FavoriteLayout.Collection,FavoriteLayout.Sidebar,FavoriteLayout.Tabs}.tsx
+  constants/favorites.ts
+  i18n/locales/{en,fr}/favorites.ts
 ```
 
 Every exported component follows the repository's leaf-folder/barrel and concise JSDoc rules.

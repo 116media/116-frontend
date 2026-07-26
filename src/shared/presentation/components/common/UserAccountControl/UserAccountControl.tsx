@@ -15,7 +15,7 @@ import { UserAccountControlSlot } from "./UserAccountControl.Slot";
  * "Log in" button, or the authenticated avatar menu.
  */
 function AccountControlView({ status, user }: AccountControlViewProps) {
-    if (status === "loading") return <UserAccountControlLoading />;
+    if (status === "loading" || status === "error") return <UserAccountControlLoading />;
     if (!user) return <UserAccountControlGuestButton />;
 
     return <UserAccountControlMenu user={user} />;
