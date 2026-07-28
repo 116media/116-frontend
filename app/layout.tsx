@@ -11,6 +11,7 @@ import { I18nProvider } from "@/shared/presentation/i18n/I18nProvider";
 import { NavigationProgressProvider } from "@/shared/presentation/providers/NavigationProgressProvider";
 import { QueryProvider } from "@/shared/presentation/providers/QueryProvider";
 import { ThemeProvider } from "@/shared/presentation/providers/ThemeProvider";
+import { getServerTranslation } from "@/shared/presentation/utils/i18n/i18n.server.utils";
 import { getServerLanguage } from "@/shared/presentation/utils/language/language.server.utils";
 import "./globals.css";
 
@@ -38,14 +39,29 @@ const merriweather = localFont({
     display: "swap"
 });
 
-export const metadata: Metadata = {
-    metadataBase: new URL(SITE_URL),
-    title: {
-        template: "%s | 116",
-        default: "116 - Musique & Culture Hip-Hop"
-    },
-    description: "Articles, vidéos et paroles de la culture hip-hop en RDC et au-delà."
-};
+/**
+ * generateMetadata
+ *
+ * @description
+ * Site-wide default metadata: the root `title.default` and `description`, resolved from the
+ * active server language. Any route below that sets its own `title` is automatically
+ * prefixed with `116 - ` via `title.template`; a route with no `title` of its own falls back
+ * to `title.default` here.
+ *
+ * @returns The root metadata for the current request's language.
+ */
+export async function generateMetadata(): Promise<Metadata> {
+    const { t } = await getServerTranslation();
+
+    return {
+        metadataBase: new URL(SITE_URL),
+        title: {
+            template: "116 - %s",
+            default: t("general.metaTitleDefault")
+        },
+        description: t("general.metaDescription")
+    };
+}
 
 export default async function RootLayout({
     children

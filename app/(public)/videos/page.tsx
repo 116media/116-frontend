@@ -1,8 +1,10 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import { VideoExclusiveShowHeroLoading } from "@/modules/videos/presentation/components/sections/VideoExclusiveShow/VideoExclusiveShow.Hero.Loading";
 import { ShowsSectionContainer } from "@/modules/videos/presentation/containers/ShowsSectionContainer";
 import { VideoExclusiveShowContainer } from "@/modules/videos/presentation/containers/VideoExclusiveShowContainer";
 import { VideosFeedContainer } from "@/modules/videos/presentation/containers/VideosFeedContainer";
+import { getServerTranslation } from "@/shared/presentation/utils/i18n/i18n.server.utils";
 
 /**
  * Props for the videos listing route.
@@ -28,6 +30,20 @@ interface VideosPageProps {
  */
 function firstParam(value: string | string[] | undefined): string | undefined {
     return Array.isArray(value) ? value[0] : value;
+}
+
+/**
+ * generateMetadata
+ *
+ * @description
+ * Sets the videos listing's title from the active server language, reusing the same string
+ * rendered as the page's on-page heading.
+ *
+ * @returns The route metadata for the current request's language.
+ */
+export async function generateMetadata(): Promise<Metadata> {
+    const { t } = await getServerTranslation();
+    return { title: t("videos.browse.title") };
 }
 
 /**

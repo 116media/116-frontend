@@ -7,6 +7,7 @@
  * uses i18next plural suffixes. Must hold the exact same keys as the English mirror.
  */
 export const articles = {
+    pageTitle: "Articles",
     card: {
         read: "Lire l'article",
         readTime_one: "{{count}} min de lecture",

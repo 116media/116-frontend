@@ -7,6 +7,7 @@ import { ShortDetailContainer } from "@/modules/shorts/presentation/containers/S
 import { resolveShortReturnPath } from "@/modules/shorts/presentation/utils/navigation/navigation.utils";
 import { createServerCradle } from "@/shared/infrastructure/server.cradle";
 import { htmlToPlainText } from "@/shared/presentation/utils/html/html.utils";
+import { getServerTranslation } from "@/shared/presentation/utils/i18n/i18n.server.utils";
 
 /**
  * Props for the short detail route and its metadata.
@@ -50,9 +51,9 @@ const fetchShort = cache(async (slug: string): Promise<IShortVideoEntity | null>
  */
 export async function generateMetadata({ params }: ShortDetailRouteProps): Promise<Metadata> {
     const { slug } = await params;
-    const short = await fetchShort(slug);
+    const [short, { t }] = await Promise.all([fetchShort(slug), getServerTranslation()]);
 
-    if (!short) return { title: "Shorts" };
+    if (!short) return { title: t("shorts.player.notFound") };
 
     const title = htmlToPlainText(short.title);
     const canonical = `/shorts/${short.slug}`;
