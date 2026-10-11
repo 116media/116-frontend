@@ -14,17 +14,17 @@ import type { IVideoTagEntity } from "@/modules/videos/domain/entities/IVideoTag
 import type { IYoutubeVideoStats } from "@/modules/videos/domain/entities/IYoutubeVideoStats";
 import type {
     CategoryDto,
-    LyricsDto,
+    PublicLyricsDetailDto,
     PlaylistDetailDto,
     PlaylistDto,
     PublicGetExclusiveCategoryResponse,
     TagDto,
     UserVideoActivityDto,
     UserVideoActivityDtoPaginatedResult,
-    VideoDetailDto,
+    PublicVideoDetailDto,
     VideoInPlaylistDto,
-    VideoSummaryDto,
-    VideoSummaryDtoPaginatedResult
+    PublicVideoSummaryDto,
+    PublicVideoSummaryDtoPaginatedResult
 } from "@/shared/infrastructure/api/generated/116.api";
 
 /**
@@ -36,14 +36,14 @@ import type {
  */
 export const VideosMapper = {
     /**
-     * Maps VideoSummaryDto to IVideoSummaryEntity domain entity.
+     * Maps PublicVideoSummaryDto to IVideoSummaryEntity domain entity.
      * Drops audit fields, authorId, status, hasLyrics, and
      * shootingScheduledAt which are not needed on the public mega menu display.
      *
      * @param dto - Video summary data from API
      * @returns {IVideoSummaryEntity} Mapped video summary entity
      */
-    videoSummaryFromDto(dto: VideoSummaryDto): IVideoSummaryEntity {
+    videoSummaryFromDto(dto: PublicVideoSummaryDto): IVideoSummaryEntity {
         return {
             id: dto.id,
             categoryId: dto.categoryId,
@@ -61,23 +61,23 @@ export const VideosMapper = {
     },
 
     /**
-     * Maps a list of VideoSummaryDto to IVideoSummaryEntity domain entities.
+     * Maps a list of PublicVideoSummaryDto to IVideoSummaryEntity domain entities.
      *
      * @param dtos - Video summary data list from API
      * @returns {IVideoSummaryEntity[]} Mapped video summary entities
      */
-    videoSummaryListFromDto(dtos: VideoSummaryDto[]): IVideoSummaryEntity[] {
+    videoSummaryListFromDto(dtos: PublicVideoSummaryDto[]): IVideoSummaryEntity[] {
         return dtos.map(VideosMapper.videoSummaryFromDto);
     },
 
     /**
-     * Maps a paginated VideoSummaryDto result to an IVideoPage, deriving
+     * Maps a paginated PublicVideoSummaryDto result to an IVideoPage, deriving
      * hasNextPage from the total count and the current page index.
      *
      * @param dto - Paginated envelope from getPublishedVideos
      * @returns {IVideoPage} Mapped video page entity
      */
-    videoPageFromDto(dto: VideoSummaryDtoPaginatedResult): IVideoPage {
+    videoPageFromDto(dto: PublicVideoSummaryDtoPaginatedResult): IVideoPage {
         return {
             items: VideosMapper.videoSummaryListFromDto(dto.items),
             pageIndex: dto.pageIndex,
@@ -189,14 +189,14 @@ export const VideosMapper = {
     },
 
     /**
-     * Maps VideoDetailDto to IVideoDetailEntity domain entity. Drops audit,
+     * Maps PublicVideoDetailDto to IVideoDetailEntity domain entity. Drops audit,
      * status, promotion, commerce, and author fields; nullables are normalized
      * to null, SEO overrides to undefined, and counts to 0.
      *
      * @param dto - Video detail data from API
      * @returns {IVideoDetailEntity} Mapped video detail entity
      */
-    videoDetailFromDto(dto: VideoDetailDto): IVideoDetailEntity {
+    videoDetailFromDto(dto: PublicVideoDetailDto): IVideoDetailEntity {
         return {
             id: dto.id,
             categoryId: dto.categoryId,
@@ -220,14 +220,14 @@ export const VideosMapper = {
     },
 
     /**
-     * Maps LyricsDto to IVideoLyricsEntity domain entity.
+     * Maps PublicLyricsDetailDto to IVideoLyricsEntity domain entity.
      * Drops the author and SEO fields — lyrics render embedded in the video
      * detail page, where the standalone lyrics page owns its own SEO.
      *
      * @param dto - Lyrics data from API
      * @returns {IVideoLyricsEntity} Mapped video lyrics entity
      */
-    videoLyricsFromDto(dto: LyricsDto): IVideoLyricsEntity {
+    videoLyricsFromDto(dto: PublicLyricsDetailDto): IVideoLyricsEntity {
         return {
             id: dto.id,
             songTitle: dto.songTitle,
