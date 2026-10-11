@@ -5,7 +5,7 @@ import type { ISocialLoginCredentials } from "@/modules/auth/presentation/model/
  *
  * @interface SocialLoginButtonProps
  * @property {(credentials: ISocialLoginCredentials) => void} onProfile - Receives the
- * resolved provider profile, ready for the backend social-login call.
+ * provider and its verified-side token, ready for the backend social-login call.
  * @property {boolean} [disabled] - Disables the button while a sign-in is in flight.
  * @property {boolean} [loading] - Shows the loading state for this provider.
  */
