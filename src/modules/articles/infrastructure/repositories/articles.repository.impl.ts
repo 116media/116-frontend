@@ -138,8 +138,8 @@ export class ArticlesRepositoryImpl implements IArticlesRepositoryPort {
 
     async unlikeArticle(id: string): Promise<Result<boolean>> {
         try {
-            const response = await this.api.publicUnlikeArticle(id);
-            return ok(response.data.isSuccess);
+            await this.api.publicUnlikeArticle(id);
+            return ok(true);
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }
@@ -156,8 +156,8 @@ export class ArticlesRepositoryImpl implements IArticlesRepositoryPort {
 
     async unbookmarkArticle(id: string): Promise<Result<boolean>> {
         try {
-            const response = await this.api.publicUnbookmarkArticle(id);
-            return ok(response.data.isSuccess);
+            await this.api.publicUnbookmarkArticle(id);
+            return ok(true);
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }
@@ -246,11 +246,11 @@ export class ArticlesRepositoryImpl implements IArticlesRepositoryPort {
 
     async deleteArticleComment(input: IDeleteArticleCommentInput): Promise<Result<boolean>> {
         try {
-            const response = await this.api.publicDeleteArticleComment(
+            await this.api.publicDeleteArticleComment(
                 input.articleId,
                 input.commentId
             );
-            return ok(response.data.isSuccess);
+            return ok(true);
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }
@@ -267,8 +267,8 @@ export class ArticlesRepositoryImpl implements IArticlesRepositoryPort {
 
     async unlikeArticleComment(commentId: string): Promise<Result<boolean>> {
         try {
-            const response = await this.api.publicUnlikeArticleComment(commentId);
-            return ok(response.data.isSuccess);
+            await this.api.publicUnlikeArticleComment(commentId);
+            return ok(true);
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }
