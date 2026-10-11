@@ -5,6 +5,7 @@ import type { IVideoActivityPage } from "@/modules/videos/domain/entities/IVideo
 import type { IVideoCategoryEntity } from "@/modules/videos/domain/entities/IVideoCategoryEntity";
 import type { IVideoDetailEntity } from "@/modules/videos/domain/entities/IVideoDetailEntity";
 import type { IVideoExclusiveShowEntity } from "@/modules/videos/domain/entities/IVideoExclusiveShowEntity";
+import type { IVideoFeedEntity } from "@/modules/videos/domain/entities/IVideoFeedEntity";
 import type { IVideoLyricsEntity } from "@/modules/videos/domain/entities/IVideoLyricsEntity";
 import type { IVideoPage } from "@/modules/videos/domain/entities/IVideoPage";
 import type { IVideoSummaryEntity } from "@/modules/videos/domain/entities/IVideoSummaryEntity";
@@ -116,6 +117,14 @@ export interface IRemoveVideoFromPlaylistInput {
  * `Failure` values, never thrown.
  */
 export interface IVideosRepositoryPort {
+    /**
+     * Fetches the homepage video feed: one section per category pinned to the
+     * feed, each with its latest published videos.
+     *
+     * @returns `ok(IVideoFeedEntity[])` on success, `err(Failure)` on failure.
+     */
+    getVideoFeed(): Promise<Result<IVideoFeedEntity[]>>;
+
     /**
      * Fetches the list of currently promoted videos.
      *
