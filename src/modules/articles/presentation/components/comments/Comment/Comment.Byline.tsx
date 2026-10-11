@@ -16,7 +16,7 @@ export function CommentByline() {
         <div className="flex items-center gap-2">
             <span className="font-medium text-foreground text-sm">{displayName}</span>
             <span className="text-muted-foreground text-xs">
-                <RelativeDate date={comment.createdAt} />
+                <RelativeDate date={comment.postedAt} />
             </span>
         </div>
     );
