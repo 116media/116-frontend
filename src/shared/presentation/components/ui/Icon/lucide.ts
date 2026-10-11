@@ -49,6 +49,7 @@ export {
     Lock as LockIcon,
     LogOut as LogOutIcon,
     Mail as MailIcon,
+    Menu as MenuIcon,
     MapPin as MapPinIcon,
     MessageSquare as MessageSquareIcon,
     Monitor as MonitorIcon,
