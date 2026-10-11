@@ -44,19 +44,33 @@ export interface AuthContextValue {
 const AuthContext = createContext<AuthContextValue | null>(null);
 
 /**
+ * Props for the AuthProvider component.
+ *
+ * @interface AuthProviderProps
+ * @property {ReactNode} children - The subtree that gains `useAuth()`.
+ * @property {boolean} hasSession - Whether a session cookie was present on the server render.
+ */
+export interface AuthProviderProps {
+    children: ReactNode;
+    hasSession: boolean;
+}
+
+/**
  * AuthProvider
  *
  * @description
  * Runs the `me` query and exposes the resolved user plus derived status to the
- * app. Listens for `REFRESH_TOKEN_EXPIRED_EVENT` and cross-tab auth channel
- * pings. Must sit inside `QueryProvider`.
- *
- * @param children - The subtree that gains `useAuth()`.
+ * app. Without a session cookie the query stays idle and a visitor resolves to
+ * guest, but a sign-in that seeds the cache still promotes them. Must sit inside
+ * `QueryProvider`.
  */
-export function AuthProvider({ children }: { children: ReactNode }) {
+export function AuthProvider({ children, hasSession }: AuthProviderProps) {
     const queryClient = useQueryClient();
 
+    const cachedUser = queryClient.getQueryData(authKeys.me);
+
     const meQuery = useQuery({
+        enabled: hasSession || cachedUser !== undefined,
         queryKey: authKeys.me,
         queryFn: async () => {
             const result = await container.cradle.getProfileUseCase.execute();
@@ -72,7 +86,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     });
 
     const user = meQuery.data ?? null;
-    const status = deriveAuthStatus(meQuery.isPending, meQuery.isError, user);
+    const status = deriveAuthStatus(hasSession && meQuery.isPending, meQuery.isError, user);
 
     useEffect(() => {
         const onExpired = () => queryClient.setQueryData(authKeys.me, err(unknownFailure()));
