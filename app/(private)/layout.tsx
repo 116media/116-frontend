@@ -3,11 +3,12 @@ import { redirect } from "next/navigation";
 import type { ReactNode } from "react";
 
 import { AuthGuard } from "@/modules/auth/presentation/containers/AuthGuard";
+import {
+    ACCESS_TOKEN_COOKIE,
+    REFRESH_TOKEN_COOKIE
+} from "@/shared/infrastructure/constants/auth";
 import { HOME_PATH } from "@/shared/presentation/constants/paths";
 import { AppShell } from "@/shared/presentation/layouts/AppShell";
-
-const ACCESS_TOKEN_COOKIE = "accessToken";
-const REFRESH_TOKEN_COOKIE = "refreshToken";
 
 /**
  * PrivateLayout
