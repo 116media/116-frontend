@@ -61,23 +61,19 @@ const COVERS = [
 const AUTHORS: IArticleAuthor[] = [
     {
         userName: "Sarah Wilson",
-        avatarUrl: "https://i.pravatar.cc/80?img=1",
-        role: "Music Editor, London"
+        avatarUrl: "https://i.pravatar.cc/80?img=1"
     },
     {
         userName: "James Carter",
-        avatarUrl: "https://i.pravatar.cc/80?img=12",
-        role: "Culture Reporter, New York"
+        avatarUrl: "https://i.pravatar.cc/80?img=12"
     },
     {
         userName: "Amara Okafor",
-        avatarUrl: "https://i.pravatar.cc/80?img=45",
-        role: "Senior Writer, Lagos"
+        avatarUrl: "https://i.pravatar.cc/80?img=45"
     },
     {
         userName: "Liam Nguyen",
-        avatarUrl: "https://i.pravatar.cc/80?img=32",
-        role: "Staff Journalist, Toronto"
+        avatarUrl: "https://i.pravatar.cc/80?img=32"
     }
 ];
 
