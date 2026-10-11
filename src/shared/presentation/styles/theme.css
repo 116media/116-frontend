@@ -20,7 +20,7 @@
     --primary-foreground: var(--primitive-white);
 
     --secondary: var(--primitive-brand-secondary);
-    --secondary-foreground: var(--primitive-white);
+    --secondary-foreground: var(--primitive-text-primary);
 
     --muted: var(--primitive-background);
     --muted-foreground: var(--primitive-description);
@@ -34,10 +34,10 @@
     --destructive-foreground: var(--primitive-white);
 
     --success: var(--primitive-success);
-    --success-foreground: var(--primitive-white);
+    --success-foreground: var(--primitive-text-primary);
 
     --warning: var(--primitive-warning);
-    --warning-foreground: var(--primitive-white);
+    --warning-foreground: var(--primitive-text-primary);
 
     --border: var(--primitive-border-subtle-light);
     --input: var(--primitive-border-subtle-light);
@@ -75,7 +75,7 @@
     --primary-foreground: var(--primitive-white);
 
     --secondary: var(--primitive-brand-secondary);
-    --secondary-foreground: var(--primitive-white);
+    --secondary-foreground: var(--primitive-text-primary);
 
     --muted: var(--primitive-brand-bg-dark);
     --muted-foreground: var(--primitive-text-muted);
@@ -89,10 +89,10 @@
     --destructive-foreground: var(--primitive-white);
 
     --success: var(--primitive-success);
-    --success-foreground: var(--primitive-white);
+    --success-foreground: var(--primitive-text-primary);
 
     --warning: var(--primitive-warning);
-    --warning-foreground: var(--primitive-white);
+    --warning-foreground: var(--primitive-text-primary);
 
     --border: var(--primitive-border-subtle-dark);
     --input: var(--primitive-border-subtle-dark);
