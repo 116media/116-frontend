@@ -74,3 +74,27 @@ Full detail: `docs/refactoring-architecture/05-jsdoc-and-comments.md`.
   no per-field notes beside interface properties (use `@property`).
 <!-- END:jsdoc-rules -->
 
+<!-- BEGIN:design-system-rules -->
+
+## Design system (MUST follow)
+
+Full reference: `docs/DESIGN-SYSTEM.md`. Read it before touching styling, and update it when the
+system itself changes.
+
+- **Tokens are three layers: primitive → semantic → Tailwind.** Components use only the Tailwind
+  utility (`bg-card`, `text-muted-foreground`). Never a primitive (`--primitive-*`), never a raw
+  hex, never an arbitrary value like `bg-[#490fd2]`. Only the semantic layer is redefined under
+  `.dark`, so reaching past it is how a component ends up light-only.
+- **Every surface is defined in both themes.** A new color pairs a light value in `:root` with a
+  dark value in `.dark`, both in `styles/theme.css`, before any component references it.
+- **Accent switches by theme inline**: `text-primary dark:text-secondary`. Primary carries
+  emphasis in light, secondary in dark.
+- **Variants belong to `cva`, not to call sites.** A new visual state is a variant on the
+  component; it is never a one-off `className` override at one call site.
+- **New text or fill pairings meet WCAG AA (4.5:1).** The light palette already fails on
+  `description`, `text-muted` and the filled status colors — do not add to that set.
+- **Motion uses the named animations** declared in `@theme` (`dialog-in`, `mega-menu-slide-down`,
+  `short-like-burst`). Durations and easings are not re-authored per component.
+- **`md` (768px) is the layout switch.** Anything hidden below it needs a mobile equivalent;
+  navigation that only exists in `DesktopNav` is unreachable on phones.
+<!-- END:design-system-rules -->
