@@ -1,7 +1,7 @@
 import type { IAuthResponse } from "@/modules/auth/domain/entities/IAuthResponse";
 import type { IForgotPasswordResponse } from "@/modules/auth/domain/entities/IForgotPasswordResponse";
 import type { IActionResponse } from "@/shared/domain/types/action.response";
-import type { UserResponseDto } from "@/shared/infrastructure/api/generated/116.api";
+import type { PublicUserResponseDto } from "@/shared/infrastructure/api/generated/116.api";
 import { UserMapper } from "@/shared/infrastructure/mappers/user.mapper";
 
 /**
@@ -19,7 +19,7 @@ export const AuthMapper = {
      * @returns The mapped auth response entity.
      */
     authResponseFromDto(dto: {
-        user: UserResponseDto;
+        user: PublicUserResponseDto;
         verificationRequired?: boolean;
     }): IAuthResponse {
         return {
