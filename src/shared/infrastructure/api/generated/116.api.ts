@@ -10,12 +10,48 @@
  * ---------------------------------------------------------------
  */
 
+export enum EnumVote {
+  Approve = "Approve",
+  Reject = "Reject",
+}
+
+export enum EnumSubmissionStatus {
+  Pending = "Pending",
+  Approved = "Approved",
+  Rejected = "Rejected",
+  NeedsRevision = "NeedsRevision",
+}
+
+export enum EnumStreamingPlatform {
+  Spotify = "Spotify",
+  AppleMusic = "AppleMusic",
+  YoutubeMusic = "YoutubeMusic",
+  Tidal = "Tidal",
+  Deezer = "Deezer",
+}
+
+export enum EnumSocialPlatform {
+  Instagram = "Instagram",
+  X = "X",
+  Facebook = "Facebook",
+  YouTube = "YouTube",
+  TikTok = "TikTok",
+  Website = "Website",
+}
+
 export enum EnumShareChannel {
   Facebook = "Facebook",
   X = "X",
   WhatsApp = "WhatsApp",
   Clipboard = "Clipboard",
   WebShare = "WebShare",
+}
+
+export enum EnumReleaseType {
+  Album = "Album",
+  Mixtape = "Mixtape",
+  EP = "EP",
+  Single = "Single",
 }
 
 export enum EnumPlatform {
@@ -48,6 +84,26 @@ export enum EnumOrderStatus {
   Cancelled = "Cancelled",
 }
 
+export enum EnumNotificationType {
+  PasswordChanged = "PasswordChanged",
+  PasswordResetCompleted = "PasswordResetCompleted",
+  LocalPasswordAdded = "LocalPasswordAdded",
+  EmailChanged = "EmailChanged",
+  SignedOutAllDevices = "SignedOutAllDevices",
+  AccountForceLoggedOut = "AccountForceLoggedOut",
+  RoleChanged = "RoleChanged",
+  CommentReply = "CommentReply",
+  SubmissionDecided = "SubmissionDecided",
+  RevisionDecided = "RevisionDecided",
+  ArtistVerified = "ArtistVerified",
+}
+
+export enum EnumNewsletterStatus {
+  PendingConfirmation = "PendingConfirmation",
+  Subscribed = "Subscribed",
+  Unsubscribed = "Unsubscribed",
+}
+
 export enum EnumDevice {
   Desktop = "Desktop",
   Tablet = "Tablet",
@@ -65,6 +121,7 @@ export enum EnumCoreContentType {
   Video = "Video",
   Short = "Short",
   Custom = "Custom",
+  Lyrics = "Lyrics",
 }
 
 export enum EnumContentStatus {
@@ -139,6 +196,10 @@ export interface AdminActivateShortVideoResponse {
   isSuccess: boolean;
 }
 
+export interface AdminActivateUserResponse {
+  isSuccess: boolean;
+}
+
 export interface AdminAddCategoryPricingRequest {
   /** @format uuid */
   pricingTierId: string;
@@ -187,11 +248,29 @@ export interface AdminApproveArticleResponse {
   isSuccess: boolean;
 }
 
+export interface AdminApproveLyricsResponse {
+  isSuccess: boolean;
+}
+
+export interface AdminApproveLyricsSubmissionRequest {
+  slug: string;
+}
+
+export interface AdminApproveLyricsSubmissionResponse {
+  isSuccess: boolean;
+  /** @format uuid */
+  lyricsId: string;
+}
+
 export interface AdminApproveVideoResponse {
   isSuccess: boolean;
 }
 
 export interface AdminArchiveArticleResponse {
+  isSuccess: boolean;
+}
+
+export interface AdminArchiveLyricsResponse {
   isSuccess: boolean;
 }
 
@@ -229,6 +308,13 @@ export interface AdminAttachYoutubeVideoUrlResponse {
   video: VideoDetailDto;
 }
 
+export interface AdminAuthorDto {
+  userName: string;
+  email?: string | null;
+  avatarUrl?: string | null;
+  role?: string | null;
+}
+
 export interface AdminBulkUpdateRolePermissionsRequest {
   permissionIds: string[];
 }
@@ -255,6 +341,20 @@ export interface AdminCleanupExpiredSessionsResponse {
   deletedCount: number;
 }
 
+export interface AdminCreateAlbumRequest {
+  name: string;
+  /** @format uuid */
+  artistId?: string | null;
+  /** @format int32 */
+  releaseYear?: number | null;
+  label?: string | null;
+  releaseType: EnumReleaseType;
+}
+
+export interface AdminCreateAlbumResponse {
+  album: AlbumDto;
+}
+
 export interface AdminCreateArticleRequest {
   /** @format uuid */
   categoryId: string;
@@ -268,6 +368,21 @@ export interface AdminCreateArticleRequest {
 
 export interface AdminCreateArticleResponse {
   article: ArticleDetailDto;
+}
+
+export interface AdminCreateArtistRequest {
+  name: string;
+  slug: string;
+  bio?: string | null;
+  realName?: string | null;
+  aliases?: string[] | null;
+  /** @format date */
+  birthdate?: string | null;
+  hometown?: string | null;
+}
+
+export interface AdminCreateArtistResponse {
+  artist: ArtistDto;
 }
 
 export interface AdminCreateCategoryRequest {
@@ -304,16 +419,23 @@ export interface AdminCreateCustomerResponse {
 }
 
 export interface AdminCreateLyricsRequest {
+  /** @format uuid */
+  categoryId: string;
   songTitle: string;
   artistName: string;
+  slug: string;
   lyricsText: string;
   language: string;
   /** @format uuid */
   videoId?: string | null;
+  /** @format uuid */
+  customerId?: string | null;
+  /** @format uuid */
+  orderItemId?: string | null;
 }
 
 export interface AdminCreateLyricsResponse {
-  lyrics: LyricsDto;
+  lyrics: LyricsDetailDto;
 }
 
 export interface AdminCreateOrderRequest {
@@ -447,27 +569,23 @@ export interface AdminDeactivateShortVideoResponse {
   isSuccess: boolean;
 }
 
-export interface AdminDeleteArticleCommentResponse {
+export interface AdminDeactivateUserResponse {
   isSuccess: boolean;
 }
 
-export interface AdminDeleteArticleResponse {
+export interface AdminDecideLyricsRevisionRequest {
+  accept: boolean;
+}
+
+export interface AdminDecideLyricsRevisionResponse {
   isSuccess: boolean;
 }
 
-export interface AdminDeleteLyricsResponse {
-  isSuccess: boolean;
+export interface AdminDecideTranslationRevisionRequest {
+  accept: boolean;
 }
 
-export interface AdminDeleteShortVideoResponse {
-  isSuccess: boolean;
-}
-
-export interface AdminDeleteTagResponse {
-  isSuccess: boolean;
-}
-
-export interface AdminDeleteVideoResponse {
+export interface AdminDecideTranslationRevisionResponse {
   isSuccess: boolean;
 }
 
@@ -509,6 +627,17 @@ export interface AdminForceUnpromoteArticleResponse {
   unpromotedAt: string;
 }
 
+export interface AdminForceUnpromoteLyricsRequest {
+  reason: string;
+}
+
+export interface AdminForceUnpromoteLyricsResponse {
+  /** @format uuid */
+  lyricsId: string;
+  /** @format date-time */
+  unpromotedAt: string;
+}
+
 export interface AdminForceUnpromoteVideoRequest {
   reason: string;
 }
@@ -537,6 +666,10 @@ export interface AdminGetAllArticlesResponse {
   articles: ArticleSummaryDtoPaginatedResult;
 }
 
+export interface AdminGetAllArtistsResponse {
+  artists: ArtistDtoPaginatedResult;
+}
+
 export interface AdminGetAllCategoriesResponse {
   categories: CategoryDtoPaginatedResult;
 }
@@ -550,7 +683,7 @@ export interface AdminGetAllCustomersResponse {
 }
 
 export interface AdminGetAllLyricsResponse {
-  lyrics: LyricsDtoPaginatedResult;
+  lyrics: LyricsSummaryDtoPaginatedResult;
 }
 
 export interface AdminGetAllOrdersResponse {
@@ -611,6 +744,14 @@ export interface AdminGetCustomerByIdResponse {
 
 export interface AdminGetCustomerOrdersResponse {
   orders: ContentOrderSummaryDtoPaginatedResult;
+}
+
+export interface AdminGetLyricsSubmissionsResponse {
+  submissions: LyricsSubmissionDtoPaginatedResult;
+}
+
+export interface AdminGetNewsletterSubscribersResponse {
+  subscribers: NewsletterSubscriberDtoPaginatedResult;
 }
 
 export interface AdminGetOrderByIdResponse {
@@ -677,11 +818,30 @@ export interface AdminGetVideoByIdResponse {
   video: VideoDetailDto;
 }
 
-export interface AdminHardDeletePermissionResponse {
+export interface AdminLinkLyricsAlbumRequest {
+  /** @format uuid */
+  albumId?: string | null;
+}
+
+export interface AdminLinkLyricsAlbumResponse {
   isSuccess: boolean;
 }
 
-export interface AdminHardDeleteRoleResponse {
+export interface AdminLinkLyricsArtistRequest {
+  /** @format uuid */
+  artistId?: string | null;
+}
+
+export interface AdminLinkLyricsArtistResponse {
+  isSuccess: boolean;
+}
+
+export interface AdminLinkVideoArtistRequest {
+  /** @format uuid */
+  artistId?: string | null;
+}
+
+export interface AdminLinkVideoArtistResponse {
   isSuccess: boolean;
 }
 
@@ -702,6 +862,10 @@ export interface AdminPublishArticleResponse {
   isSuccess: boolean;
 }
 
+export interface AdminPublishLyricsResponse {
+  isSuccess: boolean;
+}
+
 export interface AdminPublishVideoResponse {
   isSuccess: boolean;
 }
@@ -715,6 +879,22 @@ export interface AdminRejectArticleRequest {
 }
 
 export interface AdminRejectArticleResponse {
+  isSuccess: boolean;
+}
+
+export interface AdminRejectLyricsRequest {
+  reason: string;
+}
+
+export interface AdminRejectLyricsResponse {
+  isSuccess: boolean;
+}
+
+export interface AdminRejectLyricsSubmissionRequest {
+  note: string;
+}
+
+export interface AdminRejectLyricsSubmissionResponse {
   isSuccess: boolean;
 }
 
@@ -739,14 +919,6 @@ export interface AdminRemoveCategoryPricingResponse {
   isSuccess: boolean;
 }
 
-export interface AdminRemoveItemTierResponse {
-  isSuccess: boolean;
-}
-
-export interface AdminRemoveOrderItemResponse {
-  isSuccess: boolean;
-}
-
 export interface AdminRemovePackageSlotResponse {
   package: PackageDto;
   isSuccess: boolean;
@@ -759,6 +931,14 @@ export interface AdminRemovePermissionFromRoleResponse {
 
 export interface AdminRemoveRoleFromUserResponse {
   roles: RoleDto[];
+  isSuccess: boolean;
+}
+
+export interface AdminRequestLyricsSubmissionRevisionRequest {
+  note: string;
+}
+
+export interface AdminRequestLyricsSubmissionRevisionResponse {
   isSuccess: boolean;
 }
 
@@ -779,6 +959,24 @@ export interface AdminResetPasswordRequest {
 
 export interface AdminResetPasswordResponse {
   isSuccess: boolean;
+}
+
+export interface AdminResolveAlbumStreamingLinksRequest {
+  sourceUrl: string;
+}
+
+export interface AdminResolveAlbumStreamingLinksResponse {
+  resolved: EnumStreamingPlatform[];
+  unresolved: EnumStreamingPlatform[];
+}
+
+export interface AdminResolveSingleStreamingLinksRequest {
+  sourceUrl: string;
+}
+
+export interface AdminResolveSingleStreamingLinksResponse {
+  resolved: EnumStreamingPlatform[];
+  unresolved: EnumStreamingPlatform[];
 }
 
 export interface AdminRestorePermissionResponse {
@@ -802,8 +1000,24 @@ export interface AdminScheduleShootResponse {
   isSuccess: boolean;
 }
 
+export interface AdminSetArticleArtistsRequest {
+  artistIds: string[];
+}
+
+export interface AdminSetArticleArtistsResponse {
+  artistIds: string[];
+}
+
 export interface AdminSetExclusiveCategoryResponse {
   category: CategoryDto;
+}
+
+export interface AdminSetLyricsTagsRequest {
+  tagIds: string[];
+}
+
+export interface AdminSetLyricsTagsResponse {
+  isSuccess: boolean;
 }
 
 export interface AdminSignOutFromAllDevicesResponse {
@@ -832,6 +1046,10 @@ export interface AdminSubmitArticleResponse {
   isSuccess: boolean;
 }
 
+export interface AdminSubmitLyricsResponse {
+  isSuccess: boolean;
+}
+
 export interface AdminSubmitOrderResponse {
   isSuccess: boolean;
 }
@@ -842,6 +1060,18 @@ export interface AdminSubmitVideoResponse {
 
 export interface AdminUnpinCategoryFromFeedResponse {
   category: CategoryDto;
+}
+
+export interface AdminUpdateAlbumRequest {
+  name: string;
+  /** @format int32 */
+  releaseYear?: number | null;
+  label?: string | null;
+  releaseType: EnumReleaseType;
+}
+
+export interface AdminUpdateAlbumResponse {
+  album: AlbumDto;
 }
 
 export interface AdminUpdateArticleRequest {
@@ -881,6 +1111,20 @@ export interface AdminUpdateArticleTagsResponse {
   isSuccess: boolean;
 }
 
+export interface AdminUpdateArtistRequest {
+  name: string;
+  bio?: string | null;
+  realName?: string | null;
+  aliases?: string[] | null;
+  /** @format date */
+  birthdate?: string | null;
+  hometown?: string | null;
+}
+
+export interface AdminUpdateArtistResponse {
+  artist: ArtistDto;
+}
+
 export interface AdminUpdateAvatarResponse {
   user: UserResponseDto;
 }
@@ -900,6 +1144,7 @@ export interface AdminUpdateCategoryRequest {
   description: string;
   isGossip: boolean;
   isExclusive: boolean;
+  isDefaultForLyrics: boolean;
 }
 
 export interface AdminUpdateCategoryResponse {
@@ -926,17 +1171,37 @@ export interface AdminUpdateCustomerResponse {
   customer: CustomerDto;
 }
 
+export interface AdminUpdateLyricsMetadataRequest {
+  album?: string | null;
+  /** @format int32 */
+  releaseYear?: number | null;
+  label?: string | null;
+  songwriter?: string | null;
+  producer?: string | null;
+}
+
+export interface AdminUpdateLyricsMetadataResponse {
+  lyrics: LyricsDetailDto;
+}
+
 export interface AdminUpdateLyricsRequest {
+  /** @format uuid */
+  categoryId: string;
   songTitle: string;
   artistName: string;
+  slug: string;
   lyricsText: string;
   language: string;
   /** @format uuid */
   videoId?: string | null;
+  /** @format uuid */
+  customerId?: string | null;
+  /** @format uuid */
+  orderItemId?: string | null;
 }
 
 export interface AdminUpdateLyricsResponse {
-  lyrics: LyricsDto;
+  lyrics: LyricsDetailDto;
 }
 
 export interface AdminUpdateLyricsSeoRequest {
@@ -946,7 +1211,7 @@ export interface AdminUpdateLyricsSeoRequest {
 }
 
 export interface AdminUpdateLyricsSeoResponse {
-  lyrics: LyricsDto;
+  lyrics: LyricsDetailDto;
 }
 
 export interface AdminUpdateOwnProfileRequest {
@@ -955,6 +1220,7 @@ export interface AdminUpdateOwnProfileRequest {
   partialPhoneNumber?: string | null;
   countryIsoCode?: string | null;
   countryDialCode?: string | null;
+  preferredLocale?: string | null;
 }
 
 export interface AdminUpdateOwnProfileResponse {
@@ -1058,12 +1324,27 @@ export interface AdminUpdateVideoTagsResponse {
   isSuccess: boolean;
 }
 
+export interface AdminUploadAlbumCoverResponse {
+  coverImageUrl: string;
+  coverImageStorageKey: string;
+}
+
 export interface AdminUploadArticleImageResponse {
   image: ArticleImageDto;
 }
 
+export interface AdminUploadArtistAvatarResponse {
+  avatarUrl: string;
+  avatarStorageKey: string;
+}
+
 export interface AdminUploadCategoryPosterResponse {
   category: CategoryDto;
+}
+
+export interface AdminUploadLyricsCoverResponse {
+  coverImageUrl: string;
+  coverImageStorageKey: string;
 }
 
 export interface AdminUploadShortVideoFileResponse {
@@ -1079,6 +1360,42 @@ export interface AdminUploadShortVideoThumbnailResponse {
 export interface AdminUploadVideoThumbnailResponse {
   thumbnailUrl: string;
   thumbnailStorageKey: string;
+}
+
+export interface AdminUpsertAlbumStreamingLinkRequest {
+  url: string;
+}
+
+export interface AdminUpsertAlbumStreamingLinkResponse {
+  /** @format uuid */
+  streamingLinkId: string;
+}
+
+export interface AdminUpsertArtistSocialLinkRequest {
+  url: string;
+}
+
+export interface AdminUpsertArtistSocialLinkResponse {
+  /** @format uuid */
+  socialLinkId: string;
+}
+
+export interface AdminUpsertSingleStreamingLinkRequest {
+  url: string;
+}
+
+export interface AdminUpsertSingleStreamingLinkResponse {
+  /** @format uuid */
+  streamingLinkId: string;
+}
+
+export interface AdminVerifyArtistOwnerRequest {
+  /** @format uuid */
+  userId: string;
+}
+
+export interface AdminVerifyArtistOwnerResponse {
+  artist: ArtistDto;
 }
 
 export interface AdminVerifyOtpRequest {
@@ -1099,38 +1416,32 @@ export interface AdminVerifyPaymentResponse {
   isSuccess: boolean;
 }
 
-export interface ArticleCommentDto {
-  /** @format date-time */
-  createdAt?: string | null;
-  createdBy?: string | null;
-  /** @format date-time */
-  updatedAt?: string | null;
-  updatedBy?: string | null;
+export interface AlbumDto {
   /** @format uuid */
   id: string;
+  name: string;
   /** @format uuid */
-  userId: string;
-  body?: string | null;
-  isDeleted: boolean;
-  author?: AuthorDto | null;
-  /** @format uuid */
-  parentCommentId?: string | null;
+  artistId?: string | null;
+  coverImageUrl?: string | null;
   /** @format int32 */
-  replyCount: number;
-  replies?: ArticleCommentDto[] | null;
-  /** @format int32 */
-  likeCount: number;
-  isLiked: boolean;
+  releaseYear?: number | null;
+  label?: string | null;
+  releaseType: EnumReleaseType;
 }
 
-export interface ArticleCommentDtoPaginatedResult {
+export interface AlbumDtoPaginatedResult {
   /** @format int32 */
   pageIndex: number;
   /** @format int32 */
   pageSize: number;
   /** @format int64 */
   count: number;
-  items: ArticleCommentDto[];
+  items: AlbumDto[];
+}
+
+export interface AlbumTrackDto {
+  slug: string;
+  songTitle: string;
 }
 
 export interface ArticleDetailDto {
@@ -1181,7 +1492,7 @@ export interface ArticleDetailDto {
   customerName?: string | null;
   /** @format uuid */
   orderItemId?: string | null;
-  author?: AuthorDto | null;
+  author?: AdminAuthorDto | null;
   isLiked: boolean;
   isBookmarked: boolean;
 }
@@ -1196,7 +1507,7 @@ export interface ArticleImageDto {
 
 export interface ArticlePromotionSlotDto {
   position: string;
-  articles: ArticleSummaryDto[];
+  articles: PublicArticleSummaryDto[];
 }
 
 export interface ArticlePromotionSpot3Dto {
@@ -1208,7 +1519,7 @@ export interface ArticlePromotionSpot3Dto {
 export interface ArticlePromotionSpotDto {
   /** @format int32 */
   spotPriority: number;
-  articles: ArticleSummaryDto[];
+  articles: PublicArticleSummaryDto[];
 }
 
 export interface ArticleSummaryDto {
@@ -1254,11 +1565,67 @@ export interface ArticleSummaryDtoPaginatedResult {
   items: ArticleSummaryDto[];
 }
 
-export interface AuthorDto {
-  userName: string;
-  email?: string | null;
+export interface ArtistDto {
+  /** @format uuid */
+  id: string;
+  name: string;
+  slug: string;
+  bio?: string | null;
   avatarUrl?: string | null;
-  role?: string | null;
+  isVerified: boolean;
+  realName?: string | null;
+  aliases: string[];
+  /** @format date */
+  birthdate?: string | null;
+  hometown?: string | null;
+  socialLinks: ArtistSocialLinkDto[];
+}
+
+export interface ArtistDtoPaginatedResult {
+  /** @format int32 */
+  pageIndex: number;
+  /** @format int32 */
+  pageSize: number;
+  /** @format int64 */
+  count: number;
+  items: ArtistDto[];
+}
+
+export interface ArtistSocialLinkDto {
+  platform: EnumSocialPlatform;
+  url: string;
+}
+
+export interface ArtistSummaryDto {
+  name: string;
+  slug: string;
+  avatarUrl?: string | null;
+  isVerified: boolean;
+  /** @format int32 */
+  contentCount: number;
+}
+
+export interface ArtistSummaryDtoPaginatedResult {
+  /** @format int32 */
+  pageIndex: number;
+  /** @format int32 */
+  pageSize: number;
+  /** @format int64 */
+  count: number;
+  items: ArtistSummaryDto[];
+}
+
+export interface ArtistTotalsDto {
+  /** @format int32 */
+  songs: number;
+  /** @format int32 */
+  videos: number;
+  /** @format int32 */
+  albums: number;
+  /** @format int32 */
+  mixtapes: number;
+  /** @format int32 */
+  news: number;
 }
 
 export interface BrowserMetrics {
@@ -1482,7 +1849,7 @@ export interface ItemTierDto {
   priceSnapshotUsd: number;
 }
 
-export interface LyricsDto {
+export interface LyricsDetailDto {
   /** @format date-time */
   createdAt?: string | null;
   createdBy?: string | null;
@@ -1491,26 +1858,159 @@ export interface LyricsDto {
   updatedBy?: string | null;
   /** @format uuid */
   id: string;
+  /** @format uuid */
+  categoryId: string;
+  categoryName: string;
+  songTitle: string;
+  artistName: string;
+  slug: string;
+  lyricsText: string;
+  language: string;
+  /** @format uuid */
+  videoId?: string | null;
+  status: EnumContentStatus;
+  rejectionReason?: string | null;
+  /** @format date-time */
+  publishedAt?: string | null;
+  metaTitle?: string | null;
+  metaDescription?: string | null;
+  coverImageUrl?: string | null;
+  album?: string | null;
+  /** @format int32 */
+  releaseYear?: number | null;
+  label?: string | null;
+  songwriter?: string | null;
+  producer?: string | null;
+  tags: TagDto[];
+  authorId: string;
+  /** @format int32 */
+  viewCount: number;
+  /** @format int32 */
+  likeCount: number;
+  /** @format int32 */
+  shareCount: number;
+  /** @format uuid */
+  customerId?: string | null;
+  customerName?: string | null;
+  /** @format uuid */
+  orderItemId?: string | null;
+  author?: AdminAuthorDto | null;
+  isLiked: boolean;
+}
+
+export interface LyricsSubmissionDto {
+  /** @format uuid */
+  id: string;
   songTitle: string;
   artistName: string;
   lyricsText: string;
   language: string;
   /** @format uuid */
-  videoId?: string | null;
-  metaTitle?: string | null;
-  metaDescription?: string | null;
-  authorId: string;
-  author?: AuthorDto | null;
+  submittedByUserId: string;
+  status: string;
+  /** @format uuid */
+  reviewedByUserId?: string | null;
+  reviewNote?: string | null;
+  /** @format uuid */
+  publishedLyricsId?: string | null;
 }
 
-export interface LyricsDtoPaginatedResult {
+export interface LyricsSubmissionDtoPaginatedResult {
   /** @format int32 */
   pageIndex: number;
   /** @format int32 */
   pageSize: number;
   /** @format int64 */
   count: number;
-  items: LyricsDto[];
+  items: LyricsSubmissionDto[];
+}
+
+export interface LyricsSummaryDto {
+  /** @format date-time */
+  createdAt?: string | null;
+  createdBy?: string | null;
+  /** @format date-time */
+  updatedAt?: string | null;
+  updatedBy?: string | null;
+  /** @format uuid */
+  id: string;
+  /** @format uuid */
+  categoryId: string;
+  categoryName: string;
+  songTitle: string;
+  artistName: string;
+  slug: string;
+  language: string;
+  /** @format uuid */
+  videoId?: string | null;
+  coverImageUrl?: string | null;
+  authorId: string;
+  status: EnumContentStatus;
+  /** @format date-time */
+  publishedAt?: string | null;
+  /** @format int32 */
+  viewCount: number;
+  /** @format int32 */
+  likeCount: number;
+  /** @format int32 */
+  shareCount: number;
+  isLiked: boolean;
+}
+
+export interface LyricsSummaryDtoPaginatedResult {
+  /** @format int32 */
+  pageIndex: number;
+  /** @format int32 */
+  pageSize: number;
+  /** @format int64 */
+  count: number;
+  items: LyricsSummaryDto[];
+}
+
+export interface NewsletterSubscriberDto {
+  /** @format uuid */
+  id: string;
+  email: string;
+  status: EnumNewsletterStatus;
+  /** @format date-time */
+  confirmedAt?: string | null;
+  /** @format date-time */
+  unsubscribedAt?: string | null;
+  /** @format date-time */
+  createdAt?: string | null;
+}
+
+export interface NewsletterSubscriberDtoPaginatedResult {
+  /** @format int32 */
+  pageIndex: number;
+  /** @format int32 */
+  pageSize: number;
+  /** @format int64 */
+  count: number;
+  items: NewsletterSubscriberDto[];
+}
+
+export interface NotificationDto {
+  /** @format uuid */
+  id: string;
+  type: EnumNotificationType;
+  title: string;
+  body: string;
+  linkPath?: string | null;
+  /** @format date-time */
+  readAt?: string | null;
+  /** @format date-time */
+  createdAt?: string | null;
+}
+
+export interface NotificationDtoPaginatedResult {
+  /** @format int32 */
+  pageIndex: number;
+  /** @format int32 */
+  pageSize: number;
+  /** @format int64 */
+  count: number;
+  items: NotificationDto[];
 }
 
 export interface OrderItemDto {
@@ -1723,7 +2223,7 @@ export interface PublicAddArticleCommentRequest {
 }
 
 export interface PublicAddArticleCommentResponse {
-  comment: ArticleCommentDto;
+  comment: PublicArticleCommentDto;
 }
 
 export interface PublicAddCommentReplyRequest {
@@ -1731,7 +2231,7 @@ export interface PublicAddCommentReplyRequest {
 }
 
 export interface PublicAddCommentReplyResponse {
-  reply: ArticleCommentDto;
+  reply: PublicArticleCommentDto;
 }
 
 export interface PublicAddVideoToPlaylistRequest {
@@ -1743,6 +2243,109 @@ export interface PublicAddVideoToPlaylistRequest {
 
 export interface PublicAddVideoToPlaylistResponse {
   isSuccess: boolean;
+}
+
+export interface PublicArticleCommentDto {
+  /** @format uuid */
+  id: string;
+  /** @format uuid */
+  userId: string;
+  body?: string | null;
+  isDeleted: boolean;
+  /** @format date-time */
+  postedAt?: string | null;
+  author?: PublicAuthorDto | null;
+  /** @format uuid */
+  parentCommentId?: string | null;
+  /** @format int32 */
+  replyCount: number;
+  replies?: PublicArticleCommentDto[] | null;
+  /** @format int32 */
+  likeCount: number;
+  isLiked: boolean;
+}
+
+export interface PublicArticleCommentDtoPaginatedResult {
+  /** @format int32 */
+  pageIndex: number;
+  /** @format int32 */
+  pageSize: number;
+  /** @format int64 */
+  count: number;
+  items: PublicArticleCommentDto[];
+}
+
+export interface PublicArticleDetailDto {
+  /** @format uuid */
+  id: string;
+  /** @format uuid */
+  categoryId: string;
+  categoryName: string;
+  title: string;
+  slug: string;
+  headline: string;
+  body: string;
+  coverImageUrl?: string | null;
+  isPromoted: boolean;
+  /** @format date-time */
+  publishedAt?: string | null;
+  metaTitle?: string | null;
+  metaDescription?: string | null;
+  images: ArticleImageDto[];
+  tags: TagDto[];
+  /** @format int32 */
+  readTimeInMinutes: number;
+  /** @format int32 */
+  likeCount: number;
+  /** @format int32 */
+  commentCount: number;
+  /** @format int32 */
+  shareCount: number;
+  /** @format int32 */
+  bookmarkCount: number;
+  author?: PublicAuthorDto | null;
+  isLiked: boolean;
+  isBookmarked: boolean;
+}
+
+export interface PublicArticleSummaryDto {
+  /** @format uuid */
+  id: string;
+  /** @format uuid */
+  categoryId: string;
+  categoryName: string;
+  title: string;
+  slug: string;
+  headline: string;
+  coverImageUrl?: string | null;
+  isPromoted: boolean;
+  /** @format date-time */
+  publishedAt?: string | null;
+  /** @format int32 */
+  likeCount: number;
+  /** @format int32 */
+  commentCount: number;
+  /** @format int32 */
+  shareCount: number;
+  /** @format int32 */
+  bookmarkCount: number;
+  isLiked: boolean;
+  isBookmarked: boolean;
+}
+
+export interface PublicArticleSummaryDtoPaginatedResult {
+  /** @format int32 */
+  pageIndex: number;
+  /** @format int32 */
+  pageSize: number;
+  /** @format int64 */
+  count: number;
+  items: PublicArticleSummaryDto[];
+}
+
+export interface PublicAuthorDto {
+  userName: string;
+  avatarUrl?: string | null;
 }
 
 export interface PublicBookmarkArticleResponse {
@@ -1762,6 +2365,16 @@ export interface PublicChangePasswordResponse {
   isSuccess: boolean;
 }
 
+export interface PublicConfirmNewsletterResponse {
+  isSubscribed: boolean;
+}
+
+export interface PublicContentTypeDto {
+  /** @format uuid */
+  id: string;
+  name: string;
+}
+
 export interface PublicCreatePlaylistRequest {
   name: string;
 }
@@ -1770,20 +2383,19 @@ export interface PublicCreatePlaylistResponse {
   playlist: PlaylistDto;
 }
 
-export interface PublicDeleteArticleCommentResponse {
-  isSuccess: boolean;
-}
-
-export interface PublicDeletePlaylistResponse {
-  isSuccess: boolean;
-}
-
 export interface PublicEditArticleCommentRequest {
   body: string;
 }
 
 export interface PublicEditArticleCommentResponse {
   isSuccess: boolean;
+}
+
+export interface PublicFileDto {
+  /** @format uuid */
+  id: string;
+  storageUrl: string;
+  mimeType: string;
 }
 
 export interface PublicForgotPasswordRequest {
@@ -1804,7 +2416,7 @@ export interface PublicGetActivePromotionLevelsResponse {
 }
 
 export interface PublicGetAllContentTypesResponse {
-  contentTypes: ContentTypeDto[];
+  contentTypes: PublicContentTypeDto[];
 }
 
 export interface PublicGetAllTagsResponse {
@@ -1812,47 +2424,79 @@ export interface PublicGetAllTagsResponse {
 }
 
 export interface PublicGetArticleBySlugResponse {
-  article: ArticleDetailDto;
+  article: PublicArticleDetailDto;
 }
 
 export interface PublicGetArticlePromotionFeedResponse {
   spot1: ArticlePromotionSpotDto;
   spot2: ArticlePromotionSpotDto;
   spot3: ArticlePromotionSpot3Dto;
-  gossipStrip: ArticleSummaryDto[];
+  gossipStrip: PublicArticleSummaryDto[];
+}
+
+export interface PublicGetArtistArticlesResponse {
+  articles: PublicArticleSummaryDtoPaginatedResult;
+}
+
+export interface PublicGetArtistBySlugResponse {
+  artist: ArtistDto;
+  totals: ArtistTotalsDto;
+  lyrics: PublicLyricsSummaryDtoPaginatedResult;
+  videos: PublicVideoSummaryDtoPaginatedResult;
+}
+
+export interface PublicGetArtistReleasesResponse {
+  releases: AlbumDtoPaginatedResult;
+}
+
+export interface PublicGetArtistsResponse {
+  artists: ArtistSummaryDtoPaginatedResult;
+  availableLetters: string[];
 }
 
 export interface PublicGetExclusiveCategoryResponse {
   category: CategoryDto;
-  videos: VideoSummaryDtoPaginatedResult;
+  videos: PublicVideoSummaryDtoPaginatedResult;
 }
 
 export interface PublicGetLyricsBySlugResponse {
-  lyrics: LyricsDto;
+  lyrics: PublicLyricsDetailDto;
+  videoSlug?: string | null;
+  artistSlug?: string | null;
+  albumTracks: AlbumTrackDto[];
+  streamingLinks: StreamingLinkDto[];
 }
 
 export interface PublicGetLyricsByVideoIdResponse {
-  lyrics: LyricsDto;
+  lyrics: PublicLyricsDetailDto;
+}
+
+export interface PublicGetLyricsTranslationsResponse {
+  translations: TranslationDto[];
+}
+
+export interface PublicGetNotificationsResponse {
+  notifications: NotificationDtoPaginatedResult;
 }
 
 export interface PublicGetOwnProfileResponse {
-  user: UserResponseDto;
+  user: PublicUserResponseDto;
 }
 
 export interface PublicGetOwnRolesResponse {
-  roles: RoleWithPermissionsDto[];
+  roles: PublicRoleWithPermissionsDto[];
 }
 
 export interface PublicGetOwnSessionByIdResponse {
-  session: SessionDto;
+  session: PublicSessionDto;
 }
 
 export interface PublicGetOwnSessionsResponse {
-  sessions: SessionDto[];
+  sessions: PublicSessionDto[];
 }
 
 export interface PublicGetPopularArticlesResponse {
-  articles: ArticleSummaryDto[];
+  articles: PublicArticleSummaryDto[];
 }
 
 export interface PublicGetPopularTagsResponse {
@@ -1860,40 +2504,58 @@ export interface PublicGetPopularTagsResponse {
 }
 
 export interface PublicGetPopularVideosResponse {
-  videos: VideoSummaryDto[];
+  videos: PublicVideoSummaryDto[];
 }
 
 export interface PublicGetPromotedArticlesResponse {
-  articles: ArticleSummaryDto[];
+  articles: PublicArticleSummaryDto[];
 }
 
 export interface PublicGetPromotedVideosResponse {
-  videos: VideoSummaryDto[];
+  videos: PublicVideoSummaryDto[];
 }
 
 export interface PublicGetPublicShortBySlugResponse {
-  shortVideo: ShortVideoDto;
+  shortVideo: PublicShortVideoDto;
 }
 
 export interface PublicGetPublicShortsResponse {
-  shortVideos: ShortVideoDtoPaginatedResult;
+  shortVideos: PublicShortVideoDtoPaginatedResult;
 }
 
 export interface PublicGetPublishedArticlesResponse {
-  articles: ArticleSummaryDtoPaginatedResult;
+  articles: PublicArticleSummaryDtoPaginatedResult;
+}
+
+export interface PublicGetPublishedLyricsResponse {
+  lyrics: PublicLyricsSummaryDtoPaginatedResult;
 }
 
 export interface PublicGetPublishedVideosResponse {
-  videos: VideoSummaryDtoPaginatedResult;
+  videos: PublicVideoSummaryDtoPaginatedResult;
 }
 
 export interface PublicGetShortsFeedResponse {
-  items: ShortVideoDto[];
+  items: PublicShortVideoDto[];
   nextCursor?: string | null;
 }
 
+export interface PublicGetSimilarLyricsResponse {
+  lyrics: PublicLyricsSummaryDto[];
+}
+
+export interface PublicGetTranslationRevisionsResponse {
+  revisions: TranslationRevisionDto[];
+}
+
+export interface PublicGetUnreadNotificationCountResponse {
+  /** @format int32 */
+  count: number;
+}
+
 export interface PublicGetVideoBySlugResponse {
-  video: VideoDetailDto;
+  video: PublicVideoDetailDto;
+  artistSlug?: string | null;
 }
 
 export interface PublicGetVideoFeedResponse {
@@ -1904,7 +2566,7 @@ export interface PublicGetVideoPromotionFeedResponse {
   spot1: VideoPromotionSpotDto;
   spot2: VideoPromotionSpotDto;
   spot3: VideoPromotionSpot3Dto;
-  freeVideoStrip: VideoSummaryDto[];
+  freeVideoStrip: PublicVideoSummaryDto[];
 }
 
 export interface PublicLikeArticleCommentResponse {
@@ -1915,8 +2577,23 @@ export interface PublicLikeArticleResponse {
   isSuccess: boolean;
 }
 
+export interface PublicLikeLyricsResponse {
+  isSuccess: boolean;
+}
+
 export interface PublicLikeShortVideoResponse {
   isSuccess: boolean;
+}
+
+export interface PublicLoginMobileResponse {
+  user: PublicUserResponseDto;
+  accessToken: string;
+  /** @format date-time */
+  accessTokenExpiresAt: string;
+  refreshToken: string;
+  /** @format date-time */
+  refreshTokenExpiresAt: string;
+  tokenType: string;
 }
 
 export interface PublicLoginRequest {
@@ -1924,8 +2601,110 @@ export interface PublicLoginRequest {
   password: string;
 }
 
-export interface PublicLoginWebResponse {
-  user: UserResponseDto;
+export interface PublicLyricsDetailDto {
+  /** @format uuid */
+  id: string;
+  /** @format uuid */
+  categoryId: string;
+  categoryName: string;
+  songTitle: string;
+  artistName: string;
+  slug: string;
+  lyricsText: string;
+  language: string;
+  /** @format uuid */
+  videoId?: string | null;
+  /** @format date-time */
+  publishedAt?: string | null;
+  metaTitle?: string | null;
+  metaDescription?: string | null;
+  coverImageUrl?: string | null;
+  album?: string | null;
+  /** @format int32 */
+  releaseYear?: number | null;
+  label?: string | null;
+  songwriter?: string | null;
+  producer?: string | null;
+  tags: TagDto[];
+  /** @format int32 */
+  viewCount: number;
+  /** @format int32 */
+  likeCount: number;
+  /** @format int32 */
+  shareCount: number;
+  author?: PublicAuthorDto | null;
+  isLiked: boolean;
+}
+
+export interface PublicLyricsSummaryDto {
+  /** @format uuid */
+  id: string;
+  /** @format uuid */
+  categoryId: string;
+  categoryName: string;
+  songTitle: string;
+  artistName: string;
+  slug: string;
+  language: string;
+  /** @format uuid */
+  videoId?: string | null;
+  coverImageUrl?: string | null;
+  /** @format date-time */
+  publishedAt?: string | null;
+  /** @format int32 */
+  viewCount: number;
+  /** @format int32 */
+  likeCount: number;
+  /** @format int32 */
+  shareCount: number;
+  isLiked: boolean;
+}
+
+export interface PublicLyricsSummaryDtoPaginatedResult {
+  /** @format int32 */
+  pageIndex: number;
+  /** @format int32 */
+  pageSize: number;
+  /** @format int64 */
+  count: number;
+  items: PublicLyricsSummaryDto[];
+}
+
+export interface PublicMarkAllNotificationsReadResponse {
+  /** @format int32 */
+  markedCount: number;
+}
+
+export interface PublicMarkNotificationReadResponse {
+  isRead: boolean;
+}
+
+export interface PublicPermissionDto {
+  /** @format uuid */
+  id: string;
+  resource: string;
+  action: string;
+  description: string;
+}
+
+export interface PublicProposeLyricsRevisionRequest {
+  proposedText: string;
+  editSummary?: string | null;
+}
+
+export interface PublicProposeLyricsRevisionResponse {
+  /** @format uuid */
+  revisionId: string;
+}
+
+export interface PublicProposeTranslationRevisionRequest {
+  proposedText: string;
+  editSummary?: string | null;
+}
+
+export interface PublicProposeTranslationRevisionResponse {
+  /** @format uuid */
+  revisionId: string;
 }
 
 export interface PublicRateVideoRequest {
@@ -1937,21 +2716,36 @@ export interface PublicRateVideoResponse {
   isSuccess: boolean;
 }
 
+export interface PublicRecordLyricsViewRequest {
+  /** @format int32 */
+  dwellMs: number;
+  /** @format double */
+  scrollDepthRatio: number;
+}
+
+export interface PublicRecordLyricsViewResponse {
+  isSuccess: boolean;
+  isCounted: boolean;
+}
+
 export interface PublicRecordShortVideoViewResponse {
   isSuccess: boolean;
   isCounted: boolean;
 }
 
+export interface PublicRefreshTokenMobileResponse {
+  user: PublicUserResponseDto;
+  accessToken: string;
+  /** @format date-time */
+  accessTokenExpiresAt: string;
+  refreshToken: string;
+  /** @format date-time */
+  refreshTokenExpiresAt: string;
+  tokenType: string;
+}
+
 export interface PublicRefreshTokenRequest {
   refreshToken: string;
-}
-
-export interface PublicRefreshTokenWebResponse {
-  user: UserResponseDto;
-}
-
-export interface PublicRemoveVideoFromPlaylistResponse {
-  isSuccess: boolean;
 }
 
 export interface PublicRenamePlaylistRequest {
@@ -1960,6 +2754,19 @@ export interface PublicRenamePlaylistRequest {
 
 export interface PublicRenamePlaylistResponse {
   isSuccess: boolean;
+}
+
+export interface PublicRequestArtistClaimResponse {
+  isSuccess: boolean;
+}
+
+export interface PublicRequestLyricsTranslationRequest {
+  language: string;
+}
+
+export interface PublicRequestLyricsTranslationResponse {
+  text: string;
+  source: string;
 }
 
 export interface PublicResendOtpRequest {
@@ -1985,6 +2792,38 @@ export interface PublicRevokeSessionResponse {
   isSuccess: boolean;
 }
 
+export interface PublicRoleDto {
+  /** @format uuid */
+  id: string;
+  name: string;
+  description: string;
+}
+
+export interface PublicRoleWithPermissionsDto {
+  /** @format uuid */
+  id: string;
+  name: string;
+  description: string;
+  permissions: PublicPermissionDto[];
+}
+
+export interface PublicSessionDto {
+  /** @format uuid */
+  id: string;
+  ipAddress?: string | null;
+  userAgent?: string | null;
+  browser: EnumBrowser;
+  device: EnumDevice;
+  platform: EnumPlatform;
+  client: EnumClient;
+  /** @format date-time */
+  startedAt?: string | null;
+  /** @format date-time */
+  expiresAt: string;
+  isActive: boolean;
+  isCurrent: boolean;
+}
+
 export interface PublicSetPasswordRequest {
   password: string;
 }
@@ -1998,6 +2837,14 @@ export interface PublicShareArticleRequest {
 }
 
 export interface PublicShareArticleResponse {
+  isSuccess: boolean;
+}
+
+export interface PublicShareLyricsRequest {
+  shareChannel?: string | null;
+}
+
+export interface PublicShareLyricsResponse {
   isSuccess: boolean;
 }
 
@@ -2015,6 +2862,40 @@ export interface PublicShareVideoRequest {
 
 export interface PublicShareVideoResponse {
   isSuccess: boolean;
+}
+
+export interface PublicShortVideoDto {
+  /** @format uuid */
+  id: string;
+  title: string;
+  slug: string;
+  videoUrl?: string | null;
+  thumbnailUrl?: string | null;
+  /** @format uuid */
+  videoId?: string | null;
+  videoSlug?: string | null;
+  hasFullVideo: boolean;
+  /** @format int32 */
+  viewCount: number;
+  /** @format int32 */
+  likeCount: number;
+  /** @format int32 */
+  shareCount: number;
+  /** @format int32 */
+  bookmarkCount: number;
+  author?: PublicAuthorDto | null;
+  isLiked: boolean;
+  isBookmarked: boolean;
+}
+
+export interface PublicShortVideoDtoPaginatedResult {
+  /** @format int32 */
+  pageIndex: number;
+  /** @format int32 */
+  pageSize: number;
+  /** @format int64 */
+  count: number;
+  items: PublicShortVideoDto[];
 }
 
 export interface PublicSignOutFromAllDevicesResponse {
@@ -2035,44 +2916,58 @@ export interface PublicSignUpRequest {
   password: string;
 }
 
-export interface PublicSignUpWebResponse {
-  user: UserResponseDto;
+export interface PublicSignUpResponse {
+  user: PublicUserResponseDto;
   verificationRequired: boolean;
 }
 
+export interface PublicSocialLoginMobileResponse {
+  user: PublicUserResponseDto;
+  accessToken: string;
+  /** @format date-time */
+  accessTokenExpiresAt: string;
+  refreshToken: string;
+  /** @format date-time */
+  refreshTokenExpiresAt: string;
+  tokenType: string;
+}
+
 export interface PublicSocialLoginRequest {
-  email: string;
-  userName: string;
-  avatarUrl?: string | null;
   provider: string;
+  idToken: string;
 }
 
-export interface PublicSocialLoginWebResponse {
-  user: UserResponseDto;
+export interface PublicSubmitLyricsRequest {
+  songTitle: string;
+  artistName?: string | null;
+  lyricsText: string;
+  language: string;
+  slug?: string | null;
 }
 
-export interface PublicUnbookmarkArticleResponse {
+export interface PublicSubmitLyricsResponse {
+  wentToQueue: boolean;
+  /** @format uuid */
+  submissionId?: string | null;
+  /** @format uuid */
+  lyricsId?: string | null;
+}
+
+export interface PublicSubscribeNewsletterRequest {
+  email: string;
+}
+
+export interface PublicSubscribeNewsletterResponse {
   isSuccess: boolean;
+  email: string;
 }
 
-export interface PublicUnbookmarkShortVideoResponse {
-  isSuccess: boolean;
-}
-
-export interface PublicUnlikeArticleCommentResponse {
-  isSuccess: boolean;
-}
-
-export interface PublicUnlikeArticleResponse {
-  isSuccess: boolean;
-}
-
-export interface PublicUnlikeShortVideoResponse {
-  isSuccess: boolean;
+export interface PublicUnsubscribeNewsletterResponse {
+  isUnsubscribed: boolean;
 }
 
 export interface PublicUpdateAvatarResponse {
-  user: UserResponseDto;
+  user: PublicUserResponseDto;
 }
 
 export interface PublicUpdateOwnProfileRequest {
@@ -2082,10 +2977,29 @@ export interface PublicUpdateOwnProfileRequest {
   partialPhoneNumber?: string | null;
   countryIsoCode?: string | null;
   countryDialCode?: string | null;
+  preferredLocale?: string | null;
 }
 
 export interface PublicUpdateOwnProfileResponse {
-  user: UserResponseDto;
+  user: PublicUserResponseDto;
+}
+
+export interface PublicUserResponseDto {
+  /** @format uuid */
+  id: string;
+  email?: string | null;
+  userName: string;
+  roles: PublicRoleDto[];
+  permissions: PublicPermissionDto[];
+  authProvider: EnumAuthProvider;
+  isVerified: boolean;
+  isActive: boolean;
+  avatar?: PublicFileDto | null;
+  countryName?: string | null;
+  countryIsoCode?: string | null;
+  countryDialCode?: string | null;
+  partialPhoneNumber?: string | null;
+  fullPhoneNumber?: string | null;
 }
 
 export interface PublicVerifyOtpRequest {
@@ -2095,6 +3009,86 @@ export interface PublicVerifyOtpRequest {
 }
 
 export interface PublicVerifyOtpResponse {
+  isSuccess: boolean;
+}
+
+export interface PublicVideoDetailDto {
+  /** @format uuid */
+  id: string;
+  /** @format uuid */
+  categoryId: string;
+  categoryName: string;
+  title: string;
+  slug: string;
+  description: string;
+  thumbnailUrl?: string | null;
+  youtubeVideoUrl?: string | null;
+  isPromoted: boolean;
+  hasLyrics: boolean;
+  /** @format date-time */
+  publishedAt?: string | null;
+  metaTitle?: string | null;
+  metaDescription?: string | null;
+  tags: TagDto[];
+  /** @format int32 */
+  shareCount: number;
+  /** @format double */
+  ratingAverage: number;
+  /** @format int32 */
+  ratingCount: number;
+  author?: PublicAuthorDto | null;
+  isRated: boolean;
+  /** @format int32 */
+  ratedStars?: number | null;
+}
+
+export interface PublicVideoSummaryDto {
+  /** @format uuid */
+  id: string;
+  /** @format uuid */
+  categoryId: string;
+  categoryName: string;
+  title: string;
+  slug: string;
+  thumbnailUrl?: string | null;
+  youtubeVideoUrl?: string | null;
+  isPromoted: boolean;
+  hasLyrics: boolean;
+  /** @format date-time */
+  publishedAt?: string | null;
+  /** @format int32 */
+  shareCount: number;
+  /** @format double */
+  ratingAverage: number;
+  /** @format int32 */
+  ratingCount: number;
+}
+
+export interface PublicVideoSummaryDtoPaginatedResult {
+  /** @format int32 */
+  pageIndex: number;
+  /** @format int32 */
+  pageSize: number;
+  /** @format int64 */
+  count: number;
+  items: PublicVideoSummaryDto[];
+}
+
+export interface PublicVoteOnLyricsRevisionRequest {
+  vote: EnumVote;
+  comment?: string | null;
+}
+
+export interface PublicVoteOnLyricsRevisionResponse {
+  isSuccess: boolean;
+}
+
+export interface PublicVoteOnTranslationRevisionRequest {
+  vote: EnumVote;
+  comment?: string | null;
+}
+
+export interface PublicVoteOnTranslationRevisionResponse {
   isSuccess: boolean;
 }
 
@@ -2201,7 +3195,7 @@ export interface ShortVideoDto {
   /** @format int32 */
   bookmarkCount: number;
   authorId: string;
-  author?: AuthorDto | null;
+  author?: AdminAuthorDto | null;
   isLiked: boolean;
   isBookmarked: boolean;
 }
@@ -2216,6 +3210,11 @@ export interface ShortVideoDtoPaginatedResult {
   items: ShortVideoDto[];
 }
 
+export interface StreamingLinkDto {
+  platform: string;
+  url: string;
+}
+
 export interface TagDto {
   /** @format uuid */
   id: string;
@@ -2223,8 +3222,28 @@ export interface TagDto {
   slug: string;
 }
 
+export interface TranslationDto {
+  /** @format uuid */
+  id: string;
+  language: string;
+  text: string;
+  source: string;
+}
+
+export interface TranslationRevisionDto {
+  /** @format uuid */
+  id: string;
+  proposedText: string;
+  editSummary?: string | null;
+  /** @format uuid */
+  proposedByUserId: string;
+  status: string;
+  /** @format uuid */
+  decidedByUserId?: string | null;
+}
+
 export interface UserArticleActivityDto {
-  article: ArticleSummaryDto;
+  article: PublicArticleSummaryDto;
   /** @format date-time */
   lastInteractedAt: string;
   /** @format int32 */
@@ -2243,7 +3262,7 @@ export interface UserArticleActivityDtoPaginatedResult {
 }
 
 export interface UserBookmarkedArticleDto {
-  article: ArticleSummaryDto;
+  article: PublicArticleSummaryDto;
   /** @format date-time */
   bookmarkedAt: string;
 }
@@ -2259,8 +3278,8 @@ export interface UserBookmarkedArticleDtoPaginatedResult {
 }
 
 export interface UserCommentedArticleDto {
-  article: ArticleSummaryDto;
-  latestComment: ArticleCommentDto;
+  article: PublicArticleSummaryDto;
+  latestComment: PublicArticleCommentDto;
   /** @format int32 */
   commentCount: number;
   /** @format date-time */
@@ -2302,7 +3321,7 @@ export interface UserResponseDto {
 }
 
 export interface UserShortVideoActivityDto {
-  shortVideo: ShortVideoDto;
+  shortVideo: PublicShortVideoDto;
   /** @format date-time */
   lastInteractedAt: string;
   /** @format int32 */
@@ -2320,7 +3339,7 @@ export interface UserShortVideoActivityDtoPaginatedResult {
 }
 
 export interface UserVideoActivityDto {
-  video: VideoSummaryDto;
+  video: PublicVideoSummaryDto;
   /** @format date-time */
   lastInteractedAt: string;
   /** @format int32 */
@@ -2386,7 +3405,7 @@ export interface VideoDetailDto {
   customerName?: string | null;
   /** @format uuid */
   orderItemId?: string | null;
-  author?: AuthorDto | null;
+  author?: AdminAuthorDto | null;
   isRated: boolean;
   /** @format int32 */
   ratedStars?: number | null;
@@ -2394,7 +3413,7 @@ export interface VideoDetailDto {
 
 export interface VideoFeedSectionDto {
   category: CategoryDto;
-  videos: VideoSummaryDto[];
+  videos: PublicVideoSummaryDto[];
 }
 
 export interface VideoInPlaylistDto {
@@ -2418,7 +3437,7 @@ export interface VideoInPlaylistDto {
 
 export interface VideoPromotionSlotDto {
   position: string;
-  videos: VideoSummaryDto[];
+  videos: PublicVideoSummaryDto[];
 }
 
 export interface VideoPromotionSpot3Dto {
@@ -2430,7 +3449,7 @@ export interface VideoPromotionSpot3Dto {
 export interface VideoPromotionSpotDto {
   /** @format int32 */
   spotPriority: number;
-  videos: VideoSummaryDto[];
+  videos: PublicVideoSummaryDto[];
 }
 
 export interface VideoSummaryDto {
@@ -2659,6 +3678,279 @@ export class Api<
 > extends HttpClient<SecurityDataType> {
   api = {
     /**
+     * @description Sets the curated deep link URL for an album's streaming platform slot. Creates a
+     * new streaming link row if none exists yet for the given album and platform,
+     * otherwise replaces the existing curated URL.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have Admin or SuperAdmin role
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with the streaming link id on success
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 403 Forbidden if user lacks Admin role
+     * - Returns 404 Not Found if the album does not exist
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags admin::albums
+     * @name UpsertAlbumStreamingLink
+     * @summary Set or replace an album's curated streaming link for a platform
+     * @request PUT:/api/v1/admin/albums/{id}/streaming-links/{platform}
+     * @secure
+     * @response `200` `AdminUpsertAlbumStreamingLinkResponse` OK
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    upsertAlbumStreamingLink: (
+      id: string,
+      platform: "Spotify" | "AppleMusic" | "YoutubeMusic" | "Tidal" | "Deezer",
+      data: AdminUpsertAlbumStreamingLinkRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<AdminUpsertAlbumStreamingLinkResponse, ProblemDetails>({
+        path: `/api/v1/admin/albums/${id}/streaming-links/${platform}`,
+        method: "PUT",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Removes the curated deep link URL for an album's streaming platform slot, reverting
+     * that platform's public link back to the generated search-query fallback. A no-op if
+     * no curated link exists for the given album and platform.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have Admin or SuperAdmin role
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK on success
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 403 Forbidden if user lacks Admin role
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags admin::albums
+     * @name RemoveAlbumStreamingLink
+     * @summary Remove an album's curated streaming link for a platform
+     * @request DELETE:/api/v1/admin/albums/{id}/streaming-links/{platform}
+     * @secure
+     * @response `204` `void` No Content
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    removeAlbumStreamingLink: (
+      id: string,
+      platform: "Spotify" | "AppleMusic" | "YoutubeMusic" | "Tidal" | "Deezer",
+      params: RequestParams = {},
+    ) =>
+      this.request<void, ProblemDetails>({
+        path: `/api/v1/admin/albums/${id}/streaming-links/${platform}`,
+        method: "DELETE",
+        secure: true,
+        ...params,
+      }),
+
+    /**
+     * @description Uploads or replaces the album's cover art image.
+     * 
+     * If the album already has a cover image, the old Cloudinary asset is deleted
+     * after the new cover is uploaded successfully.
+     * 
+     * Accepts multipart/form-data with a single image file.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have Admin or SuperAdmin role
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with cover image URL and storage key on success
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 403 Forbidden if user lacks Admin role
+     * - Returns 404 Not Found if the album does not exist
+     * - Returns 429 Too Many Requests if the rate limit is exceeded
+     *
+     * @tags admin::albums
+     * @name UploadAlbumCover
+     * @summary Upload an album cover art image
+     * @request POST:/api/v1/admin/albums/{id}/cover
+     * @secure
+     * @response `200` `AdminUploadAlbumCoverResponse` OK
+     * @response `400` `ProblemDetails` Bad Request
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    uploadAlbumCover: (
+      id: string,
+      data: {
+        /** @format binary */
+        file?: File;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<AdminUploadAlbumCoverResponse, ProblemDetails>({
+        path: `/api/v1/admin/albums/${id}/cover`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.FormData,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Updates an album's display name, release year, and record label. The cover image
+     * is managed separately via the dedicated cover upload endpoint.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have SuperAdmin role
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with the updated album on success
+     * - Returns 400 Bad Request if the payload fails validation
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 403 Forbidden if user lacks SuperAdmin role
+     * - Returns 404 Not Found if the album does not exist
+     * - Returns 429 Too Many Requests if the rate limit is exceeded
+     *
+     * @tags admin::albums
+     * @name UpdateAlbum
+     * @summary Update an album
+     * @request PUT:/api/v1/admin/albums/{id}
+     * @secure
+     * @response `200` `AdminUpdateAlbumResponse` OK
+     * @response `400` `ProblemDetails` Bad Request
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    updateAlbum: (
+      id: string,
+      data: AdminUpdateAlbumRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<AdminUpdateAlbumResponse, ProblemDetails>({
+        path: `/api/v1/admin/albums/${id}`,
+        method: "PUT",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Sends one verified platform URL to the external link-resolution provider
+     * (Odesli) and upserts a curated deep link for every platform it matches, in a
+     * single atomic commit. Platforms the provider has no link for are left untouched
+     * — their generated search-URL fallback keeps serving, and resolution never
+     * deletes an existing curated row.
+     * 
+     * The source URL must be an absolute https track or album link on a supported
+     * platform.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - Requires authentication with an active account
+     * - Requires Admin or SuperAdmin role
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with the resolved and unresolved platform lists on success
+     * - Returns 400 Bad Request if the source URL is missing, non-https, or unrecognised
+     * - Returns 401 Unauthorized if not authenticated
+     * - Returns 403 Forbidden if lacking the required role
+     * - Returns 404 Not Found if the album does not exist, or the provider found no platforms
+     * - Returns 429 Too Many Requests if our rate limit or the provider's is exceeded
+     * - Returns 502 Bad Gateway if the provider is unreachable
+     *
+     * @tags admin::albums
+     * @name ResolveAlbumStreamingLinks
+     * @summary Resolve an album's streaming links from one platform URL
+     * @request POST:/api/v1/admin/albums/{id}/streaming-links/resolve
+     * @secure
+     * @response `200` `AdminResolveAlbumStreamingLinksResponse` OK
+     * @response `400` `ProblemDetails` Bad Request
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     * @response `502` `ProblemDetails` Bad Gateway
+     */
+    resolveAlbumStreamingLinks: (
+      id: string,
+      data: AdminResolveAlbumStreamingLinksRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<AdminResolveAlbumStreamingLinksResponse, ProblemDetails>({
+        path: `/api/v1/admin/albums/${id}/streaming-links/resolve`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Creates a new album, optionally linked to a claimed artist profile.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have SuperAdmin role
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 201 Created with the album on success
+     * - Returns 400 Bad Request if the payload fails validation
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 403 Forbidden if user lacks SuperAdmin role
+     * - Returns 404 Not Found if the linked artist profile does not exist
+     * - Returns 429 Too Many Requests if the rate limit is exceeded
+     *
+     * @tags admin::albums
+     * @name CreateAlbum
+     * @summary Create a new album
+     * @request POST:/api/v1/admin/albums
+     * @secure
+     * @response `201` `AdminCreateAlbumResponse` Created
+     * @response `400` `ProblemDetails` Bad Request
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    createAlbum: (data: AdminCreateAlbumRequest, params: RequestParams = {}) =>
+      this.request<AdminCreateAlbumResponse, ProblemDetails>({
+        path: `/api/v1/admin/albums`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
      * @description Soft-deletes any article comment regardless of ownership.
      * 
      * **Authentication Requirements:**
@@ -2679,7 +3971,7 @@ export class Api<
      * @summary Delete any article comment
      * @request DELETE:/api/v1/admin/articles/{id}/comments/{commentId}
      * @secure
-     * @response `200` `AdminDeleteArticleCommentResponse` OK
+     * @response `204` `void` No Content
      * @response `401` `ProblemDetails` Unauthorized
      * @response `403` `ProblemDetails` Forbidden
      * @response `404` `ProblemDetails` Not Found
@@ -2690,11 +3982,10 @@ export class Api<
       commentId: string,
       params: RequestParams = {},
     ) =>
-      this.request<AdminDeleteArticleCommentResponse, ProblemDetails>({
+      this.request<void, ProblemDetails>({
         path: `/api/v1/admin/articles/${id}/comments/${commentId}`,
         method: "DELETE",
         secure: true,
-        format: "json",
         ...params,
       }),
 
@@ -2837,7 +4128,7 @@ export class Api<
      * @summary Permanently delete an article
      * @request DELETE:/api/v1/admin/articles/{id}
      * @secure
-     * @response `200` `AdminDeleteArticleResponse` OK
+     * @response `204` `void` No Content
      * @response `400` `ProblemDetails` Bad Request
      * @response `401` `ProblemDetails` Unauthorized
      * @response `403` `ProblemDetails` Forbidden
@@ -2845,11 +4136,10 @@ export class Api<
      * @response `429` `ProblemDetails` Too Many Requests
      */
     deleteArticle: (id: string, params: RequestParams = {}) =>
-      this.request<AdminDeleteArticleResponse, ProblemDetails>({
+      this.request<void, ProblemDetails>({
         path: `/api/v1/admin/articles/${id}`,
         method: "DELETE",
         secure: true,
-        format: "json",
         ...params,
       }),
 
@@ -3008,7 +4298,7 @@ export class Api<
       },
       data: {
         /** @format binary */
-        file: File;
+        file?: File;
       },
       params: RequestParams = {},
     ) =>
@@ -3158,6 +4448,55 @@ export class Api<
         path: `/api/v1/admin/articles/${id}/submit`,
         method: "PATCH",
         secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Replaces the article's artist tags with the given complete set: rows not in the
+     * list are removed, rows already present are kept, new ones are added. An empty
+     * list untags everything.
+     * 
+     * Every artist id must reference an existing artist profile; the error names the
+     * first missing id.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - Requires authentication with an active account
+     * - Requires Admin or SuperAdmin role
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with the article's artist ids after the replace
+     * - Returns 400 Bad Request if the list is missing, oversized, or has duplicates
+     * - Returns 401 Unauthorized if not authenticated
+     * - Returns 403 Forbidden if lacking the required role
+     * - Returns 404 Not Found if the article or any artist id does not exist
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags admin::articles
+     * @name SetArticleArtists
+     * @summary Set-replace the artists an article is tagged with
+     * @request PUT:/api/v1/admin/articles/{id}/artists
+     * @secure
+     * @response `200` `AdminSetArticleArtistsResponse` OK
+     * @response `400` `ProblemDetails` Bad Request
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    setArticleArtists: (
+      id: string,
+      data: AdminSetArticleArtistsRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<AdminSetArticleArtistsResponse, ProblemDetails>({
+        path: `/api/v1/admin/articles/${id}/artists`,
+        method: "PUT",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
         format: "json",
         ...params,
       }),
@@ -3389,6 +4728,348 @@ export class Api<
       }),
 
     /**
+     * @description Returns a paginated list of artist profiles, optionally filtered by a search term
+     * matched against the artist's name and biography.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have Admin or SuperAdmin role
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with the paginated artist list on success
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 403 Forbidden if user lacks Admin role
+     * - Returns 429 Too Many Requests if the rate limit is exceeded
+     *
+     * @tags admin::artists
+     * @name GetAllArtists
+     * @summary List artist profiles
+     * @request GET:/api/v1/admin/artists
+     * @secure
+     * @response `200` `AdminGetAllArtistsResponse` OK
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    getAllArtists: (
+      query?: {
+        /**
+         * @format int32
+         * @default 0
+         */
+        pageIndex?: number;
+        /**
+         * @format int32
+         * @default 10
+         */
+        pageSize?: number;
+        search?: string;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<AdminGetAllArtistsResponse, ProblemDetails>({
+        path: `/api/v1/admin/artists`,
+        method: "GET",
+        query: query,
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Creates a new, unclaimed artist profile — typically staff-curated from an existing
+     * lyrics or video record's free-text artist name.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have SuperAdmin role
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 201 Created with the artist profile on success
+     * - Returns 400 Bad Request if the payload fails validation
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 403 Forbidden if user lacks SuperAdmin role
+     * - Returns 409 Conflict if the slug is already in use
+     * - Returns 429 Too Many Requests if the rate limit is exceeded
+     *
+     * @tags admin::artists
+     * @name CreateArtist
+     * @summary Create a new artist profile
+     * @request POST:/api/v1/admin/artists
+     * @secure
+     * @response `201` `AdminCreateArtistResponse` Created
+     * @response `400` `ProblemDetails` Bad Request
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `409` `ProblemDetails` Conflict
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    createArtist: (
+      data: AdminCreateArtistRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<AdminCreateArtistResponse, ProblemDetails>({
+        path: `/api/v1/admin/artists`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Confirms an artist profile's ownership claim, linking it to the verified identity
+     * user. This is the only path by which an artist profile's ownership is actually set.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have Admin or SuperAdmin role
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with the claimed artist profile on success
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 403 Forbidden if user lacks Admin role
+     * - Returns 404 Not Found if the artist profile does not exist
+     * - Returns 409 Conflict if the profile has already been claimed
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags admin::artists
+     * @name VerifyArtistOwner
+     * @summary Verify and confirm an artist profile's owner
+     * @request POST:/api/v1/admin/artists/{id}/verify-owner
+     * @secure
+     * @response `200` `AdminVerifyArtistOwnerResponse` OK
+     * @response `400` `HttpValidationProblemDetails` Bad Request
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `404` `ProblemDetails` Not Found
+     * @response `409` `ProblemDetails` Conflict
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    verifyArtistOwner: (
+      id: string,
+      data: AdminVerifyArtistOwnerRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        AdminVerifyArtistOwnerResponse,
+        HttpValidationProblemDetails | ProblemDetails
+      >({
+        path: `/api/v1/admin/artists/${id}/verify-owner`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Sets or replaces the artist's social link for a single platform. Creates a new
+     * link row if none exists yet for the given artist and platform, otherwise
+     * replaces the existing URL.
+     * 
+     * The URL must be an absolute https URL — other schemes are rejected.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - Requires authentication with an active account
+     * - Requires Admin or SuperAdmin role
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with the upserted link's id on success
+     * - Returns 400 Bad Request if the URL is missing, too long, or not https
+     * - Returns 401 Unauthorized if not authenticated
+     * - Returns 403 Forbidden if lacking the required role
+     * - Returns 404 Not Found if the artist profile does not exist
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags admin::artists
+     * @name UpsertArtistSocialLink
+     * @summary Set or replace an artist's social link for a platform
+     * @request PUT:/api/v1/admin/artists/{id}/social-links/{platform}
+     * @secure
+     * @response `200` `AdminUpsertArtistSocialLinkResponse` OK
+     * @response `400` `ProblemDetails` Bad Request
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    upsertArtistSocialLink: (
+      id: string,
+      platform:
+        | "Instagram"
+        | "X"
+        | "Facebook"
+        | "YouTube"
+        | "TikTok"
+        | "Website",
+      data: AdminUpsertArtistSocialLinkRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<AdminUpsertArtistSocialLinkResponse, ProblemDetails>({
+        path: `/api/v1/admin/artists/${id}/social-links/${platform}`,
+        method: "PUT",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Removes the artist's social link for a single platform. Removing a platform
+     * that has no link returns 404 rather than a silent success.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - Requires authentication with an active account
+     * - Requires Admin or SuperAdmin role
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK on success
+     * - Returns 401 Unauthorized if not authenticated
+     * - Returns 403 Forbidden if lacking the required role
+     * - Returns 404 Not Found if no link exists for that platform
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags admin::artists
+     * @name RemoveArtistSocialLink
+     * @summary Remove an artist's social link for a platform
+     * @request DELETE:/api/v1/admin/artists/{id}/social-links/{platform}
+     * @secure
+     * @response `204` `void` No Content
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    removeArtistSocialLink: (
+      id: string,
+      platform:
+        | "Instagram"
+        | "X"
+        | "Facebook"
+        | "YouTube"
+        | "TikTok"
+        | "Website",
+      params: RequestParams = {},
+    ) =>
+      this.request<void, ProblemDetails>({
+        path: `/api/v1/admin/artists/${id}/social-links/${platform}`,
+        method: "DELETE",
+        secure: true,
+        ...params,
+      }),
+
+    /**
+     * @description Uploads or replaces the artist profile's avatar image.
+     * 
+     * If the artist profile already has an avatar, the old Cloudinary asset is deleted
+     * after the new avatar is uploaded successfully.
+     * 
+     * Accepts multipart/form-data with a single image file.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have Admin or SuperAdmin role
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with avatar URL and storage key on success
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 403 Forbidden if user lacks Admin role
+     * - Returns 404 Not Found if the artist profile does not exist
+     * - Returns 429 Too Many Requests if the rate limit is exceeded
+     *
+     * @tags admin::artists
+     * @name UploadArtistAvatar
+     * @summary Upload an artist profile avatar image
+     * @request POST:/api/v1/admin/artists/{id}/avatar
+     * @secure
+     * @response `200` `AdminUploadArtistAvatarResponse` OK
+     * @response `400` `ProblemDetails` Bad Request
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    uploadArtistAvatar: (
+      id: string,
+      data: {
+        /** @format binary */
+        file?: File;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<AdminUploadArtistAvatarResponse, ProblemDetails>({
+        path: `/api/v1/admin/artists/${id}/avatar`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.FormData,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Updates an artist profile's display name and biography.
+     * 
+     * The URL slug is immutable after creation and cannot be changed here.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have SuperAdmin role
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with the updated artist profile on success
+     * - Returns 400 Bad Request if the payload fails validation
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 403 Forbidden if user lacks SuperAdmin role
+     * - Returns 404 Not Found if the artist profile does not exist
+     * - Returns 429 Too Many Requests if the rate limit is exceeded
+     *
+     * @tags admin::artists
+     * @name UpdateArtist
+     * @summary Update an artist profile
+     * @request PUT:/api/v1/admin/artists/{id}
+     * @secure
+     * @response `200` `AdminUpdateArtistResponse` OK
+     * @response `400` `ProblemDetails` Bad Request
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    updateArtist: (
+      id: string,
+      data: AdminUpdateArtistRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<AdminUpdateArtistResponse, ProblemDetails>({
+        path: `/api/v1/admin/artists/${id}`,
+        method: "PUT",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
      * @description Returns the full details of a single category, including its complete pricing configuration.
      * 
      * Used by the admin when setting up an order — they need to know exactly what pricing tiers
@@ -3567,7 +5248,7 @@ export class Api<
       id: string,
       data: {
         /** @format binary */
-        file: File;
+        file?: File;
       },
       params: RequestParams = {},
     ) =>
@@ -4818,11 +6499,10 @@ export class Api<
      * @response `400` `ProblemDetails` Bad Request
      * @response `401` `ProblemDetails` Unauthorized
      * @response `403` `ProblemDetails` Forbidden
-     * @response `404` `void` Not Found
      * @response `429` `ProblemDetails` Too Many Requests
      */
     adminLogin: (data: AdminLoginRequest, params: RequestParams = {}) =>
-      this.request<AdminLoginResponse, ProblemDetails | void>({
+      this.request<AdminLoginResponse, ProblemDetails>({
         path: `/api/v1/admin/auth/login`,
         method: "POST",
         body: data,
@@ -4987,8 +6667,64 @@ export class Api<
       }),
 
     /**
+     * @description Retrieves a paginated view of community-submitted new songs awaiting moderation.
+     * 
+     * Supports optional filtering by moderation status (Pending, Approved, Rejected, or
+     * NeedsRevision).
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have Admin or SuperAdmin role
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with the paginated submission list on success
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 403 Forbidden if user lacks Admin role
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags admin::lyrics
+     * @name GetLyricsSubmissions
+     * @summary List the community lyrics submission moderation queue
+     * @request GET:/api/v1/admin/lyrics/submissions
+     * @secure
+     * @response `200` `AdminGetLyricsSubmissionsResponse` OK
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    getLyricsSubmissions: (
+      query?: {
+        /**
+         * @format int32
+         * @default 0
+         */
+        pageIndex?: number;
+        /**
+         * @format int32
+         * @default 10
+         */
+        pageSize?: number;
+        status?: EnumSubmissionStatus;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<AdminGetLyricsSubmissionsResponse, ProblemDetails>({
+        path: `/api/v1/admin/lyrics/submissions`,
+        method: "GET",
+        query: query,
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
      * @description Retrieves a paginated list of all lyrics pages for admin management.
-     * Results are returned as a paginated list suitable for list and management views.
+     * 
+     * Supports optional filtering by content status (e.g., Draft, PendingReview, Published)
+     * and by category. Results are returned as a paginated list with summary information
+     * suitable for list and management views.
      * 
      * **Authentication Requirements:**
      * 
@@ -5025,6 +6761,9 @@ export class Api<
          */
         pageSize?: number;
         search?: string;
+        status?: EnumContentStatus;
+        /** @format uuid */
+        categoryId?: string;
       },
       params: RequestParams = {},
     ) =>
@@ -5043,9 +6782,11 @@ export class Api<
      * A lyrics page can be:
      * - Standalone with no parent content
      * - Linked to a full video by providing a <c>videoId</c> (e.g., lyric video, "Behind the Lyrics" episode)
-     * - Linked to an article by providing an <c>articleId</c> (e.g., a dedicated Lyrics Page article)
      * \n
-     * Returns a conflict error if lyrics for the same song title and artist already exist.
+     * For paid (commissioned) lyrics pages, both <c>customerId</c> and <c>orderItemId</c>
+     * must be provided together. For free editorial content, both must be omitted.
+     * \n
+     * Returns a conflict error if a lyrics page with the same slug already exists.
      * \n
      * **Authentication Requirements:**\n
      * - User must be authenticated with a valid access token\n
@@ -5056,7 +6797,8 @@ export class Api<
      * - Returns 400 Bad Request if validation fails\n
      * - Returns 401 Unauthorized if access token is invalid or expired\n
      * - Returns 403 Forbidden if user lacks SuperAdmin role\n
-     * - Returns 409 Conflict if lyrics for the same song and artist already exist\n
+     * - Returns 404 Not Found if the specified category does not exist\n
+     * - Returns 409 Conflict if a lyrics page with the same slug already exists\n
      * - Returns 429 Too Many Requests if rate limit is exceeded\n
      *
      * @tags admin::lyrics
@@ -5068,6 +6810,7 @@ export class Api<
      * @response `400` `ProblemDetails` Bad Request
      * @response `401` `ProblemDetails` Unauthorized
      * @response `403` `ProblemDetails` Forbidden
+     * @response `404` `ProblemDetails` Not Found
      * @response `409` `ProblemDetails` Conflict
      * @response `429` `ProblemDetails` Too Many Requests
      */
@@ -5081,6 +6824,147 @@ export class Api<
         body: data,
         secure: true,
         type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Sets the curated deep link URL for a standalone single's streaming platform slot.
+     * Creates a new streaming link row if none exists yet for the given lyrics page and
+     * platform, otherwise replaces the existing curated URL.
+     * 
+     * Rejected with a conflict if the target lyrics page belongs to an album — a track
+     * that belongs to an album gets its streaming links through the album's own endpoint,
+     * not per-track.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have Admin or SuperAdmin role
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with the streaming link id on success
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 403 Forbidden if user lacks Admin role
+     * - Returns 404 Not Found if the lyrics page does not exist
+     * - Returns 409 Conflict if the lyrics page belongs to an album
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags admin::lyrics
+     * @name UpsertSingleStreamingLink
+     * @summary Set or replace a standalone single's curated streaming link for a platform
+     * @request PUT:/api/v1/admin/lyrics/{id}/streaming-links/{platform}
+     * @secure
+     * @response `200` `AdminUpsertSingleStreamingLinkResponse` OK
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `404` `ProblemDetails` Not Found
+     * @response `409` `ProblemDetails` Conflict
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    upsertSingleStreamingLink: (
+      id: string,
+      platform: "Spotify" | "AppleMusic" | "YoutubeMusic" | "Tidal" | "Deezer",
+      data: AdminUpsertSingleStreamingLinkRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<AdminUpsertSingleStreamingLinkResponse, ProblemDetails>({
+        path: `/api/v1/admin/lyrics/${id}/streaming-links/${platform}`,
+        method: "PUT",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Removes the curated deep link URL for a standalone single's streaming platform slot,
+     * reverting that platform's public link back to the generated search-query fallback.
+     * A no-op if no curated link exists for the given lyrics page and platform.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have Admin or SuperAdmin role
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK on success
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 403 Forbidden if user lacks Admin role
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags admin::lyrics
+     * @name RemoveSingleStreamingLink
+     * @summary Remove a standalone single's curated streaming link for a platform
+     * @request DELETE:/api/v1/admin/lyrics/{id}/streaming-links/{platform}
+     * @secure
+     * @response `204` `void` No Content
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    removeSingleStreamingLink: (
+      id: string,
+      platform: "Spotify" | "AppleMusic" | "YoutubeMusic" | "Tidal" | "Deezer",
+      params: RequestParams = {},
+    ) =>
+      this.request<void, ProblemDetails>({
+        path: `/api/v1/admin/lyrics/${id}/streaming-links/${platform}`,
+        method: "DELETE",
+        secure: true,
+        ...params,
+      }),
+
+    /**
+     * @description Uploads or replaces the lyrics page's cover/album art image.
+     * 
+     * If the lyrics page already has a cover image, the old Cloudinary asset is deleted
+     * after the new cover is uploaded successfully.
+     * 
+     * Accepts multipart/form-data with a single image file.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have Admin or SuperAdmin role
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with cover image URL and storage key on success
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 403 Forbidden if user lacks Admin role
+     * - Returns 404 Not Found if the lyrics page does not exist
+     * - Returns 429 Too Many Requests if the rate limit is exceeded
+     *
+     * @tags admin::lyrics
+     * @name UploadLyricsCover
+     * @summary Upload a lyrics page cover/album art image
+     * @request POST:/api/v1/admin/lyrics/{id}/cover
+     * @secure
+     * @response `200` `AdminUploadLyricsCoverResponse` OK
+     * @response `400` `ProblemDetails` Bad Request
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    uploadLyricsCover: (
+      id: string,
+      data: {
+        /** @format binary */
+        file?: File;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<AdminUploadLyricsCoverResponse, ProblemDetails>({
+        path: `/api/v1/admin/lyrics/${id}/cover`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.FormData,
         format: "json",
         ...params,
       }),
@@ -5132,10 +7016,61 @@ export class Api<
       }),
 
     /**
-     * @description Replaces the lyrics text of the specified lyrics page.
+     * @description Updates the song-credit metadata fields of the specified lyrics page: album,
+     * release year, record label, songwriter, and producer.
      * 
-     * Only the lyrics text body can be updated via this endpoint. To update SEO metadata,
-     * use the <c>PATCH /api/v1/admin/lyrics/{id}/seo</c> endpoint.
+     * Passing <c>null</c> for any field clears its value. This endpoint does not affect
+     * the lyrics content itself — use <c>PUT /api/v1/admin/lyrics/{id}</c> for that, or
+     * the cover image — use <c>POST /api/v1/admin/lyrics/{id}/cover</c> for that.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have Admin or SuperAdmin role
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with updated lyrics details on success
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 403 Forbidden if user lacks Admin role
+     * - Returns 404 Not Found if the lyrics record does not exist
+     * - Returns 400 Bad Request if the release year is out of bounds or a credit field
+     * exceeds its maximum length
+     * 
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags admin::lyrics
+     * @name UpdateLyricsMetadata
+     * @summary Update song-credit metadata for a lyrics page
+     * @request PUT:/api/v1/admin/lyrics/{id}/metadata
+     * @secure
+     * @response `200` `AdminUpdateLyricsMetadataResponse` OK
+     * @response `400` `ProblemDetails` Bad Request
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    updateLyricsMetadata: (
+      id: string,
+      data: AdminUpdateLyricsMetadataRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<AdminUpdateLyricsMetadataResponse, ProblemDetails>({
+        path: `/api/v1/admin/lyrics/${id}/metadata`,
+        method: "PUT",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Replaces all editable fields of the specified lyrics page: category, song title,
+     * artist name, slug, lyrics text, language, linked video, and commerce fields.
+     * 
+     * To update SEO metadata, use the <c>PATCH /api/v1/admin/lyrics/{id}/seo</c> endpoint.
      * 
      * **Authentication Requirements:**
      * 
@@ -5148,12 +7083,13 @@ export class Api<
      * - Returns 400 Bad Request if validation fails
      * - Returns 401 Unauthorized if access token is invalid or expired
      * - Returns 403 Forbidden if user lacks Admin role
-     * - Returns 404 Not Found if the lyrics record does not exist
+     * - Returns 404 Not Found if the lyrics record or category does not exist
+     * - Returns 409 Conflict if another lyrics page already uses the given slug
      * - Returns 429 Too Many Requests if rate limit is exceeded
      *
      * @tags admin::lyrics
      * @name UpdateLyrics
-     * @summary Update the lyrics text
+     * @summary Update a lyrics page
      * @request PUT:/api/v1/admin/lyrics/{id}
      * @secure
      * @response `200` `AdminUpdateLyricsResponse` OK
@@ -5161,6 +7097,7 @@ export class Api<
      * @response `401` `ProblemDetails` Unauthorized
      * @response `403` `ProblemDetails` Forbidden
      * @response `404` `ProblemDetails` Not Found
+     * @response `409` `ProblemDetails` Conflict
      * @response `429` `ProblemDetails` Too Many Requests
      */
     updateLyrics: (
@@ -5181,9 +7118,6 @@ export class Api<
     /**
      * @description Permanently deletes a lyrics page from the database.
      * 
-     * If the lyrics page is linked to a video, the video's HasLyrics flag
-     * is cleared automatically before deletion.
-     * 
      * This operation is <b>irreversible</b>.
      * 
      * **Authentication Requirements:**
@@ -5203,16 +7137,656 @@ export class Api<
      * @summary Permanently delete a lyrics page
      * @request DELETE:/api/v1/admin/lyrics/{id}
      * @secure
-     * @response `200` `AdminDeleteLyricsResponse` OK
+     * @response `204` `void` No Content
      * @response `401` `ProblemDetails` Unauthorized
      * @response `403` `ProblemDetails` Forbidden
      * @response `404` `ProblemDetails` Not Found
      * @response `429` `ProblemDetails` Too Many Requests
      */
     deleteLyrics: (id: string, params: RequestParams = {}) =>
-      this.request<AdminDeleteLyricsResponse, ProblemDetails>({
+      this.request<void, ProblemDetails>({
         path: `/api/v1/admin/lyrics/${id}`,
         method: "DELETE",
+        secure: true,
+        ...params,
+      }),
+
+    /**
+     * @description Submits a lyrics page for editorial review or payment processing.
+     * 
+     * Free lyrics pages transition directly to <c>PendingReview</c> status, where the
+     * editorial team can approve or reject them.
+     * Paid (commissioned) lyrics pages transition to <c>PendingPayment</c> status, awaiting
+     * customer payment verification before entering the editorial review queue.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have SuperAdmin role
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK on success
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 403 Forbidden if user lacks SuperAdmin role
+     * - Returns 404 Not Found if the lyrics page does not exist
+     *
+     * @tags admin::lyrics
+     * @name SubmitLyrics
+     * @summary Submit a lyrics page for review
+     * @request PATCH:/api/v1/admin/lyrics/{id}/submit
+     * @secure
+     * @response `200` `AdminSubmitLyricsResponse` OK
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    submitLyrics: (id: string, params: RequestParams = {}) =>
+      this.request<AdminSubmitLyricsResponse, ProblemDetails>({
+        path: `/api/v1/admin/lyrics/${id}/submit`,
+        method: "PATCH",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Replaces the complete set of tags assigned to a lyrics page.
+     * 
+     * All existing tag associations are removed and replaced with the provided list of
+     * tag IDs. Passing an empty list removes all tags from the lyrics page.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have Admin or SuperAdmin role
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK on success
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 403 Forbidden if user lacks Admin role
+     * - Returns 404 Not Found if the lyrics page does not exist
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags admin::lyrics
+     * @name SetLyricsTags
+     * @summary Replace the tags applied to a lyrics page
+     * @request PUT:/api/v1/admin/lyrics/{id}/tags
+     * @secure
+     * @response `200` `AdminSetLyricsTagsResponse` OK
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    setLyricsTags: (
+      id: string,
+      data: AdminSetLyricsTagsRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<AdminSetLyricsTagsResponse, ProblemDetails>({
+        path: `/api/v1/admin/lyrics/${id}/tags`,
+        method: "PUT",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Sends one verified platform URL to the external link-resolution provider
+     * (Odesli) and upserts a curated deep link for every platform it matches, in a
+     * single atomic commit. Platforms the provider has no link for are left untouched
+     * — their generated search-URL fallback keeps serving, and resolution never
+     * deletes an existing curated row.
+     * 
+     * The source URL must be an absolute https track link on a supported platform. A
+     * song that belongs to an album is rejected — the album's links are the release's
+     * links.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - Requires authentication with an active account
+     * - Requires Admin or SuperAdmin role
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with the resolved and unresolved platform lists on success
+     * - Returns 400 Bad Request if the source URL is missing, non-https, or unrecognised
+     * - Returns 409 Conflict if the song belongs to an album
+     * - Returns 401 Unauthorized if not authenticated
+     * - Returns 403 Forbidden if lacking the required role
+     * - Returns 404 Not Found if the song does not exist, or the provider found no platforms
+     * - Returns 429 Too Many Requests if our rate limit or the provider's is exceeded
+     * - Returns 502 Bad Gateway if the provider is unreachable
+     *
+     * @tags admin::lyrics
+     * @name ResolveSingleStreamingLinks
+     * @summary Resolve a standalone single's streaming links from one platform URL
+     * @request POST:/api/v1/admin/lyrics/{id}/streaming-links/resolve
+     * @secure
+     * @response `200` `AdminResolveSingleStreamingLinksResponse` OK
+     * @response `400` `ProblemDetails` Bad Request
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `404` `ProblemDetails` Not Found
+     * @response `409` `ProblemDetails` Conflict
+     * @response `429` `ProblemDetails` Too Many Requests
+     * @response `502` `ProblemDetails` Bad Gateway
+     */
+    resolveSingleStreamingLinks: (
+      id: string,
+      data: AdminResolveSingleStreamingLinksRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<AdminResolveSingleStreamingLinksResponse, ProblemDetails>({
+        path: `/api/v1/admin/lyrics/${id}/streaming-links/resolve`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Asks the submitter to revise and resubmit their pending community lyrics
+     * submission, with a mandatory note describing the requested changes. The submission
+     * is neither approved nor rejected outright.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have Admin or SuperAdmin role
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK on success
+     * - Returns 400 Bad Request if the note is missing
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 403 Forbidden if user lacks Admin role
+     * - Returns 404 Not Found if the submission does not exist
+     * - Returns 409 Conflict if the submission is no longer pending
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags admin::lyrics
+     * @name RequestLyricsSubmissionRevision
+     * @summary Request changes to a community lyrics submission
+     * @request PATCH:/api/v1/admin/lyrics/submissions/{id}/request-revision
+     * @secure
+     * @response `200` `AdminRequestLyricsSubmissionRevisionResponse` OK
+     * @response `400` `ProblemDetails` Bad Request
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `404` `ProblemDetails` Not Found
+     * @response `409` `ProblemDetails` Conflict
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    requestLyricsSubmissionRevision: (
+      id: string,
+      data: AdminRequestLyricsSubmissionRevisionRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        AdminRequestLyricsSubmissionRevisionResponse,
+        ProblemDetails
+      >({
+        path: `/api/v1/admin/lyrics/submissions/${id}/request-revision`,
+        method: "PATCH",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Rejects a pending community lyrics submission outright, with a mandatory note
+     * visible to the submitter. The submission never becomes a lyrics record.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have Admin or SuperAdmin role
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK on success
+     * - Returns 400 Bad Request if the rejection note is missing
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 403 Forbidden if user lacks Admin role
+     * - Returns 404 Not Found if the submission does not exist
+     * - Returns 409 Conflict if the submission is no longer pending
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags admin::lyrics
+     * @name RejectLyricsSubmission
+     * @summary Reject a community lyrics submission
+     * @request PATCH:/api/v1/admin/lyrics/submissions/{id}/reject
+     * @secure
+     * @response `200` `AdminRejectLyricsSubmissionResponse` OK
+     * @response `400` `ProblemDetails` Bad Request
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `404` `ProblemDetails` Not Found
+     * @response `409` `ProblemDetails` Conflict
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    rejectLyricsSubmission: (
+      id: string,
+      data: AdminRejectLyricsSubmissionRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<AdminRejectLyricsSubmissionResponse, ProblemDetails>({
+        path: `/api/v1/admin/lyrics/submissions/${id}/reject`,
+        method: "PATCH",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Rejects a lyrics page that is currently in <c>PendingReview</c> status,
+     * transitioning it to <c>Rejected</c> with a mandatory reason.
+     * 
+     * The rejection reason is stored on the lyrics page and is visible to the editorial team.
+     * The admin can revise the lyrics page and resubmit it for review.
+     * 
+     * Only lyrics pages in <c>PendingReview</c> status can be rejected.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have SuperAdmin role
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK on success
+     * - Returns 400 Bad Request if the lyrics page is not in PendingReview status or reason is missing
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 403 Forbidden if user lacks SuperAdmin role
+     * - Returns 404 Not Found if the lyrics page does not exist
+     *
+     * @tags admin::lyrics
+     * @name RejectLyrics
+     * @summary Reject a lyrics page during editorial review
+     * @request PATCH:/api/v1/admin/lyrics/{id}/reject
+     * @secure
+     * @response `200` `AdminRejectLyricsResponse` OK
+     * @response `400` `ProblemDetails` Bad Request
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    rejectLyrics: (
+      id: string,
+      data: AdminRejectLyricsRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<AdminRejectLyricsResponse, ProblemDetails>({
+        path: `/api/v1/admin/lyrics/${id}/reject`,
+        method: "PATCH",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Publishes a lyrics page that has been approved by the editorial team,
+     * making it live and visible to all public visitors.
+     * 
+     * Only lyrics pages in <c>Approved</c> status can be published.
+     * Attempting to publish a lyrics page in any other status will return a 400 Bad Request.
+     * 
+     * The <c>publishedAt</c> timestamp is automatically stamped at the moment of publication.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have SuperAdmin role
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK on success
+     * - Returns 400 Bad Request if the lyrics page is not in Approved status
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 403 Forbidden if user lacks SuperAdmin role
+     * - Returns 404 Not Found if the lyrics page does not exist
+     *
+     * @tags admin::lyrics
+     * @name PublishLyrics
+     * @summary Publish an approved lyrics page
+     * @request PATCH:/api/v1/admin/lyrics/{id}/publish
+     * @secure
+     * @response `200` `AdminPublishLyricsResponse` OK
+     * @response `400` `ProblemDetails` Bad Request
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    publishLyrics: (id: string, params: RequestParams = {}) =>
+      this.request<AdminPublishLyricsResponse, ProblemDetails>({
+        path: `/api/v1/admin/lyrics/${id}/publish`,
+        method: "PATCH",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Links a lyrics page to a real, addressable artist profile, or unlinks it when no
+     * artist id is supplied. The lyrics page's plain-text artist name is preserved
+     * either way.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have Admin or SuperAdmin role
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK on success
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 403 Forbidden if user lacks Admin role
+     * - Returns 404 Not Found if the lyrics page or artist profile does not exist
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags admin::lyrics
+     * @name LinkLyricsArtist
+     * @summary Link or unlink a lyrics page's artist profile
+     * @request PUT:/api/v1/admin/lyrics/{id}/artist
+     * @secure
+     * @response `200` `AdminLinkLyricsArtistResponse` OK
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    linkLyricsArtist: (
+      id: string,
+      data: AdminLinkLyricsArtistRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<AdminLinkLyricsArtistResponse, ProblemDetails>({
+        path: `/api/v1/admin/lyrics/${id}/artist`,
+        method: "PUT",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Links a lyrics page to a real, addressable album, or unlinks it when no album id
+     * is supplied. The lyrics page's plain-text album field is preserved either way.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have Admin or SuperAdmin role
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK on success
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 403 Forbidden if user lacks Admin role
+     * - Returns 404 Not Found if the lyrics page or album does not exist
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags admin::lyrics
+     * @name LinkLyricsAlbum
+     * @summary Link or unlink a lyrics page's album
+     * @request PUT:/api/v1/admin/lyrics/{id}/album
+     * @secure
+     * @response `200` `AdminLinkLyricsAlbumResponse` OK
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    linkLyricsAlbum: (
+      id: string,
+      data: AdminLinkLyricsAlbumRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<AdminLinkLyricsAlbumResponse, ProblemDetails>({
+        path: `/api/v1/admin/lyrics/${id}/album`,
+        method: "PUT",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Immediately removes the active paid promotion from a lyrics page, regardless of the
+     * original <c>PromotedUntil</c> expiry date.
+     * 
+     * The operation records three audit fields on the lyrics page:
+     * <c>UnpromotedAt</c> (UTC timestamp), <c>UnpromotedBy</c> (SuperAdmin UUID), and
+     * <c>UnpromotedReason</c> (free-text justification up to 500 chars).
+     * These fields are the inputs required to compute the pro-rata refund amount.
+     * 
+     * The endpoint will return 400 Bad Request if the lyrics page is not currently promoted.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have SuperAdmin role
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with LyricsId and UnpromotedAt on success
+     * - Returns 400 Bad Request if the lyrics page is not currently promoted
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 403 Forbidden if user lacks SuperAdmin role
+     * - Returns 404 Not Found if the lyrics page does not exist
+     *
+     * @tags admin::lyrics
+     * @name ForceUnpromoteLyrics
+     * @summary Force-unpromote a promoted lyrics page (SuperAdmin only)
+     * @request POST:/api/v1/admin/lyrics/{id}/unpromote
+     * @secure
+     * @response `200` `AdminForceUnpromoteLyricsResponse` OK
+     * @response `400` `ProblemDetails` Bad Request
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    forceUnpromoteLyrics: (
+      id: string,
+      data: AdminForceUnpromoteLyricsRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<AdminForceUnpromoteLyricsResponse, ProblemDetails>({
+        path: `/api/v1/admin/lyrics/${id}/unpromote`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Lets a moderator accept or reject a pending lyrics-text correction revision
+     * directly, bypassing the community vote tally. Accepting applies the revision's
+     * proposed text to the lyrics page in the same operation as the decision.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have Admin or SuperAdmin role
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK on success
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 403 Forbidden if user lacks Admin role
+     * - Returns 404 Not Found if the revision does not exist
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags admin::lyrics
+     * @name DecideLyricsRevision
+     * @summary Moderator decision on a lyrics correction
+     * @request PUT:/api/v1/admin/lyrics/revisions/{id}
+     * @secure
+     * @response `200` `AdminDecideLyricsRevisionResponse` OK
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    decideLyricsRevision: (
+      id: string,
+      data: AdminDecideLyricsRevisionRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<AdminDecideLyricsRevisionResponse, ProblemDetails>({
+        path: `/api/v1/admin/lyrics/revisions/${id}`,
+        method: "PUT",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Archives a lyrics page, removing it from all public feeds without permanently deleting it.
+     * 
+     * Archiving is a reversible operation. Use archiving instead of deletion when you want
+     * to temporarily hide content without losing it permanently.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have SuperAdmin role
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK on success
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 403 Forbidden if user lacks SuperAdmin role
+     * - Returns 404 Not Found if the lyrics page does not exist
+     *
+     * @tags admin::lyrics
+     * @name ArchiveLyrics
+     * @summary Archive a lyrics page
+     * @request PATCH:/api/v1/admin/lyrics/{id}/archive
+     * @secure
+     * @response `200` `AdminArchiveLyricsResponse` OK
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    archiveLyrics: (id: string, params: RequestParams = {}) =>
+      this.request<AdminArchiveLyricsResponse, ProblemDetails>({
+        path: `/api/v1/admin/lyrics/${id}/archive`,
+        method: "PATCH",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Approves a pending community lyrics submission, promoting it into a real lyrics
+     * record filed under the default free lyrics category. The new record starts in
+     * `Draft` and goes through the normal spec-01 editorial workflow like any other lyrics
+     * record — no separate publish concept exists for community-originated content.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have Admin or SuperAdmin role
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK on success
+     * - Returns 400 Bad Request if the slug is missing or malformed
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 403 Forbidden if user lacks Admin role
+     * - Returns 404 Not Found if the submission does not exist
+     * - Returns 409 Conflict if the submission is no longer pending, or if the slug is already taken
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags admin::lyrics
+     * @name ApproveLyricsSubmission
+     * @summary Approve a community lyrics submission
+     * @request PUT:/api/v1/admin/lyrics/submissions/{id}
+     * @secure
+     * @response `200` `AdminApproveLyricsSubmissionResponse` OK
+     * @response `400` `ProblemDetails` Bad Request
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `404` `ProblemDetails` Not Found
+     * @response `409` `ProblemDetails` Conflict
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    approveLyricsSubmission: (
+      id: string,
+      data: AdminApproveLyricsSubmissionRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<AdminApproveLyricsSubmissionResponse, ProblemDetails>({
+        path: `/api/v1/admin/lyrics/submissions/${id}`,
+        method: "PUT",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Approves a lyrics page that is currently in <c>PendingReview</c> status,
+     * transitioning it to <c>Approved</c> and clearing it for publication.
+     * 
+     * Only lyrics pages in <c>PendingReview</c> status can be approved.
+     * Attempting to approve a lyrics page in any other status will return a 400 Bad Request.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have SuperAdmin role
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK on success
+     * - Returns 400 Bad Request if the lyrics page is not in PendingReview status
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 403 Forbidden if user lacks SuperAdmin role
+     * - Returns 404 Not Found if the lyrics page does not exist
+     *
+     * @tags admin::lyrics
+     * @name ApproveLyrics
+     * @summary Approve a lyrics page for publication
+     * @request PATCH:/api/v1/admin/lyrics/{id}/approve
+     * @secure
+     * @response `200` `AdminApproveLyricsResponse` OK
+     * @response `400` `ProblemDetails` Bad Request
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    approveLyrics: (id: string, params: RequestParams = {}) =>
+      this.request<AdminApproveLyricsResponse, ProblemDetails>({
+        path: `/api/v1/admin/lyrics/${id}/approve`,
+        method: "PATCH",
         secure: true,
         format: "json",
         ...params,
@@ -5485,7 +8059,7 @@ export class Api<
     adminUpdateAvatar: (
       data: {
         /** @format binary */
-        avatarFile: File;
+        avatarFile?: File;
       },
       params: RequestParams = {},
     ) =>
@@ -5744,6 +8318,55 @@ export class Api<
       this.request<AdminRevokeSessionResponse, ProblemDetails>({
         path: `/api/v1/admin/me/sessions/revoke/${id}`,
         method: "POST",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Returns the paginated list of newsletter subscribers, newest first.
+     * 
+     * **Query Parameters:**
+     * 
+     * - pageIndex: zero-based page index (default 0)
+     * - pageSize: page size (default 20, max 100)
+     * - status: optional filter - PendingConfirmation, Subscribed or Unsubscribed
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with the paginated subscribers
+     * - Returns 401 Unauthorized without a valid token
+     * - Returns 403 Forbidden for non-admin users.
+     *
+     * @tags admin::newsletter
+     * @name AdminGetNewsletterSubscribers
+     * @summary List newsletter subscribers with status filter and pagination
+     * @request GET:/api/v1/admin/newsletter/subscribers
+     * @secure
+     * @response `200` `AdminGetNewsletterSubscribersResponse` OK
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     */
+    adminGetNewsletterSubscribers: (
+      query?: {
+        /**
+         * @format int32
+         * @default 0
+         */
+        pageIndex?: number;
+        /**
+         * @format int32
+         * @default 20
+         */
+        pageSize?: number;
+        status?: EnumNewsletterStatus;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<AdminGetNewsletterSubscribersResponse, ProblemDetails>({
+        path: `/api/v1/admin/newsletter/subscribers`,
+        method: "GET",
+        query: query,
         secure: true,
         format: "json",
         ...params,
@@ -6122,7 +8745,7 @@ export class Api<
      * @summary Remove an item from a draft order
      * @request DELETE:/api/v1/admin/orders/{id}/items/{itemId}
      * @secure
-     * @response `200` `AdminRemoveOrderItemResponse` OK
+     * @response `204` `void` No Content
      * @response `400` `ProblemDetails` Bad Request
      * @response `401` `ProblemDetails` Unauthorized
      * @response `403` `ProblemDetails` Forbidden
@@ -6134,11 +8757,10 @@ export class Api<
       itemId: string,
       params: RequestParams = {},
     ) =>
-      this.request<AdminRemoveOrderItemResponse, ProblemDetails>({
+      this.request<void, ProblemDetails>({
         path: `/api/v1/admin/orders/${id}/items/${itemId}`,
         method: "DELETE",
         secure: true,
-        format: "json",
         ...params,
       }),
 
@@ -6212,7 +8834,7 @@ export class Api<
      * @summary Remove a pricing tier from an order item
      * @request DELETE:/api/v1/admin/orders/{id}/items/{itemId}/tiers/{tierId}
      * @secure
-     * @response `200` `AdminRemoveItemTierResponse` OK
+     * @response `204` `void` No Content
      * @response `400` `ProblemDetails` Bad Request
      * @response `401` `ProblemDetails` Unauthorized
      * @response `403` `ProblemDetails` Forbidden
@@ -6225,11 +8847,10 @@ export class Api<
       tierId: string,
       params: RequestParams = {},
     ) =>
-      this.request<AdminRemoveItemTierResponse, ProblemDetails>({
+      this.request<void, ProblemDetails>({
         path: `/api/v1/admin/orders/${id}/items/${itemId}/tiers/${tierId}`,
         method: "DELETE",
         secure: true,
-        format: "json",
         ...params,
       }),
 
@@ -6352,7 +8973,7 @@ export class Api<
       },
       data: {
         /** @format binary */
-        file: File;
+        file?: File;
       },
       params: RequestParams = {},
     ) =>
@@ -7248,7 +9869,7 @@ export class Api<
      * @summary Permanently delete a permission
      * @request DELETE:/api/v1/admin/permissions/{id}/hard
      * @secure
-     * @response `200` `AdminHardDeletePermissionResponse` OK
+     * @response `204` `void` No Content
      * @response `400` `ProblemDetails` Bad Request
      * @response `401` `ProblemDetails` Unauthorized
      * @response `403` `ProblemDetails` Forbidden
@@ -7256,11 +9877,10 @@ export class Api<
      * @response `429` `ProblemDetails` Too Many Requests
      */
     adminHardDeletePermission: (id: string, params: RequestParams = {}) =>
-      this.request<AdminHardDeletePermissionResponse, ProblemDetails>({
+      this.request<void, ProblemDetails>({
         path: `/api/v1/admin/permissions/${id}/hard`,
         method: "DELETE",
         secure: true,
-        format: "json",
         ...params,
       }),
 
@@ -8331,7 +10951,7 @@ export class Api<
      * @summary Permanently delete a role
      * @request DELETE:/api/v1/admin/roles/{id}/hard
      * @secure
-     * @response `200` `AdminHardDeleteRoleResponse` OK
+     * @response `204` `void` No Content
      * @response `400` `ProblemDetails` Bad Request
      * @response `401` `ProblemDetails` Unauthorized
      * @response `403` `ProblemDetails` Forbidden
@@ -8339,11 +10959,10 @@ export class Api<
      * @response `429` `ProblemDetails` Too Many Requests
      */
     adminHardDeleteRole: (id: string, params: RequestParams = {}) =>
-      this.request<AdminHardDeleteRoleResponse, ProblemDetails>({
+      this.request<void, ProblemDetails>({
         path: `/api/v1/admin/roles/${id}/hard`,
         method: "DELETE",
         secure: true,
-        format: "json",
         ...params,
       }),
 
@@ -9066,18 +11685,17 @@ export class Api<
      * @summary Permanently delete a short video
      * @request DELETE:/api/v1/admin/shorts/{id}
      * @secure
-     * @response `200` `AdminDeleteShortVideoResponse` OK
+     * @response `204` `void` No Content
      * @response `401` `ProblemDetails` Unauthorized
      * @response `403` `ProblemDetails` Forbidden
      * @response `404` `ProblemDetails` Not Found
      * @response `429` `ProblemDetails` Too Many Requests
      */
     deleteShortVideo: (id: string, params: RequestParams = {}) =>
-      this.request<AdminDeleteShortVideoResponse, ProblemDetails>({
+      this.request<void, ProblemDetails>({
         path: `/api/v1/admin/shorts/${id}`,
         method: "DELETE",
         secure: true,
-        format: "json",
         ...params,
       }),
 
@@ -9275,7 +11893,7 @@ export class Api<
       id: string,
       data: {
         /** @format binary */
-        file: File;
+        file?: File;
       },
       params: RequestParams = {},
     ) =>
@@ -9540,7 +12158,7 @@ export class Api<
      * @summary Permanently delete a content tag
      * @request DELETE:/api/v1/admin/tags/{id}
      * @secure
-     * @response `200` `AdminDeleteTagResponse` OK
+     * @response `204` `void` No Content
      * @response `400` `ProblemDetails` Bad Request
      * @response `401` `ProblemDetails` Unauthorized
      * @response `403` `ProblemDetails` Forbidden
@@ -9548,10 +12166,53 @@ export class Api<
      * @response `429` `ProblemDetails` Too Many Requests
      */
     adminDeleteTag: (id: string, params: RequestParams = {}) =>
-      this.request<AdminDeleteTagResponse, ProblemDetails>({
+      this.request<void, ProblemDetails>({
         path: `/api/v1/admin/tags/${id}`,
         method: "DELETE",
         secure: true,
+        ...params,
+      }),
+
+    /**
+     * @description Lets a moderator accept or reject a pending translation revision directly, bypassing
+     * the community vote tally. Accepting applies the revision's proposed text to the
+     * translation in the same operation.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have Admin or SuperAdmin role
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK on success
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 403 Forbidden if user lacks Admin role
+     * - Returns 404 Not Found if the revision does not exist
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags admin::translations
+     * @name DecideTranslationRevision
+     * @summary Moderator decision on a translation revision
+     * @request PUT:/api/v1/admin/translations/revisions/{id}
+     * @secure
+     * @response `200` `AdminDecideTranslationRevisionResponse` OK
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    decideTranslationRevision: (
+      id: string,
+      data: AdminDecideTranslationRevisionRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<AdminDecideTranslationRevisionResponse, ProblemDetails>({
+        path: `/api/v1/admin/translations/revisions/${id}`,
+        method: "PUT",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
         format: "json",
         ...params,
       }),
@@ -9741,6 +12402,105 @@ export class Api<
       }),
 
     /**
+     * @description Deactivates a user account so the user can no longer log in.
+     * This is an admin-only operation used for account suspension or termination.
+     * 
+     * This endpoint performs deactivation by:
+     * 
+     * - Validating the target user ID from the route parameter
+     * - Marking the account inactive
+     * - Revoking every live session of the account
+     * - Bumping the token version so outstanding JWTs die on refresh
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - Admin must be authenticated with a valid access token
+     * - Requires the SuperAdmin role
+     * 
+     * **Use Cases:**
+     * 
+     * - Account suspension for policy violations
+     * - Security response to compromised accounts
+     * - Offboarding
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with success flag; deactivating an inactive account is idempotent
+     * - Returns 400 Bad Request if user ID is invalid
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 403 Forbidden if the caller lacks the required role
+     * - Returns 404 Not Found if no user owns the ID
+     *
+     * @tags admin::users
+     * @name AdminDeactivateUser
+     * @summary Deactivate a user account
+     * @request PATCH:/api/v1/admin/users/{id}/deactivate
+     * @secure
+     * @response `200` `AdminDeactivateUserResponse` OK
+     * @response `400` `ProblemDetails` Bad Request
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    adminDeactivateUser: (id: string, params: RequestParams = {}) =>
+      this.request<AdminDeactivateUserResponse, ProblemDetails>({
+        path: `/api/v1/admin/users/${id}/deactivate`,
+        method: "PATCH",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Reactivates a previously deactivated user account so the user can log in again.
+     * This is an admin-only operation used to lift an account suspension.
+     * 
+     * This endpoint performs activation by:
+     * 
+     * - Validating the target user ID from the route parameter
+     * - Marking the account active again
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - Admin must be authenticated with a valid access token
+     * - Requires the SuperAdmin role
+     * 
+     * **Use Cases:**
+     * 
+     * - Lifting a suspension after review
+     * - Restoring access after a security incident is resolved
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with success flag; activating an active account is idempotent
+     * - Returns 400 Bad Request if user ID is invalid
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 403 Forbidden if the caller lacks the required role
+     * - Returns 404 Not Found if no user owns the ID
+     *
+     * @tags admin::users
+     * @name AdminActivateUser
+     * @summary Reactivate a user account
+     * @request PATCH:/api/v1/admin/users/{id}/activate
+     * @secure
+     * @response `200` `AdminActivateUserResponse` OK
+     * @response `400` `ProblemDetails` Bad Request
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    adminActivateUser: (id: string, params: RequestParams = {}) =>
+      this.request<AdminActivateUserResponse, ProblemDetails>({
+        path: `/api/v1/admin/users/${id}/activate`,
+        method: "PATCH",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
      * @description Retrieves the full details of a single video including its tags,
      * SEO metadata, thumbnail, YouTube ID, and workflow status.
      * 
@@ -9861,7 +12621,7 @@ export class Api<
      * @summary Permanently delete a video
      * @request DELETE:/api/v1/admin/videos/{id}
      * @secure
-     * @response `200` `AdminDeleteVideoResponse` OK
+     * @response `204` `void` No Content
      * @response `400` `ProblemDetails` Bad Request
      * @response `401` `ProblemDetails` Unauthorized
      * @response `403` `ProblemDetails` Forbidden
@@ -9869,11 +12629,10 @@ export class Api<
      * @response `429` `ProblemDetails` Too Many Requests
      */
     deleteVideo: (id: string, params: RequestParams = {}) =>
-      this.request<AdminDeleteVideoResponse, ProblemDetails>({
+      this.request<void, ProblemDetails>({
         path: `/api/v1/admin/videos/${id}`,
         method: "DELETE",
         secure: true,
-        format: "json",
         ...params,
       }),
 
@@ -10332,6 +13091,49 @@ export class Api<
       }),
 
     /**
+     * @description Links a video to a real, addressable artist profile, or unlinks it when no
+     * artist id is supplied.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have Admin or SuperAdmin role
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK on success
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 403 Forbidden if user lacks Admin role
+     * - Returns 404 Not Found if the video or artist profile does not exist
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags admin::videos
+     * @name LinkVideoArtist
+     * @summary Link or unlink a video's artist profile
+     * @request PUT:/api/v1/admin/videos/{id}/artist
+     * @secure
+     * @response `200` `AdminLinkVideoArtistResponse` OK
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    linkVideoArtist: (
+      id: string,
+      data: AdminLinkVideoArtistRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<AdminLinkVideoArtistResponse, ProblemDetails>({
+        path: `/api/v1/admin/videos/${id}/artist`,
+        method: "PUT",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
      * @description Immediately removes the active paid promotion from a video, regardless of the
      * original <c>PromotedUntil</c> expiry date.
      * 
@@ -10628,7 +13430,7 @@ export class Api<
      * @summary Get my comments for an article
      * @request GET:/api/v1/public/articles/{id}/comments/me
      * @secure
-     * @response `200` `ArticleCommentDtoPaginatedResult` OK
+     * @response `200` `PublicArticleCommentDtoPaginatedResult` OK
      * @response `401` `ProblemDetails` Unauthorized
      * @response `404` `ProblemDetails` Not Found
      * @response `429` `ProblemDetails` Too Many Requests
@@ -10649,7 +13451,7 @@ export class Api<
       },
       params: RequestParams = {},
     ) =>
-      this.request<ArticleCommentDtoPaginatedResult, ProblemDetails>({
+      this.request<PublicArticleCommentDtoPaginatedResult, ProblemDetails>({
         path: `/api/v1/public/articles/${id}/comments/me`,
         method: "GET",
         query: query,
@@ -10771,7 +13573,7 @@ export class Api<
      * @summary List replies to a comment
      * @request GET:/api/v1/public/articles/comments/{commentId}/replies
      * @secure
-     * @response `200` `ArticleCommentDtoPaginatedResult` OK
+     * @response `200` `PublicArticleCommentDtoPaginatedResult` OK
      * @response `429` `ProblemDetails` Too Many Requests
      */
     publicGetCommentReplies: (
@@ -10790,7 +13592,7 @@ export class Api<
       },
       params: RequestParams = {},
     ) =>
-      this.request<ArticleCommentDtoPaginatedResult, ProblemDetails>({
+      this.request<PublicArticleCommentDtoPaginatedResult, ProblemDetails>({
         path: `/api/v1/public/articles/comments/${commentId}/replies`,
         method: "GET",
         query: query,
@@ -10818,7 +13620,7 @@ export class Api<
      * @summary List comments for an article
      * @request GET:/api/v1/public/articles/{id}/comments
      * @secure
-     * @response `200` `ArticleCommentDtoPaginatedResult` OK
+     * @response `200` `PublicArticleCommentDtoPaginatedResult` OK
      * @response `404` `ProblemDetails` Not Found
      * @response `429` `ProblemDetails` Too Many Requests
      */
@@ -10838,7 +13640,7 @@ export class Api<
       },
       params: RequestParams = {},
     ) =>
-      this.request<ArticleCommentDtoPaginatedResult, ProblemDetails>({
+      this.request<PublicArticleCommentDtoPaginatedResult, ProblemDetails>({
         path: `/api/v1/public/articles/${id}/comments`,
         method: "GET",
         query: query,
@@ -10910,7 +13712,7 @@ export class Api<
      * @summary Unlike an article comment
      * @request DELETE:/api/v1/public/articles/comments/{commentId}/likes
      * @secure
-     * @response `200` `PublicUnlikeArticleCommentResponse` OK
+     * @response `204` `void` No Content
      * @response `401` `ProblemDetails` Unauthorized
      * @response `404` `ProblemDetails` Not Found
      * @response `429` `ProblemDetails` Too Many Requests
@@ -10919,11 +13721,10 @@ export class Api<
       commentId: string,
       params: RequestParams = {},
     ) =>
-      this.request<PublicUnlikeArticleCommentResponse, ProblemDetails>({
+      this.request<void, ProblemDetails>({
         path: `/api/v1/public/articles/comments/${commentId}/likes`,
         method: "DELETE",
         secure: true,
-        format: "json",
         ...params,
       }),
 
@@ -10985,18 +13786,17 @@ export class Api<
      * @summary Remove a like from an article
      * @request DELETE:/api/v1/public/articles/{id}/likes
      * @secure
-     * @response `200` `PublicUnlikeArticleResponse` OK
+     * @response `204` `void` No Content
      * @response `400` `ProblemDetails` Bad Request
      * @response `401` `ProblemDetails` Unauthorized
      * @response `404` `ProblemDetails` Not Found
      * @response `429` `ProblemDetails` Too Many Requests
      */
     publicUnlikeArticle: (id: string, params: RequestParams = {}) =>
-      this.request<PublicUnlikeArticleResponse, ProblemDetails>({
+      this.request<void, ProblemDetails>({
         path: `/api/v1/public/articles/${id}/likes`,
         method: "DELETE",
         secure: true,
-        format: "json",
         ...params,
       }),
 
@@ -11062,18 +13862,17 @@ export class Api<
      * @summary Remove a bookmark from an article
      * @request DELETE:/api/v1/public/articles/{id}/bookmarks
      * @secure
-     * @response `200` `PublicUnbookmarkArticleResponse` OK
+     * @response `204` `void` No Content
      * @response `400` `ProblemDetails` Bad Request
      * @response `401` `ProblemDetails` Unauthorized
      * @response `404` `ProblemDetails` Not Found
      * @response `429` `ProblemDetails` Too Many Requests
      */
     publicUnbookmarkArticle: (id: string, params: RequestParams = {}) =>
-      this.request<PublicUnbookmarkArticleResponse, ProblemDetails>({
+      this.request<void, ProblemDetails>({
         path: `/api/v1/public/articles/${id}/bookmarks`,
         method: "DELETE",
         secure: true,
-        format: "json",
         ...params,
       }),
 
@@ -11217,7 +14016,7 @@ export class Api<
      * @summary Delete own article comment
      * @request DELETE:/api/v1/public/articles/{id}/comments/{commentId}
      * @secure
-     * @response `200` `PublicDeleteArticleCommentResponse` OK
+     * @response `204` `void` No Content
      * @response `400` `ProblemDetails` Bad Request
      * @response `401` `ProblemDetails` Unauthorized
      * @response `404` `ProblemDetails` Not Found
@@ -11228,11 +14027,10 @@ export class Api<
       commentId: string,
       params: RequestParams = {},
     ) =>
-      this.request<PublicDeleteArticleCommentResponse, ProblemDetails>({
+      this.request<void, ProblemDetails>({
         path: `/api/v1/public/articles/${id}/comments/${commentId}`,
         method: "DELETE",
         secure: true,
-        format: "json",
         ...params,
       }),
 
@@ -11494,6 +14292,258 @@ export class Api<
       }),
 
     /**
+     * @description Retrieves the public artist directory: only artists with at least one published
+     * item on any profile surface, ordered by accent-folded name, each carrying its
+     * total item count. Includes the distinct available initial letters so the A-Z
+     * rail can disable empty buckets.
+     * 
+     * Supports an initial-letter filter (A-Z or #) or an accent-insensitive name
+     * search of at least two characters — never both at once.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - No authentication required (public endpoint)
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with the directory page and available letters on success
+     * - Returns 400 Bad Request if letter and search are combined or the search is too short
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags public::artists
+     * @name GetArtists
+     * @summary List artists for the public directory
+     * @request GET:/api/v1/public/artists
+     * @secure
+     * @response `200` `PublicGetArtistsResponse` OK
+     * @response `400` `ProblemDetails` Bad Request
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    getArtists: (
+      query?: {
+        /**
+         * @format int32
+         * @default 0
+         */
+        pageIndex?: number;
+        /**
+         * @format int32
+         * @default 30
+         */
+        pageSize?: number;
+        letter?: string;
+        search?: string;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<PublicGetArtistsResponse, ProblemDetails>({
+        path: `/api/v1/public/artists`,
+        method: "GET",
+        query: query,
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Retrieves a paginated page of an artist's releases filtered by release type
+     * (Album, Mixtape, EP or Single), newest first with unknown years last.
+     * 
+     * The artist is addressed by URL-safe slug; the lookup is case-insensitive.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - No authentication required (public endpoint)
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with the paginated releases on success
+     * - Returns 404 Not Found if no artist profile matches the given slug
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags public::artists
+     * @name GetArtistReleases
+     * @summary Get an artist's releases of a given type by slug
+     * @request GET:/api/v1/public/artists/{slug}/releases
+     * @secure
+     * @response `200` `PublicGetArtistReleasesResponse` OK
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    getArtistReleases: (
+      slug: string,
+      query?: {
+        /** @default 0 */
+        type?: "Album" | "Mixtape" | "EP" | "Single";
+        /**
+         * @format int32
+         * @default 0
+         */
+        pageIndex?: number;
+        /**
+         * @format int32
+         * @default 12
+         */
+        pageSize?: number;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<PublicGetArtistReleasesResponse, ProblemDetails>({
+        path: `/api/v1/public/artists/${slug}/releases`,
+        method: "GET",
+        query: query,
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Retrieves an artist's public profile page using its URL-safe slug, including
+     * paginated published lyrics and videos linked to the artist. Only Published
+     * content is returned.
+     * 
+     * The lookup is case-insensitive.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - No authentication required (public endpoint)
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with the artist profile and paginated catalog on success
+     * - Returns 404 Not Found if no artist profile matches the given slug
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags public::artists
+     * @name GetArtistBySlug
+     * @summary Get an artist's public profile page by slug
+     * @request GET:/api/v1/public/artists/{slug}
+     * @secure
+     * @response `200` `PublicGetArtistBySlugResponse` OK
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    getArtistBySlug: (
+      slug: string,
+      query?: {
+        /**
+         * @format int32
+         * @default 0
+         */
+        lyricsPageIndex?: number;
+        /**
+         * @format int32
+         * @default 10
+         */
+        lyricsPageSize?: number;
+        /**
+         * @format int32
+         * @default 0
+         */
+        videosPageIndex?: number;
+        /**
+         * @format int32
+         * @default 10
+         */
+        videosPageSize?: number;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<PublicGetArtistBySlugResponse, ProblemDetails>({
+        path: `/api/v1/public/artists/${slug}`,
+        method: "GET",
+        query: query,
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Retrieves a paginated page of published articles tagged to the artist, newest
+     * first. Draft and archived articles never appear.
+     * 
+     * The artist is addressed by URL-safe slug; the lookup is case-insensitive.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - No authentication required (public endpoint)
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with the paginated articles on success
+     * - Returns 404 Not Found if no artist profile matches the given slug
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags public::artists
+     * @name GetArtistArticles
+     * @summary Get published articles tagged to an artist by slug
+     * @request GET:/api/v1/public/artists/{slug}/articles
+     * @secure
+     * @response `200` `PublicGetArtistArticlesResponse` OK
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    getArtistArticles: (
+      slug: string,
+      query?: {
+        /**
+         * @format int32
+         * @default 0
+         */
+        pageIndex?: number;
+        /**
+         * @format int32
+         * @default 12
+         */
+        pageSize?: number;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<PublicGetArtistArticlesResponse, ProblemDetails>({
+        path: `/api/v1/public/artists/${slug}/articles`,
+        method: "GET",
+        query: query,
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Records a request from the authenticated user to claim ownership of an artist
+     * profile. This does not grant ownership — staff review the request and confirm it
+     * separately through the admin verify-owner endpoint.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK once the request has been recorded
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 404 Not Found if the artist profile does not exist
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags public::artists
+     * @name RequestArtistClaim
+     * @summary Request ownership of an artist profile
+     * @request POST:/api/v1/public/artists/{id}/claim
+     * @secure
+     * @response `200` `PublicRequestArtistClaimResponse` OK
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    requestArtistClaim: (id: string, params: RequestParams = {}) =>
+      this.request<PublicRequestArtistClaimResponse, ProblemDetails>({
+        path: `/api/v1/public/artists/${id}/claim`,
+        method: "POST",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
      * @description Returns the currently exclusive category along with a paginated list of its published
      * videos. The exclusive category is the featured show displayed on the homepage after the
      * promotion feed.
@@ -11733,7 +14783,7 @@ export class Api<
      * @summary Authenticate user via social provider
      * @request POST:/api/v1/public/auth/social-login
      * @secure
-     * @response `200` `PublicSocialLoginWebResponse` OK
+     * @response `200` `PublicSocialLoginMobileResponse` OK
      * @response `400` `ProblemDetails` Bad Request
      * @response `409` `ProblemDetails` Conflict
      * @response `429` `ProblemDetails` Too Many Requests
@@ -11742,7 +14792,7 @@ export class Api<
       data: PublicSocialLoginRequest,
       params: RequestParams = {},
     ) =>
-      this.request<PublicSocialLoginWebResponse, ProblemDetails>({
+      this.request<PublicSocialLoginMobileResponse, ProblemDetails>({
         path: `/api/v1/public/auth/social-login`,
         method: "POST",
         body: data,
@@ -11764,7 +14814,9 @@ export class Api<
      * - Ensures the email/username is unique
      * - Hashes the password using secure algorithms (bcrypt)
      * - Creates a new public user account in the system
-     * - Triggers optional account verification (email/SMS)
+     * - Sends the email verification code required before the first login
+     * No tokens are issued and no session is opened: the account is created unverified, so
+     * the user verifies the emailed code first and then logs in.
      * 
      * **Authentication Requirements:**
      * 
@@ -11792,13 +14844,13 @@ export class Api<
      * @summary Register a new public user account
      * @request POST:/api/v1/public/auth/signup
      * @secure
-     * @response `201` `PublicSignUpWebResponse` Created
+     * @response `201` `PublicSignUpResponse` Created
      * @response `400` `ProblemDetails` Bad Request
      * @response `409` `ProblemDetails` Conflict
      * @response `429` `ProblemDetails` Too Many Requests
      */
     publicSignUp: (data: PublicSignUpRequest, params: RequestParams = {}) =>
-      this.request<PublicSignUpWebResponse, ProblemDetails>({
+      this.request<PublicSignUpResponse, ProblemDetails>({
         path: `/api/v1/public/auth/signup`,
         method: "POST",
         body: data,
@@ -12212,15 +15264,14 @@ export class Api<
      * @summary Authenticate public user and return JWT token with user claims
      * @request POST:/api/v1/public/auth/login
      * @secure
-     * @response `200` `PublicLoginWebResponse` OK
+     * @response `200` `PublicLoginMobileResponse` OK
      * @response `400` `ProblemDetails` Bad Request
      * @response `401` `ProblemDetails` Unauthorized
      * @response `403` `ProblemDetails` Forbidden
-     * @response `404` `void` Not Found
      * @response `429` `ProblemDetails` Too Many Requests
      */
     publicLogin: (data: PublicLoginRequest, params: RequestParams = {}) =>
-      this.request<PublicLoginWebResponse, ProblemDetails | void>({
+      this.request<PublicLoginMobileResponse, ProblemDetails>({
         path: `/api/v1/public/auth/login`,
         method: "POST",
         body: data,
@@ -12388,6 +15439,322 @@ export class Api<
       }),
 
     /**
+     * @description Removes the authenticated user's like from a lyrics page.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have an active account
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK on success
+     * - Returns 400 Bad Request if the user has not liked this lyrics page
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 404 Not Found if the lyrics page does not exist
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags public::lyrics
+     * @name PublicUnlikeLyrics
+     * @summary Unlike a lyrics page
+     * @request DELETE:/api/v1/public/lyrics/{id}/likes
+     * @secure
+     * @response `204` `void` No Content
+     * @response `400` `ProblemDetails` Bad Request
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    publicUnlikeLyrics: (id: string, params: RequestParams = {}) =>
+      this.request<void, ProblemDetails>({
+        path: `/api/v1/public/lyrics/${id}/likes`,
+        method: "DELETE",
+        secure: true,
+        ...params,
+      }),
+
+    /**
+     * @description Records that the authenticated user has liked a lyrics page.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have an active account
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK on success
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 404 Not Found if the lyrics page does not exist
+     * - Returns 409 Conflict if the user has already liked this lyrics page
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags public::lyrics
+     * @name PublicLikeLyrics
+     * @summary Like a lyrics page
+     * @request POST:/api/v1/public/lyrics/{id}/likes
+     * @secure
+     * @response `200` `PublicLikeLyricsResponse` OK
+     * @response `400` `ProblemDetails` Bad Request
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `404` `ProblemDetails` Not Found
+     * @response `409` `ProblemDetails` Conflict
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    publicLikeLyrics: (id: string, params: RequestParams = {}) =>
+      this.request<PublicLikeLyricsResponse, ProblemDetails>({
+        path: `/api/v1/public/lyrics/${id}/likes`,
+        method: "POST",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Records a share event for a lyrics page. Works for both authenticated and
+     * anonymous callers.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - No authentication required (public endpoint)
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK on success
+     * - Returns 404 Not Found if the lyrics page does not exist
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags public::lyrics
+     * @name PublicShareLyrics
+     * @summary Share a lyrics page
+     * @request POST:/api/v1/public/lyrics/{id}/shares
+     * @secure
+     * @response `200` `PublicShareLyricsResponse` OK
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    publicShareLyrics: (
+      id: string,
+      data: PublicShareLyricsRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<PublicShareLyricsResponse, ProblemDetails>({
+        path: `/api/v1/public/lyrics/${id}/shares`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Records a view event for a lyrics page, gated by the read-time view-counting
+     * algorithm: the reported dwell time and scroll depth are checked against the
+     * server-computed expected reading time before the displayed count increments.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - No authentication required (public endpoint)
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK on success, with <c>isCounted</c> indicating whether the view
+     * incremented the displayed count
+     * 
+     * - Returns 404 Not Found if the lyrics page does not exist
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags public::lyrics
+     * @name PublicRecordLyricsView
+     * @summary Record a lyrics page view
+     * @request POST:/api/v1/public/lyrics/{id}/views
+     * @secure
+     * @response `200` `PublicRecordLyricsViewResponse` OK
+     * @response `400` `ProblemDetails` Bad Request
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    publicRecordLyricsView: (
+      id: string,
+      data: PublicRecordLyricsViewRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<PublicRecordLyricsViewResponse, ProblemDetails>({
+        path: `/api/v1/public/lyrics/${id}/views`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Retrieves lyrics pages similar to the given lyrics page, via a three-way waterfall:
+     * published pages linked to a video in the same category, then published pages
+     * sharing at least one tag, then the most recent standalone published pages. The
+     * first non-empty branch wins.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - No authentication required (public endpoint)
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with a list of similar lyrics pages, which is empty when no
+     * branch of the waterfall yields any matches
+     * 
+     * - Returns 404 Not Found if the given lyrics page id does not exist
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags public::lyrics
+     * @name GetSimilarLyrics
+     * @summary Get similar lyrics pages
+     * @request GET:/api/v1/public/lyrics/{id}/similar
+     * @secure
+     * @response `200` `PublicGetSimilarLyricsResponse` OK
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    getSimilarLyrics: (id: string, params: RequestParams = {}) =>
+      this.request<PublicGetSimilarLyricsResponse, ProblemDetails>({
+        path: `/api/v1/public/lyrics/${id}/similar`,
+        method: "GET",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Retrieves a paginated list of all published lyrics pages for public consumption.
+     * 
+     * Supports optional filtering by search term, language, and category. Results are
+     * returned as a paginated list with summary information suitable for lyrics feed and
+     * browsing views.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - No authentication required
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with paginated lyrics list on success
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags public::lyrics
+     * @name GetPublishedLyrics
+     * @summary List published lyrics pages
+     * @request GET:/api/v1/public/lyrics
+     * @secure
+     * @response `200` `PublicGetPublishedLyricsResponse` OK
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    getPublishedLyrics: (
+      query?: {
+        /**
+         * @format int32
+         * @default 0
+         */
+        pageIndex?: number;
+        /**
+         * @format int32
+         * @default 10
+         */
+        pageSize?: number;
+        search?: string;
+        language?: string;
+        /** @format uuid */
+        categoryId?: string;
+        sort?: string;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<PublicGetPublishedLyricsResponse, ProblemDetails>({
+        path: `/api/v1/public/lyrics`,
+        method: "GET",
+        query: query,
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Retrieves every translation of a lyrics page, one per requested language.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - None — publicly accessible
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK on success
+     * - Returns 404 Not Found if the lyrics page does not exist
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags public::lyrics
+     * @name GetLyricsTranslations
+     * @summary List a lyrics page's translations
+     * @request GET:/api/v1/public/lyrics/{id}/translations
+     * @secure
+     * @response `200` `PublicGetLyricsTranslationsResponse` OK
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    getLyricsTranslations: (id: string, params: RequestParams = {}) =>
+      this.request<PublicGetLyricsTranslationsResponse, ProblemDetails>({
+        path: `/api/v1/public/lyrics/${id}/translations`,
+        method: "GET",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Requests a translation of a lyrics page into the given language.
+     * 
+     * Idempotent: if a translation already exists for the lyrics page and language, it is
+     * returned as-is without generating a new one. Otherwise an AI translation is generated
+     * and stored as the lyrics page's first translation into that language.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have an active account
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK on success
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 404 Not Found if the lyrics page does not exist
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags public::lyrics
+     * @name RequestLyricsTranslation
+     * @summary Request an AI-generated translation of a lyrics page
+     * @request POST:/api/v1/public/lyrics/{id}/translations
+     * @secure
+     * @response `200` `PublicRequestLyricsTranslationResponse` OK
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    requestLyricsTranslation: (
+      id: string,
+      data: PublicRequestLyricsTranslationRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<PublicRequestLyricsTranslationResponse, ProblemDetails>({
+        path: `/api/v1/public/lyrics/${id}/translations`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
      * @description Retrieves the lyrics page associated with a given video ID.
      * 
      * Returns the full lyrics details if a lyrics page is linked to the video.
@@ -12421,9 +15788,9 @@ export class Api<
       }),
 
     /**
-     * @description Retrieves a lyrics page using the song title and artist name as URL path parameters.
+     * @description Retrieves a lyrics page using its URL-safe slug as a path parameter.
      * This endpoint is designed for SEO-friendly public access to lyrics pages
-     * (e.g., <c>/api/v1/public/lyrics/eloko-oyo/fally-ipupa</c>).
+     * (e.g., <c>/api/v1/public/lyrics/fally-ipupa-eloko-oyo-lyrics</c>).
      * 
      * The lookup is case-insensitive.
      * 
@@ -12434,27 +15801,170 @@ export class Api<
      * **Response Codes:**
      * 
      * - Returns 200 OK with lyrics details on success
-     * - Returns 404 Not Found if no lyrics match the given song title and artist name
+     * - Returns 404 Not Found if no lyrics match the given slug
      * - Returns 429 Too Many Requests if rate limit is exceeded
      *
      * @tags public::lyrics
      * @name GetLyricsBySlug
-     * @summary Get lyrics by song title and artist name
-     * @request GET:/api/v1/public/lyrics/{songTitle}/{artistName}
+     * @summary Get lyrics by slug
+     * @request GET:/api/v1/public/lyrics/{slug}
      * @secure
      * @response `200` `PublicGetLyricsBySlugResponse` OK
      * @response `404` `ProblemDetails` Not Found
      * @response `429` `ProblemDetails` Too Many Requests
      */
-    getLyricsBySlug: (
-      songTitle: string,
-      artistName: string,
-      params: RequestParams = {},
-    ) =>
+    getLyricsBySlug: (slug: string, params: RequestParams = {}) =>
       this.request<PublicGetLyricsBySlugResponse, ProblemDetails>({
-        path: `/api/v1/public/lyrics/${songTitle}/${artistName}`,
+        path: `/api/v1/public/lyrics/${slug}`,
         method: "GET",
         secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Casts a community vote — approve or reject — on a pending lyrics-text correction
+     * revision.
+     * 
+     * A revision that reaches the net approval threshold is automatically accepted and
+     * its proposed text is applied to the lyrics page in the same operation as this vote.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have an active account
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK on success
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 404 Not Found if the revision does not exist
+     * - Returns 409 Conflict if the user has already voted on this revision
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags public::lyrics
+     * @name VoteOnLyricsRevision
+     * @summary Vote on a proposed lyrics correction
+     * @request POST:/api/v1/public/lyrics/revisions/{id}/votes
+     * @secure
+     * @response `200` `PublicVoteOnLyricsRevisionResponse` OK
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `404` `ProblemDetails` Not Found
+     * @response `409` `ProblemDetails` Conflict
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    voteOnLyricsRevision: (
+      id: string,
+      data: PublicVoteOnLyricsRevisionRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<PublicVoteOnLyricsRevisionResponse, ProblemDetails>({
+        path: `/api/v1/public/lyrics/revisions/${id}/votes`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Submits a new song to the platform.
+     * 
+     * A submitter who owns a claimed artist profile has their song created directly as a
+     * real lyrics record, in the `Draft` status — no auto-publish, it still goes through
+     * the normal editorial workflow — skipping the moderation queue entirely. This gate is
+     * identity-based (the submitter's own user id), never based on the artist name text
+     * sent in the request.
+     * 
+     * Anyone else's submission enters the community moderation queue and requires an
+     * artist name, since there is no claimed profile to fall back on.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have an active account
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK on success
+     * - Returns 400 Bad Request if a required field is missing
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 409 Conflict if the slug is already taken (verified-artist fast path only)
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags public::lyrics
+     * @name CreateLyricsSubmission
+     * @summary Submit a new song
+     * @request POST:/api/v1/public/lyrics/submissions
+     * @secure
+     * @response `200` `PublicSubmitLyricsResponse` OK
+     * @response `400` `ProblemDetails` Bad Request
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `409` `ProblemDetails` Conflict
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    createLyricsSubmission: (
+      data: PublicSubmitLyricsRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<PublicSubmitLyricsResponse, ProblemDetails>({
+        path: `/api/v1/public/lyrics/submissions`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Proposes a community correction to a lyrics page's canonical text, entering the
+     * Wikipedia-style community review workflow.
+     * 
+     * Applies uniformly to every lyrics page regardless of how it was created —
+     * admin-entered, community-submitted, or verified-artist self-uploaded — there is no
+     * trust exemption based on origin.
+     * 
+     * The proposed text never replaces the published text directly — only an accepted
+     * revision's later application does, once enough community votes are cast or a
+     * moderator overrides the tally.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have an active account
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK on success
+     * - Returns 400 Bad Request if the proposed text is missing
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 404 Not Found if the lyrics page does not exist
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags public::lyrics
+     * @name ProposeLyricsRevision
+     * @summary Propose a correction to a lyrics page
+     * @request POST:/api/v1/public/lyrics/{id}/revisions
+     * @secure
+     * @response `200` `PublicProposeLyricsRevisionResponse` OK
+     * @response `400` `ProblemDetails` Bad Request
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    proposeLyricsRevision: (
+      id: string,
+      data: PublicProposeLyricsRevisionRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<PublicProposeLyricsRevisionResponse, ProblemDetails>({
+        path: `/api/v1/public/lyrics/${id}/revisions`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
         format: "json",
         ...params,
       }),
@@ -12725,7 +16235,7 @@ export class Api<
     publicUpdateAvatar: (
       data: {
         /** @format binary */
-        avatarFile: File;
+        avatarFile?: File;
       },
       params: RequestParams = {},
     ) =>
@@ -12987,6 +16497,353 @@ export class Api<
       }),
 
     /**
+     * @description Returns a small HTML page whose single button posts the token back to the same
+     * 
+     * route. The GET changes nothing, so a mail client preview or a link scanner
+     * 
+     * fetching the URL cannot unsubscribe on the recipient's behalf.
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with the page document.
+     *
+     * @tags public::newsletter
+     * @name PublicGetNewsletterUnsubscribePage
+     * @summary Render the page the unsubscribe link opens
+     * @request GET:/api/v1/public/newsletter/unsubscribe/{token}
+     * @secure
+     * @response `200` `void` OK
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    publicGetNewsletterUnsubscribePage: (
+      token: string,
+      params: RequestParams = {},
+    ) =>
+      this.request<void, ProblemDetails>({
+        path: `/api/v1/public/newsletter/unsubscribe/${token}`,
+        method: "GET",
+        secure: true,
+        ...params,
+      }),
+
+    /**
+     * @description One-click unsubscribe: the token from any newsletter email opts the
+     * 
+     * subscriber out immediately. No further email is sent.
+     * 
+     * **Behavior:**
+     * 
+     * - First click: subscriber becomes unsubscribed
+     * - Re-click: succeeds with no side effects (idempotent)
+     * - Unknown token: 404 problem
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with the opt-out state
+     * - Returns 404 Not Found for an unknown token
+     * - Returns 400 Bad Request for a missing token.
+     *
+     * @tags public::newsletter
+     * @name PublicUnsubscribeNewsletter
+     * @summary Opt out of the newsletter from the emailed link
+     * @request POST:/api/v1/public/newsletter/unsubscribe/{token}
+     * @secure
+     * @response `200` `PublicUnsubscribeNewsletterResponse` OK
+     * @response `400` `HttpValidationProblemDetails` Bad Request
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    publicUnsubscribeNewsletter: (token: string, params: RequestParams = {}) =>
+      this.request<
+        PublicUnsubscribeNewsletterResponse,
+        HttpValidationProblemDetails | ProblemDetails
+      >({
+        path: `/api/v1/public/newsletter/unsubscribe/${token}`,
+        method: "POST",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Returns a small HTML page whose single button posts the token back to the same
+     * 
+     * route. The GET changes nothing, so a mail client preview or a link scanner
+     * 
+     * fetching the URL cannot confirm on the recipient's behalf.
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with the page document.
+     *
+     * @tags public::newsletter
+     * @name PublicGetNewsletterConfirmPage
+     * @summary Render the page the confirm link opens
+     * @request GET:/api/v1/public/newsletter/confirm/{token}
+     * @secure
+     * @response `200` `void` OK
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    publicGetNewsletterConfirmPage: (
+      token: string,
+      params: RequestParams = {},
+    ) =>
+      this.request<void, ProblemDetails>({
+        path: `/api/v1/public/newsletter/confirm/${token}`,
+        method: "GET",
+        secure: true,
+        ...params,
+      }),
+
+    /**
+     * @description Completes the double opt-in: the token from the confirmation email flips the
+     * 
+     * pending subscriber to subscribed and triggers the welcome email carrying the
+     * 
+     * unsubscribe link.
+     * 
+     * **Behavior:**
+     * 
+     * - First click: subscriber becomes subscribed, welcome email is sent
+     * - Re-click: succeeds with no side effects (idempotent)
+     * - Unknown or rotated token: 404 problem
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with the subscription state
+     * - Returns 404 Not Found for an unknown token
+     * - Returns 400 Bad Request for a missing token.
+     *
+     * @tags public::newsletter
+     * @name PublicConfirmNewsletter
+     * @summary Confirm a newsletter subscription from the emailed link
+     * @request POST:/api/v1/public/newsletter/confirm/{token}
+     * @secure
+     * @response `200` `PublicConfirmNewsletterResponse` OK
+     * @response `400` `HttpValidationProblemDetails` Bad Request
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    publicConfirmNewsletter: (token: string, params: RequestParams = {}) =>
+      this.request<
+        PublicConfirmNewsletterResponse,
+        HttpValidationProblemDetails | ProblemDetails
+      >({
+        path: `/api/v1/public/newsletter/confirm/${token}`,
+        method: "POST",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Starts a double opt-in newsletter subscription for the given email address.
+     * 
+     * Behavior by current state:
+     * 
+     * - Unknown address: a pending subscriber is created and a confirmation email is sent
+     * - Pending or unsubscribed address: a fresh confirmation email is issued
+     * - Already subscribed address: nothing changes and no email is sent
+     * 
+     * **Security Features:**
+     * 
+     * - Always answers 202 with a neutral body, so responses never reveal
+     * whether an address is already subscribed (no enumeration)
+     * 
+     * - Only confirmed subscribers ever receive newsletter content
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 202 Accepted with the email address for client reference
+     * - Returns 400 Bad Request for a missing or malformed email address.
+     *
+     * @tags public::newsletter
+     * @name PublicSubscribeNewsletter
+     * @summary Sign an email address up to the newsletter with double opt-in
+     * @request POST:/api/v1/public/newsletter/subscriptions
+     * @secure
+     * @response `202` `PublicSubscribeNewsletterResponse` Accepted
+     * @response `400` `ProblemDetails` Bad Request
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    publicSubscribeNewsletter: (
+      data: PublicSubscribeNewsletterRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<PublicSubscribeNewsletterResponse, ProblemDetails>({
+        path: `/api/v1/public/newsletter/subscriptions`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Returns the number of the caller's notifications without a read
+     * 
+     * time, for the frontend badge.
+     * 
+     * **Behavior:**
+     * 
+     * - Only the caller's own rows are counted
+     * - Reading a notification or the read-all action decrements the count
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with the count
+     * - Returns 401 Unauthorized without a valid token.
+     *
+     * @tags public::notifications
+     * @name PublicGetUnreadNotificationCount
+     * @summary Count the authenticated user's unread notifications
+     * @request GET:/api/v1/public/notifications/unread-count
+     * @secure
+     * @response `200` `PublicGetUnreadNotificationCountResponse` OK
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    publicGetUnreadNotificationCount: (params: RequestParams = {}) =>
+      this.request<PublicGetUnreadNotificationCountResponse, ProblemDetails>({
+        path: `/api/v1/public/notifications/unread-count`,
+        method: "GET",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Returns the caller's notification feed, newest first, paginated.
+     * 
+     * Title and body are pre-rendered in the culture active when the
+     * 
+     * notification was written.
+     * 
+     * **Behavior:**
+     * 
+     * - Only the caller's own rows are returned
+     * - `unreadOnly=true` filters to rows without a read time
+     * - `pageIndex` is zero-based; `pageSize` is clamped to 1..100
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with the paginated feed
+     * - Returns 401 Unauthorized without a valid token.
+     *
+     * @tags public::notifications
+     * @name PublicGetNotifications
+     * @summary List the authenticated user's notifications
+     * @request GET:/api/v1/public/notifications
+     * @secure
+     * @response `200` `PublicGetNotificationsResponse` OK
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    publicGetNotifications: (
+      query?: {
+        /**
+         * @format int32
+         * @default 0
+         */
+        pageIndex?: number;
+        /**
+         * @format int32
+         * @default 20
+         */
+        pageSize?: number;
+        /** @default false */
+        unreadOnly?: boolean;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<PublicGetNotificationsResponse, ProblemDetails>({
+        path: `/api/v1/public/notifications`,
+        method: "GET",
+        query: query,
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Sets the read time on a single notification owned by the caller.
+     * 
+     * **Behavior:**
+     * 
+     * - First call: the notification becomes read
+     * - Re-call: succeeds and keeps the original read time (idempotent)
+     * - Unknown id or another user's row: 404 problem, indistinguishable
+     * by design so row existence never leaks
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with the read state
+     * - Returns 404 Not Found when the notification does not exist for the caller
+     * - Returns 401 Unauthorized without a valid token.
+     *
+     * @tags public::notifications
+     * @name PublicMarkNotificationRead
+     * @summary Mark one of the authenticated user's notifications read
+     * @request PATCH:/api/v1/public/notifications/{id}/read
+     * @secure
+     * @response `200` `PublicMarkNotificationReadResponse` OK
+     * @response `400` `HttpValidationProblemDetails` Bad Request
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    publicMarkNotificationRead: (id: string, params: RequestParams = {}) =>
+      this.request<
+        PublicMarkNotificationReadResponse,
+        HttpValidationProblemDetails | ProblemDetails
+      >({
+        path: `/api/v1/public/notifications/${id}/read`,
+        method: "PATCH",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Sets the read time on all of the caller's notifications that have
+     * 
+     * none, in one call.
+     * 
+     * **Behavior:**
+     * 
+     * - Only the caller's own rows are affected
+     * - Already read rows keep their original read time
+     * - A second call finds nothing unread and marks zero rows (idempotent)
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with the number of rows marked by this call
+     * - Returns 401 Unauthorized without a valid token.
+     *
+     * @tags public::notifications
+     * @name PublicMarkAllNotificationsRead
+     * @summary Mark every unread notification of the authenticated user read
+     * @request PATCH:/api/v1/public/notifications/read-all
+     * @secure
+     * @response `200` `PublicMarkAllNotificationsReadResponse` OK
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `403` `ProblemDetails` Forbidden
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    publicMarkAllNotificationsRead: (params: RequestParams = {}) =>
+      this.request<PublicMarkAllNotificationsReadResponse, ProblemDetails>({
+        path: `/api/v1/public/notifications/read-all`,
+        method: "PATCH",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
      * @description Returns the detail view of a playlist including all its videos.
      * Only the playlist owner can view the playlist.
      * 
@@ -13086,18 +16943,17 @@ export class Api<
      * @summary Delete a playlist
      * @request DELETE:/api/v1/public/playlists/{id}
      * @secure
-     * @response `200` `PublicDeletePlaylistResponse` OK
+     * @response `204` `void` No Content
      * @response `400` `ProblemDetails` Bad Request
      * @response `401` `ProblemDetails` Unauthorized
      * @response `404` `ProblemDetails` Not Found
      * @response `429` `ProblemDetails` Too Many Requests
      */
     publicDeletePlaylist: (id: string, params: RequestParams = {}) =>
-      this.request<PublicDeletePlaylistResponse, ProblemDetails>({
+      this.request<void, ProblemDetails>({
         path: `/api/v1/public/playlists/${id}`,
         method: "DELETE",
         secure: true,
-        format: "json",
         ...params,
       }),
 
@@ -13193,7 +17049,7 @@ export class Api<
      * @summary Remove a video from a playlist
      * @request DELETE:/api/v1/public/playlists/{id}/videos/{videoId}
      * @secure
-     * @response `200` `PublicRemoveVideoFromPlaylistResponse` OK
+     * @response `204` `void` No Content
      * @response `400` `ProblemDetails` Bad Request
      * @response `401` `ProblemDetails` Unauthorized
      * @response `404` `ProblemDetails` Not Found
@@ -13204,11 +17060,10 @@ export class Api<
       videoId: string,
       params: RequestParams = {},
     ) =>
-      this.request<PublicRemoveVideoFromPlaylistResponse, ProblemDetails>({
+      this.request<void, ProblemDetails>({
         path: `/api/v1/public/playlists/${id}/videos/${videoId}`,
         method: "DELETE",
         secure: true,
-        format: "json",
         ...params,
       }),
 
@@ -13322,7 +17177,7 @@ export class Api<
      * @summary Refresh access token using a valid refresh token
      * @request POST:/api/v1/public/sessions/refresh-token
      * @secure
-     * @response `200` `PublicRefreshTokenWebResponse` OK
+     * @response `200` `PublicRefreshTokenMobileResponse` OK
      * @response `400` `ProblemDetails` Bad Request
      * @response `403` `ProblemDetails` Forbidden
      * @response `429` `ProblemDetails` Too Many Requests
@@ -13331,7 +17186,7 @@ export class Api<
       data: PublicRefreshTokenRequest,
       params: RequestParams = {},
     ) =>
-      this.request<PublicRefreshTokenWebResponse, ProblemDetails>({
+      this.request<PublicRefreshTokenMobileResponse, ProblemDetails>({
         path: `/api/v1/public/sessions/refresh-token`,
         method: "POST",
         body: data,
@@ -13506,18 +17361,17 @@ export class Api<
      * @summary Remove a like from a short video
      * @request DELETE:/api/v1/public/shorts/{id}/likes
      * @secure
-     * @response `200` `PublicUnlikeShortVideoResponse` OK
+     * @response `204` `void` No Content
      * @response `400` `ProblemDetails` Bad Request
      * @response `401` `ProblemDetails` Unauthorized
      * @response `404` `ProblemDetails` Not Found
      * @response `429` `ProblemDetails` Too Many Requests
      */
     publicUnlikeShortVideo: (id: string, params: RequestParams = {}) =>
-      this.request<PublicUnlikeShortVideoResponse, ProblemDetails>({
+      this.request<void, ProblemDetails>({
         path: `/api/v1/public/shorts/${id}/likes`,
         method: "DELETE",
         secure: true,
-        format: "json",
         ...params,
       }),
 
@@ -13579,18 +17433,17 @@ export class Api<
      * @summary Remove a bookmark from a short video
      * @request DELETE:/api/v1/public/shorts/{id}/bookmarks
      * @secure
-     * @response `200` `PublicUnbookmarkShortVideoResponse` OK
+     * @response `204` `void` No Content
      * @response `400` `ProblemDetails` Bad Request
      * @response `401` `ProblemDetails` Unauthorized
      * @response `404` `ProblemDetails` Not Found
      * @response `429` `ProblemDetails` Too Many Requests
      */
     publicUnbookmarkShortVideo: (id: string, params: RequestParams = {}) =>
-      this.request<PublicUnbookmarkShortVideoResponse, ProblemDetails>({
+      this.request<void, ProblemDetails>({
         path: `/api/v1/public/shorts/${id}/bookmarks`,
         method: "DELETE",
         secure: true,
-        format: "json",
         ...params,
       }),
 
@@ -13925,6 +17778,133 @@ export class Api<
         method: "GET",
         query: query,
         secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Retrieves every revision ever proposed against a translation — pending, accepted,
+     * and rejected alike — newest first.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - None — publicly accessible
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK on success
+     * - Returns 404 Not Found if the translation does not exist
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags public::translations
+     * @name GetTranslationRevisions
+     * @summary List a translation's full revision history
+     * @request GET:/api/v1/public/translations/{id}/revisions
+     * @secure
+     * @response `200` `PublicGetTranslationRevisionsResponse` OK
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    getTranslationRevisions: (id: string, params: RequestParams = {}) =>
+      this.request<PublicGetTranslationRevisionsResponse, ProblemDetails>({
+        path: `/api/v1/public/translations/${id}/revisions`,
+        method: "GET",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Proposes a community correction to a published translation's text, entering the
+     * Wikipedia-style community review workflow.
+     * 
+     * The proposed text never replaces the published translation directly — only an
+     * accepted revision's later application does, once enough community votes are cast
+     * or a moderator overrides the tally.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have an active account
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK on success
+     * - Returns 400 Bad Request if the proposed text is missing
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 404 Not Found if the translation does not exist
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags public::translations
+     * @name ProposeTranslationRevision
+     * @summary Propose a correction to a translation
+     * @request POST:/api/v1/public/translations/{id}/revisions
+     * @secure
+     * @response `200` `PublicProposeTranslationRevisionResponse` OK
+     * @response `400` `ProblemDetails` Bad Request
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `404` `ProblemDetails` Not Found
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    proposeTranslationRevision: (
+      id: string,
+      data: PublicProposeTranslationRevisionRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<PublicProposeTranslationRevisionResponse, ProblemDetails>({
+        path: `/api/v1/public/translations/${id}/revisions`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Casts the authenticated user's vote — approve or reject — on a pending translation
+     * revision.
+     * 
+     * A user may vote at most once per revision. Once the revision's net approvals
+     * (approvals minus rejections) reach the auto-accept threshold, it is automatically
+     * accepted and its proposed text replaces the translation's published text, in the
+     * same operation as this vote.
+     * 
+     * **Authentication Requirements:**
+     * 
+     * - User must be authenticated with a valid access token
+     * - User must have an active account
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK on success
+     * - Returns 401 Unauthorized if access token is invalid or expired
+     * - Returns 404 Not Found if the revision does not exist
+     * - Returns 409 Conflict if the user has already voted on this revision
+     * - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags public::translations
+     * @name VoteOnTranslationRevision
+     * @summary Vote on a pending translation revision
+     * @request POST:/api/v1/public/translations/revisions/{id}/votes
+     * @secure
+     * @response `200` `PublicVoteOnTranslationRevisionResponse` OK
+     * @response `401` `ProblemDetails` Unauthorized
+     * @response `404` `ProblemDetails` Not Found
+     * @response `409` `ProblemDetails` Conflict
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    voteOnTranslationRevision: (
+      id: string,
+      data: PublicVoteOnTranslationRevisionRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<PublicVoteOnTranslationRevisionResponse, ProblemDetails>({
+        path: `/api/v1/public/translations/revisions/${id}/votes`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
         format: "json",
         ...params,
       }),
