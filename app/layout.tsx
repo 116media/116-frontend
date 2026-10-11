@@ -1,9 +1,14 @@
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { cookies } from "next/headers";
 import { authKeys } from "@/modules/auth/presentation/constants/authKeys";
 import { AuthModalProvider } from "@/modules/auth/presentation/context/AuthModalProvider";
 import { AuthProvider } from "@/modules/auth/presentation/context/AuthProvider";
+import {
+    ACCESS_TOKEN_COOKIE,
+    REFRESH_TOKEN_COOKIE
+} from "@/shared/infrastructure/constants/auth";
 import { SITE_URL } from "@/shared/infrastructure/constants/common";
 import { createServerCradle } from "@/shared/infrastructure/server.cradle";
 import { Toaster } from "@/shared/presentation/components/ui/Toaster";
@@ -69,13 +74,19 @@ export default async function RootLayout({
     children: React.ReactNode;
 }>) {
     const language = await getServerLanguage();
-    const cradle = await createServerCradle();
-    const currentUserResult = await cradle.getProfileUseCase.execute();
+    const cookieStore = await cookies();
+    const hasSession =
+        cookieStore.has(ACCESS_TOKEN_COOKIE) || cookieStore.has(REFRESH_TOKEN_COOKIE);
 
     const queryClient = new QueryClient();
 
-    if (currentUserResult.ok) {
-        queryClient.setQueryData(authKeys.me, currentUserResult);
+    if (hasSession) {
+        const cradle = await createServerCradle();
+        const currentUserResult = await cradle.getProfileUseCase.execute();
+
+        if (currentUserResult.ok) {
+            queryClient.setQueryData(authKeys.me, currentUserResult);
+        }
     }
 
     return (
@@ -94,7 +105,7 @@ export default async function RootLayout({
                         <QueryProvider>
                             <HydrationBoundary state={dehydrate(queryClient)}>
                                 <I18nProvider initialLanguage={language}>
-                                    <AuthProvider>
+                                    <AuthProvider hasSession={hasSession}>
                                         <AuthModalProvider>{children}</AuthModalProvider>
                                     </AuthProvider>
                                 </I18nProvider>
