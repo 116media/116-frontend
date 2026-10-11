@@ -7,7 +7,7 @@ import type { IArticleTagEntity } from "@/modules/articles/domain/entities/IArti
  *
  * @description
  * Full view of a single published article behind /articles/[slug], mapped from
- * ArticleDetailDto. Drops admin, promotion, and commerce metadata; keeps SEO meta fields
+ * PublicArticleDetailDto. Drops admin, promotion, and commerce metadata; keeps SEO meta fields
  * and the caller's per-user interaction flags (`isLiked` / `isBookmarked`).
  *
  * @interface IArticleDetailEntity

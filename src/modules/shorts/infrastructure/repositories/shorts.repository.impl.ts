@@ -59,8 +59,8 @@ export class ShortsRepositoryImpl implements IShortsRepositoryPort {
 
     async unlikeShort(shortId: string): Promise<Result<boolean>> {
         try {
-            const response = await this.api.publicUnlikeShortVideo(shortId);
-            return ok(response.data.isSuccess);
+            await this.api.publicUnlikeShortVideo(shortId);
+            return ok(true);
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }
@@ -77,8 +77,8 @@ export class ShortsRepositoryImpl implements IShortsRepositoryPort {
 
     async unbookmarkShort(shortId: string): Promise<Result<boolean>> {
         try {
-            const response = await this.api.publicUnbookmarkShortVideo(shortId);
-            return ok(response.data.isSuccess);
+            await this.api.publicUnbookmarkShortVideo(shortId);
+            return ok(true);
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }

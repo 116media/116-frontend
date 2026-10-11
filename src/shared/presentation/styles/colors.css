@@ -36,13 +36,13 @@
 
     /* Semantic */
     --primitive-success: #1dd3b0;
-    --primitive-error: #ef476f;
+    --primitive-error: #d92a57;
     --primitive-warning: #f07f34;
 
     /* UI / typography */
     --primitive-background: #f0f2f5;
     --primitive-title: #5e6275;
-    --primitive-description: #9295a2;
+    --primitive-description: #6b7280;
     --primitive-text-primary: #111827;
     --primitive-text-secondary: #374151;
     --primitive-text-muted: #9ca3af;

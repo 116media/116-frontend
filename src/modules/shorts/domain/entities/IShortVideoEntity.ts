@@ -9,12 +9,10 @@
  *
  * @property {string} userName - Author display name.
  * @property {string | null} avatarUrl - Author avatar URL, or null.
- * @property {string} [role] - Author role/title shown as the byline subtitle, when resolved.
  */
 export interface IShortVideoAuthor {
     userName: string;
     avatarUrl: string | null;
-    role?: string;
 }
 
 /**

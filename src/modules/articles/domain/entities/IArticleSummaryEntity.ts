@@ -5,19 +5,17 @@
  *
  * @property {string} userName - Author display name
  * @property {string | null} avatarUrl - Author avatar URL, or null
- * @property {string} [role] - Author role/title shown as the byline subtitle, when resolved
  */
 export interface IArticleAuthor {
     userName: string;
     avatarUrl: string | null;
-    role?: string;
 }
 
 /**
  * IArticleSummaryEntity
  *
  * @description
- * Summary view of a published article, mapped from ArticleSummaryDto. Drops audit
+ * Summary view of a published article, mapped from PublicArticleSummaryDto. Drops audit
  * fields, authorId, and status, which public surfaces never read. Used by the mega
  * menu, feed grid, and cards.
  *

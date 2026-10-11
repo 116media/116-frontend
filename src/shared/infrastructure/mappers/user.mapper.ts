@@ -1,7 +1,7 @@
 import type { IAuthUserEntity } from "@/shared/domain/entities/IAuthUserEntity";
 import type { IFile } from "@/shared/domain/entities/IFile";
 import type { EAuthProvider } from "@/shared/domain/enums/EAuthProvider";
-import type { FileDto, UserResponseDto } from "@/shared/infrastructure/api/generated/116.api";
+import type { PublicFileDto, PublicUserResponseDto } from "@/shared/infrastructure/api/generated/116.api";
 
 /**
  * UserMapper
@@ -12,30 +12,26 @@ import type { FileDto, UserResponseDto } from "@/shared/infrastructure/api/gener
  */
 export const UserMapper = {
     /**
-     * Maps a `FileDto` to an `IFile` (used for the user's avatar).
+     * Maps a `PublicFileDto` to an `IFile` (used for the user's avatar).
      *
      * @param dto - The file DTO.
      * @returns The mapped file entity.
      */
-    fileFromDto(dto: FileDto): IFile {
+    fileFromDto(dto: PublicFileDto): IFile {
         return {
             id: dto.id,
-            fileName: dto.fileName,
-            originalFileName: dto.originalFileName,
-            mimeType: dto.mimeType,
             storageUrl: dto.storageUrl,
-            sizeInBytes: dto.sizeInBytes,
-            isDeleted: dto.isDeleted
+            mimeType: dto.mimeType
         };
     },
 
     /**
-     * Maps a `UserResponseDto` to an `IAuthUserEntity`.
+     * Maps a `PublicUserResponseDto` to an `IAuthUserEntity`.
      *
      * @param dto - The user DTO from the backend.
      * @returns The mapped user entity.
      */
-    userFromDto(dto: UserResponseDto): IAuthUserEntity {
+    userFromDto(dto: PublicUserResponseDto): IAuthUserEntity {
         return {
             id: dto.id,
             email: dto.email ?? null,
@@ -58,9 +54,7 @@ export const UserMapper = {
             countryIsoCode: dto.countryIsoCode ?? null,
             countryDialCode: dto.countryDialCode ?? null,
             partialPhoneNumber: dto.partialPhoneNumber ?? null,
-            fullPhoneNumber: dto.fullPhoneNumber ?? null,
-            createdAt: dto.createdAt ?? null,
-            updatedAt: dto.updatedAt ?? null
+            fullPhoneNumber: dto.fullPhoneNumber ?? null
         };
     }
 } as const;

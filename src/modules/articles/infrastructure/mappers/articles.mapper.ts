@@ -21,12 +21,12 @@ import type {
 } from "@/modules/articles/domain/entities/ICommentedArticleEntity";
 import type { IMyArticleCommentsPage } from "@/modules/articles/domain/entities/IMyArticleCommentsPage";
 import type {
-    ArticleCommentDto,
-    ArticleCommentDtoPaginatedResult,
-    ArticleDetailDto,
+    PublicArticleCommentDto,
+    PublicArticleCommentDtoPaginatedResult,
+    PublicArticleDetailDto,
     ArticleImageDto,
-    ArticleSummaryDto,
-    ArticleSummaryDtoPaginatedResult,
+    PublicArticleSummaryDto,
+    PublicArticleSummaryDtoPaginatedResult,
     CategoryDto,
     PublicGetArticlePromotionFeedResponse,
     TagDto,
@@ -52,14 +52,14 @@ import type {
  */
 export const ArticlesMapper = {
     /**
-     * Maps ArticleSummaryDto to IArticleSummaryEntity domain entity.
+     * Maps PublicArticleSummaryDto to IArticleSummaryEntity domain entity.
      * Drops audit fields, authorId, and status which are not needed
      * on the public mega menu display.
      *
      * @param dto - Article summary data from API
      * @returns {IArticleSummaryEntity} Mapped article summary entity
      */
-    articleSummaryFromDto(dto: ArticleSummaryDto): IArticleSummaryEntity {
+    articleSummaryFromDto(dto: PublicArticleSummaryDto): IArticleSummaryEntity {
         return {
             id: dto.id,
             categoryId: dto.categoryId,
@@ -78,23 +78,23 @@ export const ArticlesMapper = {
     },
 
     /**
-     * Maps a list of ArticleSummaryDto to IArticleSummaryEntity domain entities.
+     * Maps a list of PublicArticleSummaryDto to IArticleSummaryEntity domain entities.
      *
      * @param dtos - Article summary data list from API
      * @returns {IArticleSummaryEntity[]} Mapped article summary entities
      */
-    articleSummaryListFromDto(dtos: ArticleSummaryDto[]): IArticleSummaryEntity[] {
+    articleSummaryListFromDto(dtos: PublicArticleSummaryDto[]): IArticleSummaryEntity[] {
         return dtos.map(ArticlesMapper.articleSummaryFromDto);
     },
 
     /**
-     * Maps a paginated ArticleSummaryDto result to an IArticlePage, deriving
+     * Maps a paginated PublicArticleSummaryDto result to an IArticlePage, deriving
      * hasNextPage from the total count and the current page index.
      *
      * @param dto - Paginated envelope from getPublishedArticles
      * @returns {IArticlePage} Mapped article page entity
      */
-    articlePageFromDto(dto: ArticleSummaryDtoPaginatedResult): IArticlePage {
+    articlePageFromDto(dto: PublicArticleSummaryDtoPaginatedResult): IArticlePage {
         return {
             items: ArticlesMapper.articleSummaryListFromDto(dto.items),
             pageIndex: dto.pageIndex,
@@ -200,14 +200,14 @@ export const ArticlesMapper = {
     },
 
     /**
-     * Maps ArticleDetailDto to IArticleDetailEntity, reusing tagFromDto and
+     * Maps PublicArticleDetailDto to IArticleDetailEntity, reusing tagFromDto and
      * articleImageFromDto for the nested lists. Admin, promotion, and commerce fields are
      * dropped; the caller's per-user interaction flags are kept to seed the engagement toggles.
      *
      * @param dto - Full article detail data from API
      * @returns {IArticleDetailEntity} Mapped article detail entity
      */
-    articleDetailFromDto(dto: ArticleDetailDto): IArticleDetailEntity {
+    articleDetailFromDto(dto: PublicArticleDetailDto): IArticleDetailEntity {
         return {
             id: dto.id,
             categoryId: dto.categoryId,
@@ -220,8 +220,7 @@ export const ArticlesMapper = {
             author: dto.author
                 ? {
                       userName: dto.author.userName,
-                      avatarUrl: dto.author.avatarUrl ?? null,
-                      role: dto.author.role ?? undefined
+                      avatarUrl: dto.author.avatarUrl ?? null
                   }
                 : null,
             tags: ArticlesMapper.tagListFromDto(dto.tags),
@@ -240,20 +239,20 @@ export const ArticlesMapper = {
     },
 
     /**
-     * Maps ArticleCommentDto to IArticleCommentEntity. The author projection is mapped
+     * Maps PublicArticleCommentDto to IArticleCommentEntity. The author projection is mapped
      * when the backend resolves it (user name plus avatar URL) and stays undefined for
      * unresolved commenters and deleted comments.
      *
      * @param dto - Article comment data from API
      * @returns {IArticleCommentEntity} Mapped article comment entity
      */
-    articleCommentFromDto(dto: ArticleCommentDto): IArticleCommentEntity {
+    articleCommentFromDto(dto: PublicArticleCommentDto): IArticleCommentEntity {
         return {
             id: dto.id,
             userId: dto.userId,
             body: dto.body ?? null,
             isDeleted: dto.isDeleted,
-            createdAt: dto.createdAt ?? null,
+            postedAt: dto.postedAt ?? null,
             parentCommentId: dto.parentCommentId ?? null,
             replyCount: dto.replyCount,
             likeCount: dto.likeCount,
@@ -261,31 +260,30 @@ export const ArticlesMapper = {
             author: dto.author
                 ? {
                       userName: dto.author.userName,
-                      avatarUrl: dto.author.avatarUrl ?? null,
-                      role: dto.author.role ?? undefined
+                      avatarUrl: dto.author.avatarUrl ?? null
                   }
                 : undefined
         };
     },
 
     /**
-     * Maps a list of ArticleCommentDto to IArticleCommentEntity domain entities.
+     * Maps a list of PublicArticleCommentDto to IArticleCommentEntity domain entities.
      *
      * @param dtos - Article comment data list from API
      * @returns {IArticleCommentEntity[]} Mapped article comment entities
      */
-    articleCommentListFromDto(dtos: ArticleCommentDto[]): IArticleCommentEntity[] {
+    articleCommentListFromDto(dtos: PublicArticleCommentDto[]): IArticleCommentEntity[] {
         return dtos.map(ArticlesMapper.articleCommentFromDto);
     },
 
     /**
-     * Maps a paginated ArticleCommentDto result to an IArticleCommentPage, deriving
+     * Maps a paginated PublicArticleCommentDto result to an IArticleCommentPage, deriving
      * hasNextPage from the total count and the current page index.
      *
      * @param dto - Paginated comments envelope from API
      * @returns {IArticleCommentPage} Mapped article comment page entity
      */
-    articleCommentPageFromDto(dto: ArticleCommentDtoPaginatedResult): IArticleCommentPage {
+    articleCommentPageFromDto(dto: PublicArticleCommentDtoPaginatedResult): IArticleCommentPage {
         return {
             items: ArticlesMapper.articleCommentListFromDto(dto.items),
             pageIndex: dto.pageIndex,
@@ -437,14 +435,14 @@ export const ArticlesMapper = {
     },
 
     /**
-     * Maps a paginated ArticleCommentDto result to an IMyArticleCommentsPage, reusing
+     * Maps a paginated PublicArticleCommentDto result to an IMyArticleCommentsPage, reusing
      * articleCommentListFromDto and deriving hasNextPage from the total count and the
      * current page index.
      *
      * @param dto - Paginated own-comments envelope from API
      * @returns {IMyArticleCommentsPage} Mapped own-comments page entity
      */
-    myArticleCommentsPageFromDto(dto: ArticleCommentDtoPaginatedResult): IMyArticleCommentsPage {
+    myArticleCommentsPageFromDto(dto: PublicArticleCommentDtoPaginatedResult): IMyArticleCommentsPage {
         return {
             items: ArticlesMapper.articleCommentListFromDto(dto.items),
             pageIndex: dto.pageIndex,

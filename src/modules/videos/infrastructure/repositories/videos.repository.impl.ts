@@ -228,8 +228,8 @@ export class VideosRepositoryImpl implements IVideosRepositoryPort {
 
     async deletePlaylist(id: string): Promise<Result<boolean>> {
         try {
-            const response = await this.api.publicDeletePlaylist(id);
-            return ok(response.data.isSuccess);
+            await this.api.publicDeletePlaylist(id);
+            return ok(true);
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }
@@ -237,11 +237,11 @@ export class VideosRepositoryImpl implements IVideosRepositoryPort {
 
     async removeVideoFromPlaylist(input: IRemoveVideoFromPlaylistInput): Promise<Result<boolean>> {
         try {
-            const response = await this.api.publicRemoveVideoFromPlaylist(
+            await this.api.publicRemoveVideoFromPlaylist(
                 input.playlistId,
                 input.videoId
             );
-            return ok(response.data.isSuccess);
+            return ok(true);
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }

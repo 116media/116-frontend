@@ -75,11 +75,11 @@ const TAGS: IArticleTagEntity[] = [
  * Rotation pool of comment authors (each with an avatar) for the dummy thread.
  */
 const COMMENT_AUTHORS: IArticleAuthor[] = [
-    { userName: "Nadia Bello", avatarUrl: "https://i.pravatar.cc/80?img=5", role: "Reader" },
-    { userName: "Marcus Reed", avatarUrl: "https://i.pravatar.cc/80?img=13", role: "Reader" },
-    { userName: "Priya Sharma", avatarUrl: "https://i.pravatar.cc/80?img=47", role: "Reader" },
-    { userName: "Diego Alvarez", avatarUrl: "https://i.pravatar.cc/80?img=68", role: "Reader" },
-    { userName: "Chloe Martin", avatarUrl: "https://i.pravatar.cc/80?img=24", role: "Reader" }
+    { userName: "Nadia Bello", avatarUrl: "https://i.pravatar.cc/80?img=5" },
+    { userName: "Marcus Reed", avatarUrl: "https://i.pravatar.cc/80?img=13" },
+    { userName: "Priya Sharma", avatarUrl: "https://i.pravatar.cc/80?img=47" },
+    { userName: "Diego Alvarez", avatarUrl: "https://i.pravatar.cc/80?img=68" },
+    { userName: "Chloe Martin", avatarUrl: "https://i.pravatar.cc/80?img=24" }
 ];
 
 /**
@@ -229,7 +229,7 @@ export function generateDummyComments(count = 8): IArticleCommentEntity[] {
             userId: `dummy-user-${index}`,
             body: COMMENT_BODIES[index % COMMENT_BODIES.length],
             isDeleted: false,
-            createdAt: new Date(DUMMY_BASE_MS - index * HOUR_MS).toISOString(),
+            postedAt: new Date(DUMMY_BASE_MS - index * HOUR_MS).toISOString(),
             parentCommentId: null,
             replyCount: dummyReplyCount(index),
             likeCount: (index * 3) % 7,
@@ -274,7 +274,7 @@ function generateDummyCommentReplies(parentIndex: number): IArticleCommentEntity
             userId: `dummy-user-${authorIndex}`,
             body: COMMENT_REPLY_BODIES[(parentIndex + index) % COMMENT_REPLY_BODIES.length],
             isDeleted: false,
-            createdAt: new Date(
+            postedAt: new Date(
                 DUMMY_BASE_MS - parentIndex * HOUR_MS + (index + 1) * (HOUR_MS / 4)
             ).toISOString(),
             parentCommentId: `dummy-comment-${parentIndex}`,

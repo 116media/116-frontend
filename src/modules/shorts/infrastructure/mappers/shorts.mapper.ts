@@ -4,7 +4,7 @@ import type { IShortVideoEntity } from "@/modules/shorts/domain/entities/IShortV
 import type { IShortVideoFeedPage } from "@/modules/shorts/domain/entities/IShortVideoFeedPage";
 import type {
     PublicGetShortsFeedResponse,
-    ShortVideoDto,
+    PublicShortVideoDto,
     UserShortVideoActivityDto,
     UserShortVideoActivityDtoPaginatedResult
 } from "@/shared/infrastructure/api/generated/116.api";
@@ -19,13 +19,13 @@ import type {
  */
 export const ShortsMapper = {
     /**
-     * Maps a ShortVideoDto to an IShortVideoEntity, normalizing nullables and
+     * Maps a PublicShortVideoDto to an IShortVideoEntity, normalizing nullables and
      * flattening the author to a display name.
      *
      * @param dto - Short video data from the API.
      * @returns {IShortVideoEntity} Mapped short entity.
      */
-    shortFromDto(dto: ShortVideoDto): IShortVideoEntity {
+    shortFromDto(dto: PublicShortVideoDto): IShortVideoEntity {
         return {
             id: dto.id,
             title: dto.title,
@@ -41,8 +41,7 @@ export const ShortsMapper = {
             author: dto.author
                 ? {
                       userName: dto.author.userName,
-                      avatarUrl: dto.author.avatarUrl ?? null,
-                      role: dto.author.role ?? undefined
+                      avatarUrl: dto.author.avatarUrl ?? null
                   }
                 : undefined,
             isLiked: dto.isLiked ?? false,
@@ -51,12 +50,12 @@ export const ShortsMapper = {
     },
 
     /**
-     * Maps a list of ShortVideoDto to IShortVideoEntity domain entities.
+     * Maps a list of PublicShortVideoDto to IShortVideoEntity domain entities.
      *
      * @param dtos - Short video data list from the API.
      * @returns {IShortVideoEntity[]} Mapped short entities.
      */
-    shortListFromDto(dtos: ShortVideoDto[]): IShortVideoEntity[] {
+    shortListFromDto(dtos: PublicShortVideoDto[]): IShortVideoEntity[] {
         return dtos.map(ShortsMapper.shortFromDto);
     },
 
