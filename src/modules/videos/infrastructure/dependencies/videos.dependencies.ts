@@ -15,6 +15,7 @@ import { GetShowsUseCase } from "@/modules/videos/application/usecases/getshows.
 import { GetVideoBySlugUseCase } from "@/modules/videos/application/usecases/getvideobyslug.usecase";
 import { GetVideoCategoriesUseCase } from "@/modules/videos/application/usecases/getvideocategories.usecase";
 import { GetVideoExclusiveShowUseCase } from "@/modules/videos/application/usecases/getvideoexclusiveshow.usecase";
+import { GetVideoFeedUseCase } from "@/modules/videos/application/usecases/getvideofeed.usecase";
 import { GetVideoLyricsUseCase } from "@/modules/videos/application/usecases/getvideolyrics.usecase";
 import { GetVideoPopularTagsUseCase } from "@/modules/videos/application/usecases/getvideopopulartags.usecase";
 import { GetYoutubeVideoStatsUseCase } from "@/modules/videos/application/usecases/getyoutubevideostats.usecase";
@@ -42,6 +43,7 @@ export function registerVideosDependencies(container: AwilixContainer): void {
         getPromotedVideosUseCase: asClass(GetPromotedVideosUseCase).transient(),
         getVideoCategoriesUseCase: asClass(GetVideoCategoriesUseCase).transient(),
         getShowsUseCase: asClass(GetShowsUseCase).transient(),
+        getVideoFeedUseCase: asClass(GetVideoFeedUseCase).transient(),
         getVideoPopularTagsUseCase: asClass(GetVideoPopularTagsUseCase).transient(),
         getAllVideoTagsUseCase: asClass(GetAllVideoTagsUseCase).transient(),
         getVideoExclusiveShowUseCase: asClass(GetVideoExclusiveShowUseCase).transient(),
