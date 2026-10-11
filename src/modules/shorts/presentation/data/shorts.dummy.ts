@@ -103,8 +103,7 @@ export function generateDummyShort(index: number): IShortVideoEntity {
         bookmarkCount: 12 + index * 7,
         author: {
             userName: author.userName,
-            avatarUrl: `https://i.pravatar.cc/150?u=${author.seed}`,
-            role: undefined
+            avatarUrl: `https://i.pravatar.cc/150?u=${author.seed}`
         },
         isLiked: false,
         isBookmarked: false
