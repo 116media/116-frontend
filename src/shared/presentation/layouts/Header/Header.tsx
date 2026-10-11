@@ -7,6 +7,7 @@ import { LanguageDropdown } from "@/shared/presentation/components/common/Langua
 import { ThemeToggle } from "@/shared/presentation/components/common/ThemeToggle";
 import { UserAccountControl } from "@/shared/presentation/components/common/UserAccountControl";
 import { DesktopNav } from "@/shared/presentation/layouts/DesktopNav";
+import { MobileNav } from "@/shared/presentation/layouts/MobileNav";
 import { PageContainer } from "@/shared/presentation/layouts/PageContainer";
 
 /**
@@ -25,15 +26,17 @@ export interface HeaderProps {
  * Header
  *
  * @description
- * Main navigation header below the TopBar on every public page: logo, DesktopNav,
- * and account/theme/language controls. Mega menu data is prefetched server-side in
- * PublicLayout and forwarded here.
+ * Main navigation header below the TopBar on every public page: logo, DesktopNav
+ * above `md` and MobileNav below it, plus account/theme/language controls. Mega
+ * menu data is prefetched server-side in PublicLayout and forwarded here.
  */
 export function Header({ articles, videos }: HeaderProps) {
     return (
         <header className="w-full border-b bg-background/80 backdrop-blur-lg">
             <PageContainer>
-                <div className="flex h-16 items-center justify-between">
+                <div className="flex h-16 items-center justify-between gap-2">
+                    <MobileNav />
+
                     <Link
                         href="/"
                         aria-label="116 — Accueil"
