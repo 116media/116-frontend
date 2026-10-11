@@ -118,7 +118,8 @@ export const ArticlesMapper = {
             name: dto.name,
             slug: dto.slug,
             description: dto.description,
-            isFree: dto.isFree
+            isFree: dto.isFree,
+            publishedCount: dto.publishedCount
         };
     },
 
