@@ -10,7 +10,7 @@ import type { EAuthProvider } from "@/shared/domain/enums/EAuthProvider";
  *
  * @description
  * Core domain entity for the authenticated user. Maps 1:1 from the backend
- * `UserResponseDto`, with country and phone as flat fields (not nested).
+ * `PublicUserResponseDto`, with country and phone as flat fields (not nested).
  * `isVerified`/`isActive` drive the derived auth status; the avatar is the whole file object.
  *
  * @property {string} id - Unique user identifier.
@@ -27,8 +27,6 @@ import type { EAuthProvider } from "@/shared/domain/enums/EAuthProvider";
  * @property {string | null} [countryDialCode] - Phone dial code (e.g. "+33").
  * @property {string | null} [partialPhoneNumber] - Local phone digits (no dial code).
  * @property {string | null} [fullPhoneNumber] - Complete phone number with dial code.
- * @property {string | null} [createdAt] - ISO account creation timestamp.
- * @property {string | null} [updatedAt] - ISO last-update timestamp.
  */
 export interface IAuthUserEntity {
     id: string;
@@ -45,6 +43,4 @@ export interface IAuthUserEntity {
     countryDialCode?: string | null;
     partialPhoneNumber?: string | null;
     fullPhoneNumber?: string | null;
-    createdAt?: string | null;
-    updatedAt?: string | null;
 }
