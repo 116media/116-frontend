@@ -1,81 +1,89 @@
 "use client";
 
-import { useGoogleLogin } from "@react-oauth/google";
+import { GoogleLogin } from "@react-oauth/google";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { EAuthProvider } from "@/shared/domain/enums/EAuthProvider";
 import { Button } from "@/shared/presentation/components/ui/Button";
 import { GoogleIcon } from "@/shared/presentation/components/ui/Icon";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
+
 import type { SocialLoginButtonProps } from "./types";
 
 /**
- * Google's OpenID userinfo endpoint. Called with the implicit-flow access token to
- * read the signed-in user's email, name, and avatar.
+ * Widest button Google Identity Services will render.
  */
-const GOOGLE_USERINFO_URL = "https://www.googleapis.com/oauth2/v3/userinfo";
-
-/**
- * GoogleUserInfo
- *
- * @description
- * The subset of Google's userinfo response the backend social-login needs.
- *
- * @interface GoogleUserInfo
- * @property {string} email - The verified account email.
- * @property {string} [name] - The full display name.
- * @property {string} [given_name] - The first name (preferred as the userName).
- * @property {string} [picture] - The avatar URL.
- */
-interface GoogleUserInfo {
-    email: string;
-    name?: string;
-    given_name?: string;
-    picture?: string;
-}
+const GOOGLE_MAX_WIDTH = 400;
 
 /**
  * SocialLoginGoogleButton
  *
  * @description
- * Google sign-in button. Runs the Google Identity Services implicit OAuth flow,
- * reads the account profile from the userinfo endpoint, and hands the resolved
- * credentials to `onProfile`. Must be rendered inside a `GoogleOAuthProvider`.
+ * Google sign-in button. Google Identity Services renders its own button because
+ * it is the only flow returning an ID token, which the API verifies before it
+ * trusts any identity; that button is laid transparently over ours so the two
+ * providers match. Must be rendered inside a `GoogleOAuthProvider`.
  *
  * @param props - See {@link SocialLoginButtonProps}.
  */
 export function SocialLoginGoogleButton({ onProfile, disabled, loading }: SocialLoginButtonProps) {
     const { t } = useTranslation();
+    const containerRef = useRef<HTMLDivElement>(null);
+    const [width, setWidth] = useState(GOOGLE_MAX_WIDTH);
 
-    const login = useGoogleLogin({
-        onSuccess: async (response) => {
-            const result = await fetch(GOOGLE_USERINFO_URL, {
-                headers: { Authorization: `Bearer ${response.access_token}` }
-            });
-            if (!result.ok) return;
+    useEffect(() => {
+        const container = containerRef.current;
+        if (!container) return;
 
-            const info = (await result.json()) as GoogleUserInfo;
-            if (!info.email) return;
+        const observer = new ResizeObserver(([entry]) => {
+            setWidth(Math.min(Math.round(entry.contentRect.width), GOOGLE_MAX_WIDTH));
+        });
+        observer.observe(container);
 
-            onProfile({
-                email: info.email,
-                userName: info.given_name ?? info.name ?? info.email,
-                avatarUrl: info.picture,
-                provider: EAuthProvider.Google
-            });
-        }
-    });
+        return () => observer.disconnect();
+    }, []);
+
+    const isBlocked = disabled || loading;
 
     return (
-        <Button
-            size="lg"
-            type="button"
-            variant="outline"
-            className="w-full"
-            disabled={disabled}
-            loading={loading}
-            onClick={() => login()}
+        <div
+            ref={containerRef}
+            className="group relative w-full"
         >
-            <GoogleIcon />
-            {t("auth.common.continueWithGoogle")}
-        </Button>
+            <Button
+                size="lg"
+                type="button"
+                variant="outline"
+                loading={loading}
+                disabled={isBlocked}
+                aria-hidden={!isBlocked}
+                tabIndex={isBlocked ? undefined : -1}
+                className={cn(
+                    "pointer-events-none w-full",
+                    "group-hover:bg-accent group-hover:text-accent-foreground",
+                    "group-has-[:focus-visible]:ring-2 group-has-[:focus-visible]:ring-ring"
+                )}
+            >
+                <GoogleIcon />
+                {t("auth.common.continueWithGoogle")}
+            </Button>
+
+            {!isBlocked && (
+                <div className="absolute inset-0 cursor-pointer overflow-hidden opacity-0 [&>div]:w-full">
+                    <GoogleLogin
+                        theme="outline"
+                        size="large"
+                        width={width}
+                        shape="rectangular"
+                        text="continue_with"
+                        logo_alignment="center"
+                        onSuccess={({ credential }) => {
+                            if (!credential) return;
+                            onProfile({ provider: EAuthProvider.Google, idToken: credential });
+                        }}
+                    />
+                </div>
+            )}
+        </div>
     );
 }
