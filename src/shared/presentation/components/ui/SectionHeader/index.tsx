@@ -22,13 +22,13 @@ export interface SectionHeaderProps {
  *
  * @description
  * A shared header row for a page or section: a boxed leading icon followed by the
- * title and an optional subtitle, set off by a bottom divider. Used by the settings
- * tabs (as `h1`) and the article detail sidebar (as `h2`).
+ * title and an optional subtitle, on the same panel treatment as the content it
+ * heads. Used by the settings tabs (as `h1`) and the article detail sidebar (as `h2`).
  */
 export function SectionHeader({ icon, title, subtitle, as = "h2" }: SectionHeaderProps) {
     const Heading = as;
     return (
-        <div className="mb-4 flex items-center gap-3 border-b pb-4">
+        <div className="mb-4 flex items-center gap-3 rounded-xl bg-muted/30 p-4">
             <div className="flex size-12 items-center justify-center rounded-md bg-muted text-foreground [&_svg]:size-5">
                 {icon}
             </div>
