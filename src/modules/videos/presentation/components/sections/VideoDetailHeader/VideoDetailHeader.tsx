@@ -5,9 +5,18 @@ import { useTranslation } from "react-i18next";
 import type { IVideoTagEntity } from "@/modules/videos/domain/entities/IVideoTagEntity";
 import { VideoDetailScoreboard } from "@/modules/videos/presentation/components/sections/VideoDetailScoreboard";
 import { VideoDetailTags } from "@/modules/videos/presentation/components/sections/VideoDetailTags";
+import { useYoutubeStats } from "@/modules/videos/presentation/hooks/useYoutubeStats";
 import { Button } from "@/shared/presentation/components/ui/Button";
-import { BookmarkIcon, ShareIcon } from "@/shared/presentation/components/ui/Icon";
+import {
+    BookmarkIcon,
+    EyeIcon,
+    ShareIcon,
+    StarIcon
+} from "@/shared/presentation/components/ui/Icon";
+import { RelativeDate } from "@/shared/presentation/components/ui/RelativeDate";
 import { Tag } from "@/shared/presentation/components/ui/Tag";
+import { formatCount } from "@/shared/presentation/utils/format/format.utils";
+import { extractYoutubeId } from "@/shared/presentation/utils/youtube/youtube.utils";
 
 /**
  * Props for VideoDetail.Header.
@@ -15,6 +24,7 @@ import { Tag } from "@/shared/presentation/components/ui/Tag";
  * @interface VideoDetailHeaderProps
  * @property {string} title - The video display title.
  * @property {string} categoryName - The category label shown above the title.
+ * @property {string | null} publishedAt - ISO publication timestamp, shown beside the category.
  * @property {number} ratingAverage - Cached average star rating.
  * @property {number} ratingCount - Cached total number of ratings.
  * @property {number} shareCount - The backend's own share count.
@@ -29,6 +39,7 @@ export interface VideoDetailHeaderProps {
     shareCount: number;
     ratingCount: number;
     categoryName: string;
+    publishedAt: string | null;
     ratingAverage: number;
     tags: IVideoTagEntity[];
     youtubeVideoUrl: string | null;
@@ -41,13 +52,15 @@ export interface VideoDetailHeaderProps {
  * VideoDetail.Header
  *
  * @description
- * The video's identity and action card under the player: category tag, title,
- * stats scoreboard, share / add-to-playlist actions, and the tag block. No
+ * The video's identity and action card under the player: category tag with the
+ * view count and publication date, title, stats scoreboard, rate / share /
+ * add-to-playlist actions, and the tag block. No
  * author is rendered anywhere — a product rule for this page.
  */
 export function VideoDetailHeader({
     title,
     categoryName,
+    publishedAt,
     ratingAverage,
     ratingCount,
     shareCount,
@@ -58,18 +71,43 @@ export function VideoDetailHeader({
     onAddToPlaylist
 }: VideoDetailHeaderProps) {
     const { t } = useTranslation();
+    const { data: youtubeStats } = useYoutubeStats(extractYoutubeId(youtubeVideoUrl));
 
     return (
         <header className="flex flex-col gap-4 rounded-lg border p-3 md:p-4">
-            <div className="flex items-center justify-between">
-                <Tag
-                    as="span"
-                    size="lg"
-                    variant="primary"
-                >
-                    {categoryName}
-                </Tag>
+            <div className="flex flex-wrap items-center justify-between gap-3">
+                <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                    <Tag
+                        as="span"
+                        size="lg"
+                        variant="primary"
+                    >
+                        {categoryName}
+                    </Tag>
+                    <span className="flex items-center gap-2 text-muted-foreground text-sm">
+                        {youtubeStats?.viewCount != null && (
+                            <>
+                                <span className="flex items-center gap-1 tabular-nums">
+                                    <EyeIcon className="size-3.5" />
+                                    {t("videos.detail.scoreboard.viewsCount", {
+                                        value: formatCount(youtubeStats.viewCount)
+                                    })}
+                                </span>
+                                <span aria-hidden="true">·</span>
+                            </>
+                        )}
+                        <RelativeDate date={publishedAt} />
+                    </span>
+                </div>
                 <div className="flex items-center gap-2">
+                    <Button
+                        variant="outline"
+                        onClick={onOpenRating}
+                        className="gap-1.5"
+                    >
+                        <StarIcon className="size-4" />
+                        {t("videos.detail.scoreboard.note")}
+                    </Button>
                     <Button
                         variant="outline"
                         onClick={onShare}
