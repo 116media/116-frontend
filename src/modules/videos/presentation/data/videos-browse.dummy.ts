@@ -142,7 +142,8 @@ export function generateDummyVideoCategories(): IVideoCategoryEntity[] {
         name: category.name,
         slug: slugify(category.name),
         description: category.description,
-        isFree: index % 3 !== 0
+        isFree: index % 3 !== 0,
+        publishedCount: 0
     }));
 }
 
