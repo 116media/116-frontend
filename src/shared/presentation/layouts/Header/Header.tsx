@@ -1,11 +1,9 @@
-import Image from "next/image";
-import Link from "next/link";
-
 import type { ArticlesMegaMenuProps } from "@/modules/articles/presentation/components/navigation/ArticlesMegaMenu/types";
 import type { VideosMegaMenuProps } from "@/modules/videos/presentation/components/navigation/VideosMegaMenu/types";
 import { LanguageDropdown } from "@/shared/presentation/components/common/LanguageDropdown";
 import { ThemeToggle } from "@/shared/presentation/components/common/ThemeToggle";
 import { UserAccountControl } from "@/shared/presentation/components/common/UserAccountControl";
+import { Logo } from "@/shared/presentation/components/ui/Logo";
 import { DesktopNav } from "@/shared/presentation/layouts/DesktopNav";
 import { MobileNav } from "@/shared/presentation/layouts/MobileNav";
 import { PageContainer } from "@/shared/presentation/layouts/PageContainer";
@@ -37,27 +35,11 @@ export function Header({ articles, videos }: HeaderProps) {
                 <div className="flex h-16 items-center justify-between gap-2">
                     <MobileNav />
 
-                    <Link
-                        href="/"
-                        aria-label="116 — Accueil"
-                    >
-                        <Image
-                            priority
-                            width={48}
-                            height={48}
-                            alt="116 Media"
-                            src="/images/logo/dark/icon.svg"
-                            className="size-9 dark:hidden sm:size-12 md:size-10 lg:size-12"
-                        />
-                        <Image
-                            priority
-                            width={48}
-                            height={48}
-                            alt="116 Media"
-                            src="/images/logo/light/icon.svg"
-                            className="hidden size-9 dark:block sm:size-12 md:size-10 lg:size-12"
-                        />
-                    </Link>
+                    <Logo
+                        priority
+                        canRedirect
+                        className="size-9 sm:size-12 md:size-10 lg:size-12"
+                    />
 
                     <DesktopNav
                         videos={videos}
