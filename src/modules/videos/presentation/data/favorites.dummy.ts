@@ -58,7 +58,7 @@ function isoHoursFromBase(index: number): string {
  * @returns The dummy rated-videos page.
  */
 export function dummyRatedVideoPage(pageIndex: number): IVideoActivityPage {
-    const { videos } = generateDummyVideoFeed();
+    const [{ videos }] = generateDummyVideoFeed();
     const items = videos.map((video, index) => ({
         video,
         lastInteractedAt: isoHoursFromBase(index),
@@ -86,7 +86,7 @@ export function dummyRatedVideoPage(pageIndex: number): IVideoActivityPage {
  * @returns The dummy shared-videos page.
  */
 export function dummySharedVideoPage(pageIndex: number): IVideoActivityPage {
-    const { videos } = generateDummyVideoFeed();
+    const [{ videos }] = generateDummyVideoFeed();
     const items = videos.map((video, index) => ({
         video,
         lastInteractedAt: isoHoursFromBase(index),
@@ -114,7 +114,7 @@ export function dummySharedVideoPage(pageIndex: number): IVideoActivityPage {
  * @returns The dummy playlist detail entity.
  */
 export function dummyPlaylistDetail(id: string): IPlaylistDetailEntity {
-    const { videos } = generateDummyVideoFeed();
+    const [{ videos }] = generateDummyVideoFeed();
     const playlistVideos: IPlaylistVideoEntity[] = videos
         .slice(0, PLAYLIST_SIZE)
         .map((video, index) => ({
