@@ -1,0 +1,1 @@
+export { SubscribeNewsletterForm } from "./SubscribeNewsletterForm";
