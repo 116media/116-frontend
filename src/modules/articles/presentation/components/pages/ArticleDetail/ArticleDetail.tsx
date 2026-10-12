@@ -7,11 +7,13 @@ import { CommentList } from "@/modules/articles/presentation/components/comments
 import { ArticleDetailBody } from "@/modules/articles/presentation/components/sections/ArticleDetailBody";
 import { ArticleDetailEngagement } from "@/modules/articles/presentation/components/sections/ArticleDetailEngagement";
 import { ArticleDetailHero } from "@/modules/articles/presentation/components/sections/ArticleDetailHero";
+import { ArticleDetailHeroCover } from "@/modules/articles/presentation/components/sections/ArticleDetailHeroCover";
 import { ArticleDetailMetaBar } from "@/modules/articles/presentation/components/sections/ArticleDetailMetaBar";
 import { ArticleDetailReadingProgress } from "@/modules/articles/presentation/components/sections/ArticleDetailReadingProgress";
 import { ArticleDetailShareRail } from "@/modules/articles/presentation/components/sections/ArticleDetailShareRail";
 import { ArticleDetailTags } from "@/modules/articles/presentation/components/sections/ArticleDetailTags";
 import { ArticlesPopularSidebar } from "@/modules/articles/presentation/components/sections/ArticlesPopularSidebar";
+import { NewsletterCard } from "@/modules/newsletter/presentation/components/cards/NewsletterCard";
 
 /**
  * Props for the ArticleDetail assembler.
@@ -66,8 +68,8 @@ export function ArticleDetail({ article }: ArticleDetailProps) {
         <div className="relative flex flex-col gap-8">
             <ArticleDetailReadingProgress bodyRef={bodyRef} />
 
-            <div className="lg:grid lg:grid-cols-[auto_minmax(0,2.5fr)_minmax(0,2fr)] lg:gap-4">
-                <aside>
+            <div className="lg:grid lg:grid-cols-[auto_minmax(0,2.5fr)_minmax(0,2fr)] lg:gap-6">
+                <aside className="hidden lg:block">
                     <ArticleDetailShareRail
                         slug={article.slug}
                         articleId={article.id}
@@ -78,8 +80,8 @@ export function ArticleDetail({ article }: ArticleDetailProps) {
                 <article className="mt-6 flex min-w-0 flex-col gap-4 lg:mt-0">
                     <ArticleDetailHero
                         title={article.title}
+                        categoryId={article.categoryId}
                         categoryName={article.categoryName}
-                        coverImageUrl={article.coverImageUrl}
                     />
                     <ArticleDetailEngagement
                         slug={article.slug}
@@ -92,7 +94,11 @@ export function ArticleDetail({ article }: ArticleDetailProps) {
                         shareCount={article.shareCount}
                         onComment={scrollToComments}
                     />
-                    <p className="border-primary border-l-6 pl-3 font-article text-md text-muted-foreground italic leading-relaxed dark:border-secondary">
+                    <ArticleDetailHeroCover
+                        title={article.title}
+                        coverImageUrl={article.coverImageUrl}
+                    />
+                    <p className="font-article text-lg text-muted-foreground leading-relaxed">
                         {article.headline}
                     </p>
                     <ArticleDetailMetaBar
@@ -116,8 +122,9 @@ export function ArticleDetail({ article }: ArticleDetailProps) {
                     />
                 </article>
 
-                <aside className="mt-12 lg:mt-0">
+                <aside className="mt-12 flex flex-col gap-6 lg:mt-0">
                     <ArticlesPopularSidebar currentArticleId={article.id} />
+                    <NewsletterCard />
                 </aside>
             </div>
         </div>
