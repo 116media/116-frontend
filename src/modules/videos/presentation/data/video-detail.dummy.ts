@@ -130,7 +130,7 @@ function generateDummyPopularVideos(): IVideoSummaryEntity[] {
  * @returns The dummy video detail entity.
  */
 export function dummyVideoDetail(slug: string): IVideoDetailEntity {
-    const { videos } = generateDummyVideoFeed();
+    const [{ videos }] = generateDummyVideoFeed();
     const pool = [...videos, ...generateDummyPopularVideos()];
     const summary = pool.find((video) => video.slug === slug) ?? videos[0];
 
@@ -317,7 +317,7 @@ function generateDummySimilarVideos(): IVideoSummaryEntity[] {
             ratingCount: isUnrated ? 0 : 60 + index * 25
         } satisfies IVideoSummaryEntity;
     });
-    return [...generateDummyVideoFeed().videos, ...generateDummyPopularVideos(), ...extra];
+    return [...generateDummyVideoFeed()[0].videos, ...generateDummyPopularVideos(), ...extra];
 }
 
 /**
