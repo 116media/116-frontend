@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import type { IVideoTagEntity } from "@/modules/videos/domain/entities/IVideoTagEntity";
 import { Tag } from "@/shared/presentation/components/ui/Tag";
+import { VIDEOS_PATH } from "@/shared/presentation/constants/paths";
 
 /**
  * Props for the VideoDetail.Tags component.
@@ -19,9 +20,9 @@ export interface VideoDetailTagsProps {
  * VideoDetail.Tags
  *
  * @description
- * The tag block under the header: a "Tags:" label followed by hashtag-style
- * Tag pills. Pills render as plain spans — the published videos endpoint has
- * no tag filter to deep-link to yet. Renders nothing when there are no tags.
+ * The tag block under the header: a "Tags:" label followed by hashtag pills
+ * linking to the tag-filtered videos feed, matching the article tag block.
+ * Renders nothing when there are no tags.
  */
 export function VideoDetailTags({ tags }: VideoDetailTagsProps) {
     const { t } = useTranslation();
@@ -35,10 +36,12 @@ export function VideoDetailTags({ tags }: VideoDetailTagsProps) {
             </span>
             {tags.map((tag) => (
                 <Tag
-                    as="span"
+                    as="a"
+                    size="lg"
                     prefix="#"
                     key={tag.id}
                     variant="default"
+                    href={`${VIDEOS_PATH}?tagSlug=${tag.slug}`}
                     className="border-transparent bg-muted text-muted-foreground hover:border-primary hover:bg-primary hover:text-primary-foreground dark:hover:border-secondary dark:hover:bg-secondary dark:hover:text-secondary-foreground"
                 >
                     {tag.name}
