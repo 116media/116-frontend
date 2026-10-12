@@ -34,3 +34,12 @@ export const SETTINGS_PATH = "/settings";
 export const SETTINGS_PROFILE_PATH = "/settings/profile";
 export const SETTINGS_SECURITY_PATH = "/settings/security";
 export const SETTINGS_ACCOUNT_PATH = "/settings/account";
+
+export const ABOUT_PATH = "/about";
+export const SUBMIT_CLIP_PATH = "/submit-clip";
+export const ADVERTISING_PATH = "/advertising";
+export const CONTACT_PATH = "/contact";
+
+export const TERMS_PATH = "/terms";
+export const PRIVACY_PATH = "/privacy";
+export const COOKIES_PATH = "/cookies";
