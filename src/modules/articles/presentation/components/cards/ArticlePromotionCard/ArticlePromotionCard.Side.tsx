@@ -57,7 +57,7 @@ export function Side({ article }: ArticlePromotionCardProps) {
                     </div>
                 </div>
 
-                <hr className="my-4 sm:my-6 lg:my-3 xl:my-6" />
+                <hr className="my-4 border-foreground/5 sm:my-6 lg:my-3 xl:my-6" />
 
                 <div className="mt-auto flex items-center justify-between">
                     <div className="flex items-center gap-3 text-xs text-muted-foreground sm:text-sm md:text-base lg:text-xs xl:text-sm">
