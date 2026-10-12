@@ -51,6 +51,7 @@ export function VideoDetail({ video }: VideoDetailProps) {
                         shareCount={video.shareCount}
                         ratingCount={video.ratingCount}
                         categoryName={video.categoryName}
+                        publishedAt={video.publishedAt}
                         ratingAverage={video.ratingAverage}
                         youtubeVideoUrl={video.youtubeVideoUrl}
                         onShare={() => setShareOpen(true)}
