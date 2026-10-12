@@ -1,3 +1,4 @@
+import type { IVideoFeedEntity } from "@/modules/videos/domain/entities/IVideoFeedEntity";
 import type { IVideoSummaryEntity } from "@/modules/videos/domain/entities/IVideoSummaryEntity";
 
 /**
@@ -7,6 +8,7 @@ const FEED_SIZE = 8;
 
 const CATEGORY_ID = "video-feed-1";
 const CATEGORY_NAME = "Interviews";
+const CATEGORY_SLUG = "interviews";
 
 const thumbnails = [
     "https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg?auto=compress&cs=tinysrgb&w=600",
@@ -71,15 +73,24 @@ function generateDummyVideo(index: number): IVideoSummaryEntity {
  * generateDummyVideoFeed
  *
  * @description
- * Builds a complete dummy video feed section — a category name and its eight
- * latest videos. Returns deterministic data so the feed stays stable across
- * server/client renders.
+ * Builds the dummy video feed used when no category is pinned yet: one section
+ * carrying a category and its eight latest videos. Returns deterministic data
+ * so the feed stays stable across server/client renders.
  *
- * @returns The dummy feed section (title + videos)
+ * @returns The dummy feed sections
  */
-export function generateDummyVideoFeed(): { title: string; videos: IVideoSummaryEntity[] } {
-    return {
-        title: CATEGORY_NAME,
-        videos: Array.from({ length: FEED_SIZE }, (_, index) => generateDummyVideo(index))
-    };
+export function generateDummyVideoFeed(): IVideoFeedEntity[] {
+    return [
+        {
+            category: {
+                id: CATEGORY_ID,
+                name: CATEGORY_NAME,
+                slug: CATEGORY_SLUG,
+                description: "",
+                isFree: true,
+                publishedCount: FEED_SIZE
+            },
+            videos: Array.from({ length: FEED_SIZE }, (_, index) => generateDummyVideo(index))
+        }
+    ];
 }
