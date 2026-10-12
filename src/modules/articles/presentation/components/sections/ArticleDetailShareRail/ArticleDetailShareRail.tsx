@@ -34,6 +34,7 @@ export function ArticleDetailShareRail({ articleId, slug, title }: ArticleDetail
 
     return (
         <SocialShareGroup
+            separated
             title={title}
             orientation="vertical"
             className="lg:sticky lg:top-32"
