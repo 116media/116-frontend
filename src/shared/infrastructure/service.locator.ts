@@ -38,11 +38,12 @@ import type { SignupUseCase } from "@/modules/auth/application/usecases/signup.u
 import type { SocialLoginUseCase } from "@/modules/auth/application/usecases/sociallogin.usecase";
 import type { VerifyOtpUseCase } from "@/modules/auth/application/usecases/verifyotp.usecase";
 import { registerAuthDependencies } from "@/modules/auth/infrastructure/dependencies/auth.dependencies";
+import type { SubscribeNewsletterUseCase } from "@/modules/newsletter/application/usecases/subscribenewsletter.usecase";
+import { registerNewsletterDependencies } from "@/modules/newsletter/infrastructure/dependencies/newsletter.dependencies";
 import type { ISessionRepositoryPort } from "@/modules/session/application/repositories/session.repository.port";
 import type { GetSessionsUseCase } from "@/modules/session/application/usecases/getsessions.usecase";
 import type { RefreshTokenUseCase } from "@/modules/session/application/usecases/refreshtoken.usecase";
 import type { RevokeSessionUseCase } from "@/modules/session/application/usecases/revokesession.usecase";
-import { registerNewsletterDependencies } from "@/modules/newsletter/infrastructure/dependencies/newsletter.dependencies";
 import { registerSessionDependencies } from "@/modules/session/infrastructure/dependencies/session.dependencies";
 import type { ISettingsRepositoryPort } from "@/modules/settings/application/repositories/settings.repository.port";
 import type { ChangePasswordUseCase } from "@/modules/settings/application/usecases/changepassword.usecase";
@@ -75,12 +76,11 @@ import type { GetPlaylistByIdUseCase } from "@/modules/videos/application/usecas
 import type { GetPopularVideosUseCase } from "@/modules/videos/application/usecases/getpopularvideos.usecase";
 import type { GetPromotedVideosUseCase } from "@/modules/videos/application/usecases/getpromotedvideos.usecase";
 import type { GetPublishedVideosUseCase } from "@/modules/videos/application/usecases/getpublishedvideos.usecase";
-import type { SubscribeNewsletterUseCase } from "@/modules/newsletter/application/usecases/subscribenewsletter.usecase";
 import type { GetShowsUseCase } from "@/modules/videos/application/usecases/getshows.usecase";
-import type { GetVideoFeedUseCase } from "@/modules/videos/application/usecases/getvideofeed.usecase";
 import type { GetVideoBySlugUseCase } from "@/modules/videos/application/usecases/getvideobyslug.usecase";
 import type { GetVideoCategoriesUseCase } from "@/modules/videos/application/usecases/getvideocategories.usecase";
 import type { GetVideoExclusiveShowUseCase } from "@/modules/videos/application/usecases/getvideoexclusiveshow.usecase";
+import type { GetVideoFeedUseCase } from "@/modules/videos/application/usecases/getvideofeed.usecase";
 import type { GetVideoLyricsUseCase } from "@/modules/videos/application/usecases/getvideolyrics.usecase";
 import type { GetVideoPopularTagsUseCase } from "@/modules/videos/application/usecases/getvideopopulartags.usecase";
 import type { GetYoutubeVideoStatsUseCase } from "@/modules/videos/application/usecases/getyoutubevideostats.usecase";

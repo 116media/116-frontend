@@ -27,5 +27,5 @@ export const footer = {
     privacy: "Confidentialité",
     cookies: "Cookies",
     notFound: "Page introuvable (404)",
-    copyright: "© {{year}} - {{appName}}. Tous droits réservés.",
+    copyright: "© {{year}} - {{appName}}. Tous droits réservés."
 } as const;

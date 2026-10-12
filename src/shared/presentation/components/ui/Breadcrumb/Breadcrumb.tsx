@@ -58,7 +58,10 @@ export function Breadcrumb({ items, className }: BreadcrumbProps) {
                                 ) : (
                                     <span
                                         aria-current={isLast ? "page" : undefined}
-                                        className={cn("block truncate", isLast && "text-foreground")}
+                                        className={cn(
+                                            "block truncate",
+                                            isLast && "text-foreground"
+                                        )}
                                     >
                                         {item.label}
                                     </span>

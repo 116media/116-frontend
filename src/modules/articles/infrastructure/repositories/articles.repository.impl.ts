@@ -246,10 +246,7 @@ export class ArticlesRepositoryImpl implements IArticlesRepositoryPort {
 
     async deleteArticleComment(input: IDeleteArticleCommentInput): Promise<Result<boolean>> {
         try {
-            await this.api.publicDeleteArticleComment(
-                input.articleId,
-                input.commentId
-            );
+            await this.api.publicDeleteArticleComment(input.articleId, input.commentId);
             return ok(true);
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
