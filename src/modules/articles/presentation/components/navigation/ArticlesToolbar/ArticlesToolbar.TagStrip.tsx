@@ -10,6 +10,12 @@ import { ArticlesToolbarAllTagsPopover } from "./ArticlesToolbar.AllTagsPopover"
 const TAG_SKELETON_WIDTHS = ["w-16", "w-24", "w-20", "w-14", "w-28", "w-12", "w-32"];
 
 /**
+ * Chip sizing: the shared `lg` type scale with trimmed horizontal padding below `sm`,
+ * so more tags fit per row without shrinking the label.
+ */
+const COMPACT_CHIP = "px-2.5 py-1 text-sm sm:px-3";
+
+/**
  * Props for ArticlesToolbarTagStrip.
  *
  * @interface ArticlesToolbarTagStripProps
@@ -51,9 +57,10 @@ export function ArticlesToolbarTagStrip({ value, onChange }: ArticlesToolbarTagS
                             key={tag.slug}
                             variant={tag.slug === value ? "primary" : "default"}
                             onClick={() => onChange(tag.slug === value ? undefined : tag.slug)}
-                            className={
-                                tag.slug === value ? undefined : "border-border bg-surface-raised"
-                            }
+                            className={cn(
+                                COMPACT_CHIP,
+                                tag.slug !== value && "border-outlined bg-surface-raised"
+                            )}
                         >
                             {tag.name}
                         </Tag>
