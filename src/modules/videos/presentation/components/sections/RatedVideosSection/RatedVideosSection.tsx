@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { IVideoActivityEntity } from "@/modules/videos/domain/entities/IVideoActivityEntity";
 import { RatedVideoCard } from "@/modules/videos/presentation/components/cards/RatedVideoCard";
@@ -32,7 +32,7 @@ export function RatedVideosSection() {
     const items = data?.pages.flatMap((page) => page.items) ?? [];
 
     return (
-        <>
+        <Fragment>
             <StateRenderer
                 data={items}
                 error={isError}
@@ -85,6 +85,6 @@ export function RatedVideosSection() {
                     initialStars={target.ratedStars ?? null}
                 />
             )}
-        </>
+        </Fragment>
     );
 }
