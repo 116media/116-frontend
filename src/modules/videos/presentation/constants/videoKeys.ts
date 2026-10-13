@@ -64,7 +64,7 @@ export const SHOWS_PAGE_SIZE = 12;
  * Maximum number of category chips shown inline in the browse toolbar; the
  * remaining categories are reachable through the "browse all shows" modal.
  */
-export const VIDEO_BROWSE_CHIP_LIMIT = 6;
+export const VIDEO_BROWSE_CHIP_LIMIT = 12;
 
 /**
  * Maximum number of video tags requested for the "All tags" popover; tags
