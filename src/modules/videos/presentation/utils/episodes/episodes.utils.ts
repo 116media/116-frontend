@@ -17,3 +17,23 @@ export function mostRecentEpisode(episodes: IVideoSummaryEntity[]): IVideoSummar
         return latest;
     }, null);
 }
+
+/**
+ * newestEpisodes
+ *
+ * @description
+ * The most recently published episodes first, capped to `limit`. Unpublished episodes sort
+ * last so a draft never takes the "latest episode" slot.
+ *
+ * @param episodes - The show's episodes.
+ * @param limit - How many to keep.
+ * @returns The newest episodes, newest first.
+ */
+export function newestEpisodes(
+    episodes: IVideoSummaryEntity[],
+    limit: number
+): IVideoSummaryEntity[] {
+    return [...episodes]
+        .sort((left, right) => (right.publishedAt ?? "").localeCompare(left.publishedAt ?? ""))
+        .slice(0, limit);
+}
