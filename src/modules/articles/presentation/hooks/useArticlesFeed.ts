@@ -8,7 +8,10 @@ import {
     articleKeys,
     type IArticleFeedFilters
 } from "@/modules/articles/presentation/constants/articleKeys";
-import { dummyArticlePage } from "@/modules/articles/presentation/data/articles.dummy";
+import {
+    dummyArticlePage,
+    paddedArticlePage
+} from "@/modules/articles/presentation/data/articles.dummy";
 import type { Failure } from "@/shared/domain/failures/failure";
 import container from "@/shared/infrastructure/service.locator";
 
@@ -17,8 +20,9 @@ import container from "@/shared/infrastructure/service.locator";
  *
  * @description
  * Infinite query over the published-articles feed, keyed by the active filters. While the
- * backend has no published content, an empty unfiltered page is served as paged dummy
- * articles; a filtered query never falls back and stays empty.
+ * backend holds less than one full page, the real articles are padded with paged dummy
+ * articles so browsing stays previewable; a filtered query never falls back and stays
+ * empty, so a filter's real result count is always honest.
  *
  * @param filters - Optional search / category / tag scoping.
  * @returns The `useInfiniteQuery` result for the feed.
@@ -38,10 +42,11 @@ export function useArticlesFeed(filters: IArticleFeedFilters = {}) {
             });
             if (!result.ok) throw result.error;
             const page = result.value;
-            if (page.count === 0 && isUnfiltered) {
-                return dummyArticlePage(pageIndex, ARTICLES_PAGE_SIZE);
-            }
-            return page;
+
+            if (!isUnfiltered || page.count >= ARTICLES_PAGE_SIZE) return page;
+            if (page.count === 0) return dummyArticlePage(pageIndex, ARTICLES_PAGE_SIZE);
+
+            return paddedArticlePage(page);
         },
         getNextPageParam: (lastPage) => (lastPage.hasNextPage ? lastPage.pageIndex + 1 : undefined)
     });
