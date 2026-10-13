@@ -3,6 +3,7 @@
 import { useTranslation } from "react-i18next";
 import { VideoCard } from "@/modules/videos/presentation/components/cards/VideoCard";
 import { useExclusiveShow } from "@/modules/videos/presentation/context/ExclusiveShowProvider";
+import { newestEpisodes } from "@/modules/videos/presentation/utils/episodes/episodes.utils";
 
 /**
  * Props for the VideoExclusiveShowEpisodes component.
@@ -11,9 +12,12 @@ import { useExclusiveShow } from "@/modules/videos/presentation/context/Exclusiv
  * @property {"stack" | "rail"} layout - "stack" renders the vertical list of
  * horizontal cards (split panel); "rail" renders the swipeable scroll-snapped
  * rail of vertical cards (hero).
+ * @property {number} [limit] - Caps the list to the newest N episodes; a limit of 1 also
+ * switches the heading to "Latest episode".
  */
 export interface VideoExclusiveShowEpisodesProps {
     layout: "stack" | "rail";
+    limit?: number;
 }
 
 /**
@@ -23,13 +27,14 @@ export interface VideoExclusiveShowEpisodesProps {
  * The layout-specific episode cards: a swipeable scroll-snapped rail of
  * vertical cards, or a vertical stack of horizontal cards.
  */
-function EpisodesList({ layout }: VideoExclusiveShowEpisodesProps) {
+function EpisodesList({ layout, limit }: VideoExclusiveShowEpisodesProps) {
     const { category } = useExclusiveShow();
+    const episodes = limit ? newestEpisodes(category.episodes, limit) : category.episodes;
 
     if (layout === "rail") {
         return (
             <div className="scrollbar-hide -m-4 flex snap-x snap-mandatory gap-3 overflow-x-auto p-4 scroll-px-4">
-                {category.episodes.map((episode) => (
+                {episodes.map((episode) => (
                     <div
                         key={episode.id}
                         className="w-56 shrink-0 snap-start sm:w-64"
@@ -43,7 +48,7 @@ function EpisodesList({ layout }: VideoExclusiveShowEpisodesProps) {
 
     return (
         <div className="flex flex-col gap-3">
-            {category.episodes.map((episode) => (
+            {episodes.map((episode) => (
                 <VideoCard.Horizontal
                     video={episode}
                     key={episode.id}
@@ -61,21 +66,27 @@ function EpisodesList({ layout }: VideoExclusiveShowEpisodesProps) {
  * suppressHydrationWarning guards the heading because the section streams in
  * after the persisted language.
  */
-export function VideoExclusiveShowEpisodes({ layout }: VideoExclusiveShowEpisodesProps) {
+export function VideoExclusiveShowEpisodes({ layout, limit }: VideoExclusiveShowEpisodesProps) {
     const { t } = useTranslation();
     const { foreground } = useExclusiveShow();
 
+    const heading =
+        limit === 1 ? "videos.exclusiveShow.latestEpisode" : "videos.exclusiveShow.episodes";
+
     return (
-        <div className={layout === "rail" ? "pt-2" : "p-1 sm:p-3 md:p-6"}>
+        <div className={layout === "rail" ? "pt-2" : "p-4 md:p-6"}>
             <h3
                 style={{ color: foreground }}
                 className="mb-4 text-sm font-semibold uppercase tracking-wider"
                 suppressHydrationWarning
             >
-                {t("videos.exclusiveShow.episodes")}
+                {t(heading)}
             </h3>
 
-            <EpisodesList layout={layout} />
+            <EpisodesList
+                layout={layout}
+                limit={limit}
+            />
         </div>
     );
 }
