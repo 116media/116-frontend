@@ -52,7 +52,7 @@ export function PlaylistCardMedia({
             >
                 <div
                     className={cn(
-                        "grid aspect-video gap-px bg-border",
+                        "grid aspect-video gap-px bg-outlined",
                         thumbnails.length > 0 && layout.grid
                     )}
                 >
