@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { type ReactNode, useEffect, useState } from "react";
+import { Fragment, type ReactNode, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import {
@@ -58,7 +58,8 @@ export function AuthGuard({ children }: AuthGuardProps) {
         if (status === "guest" && rechecked) router.replace(HOME_PATH);
     }, [status, rechecked, router]);
 
-    if (isAuthenticatedStatus(status) || needsVerification(status)) return <>{children}</>;
+    if (isAuthenticatedStatus(status) || needsVerification(status))
+        return <Fragment>{children}</Fragment>;
 
     if (status === "error") {
         return (
