@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { type CSSProperties, useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { useRequireAuth } from "@/modules/auth/presentation/hooks/useRequireAuth";
 import type { IVideoDetailEntity } from "@/modules/videos/domain/entities/IVideoDetailEntity";
@@ -11,6 +13,10 @@ import { VideoDetailHeader } from "@/modules/videos/presentation/components/sect
 import { VideoDetailTabs } from "@/modules/videos/presentation/components/sections/VideoDetailTabs";
 import { VideosPopularSidebar } from "@/modules/videos/presentation/components/sections/VideosPopularSidebar";
 import { VideoPlayer } from "@/shared/presentation/components/common/VideoPlayer";
+import { Button } from "@/shared/presentation/components/ui/Button";
+import { ArrowLeftIcon } from "@/shared/presentation/components/ui/Icon";
+import { useScrolledPast } from "@/shared/presentation/hooks/useScrolledPast";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
  * Props for the VideoDetail assembler.
@@ -26,25 +32,79 @@ export interface VideoDetailProps {
  * VideoDetail
  *
  * @description
- * The detail page assembler — the only holder of the full entity; every child
- * receives scoped props. Owns the share/playlist/rating modal open states;
- * the playlist modal opens behind the auth gate.
+ * The detail page assembler — the only holder of the full entity; every child receives
+ * scoped props. Below `lg` the player fixes to the top of the viewport over the site
+ * chrome once scrolled to, full-bleed and backed by a spacer of its own height, and
+ * publishes that height so the tabs can sit right under it, in a full-bleed sheet. Owns the share/playlist/rating
+ * modal open states; the playlist modal opens behind the auth gate.
  */
 export function VideoDetail({ video }: VideoDetailProps) {
+    const { t } = useTranslation();
+    const router = useRouter();
     const requireAuth = useRequireAuth();
     const [shareOpen, setShareOpen] = useState(false);
     const [playlistOpen, setPlaylistOpen] = useState(false);
     const [ratingOpen, setRatingOpen] = useState(false);
 
+    const playerRef = useRef<HTMLDivElement>(null);
+    const pinSentinelRef = useRef<HTMLDivElement>(null);
+    const [playerHeight, setPlayerHeight] = useState(0);
+    const isPinned = useScrolledPast(pinSentinelRef);
+
+    useEffect(() => {
+        const node = playerRef.current;
+        if (node === null) return;
+
+        const measure = () => setPlayerHeight(node.getBoundingClientRect().height);
+        const observer = new ResizeObserver(measure);
+
+        measure();
+        observer.observe(node);
+        return () => observer.disconnect();
+    }, []);
+
     return (
-        <div className="flex flex-col gap-6">
-            <div className="lg:grid lg:grid-cols-[minmax(0,1.8fr)_minmax(0,1fr)] lg:gap-6">
-                <div className="flex min-w-0 flex-col gap-2">
+        <div
+            className="flex flex-col gap-6"
+            style={{ "--video-player-height": `${playerHeight}px` } as CSSProperties}
+        >
+            <div className="flex flex-col gap-4 lg:grid lg:grid-cols-[minmax(0,1.8fr)_minmax(0,1fr)] lg:grid-rows-[auto_auto_1fr] lg:gap-6">
+                <div
+                    aria-hidden
+                    className="h-px lg:hidden"
+                    ref={pinSentinelRef}
+                />
+
+                <div
+                    ref={playerRef}
+                    className={cn(
+                        "z-50 overflow-hidden rounded-lg transform-gpu bg-background lg:static lg:z-auto lg:col-start-1 lg:row-start-1",
+                        isPinned ? "player-pinned fixed inset-x-0 top-0 lg:relative" : "relative"
+                    )}
+                >
                     <VideoPlayer
                         title={video.title}
                         thumbnailUrl={video.thumbnailUrl}
                         youtubeVideoUrl={video.youtubeVideoUrl}
                     />
+                    <Button
+                        size="icon"
+                        variant="ghost"
+                        onClick={() => router.back()}
+                        aria-label={t("videos.detail.backToVideos")}
+                        className="absolute top-2 left-2 z-10 rounded-full bg-black/60 text-white hover:bg-black/80 hover:text-white lg:hidden"
+                    >
+                        <ArrowLeftIcon className="size-5" />
+                    </Button>
+                </div>
+
+                <div
+                    aria-hidden
+                    className="lg:hidden"
+                    style={{ height: isPinned ? playerHeight : 0 }}
+                />
+
+                <div className="flex min-w-0 flex-col gap-2 lg:col-start-1 lg:row-start-2">
                     <VideoDetailHeader
                         tags={video.tags}
                         title={video.title}
@@ -58,6 +118,16 @@ export function VideoDetail({ video }: VideoDetailProps) {
                         onOpenRating={() => setRatingOpen(true)}
                         onAddToPlaylist={() => requireAuth(() => setPlaylistOpen(true))}
                     />
+                </div>
+
+                <aside className="lg:col-start-2 lg:row-span-3 lg:row-start-1">
+                    <VideosPopularSidebar currentVideoId={video.id} />
+                </aside>
+
+                <div
+                    data-mobile-sheet
+                    className="-mx-3 min-w-0 rounded-t-2xl bg-background px-3 pb-6 shadow-[0_-8px_24px_rgba(0,0,0,0.25)] sm:-mx-6 sm:px-6 lg:mx-0 lg:rounded-none lg:px-0 lg:pb-0 lg:shadow-none lg:col-start-1 lg:row-start-3"
+                >
                     <VideoDetailTabs
                         videoId={video.id}
                         hasLyrics={video.hasLyrics}
@@ -65,10 +135,6 @@ export function VideoDetail({ video }: VideoDetailProps) {
                         description={video.description}
                     />
                 </div>
-
-                <aside className="mt-10 lg:mt-0">
-                    <VideosPopularSidebar currentVideoId={video.id} />
-                </aside>
             </div>
 
             <VideoShareModal
