@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 
 import { ChevronRightIcon } from "@/shared/presentation/components/ui/Icon";
@@ -11,11 +13,14 @@ import { cn } from "@/shared/presentation/utils/cn/cn.utils";
  * @property {string} label - The row's visible text.
  * @property {number} [count] - Published item count, shown before the chevron. Omitted
  * on the rows that stand for every category.
+ * @property {() => void} [onNavigate] - Fired after the row navigates, so a host
+ * surface such as the mobile menu can close itself.
  */
 export interface MegaMenuRowProps {
     href: string;
     label: string;
     count?: number;
+    onNavigate?: () => void;
 }
 
 /**
@@ -25,11 +30,12 @@ export interface MegaMenuRowProps {
  * One row of a mega menu column: the label on the left, an optional count and the
  * chevron on the right.
  */
-export function MegaMenuRow({ href, label, count }: MegaMenuRowProps) {
+export function MegaMenuRow({ href, label, count, onNavigate }: MegaMenuRowProps) {
     return (
-        <div className="border-b border-border/50 first:border-b-0 py-1">
+        <div className="border-b border-outlined/50 first:border-b-0 py-1">
             <Link
                 href={href}
+                onClick={onNavigate}
                 className={cn(
                     "group flex items-center justify-between rounded-md p-3 transition-colors",
                     "hover:bg-accent"
