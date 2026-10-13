@@ -61,7 +61,7 @@ export function Pair({ article }: ArticlePromotionCardProps) {
                     — {article.headline}
                 </p>
 
-                <div className="flex items-center justify-between border-t border-white/10 pt-3 text-xs text-white/60 sm:justify-start sm:gap-4 sm:pt-5 md:text-sm lg:pt-2 lg:text-xs xl:pt-4">
+                <div className="-mx-3 -mb-3 sm:-mx-4 sm:-mb-4 lg:-mx-3 lg:-mb-3 xl:-mx-5 xl:-mb-5 mt-3 sm:mt-5 lg:mt-2 xl:mt-4 flex items-center gap-3 rounded-lg bg-white/10 max-lg:justify-between p-3 text-white/60 text-xs backdrop-blur-sm transition-colors group-hover:bg-white/20 sm:gap-4 md:text-sm lg:text-xs xl:text-sm">
                     <Stats
                         article={article}
                         iconClassName="size-3 sm:size-4"
