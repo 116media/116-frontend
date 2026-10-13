@@ -13,3 +13,15 @@ export function withAlpha(hex: string, alpha: number): string {
         .padStart(2, "0");
     return `${hex}${channel}`;
 }
+
+/**
+ * Fades any CSS color to the given alpha through `color-mix`, including `var(--token)`
+ * values that {@link withAlpha} cannot append an alpha channel to.
+ *
+ * @param color - Any CSS color value
+ * @param alpha - Opacity in the `[0, 1]` range
+ * @returns The `color-mix(...)` value
+ */
+export function fade(color: string, alpha: number): string {
+    return `color-mix(in srgb, ${color} ${Math.round(alpha * 100)}%, transparent)`;
+}
