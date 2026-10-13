@@ -26,7 +26,7 @@ export function PlaylistCardActions({ onOpen, onRename, onDelete }: PlaylistCard
     const { t } = useTranslation();
 
     return (
-        <FavoriteCard.Actions className="mt-auto flex items-baseline justify-start gap-1 border-border border-t dark:border-foreground/10">
+        <FavoriteCard.Actions className="-mx-3 -mb-3 mt-auto flex items-center justify-start gap-1 rounded-lg border-0 bg-accent/50 p-3 transition-colors group-hover:bg-accent">
             <Button
                 size="sm"
                 onClick={onOpen}
@@ -44,11 +44,11 @@ export function PlaylistCardActions({ onOpen, onRename, onDelete }: PlaylistCard
                 {t("favorites.playlist.rename")}
             </Button>
             <Button
-                size="sm"
+                size="icon"
                 variant="outline"
                 onClick={onDelete}
                 aria-label={t("favorites.playlist.delete")}
-                className="ml-auto size-8 self-center p-0 text-muted-foreground hover:bg-destructive/10 hover:text-destructive"
+                className="ml-auto self-center p-0 text-muted-foreground hover:border-destructive/12 hover:bg-destructive/25 hover:text-destructive"
             >
                 <TrashIcon />
             </Button>
