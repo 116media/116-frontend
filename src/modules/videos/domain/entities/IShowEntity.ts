@@ -16,6 +16,7 @@ import type { IShowColors } from "@/modules/videos/domain/entities/IShowColors";
  * @property {string} description - Short description shown on the card (clamped to 2 lines)
  * @property {string | null} posterUrl - Resolved poster URL covering the card, or null when unset
  * @property {IShowColors | null} colors - Poster-derived background/foreground pair, or null when no poster/color
+ * @property {number} episodeCount - How many published episodes the show holds
  */
 export interface IShowEntity {
     id: string;
@@ -24,4 +25,5 @@ export interface IShowEntity {
     description: string;
     posterUrl: string | null;
     colors: IShowColors | null;
+    episodeCount: number;
 }
