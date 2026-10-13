@@ -15,6 +15,7 @@ export {
     AlertCircle as AlertCircleIcon,
     ArrowLeft as ArrowLeftIcon,
     BadgeCheck as BadgeCheckIcon,
+    Bell as BellIcon,
     Bookmark as BookmarkIcon,
     BookmarkPlus as BookmarkPlusIcon,
     Calendar as CalendarIcon,
