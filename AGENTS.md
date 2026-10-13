@@ -38,6 +38,9 @@ the non-negotiable summary.
 - **Types.** `export interface XxxProps` inline by default; promote to `types.ts` only when ≥2
   files in the folder share it. Never `IXxxProps` (the `I` prefix is for domain entities, which
   never live in a component `types.ts`).
+- **Fragments.** Never the shorthand `<></>`. Always `<Fragment>…</Fragment>`, with `Fragment`
+  pulled into the file's existing `react` import (`import { Fragment, type FC } from "react"`),
+  never a second import line. Applies to `frontend` and `dashboard` alike.
 - **Imports.** `@/` alias for anything outside the current folder; `./` only for same-folder
   siblings. No `../`.
 - **Naming.** folder = file = export (PascalCase). Barrel is `index.ts`. Sub-parts and state
