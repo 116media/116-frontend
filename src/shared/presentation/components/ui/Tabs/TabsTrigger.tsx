@@ -1,7 +1,6 @@
 "use client";
 
 import * as TabsPrimitive from "@radix-ui/react-tabs";
-import { motion } from "motion/react";
 import {
     type ComponentPropsWithoutRef,
     type ComponentRef,
@@ -12,7 +11,7 @@ import {
 
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
-import { TAB_SPRING, TabsActiveContext, TabsOrderContext, TabsSizeContext } from "./tabsContext";
+import { TabsActiveContext, TabsOrderContext, TabsSizeContext } from "./tabsContext";
 import { type TabsSize, tabsTriggerVariants } from "./tabsVariants";
 
 /**
@@ -30,14 +29,14 @@ export interface TabsTriggerProps extends ComponentPropsWithoutRef<typeof TabsPr
  *
  * @description
  * One tab button in the shadcn anatomy: muted at rest, lifted onto the background
- * surface when active. A shared `motion.span` springs the active pill between
- * triggers; each trigger registers its value so the content layer knows the direction.
+ * surface when active. Each trigger registers its value so the content layer knows the
+ * direction.
  */
 export const TabsTrigger = forwardRef<ComponentRef<typeof TabsPrimitive.Trigger>, TabsTriggerProps>(
     ({ className, size, value, children, ...props }, ref) => {
         const order = useContext(TabsOrderContext);
         const inherited = useContext(TabsSizeContext);
-        const { activeValue, layoutId } = useContext(TabsActiveContext);
+        const { activeValue } = useContext(TabsActiveContext);
         const isActive = activeValue === value;
 
         useEffect(() => {
@@ -51,13 +50,7 @@ export const TabsTrigger = forwardRef<ComponentRef<typeof TabsPrimitive.Trigger>
                 className={cn(tabsTriggerVariants({ size: size ?? inherited }), className)}
                 {...props}
             >
-                {isActive && (
-                    <motion.span
-                        layoutId={layoutId}
-                        transition={TAB_SPRING}
-                        className="absolute inset-0 rounded-md bg-background"
-                    />
-                )}
+                {isActive && <span className="absolute inset-0 rounded-md bg-background" />}
                 <span className="relative z-10">{children}</span>
             </TabsPrimitive.Trigger>
         );
