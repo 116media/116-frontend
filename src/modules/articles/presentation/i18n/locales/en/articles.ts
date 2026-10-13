@@ -32,8 +32,12 @@ export const articles = {
         },
         end: "You're all caught up"
     },
+    browse: {
+        title: "Explore Articles"
+    },
     filters: {
-        searchPlaceholder: "Search articles…",
+        all: "All",
+        searchPlaceholder: "Filter these articles…",
         clearSearch: "Clear search",
         allCategories: "All categories",
         category: "Category",
