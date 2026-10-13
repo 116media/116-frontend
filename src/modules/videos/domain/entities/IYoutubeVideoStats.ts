@@ -11,6 +11,7 @@
  * @property {number | null} viewCount - Total YouTube views, or null when hidden/unavailable
  * @property {number | null} likeCount - Total YouTube likes, or null when hidden/unavailable
  * @property {number | null} commentCount - Total YouTube comments, or null when hidden/unavailable
+ * @property {string | null} publishedAt - ISO upload date of the YouTube video, or null when unavailable
  * @property {boolean} hasStats - True when at least one statistic carries a value; derived by the mapper
  */
 export interface IYoutubeVideoStats {
@@ -18,4 +19,5 @@ export interface IYoutubeVideoStats {
     viewCount: number | null;
     likeCount: number | null;
     commentCount: number | null;
+    publishedAt: string | null;
 }
