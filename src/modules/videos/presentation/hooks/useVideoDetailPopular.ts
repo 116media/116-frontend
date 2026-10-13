@@ -6,14 +6,16 @@ import type { IVideoSummaryEntity } from "@/modules/videos/domain/entities/IVide
 import { POPULAR_VIDEOS_LIMIT, videoKeys } from "@/modules/videos/presentation/constants/videoKeys";
 import { dummyPopularVideos } from "@/modules/videos/presentation/data/video-detail.dummy";
 import container from "@/shared/infrastructure/service.locator";
+import { apiIdOrUndefined } from "@/shared/presentation/utils/id/id.utils";
 
 /**
  * useVideoDetailPopular
  *
  * @description
  * Sources the popular-videos sidebar from the popularity-ranked endpoint,
- * excluding the open video. The endpoint is fixed-size (not paginated), so this
- * is a single query; a failed or empty result falls back to the dummy pool.
+ * excluding the open video — only when its id is one the API can bind, since a dummy
+ * video's id is not a UUID. The endpoint is fixed-size (not paginated), so this is a
+ * single query; a failed or empty result falls back to the dummy pool.
  *
  * @param currentVideoId - The video currently open, excluded from the results.
  * @returns The TanStack Query result whose `data` is up to ten `IVideoSummaryEntity`.
@@ -24,7 +26,7 @@ export function useVideoDetailPopular(currentVideoId: string) {
         queryFn: async () => {
             const result = await container.cradle.getPopularVideosUseCase.execute({
                 limit: POPULAR_VIDEOS_LIMIT,
-                excludeId: currentVideoId
+                excludeId: apiIdOrUndefined(currentVideoId)
             });
             if (result.ok && result.value.length > 0) return result.value;
             return dummyPopularVideos(currentVideoId, POPULAR_VIDEOS_LIMIT);
