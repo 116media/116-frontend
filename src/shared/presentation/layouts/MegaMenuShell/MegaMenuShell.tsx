@@ -47,7 +47,7 @@ export function MegaMenuShell({ tagsBasePath, popularTags, children }: MegaMenuS
                         <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                             {t("general.popularTags")}
                         </p>
-                        <div className="mb-1 h-px bg-border/60" />
+                        <div className="mb-1 h-px bg-outlined/60" />
                         <div className="flex flex-wrap gap-1.5">
                             {popularTags.slice(0, 16).map((tag) => (
                                 <Tag
