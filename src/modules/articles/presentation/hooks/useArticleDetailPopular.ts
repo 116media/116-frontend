@@ -6,6 +6,7 @@ import type { IArticleSummaryEntity } from "@/modules/articles/domain/entities/I
 import { articleKeys } from "@/modules/articles/presentation/constants/articleKeys";
 import { dummyPopularArticles } from "@/modules/articles/presentation/data/article-detail.dummy";
 import container from "@/shared/infrastructure/service.locator";
+import { apiIdOrUndefined } from "@/shared/presentation/utils/id/id.utils";
 
 /**
  * POPULAR_SIDEBAR_LIMIT
@@ -20,7 +21,8 @@ const POPULAR_SIDEBAR_LIMIT = 5;
  *
  * @description
  * Sources the popular-articles sidebar from `getPopularArticlesUseCase`, ranked by
- * weighted engagement server-side with the open article excluded via `excludeId`.
+ * weighted engagement server-side with the open article excluded via `excludeId`, which
+ * is sent only when its id is one the API can bind (a dummy article's is not a UUID).
  * Dummy-data phase: a failed or empty result falls back to dummy popular articles.
  *
  * @param currentArticleId - The article currently open, excluded from the results.
@@ -32,7 +34,7 @@ export function useArticleDetailPopular(currentArticleId: string) {
         queryFn: async () => {
             const result = await container.cradle.getPopularArticlesUseCase.execute({
                 limit: POPULAR_SIDEBAR_LIMIT,
-                excludeId: currentArticleId
+                excludeId: apiIdOrUndefined(currentArticleId)
             });
             if (result.ok && result.value.length > 0) return result.value;
             return dummyPopularArticles(currentArticleId, POPULAR_SIDEBAR_LIMIT);
