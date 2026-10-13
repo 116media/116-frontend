@@ -26,7 +26,9 @@ export interface VideosPopularSidebarProps {
  * @description
  * The detail page's popular-videos column: up to ten `VideoCard.Horizontal`
  * rows sourced from `useVideoDetailPopular` (current video excluded), rendered
- * in one shot — no infinite scroll. Renders nothing when the list is empty.
+ * in one shot — no infinite scroll. The rows sit on their own panel from `lg` up; below
+ * it the panel steps out of the flow and the rows stack straight onto the page. Renders
+ * nothing when the list is empty.
  */
 export function VideosPopularSidebar({ currentVideoId }: VideosPopularSidebarProps) {
     const { t } = useTranslation();
@@ -44,15 +46,15 @@ export function VideosPopularSidebar({ currentVideoId }: VideosPopularSidebarPro
             data={data}
             loading={isPending}
             skeleton={
-                <aside className="flex flex-col">
+                <aside className="flex flex-col max-lg:gap-4">
                     {header}
                     <VideosPopularSidebarLoading />
                 </aside>
             }
             render={(videos) => (
-                <aside className="flex flex-col">
+                <aside className="flex flex-col max-lg:gap-4">
                     {header}
-                    <div className="flex flex-col gap-4 rounded-xl bg-muted/25 p-3 sm:p-4 md:p-5 lg:p-3 xl:p-5">
+                    <div className="flex flex-col gap-4 rounded-xl bg-muted/25 max-lg:contents lg:p-3 xl:p-5">
                         {videos.map((video) => (
                             <VideoCard.Horizontal
                                 key={video.id}
