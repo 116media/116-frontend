@@ -23,6 +23,7 @@
     --secondary-foreground: var(--primitive-text-primary);
 
     --muted: var(--primitive-background);
+    --filter-rail: var(--primitive-filter-rail-light);
     --muted-foreground: var(--primitive-description);
 
     --accent: var(--primitive-background);
@@ -39,7 +40,7 @@
     --warning: var(--primitive-warning);
     --warning-foreground: var(--primitive-text-primary);
 
-    --border: var(--primitive-border-subtle-light);
+    --outlined: var(--primitive-border-subtle-light);
     --input: var(--primitive-border-subtle-light);
     --ring: var(--primitive-brand-primary);
 
@@ -78,6 +79,7 @@
     --secondary-foreground: var(--primitive-text-primary);
 
     --muted: var(--primitive-brand-bg-dark);
+    --filter-rail: var(--primitive-neutral-800);
     --muted-foreground: var(--primitive-text-muted);
 
     --accent: var(--primitive-brand-bg-dark);
@@ -94,7 +96,7 @@
     --warning: var(--primitive-warning);
     --warning-foreground: var(--primitive-text-primary);
 
-    --border: var(--primitive-border-subtle-dark);
+    --outlined: var(--primitive-border-subtle-dark);
     --input: var(--primitive-border-subtle-dark);
     --ring: var(--primitive-brand-primary);
 
@@ -135,6 +137,7 @@
     --color-secondary-foreground: var(--secondary-foreground);
 
     --color-muted: var(--muted);
+    --color-filter-rail: var(--filter-rail);
     --color-muted-foreground: var(--muted-foreground);
 
     --color-accent: var(--accent);
@@ -151,7 +154,7 @@
     --color-warning: var(--warning);
     --color-warning-foreground: var(--warning-foreground);
 
-    --color-border: var(--border);
+    --color-outlined: var(--outlined);
     --color-input: var(--input);
     --color-ring: var(--ring);
 
@@ -215,6 +218,10 @@
     --animate-dialog-in: dialog-in 0.28s cubic-bezier(0.16, 1, 0.3, 1);
     --animate-dialog-out: dialog-out 0.2s ease-in;
     --animate-dialog-shake: dialog-shake 0.4s ease-in-out;
+
+    /* Edge-anchored sheets (mobile mega menu) */
+    --animate-sheet-in-left: sheet-in-left 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    --animate-sheet-out-left: sheet-out-left 0.2s ease-in;
 
     /* Shorts */
     --animate-short-like-burst: short-like-burst 0.6s ease-out;
