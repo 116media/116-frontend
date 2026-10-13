@@ -7,6 +7,7 @@ import {
 } from "@/shared/presentation/components/ui/DropdownMenu";
 import { ChevronsUpDownIcon } from "@/shared/presentation/components/ui/Icon";
 import { useLanguageDropdown } from "@/shared/presentation/hooks/useLanguageDropdown";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 import { LanguageDropdownMenu } from "./LanguageDropdown.Menu";
 import type { LanguageDropdownProps } from "./types";
 
@@ -17,7 +18,10 @@ import type { LanguageDropdownProps } from "./types";
  * Trigger button that opens a language selection menu built on the shadcn DropdownMenu.
  * Shows the active language's flag and code; persists the selection on change.
  */
-export function LanguageDropdown({ placement = "bottom" }: LanguageDropdownProps) {
+export function LanguageDropdown({
+    placement = "bottom",
+    size = "default"
+}: LanguageDropdownProps) {
     const { currentCode, currentLanguage, updateLanguage } = useLanguageDropdown();
 
     return (
@@ -27,7 +31,10 @@ export function LanguageDropdown({ placement = "bottom" }: LanguageDropdownProps
                     type="button"
                     variant="ghost"
                     aria-label={`Langue sélectionnée: ${currentLanguage.name}`}
-                    className="h-9 gap-1.5 bg-surface-raised px-2.5 hover:bg-surface-hover"
+                    className={cn(
+                        "gap-1.5 bg-surface-raised px-2.5 hover:bg-surface-hover",
+                        size === "lg" ? "h-11" : "h-9"
+                    )}
                 >
                     <span className="flex size-5 shrink-0 items-center justify-center">
                         <currentLanguage.FlagIcon />
