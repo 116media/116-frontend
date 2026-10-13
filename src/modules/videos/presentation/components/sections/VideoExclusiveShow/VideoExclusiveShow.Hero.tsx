@@ -2,6 +2,7 @@ import type { VideoExclusiveShowViewProps } from "./types";
 import { VideoExclusiveShowAllEpisodesLink } from "./VideoExclusiveShow.AllEpisodesLink";
 import { VideoExclusiveShowEpisodes } from "./VideoExclusiveShow.Episodes";
 import { VideoExclusiveShowHeading } from "./VideoExclusiveShow.Heading";
+import { VideoExclusiveShowMeta } from "./VideoExclusiveShow.Meta";
 import { VideoExclusiveShowPoster } from "./VideoExclusiveShow.Poster";
 import { VideoExclusiveShowRoot } from "./VideoExclusiveShow.Root";
 import { VideoExclusiveShowScrim } from "./VideoExclusiveShow.Scrim";
@@ -21,7 +22,7 @@ export function Hero({ category }: VideoExclusiveShowViewProps) {
     return (
         <VideoExclusiveShowRoot
             category={category}
-            className="always-dark dark relative overflow-hidden rounded-2xl border"
+            className="always-dark dark relative overflow-hidden rounded-2xl border border-white/10"
         >
             <VideoExclusiveShowPoster bleed />
             <VideoExclusiveShowScrim direction="right" />
@@ -30,10 +31,11 @@ export function Hero({ category }: VideoExclusiveShowViewProps) {
             <div className="relative space-y-4 p-4 sm:p-6 lg:p-8">
                 <VideoExclusiveShowTag />
                 <VideoExclusiveShowHeading />
+                <VideoExclusiveShowMeta />
 
                 <div className="flex flex-col gap-3 pt-2 sm:flex-row">
-                    <VideoExclusiveShowWatchButton className="px-8 font-semibold" />
-                    <VideoExclusiveShowAllEpisodesLink className="px-8" />
+                    <VideoExclusiveShowWatchButton className="h-13 px-10 font-semibold text-base" />
+                    <VideoExclusiveShowAllEpisodesLink className="h-13 px-10 text-base" />
                 </div>
 
                 <VideoExclusiveShowEpisodes layout="rail" />
