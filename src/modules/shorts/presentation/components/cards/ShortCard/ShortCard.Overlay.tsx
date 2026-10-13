@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { Fragment, type ReactNode } from "react";
 
 import { PlayIcon } from "@/shared/presentation/components/ui/Icon";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
@@ -27,7 +27,7 @@ export interface ShortCardOverlayProps {
  */
 export function ShortCardOverlay({ title, viewCount, children }: ShortCardOverlayProps) {
     return (
-        <>
+        <Fragment>
             <div
                 aria-hidden
                 className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/70 to-transparent"
@@ -42,6 +42,6 @@ export function ShortCardOverlay({ title, viewCount, children }: ShortCardOverla
                 </div>
                 {children}
             </div>
-        </>
+        </Fragment>
     );
 }
