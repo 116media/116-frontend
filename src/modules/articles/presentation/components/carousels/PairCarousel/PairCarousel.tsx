@@ -59,7 +59,9 @@ function PairColumnCarousel({ articles }: PairColumnCarouselProps) {
             emblaRef={emblaRef}
         >
             <CarouselContent
-                overlay={<CarouselDots className="absolute bottom-3 right-3 z-10 hidden sm:flex" />}
+                overlay={
+                    <CarouselDots className="absolute right-3 bottom-3 z-10 hidden h-4 items-center sm:flex md:h-5 lg:h-4 xl:h-5" />
+                }
             >
                 {articles.map((article) => (
                     <CarouselItem key={article.id}>
