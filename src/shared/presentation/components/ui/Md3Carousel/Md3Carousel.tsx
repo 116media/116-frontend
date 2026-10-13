@@ -1,6 +1,6 @@
 "use client";
 
-import { type ReactNode, useRef, useState } from "react";
+import { Fragment, type ReactNode, useRef, useState } from "react";
 import { Button } from "@/shared/presentation/components/ui/Button";
 import { ChevronLeftIcon, ChevronRightIcon } from "@/shared/presentation/components/ui/Icon";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
@@ -39,6 +39,9 @@ export interface Md3CarouselSlotState {
  * @property {(item: T, index: number) => void} [onHeroActivate] - Called when a hero card is clicked
  * @property {number} [heroCount] - How many focal (large) cards show at once (default 3)
  * @property {number} [visibleChildren] - How many small edge cards show in total (default 2)
+ * @property {boolean} [centerHero] - Keeps the focal card centred with the small cards
+ * split evenly either side, at every scroll position. Default false, which hugs the
+ * small cards to whichever edge has more items left.
  * @property {string} [heroClassName] - Width classes (e.g. a %) for a hero card
  * @property {string} [childClassName] - Width classes (e.g. a %) for a small edge card
  * @property {string} [heightClassName] - Tailwind height classes for the strip
@@ -51,6 +54,7 @@ export interface Md3CarouselProps<T> {
     onHeroActivate?: (item: T, index: number) => void;
     heroCount?: number;
     visibleChildren?: number;
+    centerHero?: boolean;
     heroClassName?: string;
     childClassName?: string;
     gapClassName?: string;
@@ -73,6 +77,7 @@ export function Md3Carousel<T>({
     onHeroActivate,
     heroCount = 3,
     visibleChildren = 2,
+    centerHero = false,
     heroClassName = "w-[calc((100%_-_32px)_*_0.2917)]",
     childClassName = "w-[calc((100%_-_32px)_*_0.0625)]",
     gapClassName = "ml-2",
@@ -86,11 +91,16 @@ export function Md3Carousel<T>({
 
     const hasBefore = current > 0;
     const hasAfter = items.length - (current + windowSize) > 0;
-    const smallLeft = !hasBefore
-        ? 0
-        : !hasAfter
-          ? visibleChildren
-          : Math.floor(visibleChildren / 2);
+    // Centred: the focal card holds the middle slot whatever the scroll position, so
+    // the strip always reads small | focal | small. Otherwise the small cards hug the
+    // edge that still has items behind or ahead of it.
+    const smallLeft = centerHero
+        ? Math.floor(visibleChildren / 2)
+        : !hasBefore
+          ? 0
+          : !hasAfter
+            ? visibleChildren
+            : Math.floor(visibleChildren / 2);
     const heroStartPos = smallLeft;
     const heroEndPos = smallLeft + heroCount;
 
@@ -168,7 +178,7 @@ export function Md3Carousel<T>({
                                 }
                             }}
                             className={cn(
-                                "group relative h-full shrink-0 overflow-hidden rounded-3xl bg-muted outline-none",
+                                "group relative h-full shrink-0 overflow-hidden rounded-2xl bg-muted outline-none",
                                 SLOT_TRANSITION,
                                 isHero && heroClassName,
                                 isChild && cn(childClassName, "cursor-pointer"),
@@ -182,13 +192,13 @@ export function Md3Carousel<T>({
                 })}
 
                 {items.length > windowSize && (
-                    <>
+                    <Fragment>
                         <Button
                             size="icon"
                             variant="ghost"
                             onClick={goPrev}
                             aria-label="Previous"
-                            className="absolute left-2 top-1/2 z-30 size-14 -translate-y-1/2 bg-black/40 text-white backdrop-blur-sm hover:bg-black/60 hover:text-white [&_svg]:size-7"
+                            className="absolute left-2 top-1/2 z-30 hidden size-10 -translate-y-1/2 bg-black/40 text-white backdrop-blur-xl hover:bg-black/60 hover:text-white md:inline-flex [&_svg]:size-7"
                         >
                             <ChevronLeftIcon />
                         </Button>
@@ -197,11 +207,11 @@ export function Md3Carousel<T>({
                             variant="ghost"
                             onClick={goNext}
                             aria-label="Next"
-                            className="absolute right-2 top-1/2 z-30 size-14 -translate-y-1/2 bg-black/40 text-white backdrop-blur-sm hover:bg-black/60 hover:text-white [&_svg]:size-7"
+                            className="absolute right-2 top-1/2 z-30 hidden size-10 -translate-y-1/2 bg-black/40 text-white backdrop-blur-xl hover:bg-black/60 hover:text-white md:inline-flex [&_svg]:size-7"
                         >
                             <ChevronRightIcon />
                         </Button>
-                    </>
+                    </Fragment>
                 )}
             </section>
         </div>
