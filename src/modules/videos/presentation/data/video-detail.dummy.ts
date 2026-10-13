@@ -206,6 +206,7 @@ export function dummyYoutubeStats(youtubeId: string): IYoutubeVideoStats {
     const seed = [...youtubeId].reduce((sum, char) => sum + char.charCodeAt(0), 0);
     return {
         hasStats: true,
+        publishedAt: "2024-11-18T09:12:00.000Z",
         viewCount: 1_200_000 + seed * 1_337,
         likeCount: 24_000 + seed * 41,
         commentCount: 1_300 + seed * 7
