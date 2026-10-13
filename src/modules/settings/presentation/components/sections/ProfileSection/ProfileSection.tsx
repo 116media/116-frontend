@@ -67,7 +67,7 @@ export function ProfileSection() {
                                 onClick={openFilePicker}
                                 disabled={updateAvatar.isPending}
                                 aria-label={t("settings.profile.photo.change")}
-                                className="relative size-20 cursor-pointer overflow-hidden rounded-md ring-2 ring-border"
+                                className="relative size-20 cursor-pointer overflow-hidden rounded-md ring-2 ring-outlined"
                                 style={
                                     avatarUrl
                                         ? undefined
