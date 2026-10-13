@@ -25,7 +25,7 @@ export function Compact({ video }: VideosMegaMenuCardProps) {
             className={cn(
                 cardVariants,
                 "group h-full rounded-xl border-0 p-0.5 transition-all duration-300",
-                "bg-border",
+                "bg-outlined",
                 "hover:[background:conic-gradient(from_var(--border-angle),var(--color-primary),var(--color-secondary),var(--color-primary))]",
                 "hover:animate-[spin-border_2s_linear_infinite]"
             )}
