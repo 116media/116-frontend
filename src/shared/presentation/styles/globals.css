@@ -96,6 +96,24 @@
     }
 }
 
+@keyframes sheet-in-left {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes sheet-out-left {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+
 @keyframes dialog-shake {
     0%,
     100% {
@@ -134,7 +152,7 @@
 
 @layer base {
     * {
-        border-color: var(--border);
+        border-color: var(--outlined);
     }
 
     body {
@@ -167,12 +185,48 @@
     --color-dialog: var(--dialog);
     --color-dialog-foreground: var(--dialog-foreground);
     --color-muted: var(--muted);
+    --color-filter-rail: var(--filter-rail);
     --color-muted-foreground: var(--muted-foreground);
     --color-accent: var(--accent);
     --color-accent-foreground: var(--accent-foreground);
     --color-sidebar: var(--sidebar);
-    --color-border: var(--border);
+    --color-outlined: var(--outlined);
     --color-input: var(--input);
     --color-surface-raised: var(--surface-raised);
     --color-surface-hover: var(--surface-hover);
+}
+
+/**
+ * Honours the operating system's reduce-motion setting for every named animation
+ * and transition in the app. Movement is removed, not the state change itself.
+ *
+ * The reset carries no `!important`: it is declared outside every cascade layer,
+ * and unlayered rules outrank layered ones whatever their specificity, so it already
+ * beats the Tailwind utilities (`@layer utilities`) that declare the app's motion.
+ */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms;
+        animation-iteration-count: 1;
+        transition-duration: 0.01ms;
+        scroll-behavior: auto;
+    }
+}
+
+/**
+ * A page whose last section is marked `data-mobile-sheet` owns the rest of the viewport
+ * below `lg`: anything under it gives the page scroll range past that section, which
+ * unpins the player and the tab row stuck beneath it and lands the reader on the footer.
+ * The shell's trailing space and the footer step aside so the document ends with it.
+ */
+@media (max-width: 1023px) {
+    body:has([data-mobile-sheet]) main {
+        padding-bottom: 0;
+    }
+
+    body:has([data-mobile-sheet]) footer {
+        display: none;
+    }
 }
