@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { useLogout } from "@/modules/auth/presentation/hooks/useLogout";
@@ -36,7 +36,7 @@ export function UserAccountControlMenu({ user }: UserAccountControlMenuProps) {
     const avatarUrl = user.avatar?.storageUrl;
 
     return (
-        <>
+        <Fragment>
             <DropdownMenu modal={false}>
                 <DropdownMenuTrigger asChild>
                     <Button
@@ -44,12 +44,13 @@ export function UserAccountControlMenu({ user }: UserAccountControlMenuProps) {
                         type="button"
                         variant="ghost"
                         aria-label={`Compte de ${user.userName}`}
-                        className="size-8 rounded-full p-0 ring-2 ring-foreground/25 transition-opacity hover:opacity-90"
+                        className="size-10 rounded-full p-0 transition-opacity hover:opacity-90 lg:size-8"
                     >
                         <UserAvatar
                             size={32}
                             image={avatarUrl}
                             userName={user.userName}
+                            className="ring-2 ring-foreground/25"
                         />
                     </Button>
                 </DropdownMenuTrigger>
@@ -117,6 +118,6 @@ export function UserAccountControlMenu({ user }: UserAccountControlMenuProps) {
                 description={t("auth.session.signOutConfirmDescription")}
                 onConfirm={() => logout.mutate({}, { onSuccess: () => setConfirmOpen(false) })}
             />
-        </>
+        </Fragment>
     );
 }
