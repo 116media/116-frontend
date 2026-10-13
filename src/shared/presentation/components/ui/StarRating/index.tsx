@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { StarIcon } from "@/shared/presentation/components/ui/Icon";
 
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
@@ -76,14 +77,14 @@ export function StarRating({
         <span className={cn("flex items-center gap-1", className)}>
             <span className="flex items-center gap-0.5">{stars}</span>
             {hasRatings && (
-                <>
+                <Fragment>
                     <span className={cn(textClass, "tabular-nums")}>
                         {ratingAverage.toFixed(1)}
                     </span>
                     <span className={cn(textClass, "opacity-70")}>
                         ({formatCount(ratingCount)})
                     </span>
-                </>
+                </Fragment>
             )}
         </span>
     );
