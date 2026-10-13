@@ -2,7 +2,7 @@
 
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import Link from "next/link";
-import { type MouseEvent, useState } from "react";
+import { Fragment, type MouseEvent, useState } from "react";
 import { ArticlesMegaMenu } from "@/modules/articles/presentation/components/navigation/ArticlesMegaMenu";
 import type { ArticlesMegaMenuProps } from "@/modules/articles/presentation/components/navigation/ArticlesMegaMenu/types";
 import { VideosMegaMenu } from "@/modules/videos/presentation/components/navigation/VideosMegaMenu";
@@ -49,7 +49,7 @@ export function DesktopNav({ articles, videos }: DesktopNavProps) {
     };
 
     return (
-        <div className="hidden items-center gap-1 md:flex">
+        <div className="hidden items-center gap-1 lg:flex">
             <NavigationMenu
                 value={openMenu}
                 onValueChange={setOpenMenu}
@@ -61,7 +61,7 @@ export function DesktopNav({ articles, videos }: DesktopNavProps) {
                             value={hasMegaMenu ? label : undefined}
                         >
                             {hasMegaMenu ? (
-                                <>
+                                <Fragment>
                                     <NavigationMenuPrimitive.Trigger asChild>
                                         <Link
                                             href={href}
@@ -86,7 +86,7 @@ export function DesktopNav({ articles, videos }: DesktopNavProps) {
                                             <VideosMegaMenu {...videos} />
                                         )}
                                     </NavigationMenuContent>
-                                </>
+                                </Fragment>
                             ) : (
                                 <NavigationMenuLink asChild>
                                     <Link
@@ -108,7 +108,7 @@ export function DesktopNav({ articles, videos }: DesktopNavProps) {
 
             <div
                 aria-hidden="true"
-                className="ml-2 h-8 w-px bg-border"
+                className="ml-2 h-8 w-px bg-outlined"
             />
 
             <Button
