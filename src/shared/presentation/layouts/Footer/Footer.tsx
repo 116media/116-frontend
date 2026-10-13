@@ -85,7 +85,7 @@ export function Footer() {
                     ))}
                 </div>
 
-                <div className="py-6 flex flex-wrap items-center justify-between gap-2 border-border border-t pt-6 text-muted-foreground text-xs">
+                <div className="py-6 flex flex-wrap items-center justify-between gap-2 border-outlined border-t pt-6 text-muted-foreground text-xs">
                     <p>{t("footer.copyright", { year, appName: APP_NAME })}</p>
                 </div>
             </PageContainer>
