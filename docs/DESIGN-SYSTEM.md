@@ -11,7 +11,7 @@ Tokens live in CSS, not in a config file. Three layers, in dependency order:
 | Layer | File | Holds |
 | --- | --- | --- |
 | Primitive | `styles/colors.css` | Raw hex and the slate ramp. Never referenced from a component. |
-| Semantic | `styles/theme.css` | `--background`, `--primary`, `--border` … defined twice: `:root` and `.dark`. |
+| Semantic | `styles/theme.css` | `--background`, `--primary`, `--outlined` … defined twice: `:root` and `.dark`. |
 | Tailwind | `styles/theme.css` `@theme` | Maps each semantic variable to a `--color-*` utility. |
 
 A component uses the Tailwind utility (`bg-card`, `text-muted-foreground`). It never uses a
@@ -46,7 +46,8 @@ convention to follow for any new accent.
 | `surface-hover` | slate-200 | slate-700 |
 | `mega-menu` / `mega-menu-cards` | slate-50 / slate-100 | slate-800 / slate-900 |
 | `sidebar` | slate-50 | slate-800 |
-| `border` / `input` | `#eef1f6` | `#222a3b` |
+| `filter-rail` | `#dce0e5` | slate-800 |
+| `outlined` / `input` | `#eef1f6` | `#222a3b` |
 
 Light mode separates surfaces with borders; dark mode separates them by stepping along the slate
 ramp. A surface added to one theme only will look flat in the other.
