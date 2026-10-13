@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import type { ISessionEntity } from "@/modules/session/domain/entities/ISessionEntity";
@@ -50,7 +50,7 @@ export function SessionCard({ session }: SessionCardProps) {
     };
 
     return (
-        <>
+        <Fragment>
             <div className="flex items-center gap-3 rounded-md border p-4">
                 <div className="flex size-12 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground [&_svg]:size-5">
                     <DeviceIcon />
@@ -99,6 +99,6 @@ export function SessionCard({ session }: SessionCardProps) {
                 confirmLabel={t("settings.security.sessions.revoke")}
                 onConfirm={onConfirm}
             />
-        </>
+        </Fragment>
     );
 }
