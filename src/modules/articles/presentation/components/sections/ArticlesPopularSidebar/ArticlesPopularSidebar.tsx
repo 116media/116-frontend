@@ -6,6 +6,7 @@ import { ArticleCard } from "@/modules/articles/presentation/components/cards/Ar
 import { useArticleDetailPopular } from "@/modules/articles/presentation/hooks/useArticleDetailPopular";
 import { FlameIcon } from "@/shared/presentation/components/ui/Icon";
 import { SectionHeader } from "@/shared/presentation/components/ui/SectionHeader";
+import { Separator } from "@/shared/presentation/components/ui/Separator";
 import { StateRenderer } from "@/shared/presentation/components/ui/StateRenderer";
 import { ArticlesPopularSidebarLoading } from "./ArticlesPopularSidebar.Loading";
 
@@ -55,7 +56,7 @@ export function ArticlesPopularSidebar({ currentArticleId }: ArticlesPopularSide
                         {articles.map((article, index) => (
                             <Fragment key={article.id}>
                                 <ArticleCard.Horizontal article={article} />
-                                {index < articles.length - 1 && <hr />}
+                                {index < articles.length - 1 && <Separator />}
                             </Fragment>
                         ))}
                     </div>
