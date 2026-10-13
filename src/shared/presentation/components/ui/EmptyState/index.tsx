@@ -47,7 +47,7 @@ export function EmptyState({ context, icon, title, subtitle, action, className }
             )}
         >
             <div className="text-muted-foreground">{icon}</div>
-            <p className="font-medium text-foreground text-lg">{title}</p>
+            <p className="font-medium text-foreground text-xl">{title}</p>
             {subtitle && <p className="max-w-sm text-muted-foreground">{subtitle}</p>}
             {action && <div className="mt-2">{action}</div>}
         </div>
