@@ -29,7 +29,7 @@ export function Horizontal({
     return (
         <article
             className={cn(
-                "group flex gap-3 rounded-xl border p-3 transition-all hover:bg-muted/50",
+                "group flex gap-3 rounded-xl border p-3 transition-all bg-surface-raised/50 hover:bg-muted/50",
                 className
             )}
         >
