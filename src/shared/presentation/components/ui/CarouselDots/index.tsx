@@ -9,9 +9,9 @@ import { cn } from "@/shared/presentation/utils/cn/cn.utils";
  * CarouselDots
  *
  * @description
- * Dot indicator for the Carousel compound. Reads the Embla API from context for
- * the slide count and selected index; each dot scrolls to its slide. Positioned
- * via the `className` prop (e.g. `absolute bottom-3 right-3`).
+ * Dot indicator for the Carousel compound. Reads the Embla API from context for the slide
+ * count and selected index; each dot scrolls to its slide. The row carries its own scrim so
+ * the accent dot holds over any slide image, bright or dark. Positioned via `className`.
  */
 export function CarouselDots({ className }: { className?: string }) {
     const { api } = useCarousel();
@@ -38,7 +38,12 @@ export function CarouselDots({ className }: { className?: string }) {
     if (scrollSnaps.length <= 1) return null;
 
     return (
-        <div className={cn("flex gap-1.5", className)}>
+        <div
+            className={cn(
+                "flex items-center gap-1.5 rounded-full px-2 py-1 backdrop-blur-sm",
+                className
+            )}
+        >
             {scrollSnaps.map((snap, index) => (
                 <button
                     type="button"
@@ -46,8 +51,8 @@ export function CarouselDots({ className }: { className?: string }) {
                     onClick={() => api?.scrollTo(index)}
                     aria-label={`Go to slide ${index + 1}`}
                     className={cn(
-                        "size-1.5 cursor-pointer rounded-full transition-colors",
-                        index === selectedIndex ? "bg-white" : "bg-white/40"
+                        "h-1.5 cursor-pointer rounded-full transition-all",
+                        index === selectedIndex ? "w-5 bg-secondary" : "w-1.5 bg-white/50"
                     )}
                 />
             ))}
