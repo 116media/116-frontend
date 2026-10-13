@@ -23,3 +23,15 @@
     --plyr-range-fill-background: var(--secondary);
     --plyr-badge-background: var(--secondary);
 }
+
+/*
+ * Squared off while the player is pinned to the top of a small viewport: the band runs
+ * edge to edge there, so every rounded layer inside it has to let go of its corners.
+ */
+.player-pinned,
+.player-pinned .video-player,
+.player-pinned .video-player .rounded-lg,
+.player-pinned .plyr,
+.player-pinned .plyr__video-wrapper {
+    border-radius: 0;
+}
