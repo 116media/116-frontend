@@ -60,9 +60,9 @@ export function SocialLogin() {
             </div>
 
             <div className="flex items-center gap-3 text-xs uppercase text-muted-foreground">
-                <span className="h-px flex-1 bg-border" />
+                <span className="h-px flex-1 bg-outlined" />
                 {t("auth.common.or")}
-                <span className="h-px flex-1 bg-border" />
+                <span className="h-px flex-1 bg-outlined" />
             </div>
         </div>
     );
