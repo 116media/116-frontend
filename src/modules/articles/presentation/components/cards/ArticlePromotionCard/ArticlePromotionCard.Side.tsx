@@ -3,8 +3,8 @@ import Link from "next/link";
 import { CalendarIcon } from "@/shared/presentation/components/ui/Icon";
 
 import { RelativeDate } from "@/shared/presentation/components/ui/RelativeDate";
+import { Separator } from "@/shared/presentation/components/ui/Separator";
 import { Tag } from "@/shared/presentation/components/ui/Tag";
-
 import { Stats } from "./ArticlePromotionCard.Stats";
 import type { ArticlePromotionCardProps } from "./types";
 
@@ -19,13 +19,13 @@ export function Side({ article }: ArticlePromotionCardProps) {
     return (
         <Link
             href={`/articles/${article.slug}`}
-            className="group flex h-full min-w-0 flex-col overflow-hidden rounded-xl bg-linear-to-br from-primary/5 to-secondary/10 dark:from-primary/10 dark:to-secondary/15"
+            className="group flex h-full min-w-0 flex-col overflow-hidden rounded-xl bg-linear-to-br from-primary/10 to-secondary/10 dark:from-primary/15 dark:to-secondary/15"
         >
             <div className="flex flex-1 flex-col p-4 sm:p-5 md:p-6 lg:p-3 xl:p-6">
                 <div className="mb-3 flex flex-wrap items-center gap-2 text-xs text-muted-foreground sm:mb-4 md:text-sm lg:mb-3 lg:text-xs xl:text-sm">
                     <CalendarIcon className="size-3 sm:size-3.5 lg:size-3" />
                     <RelativeDate date={article.publishedAt} />
-                    <span className="mx-1 h-4 w-px bg-border" />
+                    <span className="mx-1 h-4 w-px bg-outlined" />
                     <Tag
                         as="span"
                         size="sm"
@@ -57,10 +57,10 @@ export function Side({ article }: ArticlePromotionCardProps) {
                     </div>
                 </div>
 
-                <hr className="my-4 border-foreground/5 sm:my-6 lg:my-3 xl:my-6" />
+                <Separator className="my-2 bg-transparent! sm:my-3" />
 
                 <div className="mt-auto flex items-center justify-between">
-                    <div className="flex items-center gap-3 text-xs text-muted-foreground sm:text-sm md:text-base lg:text-xs xl:text-sm">
+                    <div className="flex items-center gap-3 text-muted-foreground text-xs sm:text-sm md:text-base lg:text-xs xl:text-sm">
                         <Stats article={article} />
                     </div>
                 </div>
