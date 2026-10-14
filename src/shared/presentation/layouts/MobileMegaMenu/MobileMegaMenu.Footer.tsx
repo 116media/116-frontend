@@ -18,13 +18,13 @@ export function MobileMegaMenuFooter({ onNavigate }: MobileMegaMenuFooterProps) 
         <div className="flex flex-wrap items-center justify-between gap-3 border-outlined border-t p-3">
             <div className="flex items-center gap-1">
                 <ThemeToggle size="icon-lg" />
-                <LanguageDropdown
+                <LanguageDropdown.Root
                     size="lg"
                     placement="top"
                 />
             </div>
 
-            <UserAccountControl onAction={onNavigate} />
+            <UserAccountControl.Root onAction={onNavigate} />
         </div>
     );
 }
