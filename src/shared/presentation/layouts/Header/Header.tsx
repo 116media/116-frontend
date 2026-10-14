@@ -37,7 +37,7 @@ export function Header({ articles, videos }: HeaderProps) {
             <PageContainer>
                 <div className="flex h-16 items-center justify-between gap-2">
                     <div className="flex flex-1 justify-start lg:hidden">
-                        <MobileMegaMenu
+                        <MobileMegaMenu.Root
                             videos={videos}
                             articles={articles}
                         />
@@ -57,10 +57,10 @@ export function Header({ articles, videos }: HeaderProps) {
                     <div className="flex flex-1 items-center justify-end gap-1 lg:flex-none lg:gap-6">
                         <div className="hidden items-center gap-1 lg:flex">
                             <ThemeToggle />
-                            <LanguageDropdown placement="bottom" />
+                            <LanguageDropdown.Root placement="bottom" />
                         </div>
                         <NotificationBellContainer />
-                        <UserAccountControl />
+                        <UserAccountControl.Root />
                     </div>
                 </div>
 
