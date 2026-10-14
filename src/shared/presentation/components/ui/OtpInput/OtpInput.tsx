@@ -3,6 +3,7 @@
 import { useMemo, useRef } from "react";
 
 import { Input } from "@/shared/presentation/components/ui/Input";
+import { randomUuid } from "@/shared/presentation/utils/uuid/uuid.utils";
 
 /**
  * Props for the OtpInput component.
@@ -31,7 +32,7 @@ export function OtpInput({ value, onChange, length = 6 }: OtpInputProps) {
 
     // Stable per-slot identities, generated once (the boxes never reorder), so each
     // list key is a real id rather than the array index.
-    const slotKeys = useMemo(() => Array.from({ length }, () => crypto.randomUUID()), [length]);
+    const slotKeys = useMemo(() => Array.from({ length }, () => randomUuid()), [length]);
 
     /**
      * Writes a digit at `index`, advancing focus to the next box.
