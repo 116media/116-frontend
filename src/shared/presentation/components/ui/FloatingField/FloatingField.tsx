@@ -59,7 +59,7 @@ export const FloatingField = forwardRef<HTMLInputElement, FloatingFieldProps>(
                     <div className="relative">
                         <div
                             className={cn(
-                                "flex h-12 w-full items-center gap-1.5 rounded-md border border-input bg-muted px-3 pt-4 text-sm",
+                                "flex h-12 w-full items-center gap-1.5 rounded-md border border-input bg-muted px-3 pt-4 text-base md:text-sm",
                                 "focus-within:border-ring focus-within:ring-3 focus-within:ring-ring/20",
                                 error &&
                                     "border-destructive focus-within:border-destructive focus-within:ring-destructive/20"
@@ -72,7 +72,7 @@ export const FloatingField = forwardRef<HTMLInputElement, FloatingFieldProps>(
                                 type={type}
                                 placeholder=" "
                                 aria-invalid={error ? true : undefined}
-                                className="w-full flex-1 bg-transparent text-sm outline-none placeholder:text-transparent"
+                                className="w-full flex-1 bg-transparent text-base outline-none placeholder:text-transparent md:text-sm"
                                 {...props}
                             />
                         </div>
@@ -99,7 +99,7 @@ export const FloatingField = forwardRef<HTMLInputElement, FloatingFieldProps>(
                         aria-invalid={error ? true : undefined}
                         type={isPassword && visible ? "text" : type}
                         className={cn(
-                            "peer h-12 bg-muted pt-5 pb-1 text-sm placeholder:text-transparent dark:bg-muted",
+                            "peer h-12 bg-muted pt-5 pb-1 placeholder:text-transparent dark:bg-muted",
                             isPassword && "pr-10",
                             className
                         )}
@@ -109,7 +109,7 @@ export const FloatingField = forwardRef<HTMLInputElement, FloatingFieldProps>(
                         htmlFor={id}
                         className={cn(
                             "pointer-events-none absolute top-1.5 left-3 font-bold text-[10px] text-primary transition-all duration-200 dark:text-secondary",
-                            "peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:font-normal peer-placeholder-shown:text-muted-foreground peer-placeholder-shown:text-sm",
+                            "peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:font-normal peer-placeholder-shown:text-base peer-placeholder-shown:text-muted-foreground md:peer-placeholder-shown:text-sm",
                             "peer-focus:top-1.5 peer-focus:translate-y-0 peer-focus:font-bold peer-focus:text-[10px] peer-focus:text-primary dark:peer-focus:text-secondary"
                         )}
                     >
