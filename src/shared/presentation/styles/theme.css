@@ -220,6 +220,8 @@
     --animate-dialog-shake: dialog-shake 0.4s ease-in-out;
 
     /* Edge-anchored sheets (mobile mega menu) */
+    --animate-sheet-in-bottom: sheet-in-bottom 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    --animate-sheet-out-bottom: sheet-out-bottom 0.2s ease-in;
     --animate-sheet-in-left: sheet-in-left 0.28s cubic-bezier(0.16, 1, 0.3, 1);
     --animate-sheet-out-left: sheet-out-left 0.2s ease-in;
 
