@@ -81,9 +81,9 @@ export function DesktopNav({ articles, videos }: DesktopNavProps) {
                                     </NavigationMenuPrimitive.Trigger>
                                     <NavigationMenuContent onClick={closeOnLinkClick}>
                                         {label === "NEWS" ? (
-                                            <ArticlesMegaMenu {...articles} />
+                                            <ArticlesMegaMenu.Root {...articles} />
                                         ) : (
-                                            <VideosMegaMenu {...videos} />
+                                            <VideosMegaMenu.Root {...videos} />
                                         )}
                                     </NavigationMenuContent>
                                 </Fragment>
