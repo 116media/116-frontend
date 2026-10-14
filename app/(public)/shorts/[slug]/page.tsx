@@ -4,6 +4,7 @@ import { cache } from "react";
 import type { IShortVideoEntity } from "@/modules/shorts/domain/entities/IShortVideoEntity";
 import { SHORT_RETURN_TO_PARAM } from "@/modules/shorts/presentation/constants/shortRoutes";
 import { ShortDetailContainer } from "@/modules/shorts/presentation/containers/ShortDetailContainer";
+import { dummyShortBySlug } from "@/modules/shorts/presentation/data/shorts.dummy";
 import { resolveShortReturnPath } from "@/modules/shorts/presentation/utils/navigation/navigation.utils";
 import { createServerCradle } from "@/shared/infrastructure/server.cradle";
 import { htmlToPlainText } from "@/shared/presentation/utils/html/html.utils";
@@ -27,7 +28,8 @@ interface ShortDetailRouteProps {
  * @description
  * Fetches the short by slug through the server cradle, memoized per request with
  * React `cache` so the page render and `generateMetadata` share one backend call.
- * Returns null when the short cannot be fetched.
+ * Falls back to the padded short the slug names while the backend has few active
+ * shorts, mirroring the video and article routes; returns null for a genuine miss.
  *
  * @param slug - The short slug from the route.
  * @returns The resolved short entity, or null.
@@ -35,7 +37,7 @@ interface ShortDetailRouteProps {
 const fetchShort = cache(async (slug: string): Promise<IShortVideoEntity | null> => {
     const cradle = await createServerCradle();
     const result = await cradle.getShortBySlugUseCase.execute(slug);
-    return result.ok ? result.value : null;
+    return result.ok ? result.value : dummyShortBySlug(slug);
 });
 
 /**
