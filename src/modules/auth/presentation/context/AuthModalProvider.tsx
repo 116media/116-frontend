@@ -3,7 +3,7 @@
 import { createContext, type ReactNode, useCallback, useContext, useMemo, useState } from "react";
 
 import type { EOtpPurpose } from "@/modules/auth/domain/enums/EOtpPurpose";
-import { AuthModal } from "@/modules/auth/presentation/modal/AuthModal";
+import { AuthModal } from "@/modules/auth/presentation/modals/AuthModal";
 
 /**
  * AuthView
