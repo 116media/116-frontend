@@ -50,6 +50,13 @@ export const articleDetail = {
         loginCta: "Log in to comment",
         removed: "This comment was removed",
         loadMore: "Load more comments",
+        showAll_one: "Show the {{count}} comment",
+        showAll_other: "Show all the {{count}} comments",
+        close: "Close the comments",
+        sort: {
+            popular: "Popular",
+            recent: "Recent"
+        },
         like: "Like this comment",
         unlike: "Remove like from this comment",
         reply: "Reply",
