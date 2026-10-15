@@ -26,7 +26,7 @@ export interface PlaylistCardProps {
  */
 export function PlaylistCardRoot({ playlist, onOpen, onRename, onDelete }: PlaylistCardProps) {
     return (
-        <FavoriteCard>
+        <FavoriteCard.Root>
             <PlaylistCardMedia
                 name={playlist.name}
                 onOpen={onOpen}
@@ -49,6 +49,6 @@ export function PlaylistCardRoot({ playlist, onOpen, onRename, onDelete }: Playl
                     onDelete={onDelete}
                 />
             </FavoriteCard.Body>
-        </FavoriteCard>
+        </FavoriteCard.Root>
     );
 }
