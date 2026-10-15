@@ -45,7 +45,7 @@ export function SettingsCard({
     className
 }: SettingsCardProps) {
     return (
-        <Card className={cn("bg-transparent p-6 shadow-none hover:shadow-none", className)}>
+        <Card className={cn("bg-transparent p-4 shadow-none hover:shadow-none sm:p-6", className)}>
             <div className="mb-4 flex items-start justify-between gap-4">
                 <div className="min-w-0">
                     <h2 className="font-semibold text-base text-foreground">{title}</h2>
