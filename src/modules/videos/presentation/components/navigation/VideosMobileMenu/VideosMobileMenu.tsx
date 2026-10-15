@@ -6,11 +6,7 @@ import { VideosMegaMenuCard } from "@/modules/videos/presentation/components/car
 import { DUMMY_VIDEOS } from "@/modules/videos/presentation/data/mega-menu.dummy";
 import { MegaMenuRow } from "@/shared/presentation/components/ui/MegaMenuRow";
 import { SHOWS_PATH, VIDEOS_PATH } from "@/shared/presentation/constants/paths";
-import {
-    MobileMegaMenuFeatured,
-    MobileMegaMenuSection,
-    MobileMegaMenuTags
-} from "@/shared/presentation/layouts/MobileMegaMenu";
+import { MobileMegaMenu } from "@/shared/presentation/layouts/MobileMegaMenu";
 
 import type { VideosMobileMenuProps } from "./types";
 
@@ -36,7 +32,7 @@ export function VideosMobileMenu({
 
     return (
         <div className="flex flex-col pb-4">
-            <MobileMegaMenuSection title={t("videos.home.categories")}>
+            <MobileMegaMenu.Section title={t("videos.home.categories")}>
                 <div className="flex flex-col">
                     <MegaMenuRow
                         href={VIDEOS_PATH}
@@ -58,9 +54,9 @@ export function VideosMobileMenu({
                         label={t("videos.home.showsViewAll")}
                     />
                 </div>
-            </MobileMegaMenuSection>
+            </MobileMegaMenu.Section>
 
-            <MobileMegaMenuFeatured
+            <MobileMegaMenu.Featured
                 variant="plain"
                 onNavigate={onNavigate}
                 viewAllHref={VIDEOS_PATH}
@@ -85,9 +81,9 @@ export function VideosMobileMenu({
                         </div>
                     )}
                 </div>
-            </MobileMegaMenuFeatured>
+            </MobileMegaMenu.Featured>
 
-            <MobileMegaMenuTags
+            <MobileMegaMenu.Tags
                 tags={popularTags}
                 onNavigate={onNavigate}
                 basePath={VIDEOS_PATH}
