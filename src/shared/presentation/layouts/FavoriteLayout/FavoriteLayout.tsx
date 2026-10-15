@@ -12,9 +12,9 @@ export interface FavoriteLayoutProps {
 export function FavoriteLayout({ children }: FavoriteLayoutProps) {
     return (
         <div className="mx-auto w-full pb-8">
-            <div className="flex min-h-[calc(100vh-140px)] flex-col rounded-lg border bg-background md:flex-row">
+            <div className="flex flex-col lg:min-h-[calc(100vh-140px)] lg:flex-row lg:rounded-lg lg:border lg:bg-background">
                 <FavoriteLayoutSidebar />
-                <div className="min-w-0 flex-1 rounded-b-lg bg-background p-4 md:rounded-b-none md:rounded-r-lg md:border-l">
+                <div className="min-w-0 flex-1 py-4 lg:rounded-r-lg lg:border-l lg:p-4">
                     {children}
                 </div>
             </div>
