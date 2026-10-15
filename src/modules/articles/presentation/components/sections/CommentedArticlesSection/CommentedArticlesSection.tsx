@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 
 import type { ICommentedArticleEntity } from "@/modules/articles/domain/entities/ICommentedArticleEntity";
 import { CommentedArticleCard } from "@/modules/articles/presentation/components/cards/CommentedArticleCard";
-import { MyArticleCommentsDrawer } from "@/modules/articles/presentation/components/modals/MyArticleCommentsDrawer";
+import { MyArticleCommentsModal } from "@/modules/articles/presentation/components/modals/MyArticleCommentsModal";
 import { FavoriteArticlesGrid } from "@/modules/articles/presentation/components/sections/FavoriteArticlesGrid";
 import { FavoriteArticlesGridLoading } from "@/modules/articles/presentation/components/sections/FavoriteArticlesGrid/FavoriteArticlesGrid.Loading";
 import { useMyCommentedArticles } from "@/modules/articles/presentation/hooks/useMyCommentedArticles";
@@ -78,7 +78,7 @@ export function CommentedArticlesSection() {
             />
 
             {selected && (
-                <MyArticleCommentsDrawer
+                <MyArticleCommentsModal.Root
                     open={selected !== null}
                     articleId={selected.article.id}
                     articleSlug={selected.article.slug}
