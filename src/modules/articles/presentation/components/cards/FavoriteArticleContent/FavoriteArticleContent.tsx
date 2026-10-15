@@ -1,12 +1,8 @@
 "use client";
 
 import type { ReactNode } from "react";
-
 import type { IArticleSummaryEntity } from "@/modules/articles/domain/entities/IArticleSummaryEntity";
-import { ArticleCardAuthor } from "@/modules/articles/presentation/components/cards/ArticleCard/ArticleCard.Author";
-import { ArticleCardDate } from "@/modules/articles/presentation/components/cards/ArticleCard/ArticleCard.Date";
-import { ArticleCardEngagement } from "@/modules/articles/presentation/components/cards/ArticleCard/ArticleCard.Engagement";
-import { ArticleCardMeta } from "@/modules/articles/presentation/components/cards/ArticleCard/ArticleCard.Meta";
+import { ArticleCard } from "@/modules/articles/presentation/components/cards/ArticleCard";
 import { FavoriteCard } from "@/shared/presentation/components/common/FavoriteCard";
 import { ARTICLE_DETAIL_PATH } from "@/shared/presentation/constants/paths";
 
@@ -38,10 +34,10 @@ export function FavoriteArticleContent({ article, children }: FavoriteArticleCon
         <FavoriteCard.Body>
             <div>
                 <div className="mb-3 flex items-center justify-between gap-2">
-                    <ArticleCardAuthor author={article.author} />
-                    <ArticleCardDate publishedAt={article.publishedAt} />
+                    <ArticleCard.Author author={article.author} />
+                    <ArticleCard.Date publishedAt={article.publishedAt} />
                 </div>
-                <ArticleCardMeta
+                <ArticleCard.Meta
                     categoryName={article.categoryName}
                     readTimeInMinutes={article.readTimeInMinutes}
                 />
@@ -52,7 +48,7 @@ export function FavoriteArticleContent({ article, children }: FavoriteArticleCon
             </div>
 
             <div className="mt-auto flex flex-col gap-2">
-                <ArticleCardEngagement
+                <ArticleCard.Engagement
                     slug={article.slug}
                     articleId={article.id}
                     likeCount={article.likeCount}
