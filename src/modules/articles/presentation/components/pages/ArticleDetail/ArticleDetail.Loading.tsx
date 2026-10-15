@@ -98,11 +98,11 @@ export function ArticleDetailLoading() {
             </div>
 
             <aside className="mt-12 hidden lg:mt-0 lg:flex lg:flex-col lg:gap-3">
-                <div className="mb-4 flex items-center gap-3 rounded-xl border bg-muted/30 p-4">
+                <div className="mb-4 flex items-center gap-3 rounded-xl border bg-muted/60 p-4">
                     <Skeleton className="size-12 rounded-md" />
                     <Skeleton className="h-5 w-40" />
                 </div>
-                <div className="flex flex-col gap-8 rounded-xl bg-muted/30 p-3 xl:p-5">
+                <div className="flex flex-col gap-8 rounded-xl bg-muted/60 p-3 xl:p-5">
                     {sidebarRows.map((row) => (
                         <SidebarRowSkeleton key={row} />
                     ))}
