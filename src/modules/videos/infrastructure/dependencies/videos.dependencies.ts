@@ -37,7 +37,7 @@ import { VideosRepositoryImpl } from "@/modules/videos/infrastructure/repositori
 export function registerVideosDependencies(container: AwilixContainer): void {
     container.register({
         // Repository
-        videosRepository: asClass(VideosRepositoryImpl).singleton(),
+        videosRepository: asClass(VideosRepositoryImpl).scoped(),
 
         // Queries
         getPromotedVideosUseCase: asClass(GetPromotedVideosUseCase).transient(),
