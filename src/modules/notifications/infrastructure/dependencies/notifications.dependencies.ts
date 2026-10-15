@@ -11,7 +11,7 @@ import { NotificationsRepositoryImpl } from "@/modules/notifications/infrastruct
  */
 export function registerNotificationsDependencies(container: AwilixContainer): void {
     container.register({
-        notificationsRepository: asClass(NotificationsRepositoryImpl).singleton(),
+        notificationsRepository: asClass(NotificationsRepositoryImpl).scoped(),
         getUnreadNotificationCountUseCase: asClass(GetUnreadNotificationCountUseCase).transient()
     });
 }
