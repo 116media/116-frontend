@@ -38,7 +38,8 @@ export const videoDetail = {
             title: "Quelle est votre note ?",
             subtitle: "Dites-nous à quel point vous avez aimé cette vidéo.",
             submit: "Envoyer",
-            cancel: "Non merci"
+            cancel: "Non merci",
+            close: "Fermer"
         },
         rating: {
             label: "Note",
