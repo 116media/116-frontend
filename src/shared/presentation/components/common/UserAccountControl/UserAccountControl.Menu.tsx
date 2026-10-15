@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { Fragment, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -18,6 +17,7 @@ import {
 } from "@/shared/presentation/components/ui/DropdownMenu";
 import { LogOutIcon } from "@/shared/presentation/components/ui/Icon";
 import { USER_MENU_GROUPS } from "@/shared/presentation/constants/userMenu";
+import { useProgressRouter } from "@/shared/presentation/hooks/useProgressRouter";
 import type { UserAccountControlMenuProps } from "./types";
 
 /**
@@ -29,7 +29,7 @@ import type { UserAccountControlMenuProps } from "./types";
  */
 export function UserAccountControlMenu({ user }: UserAccountControlMenuProps) {
     const { t } = useTranslation();
-    const router = useRouter();
+    const router = useProgressRouter();
     const logout = useLogout();
     const [confirmOpen, setConfirmOpen] = useState(false);
 
