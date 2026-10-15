@@ -19,7 +19,7 @@ import { SettingsRepositoryImpl } from "@/modules/settings/infrastructure/reposi
 export function registerSettingsDependencies(container: AwilixContainer): void {
     container.register({
         // Repository
-        settingsRepository: asClass(SettingsRepositoryImpl).singleton(),
+        settingsRepository: asClass(SettingsRepositoryImpl).scoped(),
 
         // Use cases
         getProfileUseCase: asClass(GetProfileUseCase).transient(),
