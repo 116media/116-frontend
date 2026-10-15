@@ -15,7 +15,7 @@ const POPULAR_SKELETON_ROWS = 5;
 export function ArticlesPopularSidebarLoading() {
     const rows = Array.from({ length: POPULAR_SKELETON_ROWS }, (_, index) => index);
     return (
-        <div className="flex flex-col gap-3 rounded-xl bg-muted/30 p-3 sm:p-4 md:p-5 lg:p-3 xl:p-5">
+        <div className="flex flex-col gap-3 rounded-xl bg-muted/60 p-3 sm:p-4 md:p-5 lg:p-3 xl:p-5">
             {rows.map((row) => (
                 <Fragment key={row}>
                     <div className="flex gap-2 sm:gap-3">
