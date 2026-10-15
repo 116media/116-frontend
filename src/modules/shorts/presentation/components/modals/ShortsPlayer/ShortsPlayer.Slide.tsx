@@ -81,12 +81,12 @@ export function ShortsPlayerSlide({ short, index }: ShortsPlayerSlideProps) {
     return (
         <div
             ref={slideRef}
-            className="relative flex h-full w-full snap-start items-center justify-center py-4"
+            className="relative flex h-dvh w-full snap-start items-center justify-center lg:h-full lg:py-4"
         >
             {/* biome-ignore lint/a11y/noStaticElementInteractions: double-click-to-like is a mouse-only enhancement; the like action is keyboard-accessible via the rail button */}
             <div
                 onDoubleClick={onDoubleLike}
-                className="group relative aspect-9/16 h-[min(90dvh,calc(100vw*16/9))] max-h-full overflow-hidden rounded-xl bg-black"
+                className="player-fill group relative h-full w-full overflow-hidden bg-black lg:aspect-9/16 lg:h-[min(90dvh,calc(100vw*16/9))] lg:w-auto lg:max-h-full lg:rounded-xl"
             >
                 {isRendered ? (
                     <ShortVideoPlayer
