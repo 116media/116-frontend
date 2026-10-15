@@ -9,7 +9,7 @@ horizontal-row rhythm — built from the **exclusive-section horizontal card**.
 │  🔥  │  Popular videos
 └──────┘
 ─────────────────────────────────    ← SectionHeader divider
-╭ bg-muted/30 rounded-xl ────────╮   ← the gossip-strip block
+╭ bg-muted/60 rounded-xl ────────╮   ← the gossip-strip block
 │ ┌────┐ Title line one…         │
 │ │IMG │ ★★★★☆ 4.6 (128)         │   ← VideoCard.Horizontal rows
 │ └────┘ ↗ 312 · 2 days ago      │
@@ -27,7 +27,7 @@ horizontal-row rhythm — built from the **exclusive-section horizontal card**.
   share count). It already carries every field the sidebar needs — thumbnail, title,
   published date, rating stars, share count.
 - **Block** — the rows sit inside the gossip-strip surface
-  (`rounded-xl bg-muted/30` + responsive padding) separated by `<hr>`, so the column
+  (`rounded-xl bg-muted/60` + responsive padding) separated by `<hr>`, so the column
   reads identically to the articles' popular strip.
 - **Own folder** — `VideosPopularSidebar/` beside `VideoDetail/`
   (`VideosPopularSidebar.tsx`, `VideosPopularSidebar.Loading.tsx`, `index.ts`), matching
