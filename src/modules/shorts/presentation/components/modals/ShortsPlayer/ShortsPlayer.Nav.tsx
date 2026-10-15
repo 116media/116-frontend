@@ -21,7 +21,7 @@ export function ShortsPlayerNav() {
     const { activeIndex, shorts, goPrev, goNext } = useShortsPlayer();
 
     return (
-        <div className="fixed top-1/2 right-4 z-40 flex -translate-y-1/2 flex-col gap-3">
+        <div className="fixed top-1/2 right-4 z-40 hidden -translate-y-1/2 flex-col gap-3 lg:flex">
             <Button
                 size="icon"
                 variant="ghost"
