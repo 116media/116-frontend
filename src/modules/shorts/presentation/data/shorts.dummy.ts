@@ -111,6 +111,47 @@ export function generateDummyShort(index: number): IShortVideoEntity {
 }
 
 /**
+ * Shape of the dummy slugs, so a deep link to a padded short can be resolved back to the
+ * short it names: `dummy-short-12` is the twelfth of the generated pool.
+ */
+const DUMMY_SLUG_PATTERN = /^dummy-short-(\d+)$/;
+
+/**
+ * isDummyShortId
+ *
+ * @description
+ * Whether an id belongs to a padded short rather than a backend row, so the engagement
+ * calls the player fires on its own are skipped for fillers the API has no id for.
+ *
+ * @param shortId - The short's id.
+ * @returns {boolean} True for a padded short.
+ */
+export function isDummyShortId(shortId: string): boolean {
+    return DUMMY_SLUG_PATTERN.test(shortId);
+}
+
+/**
+ * dummyShortBySlug
+ *
+ * @description
+ * Resolves one padded short from its slug, so `/shorts/{slug}` stays playable for the
+ * fillers the feed is padded with while the backend has few active shorts. Returns null
+ * for any other slug, leaving a genuine miss to surface as not found.
+ *
+ * @param slug - The slug from the route.
+ * @returns The dummy short, or null when the slug is not a padded one.
+ */
+export function dummyShortBySlug(slug: string): IShortVideoEntity | null {
+    const match = DUMMY_SLUG_PATTERN.exec(slug);
+    if (match === null) return null;
+
+    const position = Number.parseInt(match[1], 10);
+    if (!Number.isFinite(position) || position < 1) return null;
+
+    return generateDummyShort(position - 1);
+}
+
+/**
  * generateDummyShorts
  *
  * @description
