@@ -1,11 +1,7 @@
 import { VideosMegaMenuCard } from "@/modules/videos/presentation/components/cards/VideosMegaMenuCard";
 import { DUMMY_VIDEOS } from "@/modules/videos/presentation/data/mega-menu.dummy";
 import { VIDEOS_PATH } from "@/shared/presentation/constants/paths";
-import {
-    MegaMenuShell,
-    MegaMenuShellCards,
-    MegaMenuShellCategories
-} from "@/shared/presentation/layouts/MegaMenuShell";
+import { MegaMenuShell } from "@/shared/presentation/layouts/MegaMenuShell";
 import type { VideosMegaMenuProps } from "./types";
 import { VideosMegaMenuCategoryList } from "./VideosMegaMenu.CategoryList";
 
@@ -23,15 +19,15 @@ export function VideosMegaMenu({ categories, promotedVideos, popularTags }: Vide
     const compact = cards.slice(2, 4);
 
     return (
-        <MegaMenuShell
+        <MegaMenuShell.Root
             popularTags={popularTags}
             tagsBasePath={VIDEOS_PATH}
         >
-            <MegaMenuShellCategories>
+            <MegaMenuShell.Categories>
                 <VideosMegaMenuCategoryList categories={categories} />
-            </MegaMenuShellCategories>
+            </MegaMenuShell.Categories>
 
-            <MegaMenuShellCards viewAllHref={VIDEOS_PATH}>
+            <MegaMenuShell.Cards viewAllHref={VIDEOS_PATH}>
                 <div className="grid grid-cols-2 gap-2 grid-rows-[288px] lg:grid-rows-[320px]">
                     {featured[0] && <VideosMegaMenuCard.FeaturedFullBleed video={featured[0]} />}
                     {featured[1] && <VideosMegaMenuCard.FeaturedSpotlight video={featured[1]} />}
@@ -44,7 +40,7 @@ export function VideosMegaMenu({ categories, promotedVideos, popularTags }: Vide
                         />
                     ))}
                 </div>
-            </MegaMenuShellCards>
-        </MegaMenuShell>
+            </MegaMenuShell.Cards>
+        </MegaMenuShell.Root>
     );
 }
