@@ -1,10 +1,11 @@
 "use client";
 
-import { forwardRef, type RefObject, useEffect } from "react";
+import { forwardRef, type RefObject, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Comment } from "@/modules/articles/presentation/components/comments/Comment";
 import { CommentComposer } from "@/modules/articles/presentation/components/comments/CommentComposer";
+import { CommentsSheet } from "@/modules/articles/presentation/components/comments/CommentsSheet";
 import { useArticleComments } from "@/modules/articles/presentation/hooks/useArticleComments";
 import { Button } from "@/shared/presentation/components/ui/Button";
 import { EmptyState } from "@/shared/presentation/components/ui/EmptyState";
@@ -12,8 +13,15 @@ import { AlertCircleIcon, MessageSquareIcon } from "@/shared/presentation/compon
 import { StateRenderer } from "@/shared/presentation/components/ui/StateRenderer";
 import { INFINITE_SCROLL_SENTINEL_OPTIONS } from "@/shared/presentation/constants/infiniteScroll";
 import { useIntersectionObserver } from "@/shared/presentation/hooks/useIntersectionObserver";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 import { CommentListLoading } from "./CommentList.Loading";
+
+/**
+ * How many comments a phone shows inline. The rest of the thread lives in the sheet the
+ * button below the preview opens, so a long thread never buries the article's own tail.
+ */
+const MOBILE_PREVIEW_COUNT = 3;
 
 /**
  * Props for CommentList.
@@ -38,12 +46,14 @@ export interface CommentListProps {
  * @description
  * Comments section island: heading with live count, the top-level composer, and the
  * infinite comment list driven by {@link useArticleComments} with loading, empty, and
- * retryable error states. Each row is a {@link Comment} compound. Forwards `ref` and the
+ * retryable error states. Below `lg` the list stops after three comments and a button
+ * opens the rest in {@link CommentsSheet}, where the thread can be sorted and replied to. Each row is a {@link Comment} compound. Forwards `ref` and the
  * `comments` anchor id so the engagement button can scroll here.
  */
 export const CommentList = forwardRef<HTMLElement, CommentListProps>(
     ({ articleId, slug, commentCount, composerRef }, ref) => {
         const { t } = useTranslation();
+        const [isSheetOpen, setIsSheetOpen] = useState(false);
         const {
             data,
             isLoading,
@@ -114,19 +124,36 @@ export const CommentList = forwardRef<HTMLElement, CommentListProps>(
                     }
                     render={(items) => (
                         <div className="flex flex-col gap-6">
-                            {items.map((comment) => (
-                                <Comment.View
-                                    slug={slug}
+                            {items.map((comment, index) => (
+                                <div
                                     key={comment.id}
-                                    comment={comment}
-                                    articleId={articleId}
-                                />
+                                    className={cn(index >= MOBILE_PREVIEW_COUNT && "max-lg:hidden")}
+                                >
+                                    <Comment.View
+                                        slug={slug}
+                                        comment={comment}
+                                        articleId={articleId}
+                                    />
+                                </div>
                             ))}
-                            {isFetchingNextPage && <CommentListLoading count={1} />}
+
+                            <Button
+                                variant="outline"
+                                className="lg:hidden"
+                                onClick={() => setIsSheetOpen(true)}
+                            >
+                                {t("articles.comments.showAll", { count: commentCount })}
+                            </Button>
+
+                            {isFetchingNextPage && (
+                                <div className="max-lg:hidden">
+                                    <CommentListLoading count={1} />
+                                </div>
+                            )}
                             {hasNextPage && (
                                 <div
                                     ref={sentinelRef}
-                                    className="flex justify-center"
+                                    className="flex justify-center max-lg:hidden"
                                 >
                                     <Button
                                         variant="ghost"
@@ -139,6 +166,14 @@ export const CommentList = forwardRef<HTMLElement, CommentListProps>(
                             )}
                         </div>
                     )}
+                />
+
+                <CommentsSheet
+                    slug={slug}
+                    open={isSheetOpen}
+                    articleId={articleId}
+                    commentCount={commentCount}
+                    onOpenChange={setIsSheetOpen}
                 />
             </section>
         );
