@@ -26,7 +26,7 @@ export function ShortsStrip({ shorts, onOpen }: ShortsStripProps) {
     return (
         <div className="-mx-3 flex snap-x snap-mandatory gap-3 overflow-x-auto px-3 pb-2 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 xl:mx-0 xl:px-0 scrollbar-none [&::-webkit-scrollbar]:hidden">
             {shorts.slice(0, STRIP_TILE_LIMIT).map((short, index) => (
-                <ShortCard
+                <ShortCard.Root
                     short={short}
                     key={short.id}
                     onOpen={() => onOpen(index)}
