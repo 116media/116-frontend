@@ -274,6 +274,33 @@ export function dummyPopularVideos(
 }
 
 /**
+ * paddedPopularVideos
+ *
+ * @description
+ * Tops a short real popular list up with dummy videos so the rail stays full while the
+ * backend holds only a handful of published videos. Real videos keep the head of the list
+ * and the dummies continue after them, the open video excluded from both.
+ *
+ * @param videos - The popular videos the API returned.
+ * @param excludeId - The open video, excluded from the padding.
+ * @param limit - How many rows the rail shows.
+ * @returns The real videos followed by enough dummies to reach the limit.
+ */
+export function paddedPopularVideos(
+    videos: IVideoSummaryEntity[],
+    excludeId: string,
+    limit = POPULAR_VIDEOS_LIMIT
+): IVideoSummaryEntity[] {
+    const missing = limit - videos.length;
+    if (missing <= 0) return videos.slice(0, limit);
+
+    const taken = new Set(videos.map((video) => video.id));
+    const dummies = dummyPopularVideos(excludeId, limit).filter((video) => !taken.has(video.id));
+
+    return [...videos, ...dummies.slice(0, missing)];
+}
+
+/**
  * Supplemental similar-only titles, layered on top of the feed and popular
  * pools so the similar grid has more than twenty distinct videos — enough to
  * exercise several pages of infinite scroll.
