@@ -39,7 +39,7 @@ export function ShortDetailContainer({ slug, returnTo, initialData }: ShortDetai
     }
 
     return (
-        <ShortsPlayer
+        <ShortsPlayer.Root
             shorts={shorts}
             initialIndex={0}
             hasNextPage={false}
