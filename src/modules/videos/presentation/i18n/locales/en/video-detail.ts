@@ -38,7 +38,8 @@ export const videoDetail = {
             title: "What is your rating?",
             subtitle: "Tell us how much you liked this video.",
             submit: "Submit",
-            cancel: "No thanks"
+            cancel: "No thanks",
+            close: "Close"
         },
         rating: {
             label: "Rating",
