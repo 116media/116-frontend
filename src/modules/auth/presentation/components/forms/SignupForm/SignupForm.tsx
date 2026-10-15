@@ -46,7 +46,7 @@ export function SignupForm() {
         >
             {error && <Alert error={error} />}
 
-            <SocialLogin />
+            <SocialLogin.Root />
 
             <FloatingField
                 required
