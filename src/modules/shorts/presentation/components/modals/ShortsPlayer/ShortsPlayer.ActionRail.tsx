@@ -59,7 +59,7 @@ export function ShortsPlayerActionRail({
     const onToggleBookmark = () => requireAuth(toggleBookmark);
 
     return (
-        <div className="absolute right-3 bottom-24 z-20 flex flex-col items-center gap-2">
+        <div className="absolute right-2 bottom-[max(6rem,calc(env(safe-area-inset-bottom)+5rem))] z-20 flex flex-col items-center gap-2 lg:right-3 lg:bottom-24">
             <Button
                 variant="ghost"
                 aria-pressed={liked}
