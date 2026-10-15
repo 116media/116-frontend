@@ -42,7 +42,7 @@ export function LoginForm() {
         >
             {error && <Alert error={error} />}
 
-            <SocialLogin />
+            <SocialLogin.Root />
 
             <FloatingField
                 required
