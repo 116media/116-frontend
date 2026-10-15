@@ -11,7 +11,7 @@ import { NewsletterRepositoryImpl } from "@/modules/newsletter/infrastructure/re
  */
 export function registerNewsletterDependencies(container: AwilixContainer): void {
     container.register({
-        newsletterRepository: asClass(NewsletterRepositoryImpl).singleton(),
+        newsletterRepository: asClass(NewsletterRepositoryImpl).scoped(),
         subscribeNewsletterUseCase: asClass(SubscribeNewsletterUseCase).transient()
     });
 }
