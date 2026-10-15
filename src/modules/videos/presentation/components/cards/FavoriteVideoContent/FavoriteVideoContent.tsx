@@ -2,12 +2,8 @@
 
 import Link from "next/link";
 import type { ReactNode } from "react";
-
 import type { IVideoSummaryEntity } from "@/modules/videos/domain/entities/IVideoSummaryEntity";
-import { VideoCardDate } from "@/modules/videos/presentation/components/cards/VideoCard/VideoCard.Date";
-import { VideoCardMedia } from "@/modules/videos/presentation/components/cards/VideoCard/VideoCard.Media";
-import { VideoCardRating } from "@/modules/videos/presentation/components/cards/VideoCard/VideoCard.Rating";
-import { VideoCardShareCount } from "@/modules/videos/presentation/components/cards/VideoCard/VideoCard.ShareCount";
+import { VideoCard } from "@/modules/videos/presentation/components/cards/VideoCard";
 import { VIDEO_DETAIL_PATH } from "@/shared/presentation/constants/paths";
 
 /**
@@ -45,7 +41,7 @@ export function FavoriteVideoContent({ video, children }: FavoriteVideoContentPr
                 aria-label={video.title}
                 className="relative block aspect-video overflow-hidden rounded-lg bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
-                <VideoCardMedia
+                <VideoCard.Media
                     playSize="md"
                     title={video.title}
                     thumbnailUrl={video.thumbnailUrl}
@@ -59,10 +55,10 @@ export function FavoriteVideoContent({ video, children }: FavoriteVideoContentPr
                 </h3>
 
                 <div className="flex items-center justify-between gap-2 py-1 text-muted-foreground text-xs">
-                    <VideoCardDate publishedAt={video.publishedAt} />
+                    <VideoCard.Date publishedAt={video.publishedAt} />
                     <span className="flex items-center gap-4">
-                        <VideoCardShareCount shareCount={video.shareCount} />
-                        <VideoCardRating
+                        <VideoCard.ShareCount shareCount={video.shareCount} />
+                        <VideoCard.Rating
                             mode="compact"
                             ratingCount={video.ratingCount}
                             ratingAverage={video.ratingAverage}
