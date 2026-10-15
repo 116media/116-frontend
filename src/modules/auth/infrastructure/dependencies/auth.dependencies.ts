@@ -24,7 +24,7 @@ import { AuthRepositoryImpl } from "@/modules/auth/infrastructure/repositories/a
 export function registerAuthDependencies(container: AwilixContainer): void {
     container.register({
         // Repository
-        authRepository: asClass(AuthRepositoryImpl).singleton(),
+        authRepository: asClass(AuthRepositoryImpl).scoped(),
 
         // Use cases
         loginUseCase: asClass(LoginUseCase).transient(),
