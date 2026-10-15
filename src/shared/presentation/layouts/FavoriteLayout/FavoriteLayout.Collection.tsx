@@ -37,14 +37,14 @@ export function FavoriteLayoutCollection({
     const { t } = useTranslation();
 
     return (
-        <div>
+        <div className="flex flex-col gap-4">
             <SectionHeader
                 as="h1"
                 icon={icon}
                 title={t(headingKey)}
                 subtitle={t(subtitleKey)}
             />
-            <div className="flex flex-col gap-6 rounded-lg border p-4">{children}</div>
+            <div className="flex flex-col gap-6 lg:rounded-lg lg:border lg:p-4">{children}</div>
         </div>
     );
 }
