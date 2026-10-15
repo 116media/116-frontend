@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { Fragment, type ReactNode, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -12,6 +11,7 @@ import { useAuth } from "@/modules/auth/presentation/context/AuthProvider";
 import { FeedError } from "@/shared/presentation/components/ui/FeedError";
 import { SpinnerIcon } from "@/shared/presentation/components/ui/Icon";
 import { HOME_PATH } from "@/shared/presentation/constants/paths";
+import { useProgressRouter } from "@/shared/presentation/hooks/useProgressRouter";
 
 /**
  * Props for AuthGuard.
@@ -33,7 +33,7 @@ export interface AuthGuardProps {
  * `proxy` cookie gate so every private route is protected on both sides.
  */
 export function AuthGuard({ children }: AuthGuardProps) {
-    const router = useRouter();
+    const router = useProgressRouter();
     const { status, refetch } = useAuth();
     const { t } = useTranslation();
     const [rechecked, setRechecked] = useState(false);
