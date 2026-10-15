@@ -3,7 +3,7 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import type { ComponentType } from "react";
 import { useTranslation } from "react-i18next";
-
+import { Badge } from "@/shared/presentation/components/ui/Badge";
 import {
     BookmarkIcon,
     HeartIcon,
@@ -55,9 +55,11 @@ export interface FavoriteLayoutTabsProps {
  *
  * @description
  * Route-scoped selector for the inner collection view, built on the shared `Tabs`
- * primitive (the single-page tab look) with a per-collection count badge. Switching
- * writes the chosen collection to the `collection` query param via `router.replace`,
- * preserving the pathname so only the active island section changes.
+ * primitive (the single-page tab look) with a per-collection count badge. Below `sm` the
+ * track spans the width and each tab stacks its icon over its name with the count as a
+ * badge on the icon, so every tab keeps its label in one row. Switching writes the chosen
+ * collection to the `collection` query param via `router.replace`, preserving the pathname
+ * so only the active island section changes.
  */
 export function FavoriteLayoutTabs({ collections, active }: FavoriteLayoutTabsProps) {
     const { t } = useTranslation();
@@ -78,21 +80,37 @@ export function FavoriteLayoutTabs({ collections, active }: FavoriteLayoutTabsPr
             value={active}
             onValueChange={select}
         >
-            <TabsList className="flex-wrap">
+            <TabsList className="flex w-full flex-nowrap sm:inline-flex sm:w-auto">
                 {collections.map(({ key, count }) => {
                     const Icon = COLLECTION_ICONS[key];
                     return (
                         <TabsTrigger
                             key={key}
                             value={key}
+                            className="min-w-0 flex-1 px-2 py-2 sm:flex-none sm:px-3 sm:py-1.5"
                         >
-                            <span className="flex items-center gap-1.5">
-                                {Icon && <Icon className="size-4" />}
-                                {t(`favorites.collections.${key}`)}
+                            <span className="flex flex-col items-center gap-1 sm:flex-row sm:gap-1.5">
+                                <span className="relative">
+                                    {Icon && <Icon className="size-4" />}
+                                    {count !== undefined && (
+                                        <Badge
+                                            variant="muted"
+                                            className="-top-2 -right-3 absolute px-1.5 py-0 font-medium text-[10px] tabular-nums leading-4 sm:hidden"
+                                        >
+                                            {formatCount(count)}
+                                        </Badge>
+                                    )}
+                                </span>
+                                <span className="max-w-full truncate text-xs sm:text-sm">
+                                    {t(`favorites.collections.${key}`)}
+                                </span>
                                 {count !== undefined && (
-                                    <span className="rounded-full bg-foreground/10 px-1.5 py-0.5 text-xs tabular-nums">
+                                    <Badge
+                                        variant="muted"
+                                        className="hidden px-1.5 font-medium tabular-nums sm:inline-flex"
+                                    >
                                         {formatCount(count)}
-                                    </span>
+                                    </Badge>
                                 )}
                             </span>
                         </TabsTrigger>
