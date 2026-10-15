@@ -6,11 +6,7 @@ import { ArticlesMegaMenuCard } from "@/modules/articles/presentation/components
 import { DUMMY_ARTICLES } from "@/modules/articles/presentation/data/mega-menu.dummy";
 import { MegaMenuRow } from "@/shared/presentation/components/ui/MegaMenuRow";
 import { ARTICLES_PATH } from "@/shared/presentation/constants/paths";
-import {
-    MobileMegaMenuFeatured,
-    MobileMegaMenuSection,
-    MobileMegaMenuTags
-} from "@/shared/presentation/layouts/MobileMegaMenu";
+import { MobileMegaMenu } from "@/shared/presentation/layouts/MobileMegaMenu";
 
 import type { ArticlesMobileMenuProps } from "./types";
 
@@ -36,7 +32,7 @@ export function ArticlesMobileMenu({
 
     return (
         <div className="flex flex-col pb-4">
-            <MobileMegaMenuSection title={t("articles.home.categories")}>
+            <MobileMegaMenu.Section title={t("articles.home.categories")}>
                 <div className="flex flex-col">
                     <MegaMenuRow
                         href={ARTICLES_PATH}
@@ -53,9 +49,9 @@ export function ArticlesMobileMenu({
                         />
                     ))}
                 </div>
-            </MobileMegaMenuSection>
+            </MobileMegaMenu.Section>
 
-            <MobileMegaMenuFeatured
+            <MobileMegaMenu.Featured
                 variant="plain"
                 onNavigate={onNavigate}
                 viewAllHref={ARTICLES_PATH}
@@ -80,9 +76,9 @@ export function ArticlesMobileMenu({
                         </div>
                     )}
                 </div>
-            </MobileMegaMenuFeatured>
+            </MobileMegaMenu.Featured>
 
-            <MobileMegaMenuTags
+            <MobileMegaMenu.Tags
                 tags={popularTags}
                 onNavigate={onNavigate}
                 basePath={ARTICLES_PATH}
