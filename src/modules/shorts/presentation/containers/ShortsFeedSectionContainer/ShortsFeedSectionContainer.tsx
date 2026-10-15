@@ -1,10 +1,9 @@
 "use client";
 
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
-import type { IShortVideoEntity } from "@/modules/shorts/domain/entities/IShortVideoEntity";
-import { ShortsPlayer } from "@/modules/shorts/presentation/components/modals/ShortsPlayer";
 import { ShortsStrip } from "@/modules/shorts/presentation/components/sections/ShortsStrip";
 import { useShortsFeed } from "@/modules/shorts/presentation/hooks/useShortsFeed";
 import { FeedHeading } from "@/shared/presentation/components/ui/FeedHeading";
@@ -17,34 +16,26 @@ import { ShortsFeedSectionContainerLoading } from "./ShortsFeedSectionContainer.
  * ShortsFeedSectionContainer
  *
  * @description
- * Homepage shorts section: owns the shared randomized feed query used by the strip
- * and the player, plus the modal open index. Shows a skeleton while the first page
- * loads and renders nothing on error or an empty feed, so the homepage simply skips
- * the section.
+ * Homepage shorts section: owns the randomized feed query the strip renders. Tapping a
+ * short navigates to its own route, which the `@modal` slot intercepts into the overlay
+ * player over this page — so the address bar, Back, and a refresh all describe the same
+ * short. Shows a skeleton while the first page loads and renders nothing on error or an
+ * empty feed, so the homepage simply skips the section.
  */
 export function ShortsFeedSectionContainer() {
     const { t } = useTranslation();
-    const { data, isPending, isError, hasNextPage, fetchNextPage } = useShortsFeed();
-    const [openAt, setOpenAt] = useState<number | null>(null);
-    const returnUrlRef = useRef<string | null>(null);
+    const router = useRouter();
+    const { data, isPending, isError } = useShortsFeed();
 
     const shorts = useMemo(() => data?.pages.flatMap((page) => page.items) ?? [], [data]);
 
-    const openPlayer = useCallback((index: number) => {
-        returnUrlRef.current = window.location.href;
-        setOpenAt(index);
-    }, []);
-
-    const syncUrlToShort = useCallback((short: IShortVideoEntity) => {
-        window.history.replaceState(window.history.state, "", `${SHORTS_PATH}/${short.slug}`);
-    }, []);
-
-    const closePlayer = useCallback(() => {
-        if (returnUrlRef.current) {
-            window.history.replaceState(window.history.state, "", returnUrlRef.current);
-        }
-        setOpenAt(null);
-    }, []);
+    const openPlayer = useCallback(
+        (index: number) => {
+            const short = shorts[index];
+            if (short) router.push(`${SHORTS_PATH}/${short.slug}`);
+        },
+        [router, shorts]
+    );
 
     return (
         <StateRenderer
@@ -63,19 +54,6 @@ export function ShortsFeedSectionContainer() {
                         shorts={items}
                         onOpen={openPlayer}
                     />
-
-                    {openAt !== null && (
-                        <ShortsPlayer
-                            shorts={items}
-                            initialIndex={openAt}
-                            hasNextPage={hasNextPage}
-                            onActiveShortChange={syncUrlToShort}
-                            onClose={closePlayer}
-                            onLoadMore={() => {
-                                void fetchNextPage();
-                            }}
-                        />
-                    )}
                 </section>
             )}
         />
