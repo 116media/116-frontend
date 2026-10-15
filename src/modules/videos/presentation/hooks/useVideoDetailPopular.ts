@@ -4,7 +4,10 @@ import { useQuery } from "@tanstack/react-query";
 
 import type { IVideoSummaryEntity } from "@/modules/videos/domain/entities/IVideoSummaryEntity";
 import { POPULAR_VIDEOS_LIMIT, videoKeys } from "@/modules/videos/presentation/constants/videoKeys";
-import { dummyPopularVideos } from "@/modules/videos/presentation/data/video-detail.dummy";
+import {
+    dummyPopularVideos,
+    paddedPopularVideos
+} from "@/modules/videos/presentation/data/video-detail.dummy";
 import container from "@/shared/infrastructure/service.locator";
 import { apiIdOrUndefined } from "@/shared/presentation/utils/id/id.utils";
 
@@ -28,7 +31,10 @@ export function useVideoDetailPopular(currentVideoId: string) {
                 limit: POPULAR_VIDEOS_LIMIT,
                 excludeId: apiIdOrUndefined(currentVideoId)
             });
-            if (result.ok && result.value.length > 0) return result.value;
+            if (result.ok) {
+                return paddedPopularVideos(result.value, currentVideoId, POPULAR_VIDEOS_LIMIT);
+            }
+
             return dummyPopularVideos(currentVideoId, POPULAR_VIDEOS_LIMIT);
         }
     });
