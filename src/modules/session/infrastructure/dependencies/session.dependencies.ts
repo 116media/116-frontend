@@ -18,7 +18,7 @@ import { SessionRepositoryImpl } from "@/modules/session/infrastructure/reposito
 export function registerSessionDependencies(container: AwilixContainer): void {
     container.register({
         // Repository
-        sessionRepository: asClass(SessionRepositoryImpl).singleton(),
+        sessionRepository: asClass(SessionRepositoryImpl).scoped(),
 
         // Use cases
         refreshTokenUseCase: asClass(RefreshTokenUseCase).transient(),
