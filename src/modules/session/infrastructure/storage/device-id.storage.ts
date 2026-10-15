@@ -1,4 +1,5 @@
 import { DEVICE_ID_STORAGE_KEY } from "@/modules/session/infrastructure/constants/storage";
+import { randomUuid } from "@/shared/presentation/utils/uuid/uuid.utils";
 
 /**
  * getDeviceId
@@ -13,7 +14,7 @@ export function getDeviceId(): string | null {
     if (typeof window === "undefined") return null;
     let id = localStorage.getItem(DEVICE_ID_STORAGE_KEY);
     if (!id) {
-        id = crypto.randomUUID();
+        id = randomUuid();
         localStorage.setItem(DEVICE_ID_STORAGE_KEY, id);
     }
     return id;
