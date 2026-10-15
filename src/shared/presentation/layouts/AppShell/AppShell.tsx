@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 
 import { unwrap } from "@/shared/domain/results/result";
 import { createServerCradle } from "@/shared/infrastructure/server.cradle";
+import { Footer } from "@/shared/presentation/layouts/Footer";
 import { Header } from "@/shared/presentation/layouts/Header";
 import { PageContainer } from "@/shared/presentation/layouts/PageContainer";
 import { TopBar } from "@/shared/presentation/layouts/TopBar";
@@ -21,7 +22,7 @@ export interface AppShellProps {
  *
  * @description
  * The universal app chrome shared by the public and private route groups: a sticky TopBar
- * and Header wrapped around the page content in a PageContainer. Navigation data is
+ * and Header above the page content in a PageContainer, and a Footer below it. Navigation data is
  * prefetched server-side so the mega menus are populated on first paint. Both the
  * `(public)` and `(private)` group layouts render this, so every route shares one chrome.
  */
@@ -49,6 +50,7 @@ export async function AppShell({ children }: AppShellProps) {
             <main className="min-h-screen py-4">
                 <PageContainer>{children}</PageContainer>
             </main>
+            <Footer />
         </>
     );
 }

@@ -14,6 +14,7 @@ import type { IVideoActivityPage } from "@/modules/videos/domain/entities/IVideo
 import type { IVideoCategoryEntity } from "@/modules/videos/domain/entities/IVideoCategoryEntity";
 import type { IVideoDetailEntity } from "@/modules/videos/domain/entities/IVideoDetailEntity";
 import type { IVideoExclusiveShowEntity } from "@/modules/videos/domain/entities/IVideoExclusiveShowEntity";
+import type { IVideoFeedEntity } from "@/modules/videos/domain/entities/IVideoFeedEntity";
 import type { IVideoLyricsEntity } from "@/modules/videos/domain/entities/IVideoLyricsEntity";
 import type { IVideoPage } from "@/modules/videos/domain/entities/IVideoPage";
 import type { IVideoSummaryEntity } from "@/modules/videos/domain/entities/IVideoSummaryEntity";
@@ -39,6 +40,15 @@ export class VideosRepositoryImpl implements IVideosRepositoryPort {
 
     constructor({ client }: { client: Api<unknown> }) {
         this.api = client.api;
+    }
+
+    async getVideoFeed(): Promise<Result<IVideoFeedEntity[]>> {
+        try {
+            const response = await this.api.publicGetVideoFeed();
+            return ok(VideosMapper.videoFeedListFromDto(response.data.sections));
+        } catch (error) {
+            return err(ProblemMapper.toFailure(error));
+        }
     }
 
     async getPromotedVideos(): Promise<Result<IVideoSummaryEntity[]>> {
@@ -237,10 +247,7 @@ export class VideosRepositoryImpl implements IVideosRepositoryPort {
 
     async removeVideoFromPlaylist(input: IRemoveVideoFromPlaylistInput): Promise<Result<boolean>> {
         try {
-            await this.api.publicRemoveVideoFromPlaylist(
-                input.playlistId,
-                input.videoId
-            );
+            await this.api.publicRemoveVideoFromPlaylist(input.playlistId, input.videoId);
             return ok(true);
         } catch (error) {
             return err(ProblemMapper.toFailure(error));

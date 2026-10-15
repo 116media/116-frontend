@@ -1,8 +1,8 @@
 import { SiFacebook, SiInstagram, SiTiktok, SiX, SiYoutube } from "@icons-pack/react-simple-icons";
 
 /**
- * Ordered social platform links shown in the TopBar; `hoverClass` must be a static
- * Tailwind class backed by the social brand tokens registered in theme.css.
+ * Ordered social platform links shown in the TopBar and the Footer; `hoverClass` must be a
+ * static Tailwind class backed by the social brand tokens registered in theme.css.
  */
 export const SOCIAL_LINKS = [
     {

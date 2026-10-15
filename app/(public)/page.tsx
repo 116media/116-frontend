@@ -6,6 +6,7 @@ import { VideoExclusiveShowSplitLoading } from "@/modules/videos/presentation/co
 import { ShowsSectionContainer } from "@/modules/videos/presentation/containers/ShowsSectionContainer";
 import { VideoExclusiveShowContainer } from "@/modules/videos/presentation/containers/VideoExclusiveShowContainer";
 import { VideoFeedSectionContainer } from "@/modules/videos/presentation/containers/VideoFeedSectionContainer";
+import { PageContainer } from "@/shared/presentation/layouts/PageContainer";
 
 /**
  * HomePage
@@ -18,7 +19,7 @@ import { VideoFeedSectionContainer } from "@/modules/videos/presentation/contain
  */
 export default function HomePage() {
     return (
-        <div className="flex flex-col gap-8 lg:gap-12">
+        <div className="flex flex-col gap-12 lg:gap-20">
             {/* Promotion feed — above the fold */}
             <Suspense fallback={<ArticlePromotionFeedLoading />}>
                 <ArticlePromotionFeedContainer />
@@ -28,7 +29,15 @@ export default function HomePage() {
             <ShortsFeedSectionContainer />
 
             {/* Exclusive show — featured category and its episodes */}
-            <Suspense fallback={<VideoExclusiveShowSplitLoading />}>
+            <Suspense
+                fallback={
+                    <section className="relative left-1/2 w-screen -translate-x-1/2 bg-surface-raised py-14 lg:py-20">
+                        <PageContainer>
+                            <VideoExclusiveShowSplitLoading />
+                        </PageContainer>
+                    </section>
+                }
+            >
                 <VideoExclusiveShowContainer variant="split" />
             </Suspense>
 

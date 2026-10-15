@@ -1672,6 +1672,8 @@ export interface CategoryDto {
   pinnedToFeedAt?: string | null;
   posterUrl?: string | null;
   colors?: CategoryColorsDto | null;
+  /** @format int32 */
+  publishedCount: number;
   pricing: CategoryPricingDto[];
 }
 

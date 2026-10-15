@@ -13,11 +13,13 @@
  * @property {string} slug - URL-safe slug
  * @property {string} description - Human-readable description
  * @property {boolean} isFree - Whether access to this category requires no subscription
+ * @property {number} publishedCount - How many published items the category holds
  */
 export interface IVideoCategoryEntity {
     id: string;
     name: string;
     slug: string;
-    description: string;
     isFree: boolean;
+    description: string;
+    publishedCount: number;
 }

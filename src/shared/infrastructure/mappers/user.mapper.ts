@@ -1,7 +1,10 @@
 import type { IAuthUserEntity } from "@/shared/domain/entities/IAuthUserEntity";
 import type { IFile } from "@/shared/domain/entities/IFile";
 import type { EAuthProvider } from "@/shared/domain/enums/EAuthProvider";
-import type { PublicFileDto, PublicUserResponseDto } from "@/shared/infrastructure/api/generated/116.api";
+import type {
+    PublicFileDto,
+    PublicUserResponseDto
+} from "@/shared/infrastructure/api/generated/116.api";
 
 /**
  * UserMapper

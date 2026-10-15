@@ -38,6 +38,8 @@ import type { SignupUseCase } from "@/modules/auth/application/usecases/signup.u
 import type { SocialLoginUseCase } from "@/modules/auth/application/usecases/sociallogin.usecase";
 import type { VerifyOtpUseCase } from "@/modules/auth/application/usecases/verifyotp.usecase";
 import { registerAuthDependencies } from "@/modules/auth/infrastructure/dependencies/auth.dependencies";
+import type { SubscribeNewsletterUseCase } from "@/modules/newsletter/application/usecases/subscribenewsletter.usecase";
+import { registerNewsletterDependencies } from "@/modules/newsletter/infrastructure/dependencies/newsletter.dependencies";
 import type { ISessionRepositoryPort } from "@/modules/session/application/repositories/session.repository.port";
 import type { GetSessionsUseCase } from "@/modules/session/application/usecases/getsessions.usecase";
 import type { RefreshTokenUseCase } from "@/modules/session/application/usecases/refreshtoken.usecase";
@@ -78,6 +80,7 @@ import type { GetShowsUseCase } from "@/modules/videos/application/usecases/gets
 import type { GetVideoBySlugUseCase } from "@/modules/videos/application/usecases/getvideobyslug.usecase";
 import type { GetVideoCategoriesUseCase } from "@/modules/videos/application/usecases/getvideocategories.usecase";
 import type { GetVideoExclusiveShowUseCase } from "@/modules/videos/application/usecases/getvideoexclusiveshow.usecase";
+import type { GetVideoFeedUseCase } from "@/modules/videos/application/usecases/getvideofeed.usecase";
 import type { GetVideoLyricsUseCase } from "@/modules/videos/application/usecases/getvideolyrics.usecase";
 import type { GetVideoPopularTagsUseCase } from "@/modules/videos/application/usecases/getvideopopulartags.usecase";
 import type { GetYoutubeVideoStatsUseCase } from "@/modules/videos/application/usecases/getyoutubevideostats.usecase";
@@ -165,6 +168,8 @@ export interface Cradle {
     getPromotedVideosUseCase: GetPromotedVideosUseCase;
     getVideoCategoriesUseCase: GetVideoCategoriesUseCase;
     getShowsUseCase: GetShowsUseCase;
+    subscribeNewsletterUseCase: SubscribeNewsletterUseCase;
+    getVideoFeedUseCase: GetVideoFeedUseCase;
     getVideoPopularTagsUseCase: GetVideoPopularTagsUseCase;
     getAllVideoTagsUseCase: GetAllVideoTagsUseCase;
     getVideoExclusiveShowUseCase: GetVideoExclusiveShowUseCase;
@@ -233,6 +238,7 @@ const container = createContainer<Cradle>({
 container.register({ client: asValue(apiClient) });
 
 registerArticlesDependencies(container);
+registerNewsletterDependencies(container);
 registerVideosDependencies(container);
 registerShortsDependencies(container);
 registerAuthDependencies(container);

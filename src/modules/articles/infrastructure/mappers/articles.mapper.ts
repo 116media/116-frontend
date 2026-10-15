@@ -21,13 +21,13 @@ import type {
 } from "@/modules/articles/domain/entities/ICommentedArticleEntity";
 import type { IMyArticleCommentsPage } from "@/modules/articles/domain/entities/IMyArticleCommentsPage";
 import type {
+    ArticleImageDto,
+    CategoryDto,
     PublicArticleCommentDto,
     PublicArticleCommentDtoPaginatedResult,
     PublicArticleDetailDto,
-    ArticleImageDto,
     PublicArticleSummaryDto,
     PublicArticleSummaryDtoPaginatedResult,
-    CategoryDto,
     PublicGetArticlePromotionFeedResponse,
     TagDto,
     UserArticleActivityDto,
@@ -118,7 +118,8 @@ export const ArticlesMapper = {
             name: dto.name,
             slug: dto.slug,
             description: dto.description,
-            isFree: dto.isFree
+            isFree: dto.isFree,
+            publishedCount: dto.publishedCount
         };
     },
 
@@ -442,7 +443,9 @@ export const ArticlesMapper = {
      * @param dto - Paginated own-comments envelope from API
      * @returns {IMyArticleCommentsPage} Mapped own-comments page entity
      */
-    myArticleCommentsPageFromDto(dto: PublicArticleCommentDtoPaginatedResult): IMyArticleCommentsPage {
+    myArticleCommentsPageFromDto(
+        dto: PublicArticleCommentDtoPaginatedResult
+    ): IMyArticleCommentsPage {
         return {
             items: ArticlesMapper.articleCommentListFromDto(dto.items),
             pageIndex: dto.pageIndex,

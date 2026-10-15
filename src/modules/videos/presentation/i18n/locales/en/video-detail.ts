@@ -25,6 +25,7 @@ export const videoDetail = {
             rate: "Rate this video",
             ratingEmpty: "New",
             clickToRate: "Click to rate",
+            viewsCount: "{{value}} views",
             viewsYoutube: "YouTube views",
             reviews_one: "{{value}} review",
             reviews_other: "{{value}} reviews",

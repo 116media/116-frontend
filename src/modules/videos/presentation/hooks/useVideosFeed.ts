@@ -8,8 +8,11 @@ import {
     VIDEOS_PAGE_SIZE,
     videoKeys
 } from "@/modules/videos/presentation/constants/videoKeys";
-import { paddedVideoPage } from "@/modules/videos/presentation/data/videos-browse.dummy";
-import type { Failure } from "@/shared/domain/failures/failure";
+import {
+    dummyVideoPage,
+    paddedVideoPage
+} from "@/modules/videos/presentation/data/videos-browse.dummy";
+import type { Failure, ServerFailure } from "@/shared/domain/failures/failure";
 import container from "@/shared/infrastructure/service.locator";
 
 /**
@@ -18,7 +21,9 @@ import container from "@/shared/infrastructure/service.locator";
  * @description
  * Infinite query over the published-videos feed, keyed by the active filters.
  * While the backend holds less than one full page, the real videos are padded
- * with paged dummy videos (filters applied), so browsing stays previewable.
+ * with paged dummy videos (filters applied), so browsing stays previewable. A
+ * category the API rejects, such as a dummy show's non-UUID id, serves the
+ * dummy page on its own; a server failure still surfaces.
  *
  * @param filters - Optional search / category / tag scoping.
  * @returns The `useInfiniteQuery` result for the feed.
@@ -34,7 +39,15 @@ export function useVideosFeed(filters: IVideoFeedFilters = {}) {
                 pageSize: VIDEOS_PAGE_SIZE,
                 ...filters
             });
-            if (!result.ok) throw result.error;
+            if (!result.ok) {
+                // A dummy show's id is not a UUID, so the API rejects it outright.
+                const status = (result.error as ServerFailure).status ?? 0;
+
+                if (status >= 400 && status < 500) {
+                    return dummyVideoPage(pageIndex, VIDEOS_PAGE_SIZE, filters);
+                }
+                throw result.error;
+            }
             const page = result.value;
             if (page.count >= VIDEOS_PAGE_SIZE) return page;
             return paddedVideoPage(page, filters);

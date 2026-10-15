@@ -7,6 +7,9 @@
 export const general = {
     follow: "Suivez-Nous: ",
     featured: "À la une",
+    breadcrumbHome: "Accueil",
+    breadcrumbNews: "News",
+    all: "Tout",
     viewAll: "Voir tout",
     popularTags: "Tags populaires",
     metaTitleDefault: "116 - Musique & Culture Hip-Hop",

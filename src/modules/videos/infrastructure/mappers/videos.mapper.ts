@@ -7,6 +7,7 @@ import type { IVideoActivityPage } from "@/modules/videos/domain/entities/IVideo
 import type { IVideoCategoryEntity } from "@/modules/videos/domain/entities/IVideoCategoryEntity";
 import type { IVideoDetailEntity } from "@/modules/videos/domain/entities/IVideoDetailEntity";
 import type { IVideoExclusiveShowEntity } from "@/modules/videos/domain/entities/IVideoExclusiveShowEntity";
+import type { IVideoFeedEntity } from "@/modules/videos/domain/entities/IVideoFeedEntity";
 import type { IVideoLyricsEntity } from "@/modules/videos/domain/entities/IVideoLyricsEntity";
 import type { IVideoPage } from "@/modules/videos/domain/entities/IVideoPage";
 import type { IVideoSummaryEntity } from "@/modules/videos/domain/entities/IVideoSummaryEntity";
@@ -14,17 +15,18 @@ import type { IVideoTagEntity } from "@/modules/videos/domain/entities/IVideoTag
 import type { IYoutubeVideoStats } from "@/modules/videos/domain/entities/IYoutubeVideoStats";
 import type {
     CategoryDto,
-    PublicLyricsDetailDto,
     PlaylistDetailDto,
     PlaylistDto,
     PublicGetExclusiveCategoryResponse,
+    PublicLyricsDetailDto,
+    PublicVideoDetailDto,
+    PublicVideoSummaryDto,
+    PublicVideoSummaryDtoPaginatedResult,
     TagDto,
     UserVideoActivityDto,
     UserVideoActivityDtoPaginatedResult,
-    PublicVideoDetailDto,
-    VideoInPlaylistDto,
-    PublicVideoSummaryDto,
-    PublicVideoSummaryDtoPaginatedResult
+    VideoFeedSectionDto,
+    VideoInPlaylistDto
 } from "@/shared/infrastructure/api/generated/116.api";
 
 /**
@@ -101,7 +103,8 @@ export const VideosMapper = {
             name: dto.name,
             slug: dto.slug,
             description: dto.description,
-            isFree: dto.isFree
+            isFree: dto.isFree,
+            publishedCount: dto.publishedCount
         };
     },
 
@@ -113,6 +116,29 @@ export const VideosMapper = {
      */
     categoryListFromDto(dtos: CategoryDto[]): IVideoCategoryEntity[] {
         return dtos.map(VideosMapper.categoryFromDto);
+    },
+
+    /**
+     * Maps VideoFeedSectionDto to IVideoFeedEntity domain entity.
+     *
+     * @param dto - Feed section data from API
+     * @returns {IVideoFeedEntity} Mapped video feed entity
+     */
+    videoFeedFromDto(dto: VideoFeedSectionDto): IVideoFeedEntity {
+        return {
+            category: VideosMapper.categoryFromDto(dto.category),
+            videos: VideosMapper.videoSummaryListFromDto(dto.videos)
+        };
+    },
+
+    /**
+     * Maps a list of VideoFeedSectionDto to IVideoFeedEntity domain entities.
+     *
+     * @param dtos - Feed section data list from API
+     * @returns {IVideoFeedEntity[]} Mapped video feed entities
+     */
+    videoFeedListFromDto(dtos: VideoFeedSectionDto[]): IVideoFeedEntity[] {
+        return dtos.map(VideosMapper.videoFeedFromDto);
     },
 
     /**

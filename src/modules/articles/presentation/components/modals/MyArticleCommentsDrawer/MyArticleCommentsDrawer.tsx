@@ -184,9 +184,7 @@ export function MyArticleCommentsDrawer({
                                                     </p>
                                                     <div className="flex items-center justify-between gap-2">
                                                         <span className="text-muted-foreground text-xs">
-                                                            <RelativeDate
-                                                                date={comment.postedAt}
-                                                            />
+                                                            <RelativeDate date={comment.postedAt} />
                                                         </span>
                                                         <div className="flex items-center gap-1">
                                                             <Button

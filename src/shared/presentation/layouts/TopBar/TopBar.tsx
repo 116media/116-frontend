@@ -2,9 +2,8 @@
 
 import { useTranslation } from "react-i18next";
 import { Button } from "@/shared/presentation/components/ui/Button";
+import { SOCIAL_LINKS } from "@/shared/presentation/constants/socials";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
-
-import { SOCIAL_LINKS } from "./constants";
 
 /**
  * TopBar

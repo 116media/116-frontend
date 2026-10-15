@@ -7,6 +7,7 @@ import type { IShortVideoEntity } from "@/modules/shorts/domain/entities/IShortV
 import { ShortsPlayer } from "@/modules/shorts/presentation/components/modals/ShortsPlayer";
 import { ShortsStrip } from "@/modules/shorts/presentation/components/sections/ShortsStrip";
 import { useShortsFeed } from "@/modules/shorts/presentation/hooks/useShortsFeed";
+import { FeedHeading } from "@/shared/presentation/components/ui/FeedHeading";
 import { StateRenderer } from "@/shared/presentation/components/ui/StateRenderer";
 import { SHORTS_PATH } from "@/shared/presentation/constants/paths";
 
@@ -56,11 +57,7 @@ export function ShortsFeedSectionContainer() {
                     className="flex flex-col gap-3"
                     aria-label={t("shorts.section.title")}
                 >
-                    <header>
-                        <h2 className="font-bold text-foreground text-lg uppercase sm:text-xl">
-                            {t("shorts.section.title")}
-                        </h2>
-                    </header>
+                    <FeedHeading title={t("shorts.section.title")} />
 
                     <ShortsStrip
                         shorts={items}

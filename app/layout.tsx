@@ -5,10 +5,7 @@ import { cookies } from "next/headers";
 import { authKeys } from "@/modules/auth/presentation/constants/authKeys";
 import { AuthModalProvider } from "@/modules/auth/presentation/context/AuthModalProvider";
 import { AuthProvider } from "@/modules/auth/presentation/context/AuthProvider";
-import {
-    ACCESS_TOKEN_COOKIE,
-    REFRESH_TOKEN_COOKIE
-} from "@/shared/infrastructure/constants/auth";
+import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from "@/shared/infrastructure/constants/auth";
 import { SITE_URL } from "@/shared/infrastructure/constants/common";
 import { createServerCradle } from "@/shared/infrastructure/server.cradle";
 import { Toaster } from "@/shared/presentation/components/ui/Toaster";
