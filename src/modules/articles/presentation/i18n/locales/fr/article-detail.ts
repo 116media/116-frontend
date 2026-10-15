@@ -50,6 +50,13 @@ export const articleDetail = {
         loginCta: "Se connecter pour commenter",
         removed: "Ce commentaire a été supprimé",
         loadMore: "Charger plus de commentaires",
+        showAll_one: "Voir le {{count}} commentaire",
+        showAll_other: "Voir les {{count}} commentaires",
+        close: "Fermer les commentaires",
+        sort: {
+            popular: "Populaires",
+            recent: "Récents"
+        },
         like: "Aimer ce commentaire",
         unlike: "Retirer le j'aime de ce commentaire",
         reply: "Répondre",
