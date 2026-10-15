@@ -82,7 +82,7 @@ export function VideoDetail({ video }: VideoDetailProps) {
                         isPinned ? "player-pinned fixed inset-x-0 top-0 lg:relative" : "relative"
                     )}
                 >
-                    <VideoPlayer
+                    <VideoPlayer.Root
                         title={video.title}
                         thumbnailUrl={video.thumbnailUrl}
                         youtubeVideoUrl={video.youtubeVideoUrl}
