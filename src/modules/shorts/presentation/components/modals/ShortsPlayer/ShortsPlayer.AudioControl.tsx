@@ -21,7 +21,7 @@ export function ShortsPlayerAudioControl() {
     const isSilent = isMuted || volume === 0;
 
     return (
-        <div className="absolute top-3 left-3 z-30 flex items-center gap-1 rounded-lg bg-black/40 py-1 pr-3 pl-1 opacity-0 backdrop-blur-sm transition-opacity duration-300 focus-within:opacity-100 group-hover:opacity-100">
+        <div className="absolute top-[max(0.75rem,env(safe-area-inset-top))] right-3 z-30 flex items-center gap-1 rounded-lg bg-black/40 py-1 pr-3 pl-1 backdrop-blur-sm transition-opacity duration-300 focus-within:opacity-100 lg:top-3 lg:right-auto lg:left-3 lg:opacity-0 lg:group-hover:opacity-100">
             <Button
                 size="icon"
                 variant="ghost"
