@@ -14,8 +14,9 @@ export type { PlaylistCardMediaProps } from "./PlaylistCard.Media";
  * Compound playlist tile built on FavoriteCard. `.Media` renders the collage, `.Actions`
  * owns its controls, and `.Loading` mirrors the composed layout.
  */
-export const PlaylistCard = Object.assign(PlaylistCardRoot, {
+export const PlaylistCard = {
+    Root: PlaylistCardRoot,
     Media: PlaylistCardMedia,
     Actions: PlaylistCardActions,
     Loading: PlaylistCardLoading
-});
+} as const;
