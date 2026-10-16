@@ -13,8 +13,11 @@ export const browse = {
         searchPlaceholder: "Filtrer dans les vidéos…",
         clearSearch: "Effacer la recherche",
         browseAllShows: "Toutes les émissions",
-        allTags: "Toutes les étiquettes",
-        tagSearch: "Trouver une étiquette…",
+        allTags: "Tous les tags",
+        tagsTrigger: "Tags",
+        tagSearch: "Rechercher…",
+        tagsClose: "Fermer les tags",
+        tagsEmpty: "Aucun tag ne correspond à votre recherche",
         clear: "Effacer les filtres"
     },
     modal: {
@@ -30,7 +33,7 @@ export const browse = {
         },
         noResults: {
             title: "Aucune vidéo ne correspond à vos filtres",
-            body: "Essayez une autre recherche, catégorie ou étiquette."
+            body: "Essayez une autre recherche, catégorie ou tag."
         },
         error: {
             title: "Impossible de charger les vidéos",
