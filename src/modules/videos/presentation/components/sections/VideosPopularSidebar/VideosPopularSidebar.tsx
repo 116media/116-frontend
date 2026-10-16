@@ -46,13 +46,13 @@ export function VideosPopularSidebar({ currentVideoId }: VideosPopularSidebarPro
             data={data}
             loading={isPending}
             skeleton={
-                <aside className="flex flex-col max-lg:gap-4">
+                <aside className="flex flex-col gap-4">
                     {header}
                     <VideosPopularSidebarLoading />
                 </aside>
             }
             render={(videos) => (
-                <aside className="flex flex-col max-lg:gap-4">
+                <aside className="flex flex-col gap-4">
                     {header}
                     <div className="flex flex-col gap-4 rounded-xl bg-muted/25 max-lg:contents lg:p-3 xl:p-5">
                         {videos.map((video) => (
