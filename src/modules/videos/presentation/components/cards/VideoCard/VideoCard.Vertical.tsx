@@ -38,11 +38,11 @@ export function Vertical({ video }: VideoCardProps) {
             </div>
 
             <div className="mt-2 px-1">
-                <h3 className="line-clamp-2 min-h-[2lh] font-semibold text-foreground text-sm leading-snug transition-colors group-hover:text-primary dark:group-hover:text-secondary">
+                <h3 className="line-clamp-2 min-h-[2lh] font-semibold text-foreground text-sm leading-snug transition-colors md:text-base xl:text-sm group-hover:text-primary dark:group-hover:text-secondary">
                     {video.title}
                 </h3>
 
-                <div className="flex items-center justify-between gap-2 py-1 text-muted-foreground text-xs">
+                <div className="flex items-center justify-between gap-2 py-1 text-muted-foreground text-xs md:text-sm xl:text-xs">
                     <VideoCardDate publishedAt={video.publishedAt} />
                     <span className="flex items-center gap-4">
                         <VideoCardShareCount shareCount={video.shareCount} />
