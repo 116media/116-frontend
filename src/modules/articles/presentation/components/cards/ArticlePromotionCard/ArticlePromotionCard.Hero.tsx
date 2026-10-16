@@ -55,7 +55,7 @@ export function Hero({ article }: ArticlePromotionCardProps) {
                     {article.title}
                 </h3>
 
-                <p className="mb-3 text-xs text-white/70 line-clamp-2 sm:mb-4 sm:text-sm sm:line-clamp-4 md:text-base md:line-clamp-4 lg:text-sm lg:line-clamp-3 xl:text-base xl:line-clamp-4">
+                <p className="mb-3 text-xs font-semibold text-white/70 line-clamp-2 sm:mb-4 sm:text-sm sm:line-clamp-4 md:text-base md:line-clamp-4 lg:text-sm lg:line-clamp-3 xl:text-base xl:line-clamp-4">
                     {article.headline}
                 </p>
 
