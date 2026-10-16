@@ -19,7 +19,7 @@ export function SecuritySection() {
     const { t } = useTranslation();
 
     return (
-        <div>
+        <div className="flex flex-col gap-4">
             <SectionHeader
                 as="h1"
                 icon={<LockIcon />}
