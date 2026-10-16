@@ -2,7 +2,10 @@ import type { IArticleCommentEntity } from "@/modules/articles/domain/entities/I
 import type { IArticleCommentPage } from "@/modules/articles/domain/entities/IArticleCommentPage";
 import type { IArticleDetailEntity } from "@/modules/articles/domain/entities/IArticleDetailEntity";
 import type { IArticleImage } from "@/modules/articles/domain/entities/IArticleImage";
-import type { IArticleAuthor } from "@/modules/articles/domain/entities/IArticleSummaryEntity";
+import type {
+    IArticleAuthor,
+    IArticleSummaryEntity
+} from "@/modules/articles/domain/entities/IArticleSummaryEntity";
 import type { IArticleTagEntity } from "@/modules/articles/domain/entities/IArticleTagEntity";
 
 import { generateDummyArticles } from "./articles.dummy";
@@ -357,4 +360,33 @@ export function dummyPopularArticles(currentArticleId: string, limit = 5) {
     return generateDummyArticles()
         .filter((article) => article.id !== currentArticleId && article.coverImageUrl)
         .slice(0, limit);
+}
+
+/**
+ * paddedPopularArticles
+ *
+ * @description
+ * Tops a short real popular list up with dummy articles so the block stays full while the
+ * backend holds only a handful of published articles. Real articles keep the head of the
+ * list and the dummies continue after them, the open article excluded from both.
+ *
+ * @param articles - The popular articles the API returned.
+ * @param excludeId - The open article, excluded from the padding.
+ * @param limit - How many rows the block shows.
+ * @returns The real articles followed by enough dummies to reach the limit.
+ */
+export function paddedPopularArticles(
+    articles: IArticleSummaryEntity[],
+    excludeId: string,
+    limit = 5
+): IArticleSummaryEntity[] {
+    const missing = limit - articles.length;
+    if (missing <= 0) return articles.slice(0, limit);
+
+    const taken = new Set(articles.map((article) => article.id));
+    const dummies = dummyPopularArticles(excludeId, limit).filter(
+        (article) => !taken.has(article.id)
+    );
+
+    return [...articles, ...dummies.slice(0, missing)];
 }
