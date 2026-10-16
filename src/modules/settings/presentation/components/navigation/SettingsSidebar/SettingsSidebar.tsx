@@ -27,7 +27,7 @@ export function SettingsSidebar() {
         <div className="lg:w-60 lg:shrink-0 lg:rounded-l-lg lg:bg-sidebar">
             <nav
                 className={cn(
-                    "sticky top-28 z-20 flex gap-1 overflow-x-auto border-b bg-background transition-all duration-300 scrollbar-none [&::-webkit-scrollbar]:hidden",
+                    "sticky top-[var(--site-header-height,7rem)] z-20 flex gap-1 overflow-x-auto border-b bg-background transition-all duration-300 scrollbar-none [&::-webkit-scrollbar]:hidden",
                     "lg:flex-col lg:gap-2 lg:overflow-visible lg:border-b-0 lg:bg-transparent lg:p-4",
                     direction === "down" && "-translate-y-2 pointer-events-none opacity-0"
                 )}
