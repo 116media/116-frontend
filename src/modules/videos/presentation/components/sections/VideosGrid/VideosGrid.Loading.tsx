@@ -48,7 +48,7 @@ export function VideosGridLoading({ rows }: VideosGridLoadingProps) {
     const slots = Array.from({ length: count }, (_, index) => index);
 
     return (
-        <div className="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-3 xl:grid-cols-4">
+        <div className="grid grid-cols-2 gap-x-4 gap-y-8 lg:grid-cols-3 xl:grid-cols-4">
             {slots.map((slot) => (
                 <VideosGridCardSkeleton key={slot} />
             ))}
