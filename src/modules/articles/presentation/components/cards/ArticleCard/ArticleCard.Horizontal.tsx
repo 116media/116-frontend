@@ -20,22 +20,23 @@ export interface ArticleCardHorizontalProps {
  *
  * @description
  * Compact horizontal article card matching `ArticlePromotionCard.Strip`: thumbnail plus
- * title, headline, and relative date, the whole row linking to the article. Used in the
- * article detail page's popular-articles sidebar.
+ * title, headline, and relative date, the whole row linking to the article. Every card is
+ * the same height, since a one-line title would otherwise sit shorter than a wrapped one,
+ * and a phone gets a quarter more card than the tablet and desktop columns.
  */
 export function ArticleCardHorizontal({ article }: ArticleCardHorizontalProps) {
     return (
         <Link
             href={`/articles/${article.slug}`}
-            className="group flex min-w-0 flex-1 gap-2 sm:gap-3 lg:gap-2 xl:gap-3"
+            className="group flex h-22.5 min-w-0 shrink-0 gap-2 sm:h-23 sm:gap-3 md:h-27 lg:h-18 lg:gap-2 xl:h-25 xl:gap-3"
         >
-            <div className="relative min-h-18 w-28 shrink-0 self-stretch overflow-hidden rounded-md sm:w-24 md:w-32 lg:w-20 xl:w-32">
+            <div className="relative w-35 shrink-0 self-stretch overflow-hidden rounded-md sm:w-24 md:w-32 lg:w-20 xl:w-32">
                 {article.coverImageUrl && (
                     <Image
                         fill
                         alt={article.title}
                         src={article.coverImageUrl}
-                        sizes="(max-width: 640px) 112px, (max-width: 768px) 96px, 144px"
+                        sizes="(max-width: 640px) 140px, (max-width: 768px) 96px, 144px"
                         className="object-cover transition-transform duration-300 group-hover:scale-105"
                     />
                 )}
