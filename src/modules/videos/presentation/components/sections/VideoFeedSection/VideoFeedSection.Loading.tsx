@@ -11,9 +11,9 @@ import { Skeleton } from "@/shared/presentation/components/ui/Skeleton";
 export function VideoFeedSectionLoading() {
     return (
         <section className="flex flex-col gap-4">
-            <div className="flex items-center justify-between gap-3">
-                <Skeleton className="h-8 w-64" />
-                <Skeleton className="h-4 w-16" />
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
+                <Skeleton className="h-7 w-64 sm:h-8 lg:h-9" />
+                <Skeleton className="h-11 w-36 shrink-0 self-start rounded-full sm:h-9.5 sm:self-auto" />
             </div>
 
             <div className="grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-2 lg:grid-cols-4">
