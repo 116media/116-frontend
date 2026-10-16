@@ -84,7 +84,7 @@ export class ArticlesRepositoryImpl implements IArticlesRepositoryPort {
                 contentType: EnumCoreContentType.Article,
                 limit: POPULAR_TAGS_LIMIT
             });
-            return ok(ArticlesMapper.tagListFromDto(response.data.tags));
+            return ok(ArticlesMapper.tagWithCountListFromDto(response.data.tags));
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }
@@ -121,7 +121,7 @@ export class ArticlesRepositoryImpl implements IArticlesRepositoryPort {
                 contentType: EnumCoreContentType.Article,
                 limit: ALL_TAGS_LIMIT
             });
-            return ok(ArticlesMapper.tagListFromDto(response.data.tags));
+            return ok(ArticlesMapper.tagWithCountListFromDto(response.data.tags));
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }
