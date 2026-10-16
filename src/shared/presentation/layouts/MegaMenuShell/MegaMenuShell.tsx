@@ -2,6 +2,8 @@
 
 import { useTranslation } from "react-i18next";
 import { Tag } from "@/shared/presentation/components/ui/Tag";
+import { PAGE_GUTTER } from "@/shared/presentation/constants/layout";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
  * @interface MegaMenuTagItem
@@ -39,7 +41,12 @@ export function MegaMenuShell({ tagsBasePath, popularTags, children }: MegaMenuS
 
     return (
         <div className="w-full">
-            <div className="mx-auto grid max-w-7xl grid-cols-[2fr_5fr] gap-0 px-4 sm:px-6 lg:grid-cols-[3fr_5fr_3fr] lg:px-8 xl:px-10 3xl:max-w-8xl">
+            <div
+                className={cn(
+                    "mx-auto grid max-w-7xl grid-cols-[2fr_5fr] gap-0 lg:grid-cols-[2.5fr_6fr_2.5fr] xl:grid-cols-[3fr_5fr_3fr] xl:px-10 3xl:max-w-8xl",
+                    PAGE_GUTTER
+                )}
+            >
                 {children}
 
                 {popularTags.length > 0 && (
