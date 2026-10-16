@@ -28,9 +28,10 @@ export interface SessionCardProps {
  * SessionCard
  *
  * @description
- * One row in the active-sessions list. The current session shows a "this device" tag
- * (no revoke), other active sessions offer a confirmation-gated revoke via
- * `useRevokeSession`, and expired sessions show an "expired" tag.
+ * One row in the active-sessions list. Up to `lg` it is shaped like a phone's device list,
+ * carrying no surface and marking the caller's own session inline; from `lg` it is the
+ * bordered field it has always been, with the tag and the filled revoke button. Revoking is
+ * confirmation-gated via `useRevokeSession`; expired sessions show an "expired" tag.
  */
 export function SessionCard({ session }: SessionCardProps) {
     const { t } = useTranslation();
@@ -51,35 +52,51 @@ export function SessionCard({ session }: SessionCardProps) {
 
     return (
         <Fragment>
-            <div className="flex items-center gap-3 rounded-md border p-4">
-                <div className="flex size-12 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground [&_svg]:size-5">
+            <div className="flex items-center gap-3 py-3 lg:rounded-md lg:border lg:p-4">
+                <div className="flex size-10 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground lg:size-12 [&_svg]:size-5">
                     <DeviceIcon />
                 </div>
+
                 <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
                         <p className="truncate font-medium text-foreground text-sm">{summary}</p>
                         {session.isCurrent && (
-                            <Tag variant="primary">{t("settings.security.sessions.current")}</Tag>
+                            <Tag
+                                variant="primary"
+                                className="hidden lg:inline-flex"
+                            >
+                                {t("settings.security.sessions.current")}
+                            </Tag>
                         )}
                     </div>
-                    <div className="flex items-center gap-3 text-muted-foreground text-xs">
+
+                    <div className="flex items-center gap-1 text-muted-foreground text-xs lg:gap-3">
                         <span className="truncate">
-                            IP: {session.ipAddress ?? t("settings.security.sessions.unknownIp")}
+                            {session.isCurrent && (
+                                <span className="font-medium text-primary lg:hidden dark:text-secondary">
+                                    {t("settings.security.sessions.current")} ·{" "}
+                                </span>
+                            )}
+                            <span className="hidden lg:inline">IP: </span>
+                            {session.ipAddress ?? t("settings.security.sessions.unknownIp")}
                         </span>
                         {session.createdAt && (
-                            <span className="inline-flex items-center gap-1">
-                                <ClockIcon className="size-3" />
+                            <span className="inline-flex shrink-0 items-center gap-1">
+                                <span className="lg:hidden">·</span>
+                                <ClockIcon className="hidden size-3 lg:block" />
                                 <RelativeDate date={session.createdAt} />
                             </span>
                         )}
                     </div>
                 </div>
+
                 {session.isActive ? (
                     <Button
                         size="sm"
-                        variant="destructive"
+                        variant="ghost"
                         loading={revoke.isPending}
                         onClick={() => setConfirmOpen(true)}
+                        className="shrink-0 text-destructive hover:bg-destructive/10 hover:text-destructive lg:bg-destructive lg:text-destructive-foreground lg:hover:bg-destructive/90 lg:hover:text-destructive-foreground"
                     >
                         {t("settings.security.sessions.revoke")}
                     </Button>
