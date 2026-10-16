@@ -35,7 +35,7 @@ export function Header({ articles, videos }: HeaderProps) {
     return (
         <header className="w-full border-b bg-background/80 backdrop-blur-lg">
             <PageContainer>
-                <div className="flex h-16 items-center justify-between gap-2">
+                <div className="flex h-16 items-center justify-between gap-2 surface-pro-portrait:h-20">
                     <div className="flex flex-1 justify-start lg:hidden">
                         <MobileMegaMenu.Root
                             videos={videos}
@@ -46,7 +46,7 @@ export function Header({ articles, videos }: HeaderProps) {
                     <Logo
                         priority
                         canRedirect
-                        className="size-9 sm:size-12 md:size-10 lg:size-12"
+                        className="size-9 sm:size-12 md:size-10 surface-pro-portrait:size-11.25 lg:size-12"
                     />
 
                     <DesktopNav
