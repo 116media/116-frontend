@@ -60,7 +60,7 @@ export function VideosToolbar(props: VideosToolbarProps) {
             />
             <div
                 className={cn(
-                    "sticky top-28 z-30 flex flex-col gap-3 py-3",
+                    "sticky top-[var(--site-header-height-pinned,7rem)] z-30 flex flex-col gap-3 py-3",
                     "before:-z-10 before:-translate-x-1/2 before:absolute before:inset-y-0 before:left-1/2 before:w-screen before:bg-background/95 before:backdrop-blur",
                     isPinned &&
                         "before:border-b before:border-outlined/60 transition-transform duration-300",
@@ -74,21 +74,28 @@ export function VideosToolbar(props: VideosToolbarProps) {
                     {t("videos.browse.title")}
                 </h2>
 
-                <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
-                    <VideosToolbarCategoryTabs
-                        value={props.categoryId}
-                        onChange={props.onCategoryChange}
-                        onBrowseAll={() => setModalOpen(true)}
-                    />
-                    <VideosToolbarSearchInput
-                        value={props.search}
-                        onChange={props.onSearchChange}
-                    />
-                </div>
+                <VideosToolbarCategoryTabs
+                    value={props.categoryId}
+                    onChange={props.onCategoryChange}
+                    onBrowseAll={() => setModalOpen(true)}
+                />
 
                 <VideosToolbarTagStrip
                     value={props.tagSlug}
                     onChange={props.onTagChange}
+                    trailing={
+                        <VideosToolbarSearchInput
+                            value={props.search}
+                            onChange={props.onSearchChange}
+                            className="hidden shrink-0 md:block md:w-56 lg:w-64"
+                        />
+                    }
+                />
+
+                <VideosToolbarSearchInput
+                    value={props.search}
+                    onChange={props.onSearchChange}
+                    className="md:hidden"
                 />
 
                 {props.hasActiveFilters && <VideosToolbarClearFilters onClear={props.onClear} />}
