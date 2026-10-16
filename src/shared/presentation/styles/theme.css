@@ -2,6 +2,32 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/*
+ * Surface Pro 10 reports 960x1440 upright and 1440x960 on its side. Each of those
+ * viewports is shared with hardware that wants the standard gutter - the upright one
+ * with other tablets, the sideways one with most laptops - so the sideways variant also
+ * asks for a coarse pointer, which a laptop does not report.
+ */
+@custom-variant surface-pro-portrait (@media (min-width: 900px) and (max-width: 1023px));
+@custom-variant surface-pro-landscape (
+    @media (min-width: 1400px) and (max-width: 1480px) and (pointer: coarse)
+);
+
+/*
+ * iPad Pro 13 reports 1032x1376 upright and 1376x1032 on its side. Both bands are shared
+ * with other hardware - the upright one with a small iPad held sideways, the sideways one
+ * with laptops - so each asks for a coarse pointer and stops short of the neighbouring
+ * device's width.
+ */
+@custom-variant ipad-pro {
+    @media (min-width: 1025px) and (max-width: 1100px) and (pointer: coarse) {
+        @slot;
+    }
+    @media (min-width: 1300px) and (max-width: 1399px) and (pointer: coarse) {
+        @slot;
+    }
+}
+
 /* Light mode tokens */
 :root {
     --background: var(--primitive-white);
