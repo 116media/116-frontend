@@ -9,7 +9,7 @@ import { ButtonFrostedPlay } from "@/shared/presentation/components/ui/Button";
  * @interface VideoCardMediaProps
  * @property {string} title - The video title, used as the image alt text.
  * @property {string | null} thumbnailUrl - The thumbnail URL, or null when unset.
- * @property {ComponentProps<typeof ButtonFrostedPlay>["size"]} playSize - Size of the hover play button.
+ * @property {ComponentProps<typeof ButtonFrostedPlay>["size"]} playSize - Size of the play button.
  * @property {string} sizes - The responsive `sizes` hint for the fill image.
  */
 export interface VideoCardMediaProps {
@@ -25,7 +25,8 @@ export interface VideoCardMediaProps {
  * @description
  * The thumbnail layer shared by every VideoCard variant. Fills its positioned parent, so each
  * variant owns the outer sized and rounded container (and the muted surface when no thumbnail
- * is set); hover effects are driven by the ancestor card's `group` class.
+ * is set); hover effects are driven by the ancestor card's `group` class. A coarse pointer has
+ * no hover to reveal them, so the play button stands on the bare thumbnail there instead.
  */
 export function VideoCardMedia({ title, thumbnailUrl, playSize, sizes }: VideoCardMediaProps) {
     return (
@@ -39,7 +40,7 @@ export function VideoCardMedia({ title, thumbnailUrl, playSize, sizes }: VideoCa
                     className="object-cover transition-transform duration-300 group-hover:scale-110"
                 />
             )}
-            <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+            <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100 pointer-coarse:bg-transparent pointer-coarse:opacity-100">
                 <ButtonFrostedPlay size={playSize} />
             </div>
         </Fragment>
