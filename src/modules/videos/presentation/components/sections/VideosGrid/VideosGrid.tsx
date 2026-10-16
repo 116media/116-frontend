@@ -21,7 +21,7 @@ export interface VideosGridProps {
  */
 export function VideosGrid({ videos }: VideosGridProps) {
     return (
-        <div className="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-3 xl:grid-cols-4">
+        <div className="grid grid-cols-2 gap-x-4 gap-y-8 lg:grid-cols-3 xl:grid-cols-4">
             {videos.map((video) => (
                 <VideoCard.Vertical
                     key={video.id}
