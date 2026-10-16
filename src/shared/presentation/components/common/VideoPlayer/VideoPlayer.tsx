@@ -1,19 +1,18 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import type { APITypes } from "plyr-react";
-import type { Ref } from "react";
+import type { ReactNode } from "react";
 
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 import { extractYoutubeId } from "@/shared/presentation/utils/youtube/youtube.utils";
 import { VideoPlayerPoster } from "./VideoPlayer.Poster";
 
 /**
- * The client-only Plyr embed, loaded with SSR off because Plyr touches `window` at
- * import time. The poster layer underneath holds the frame's height until the chunk
- * resolves, so there is no layout shift.
+ * The Video.js embed, loaded with SSR off so the player and its skin stylesheet stay out
+ * of the server bundle. The poster layer underneath holds the frame's height until the
+ * chunk resolves, so there is no layout shift.
  */
-const PlyrPlayer = dynamic(() => import("./VideoPlayer.Plyr"), {
+const VideoPlayerMedia = dynamic(() => import("./VideoPlayer.Media"), {
     ssr: false,
     loading: () => null
 });
@@ -35,12 +34,11 @@ const RATIO_CLASS: Record<string, string> = {
  * @property {string | null} [youtubeVideoUrl] - YouTube URL source (takes precedence over videoUrl).
  * @property {string | null} [videoUrl] - Direct file/remote URL source (Cloudinary shorts).
  * @property {string} [ratio] - Aspect ratio, e.g. "16:9" (default) or "9:16".
- * @property {"full" | "reel" | "bare"} [controls] - Control-set preset; "reel" is the shorts transport.
+ * @property {"full" | "reel"} [controls] - Skin preset; "reel" is the shorts transport.
  * @property {boolean} [autoPlay] - Autoplay on mount.
  * @property {boolean} [muted] - Start muted (required for autoplay).
- * @property {number} [volume] - Initial playback volume (0 to 1).
  * @property {boolean} [loop] - Loop playback.
- * @property {Ref<APITypes>} [playerRef] - Ref receiving the Plyr API (`{ plyr }`) for imperative control.
+ * @property {ReactNode} [children] - Rendered inside the player context, where `usePlayer()` resolves.
  */
 export interface VideoPlayerProps {
     title: string;
@@ -48,23 +46,23 @@ export interface VideoPlayerProps {
     youtubeVideoUrl?: string | null;
     videoUrl?: string | null;
     ratio?: string;
-    controls?: "full" | "reel" | "bare";
+    controls?: "full" | "reel";
     autoPlay?: boolean;
     muted?: boolean;
-    volume?: number;
     loop?: boolean;
-    playerRef?: Ref<APITypes>;
+    children?: ReactNode;
 }
 
 /**
  * VideoPlayer
  *
  * @description
- * Entity-agnostic playback surface: a client-only Plyr embed above a poster layer,
- * so server HTML and the chunk-loading window both show the thumbnail. Plays either
- * a YouTube URL or a direct file/remote URL (YouTube wins when both are set); with
- * no source it renders the poster permanently. `ratio` / `controls` / playback flags
- * configure the frame, so the detail page (16:9, full) and shorts (9:16, bare) share it.
+ * Entity-agnostic playback surface: a client-only Video.js 10 embed above a poster layer,
+ * so server HTML and the chunk-loading window both show the thumbnail. Plays either a
+ * YouTube URL or a direct file/remote URL (YouTube wins when both are set); with no source
+ * it renders the poster permanently. `ratio` / `controls` / playback flags configure the
+ * frame, so the detail page (16:9, full) and shorts (9:16, reel) share it. Anything passed
+ * as `children` renders inside the player context and may drive it through `usePlayer()`.
  */
 export function VideoPlayer({
     youtubeVideoUrl,
@@ -75,13 +73,12 @@ export function VideoPlayer({
     controls = "full",
     autoPlay,
     muted,
-    volume,
     loop,
-    playerRef
+    children
 }: VideoPlayerProps) {
-    const youtubeId = extractYoutubeId(youtubeVideoUrl ?? null);
+    const youtubeUrl = extractYoutubeId(youtubeVideoUrl ?? null) ? youtubeVideoUrl : null;
     const ratioClass = RATIO_CLASS[ratio] ?? RATIO_CLASS["16:9"];
-    const hasSource = Boolean(youtubeId) || Boolean(videoUrl);
+    const hasSource = Boolean(youtubeUrl) || Boolean(videoUrl);
 
     if (!hasSource) {
         return (
@@ -105,17 +102,18 @@ export function VideoPlayer({
                 />
             </div>
             <div className="relative size-full">
-                <PlyrPlayer
+                <VideoPlayerMedia
                     loop={loop}
-                    ratio={ratio}
+                    title={title}
                     muted={muted}
-                    volume={volume}
                     autoPlay={autoPlay}
                     controls={controls}
-                    plyrApiRef={playerRef}
-                    youtubeId={youtubeId ?? undefined}
+                    poster={thumbnailUrl}
+                    youtubeUrl={youtubeUrl ?? undefined}
                     videoUrl={videoUrl ?? undefined}
-                />
+                >
+                    {children}
+                </VideoPlayerMedia>
             </div>
         </div>
     );
