@@ -9,5 +9,6 @@ export const home = {
     watchNow: "Watch Now",
     categories: "Categories",
     showsTitle: "Everyone's Watching Now",
+    showsSubtitle: "The shows people are following this week",
     showsViewAll: "View all shows"
 } as const;
