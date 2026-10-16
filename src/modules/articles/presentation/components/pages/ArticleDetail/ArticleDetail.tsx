@@ -71,8 +71,8 @@ export function ArticleDetail({ article }: ArticleDetailProps) {
         <div className="relative flex flex-col gap-8">
             <ArticleDetailReadingProgress bodyRef={bodyRef} />
 
-            <div className="lg:grid lg:grid-cols-[auto_minmax(0,2.5fr)_minmax(0,2fr)] lg:gap-6">
-                <aside className="hidden lg:block">
+            <div className="md:grid md:grid-cols-[auto_minmax(0,1fr)] md:gap-6 xl:grid-cols-[auto_minmax(0,2.5fr)_minmax(0,2fr)]">
+                <aside className="hidden md:block">
                     <ArticleDetailShareRail
                         slug={article.slug}
                         articleId={article.id}
@@ -80,7 +80,7 @@ export function ArticleDetail({ article }: ArticleDetailProps) {
                     />
                 </aside>
 
-                <article className="mt-6 flex min-w-0 flex-col gap-4 lg:mt-0">
+                <article className="mt-6 flex w-full min-w-0 max-w-[68ch] flex-col gap-4 md:mt-0 xl:max-w-none">
                     <ArticleDetailHero
                         title={article.title}
                         categoryId={article.categoryId}
@@ -127,7 +127,7 @@ export function ArticleDetail({ article }: ArticleDetailProps) {
                     />
                 </article>
 
-                <aside className="mt-12 flex flex-col gap-6 lg:mt-0">
+                <aside className="mt-12 flex w-full max-w-[68ch] flex-col gap-6 md:col-start-2 xl:col-start-3 xl:mt-0 xl:max-w-none">
                     <ArticlesPopularSidebar currentArticleId={article.id} />
                     <NewsletterCard />
                 </aside>
