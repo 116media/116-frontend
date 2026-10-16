@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-
+import { PAGE_GUTTER } from "@/shared/presentation/constants/layout";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
@@ -25,12 +25,7 @@ export interface PageContainerProps {
  */
 export function PageContainer({ children, className }: PageContainerProps) {
     return (
-        <div
-            className={cn(
-                "mx-auto w-full max-w-7xl px-3 sm:px-6 lg:px-8 3xl:max-w-8xl",
-                className
-            )}
-        >
+        <div className={cn("mx-auto w-full max-w-7xl 3xl:max-w-8xl", PAGE_GUTTER, className)}>
             {children}
         </div>
     );
