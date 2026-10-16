@@ -23,9 +23,10 @@ import type {
     PublicVideoSummaryDto,
     PublicVideoSummaryDtoPaginatedResult,
     TagDto,
+    TagWithCountDto,
     UserVideoActivityDto,
     UserVideoActivityDtoPaginatedResult,
-    VideoFeedSectionDto,
+    VideoFeedDto,
     VideoInPlaylistDto
 } from "@/shared/infrastructure/api/generated/116.api";
 
@@ -119,12 +120,12 @@ export const VideosMapper = {
     },
 
     /**
-     * Maps VideoFeedSectionDto to IVideoFeedEntity domain entity.
+     * Maps VideoFeedDto to IVideoFeedEntity domain entity.
      *
      * @param dto - Feed section data from API
      * @returns {IVideoFeedEntity} Mapped video feed entity
      */
-    videoFeedFromDto(dto: VideoFeedSectionDto): IVideoFeedEntity {
+    videoFeedFromDto(dto: VideoFeedDto): IVideoFeedEntity {
         return {
             category: VideosMapper.categoryFromDto(dto.category),
             videos: VideosMapper.videoSummaryListFromDto(dto.videos)
@@ -132,12 +133,12 @@ export const VideosMapper = {
     },
 
     /**
-     * Maps a list of VideoFeedSectionDto to IVideoFeedEntity domain entities.
+     * Maps a list of VideoFeedDto to IVideoFeedEntity domain entities.
      *
      * @param dtos - Feed section data list from API
      * @returns {IVideoFeedEntity[]} Mapped video feed entities
      */
-    videoFeedListFromDto(dtos: VideoFeedSectionDto[]): IVideoFeedEntity[] {
+    videoFeedListFromDto(dtos: VideoFeedDto[]): IVideoFeedEntity[] {
         return dtos.map(VideosMapper.videoFeedFromDto);
     },
 
@@ -198,6 +199,32 @@ export const VideosMapper = {
      */
     tagListFromDto(dtos: TagDto[]): IVideoTagEntity[] {
         return dtos.map(VideosMapper.tagFromDto);
+    },
+
+    /**
+     * Maps a TagWithCountDto to a IVideoTagEntity, keeping the videos count the listing
+     * surfaces and dropping the counts of the other content kinds.
+     *
+     * @param dto - Tag data from a counted listing
+     * @returns {IVideoTagEntity} Mapped video tag entity
+     */
+    tagWithCountFromDto(dto: TagWithCountDto): IVideoTagEntity {
+        return {
+            id: dto.id,
+            name: dto.name,
+            slug: dto.slug,
+            contentCount: dto.counts.videos
+        };
+    },
+
+    /**
+     * Maps a list of TagWithCountDto to IVideoTagEntity domain entities.
+     *
+     * @param dtos - Tag list from a counted listing
+     * @returns {IVideoTagEntity[]} Mapped video tag entities
+     */
+    tagWithCountListFromDto(dtos: TagWithCountDto[]): IVideoTagEntity[] {
+        return dtos.map(VideosMapper.tagWithCountFromDto);
     },
 
     /**
