@@ -37,7 +37,7 @@ export function ArticleDetailShareRail({ articleId, slug, title }: ArticleDetail
             separated
             title={title}
             orientation="vertical"
-            className="lg:sticky lg:top-32"
+            className="md:sticky md:top-[calc(var(--site-header-height,7rem)+1rem)]"
             url={resolveShareUrl(`/articles/${slug}`)}
             labels={{
                 x: t("articles.share.x"),
