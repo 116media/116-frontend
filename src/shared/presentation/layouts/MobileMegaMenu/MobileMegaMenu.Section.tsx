@@ -1,5 +1,5 @@
+import { PAGE_GUTTER } from "@/shared/presentation/constants/layout";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
-
 import type { MobileMegaMenuSectionProps } from "./types";
 
 /**
@@ -11,7 +11,7 @@ import type { MobileMegaMenuSectionProps } from "./types";
  */
 export function MobileMegaMenuSection({ title, children, className }: MobileMegaMenuSectionProps) {
     return (
-        <section className={cn("flex flex-col gap-3 p-3", className)}>
+        <section className={cn("flex flex-col gap-3 py-3", PAGE_GUTTER, className)}>
             <h3 className="font-bold text-muted-foreground text-xs uppercase tracking-wider">
                 {title}
             </h3>
