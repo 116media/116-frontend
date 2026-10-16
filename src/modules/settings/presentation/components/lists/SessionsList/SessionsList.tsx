@@ -43,7 +43,7 @@ export function SessionsList() {
                     </p>
                 }
                 render={(items) => (
-                    <div className="flex flex-col gap-3">
+                    <div className="-my-3 flex flex-col divide-y divide-outlined lg:my-0 lg:gap-3 lg:divide-y-0">
                         {items.map((session) => (
                             <SessionCard
                                 key={session.id}
