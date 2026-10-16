@@ -1,8 +1,9 @@
 "use client";
 
-import { Fragment, type ReactNode, useEffect, useState } from "react";
+import { Fragment, type ReactNode, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import { CommentsSheet } from "@/modules/articles/presentation/components/comments/CommentsSheet";
 import { useToggleArticleBookmark } from "@/modules/articles/presentation/hooks/useToggleArticleBookmark";
 import { useToggleArticleLike } from "@/modules/articles/presentation/hooks/useToggleArticleLike";
 import { ArticleShareNotification } from "@/modules/articles/presentation/utils/notification/articles.share.notification";
@@ -51,8 +52,9 @@ interface IDockAction {
  *
  * @description
  * Floating action dock below `lg`: like, bookmark and share in one pill with the
- * comment action beside it. Appears once the reader is past the byline strip and
- * moving down the article, and steps out of the way on the way back up.
+ * comment action beside it. Appears once the reader is past the byline strip and moving
+ * down the article. Comment opens the thread in a sheet, so the reader keeps their place
+ * in the article instead of being carried to the foot of it.
  */
 export function ArticleDetailDock({
     articleId,
@@ -64,32 +66,20 @@ export function ArticleDetailDock({
     isBookmarked,
     shareCount,
     commentCount,
-    revealAfterRef,
-    onComment
+    revealAfterRef
 }: ArticleDetailDockProps) {
     const { t } = useTranslation();
     const requireAuth = useRequireAuth();
     const direction = useScrollDirection();
 
     const [shareOpen, setShareOpen] = useState(false);
-    const [isDismissed, setIsDismissed] = useState(false);
+    const [commentsOpen, setCommentsOpen] = useState(false);
     const isScrolledPast = useScrolledPast(revealAfterRef);
 
     const like = useToggleArticleLike(articleId, likeCount, isLiked);
     const bookmark = useToggleArticleBookmark(articleId, bookmarkCount, isBookmarked);
 
-    // Reading back up restores the dock, so dismissing it with the comment action does
-    // not hide it for the rest of the article.
-    useEffect(() => {
-        if (direction === "up") setIsDismissed(false);
-    }, [direction]);
-
-    const isVisible = isScrolledPast && direction === "down" && !isDismissed;
-
-    const onCommentClick = () => {
-        setIsDismissed(true);
-        onComment();
-    };
+    const isVisible = isScrolledPast && direction === "down";
 
     const actions: IDockAction[] = [
         {
@@ -162,7 +152,7 @@ export function ArticleDetailDock({
                 <Button
                     size="icon-lg"
                     variant="ghost"
-                    onClick={onCommentClick}
+                    onClick={() => setCommentsOpen(true)}
                     aria-label={t("articles.detail.comment")}
                     className="relative size-14 shrink-0 rounded-lg border border-outlined bg-background/80 shadow-lg backdrop-blur-xl hover:bg-accent"
                 >
@@ -174,6 +164,14 @@ export function ArticleDetailDock({
                     )}
                 </Button>
             </div>
+
+            <CommentsSheet
+                slug={slug}
+                open={commentsOpen}
+                articleId={articleId}
+                commentCount={commentCount}
+                onOpenChange={setCommentsOpen}
+            />
 
             <ShareModal
                 title={title}
