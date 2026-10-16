@@ -17,6 +17,14 @@ import { useProgressRouter } from "@/shared/presentation/hooks/useProgressRouter
 const HERO_LAYOUT_QUERY = "(max-width: 767px)";
 
 /**
+ * Tablet widths run two focal cards rather than three: the same strip at three would hand
+ * each show roughly a phone's worth of width. The second clause catches a tablet held in
+ * landscape, where the viewport matches a laptop and only the coarse pointer separates them.
+ */
+const PAIR_LAYOUT_QUERY =
+    "(min-width: 768px) and (max-width: 1279px), (min-width: 768px) and (max-width: 1535px) and (pointer: coarse)";
+
+/**
  * How long a show holds the focal slot before the strip advances on its own. Long enough
  * to read the title and the opening of the synopsis.
  */
@@ -32,6 +40,13 @@ const LAYOUT = {
         centerHero: false,
         heroClassName: "w-[calc((100%_-_8px)_*_0.85)]",
         childClassName: "w-[calc((100%_-_8px)_*_0.15)]"
+    },
+    pair: {
+        heroCount: 2,
+        visibleChildren: 1,
+        centerHero: false,
+        heroClassName: "w-[calc((100%_-_16px)_*_0.45)]",
+        childClassName: "w-[calc((100%_-_16px)_*_0.1)]"
     },
     multiBrowse: {
         heroCount: 3,
@@ -64,7 +79,8 @@ export interface ShowsCarouselProps {
 export function ShowsCarousel({ shows }: ShowsCarouselProps) {
     const router = useProgressRouter();
     const isHeroLayout = useMediaQuery(HERO_LAYOUT_QUERY);
-    const layout = isHeroLayout ? LAYOUT.hero : LAYOUT.multiBrowse;
+    const isPairLayout = useMediaQuery(PAIR_LAYOUT_QUERY);
+    const layout = isHeroLayout ? LAYOUT.hero : isPairLayout ? LAYOUT.pair : LAYOUT.multiBrowse;
 
     return (
         <Md3Carousel
@@ -76,7 +92,7 @@ export function ShowsCarousel({ shows }: ShowsCarouselProps) {
             heroClassName={layout.heroClassName}
             childClassName={layout.childClassName}
             visibleChildren={layout.visibleChildren}
-            heightClassName="h-96 md:h-80 lg:h-120"
+            heightClassName="h-96 md:h-96 lg:h-120"
             autoplay
             duration={AUTOPLAY_DURATION_MS}
             onHeroActivate={(show) => router.push(`${VIDEOS_PATH}/${show.slug}`)}
