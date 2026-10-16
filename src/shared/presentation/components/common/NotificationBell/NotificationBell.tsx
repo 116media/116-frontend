@@ -35,7 +35,7 @@ export function NotificationBell({ unreadCount = 0, className }: NotificationBel
             type="button"
             variant="ghost"
             className={cn(
-                "relative size-10 text-muted-foreground hover:text-foreground [&_svg]:size-5 lg:size-9 lg:[&_svg]:size-4",
+                "relative size-10 text-muted-foreground hover:text-foreground [&_svg]:size-5 surface-pro-portrait:size-11.25 surface-pro-portrait:[&_svg]:size-5.5 lg:size-9 lg:[&_svg]:size-4",
                 className
             )}
             aria-label={t("navigation.notifications", { count: unreadCount })}
