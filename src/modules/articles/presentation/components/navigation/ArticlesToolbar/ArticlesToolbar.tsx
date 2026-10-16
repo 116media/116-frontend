@@ -58,7 +58,7 @@ export function ArticlesToolbar(props: ArticlesToolbarProps) {
             />
             <div
                 className={cn(
-                    "sticky top-28 z-30 flex flex-col gap-3 py-3",
+                    "sticky top-[var(--site-header-height-pinned,7rem)] z-30 flex flex-col gap-3 py-3",
                     "before:-z-10 before:-translate-x-1/2 before:absolute before:inset-y-0 before:left-1/2 before:w-screen before:bg-background/95 before:backdrop-blur",
                     isPinned &&
                         "before:border-b before:border-outlined transition-transform duration-300",
@@ -72,7 +72,7 @@ export function ArticlesToolbar(props: ArticlesToolbarProps) {
                     {t("articles.browse.title")}
                 </h2>
 
-                <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+                <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                     <ArticlesToolbarCategoryTabs
                         value={props.categoryId}
                         onChange={props.onCategoryChange}
