@@ -12,8 +12,8 @@ import { generateDummyVideoFeed } from "./video-feed.dummy";
 
 /**
  * A real, publicly available YouTube video (Blender Foundation's Big Buck
- * Bunny, an open movie) so the dummy detail page exercises the actual Plyr
- * embed and the YouTube stats chips end to end.
+ * Bunny, an open movie) so the dummy detail page exercises the actual YouTube
+ * embed and the stats chips end to end.
  */
 const DUMMY_YOUTUBE_URL = "https://www.youtube.com/watch?v=aqz-KE-bpKQ";
 
