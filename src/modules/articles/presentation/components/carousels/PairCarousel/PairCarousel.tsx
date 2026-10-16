@@ -83,10 +83,10 @@ function PairColumnCarousel({ articles }: PairColumnCarouselProps) {
 export function PairCarousel({ pairA, pairB }: PairCarouselProps) {
     return (
         <div className="grid h-full grid-cols-2 gap-2 sm:gap-3 md:gap-4">
-            <div className="aspect-3/4 overflow-hidden lg:aspect-auto">
+            <div className="aspect-3/4 overflow-hidden md:aspect-4/3 lg:aspect-auto">
                 <PairColumnCarousel articles={pairA} />
             </div>
-            <div className="aspect-3/4 overflow-hidden lg:aspect-auto">
+            <div className="aspect-3/4 overflow-hidden md:aspect-4/3 lg:aspect-auto">
                 <PairColumnCarousel articles={pairB} />
             </div>
         </div>
