@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@/shared/presentation/components/ui/Button";
 import { SearchIcon, XIcon } from "@/shared/presentation/components/ui/Icon";
 import { Input } from "@/shared/presentation/components/ui/Input";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
  * Props for VideosToolbarSearchInput.
@@ -12,10 +13,12 @@ import { Input } from "@/shared/presentation/components/ui/Input";
  * @interface VideosToolbarSearchInputProps
  * @property {string} value - The raw search text (controlled).
  * @property {(value: string) => void} onChange - Emits the search text on every change.
+ * @property {string} [className] - Sizing for the row the box sits in.
  */
 export interface VideosToolbarSearchInputProps {
     value: string;
     onChange: (value: string) => void;
+    className?: string;
 }
 
 /**
@@ -25,10 +28,14 @@ export interface VideosToolbarSearchInputProps {
  * Controlled video search box that emits the raw text on every keystroke; the
  * container debounces before feeding the feed query.
  */
-export function VideosToolbarSearchInput({ value, onChange }: VideosToolbarSearchInputProps) {
+export function VideosToolbarSearchInput({
+    value,
+    onChange,
+    className
+}: VideosToolbarSearchInputProps) {
     const { t } = useTranslation();
     return (
-        <div className="relative w-full sm:max-w-xs">
+        <div className={cn("relative w-full sm:max-w-xs", className)}>
             <SearchIcon className="-translate-y-1/2 absolute top-1/2 left-3 size-4 text-muted-foreground" />
             <Input
                 value={value}
