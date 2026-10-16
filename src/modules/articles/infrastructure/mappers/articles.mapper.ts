@@ -30,6 +30,7 @@ import type {
     PublicArticleSummaryDtoPaginatedResult,
     PublicGetArticlePromotionFeedResponse,
     TagDto,
+    TagWithCountDto,
     UserArticleActivityDto,
     UserArticleActivityDtoPaginatedResult,
     UserBookmarkedArticleDto,
@@ -155,6 +156,32 @@ export const ArticlesMapper = {
      */
     tagListFromDto(dtos: TagDto[]): IArticleTagEntity[] {
         return dtos.map(ArticlesMapper.tagFromDto);
+    },
+
+    /**
+     * Maps a TagWithCountDto to a IArticleTagEntity, keeping the articles count the listing
+     * surfaces and dropping the counts of the other content kinds.
+     *
+     * @param dto - Tag data from a counted listing
+     * @returns {IArticleTagEntity} Mapped article tag entity
+     */
+    tagWithCountFromDto(dto: TagWithCountDto): IArticleTagEntity {
+        return {
+            id: dto.id,
+            name: dto.name,
+            slug: dto.slug,
+            contentCount: dto.counts.articles
+        };
+    },
+
+    /**
+     * Maps a list of TagWithCountDto to IArticleTagEntity domain entities.
+     *
+     * @param dtos - Tag list from a counted listing
+     * @returns {IArticleTagEntity[]} Mapped article tag entities
+     */
+    tagWithCountListFromDto(dtos: TagWithCountDto[]): IArticleTagEntity[] {
+        return dtos.map(ArticlesMapper.tagWithCountFromDto);
     },
 
     /**
