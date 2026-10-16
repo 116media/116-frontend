@@ -1,5 +1,7 @@
 "use client";
 
+import type { ReactNode } from "react";
+
 import { useVideoPopularTags } from "@/modules/videos/presentation/hooks/useVideoPopularTags";
 import { orderTags } from "@/modules/videos/presentation/utils/tags/tags.utils";
 import { Skeleton } from "@/shared/presentation/components/ui/Skeleton";
@@ -21,10 +23,12 @@ const COMPACT_CHIP = "px-2.5 py-1 text-sm sm:px-3";
  * @interface VideosToolbarTagStripProps
  * @property {string | undefined} value - The active tag slug, or undefined.
  * @property {(tagSlug: string | undefined) => void} onChange - Emits the selected tag slug.
+ * @property {ReactNode} [trailing] - Sits between the scrolling chips and the all-tags trigger.
  */
 export interface VideosToolbarTagStripProps {
     value: string | undefined;
     onChange: (tagSlug: string | undefined) => void;
+    trailing?: ReactNode;
 }
 
 /**
@@ -35,7 +39,7 @@ export interface VideosToolbarTagStripProps {
  * {@link VideosToolbarAllTagsPopover} trigger. Single-select: the active tag
  * is pinned to the front and clicking it clears the filter.
  */
-export function VideosToolbarTagStrip({ value, onChange }: VideosToolbarTagStripProps) {
+export function VideosToolbarTagStrip({ value, onChange, trailing }: VideosToolbarTagStripProps) {
     const { data: popular = [], isPending } = useVideoPopularTags();
     return (
         <div className="flex items-center gap-2">
@@ -66,6 +70,8 @@ export function VideosToolbarTagStrip({ value, onChange }: VideosToolbarTagStrip
                         </Tag>
                     ))}
             </div>
+            {trailing}
+
             <VideosToolbarAllTagsPopover
                 value={value}
                 onChange={onChange}
