@@ -56,6 +56,7 @@ export {
     Monitor as MonitorIcon,
     Music as MusicIcon,
     Newspaper as NewspaperIcon,
+    Pause as PauseIcon,
     Play as PlayIcon,
     Search as SearchIcon,
     Settings as SettingsIcon,
