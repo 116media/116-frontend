@@ -10,8 +10,8 @@ import { VideosMobileMenu } from "@/modules/videos/presentation/components/navig
 import { Button } from "@/shared/presentation/components/ui/Button";
 import { MenuIcon } from "@/shared/presentation/components/ui/Icon";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/presentation/components/ui/Tabs";
+import { MOBILE_MENU_TABLET_WIDTH, PAGE_GUTTER } from "@/shared/presentation/constants/layout";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
-
 import { MOBILE_MENU_TABS, SWIPE_CLOSE_THRESHOLD } from "./constants";
 import { MobileMegaMenuArtists } from "./MobileMegaMenu.Artists";
 import { MobileMegaMenuFooter } from "./MobileMegaMenu.Footer";
@@ -72,7 +72,7 @@ export function MobileMegaMenu({ articles, videos }: MobileMegaMenuProps) {
                     size="icon-sm"
                     variant="ghost"
                     aria-label={t("navigation.mobileMenu.open")}
-                    className="size-10 text-muted-foreground hover:text-foreground [&_svg]:size-5 lg:hidden"
+                    className="size-10 text-muted-foreground hover:text-foreground [&_svg]:size-5 surface-pro-portrait:size-11.25 surface-pro-portrait:[&_svg]:size-5.5 lg:hidden"
                 >
                     <MenuIcon />
                 </Button>
@@ -95,6 +95,7 @@ export function MobileMegaMenu({ articles, videos }: MobileMegaMenuProps) {
                     style={dragX === 0 ? undefined : { transform: `translateX(${dragX}px)` }}
                     className={cn(
                         "fixed inset-0 z-50 flex flex-col bg-background lg:hidden",
+                        MOBILE_MENU_TABLET_WIDTH,
                         dragX === 0 && "data-[state=open]:animate-sheet-in-left",
                         "data-[state=closed]:animate-sheet-out-left"
                     )}
@@ -109,7 +110,7 @@ export function MobileMegaMenu({ articles, videos }: MobileMegaMenuProps) {
                         defaultValue={MOBILE_MENU_TABS[0].value}
                         className="flex min-h-0 flex-1 flex-col"
                     >
-                        <div className="px-3 pb-3">
+                        <div className={cn("pb-3", PAGE_GUTTER)}>
                             <TabsList
                                 className="flex w-full"
                                 aria-label={t("navigation.mobileMenu.sections")}
