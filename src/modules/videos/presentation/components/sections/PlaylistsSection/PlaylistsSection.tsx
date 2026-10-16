@@ -53,7 +53,7 @@ export function PlaylistsSection() {
                 data={data ?? []}
                 loading={isLoading}
                 skeleton={
-                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 ipad-pro:grid-cols-2 2xl:grid-cols-4">
                         {PLAYLIST_SKELETON_SLOTS.map((slot) => (
                             <PlaylistCard.Loading key={slot} />
                         ))}
@@ -68,7 +68,7 @@ export function PlaylistsSection() {
                     />
                 }
                 render={(playlists) => (
-                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 ipad-pro:grid-cols-2 2xl:grid-cols-4">
                         {playlists.map((playlist) => (
                             <PlaylistCard.Root
                                 key={playlist.id}
