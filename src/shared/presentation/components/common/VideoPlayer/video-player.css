@@ -1,0 +1,44 @@
+/*
+ * Brand skin for the Video.js 10 player, scoped under .video-player. The accent binds
+ * to a theme token so dark/light follows automatically: primary drives it in light
+ * mode, secondary in dark — the same duality the rest of the app uses.
+ */
+.video-player {
+    --media-accent-color: var(--primary);
+    --media-border-radius: var(--radius-lg, 0.5rem);
+    --media-font-family: var(--font-sans);
+}
+
+.dark .video-player {
+    --media-accent-color: var(--secondary);
+}
+
+/*
+ * The surfaces around the player already carry the title, and a YouTube embed draws its
+ * own over the frame, so the skin's overlay would be the second or third copy.
+ */
+.video-player .media-title {
+    display: none;
+}
+
+/*
+ * Squared off while the player is pinned to the top of a small viewport: the band runs
+ * edge to edge there, so every rounded layer inside it has to let go of its corners.
+ */
+.player-pinned,
+.player-pinned .video-player,
+.player-pinned .media-container {
+    --media-border-radius: 0;
+    border-radius: 0;
+}
+
+/*
+ * Full-bleed stage: the shorts player gives the clip the whole screen, so every ratio
+ * box inside it gives way to the stage's own height and the video crops to cover.
+ */
+.player-fill .video-player {
+    --media-object-fit: cover;
+    height: 100%;
+    aspect-ratio: auto;
+    border-radius: 0;
+}
