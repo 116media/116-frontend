@@ -39,7 +39,7 @@ export function AccountSection({ signOutPending, onSignOut }: AccountSectionProp
     const [signOutAllOpen, setSignOutAllOpen] = useState(false);
 
     return (
-        <div>
+        <div className="flex flex-col gap-4">
             <SectionHeader
                 as="h1"
                 icon={<SettingsIcon />}
