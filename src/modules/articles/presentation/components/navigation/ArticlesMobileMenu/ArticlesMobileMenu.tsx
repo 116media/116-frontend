@@ -57,7 +57,7 @@ export function ArticlesMobileMenu({
                 viewAllHref={ARTICLES_PATH}
             >
                 <div className="flex flex-col gap-3">
-                    <div className="grid grid-cols-2 grid-rows-[200px] gap-3">
+                    <div className="grid grid-cols-2 grid-rows-[200px] gap-3 md:grid-rows-[264px]">
                         {featured[0] && (
                             <ArticlesMegaMenuCard.FeaturedOverlay article={featured[0]} />
                         )}
@@ -66,7 +66,7 @@ export function ArticlesMobileMenu({
                         )}
                     </div>
                     {compact.length > 0 && (
-                        <div className="grid grid-cols-2 grid-rows-[150px] gap-3">
+                        <div className="grid grid-cols-2 grid-rows-[150px] gap-3 md:grid-rows-[196px]">
                             {compact.map((article) => (
                                 <ArticlesMegaMenuCard.Compact
                                     key={article.id}
