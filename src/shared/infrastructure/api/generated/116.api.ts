@@ -723,7 +723,7 @@ export interface AdminGetAllShortsResponse {
 }
 
 export interface AdminGetAllTagsResponse {
-  tags: TagDto[];
+  tags: TagWithCountDto[];
 }
 
 export interface AdminGetAllVideosResponse {
@@ -2422,7 +2422,7 @@ export interface PublicGetAllContentTypesResponse {
 }
 
 export interface PublicGetAllTagsResponse {
-  tags: TagDto[];
+  tags: TagWithCountDto[];
 }
 
 export interface PublicGetArticleBySlugResponse {
@@ -2502,7 +2502,7 @@ export interface PublicGetPopularArticlesResponse {
 }
 
 export interface PublicGetPopularTagsResponse {
-  tags: TagDto[];
+  tags: TagWithCountDto[];
 }
 
 export interface PublicGetPopularVideosResponse {
@@ -2561,7 +2561,7 @@ export interface PublicGetVideoBySlugResponse {
 }
 
 export interface PublicGetVideoFeedResponse {
-  sections: VideoFeedSectionDto[];
+  items: VideoFeedDto[];
 }
 
 export interface PublicGetVideoPromotionFeedResponse {
@@ -3217,11 +3217,30 @@ export interface StreamingLinkDto {
   url: string;
 }
 
+export interface TagContentCountsDto {
+  /** @format int32 */
+  articles: number;
+  /** @format int32 */
+  videos: number;
+  /** @format int32 */
+  lyrics: number;
+  /** @format int32 */
+  total: number;
+}
+
 export interface TagDto {
   /** @format uuid */
   id: string;
   name: string;
   slug: string;
+}
+
+export interface TagWithCountDto {
+  /** @format uuid */
+  id: string;
+  name: string;
+  slug: string;
+  counts: TagContentCountsDto;
 }
 
 export interface TranslationDto {
@@ -3413,7 +3432,7 @@ export interface VideoDetailDto {
   ratedStars?: number | null;
 }
 
-export interface VideoFeedSectionDto {
+export interface VideoFeedDto {
   category: CategoryDto;
   videos: PublicVideoSummaryDto[];
 }
@@ -18131,14 +18150,14 @@ export class Api<
       }),
 
     /**
-     * @description Returns the homepage video feed as an ordered list of sections, one per category
-     * pinned to the feed (most recently pinned first). Each section contains the category
-     * metadata and its latest published videos. Sections whose category has no published
+     * @description Returns the homepage video feed as an ordered list of entries, one per category
+     * pinned to the feed (most recently pinned first). Each entry carries the category
+     * metadata and its latest published videos. Entries whose category has no published
      * videos are omitted.
      * 
      * **Response Codes:**
      * 
-     * - Returns 200 OK with the list of feed sections
+     * - Returns 200 OK with the list of feed entries
      * - Returns 429 Too Many Requests if rate limit is exceeded
      *
      * @tags public::videos
