@@ -2,10 +2,10 @@
 
 ## Checklist
 
-- [ ] `app/(public)/search/page.tsx` with metadata
-- [ ] `SearchContainer` owning the query and URL state
-- [ ] Scope read from and written to the URL
-- [ ] Every state wired: idle, loading, results, empty, error
+- [x] `app/(public)/search/page.tsx` with metadata
+- [x] `SearchContainer` owning the query and URL state
+- [x] Scope read from and written to the URL
+- [x] Every state wired: idle, loading, results, empty, error
 
 ---
 
