@@ -5,12 +5,12 @@ the browser. Where a number is claimed, measure it.
 
 ## Checklist
 
-- [ ] `npx tsc --noEmit -p tsconfig.json` clean
-- [ ] `npx biome check --write src app` clean
-- [ ] Every state reached and checked
-- [ ] Request count per typed word measured
-- [ ] Contrast measured in both themes
-- [ ] URL behaviour checked including back and reload
+- [x] `yarn lint:types` clean
+- [x] `yarn lint:code` clean
+- [x] Every state reached and checked — driven in a browser at 390 and 1440, not asserted by a test
+- [ ] Request count per typed word measured — **not done**
+- [ ] Contrast measured in both themes — **not done**
+- [ ] URL behaviour checked including back and reload — **not done**
 
 ---
 
@@ -123,3 +123,15 @@ Mirrors `../../../../docs/search/07-rollout-and-acceptance.md`, scoped to this r
 | No typo tolerance | Phase 4, trigram fallback |
 | Lyrics and artists scopes absent | No public listing endpoints exist |
 | No infinite scroll on results | `pageSize` 20 covers the common case; revisit with telemetry |
+
+---
+
+## There is no test runner
+
+The frontend ships no test stack: no vitest, no jest, no testing-library, no Playwright
+config in `package.json`. Every acceptance line above that says "checked" was checked by
+driving a browser by hand, which is not coverage and does not survive a refactor.
+
+Standing one up is a stack decision rather than part of this feature, so it is called out
+here rather than taken unilaterally. Until then the search module has **no automated
+frontend tests at all.**
