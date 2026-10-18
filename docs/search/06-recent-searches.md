@@ -5,11 +5,11 @@ never reaches the server.
 
 ## Checklist
 
-- [ ] `useRecentSearches` hook
-- [ ] Reads and writes guarded against a throwing `localStorage`
-- [ ] Capped at 8, most recent first, de-duplicated
-- [ ] Only remembers queries that returned something
-- [ ] Clear control on the idle state
+- [x] `useRecentSearches` hook
+- [x] Reads and writes guarded against a throwing `localStorage`
+- [x] Capped at 8, most recent first, de-duplicated
+- [x] Only remembers queries that returned something
+- [x] Clear control on the idle state
 
 ---
 
