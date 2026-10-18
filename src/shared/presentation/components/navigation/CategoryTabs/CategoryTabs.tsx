@@ -1,9 +1,10 @@
 "use client";
 
 import { type ReactNode, useCallback, useEffect, useRef, useState } from "react";
-
+import { Badge } from "@/shared/presentation/components/ui/Badge";
 import { Tabs, TabsList, TabsTrigger } from "@/shared/presentation/components/ui/Tabs";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
+import { formatCount } from "@/shared/presentation/utils/format/format.utils";
 
 const EDGE_SLACK = 4;
 const ALL_TAB_VALUE = "all";
@@ -22,10 +23,13 @@ const COMPACT_TRIGGER = [
  * @interface ICategoryTab
  * @property {string} id - The category id emitted on selection.
  * @property {string} name - The label rendered on the tab.
+ * @property {number} [count] - Matches behind the tab, rendered after the label. Omitted
+ * where a rail has no counts to show.
  */
 export interface ICategoryTab {
     id: string;
     name: string;
+    count?: number;
 }
 
 /**
@@ -38,6 +42,8 @@ export interface ICategoryTab {
  * @property {(categoryId: string | undefined) => void} onChange - Emits the category id.
  * @property {number} [limit] - How many categories to render before overflow.
  * @property {ReactNode} [action] - Trailing control beside the rail, e.g. a "browse all" trigger.
+ * @property {boolean} [fill] - Divides the row evenly below `sm`. For a short, fixed rail
+ * such as the search scopes; a long category rail would squash to nothing.
  */
 export interface CategoryTabsProps {
     limit?: number;
@@ -46,6 +52,7 @@ export interface CategoryTabsProps {
     value: string | undefined;
     categories: ICategoryTab[];
     onChange: (categoryId: string | undefined) => void;
+    fill?: boolean;
 }
 
 /**
@@ -63,7 +70,8 @@ export function CategoryTabs({
     allLabel,
     onChange,
     limit = DEFAULT_LIMIT,
-    action
+    action,
+    fill = false
 }: CategoryTabsProps) {
     const railRef = useRef<HTMLDivElement>(null);
     const [overflow, setOverflow] = useState({ left: false, right: false });
@@ -121,10 +129,15 @@ export function CategoryTabs({
                             onChange(next === ALL_TAB_VALUE ? undefined : next)
                         }
                     >
-                        <TabsList className="w-max min-w-full rounded-md bg-filter-rail sm:min-w-0">
+                        <TabsList
+                            className={cn(
+                                "w-max min-w-full rounded-md bg-filter-rail sm:min-w-0",
+                                fill && "flex w-full"
+                            )}
+                        >
                             <TabsTrigger
                                 value={ALL_TAB_VALUE}
-                                className={COMPACT_TRIGGER}
+                                className={cn(COMPACT_TRIGGER, fill && "flex-1 sm:flex-none")}
                             >
                                 {allLabel}
                             </TabsTrigger>
@@ -132,9 +145,17 @@ export function CategoryTabs({
                                 <TabsTrigger
                                     key={category.id}
                                     value={category.id}
-                                    className={COMPACT_TRIGGER}
+                                    className={cn(COMPACT_TRIGGER, fill && "flex-1 sm:flex-none")}
                                 >
                                     {category.name}
+                                    {category.count !== undefined && (
+                                        <Badge
+                                            variant="muted"
+                                            className="ml-1.5 px-1.5 font-medium tabular-nums"
+                                        >
+                                            {formatCount(category.count)}
+                                        </Badge>
+                                    )}
                                 </TabsTrigger>
                             ))}
                         </TabsList>
