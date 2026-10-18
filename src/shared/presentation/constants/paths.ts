@@ -5,6 +5,8 @@
 
 export const HOME_PATH = "/";
 
+export const SEARCH_PATH = "/search";
+
 export const ARTICLES_PATH = "/articles";
 export const ARTICLE_DETAIL_PATH = "/articles/:slug";
 
