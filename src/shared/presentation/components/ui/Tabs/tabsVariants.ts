@@ -8,7 +8,10 @@ import { cva, type VariantProps } from "class-variance-authority";
 export const tabsTriggerVariants = cva(
     [
         "relative rounded-md font-medium text-muted-foreground transition-colors",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50",
+        // No focus ring: Radix focuses a trigger programmatically on click, which Chromium
+        // reads as keyboard intent, so a ring here fires on every mouse press. Arrow keys
+        // activate as they move, so the lifted active pill is the keyboard indicator.
+        "focus-visible:outline-none",
         "data-[state=active]:text-foreground disabled:pointer-events-none disabled:opacity-50"
     ].join(" "),
     {
