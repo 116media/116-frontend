@@ -2,12 +2,12 @@
 
 ## Checklist
 
-- [ ] `search` namespace in the module's `i18n/locales/{fr,en}/`
-- [ ] Registered in both barrels, key-complete
-- [ ] Toolbar placeholders relabelled (phase 0)
-- [ ] Result count in a polite live region
-- [ ] Every target at least 44px
-- [ ] Contrast measured in both themes, not eyeballed
+- [x] `search` namespace in the module's `i18n/locales/{fr,en}/`
+- [x] Registered in both barrels, key-complete
+- [x] Toolbar placeholders relabelled (phase 0)
+- [x] Result count in a polite live region
+- [x] Every target at least 44px
+- [ ] Contrast measured in both themes, not eyeballed — **not done**, the palette is the existing token set but the pairings were not measured
 
 ---
 
@@ -36,11 +36,13 @@ export const search = {
         label: "Filtrer par type de contenu",
         all: "Tout",
         articles: "Articles",
-        videos: "Vidéos"
+        videos: "Vidéos",
+        shorts: "Shorts"
     },
     type: {
         article: "Article",
-        video: "Vidéo"
+        video: "Vidéo",
+        short: "Short"
     },
     results: {
         count_one: "{{count}} résultat",
