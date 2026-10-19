@@ -28,7 +28,8 @@ export interface VideosPopularSidebarProps {
  * rows sourced from `useVideoDetailPopular` (current video excluded), rendered
  * in one shot — no infinite scroll. The rows sit on their own panel from `lg` up; below
  * it the panel steps out of the flow and the rows stack straight onto the page. Renders
- * nothing when the list is empty.
+ * nothing when the list is empty or the request fails: the column is supplementary to
+ * the video, so a failure is left silent rather than alarming the reader.
  */
 export function VideosPopularSidebar({ currentVideoId }: VideosPopularSidebarProps) {
     const { t } = useTranslation();
