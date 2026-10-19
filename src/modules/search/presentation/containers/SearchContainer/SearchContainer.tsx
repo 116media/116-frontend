@@ -9,11 +9,7 @@ import {
     SEARCH_SCOPES,
     toSearchScope
 } from "@/modules/search/domain/enums/ESearchScope";
-import {
-    SearchResultListEmpty,
-    SearchResultListLoading
-} from "@/modules/search/presentation/components/lists/SearchResultList";
-import { SearchResultGroups } from "@/modules/search/presentation/components/sections/SearchResultGroups";
+import { SearchResultList } from "@/modules/search/presentation/components/lists/SearchResultList";
 import {
     MIN_SEARCH_TERM_LENGTH,
     SEARCH_DEBOUNCE_MS
@@ -48,8 +44,8 @@ const EMPTY_COUNTS: Record<ESearchScope, number> = {
  * place rather than pushing, so a single search leaves one history entry.
  */
 export function SearchContainer() {
-    const { t } = useTranslation();
     const router = useRouter();
+    const { t } = useTranslation();
     const params = useSearchParams();
     const { remember } = useRecentSearches();
 
@@ -75,7 +71,7 @@ export function SearchContainer() {
 
     const query = urlTerm.trim();
     const isQueryable = query.length >= MIN_SEARCH_TERM_LENGTH;
-    const { data, isLoading, isError } = useSearchResults(query, scope);
+    const { data, isLoading, isError, refetch } = useSearchResults(query, scope);
 
     useEffect(() => {
         if (data && !data.isEmpty) remember(data.query);
@@ -91,8 +87,6 @@ export function SearchContainer() {
     const scopeCounts = data?.counts;
     const counts = scopeCounts ?? EMPTY_COUNTS;
 
-    // The scope rail is the browse feeds' category rail, so search reads as the same
-    // control: "all" is its leading tab, the rest carry their counts.
     const scopeTabs = useMemo<ICategoryTab[]>(
         () =>
             SEARCH_SCOPES.filter((candidate) => candidate !== ESearchScope.All).map(
@@ -129,28 +123,24 @@ export function SearchContainer() {
                 </p>
             )}
 
-            {isQueryable && isLoading && <SearchResultListLoading scope={scope} />}
-
-            {isQueryable && isError && (
-                <p className="py-10 text-center text-muted-foreground text-sm">
-                    {t("search.error")}
-                </p>
-            )}
-
-            {isQueryable && !isLoading && !isError && hits.length === 0 && (
-                <SearchResultListEmpty query={query} />
-            )}
-
-            {isQueryable && hits.length > 0 && (
-                <>
-                    <p
-                        aria-live="polite"
-                        className="text-muted-foreground text-sm"
-                    >
-                        {t("search.results.count", { count: counts[scope] ?? 0 })}
-                    </p>
-                    <SearchResultGroups hits={hits} />
-                </>
+            {isQueryable && (
+                <SearchResultList
+                    hits={hits}
+                    query={query}
+                    scope={scope}
+                    counts={counts}
+                    isError={isError}
+                    onRetry={refetch}
+                    isLoading={isLoading}
+                    header={
+                        <p
+                            aria-live="polite"
+                            className="text-muted-foreground text-sm"
+                        >
+                            {t("search.results.count", { count: counts[scope] ?? 0 })}
+                        </p>
+                    }
+                />
             )}
         </div>
     );
