@@ -7,7 +7,7 @@ import { FavoriteShortsGrid } from "@/modules/shorts/presentation/components/sec
 import { FavoriteShortsGridLoading } from "@/modules/shorts/presentation/components/sections/FavoriteShortsGrid/FavoriteShortsGrid.Loading";
 import { useMySavedShorts } from "@/modules/shorts/presentation/hooks/useMySavedShorts";
 import { EmptyState } from "@/shared/presentation/components/ui/EmptyState";
-import { FeedError } from "@/shared/presentation/components/ui/FeedError";
+import { ErrorState } from "@/shared/presentation/components/ui/ErrorState";
 import { BookmarkIcon } from "@/shared/presentation/components/ui/Icon";
 import { InfiniteScrollFooter } from "@/shared/presentation/components/ui/InfiniteScrollFooter";
 import { StateRenderer } from "@/shared/presentation/components/ui/StateRenderer";
@@ -40,7 +40,7 @@ export function SavedShortsSection() {
             loading={isLoading}
             skeleton={<FavoriteShortsGridLoading />}
             errorState={
-                <FeedError
+                <ErrorState
                     onRetry={refetch}
                     title={t("favorites.states.error")}
                     retryLabel={t("favorites.states.retry")}
