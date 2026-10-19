@@ -1,6 +1,6 @@
 "use client";
 
-import { type RefObject, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 import type { IArticleDetailEntity } from "@/modules/articles/domain/entities/IArticleDetailEntity";
 import { CommentList } from "@/modules/articles/presentation/components/comments/CommentList";
@@ -14,6 +14,7 @@ import { ArticleDetailReadingProgress } from "@/modules/articles/presentation/co
 import { ArticleDetailShareRail } from "@/modules/articles/presentation/components/sections/ArticleDetailShareRail";
 import { ArticleDetailTags } from "@/modules/articles/presentation/components/sections/ArticleDetailTags";
 import { ArticlesPopularSidebar } from "@/modules/articles/presentation/components/sections/ArticlesPopularSidebar";
+import { focusComposer } from "@/modules/articles/presentation/utils/comments/comments.utils";
 import { NewsletterCard } from "@/modules/newsletter/presentation/components/cards/NewsletterCard";
 
 /**
@@ -24,25 +25,6 @@ import { NewsletterCard } from "@/modules/newsletter/presentation/components/car
  */
 export interface ArticleDetailProps {
     article: IArticleDetailEntity;
-}
-
-/**
- * focusComposer
- *
- * @description
- * Scrolls the comments section into view and focuses the composer textarea, using
- * `preventScroll` so the focus does not compete with the smooth scroll. When the composer
- * is not mounted (guest view), only the section scroll runs.
- *
- * @param sectionRef - The comments section ref held by the assembler.
- * @param composerRef - The composer textarea ref held by the assembler.
- */
-function focusComposer(
-    sectionRef: RefObject<HTMLElement | null>,
-    composerRef: RefObject<HTMLTextAreaElement | null>
-): void {
-    sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-    composerRef.current?.focus({ preventScroll: true });
 }
 
 /**
