@@ -5,9 +5,10 @@ import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 /**
  * How much room the header takes. `md` heads a page or a detail sidebar; `sm` heads a
  * group inside a dense surface such as the search panel, where the page-sized box
- * crowds out the results it is labelling.
+ * crowds out the results it is labelling. `base` sits between the two, for a section
+ * that leads its own block without heading the page.
  */
-export type SectionHeaderSize = "sm" | "md";
+export type SectionHeaderSize = "sm" | "base" | "md";
 
 /**
  * Per-size geometry: the box, the icon well, the icon itself and the two text rows.
@@ -20,6 +21,12 @@ const SIZES: Record<
         box: "gap-4 p-3 sm:p-4",
         well: "size-16 [&_svg]:size-5",
         title: "text-lg",
+        subtitle: "text-sm"
+    },
+    base: {
+        box: "gap-3.5 p-2.5",
+        well: "size-11 [&_svg]:size-5",
+        title: "text-base",
         subtitle: "text-sm"
     },
     sm: {
