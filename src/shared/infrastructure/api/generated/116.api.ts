@@ -3173,6 +3173,16 @@ export interface SearchHitDto {
   engagement: SearchHitEngagementDto;
 }
 
+export interface SearchHitDtoPaginatedResult {
+  /** @format int32 */
+  pageIndex: number;
+  /** @format int32 */
+  pageSize: number;
+  /** @format int64 */
+  count: number;
+  items: SearchHitDto[];
+}
+
 export interface SearchHitEngagementDto {
   /** @format int32 */
   likeCount?: number | null;
@@ -3188,16 +3198,6 @@ export interface SearchHitEngagementDto {
   ratingAverage?: number | null;
   /** @format int32 */
   ratingCount?: number | null;
-}
-
-export interface SearchHitDtoPaginatedResult {
-  /** @format int32 */
-  pageIndex: number;
-  /** @format int32 */
-  pageSize: number;
-  /** @format int64 */
-  count: number;
-  items: SearchHitDto[];
 }
 
 export interface SessionDto {
@@ -17222,7 +17222,16 @@ export class Api<
       }),
 
     /**
-     * @description Searches the published articles and videos with PostgreSQL full-text search, ranked by relevance. Accent-insensitive and stemmed for French. Returns the hits for the requested scope plus the hit counts for every scope, so a client can label its scope tabs from one response. **Response Codes:** - Returns 200 OK with the ranked hits, or an empty list when nothing matches - Returns 400 Bad Request when the term is shorter than 2 characters - Returns 429 Too Many Requests if rate limit is exceeded
+     * @description Searches the published articles, videos and short videos with PostgreSQL
+     * full-text search, ranked by relevance. Accent-insensitive and stemmed for both
+     * French and English. Returns the hits for the requested scope plus the hit counts
+     * for every scope, so a client can label its scope tabs from one response.
+     * 
+     * **Response Codes:**
+     * 
+     * - Returns 200 OK with the ranked hits, or an empty list when nothing matches
+     * - Returns 400 Bad Request when the term is shorter than 2 characters
+     * - Returns 429 Too Many Requests if rate limit is exceeded
      *
      * @tags public::search
      * @name PublicSearch
