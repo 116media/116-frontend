@@ -8,6 +8,7 @@ import { Comment } from "@/modules/articles/presentation/components/comments/Com
 import { CommentComposer } from "@/modules/articles/presentation/components/comments/CommentComposer";
 import { CommentListLoading } from "@/modules/articles/presentation/components/comments/CommentList";
 import { useArticleComments } from "@/modules/articles/presentation/hooks/useArticleComments";
+import { byLikes } from "@/modules/articles/presentation/utils/comments/comments.utils";
 import { Button } from "@/shared/presentation/components/ui/Button";
 import { EmptyState } from "@/shared/presentation/components/ui/EmptyState";
 import { AlertCircleIcon, MessageSquareIcon } from "@/shared/presentation/components/ui/Icon";
@@ -16,20 +17,6 @@ import { StateRenderer } from "@/shared/presentation/components/ui/StateRenderer
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/presentation/components/ui/Tabs";
 
 import type { CommentsSheetProps, CommentsSheetSort } from "./types";
-
-/**
- * byLikes
- *
- * @description
- * Most-liked first, keeping the API's order among equals, so the popular tab reorders the
- * thread without shuffling comments that are level on likes.
- *
- * @param comments - The loaded comments.
- * @returns A sorted copy.
- */
-function byLikes(comments: IArticleCommentEntity[]): IArticleCommentEntity[] {
-    return [...comments].sort((a, b) => b.likeCount - a.likeCount);
-}
 
 /**
  * CommentsSheet
