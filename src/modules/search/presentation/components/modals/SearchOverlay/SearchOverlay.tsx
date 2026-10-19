@@ -81,13 +81,11 @@ export function SearchOverlay({ isOpen, onOpenChange }: SearchOverlayProps) {
     const [term, setTerm] = useState("");
     const [scope, setScope] = useState(ESearchScope.All);
 
-    // A sheet owns the screen and traps focus; a mega menu does not, so a click on
-    // another control both closes this and reaches that control.
     const isSheet = !useMediaQuery("(min-width: 40rem)");
 
     const settled = useDebouncedValue(term.trim(), SEARCH_DEBOUNCE_MS);
     const isQueryable = settled.length >= MIN_SEARCH_TERM_LENGTH;
-    const { data, isLoading, isError } = useSearchResults(settled, scope);
+    const { data, isLoading, isError, refetch } = useSearchResults(settled, scope);
 
     useEffect(() => {
         if (!isOpen) {
@@ -161,6 +159,7 @@ export function SearchOverlay({ isOpen, onOpenChange }: SearchOverlayProps) {
                             recent={recent}
                             query={settled}
                             isError={isError}
+                            onRetry={refetch}
                             onClearRecent={clear}
                             isLoading={isLoading}
                             scopeTabs={scopeTabs}
