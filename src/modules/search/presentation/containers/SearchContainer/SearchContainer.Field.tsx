@@ -1,6 +1,6 @@
 "use client";
 
-import { type ChangeEvent, type FormEvent, useEffect, useRef } from "react";
+import { type ChangeEvent, type SubmitEvent, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 
 import { MAX_SEARCH_TERM_LENGTH } from "@/modules/search/presentation/constants/searchKeys";
@@ -43,7 +43,7 @@ export function SearchContainerField({ value, onValueChange }: SearchContainerFi
         <search>
             <form
                 className={SEARCH_FIELD_WIDTH}
-                onSubmit={(event: FormEvent<HTMLFormElement>) => event.preventDefault()}
+                onSubmit={(event: SubmitEvent<HTMLFormElement>) => event.preventDefault()}
             >
                 <label
                     htmlFor="search-page-field"
