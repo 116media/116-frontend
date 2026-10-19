@@ -26,7 +26,9 @@ export interface ArticlesPopularSidebarProps {
  * @description
  * The detail page's popular-articles column: up to five ArticleCard.Horizontal rows
  * sourced from `useArticleDetailPopular`, with the current article excluded. Shows a
- * matching skeleton while loading and renders nothing when the resolved list is empty.
+ * matching skeleton while loading and renders nothing when the resolved list is empty
+ * or the request fails: the column is supplementary to the article, so a failure is
+ * left silent rather than alarming the reader.
  */
 export function ArticlesPopularSidebar({ currentArticleId }: ArticlesPopularSidebarProps) {
     const { t } = useTranslation();
