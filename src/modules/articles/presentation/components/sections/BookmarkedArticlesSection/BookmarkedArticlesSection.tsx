@@ -6,7 +6,7 @@ import { FavoriteArticlesGrid } from "@/modules/articles/presentation/components
 import { FavoriteArticlesGridLoading } from "@/modules/articles/presentation/components/sections/FavoriteArticlesGrid/FavoriteArticlesGrid.Loading";
 import { useMyArticleBookmarks } from "@/modules/articles/presentation/hooks/useMyArticleBookmarks";
 import { EmptyState } from "@/shared/presentation/components/ui/EmptyState";
-import { FeedError } from "@/shared/presentation/components/ui/FeedError";
+import { ErrorState } from "@/shared/presentation/components/ui/ErrorState";
 import { BookmarkIcon } from "@/shared/presentation/components/ui/Icon";
 import { InfiniteScrollFooter } from "@/shared/presentation/components/ui/InfiniteScrollFooter";
 import { StateRenderer } from "@/shared/presentation/components/ui/StateRenderer";
@@ -33,7 +33,7 @@ export function BookmarkedArticlesSection() {
             loading={isLoading}
             skeleton={<FavoriteArticlesGridLoading />}
             errorState={
-                <FeedError
+                <ErrorState
                     onRetry={refetch}
                     title={t("favorites.states.error")}
                     retryLabel={t("favorites.states.retry")}
