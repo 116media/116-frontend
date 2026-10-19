@@ -28,6 +28,7 @@ export const videoKeys = {
     feed: (filters: IVideoFeedFilters = {}) => [...videoKeys.all, "feed", filters] as const,
     categories: ["videos", "categories"] as const,
     shows: ["videos", "shows"] as const,
+    homeFeed: ["videos", "home-feed"] as const,
     popularTags: ["videos", "tags", "popular"] as const,
     allTags: (search: string) => [...videoKeys.all, "tags", "all", search] as const,
     detail: (slug: string) => [...videoKeys.all, "detail", slug] as const,
