@@ -1,8 +1,8 @@
 "use client";
 
-import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 
+import { EmptyState } from "@/shared/presentation/components/ui/EmptyState";
 import { SearchXIcon } from "@/shared/presentation/components/ui/Icon";
 
 /**
@@ -10,36 +10,29 @@ import { SearchXIcon } from "@/shared/presentation/components/ui/Icon";
  *
  * @interface SearchResultListEmptyProps
  * @property {string} query - The term that matched nothing, echoed back.
- * @property {ReactNode} [children] - Suggestions rendered under the message.
  */
 export interface SearchResultListEmptyProps {
     query: string;
-    children?: ReactNode;
 }
 
 /**
  * SearchResultList.Empty
  *
  * @description
- * The no-match state. Echoes the term so the reader can see a typo, then offers a way
- * back rather than leaving the screen blank.
+ * The no-match state, on the shared empty-state shell. Echoes the term so the reader
+ * can see a typo. Height is collapsed from the shell's default, which is sized for a
+ * whole page and would overflow the overlay panel.
  */
-export function SearchResultListEmpty({ query, children }: SearchResultListEmptyProps) {
+export function SearchResultListEmpty({ query }: SearchResultListEmptyProps) {
     const { t } = useTranslation();
 
     return (
-        <div className="flex flex-col items-center gap-3 px-5 py-10 text-center">
-            <span className="grid size-14 place-items-center rounded-full bg-muted text-muted-foreground">
-                <SearchXIcon
-                    aria-hidden="true"
-                    className="size-7"
-                />
-            </span>
-            <h3 className="font-semibold text-foreground text-lg">
-                {t("search.empty.title", { query })}
-            </h3>
-            <p className="max-w-sm text-muted-foreground text-sm">{t("search.empty.hint")}</p>
-            {children}
-        </div>
+        <EmptyState
+            context="search-results"
+            className="min-h-0 py-12"
+            subtitle={t("search.empty.hint")}
+            title={t("search.empty.title", { query })}
+            icon={<SearchXIcon className="size-10" />}
+        />
     );
 }
