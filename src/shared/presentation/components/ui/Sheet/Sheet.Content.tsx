@@ -1,12 +1,7 @@
 "use client";
 
 import * as DialogPrimitive from "@radix-ui/react-dialog";
-import {
-    type ComponentRef,
-    type ForwardRefExoticComponent,
-    forwardRef,
-    type RefAttributes
-} from "react";
+import { type ComponentRef, forwardRef } from "react";
 
 import { DialogOverlay } from "@/shared/presentation/components/ui/Dialog";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
@@ -93,41 +88,30 @@ SheetContent.displayName = "Sheet.Content";
 type PresetContentProps = Omit<SheetContentProps, "variant">;
 
 /**
- * withVariant
- *
- * @description
- * Binds one presentation to {@link SheetContent}, so the namespace a call site imports
- * carries the choice and reads as the surface it renders.
- *
- * @param variant - The presentation to bind.
- * @param name - Display name for the bound component.
- * @returns The content component for that presentation.
- */
-function withVariant(
-    variant: SheetVariant,
-    name: string
-): ForwardRefExoticComponent<
-    PresetContentProps & RefAttributes<ComponentRef<typeof SheetContent>>
-> {
-    const Content = forwardRef<ComponentRef<typeof SheetContent>, PresetContentProps>(
-        (props, ref) => (
-            <SheetContent
-                ref={ref}
-                variant={variant}
-                {...props}
-            />
-        )
-    );
-    Content.displayName = name;
-    return Content;
-}
-
-/**
  * The bottom-docked presentation, at every width.
  */
-export const DockedSheetContent = withVariant("sheet", "Sheet.Content");
+export const DockedSheetContent = forwardRef<ComponentRef<typeof SheetContent>, PresetContentProps>(
+    (props, ref) => (
+        <SheetContent
+            ref={ref}
+            variant="sheet"
+            {...props}
+        />
+    )
+);
+DockedSheetContent.displayName = "Sheet.Content";
 
 /**
  * The sheet-on-phone, dialog-from-`sm` presentation.
  */
-export const AdaptiveDialogContent = withVariant("adaptive", "AdaptiveDialog.Content");
+export const AdaptiveDialogContent = forwardRef<
+    ComponentRef<typeof SheetContent>,
+    PresetContentProps
+>((props, ref) => (
+    <SheetContent
+        ref={ref}
+        variant="adaptive"
+        {...props}
+    />
+));
+AdaptiveDialogContent.displayName = "AdaptiveDialog.Content";
