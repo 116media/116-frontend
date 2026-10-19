@@ -23,6 +23,8 @@ export const security = {
         revokeDescription:
             "Are you sure you want to revoke this session? The device will be signed out immediately.",
         empty: "No active sessions.",
+        error: "We could not load your sessions.",
+        retry: "Try again",
         unknownIp: "—"
     }
 } as const;
