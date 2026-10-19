@@ -253,4 +253,8 @@
 
     /* Shorts */
     --animate-short-like-burst: short-like-burst 0.6s ease-out;
+
+    /* Status dots */
+    --animate-status-ping: status-ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+    --animate-headline-pulse: status-pulse 0.9s ease-in-out infinite;
 }
