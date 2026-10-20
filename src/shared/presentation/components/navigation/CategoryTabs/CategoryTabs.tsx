@@ -131,7 +131,7 @@ export function CategoryTabs({
                     >
                         <TabsList
                             className={cn(
-                                "w-max min-w-full rounded-md bg-filter-rail sm:min-w-0",
+                                "w-max min-w-full rounded-base bg-filter-rail sm:min-w-0",
                                 fill && "flex w-full"
                             )}
                         >
