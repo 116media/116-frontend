@@ -48,11 +48,11 @@ export function ComingSoonSocials({ title, subtitle }: ComingSoonSocialsProps) {
                         target="_blank"
                         rel="noreferrer noopener"
                         aria-label={t("comingSoon.launch.socials.followAria", { network: label })}
-                        className="flex min-h-18 items-center gap-3 rounded-lg border border-foreground/5 bg-surface-raised p-4 transition-colors hover:bg-muted/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                        className="flex min-h-18 items-center gap-3 rounded-base border border-foreground/5 bg-surface-raised p-4 transition-colors hover:bg-muted/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                     >
                         <span
                             className={cn(
-                                "flex size-10 shrink-0 items-center justify-center rounded-md bg-muted",
+                                "flex size-10 shrink-0 items-center justify-center rounded-base bg-muted",
                                 colorClass
                             )}
                         >

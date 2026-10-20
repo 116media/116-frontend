@@ -54,7 +54,7 @@ export function LaunchCountdown() {
             {units.map((unit) => (
                 <div
                     key={unit.key}
-                    className="flex min-w-18 flex-col items-center gap-1 rounded-lg border border-foreground/5 bg-surface-raised px-4 py-3"
+                    className="flex min-w-18 flex-col items-center gap-1 rounded-base border border-foreground/5 bg-surface-raised px-4 py-3"
                 >
                     <span className="font-bold text-3xl text-foreground tabular-nums">
                         {unit.value === undefined ? "--" : padUnit(unit.value)}
