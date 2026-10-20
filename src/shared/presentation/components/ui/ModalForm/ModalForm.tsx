@@ -1,11 +1,6 @@
 "use client";
 
 import type { ComponentProps, ReactNode } from "react";
-import {
-    DialogCloseButton,
-    DialogDescription,
-    DialogTitle
-} from "@/shared/presentation/components/ui/Dialog";
 import { AdaptiveDialog } from "@/shared/presentation/components/ui/Sheet";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
@@ -41,11 +36,10 @@ export interface ModalFormProps {
  * ModalForm
  *
  * @description
- * Shared chrome for every form-bearing modal: header with title and close button,
- * a form body, and a footer of actions, wrapped in one `<form>` so a footer submit
- * button drives `onSubmit`. Controlled via `open`/`onOpenChange`. The panel is a bottom
- * sheet on phones and the same centred dialog as before from `sm` up, so a field keeps
- * its place above the keyboard without the form changing shape.
+ * Shared chrome for every form-bearing modal: the sheet's own header, body, and footer
+ * regions wrapped in one `<form>`, so a footer submit button drives `onSubmit`.
+ * Controlled via `open`/`onOpenChange`. The panel is a bottom sheet on phones and a
+ * centred dialog from `sm` up, so a field keeps its place above the keyboard.
  */
 export function ModalForm({
     open,
@@ -69,29 +63,23 @@ export function ModalForm({
                 aria-describedby={subtitle ? undefined : describedById}
                 className={cn("bg-dialog sm:shadow-xl", className)}
             >
-                <DialogCloseButton
-                    label={closeLabel}
-                    className="absolute top-5 right-6 z-10"
-                />
-
                 <form
                     onSubmit={onSubmit}
                     className="flex min-h-0 flex-1 flex-col"
                 >
-                    <header className="flex shrink-0 items-start border-b py-4 pr-12 pl-6">
-                        <div className="grid min-w-0 gap-1">
-                            <DialogTitle>{header}</DialogTitle>
-                            {subtitle && <DialogDescription>{subtitle}</DialogDescription>}
-                        </div>
-                    </header>
+                    <AdaptiveDialog.Header
+                        title={header}
+                        description={subtitle}
+                        closeLabel={closeLabel}
+                    />
 
-                    <div className="grid min-h-0 flex-1 gap-5 overflow-y-auto overscroll-contain px-6 py-8">
+                    <AdaptiveDialog.Body className="grid gap-5 py-8">
                         {children}
-                    </div>
+                    </AdaptiveDialog.Body>
 
-                    <footer className="flex shrink-0 items-center justify-between gap-3 border-t px-6 py-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
+                    <AdaptiveDialog.Footer className="flex items-center justify-between gap-3">
                         {footer}
-                    </footer>
+                    </AdaptiveDialog.Footer>
                 </form>
             </AdaptiveDialog.Content>
         </AdaptiveDialog.Root>
