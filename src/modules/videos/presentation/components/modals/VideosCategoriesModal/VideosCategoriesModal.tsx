@@ -48,7 +48,7 @@ export function VideosCategoriesModal({ open, onOpenChange }: VideosCategoriesMo
                 className="gap-0 bg-card p-0 sm:max-h-[80vh] sm:max-w-lg sm:shadow-xl"
             >
                 <AdaptiveDialog.Header
-                    className="p-4 sm:px-4"
+                    className="p-4 sm:p-4"
                     title={t("videos.browse.modal.title")}
                     closeLabel={t("videos.browse.modal.close")}
                 />
