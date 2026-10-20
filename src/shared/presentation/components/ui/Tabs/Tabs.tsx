@@ -45,8 +45,6 @@ export const Tabs = forwardRef<ComponentRef<typeof TabsPrimitive.Root>, TabsProp
         const [direction, setDirection] = useState(1);
         const [activeValue, setActiveValue] = useState<string | undefined>(value ?? defaultValue);
 
-        // Keep the tracked active value in step with a controlled `value` prop,
-        // so the sliding indicator follows programmatic changes, not just clicks.
         useEffect(() => {
             if (value !== undefined) setActiveValue(value);
         }, [value]);
