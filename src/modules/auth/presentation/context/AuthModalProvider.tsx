@@ -1,6 +1,14 @@
 "use client";
 
-import { createContext, type ReactNode, useCallback, useContext, useMemo, useState } from "react";
+import {
+    createContext,
+    type ReactNode,
+    useCallback,
+    useContext,
+    useMemo,
+    useRef,
+    useState
+} from "react";
 
 import type { EOtpPurpose } from "@/modules/auth/domain/enums/EOtpPurpose";
 import { AuthModal } from "@/modules/auth/presentation/modals/AuthModal";
@@ -11,7 +19,13 @@ import { AuthModal } from "@/modules/auth/presentation/modals/AuthModal";
  * @description
  * The auth modal's possible views — one per form in the flow.
  */
-export type AuthView = "login" | "signup" | "verify-otp" | "forgot-password" | "reset-password";
+export type AuthView =
+    | "login"
+    | "signup"
+    | "verify-otp"
+    | "verified"
+    | "forgot-password"
+    | "reset-password";
 
 /**
  * AuthModalContextState
@@ -46,6 +60,10 @@ interface AuthModalContextState {
  * @property {(view: AuthView, ctx?: Partial<AuthModalContextState>) => void} go - Replaces the body with another view in place (pushes history), merging context.
  * @property {() => void} back - Returns to the previous view in history.
  * @property {() => void} runOnSuccess - Runs and clears the resume action (after auth succeeds).
+ * @property {(credentials: IPendingCredentials) => void} rememberCredentials - Holds the signup
+ * credentials for the verified view to sign in with.
+ * @property {() => IPendingCredentials | null} consumeCredentials - Returns them once and forgets
+ * them, so they are spendable exactly one time.
  */
 export interface AuthModalApi {
     isOpen: boolean;
@@ -57,6 +75,21 @@ export interface AuthModalApi {
     go: (view: AuthView, ctx?: Partial<AuthModalContextState>) => void;
     back: () => void;
     runOnSuccess: () => void;
+    rememberCredentials: (credentials: IPendingCredentials) => void;
+    consumeCredentials: () => IPendingCredentials | null;
+}
+
+/**
+ * The credentials a just-registered reader can be signed in with, handed over by the signup
+ * form and spent once by the verified view.
+ *
+ * @interface IPendingCredentials
+ * @property {string} email - The address the account was created with.
+ * @property {string} password - The password the account was created with.
+ */
+export interface IPendingCredentials {
+    email: string;
+    password: string;
 }
 
 const AuthModalContext = createContext<AuthModalApi | null>(null);
@@ -76,8 +109,14 @@ export function AuthModalProvider({ children }: { children: ReactNode }) {
     const [history, setHistory] = useState<AuthView[]>(["login"]);
     const [context, setContext] = useState<AuthModalContextState>({});
 
-    const canGoBack = history.length > 1;
+    // Held in a ref, never in state or storage: nothing re-renders on it, nothing persists it,
+    // and a refresh drops it with the rest of the provider.
+    const pendingCredentials = useRef<IPendingCredentials | null>(null);
+
     const view = history[history.length - 1];
+
+    // No way back out of the verified view: the code behind it is already spent.
+    const canGoBack = history.length > 1 && view !== "verified";
 
     const open = useCallback((next: AuthView = "login", ctx: AuthModalContextState = {}) => {
         setHistory([next]);
@@ -103,9 +142,43 @@ export function AuthModalProvider({ children }: { children: ReactNode }) {
         setIsOpen(false);
     }, [context]);
 
+    const rememberCredentials = useCallback((credentials: IPendingCredentials) => {
+        pendingCredentials.current = credentials;
+    }, []);
+
+    const consumeCredentials = useCallback(() => {
+        const credentials = pendingCredentials.current;
+        pendingCredentials.current = null;
+        return credentials;
+    }, []);
+
     const api = useMemo<AuthModalApi>(
-        () => ({ isOpen, view, canGoBack, context, open, close, go, back, runOnSuccess }),
-        [isOpen, view, canGoBack, context, open, close, go, back, runOnSuccess]
+        () => ({
+            isOpen,
+            view,
+            canGoBack,
+            context,
+            open,
+            close,
+            go,
+            back,
+            runOnSuccess,
+            rememberCredentials,
+            consumeCredentials
+        }),
+        [
+            isOpen,
+            view,
+            canGoBack,
+            context,
+            open,
+            close,
+            go,
+            back,
+            runOnSuccess,
+            rememberCredentials,
+            consumeCredentials
+        ]
     );
 
     return (
