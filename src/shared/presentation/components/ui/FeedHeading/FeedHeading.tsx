@@ -73,7 +73,7 @@ export function FeedHeading({
                 <Link
                     href={actionHref}
                     suppressHydrationWarning
-                    className="group inline-flex min-h-11 shrink-0 items-center gap-2 self-start rounded-lg border border-outlined bg-muted px-4 py-2 font-medium text-primary text-sm transition-colors hover:bg-surface-hover sm:min-h-0 sm:self-auto dark:text-secondary"
+                    className="group inline-flex min-h-11 shrink-0 items-center gap-2 self-start rounded-base border border-outlined bg-muted px-4 py-2 font-medium text-primary text-sm transition-colors hover:bg-surface-hover sm:min-h-0 sm:self-auto dark:text-secondary"
                 >
                     {actionLabel ?? t("general.viewAll")}
                     <span

@@ -22,7 +22,7 @@ export const NavigationMenuTrigger = forwardRef<
     <NavigationMenuPrimitive.Trigger
         ref={ref}
         className={cn(
-            "flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-foreground transition-colors cursor-pointer",
+            "flex items-center gap-1 rounded-base px-3 py-2 text-sm font-medium text-foreground transition-colors cursor-pointer",
             "hover:bg-accent hover:text-accent-foreground",
             "data-[state=open]:bg-accent data-[state=open]:text-accent-foreground",
             "outline-none",

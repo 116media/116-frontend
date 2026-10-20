@@ -24,7 +24,7 @@ export function Alert({ error }: AlertProps) {
     return (
         <div
             role="alert"
-            className="flex items-start gap-2 rounded-lg border border-destructive/30 bg-destructive/10 p-3"
+            className="flex items-start gap-2 rounded-base border border-destructive/30 bg-destructive/10 p-3"
         >
             <AlertCircleIcon className="mt-0.5 size-4 shrink-0 text-destructive" />
             <div>

@@ -127,7 +127,7 @@ export function NoiseBackground({
         <div
             ref={containerRef}
             className={cn(
-                "group relative overflow-hidden rounded-2xl bg-muted p-2 backdrop-blur-sm",
+                "group relative overflow-hidden rounded-base bg-muted p-2 backdrop-blur-sm",
                 backdropBlur &&
                     "after:absolute after:inset-0 after:h-full after:w-full after:backdrop-blur-lg after:content-['']",
                 containerClassName
@@ -156,7 +156,7 @@ export function NoiseBackground({
             />
 
             <motion.div
-                className="absolute inset-x-0 top-0 h-1 rounded-t-2xl opacity-80 blur-sm"
+                className="absolute inset-x-0 top-0 h-1 rounded-t-base opacity-80 blur-sm"
                 style={{
                     background: `linear-gradient(to right, ${gradientColors.join(", ")})`,
                     x: animating ? topGradientX : 0

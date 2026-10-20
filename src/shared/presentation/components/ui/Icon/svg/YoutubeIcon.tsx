@@ -18,7 +18,7 @@ export function YoutubeIcon({ className }: YoutubeIconProps) {
             viewBox="0 0 24 24"
             aria-hidden="true"
             focusable="false"
-            className={cn("size-4 rounded-lg", className)}
+            className={cn("size-4 rounded-base", className)}
         >
             <rect
                 x="1"

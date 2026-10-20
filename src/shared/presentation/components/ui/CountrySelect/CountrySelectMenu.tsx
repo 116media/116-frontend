@@ -57,7 +57,7 @@ export function CountrySelectMenu({
     }, []);
 
     return (
-        <div className="-mt-px flex max-h-72 flex-col overflow-hidden rounded-b-md border border-ring bg-popover text-popover-foreground">
+        <div className="-mt-px flex max-h-72 flex-col overflow-hidden rounded-b-base border border-ring bg-popover text-popover-foreground">
             <div className="shrink-0 p-2">
                 <Input
                     value={query}
