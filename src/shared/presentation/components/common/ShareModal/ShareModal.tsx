@@ -133,7 +133,7 @@ export function ShareModal({
                         </Button>
                     )}
 
-                    <div className="flex items-center gap-2 rounded-lg border border-input bg-muted py-1 pr-2 pl-3 transition-colors focus-within:border-ring focus-within:ring-3 focus-within:ring-ring/20">
+                    <div className="flex items-center gap-2 rounded-base border border-input bg-muted py-1 pr-2 pl-3 transition-colors focus-within:border-ring focus-within:ring-3 focus-within:ring-ring/20">
                         <Link2Icon className="size-4 shrink-0 text-muted-foreground" />
                         <Input
                             readOnly
