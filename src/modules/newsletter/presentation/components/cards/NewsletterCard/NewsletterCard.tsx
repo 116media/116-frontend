@@ -35,7 +35,7 @@ export function NewsletterCard({ className, title, subtitle, submitLabel }: News
     return (
         <section
             className={cn(
-                "rounded-lg bg-surface-raised border border-foreground/5 p-6 lg:px-12 lg:py-8",
+                "rounded-base bg-surface-raised border border-foreground/5 p-6 lg:px-12 lg:py-8",
                 className
             )}
         >
