@@ -2,7 +2,7 @@
  * auth.password (fr) — chaînes pour les vues mot de passe oublié/réinitialisé/changé.
  */
 export const password = {
-    forgotTitle: "Réinitialisez votre mot de passe",
+    forgotTitle: "Réinitialisez mot de passe",
     forgotSubtitle: "Nous vous enverrons un code par e-mail",
     resetTitle: "Définir un nouveau mot de passe",
     resetSubtitle: "Saisissez votre nouveau mot de passe",
