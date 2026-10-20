@@ -33,7 +33,7 @@ export function MobileMegaMenuList({ items, square = false, onNavigate }: Mobile
 
                     <span
                         className={cn(
-                            "relative shrink-0 overflow-hidden rounded-md bg-muted",
+                            "relative shrink-0 overflow-hidden rounded-base bg-muted",
                             square ? "size-14" : "h-14 w-24"
                         )}
                     >

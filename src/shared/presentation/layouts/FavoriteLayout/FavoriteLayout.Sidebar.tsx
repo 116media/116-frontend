@@ -43,10 +43,10 @@ export function FavoriteLayoutSidebar() {
     const direction = useScrollDirection();
 
     return (
-        <div className="lg:w-60 lg:shrink-0 lg:rounded-l-lg lg:bg-sidebar">
+        <div className="lg:w-60 lg:shrink-0 lg:rounded-l-base lg:bg-sidebar">
             <nav
                 className={cn(
-                    "sticky top-[var(--site-header-height,7rem)] z-20 flex gap-1 overflow-x-auto border-b bg-background transition-all duration-300 scrollbar-none [&::-webkit-scrollbar]:hidden",
+                    "sticky top-(--site-header-height,7rem) z-20 flex gap-1 overflow-x-auto border-b bg-background transition-all duration-300 scrollbar-none [&::-webkit-scrollbar]:hidden",
                     "lg:flex-col lg:gap-2 lg:overflow-visible lg:border-b-0 lg:bg-transparent lg:p-4",
                     direction === "down" && "-translate-y-2 pointer-events-none opacity-0"
                 )}
@@ -59,7 +59,7 @@ export function FavoriteLayoutSidebar() {
                             href={href}
                             className={cn(
                                 "relative flex items-center gap-2 whitespace-nowrap px-3 py-2.5 font-medium text-sm transition-colors",
-                                "lg:rounded-md lg:py-2",
+                                "lg:rounded-base lg:py-2",
                                 isActive
                                     ? [
                                           "text-primary after:absolute after:inset-x-3 after:bottom-0 after:h-0.5 after:rounded-full after:bg-primary",

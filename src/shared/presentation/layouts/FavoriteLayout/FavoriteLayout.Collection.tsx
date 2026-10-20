@@ -44,7 +44,7 @@ export function FavoriteLayoutCollection({
                 title={t(headingKey)}
                 subtitle={t(subtitleKey)}
             />
-            <div className="flex flex-col gap-6 lg:rounded-lg lg:border lg:p-4">{children}</div>
+            <div className="flex flex-col gap-6 lg:rounded-base lg:border lg:p-4">{children}</div>
         </div>
     );
 }
