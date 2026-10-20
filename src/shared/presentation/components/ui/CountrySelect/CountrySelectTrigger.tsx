@@ -53,9 +53,9 @@ export function CountrySelectTrigger({
                 aria-invalid={error ? true : undefined}
                 className={cn(
                     "flex h-12 w-full cursor-pointer items-center gap-2 rounded-md",
-                    "border border-input bg-muted px-3 pt-4 text-left text-sm outline-none transition-colors",
+                    "border border-input bg-muted px-3 pt-4 text-left text-field outline-none transition-colors",
                     "focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/20",
-                    open && "border-ring ring-3 ring-ring/20",
+                    open && "rounded-b-none border-ring",
                     error && "border-destructive"
                 )}
             >
