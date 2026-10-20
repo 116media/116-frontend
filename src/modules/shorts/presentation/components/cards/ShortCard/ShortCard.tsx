@@ -31,7 +31,7 @@ export function ShortCard({ short, onOpen, className }: ShortCardProps) {
             type="button"
             onClick={onOpen}
             className={cn(
-                "group relative aspect-9/16 overflow-hidden rounded-lg bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
+                "group relative aspect-9/16 overflow-hidden rounded-md bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
                 className
             )}
         >

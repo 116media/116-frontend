@@ -25,7 +25,7 @@ export function ShortsFeedSectionContainerLoading() {
                 {Array.from({ length: SHIMMER_TILE_COUNT }, (_, index) => index).map((index) => (
                     <Skeleton
                         key={index}
-                        className="aspect-9/16 w-36 shrink-0 rounded-lg sm:w-40"
+                        className="aspect-9/16 w-36 shrink-0 rounded-base sm:w-40"
                     />
                 ))}
             </div>

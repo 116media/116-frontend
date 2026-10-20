@@ -63,7 +63,7 @@ export function FavoriteShortCard({ activity, variant, onRemoved }: FavoriteShor
                         dateKind={variant}
                         date={activity.lastInteractedAt}
                         shareCount={variant === "shared" ? activity.interactionCount : undefined}
-                        className="mt-1 flex items-center justify-center gap-x-4 gap-y-1 rounded-md bg-black/45 p-3 text-white/80 text-xs backdrop-blur-sm"
+                        className="mt-1 flex items-center justify-center gap-x-4 gap-y-1 rounded-base bg-black/45 p-3 text-white/80 text-xs backdrop-blur-sm"
                     />
                 </ShortCard.Overlay>
                 {variant === "saved" && (

@@ -27,13 +27,13 @@ export function FavoriteShortsGridLoading({ rows }: FavoriteShortsGridLoadingPro
             {slots.map((slot) => (
                 <div
                     key={slot}
-                    className="relative aspect-9/16 overflow-hidden rounded-xl border bg-card"
+                    className="relative aspect-9/16 overflow-hidden rounded-base border bg-card"
                 >
                     <Skeleton className="absolute inset-0 rounded-none" />
                     <div className="absolute inset-x-0 bottom-0 flex flex-col gap-2 p-2">
                         <Skeleton className="h-4 w-4/5" />
                         <Skeleton className="h-3 w-1/3" />
-                        <Skeleton className="h-8 w-full rounded-md" />
+                        <Skeleton className="h-8 w-full rounded-base" />
                     </div>
                 </div>
             ))}

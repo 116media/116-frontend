@@ -86,7 +86,7 @@ export function ShortsPlayerSlide({ short, index }: ShortsPlayerSlideProps) {
             {/* biome-ignore lint/a11y/noStaticElementInteractions: double-click-to-like is a mouse-only enhancement; the like action is keyboard-accessible via the rail button */}
             <div
                 onDoubleClick={onDoubleLike}
-                className="player-fill group relative h-full w-full overflow-hidden bg-black lg:aspect-9/16 lg:h-[min(90dvh,calc(100vw*16/9))] lg:w-auto lg:max-h-full lg:rounded-xl"
+                className="player-fill group relative h-full w-full overflow-hidden bg-black lg:aspect-9/16 lg:h-[min(90dvh,calc(100vw*16/9))] lg:w-auto lg:max-h-full lg:rounded-base"
             >
                 {isRendered ? (
                     <ShortVideoPlayer
