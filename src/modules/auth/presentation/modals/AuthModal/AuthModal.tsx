@@ -3,6 +3,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { AccountVerified } from "@/modules/auth/presentation/components/feedback/AccountVerified";
 import { ForgotPasswordForm } from "@/modules/auth/presentation/components/forms/ForgotPasswordForm";
 import { LoginForm } from "@/modules/auth/presentation/components/forms/LoginForm";
 import { ResetPasswordForm } from "@/modules/auth/presentation/components/forms/ResetPasswordForm";
@@ -58,7 +59,6 @@ export function AuthModal() {
                 }}
             >
                 <AdaptiveDialog.Header
-                    align="center"
                     closeLabel={t("auth.common.close")}
                     title={<span suppressHydrationWarning>{t(title)}</span>}
                     description={<span suppressHydrationWarning>{t(subtitle)}</span>}
@@ -81,6 +81,7 @@ export function AuthModal() {
                     {view === "login" && <LoginForm />}
                     {view === "signup" && <SignupForm />}
                     {view === "verify-otp" && <VerifyOtpForm />}
+                    {view === "verified" && <AccountVerified />}
                     {view === "forgot-password" && <ForgotPasswordForm />}
                     {view === "reset-password" && <ResetPasswordForm />}
                 </AdaptiveDialog.Body>
