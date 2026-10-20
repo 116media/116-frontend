@@ -87,7 +87,7 @@ export function FavoriteLayoutTabs({ collections, active }: FavoriteLayoutTabsPr
                         <TabsTrigger
                             key={key}
                             value={key}
-                            className="min-w-0 flex-1 px-2 py-2 sm:flex-none sm:px-3 sm:py-1.5"
+                            className="min-w-0 flex-1 px-3 py-3 sm:flex-none sm:px-3 sm:py-1.5"
                         >
                             <span className="flex flex-col items-center gap-1 sm:flex-row sm:gap-1.5">
                                 <span className="relative">
@@ -95,7 +95,7 @@ export function FavoriteLayoutTabs({ collections, active }: FavoriteLayoutTabsPr
                                     {count !== undefined && (
                                         <Badge
                                             variant="muted"
-                                            className="-top-2 -right-3 absolute px-1.5 py-0 font-medium text-[10px] tabular-nums leading-4 sm:hidden"
+                                            className="-top-2 -right-4 absolute px-1.5 py-0 font-medium text-[10px] tabular-nums leading-4 sm:hidden"
                                         >
                                             {formatCount(count)}
                                         </Badge>
