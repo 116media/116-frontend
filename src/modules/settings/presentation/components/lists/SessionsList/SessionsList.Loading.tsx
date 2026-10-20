@@ -13,9 +13,9 @@ export function SessionsListLoading() {
             {[0, 1].map((row) => (
                 <div
                     key={row}
-                    className="flex items-center gap-3 rounded-md border p-3"
+                    className="flex items-center gap-3 rounded-base border p-3"
                 >
-                    <Skeleton className="size-10 shrink-0 rounded-md" />
+                    <Skeleton className="size-10 shrink-0 rounded-base" />
                     <div className="flex flex-1 flex-col gap-2">
                         <Skeleton className="h-3 w-1/2" />
                         <Skeleton className="h-2 w-1/3" />

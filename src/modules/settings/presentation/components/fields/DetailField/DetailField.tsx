@@ -26,8 +26,8 @@ export interface DetailFieldProps {
  */
 export function DetailField({ icon, label, value }: DetailFieldProps) {
     return (
-        <div className="flex min-w-0 items-center gap-3.5 lg:items-start lg:gap-3 lg:rounded-md lg:border lg:p-4">
-            <div className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground lg:size-9 lg:rounded-md [&_svg]:size-5 lg:[&_svg]:size-4">
+        <div className="flex min-w-0 items-center gap-3.5 lg:items-start lg:gap-3 lg:rounded-base lg:border lg:p-4">
+            <div className="flex size-11 shrink-0 items-center justify-center rounded-base bg-muted text-muted-foreground lg:size-9 [&_svg]:size-5 lg:[&_svg]:size-4">
                 {icon}
             </div>
             <div className="flex min-w-0 flex-1 flex-col gap-0.5 lg:gap-0">

@@ -52,8 +52,8 @@ export function SessionCard({ session }: SessionCardProps) {
 
     return (
         <Fragment>
-            <div className="flex items-center gap-3 py-3 lg:rounded-md lg:border lg:p-4">
-                <div className="flex size-10 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground lg:size-12 [&_svg]:size-5">
+            <div className="flex items-center gap-3 py-3 lg:rounded-base lg:border lg:p-4">
+                <div className="flex size-10 shrink-0 items-center justify-center rounded-base bg-muted text-muted-foreground lg:size-12 [&_svg]:size-5">
                     <DeviceIcon />
                 </div>
 

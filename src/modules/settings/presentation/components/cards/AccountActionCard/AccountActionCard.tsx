@@ -46,7 +46,7 @@ export function AccountActionCard({
         <Card className="flex flex-col items-start gap-3 bg-transparent p-4 shadow-none hover:shadow-none sm:flex-row sm:items-center sm:p-6">
             <div
                 className={cn(
-                    "flex size-10 shrink-0 items-center justify-center rounded-md [&_svg]:size-5",
+                    "flex size-10 shrink-0 items-center justify-center rounded-base [&_svg]:size-5",
                     danger ? "bg-destructive/10 text-destructive" : "bg-muted text-foreground"
                 )}
             >
