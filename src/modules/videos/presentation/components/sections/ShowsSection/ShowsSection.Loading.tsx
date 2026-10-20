@@ -30,16 +30,16 @@ export function ShowsSectionLoading() {
 
             <div className="px-1">
                 <div className="flex h-96 w-full items-stretch overflow-hidden md:hidden">
-                    <Skeleton className={`h-full shrink-0 rounded-2xl ${HERO_SLOT}`} />
-                    <Skeleton className={`ml-2 h-full shrink-0 rounded-2xl ${CHILD_SLOT}`} />
+                    <Skeleton className={`h-full shrink-0 rounded-base ${HERO_SLOT}`} />
+                    <Skeleton className={`ml-2 h-full shrink-0 rounded-base ${CHILD_SLOT}`} />
                 </div>
 
                 <div className="hidden h-80 w-full items-stretch overflow-hidden md:flex lg:h-120">
-                    <Skeleton className={`h-full shrink-0 rounded-2xl ${HERO_SLOT_MD}`} />
-                    <Skeleton className={`ml-2 h-full shrink-0 rounded-2xl ${HERO_SLOT_MD}`} />
-                    <Skeleton className={`ml-2 h-full shrink-0 rounded-2xl ${HERO_SLOT_MD}`} />
-                    <Skeleton className={`ml-2 h-full shrink-0 rounded-2xl ${CHILD_SLOT_MD}`} />
-                    <Skeleton className={`ml-2 h-full shrink-0 rounded-2xl ${CHILD_SLOT_MD}`} />
+                    <Skeleton className={`h-full shrink-0 rounded-base ${HERO_SLOT_MD}`} />
+                    <Skeleton className={`ml-2 h-full shrink-0 rounded-base ${HERO_SLOT_MD}`} />
+                    <Skeleton className={`ml-2 h-full shrink-0 rounded-base ${HERO_SLOT_MD}`} />
+                    <Skeleton className={`ml-2 h-full shrink-0 rounded-base ${CHILD_SLOT_MD}`} />
+                    <Skeleton className={`ml-2 h-full shrink-0 rounded-base ${CHILD_SLOT_MD}`} />
                 </div>
             </div>
         </section>

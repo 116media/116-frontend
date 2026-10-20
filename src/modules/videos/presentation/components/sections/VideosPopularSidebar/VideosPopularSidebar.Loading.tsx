@@ -11,8 +11,8 @@ const POPULAR_SKELETON_ROWS = 10;
  */
 function PopularRowSkeleton() {
     return (
-        <div className="flex gap-3 rounded-xl border p-3">
-            <Skeleton className="min-h-18 w-28 shrink-0 self-stretch rounded-md sm:w-24 md:w-32 lg:w-20 xl:w-32" />
+        <div className="flex gap-3 rounded-base border p-3">
+            <Skeleton className="min-h-18 w-28 shrink-0 self-stretch rounded-base sm:w-24 md:w-32 lg:w-20 xl:w-32" />
             <div className="flex min-w-0 flex-1 flex-col">
                 <div className="flex flex-col gap-1.5">
                     <Skeleton className="h-4 w-full" />
@@ -50,7 +50,7 @@ export function VideosPopularSidebarLoading({
     rows = POPULAR_SKELETON_ROWS
 }: VideosPopularSidebarLoadingProps) {
     return (
-        <div className="grid gap-4 rounded-xl bg-muted/25 max-md:contents md:grid-cols-2 md:p-4 xl:grid-cols-1 xl:p-5">
+        <div className="grid gap-4 rounded-base bg-muted/25 max-md:contents md:grid-cols-2 md:p-4 xl:grid-cols-1 xl:p-5">
             {Array.from({ length: rows }, (_, index) => index).map((row) => (
                 <PopularRowSkeleton key={`popular-skeleton-${row}`} />
             ))}

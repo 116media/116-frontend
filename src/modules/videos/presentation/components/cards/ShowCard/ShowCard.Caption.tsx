@@ -81,7 +81,7 @@ export function Caption({ show, size = "md" }: ShowCardCaptionProps) {
                 <Button
                     size="lg"
                     variant="ghost"
-                    className="w-full rounded-lg font-semibold"
+                    className="w-full rounded-base font-semibold"
                     style={{ backgroundColor: foreground, color: background }}
                 >
                     <PlayIcon className="size-4 fill-current" />

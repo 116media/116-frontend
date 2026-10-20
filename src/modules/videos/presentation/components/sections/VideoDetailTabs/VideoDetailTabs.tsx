@@ -75,7 +75,7 @@ export function VideoDetailTabs({
             size="md"
             value={value}
             onValueChange={handleChange}
-            className="mt-4 flex flex-col gap-2 rounded-lg"
+            className="mt-4 flex flex-col gap-2 rounded-base"
             style={
                 {
                     "--video-tabs-bar-height": `${barHeight}px`,
@@ -91,7 +91,7 @@ export function VideoDetailTabs({
                     isPinned && "border-outlined border-b"
                 )}
             >
-                <TabsList className="scrollbar-hide w-full max-w-full overflow-x-auto rounded-md lg:w-auto lg:overflow-visible">
+                <TabsList className="scrollbar-hide w-full max-w-full overflow-x-auto rounded-base lg:w-auto lg:overflow-visible">
                     <TabsTrigger
                         value="description"
                         className="shrink-0 grow basis-auto whitespace-nowrap lg:grow-0"
@@ -115,7 +115,7 @@ export function VideoDetailTabs({
                 </TabsList>
             </div>
 
-            <div className="rounded-lg border p-4 max-lg:min-h-[var(--video-tabs-sheet-height)] max-lg:rounded-none max-lg:border-0 max-lg:p-0 max-lg:pt-4">
+            <div className="rounded-base border p-4 max-lg:min-h-[var(--video-tabs-sheet-height)] max-lg:rounded-none max-lg:border-0 max-lg:p-0 max-lg:pt-4">
                 <TabsContent
                     value="description"
                     className="mt-0"

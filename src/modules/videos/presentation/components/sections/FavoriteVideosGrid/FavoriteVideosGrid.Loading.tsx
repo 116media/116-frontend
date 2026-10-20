@@ -16,13 +16,13 @@ export interface FavoriteVideosGridLoadingProps {
  *
  * @description
  * A single poster-shaped shimmer mirroring the favorites video tile (VideoCard.Vertical):
- * a 16:9 rounded media, a two-line title, the published-date/share/rating meta row, and
+ * a 16:9 rounded-base media, a two-line title, the published-date/share/rating meta row, and
  * the activity meta line — so swapping skeletons for real cards causes no layout shift.
  */
 function FavoriteVideoCardSkeleton() {
     return (
         <div className="flex flex-col">
-            <Skeleton className="aspect-video rounded-lg" />
+            <Skeleton className="aspect-video rounded-base" />
             <div className="mt-2 flex flex-col gap-2 px-1">
                 <Skeleton className="h-4 w-11/12" />
                 <Skeleton className="h-4 w-3/5" />

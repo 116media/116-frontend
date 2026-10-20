@@ -10,9 +10,9 @@ import { Skeleton } from "@/shared/presentation/components/ui/Skeleton";
  */
 export function VideoExclusiveShowSplitLoading() {
     return (
-        <article className="grid grid-cols-1 overflow-hidden rounded-2xl border bg-card lg:grid-cols-[1.1fr_1fr]">
+        <article className="grid grid-cols-1 overflow-hidden rounded-base border bg-card lg:grid-cols-[1.1fr_1fr]">
             <div className="relative min-h-112 lg:min-h-130 lg:border-r">
-                <Skeleton className="absolute left-5 top-5 h-6 w-28 rounded-md" />
+                <Skeleton className="absolute left-5 top-5 h-6 w-28 rounded-base" />
 
                 <div className="absolute inset-x-2 bottom-5 space-y-3 sm:inset-x-3 md:inset-x-6">
                     <Skeleton className="h-8 w-3/4" />
@@ -21,7 +21,7 @@ export function VideoExclusiveShowSplitLoading() {
                         <Skeleton className="h-3.5 w-full" />
                         <Skeleton className="h-3.5 w-4/5" />
                     </div>
-                    <Skeleton className="h-10 w-full rounded-md sm:w-44" />
+                    <Skeleton className="h-10 w-full rounded-base sm:w-44" />
                 </div>
             </div>
 
@@ -32,9 +32,9 @@ export function VideoExclusiveShowSplitLoading() {
                     {[0, 1, 2, 3, 4].map((index) => (
                         <div
                             key={index}
-                            className="flex gap-3 rounded-xl border p-3"
+                            className="flex gap-3 rounded-base border p-3"
                         >
-                            <Skeleton className="min-h-18 w-28 shrink-0 self-stretch rounded-md sm:w-24 md:w-32 lg:w-20 xl:w-32" />
+                            <Skeleton className="min-h-18 w-28 shrink-0 self-stretch rounded-base sm:w-24 md:w-32 lg:w-20 xl:w-32" />
                             <div className="flex min-w-0 flex-1 flex-col">
                                 <Skeleton className="h-4 w-3/4" />
                                 <Skeleton className="mt-1 h-4 w-1/2" />

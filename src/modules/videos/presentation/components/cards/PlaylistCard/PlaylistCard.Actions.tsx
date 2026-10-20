@@ -26,7 +26,7 @@ export function PlaylistCardActions({ onOpen, onRename, onDelete }: PlaylistCard
     const { t } = useTranslation();
 
     return (
-        <FavoriteCard.Actions className="-mx-3 -mb-3 mt-auto flex items-center justify-start gap-1 rounded-lg border-0 bg-accent/50 p-3 transition-colors group-hover:bg-accent">
+        <FavoriteCard.Actions className="-mx-3 -mb-3 mt-auto flex items-center justify-start gap-1 rounded-base border-0 bg-accent/50 p-3 transition-colors group-hover:bg-accent">
             <Button
                 size="sm"
                 onClick={onOpen}

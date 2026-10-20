@@ -32,7 +32,7 @@ export function RatedVideoCard({ activity, onRateAgain }: RatedVideoCardProps) {
 
     return (
         <FavoriteVideoContent video={video}>
-            <div className="-mx-1 mt-auto flex flex-col gap-3 rounded-lg bg-accent/50 p-3 transition-colors group-hover:bg-background">
+            <div className="-mx-1 mt-auto flex flex-col gap-3 rounded-base bg-accent/50 p-3 transition-colors group-hover:bg-background">
                 <FavoriteCard.Meta
                     dateKind="rated"
                     rating={activity.ratedStars}

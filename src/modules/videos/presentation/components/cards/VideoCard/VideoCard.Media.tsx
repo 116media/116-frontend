@@ -24,7 +24,7 @@ export interface VideoCardMediaProps {
  *
  * @description
  * The thumbnail layer shared by every VideoCard variant. Fills its positioned parent, so each
- * variant owns the outer sized and rounded container (and the muted surface when no thumbnail
+ * variant owns the outer sized and rounded-base container (and the muted surface when no thumbnail
  * is set); hover effects are driven by the ancestor card's `group` class. A coarse pointer has
  * no hover to reveal them, so the play button stands on the bare thumbnail there instead.
  */

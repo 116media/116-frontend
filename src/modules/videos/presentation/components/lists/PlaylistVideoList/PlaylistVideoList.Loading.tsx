@@ -12,17 +12,17 @@ const PLAYLIST_SKELETON_ROWS = 4;
  */
 function PlaylistVideoRowSkeleton() {
     return (
-        <div className="flex gap-3 rounded-xl border bg-surface-raised/50 p-3">
-            <Skeleton className="min-h-18 w-28 shrink-0 self-stretch rounded-md sm:w-24 md:w-32 lg:w-20 xl:w-32" />
+        <div className="flex gap-3 rounded-base border bg-surface-raised/50 p-3">
+            <Skeleton className="min-h-18 w-28 shrink-0 self-stretch rounded-base sm:w-24 md:w-32 lg:w-20 xl:w-32" />
             <div className="flex min-w-0 flex-1 flex-col">
                 <div className="flex items-start gap-2">
                     <div className="flex min-w-0 flex-1 flex-col gap-1.5">
                         <Skeleton className="h-4 w-full" />
                         <Skeleton className="h-4 w-3/5" />
                     </div>
-                    <Skeleton className="size-8 shrink-0 self-start rounded-md" />
+                    <Skeleton className="size-8 shrink-0 self-start rounded-base" />
                 </div>
-                <Skeleton className="mt-2 h-5 w-20 rounded-md" />
+                <Skeleton className="mt-2 h-5 w-20 rounded-base" />
                 <Skeleton className="mt-2 h-4 w-24" />
                 <div className="mt-auto flex items-center justify-between gap-2 pt-2">
                     <Skeleton className="h-3 w-12" />

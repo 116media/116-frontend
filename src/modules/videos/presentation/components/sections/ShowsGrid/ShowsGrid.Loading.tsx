@@ -27,7 +27,7 @@ export function ShowsGridLoading({ count = SHOWS_PAGE_SIZE }: ShowsGridLoadingPr
             {slots.map((slot) => (
                 <Skeleton
                     key={slot}
-                    className="aspect-[4/5] rounded-xl"
+                    className="aspect-[4/5] rounded-base"
                 />
             ))}
         </div>

@@ -22,7 +22,7 @@ export interface VideosGridLoadingProps {
 function VideosGridCardSkeleton() {
     return (
         <div className="flex flex-col gap-2">
-            <Skeleton className="aspect-video rounded-lg" />
+            <Skeleton className="aspect-video rounded-base" />
             <div className="flex flex-col gap-2 px-1">
                 <Skeleton className="h-4 w-11/12" />
                 <Skeleton className="h-4 w-3/5" />
