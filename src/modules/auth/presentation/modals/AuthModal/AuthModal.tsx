@@ -11,7 +11,6 @@ import { SignupForm } from "@/modules/auth/presentation/components/forms/SignupF
 import { VerifyOtpForm } from "@/modules/auth/presentation/components/forms/VerifyOtpForm";
 import { VIEW_TITLES } from "@/modules/auth/presentation/constants/authModal";
 import { useAuthModal } from "@/modules/auth/presentation/context/AuthModalProvider";
-import { Button } from "@/shared/presentation/components/ui/Button";
 import { ArrowLeftIcon } from "@/shared/presentation/components/ui/Icon";
 import { AdaptiveDialog } from "@/shared/presentation/components/ui/Sheet";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
@@ -64,15 +63,14 @@ export function AuthModal() {
                     description={<span suppressHydrationWarning>{t(subtitle)}</span>}
                     leading={
                         canGoBack && (
-                            <Button
-                                size="icon"
+                            <button
                                 type="button"
-                                variant="ghost"
                                 onClick={back}
                                 aria-label={t("auth.common.back")}
+                                className="shrink-0 self-start pt-2 cursor-pointer rounded-full text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                             >
-                                <ArrowLeftIcon />
-                            </Button>
+                                <ArrowLeftIcon className="size-4.5" />
+                            </button>
                         )
                     }
                 />
