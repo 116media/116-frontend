@@ -24,7 +24,7 @@ import { FloatingField } from "@/shared/presentation/components/ui/FloatingField
 export function SignupForm() {
     const { t } = useTranslation();
 
-    const { go } = useAuthModal();
+    const { go, rememberCredentials } = useAuthModal();
     const { mutate, error, isPending } = useSignup();
 
     const form = useForm<ISignupCredentials>({
@@ -34,8 +34,11 @@ export function SignupForm() {
 
     const onSubmit = form.handleSubmit((values) => {
         mutate(values, {
-            onSuccess: () =>
-                go("verify-otp", { email: values.email, purpose: EOtpPurpose.EmailVerification })
+            onSuccess: () => {
+                // Held in provider memory only, so the verified view can sign them in.
+                rememberCredentials({ email: values.email, password: values.password });
+                go("verify-otp", { email: values.email, purpose: EOtpPurpose.EmailVerification });
+            }
         });
     });
 
