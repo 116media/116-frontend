@@ -21,7 +21,7 @@ export interface FavoriteArticlesGridLoadingProps {
  */
 function FavoriteArticleCardSkeleton() {
     return (
-        <div className="flex h-full flex-col overflow-hidden rounded-xl border bg-card">
+        <div className="flex h-full flex-col overflow-hidden rounded-base border bg-card">
             <Skeleton className="aspect-video rounded-none" />
             <div className="flex flex-1 flex-col p-3">
                 <div className="mb-3 flex items-center justify-between gap-2">
@@ -33,7 +33,7 @@ function FavoriteArticleCardSkeleton() {
                 </div>
 
                 <div className="mb-4 flex flex-wrap items-center gap-3">
-                    <Skeleton className="h-6 w-20 rounded-md" />
+                    <Skeleton className="h-6 w-20 rounded-base" />
                     <Skeleton className="h-3 w-14" />
                 </div>
 
@@ -50,11 +50,11 @@ function FavoriteArticleCardSkeleton() {
                 <div className="mt-auto">
                     <div className="mb-3 flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                            <Skeleton className="h-8 w-12 rounded-md" />
-                            <Skeleton className="h-8 w-12 rounded-md" />
-                            <Skeleton className="h-8 w-12 rounded-md" />
+                            <Skeleton className="h-8 w-12 rounded-base" />
+                            <Skeleton className="h-8 w-12 rounded-base" />
+                            <Skeleton className="h-8 w-12 rounded-base" />
                         </div>
-                        <Skeleton className="size-8 rounded-md" />
+                        <Skeleton className="size-8 rounded-base" />
                     </div>
 
                     <Skeleton className="h-3 w-28" />

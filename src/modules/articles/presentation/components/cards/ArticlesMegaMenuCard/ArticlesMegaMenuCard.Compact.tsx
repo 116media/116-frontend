@@ -22,7 +22,7 @@ export function Compact({ article }: ArticlesMegaMenuCardProps) {
     return (
         <Link
             href={`${ARTICLES_PATH}/${article.slug}`}
-            className={cn(cardVariants, "group flex h-full flex-col overflow-hidden rounded-md")}
+            className={cn(cardVariants, "group flex h-full flex-col overflow-hidden rounded-base")}
         >
             <div className="flex flex-1 flex-col p-3 overflow-hidden">
                 <div className="flex items-center justify-between mb-2">

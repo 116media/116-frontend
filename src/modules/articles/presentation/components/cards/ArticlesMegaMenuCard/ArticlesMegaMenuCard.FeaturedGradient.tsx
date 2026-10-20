@@ -25,7 +25,7 @@ export function FeaturedGradient({ article }: ArticlesMegaMenuCardProps) {
             href={`${ARTICLES_PATH}/${article.slug}`}
             className={cn(
                 cardVariants,
-                "group relative flex h-full flex-col overflow-hidden rounded-xl border-0",
+                "group relative flex h-full flex-col overflow-hidden rounded-base border-0",
                 "bg-linear-to-br from-primary/5 to-secondary/5 dark:from-primary/10 dark:to-secondary/10",
                 ""
             )}
@@ -58,7 +58,7 @@ export function FeaturedGradient({ article }: ArticlesMegaMenuCardProps) {
                     </p>
                 )}
 
-                <div className="relative flex-1 min-h-0 w-full overflow-hidden rounded-md mb-2">
+                <div className="relative flex-1 min-h-0 w-full overflow-hidden rounded-base mb-2">
                     {article.coverImageUrl ? (
                         <Image
                             src={article.coverImageUrl}
@@ -68,7 +68,7 @@ export function FeaturedGradient({ article }: ArticlesMegaMenuCardProps) {
                             sizes="(max-width: 1280px) 50vw, 260px"
                         />
                     ) : (
-                        <div className="h-full w-full bg-muted rounded-md" />
+                        <div className="h-full w-full bg-muted rounded-base" />
                     )}
                 </div>
 

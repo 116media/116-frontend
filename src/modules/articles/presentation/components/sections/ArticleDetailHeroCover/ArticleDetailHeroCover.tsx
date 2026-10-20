@@ -23,7 +23,7 @@ export interface ArticleDetailHeroCoverProps {
  */
 export function ArticleDetailHeroCover({ title, coverImageUrl }: ArticleDetailHeroCoverProps) {
     return (
-        <div className="relative aspect-video w-full overflow-hidden rounded-xl md:aspect-3/2 xl:aspect-[13/10]">
+        <div className="relative aspect-video w-full overflow-hidden rounded-base md:aspect-3/2 xl:aspect-[13/10]">
             {coverImageUrl ? (
                 <Image
                     fill

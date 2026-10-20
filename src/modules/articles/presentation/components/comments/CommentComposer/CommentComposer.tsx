@@ -52,7 +52,7 @@ export function CommentComposer({ articleId, slug, composerRef }: CommentCompose
 
     if (!isAuthenticated) {
         return (
-            <div className="flex flex-col items-start gap-3 rounded-lg border border-input bg-muted/40 p-4">
+            <div className="flex flex-col items-start gap-3 rounded-base border border-input bg-muted/40 p-4">
                 <p className="text-muted-foreground text-sm">
                     {t("articles.comments.loginPrompt")}
                 </p>

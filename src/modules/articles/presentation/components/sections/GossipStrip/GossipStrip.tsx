@@ -24,7 +24,7 @@ export function GossipStrip({ articles }: GossipStripProps) {
     if (articles.length === 0) return null;
 
     return (
-        <div className="flex min-w-0 flex-1 flex-col overflow-hidden rounded-xl bg-muted/60 p-3 sm:p-4 md:p-5 lg:p-3 xl:p-5">
+        <div className="flex min-w-0 flex-1 flex-col overflow-hidden rounded-base bg-muted/60 p-3 sm:p-4 md:p-5 lg:p-3 xl:p-5">
             <div className="flex flex-1 flex-col gap-3 sm:gap-4 lg:gap-2 xl:gap-4">
                 {articles.map((article, index) => (
                     <Fragment key={article.id}>

@@ -132,7 +132,7 @@ export function ArticleDetailDock({
                         : "pointer-events-none translate-y-4 opacity-0"
                 )}
             >
-                <div className="flex flex-1 items-center justify-around rounded-lg border border-outlined bg-background/80 p-2 shadow-lg backdrop-blur-xl">
+                <div className="flex flex-1 items-center justify-around rounded-base border border-outlined bg-background/80 p-2 shadow-lg backdrop-blur-xl">
                     {actions.map(({ key, icon, label, count, onClick, pressed, countClass }) => (
                         <Button
                             key={key}
@@ -141,7 +141,7 @@ export function ArticleDetailDock({
                             onClick={onClick}
                             aria-label={label}
                             aria-pressed={pressed}
-                            className="gap-1 rounded-lg text-muted-foreground"
+                            className="gap-1 rounded-base text-muted-foreground"
                         >
                             {icon}
                             <span className={cn(countClass)}>{formatCount(count)}</span>
@@ -154,7 +154,7 @@ export function ArticleDetailDock({
                     variant="ghost"
                     onClick={() => setCommentsOpen(true)}
                     aria-label={t("articles.detail.comment")}
-                    className="relative size-14 shrink-0 rounded-lg border border-outlined bg-background/80 shadow-lg backdrop-blur-xl hover:bg-accent"
+                    className="relative size-14 shrink-0 rounded-base border border-outlined bg-background/80 shadow-lg backdrop-blur-xl hover:bg-accent"
                 >
                     <MessageSquareIcon className="size-5" />
                     {commentCount > 0 && (

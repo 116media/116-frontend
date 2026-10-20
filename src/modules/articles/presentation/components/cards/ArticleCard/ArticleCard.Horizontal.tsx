@@ -30,7 +30,7 @@ export function ArticleCardHorizontal({ article }: ArticleCardHorizontalProps) {
             href={`/articles/${article.slug}`}
             className="group flex h-22.5 min-w-0 shrink-0 gap-2 sm:h-23 sm:gap-3 md:h-27 lg:h-18 lg:gap-2 xl:h-25 xl:gap-3"
         >
-            <div className="relative w-35 shrink-0 self-stretch overflow-hidden rounded-md sm:w-24 md:w-32 lg:w-20 xl:w-32">
+            <div className="relative w-35 shrink-0 self-stretch overflow-hidden rounded-base sm:w-24 md:w-32 lg:w-20 xl:w-32">
                 {article.coverImageUrl && (
                     <Image
                         fill

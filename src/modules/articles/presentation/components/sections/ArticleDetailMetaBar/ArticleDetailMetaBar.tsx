@@ -55,7 +55,7 @@ export function ArticleDetailMetaBar({
                     variant="outline"
                     aria-label={t("articles.detail.bookmark")}
                     onClick={() => requireAuth(bookmark.toggle)}
-                    className="h-9 gap-1.5 rounded-lg px-3 text-muted-foreground"
+                    className="h-9 gap-1.5 rounded-base px-3 text-muted-foreground"
                 >
                     <BookmarkPlusIcon
                         className={cn("size-5", bookmark.bookmarked && "fill-primary text-primary")}
