@@ -17,12 +17,12 @@ import { OtpInput } from "@/shared/presentation/components/ui/OtpInput";
  *
  * @description
  * Verifies the 6-digit code; email + purpose come from the modal context.
- * Email verification runs the resume action and closes; password reset
- * advances to reset-password with the code. Resend has a cooldown.
+ * Email verification advances to the confirmation view; password reset advances
+ * to reset-password with the code. Resend has a cooldown.
  */
 export function VerifyOtpForm() {
     const { t } = useTranslation();
-    const { context, go, runOnSuccess } = useAuthModal();
+    const { context, go } = useAuthModal();
     const { mutate: verify, error: verifyError, isPending: isVerifying } = useVerifyOtp();
     const { mutate: resend, error: resendError, isPending: isResending } = useResendOtp();
 
@@ -49,7 +49,7 @@ export function VerifyOtpForm() {
             {
                 onSuccess: () => {
                     if (purpose === EOtpPurpose.PasswordReset) go("reset-password", { code });
-                    else runOnSuccess();
+                    else go("verified");
                 }
             }
         );
