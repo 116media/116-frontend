@@ -130,7 +130,6 @@ export function SearchOverlay({ isOpen, onOpenChange }: SearchOverlayProps) {
                 <DialogOverlay className="sm:hidden" />
                 <DialogPrimitive.Content className={PANEL}>
                     <SheetHeader
-                        align="start"
                         className="sm:hidden"
                         title={t("search.field.label")}
                         closeLabel={t("search.field.close")}
