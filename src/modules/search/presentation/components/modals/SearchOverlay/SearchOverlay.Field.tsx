@@ -83,7 +83,7 @@ export function SearchOverlayField({ value, onValueChange, onSubmit }: SearchOve
                         onChange={(event: ChangeEvent<HTMLInputElement>) =>
                             onValueChange(event.target.value)
                         }
-                        className="min-w-0 flex-1 bg-transparent text-base text-foreground outline-none placeholder:text-muted-foreground [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden"
+                        className="min-w-0 flex-1 bg-transparent text-field text-foreground outline-none placeholder:text-muted-foreground [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden"
                     />
                     {value && (
                         <button
