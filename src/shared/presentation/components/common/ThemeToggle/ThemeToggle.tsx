@@ -37,11 +37,11 @@ export interface ThemeToggleProps {
  * a sun and a moon via Motion. All colors reference CSS tokens from theme.css.
  */
 export function ThemeToggle({ size = "icon" }: ThemeToggleProps = {}) {
-    const { theme, setTheme } = useTheme();
+    const { resolvedTheme, setTheme } = useTheme();
 
     const onToggle = useCallback(() => {
-        setTheme(theme === "dark" ? "light" : "dark");
-    }, [theme, setTheme]);
+        setTheme(resolvedTheme === "dark" ? "light" : "dark");
+    }, [resolvedTheme, setTheme]);
 
     return (
         <Button
@@ -52,7 +52,7 @@ export function ThemeToggle({ size = "icon" }: ThemeToggleProps = {}) {
             title="Toggle Theme"
             suppressHydrationWarning
             className="bg-surface-raised text-sun hover:bg-surface-hover hover:text-sun"
-            aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+            aria-label={resolvedTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
         >
             <LazyMotion features={domAnimation}>
                 <m.svg
@@ -70,7 +70,7 @@ export function ThemeToggle({ size = "icon" }: ThemeToggleProps = {}) {
                         initial="hidden"
                         variants={shineVariant}
                         className="stroke-primary-subtle"
-                        animate={theme === "dark" ? "visible" : "hidden"}
+                        animate={resolvedTheme === "dark" ? "visible" : "hidden"}
                     />
 
                     <m.g
@@ -78,7 +78,7 @@ export function ThemeToggle({ size = "icon" }: ThemeToggleProps = {}) {
                         className="stroke-sun"
                         variants={raysVariants}
                         style={{ strokeLinecap: "round" }}
-                        animate={theme === "light" ? "visible" : "hidden"}
+                        animate={resolvedTheme === "light" ? "visible" : "hidden"}
                     >
                         {sunRayPaths.map((d) => (
                             <m.path
@@ -95,7 +95,7 @@ export function ThemeToggle({ size = "icon" }: ThemeToggleProps = {}) {
                         fill="transparent"
                         transition={{ duration: 0.65, type: "spring" }}
                         initial={{ d: sunPath, fillOpacity: 0, strokeOpacity: 0 }}
-                        animate={theme === "dark" ? moonAnimation : sunAnimation}
+                        animate={resolvedTheme === "dark" ? moonAnimation : sunAnimation}
                     />
                 </m.svg>
             </LazyMotion>
