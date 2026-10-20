@@ -59,7 +59,7 @@ export const FloatingField = forwardRef<HTMLInputElement, FloatingFieldProps>(
                     <div className="relative">
                         <div
                             className={cn(
-                                "flex h-12 w-full items-center gap-1.5 rounded-md border border-input bg-muted px-3 pt-4 text-base md:text-sm",
+                                "flex h-12 w-full items-center gap-1.5 rounded-md border border-input bg-muted px-3 pt-4 text-field",
                                 "focus-within:border-ring focus-within:ring-3 focus-within:ring-ring/20",
                                 error &&
                                     "border-destructive focus-within:border-destructive focus-within:ring-destructive/20"
@@ -72,7 +72,7 @@ export const FloatingField = forwardRef<HTMLInputElement, FloatingFieldProps>(
                                 type={type}
                                 placeholder=" "
                                 aria-invalid={error ? true : undefined}
-                                className="w-full flex-1 bg-transparent text-base outline-none placeholder:text-transparent md:text-sm"
+                                className="w-full flex-1 bg-transparent text-field outline-none placeholder:text-transparent"
                                 {...props}
                             />
                         </div>
