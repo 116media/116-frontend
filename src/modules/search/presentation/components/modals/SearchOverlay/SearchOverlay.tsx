@@ -57,7 +57,7 @@ const EMPTY_COUNTS: Record<ESearchScope, number> = {
  * thumb reaches it and the keyboard opens beneath rather than over it.
  */
 const PANEL = [
-    "fixed inset-x-0 bottom-0 z-50 flex max-h-[85dvh] flex-col overflow-hidden rounded-t-2xl border-t bg-background pb-[max(1.5rem,env(safe-area-inset-bottom))]",
+    "fixed inset-x-0 bottom-0 z-50 flex max-h-[85dvh] flex-col overflow-hidden rounded-t-base border-t bg-background pb-[max(1.5rem,env(safe-area-inset-bottom))]",
     "data-[state=open]:animate-sheet-in-bottom data-[state=closed]:animate-sheet-out-bottom",
     "sm:top-(--site-header-height-pinned) sm:bottom-auto sm:max-h-[min(70dvh,40rem)] sm:rounded-none sm:border-t-0",
     "sm:border-b sm:pb-8 sm:shadow-lg",
