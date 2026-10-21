@@ -50,3 +50,18 @@ export function extractYoutubeId(url: string | null | undefined): string | null 
 export function buildYoutubeEmbedUrl(id: string): string {
     return `https://www.youtube.com/embed/${id}`;
 }
+
+/**
+ * buildYoutubeThumbnailUrl
+ *
+ * @description
+ * Builds the poster URL for a video id. Uses `hqdefault`, the one size YouTube
+ * generates for every upload; it is 4:3 with the frame letterboxed inside, which an
+ * `object-cover` 16:9 box crops back to the frame.
+ *
+ * @param id - The 11-character YouTube video id
+ * @returns The absolute thumbnail URL
+ */
+export function buildYoutubeThumbnailUrl(id: string): string {
+    return `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+}
