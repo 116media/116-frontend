@@ -2,7 +2,7 @@
 
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 
-import { XCircleIcon } from "@/shared/presentation/components/ui/Icon";
+import { XIcon } from "@/shared/presentation/components/ui/Icon";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
@@ -21,20 +21,24 @@ export interface DialogCloseButtonProps {
  * DialogCloseButton
  *
  * @description
- * The shared dismiss control for any dialog surface: a circled cross that lifts from
- * muted to foreground on hover. Placement is the caller's, so a centred modal can pin
- * it to the corner while a full-screen sheet sits it inline in its header.
+ * The shared dismiss control for any dialog surface: a plain cross on a round ghost
+ * button that carries a faint fill at rest, so the target reads against any panel.
+ * Placement is the caller's, so a centred modal can pin it to the corner while a
+ * full-screen sheet sits it inline in its header.
  */
 export function DialogCloseButton({ label, className }: DialogCloseButtonProps) {
     return (
         <DialogPrimitive.Close
             aria-label={label}
             className={cn(
-                "cursor-pointer rounded-full text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                "inline-flex size-9 shrink-0 cursor-pointer items-center justify-center rounded-full",
+                "bg-foreground/5 text-muted-foreground transition-colors",
+                "hover:bg-foreground/10 hover:text-foreground",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                 className
             )}
         >
-            <XCircleIcon className="size-5" />
+            <XIcon className="size-5" />
         </DialogPrimitive.Close>
     );
 }
