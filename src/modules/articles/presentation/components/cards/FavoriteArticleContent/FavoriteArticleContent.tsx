@@ -51,6 +51,7 @@ export function FavoriteArticleContent({ article, children }: FavoriteArticleCon
                 <ArticleCard.Engagement
                     slug={article.slug}
                     articleId={article.id}
+                    title={article.title}
                     likeCount={article.likeCount}
                     commentCount={article.commentCount}
                     bookmarkCount={article.bookmarkCount}
