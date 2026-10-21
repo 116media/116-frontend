@@ -10,5 +10,7 @@ export const home = {
     categories: "Categories",
     showsTitle: "Everyone's Watching Now",
     showsSubtitle: "The shows people are following this week",
-    showsViewAll: "View all shows"
+    showsViewAll: "View all shows",
+    allDescription: "Every video published on 116, across all categories.",
+    showsViewAllDescription: "The 116 shows and their episodes, gathered in one place."
 } as const;
