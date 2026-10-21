@@ -76,7 +76,12 @@ export function SectionHeader({
     const scale = SIZES[size];
 
     return (
-        <div className={cn("flex items-center rounded-base bg-muted/40 border border-outlined/50", scale.box)}>
+        <div
+            className={cn(
+                "flex items-center rounded-base bg-muted/40 border border-outlined/50",
+                scale.box
+            )}
+        >
             <div
                 className={cn(
                     "flex shrink-0 items-center justify-center rounded-base bg-muted text-foreground",
