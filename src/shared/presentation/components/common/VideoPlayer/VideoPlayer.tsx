@@ -1,10 +1,13 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import type { ReactNode } from "react";
+import { type ReactNode, useEffect, useRef, useState } from "react";
 
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
-import { extractYoutubeId } from "@/shared/presentation/utils/youtube/youtube.utils";
+import {
+    buildYoutubeThumbnailUrl,
+    extractYoutubeId
+} from "@/shared/presentation/utils/youtube/youtube.utils";
 import { VideoPlayerPoster } from "./VideoPlayer.Poster";
 
 /**
@@ -16,6 +19,29 @@ const VideoPlayerMedia = dynamic(() => import("./VideoPlayer.Media"), {
     ssr: false,
     loading: () => null
 });
+
+/**
+ * supportsElementFullscreen
+ *
+ * @description
+ * Whether the browser can present an arbitrary element fullscreen. iPhone offers only a
+ * video element's native presentation, which a YouTube embed never exposes, so there the
+ * skin's fullscreen action resolves without doing anything.
+ *
+ * @returns Whether the Fullscreen API can take an element.
+ */
+function supportsElementFullscreen(): boolean {
+    if (typeof document === "undefined") return true;
+
+    const root = document.documentElement as HTMLElement & {
+        webkitRequestFullscreen?: unknown;
+    };
+
+    return (
+        typeof root.requestFullscreen === "function" ||
+        typeof root.webkitRequestFullscreen === "function"
+    );
+}
 
 /**
  * Aspect-ratio utilities keyed by the `ratio` prop; unknown ratios fall back to 16:9.
@@ -38,6 +64,7 @@ const RATIO_CLASS: Record<string, string> = {
  * @property {boolean} [autoPlay] - Autoplay on mount.
  * @property {boolean} [muted] - Start muted (required for autoplay).
  * @property {boolean} [loop] - Loop playback.
+ * @property {boolean} [pinned] - Whether the player is docked to the top of the viewport.
  * @property {ReactNode} [children] - Rendered inside the player context, where `usePlayer()` resolves.
  */
 export interface VideoPlayerProps {
@@ -50,6 +77,7 @@ export interface VideoPlayerProps {
     autoPlay?: boolean;
     muted?: boolean;
     loop?: boolean;
+    pinned?: boolean;
     children?: ReactNode;
 }
 
@@ -74,18 +102,53 @@ export function VideoPlayer({
     autoPlay,
     muted,
     loop,
+    pinned,
     children
 }: VideoPlayerProps) {
-    const youtubeUrl = extractYoutubeId(youtubeVideoUrl ?? null) ? youtubeVideoUrl : null;
+    const frameRef = useRef<HTMLDivElement>(null);
+    const [isStage, setIsStage] = useState(false);
+
+    const youtubeId = extractYoutubeId(youtubeVideoUrl ?? null);
+    const youtubeUrl = youtubeId ? youtubeVideoUrl : null;
     const ratioClass = RATIO_CLASS[ratio] ?? RATIO_CLASS["16:9"];
     const hasSource = Boolean(youtubeUrl) || Boolean(videoUrl);
+
+    const poster = thumbnailUrl ?? (youtubeId ? buildYoutubeThumbnailUrl(youtubeId) : null);
+
+    useEffect(() => {
+        const frame = frameRef.current;
+        if (!frame || supportsElementFullscreen()) return;
+
+        const onCapture = (event: MouseEvent) => {
+            const target = event.target as HTMLElement | null;
+            if (!target?.closest(".media-fullscreen-button, .video-fullscreen-trigger")) return;
+
+            event.preventDefault();
+            event.stopPropagation();
+            setIsStage((open) => !open);
+        };
+
+        frame.addEventListener("click", onCapture, true);
+        return () => frame.removeEventListener("click", onCapture, true);
+    }, []);
+
+    useEffect(() => {
+        if (!isStage) return;
+
+        const previous = document.body.style.overflow;
+        document.body.style.overflow = "hidden";
+
+        return () => {
+            document.body.style.overflow = previous;
+        };
+    }, [isStage]);
 
     if (!hasSource) {
         return (
             <div className="video-player w-full overflow-hidden rounded-base">
                 <VideoPlayerPoster
                     title={title}
-                    thumbnailUrl={thumbnailUrl}
+                    thumbnailUrl={poster}
                     ratioClassName={ratioClass}
                 />
             </div>
@@ -94,12 +157,18 @@ export function VideoPlayer({
 
     return (
         <div
-            className={cn("video-player relative w-full overflow-hidden rounded-base", ratioClass)}
+            ref={frameRef}
+            className={cn(
+                "video-player relative w-full overflow-hidden rounded-base",
+                isStage
+                    ? "player-stage fixed inset-0 z-100 h-dvh w-screen rounded-none"
+                    : ratioClass
+            )}
         >
             <div className="absolute inset-0">
                 <VideoPlayerPoster
                     title={title}
-                    thumbnailUrl={thumbnailUrl}
+                    thumbnailUrl={poster}
                     ratioClassName={ratioClass}
                 />
             </div>
@@ -108,9 +177,10 @@ export function VideoPlayer({
                     loop={loop}
                     title={title}
                     muted={muted}
+                    poster={poster}
                     autoPlay={autoPlay}
                     controls={controls}
-                    poster={thumbnailUrl}
+                    pinned={pinned || isStage}
                     youtubeUrl={youtubeUrl ?? undefined}
                     videoUrl={videoUrl ?? undefined}
                 >
