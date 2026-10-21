@@ -10,5 +10,7 @@ export const home = {
     categories: "Catégories",
     showsTitle: "Tout le monde regarde maintenant",
     showsSubtitle: "Les émissions les plus suivies de la semaine",
-    showsViewAll: "Voir toutes les émissions"
+    showsViewAll: "Voir toutes les émissions",
+    allDescription: "Toutes les vidéos publiées sur 116, toutes catégories confondues.",
+    showsViewAllDescription: "Les émissions 116 et leurs épisodes, réunies au même endroit."
 } as const;
