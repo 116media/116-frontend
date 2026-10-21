@@ -18,8 +18,8 @@ export function MobileMegaMenuHeader() {
     const { t } = useTranslation();
 
     return (
-        <div className={cn("flex items-center gap-3 py-3", PAGE_GUTTER)}>
-            <Logo className="size-9" />
+        <div className={cn("flex items-center gap-3 border-b py-3", PAGE_GUTTER)}>
+            <Logo className="size-9 sm:size-12 md:size-10 surface-pro-portrait:size-11.25" />
 
             <DialogCloseButton
                 className="ml-auto"
