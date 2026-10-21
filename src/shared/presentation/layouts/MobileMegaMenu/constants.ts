@@ -21,3 +21,9 @@ export const MOBILE_MENU_TABS = [
  * back. Roughly a third of a 390px phone.
  */
 export const SWIPE_CLOSE_THRESHOLD = 120;
+
+/**
+ * Travel, in px, before a drag commits to an axis. Under this the gesture is still
+ * ambiguous, so neither the panel nor the scroll container claims it.
+ */
+export const SWIPE_AXIS_LOCK = 10;
