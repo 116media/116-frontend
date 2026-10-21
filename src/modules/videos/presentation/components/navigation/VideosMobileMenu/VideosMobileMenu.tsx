@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import { VideosMegaMenuCard } from "@/modules/videos/presentation/components/cards/VideosMegaMenuCard";
 import { DUMMY_VIDEOS } from "@/modules/videos/presentation/data/mega-menu.dummy";
+import { PlayIcon } from "@/shared/presentation/components/ui/Icon";
 import { MegaMenuRow } from "@/shared/presentation/components/ui/MegaMenuRow";
 import { SHOWS_PATH, VIDEOS_PATH } from "@/shared/presentation/constants/paths";
 import { MobileMegaMenu } from "@/shared/presentation/layouts/MobileMegaMenu";
@@ -36,22 +37,28 @@ export function VideosMobileMenu({
                 <div className="flex flex-col">
                     <MegaMenuRow
                         href={VIDEOS_PATH}
+                        icon={<PlayIcon />}
                         onNavigate={onNavigate}
                         label={t("general.all")}
+                        description={t("videos.home.allDescription")}
                     />
                     {categories.map((category) => (
                         <MegaMenuRow
                             key={category.id}
+                            icon={<PlayIcon />}
                             label={category.name}
                             onNavigate={onNavigate}
                             count={category.publishedCount}
+                            description={category.description}
                             href={`${VIDEOS_PATH}?categoryId=${category.id}`}
                         />
                     ))}
                     <MegaMenuRow
                         href={SHOWS_PATH}
+                        icon={<PlayIcon />}
                         onNavigate={onNavigate}
                         label={t("videos.home.showsViewAll")}
+                        description={t("videos.home.showsViewAllDescription")}
                     />
                 </div>
             </MobileMegaMenu.Section>
