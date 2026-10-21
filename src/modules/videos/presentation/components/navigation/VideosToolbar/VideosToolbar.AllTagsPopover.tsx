@@ -56,6 +56,7 @@ export function VideosToolbarAllTagsPopover({ value, onChange }: VideosToolbarAl
             <Button
                 variant="outline"
                 onClick={() => setOpen((previous) => !previous)}
+                className="px-3 sm:px-4"
             >
                 <TagsIcon className="size-4" />
                 {t("videos.browse.filters.allTags")}

@@ -1,5 +1,6 @@
 "use client";
 
+import { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 
 import type { IVideoTagEntity } from "@/modules/videos/domain/entities/IVideoTagEntity";
@@ -86,7 +87,7 @@ export function VideoDetailHeader({
                     </Tag>
                     <span className="flex items-center gap-2 text-muted-foreground text-sm">
                         {youtubeStats?.viewCount != null && (
-                            <>
+                            <Fragment>
                                 <span className="flex items-center gap-1 tabular-nums">
                                     <EyeIcon className="size-3.5" />
                                     {t("videos.detail.scoreboard.viewsCount", {
@@ -94,7 +95,7 @@ export function VideoDetailHeader({
                                     })}
                                 </span>
                                 <span aria-hidden="true">·</span>
-                            </>
+                            </Fragment>
                         )}
                         <RelativeDate date={publishedAt} />
                     </span>
@@ -103,17 +104,17 @@ export function VideoDetailHeader({
                     <Button
                         variant="outline"
                         onClick={onOpenRating}
-                        className="gap-1.5"
+                        className="h-8 gap-1.5 px-2.5 text-xs sm:h-9 sm:px-4 sm:text-sm"
                     >
-                        <StarIcon className="size-4" />
+                        <StarIcon className="size-3.5 sm:size-4" />
                         {t("videos.detail.scoreboard.note")}
                     </Button>
                     <Button
                         variant="outline"
                         onClick={onShare}
-                        className="gap-1.5"
+                        className="h-8 gap-1.5 px-2.5 text-xs sm:h-9 sm:px-4 sm:text-sm"
                     >
-                        <ShareIcon className="size-4" />
+                        <ShareIcon className="size-3.5 sm:size-4" />
                         {t("videos.detail.share")}
                     </Button>
                     <Button
@@ -121,8 +122,9 @@ export function VideoDetailHeader({
                         onClick={onAddToPlaylist}
                         title={t("videos.detail.addToPlaylist")}
                         aria-label={t("videos.detail.addToPlaylist")}
+                        className="h-8 gap-1.5 px-2.5 text-xs sm:h-9 sm:px-4 sm:text-sm"
                     >
-                        <BookmarkIcon className="size-5" />
+                        <BookmarkIcon className="size-4 sm:size-5" />
                         {t("videos.detail.save")}
                     </Button>
                 </div>

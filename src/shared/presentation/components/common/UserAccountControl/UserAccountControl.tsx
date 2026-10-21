@@ -14,9 +14,9 @@ import { UserAccountControlSlot } from "./UserAccountControl.Slot";
  * Selects the active auth state view via guard clauses: loading skeleton, guest
  * "Log in" button, or the authenticated avatar menu.
  */
-function AccountControlView({ status, user }: AccountControlViewProps) {
+function AccountControlView({ status, user, onAction }: AccountControlViewProps) {
     if (status === "loading" || status === "error") return <UserAccountControlLoading />;
-    if (!user) return <UserAccountControlGuestButton />;
+    if (!user) return <UserAccountControlGuestButton onAction={onAction} />;
 
     return <UserAccountControlMenu user={user} />;
 }
@@ -29,7 +29,7 @@ function AccountControlView({ status, user }: AccountControlViewProps) {
  * the guest "Log in" button, or the authenticated avatar menu inside a shared
  * reserved slot so the header never reflows as the auth state resolves.
  */
-export function UserAccountControl({ className }: UserAccountControlProps) {
+export function UserAccountControl({ className, onAction }: UserAccountControlProps) {
     const { user, status } = useAuth();
 
     return (
@@ -37,6 +37,7 @@ export function UserAccountControl({ className }: UserAccountControlProps) {
             <AccountControlView
                 user={user}
                 status={status}
+                onAction={onAction}
             />
         </UserAccountControlSlot>
     );

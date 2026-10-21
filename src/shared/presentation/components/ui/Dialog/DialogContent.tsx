@@ -3,9 +3,9 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { type ComponentPropsWithoutRef, type ComponentRef, forwardRef } from "react";
 
-import { XCircleIcon } from "@/shared/presentation/components/ui/Icon";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
+import { DialogCloseButton } from "./DialogCloseButton";
 import { DialogOverlay } from "./DialogOverlay";
 
 /**
@@ -67,15 +67,10 @@ export const DialogContent = forwardRef<
             >
                 {children}
                 {showCloseButton && (
-                    <DialogPrimitive.Close
-                        aria-label={closeLabel}
-                        className={cn(
-                            "absolute top-4 right-4 z-10 cursor-pointer rounded-full text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                            closeClassName
-                        )}
-                    >
-                        <XCircleIcon className="size-5" />
-                    </DialogPrimitive.Close>
+                    <DialogCloseButton
+                        label={closeLabel}
+                        className={cn("absolute top-4 right-4 z-10", closeClassName)}
+                    />
                 )}
             </DialogPrimitive.Content>
         </DialogPrimitive.Portal>

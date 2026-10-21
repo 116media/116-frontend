@@ -17,7 +17,8 @@ const NULL_STATS: IYoutubeVideoStats = {
     hasStats: false,
     viewCount: null,
     likeCount: null,
-    commentCount: null
+    commentCount: null,
+    publishedAt: null
 };
 
 /**

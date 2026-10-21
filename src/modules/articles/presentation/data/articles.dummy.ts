@@ -146,3 +146,33 @@ export function dummyArticlePage(pageIndex: number, pageSize: number): IArticleP
         hasNextPage: start + pageSize < all.length
     };
 }
+
+/**
+ * paddedArticlePage
+ *
+ * @description
+ * Tops a sparse real page up with dummy articles so browsing stays previewable while
+ * the backend holds less than a full page. Real items keep their position at the head
+ * of the feed; the dummies continue after them and are paged consistently across
+ * requests. Mirrors `paddedVideoPage`.
+ *
+ * @param page - The real (sparse) page from the backend.
+ * @returns The combined page for that index.
+ */
+export function paddedArticlePage(page: IArticlePage): IArticlePage {
+    const pool = generateDummyArticles();
+    const total = page.count + pool.length;
+    const start = page.pageIndex * page.pageSize;
+
+    const dummyStart = Math.max(0, start - page.count);
+    const remaining = page.pageSize - page.items.length;
+    const dummies = pool.slice(dummyStart, dummyStart + remaining);
+
+    return {
+        items: [...page.items, ...dummies],
+        pageIndex: page.pageIndex,
+        pageSize: page.pageSize,
+        count: total,
+        hasNextPage: start + page.pageSize < total
+    };
+}

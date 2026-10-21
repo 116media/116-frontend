@@ -1,5 +1,8 @@
 import type { ReactNode } from "react";
-import { SHOW_FALLBACK_COLORS } from "@/modules/videos/presentation/constants/showColors";
+import {
+    SHOW_FALLBACK_COLORS,
+    showPanelGround
+} from "@/modules/videos/presentation/constants/showColors";
 import { ExclusiveShowProvider } from "@/modules/videos/presentation/context/ExclusiveShowProvider";
 import type { VideoExclusiveShowViewProps } from "./types";
 
@@ -22,16 +25,17 @@ export interface VideoExclusiveShowRootProps {
  *
  * @description
  * Section shell for the exclusive show slots: wraps the arrangement in the
- * `ExclusiveShowProvider` and paints the surface with the show's
- * poster-derived background color, so every slot below reads the show, its
- * colors, and the watch CTA target from context.
+ * `ExclusiveShowProvider` and paints the surface with the show's panel ground, so every
+ * slot below reads the show, its colors, and the watch CTA target from context.
  */
 export function VideoExclusiveShowRoot({
     category,
     className,
     children
 }: VideoExclusiveShowRootProps) {
-    const background = category.colors?.background ?? SHOW_FALLBACK_COLORS.background;
+    const background = showPanelGround(
+        category.colors?.background ?? SHOW_FALLBACK_COLORS.background
+    );
 
     return (
         <ExclusiveShowProvider category={category}>

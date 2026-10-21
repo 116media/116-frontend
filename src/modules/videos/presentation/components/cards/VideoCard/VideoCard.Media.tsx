@@ -1,5 +1,5 @@
 import Image from "next/image";
-import type { ComponentProps } from "react";
+import { type ComponentProps, Fragment } from "react";
 
 import { ButtonFrostedPlay } from "@/shared/presentation/components/ui/Button";
 
@@ -29,7 +29,7 @@ export interface VideoCardMediaProps {
  */
 export function VideoCardMedia({ title, thumbnailUrl, playSize, sizes }: VideoCardMediaProps) {
     return (
-        <>
+        <Fragment>
             {thumbnailUrl && (
                 <Image
                     fill
@@ -42,6 +42,6 @@ export function VideoCardMedia({ title, thumbnailUrl, playSize, sizes }: VideoCa
             <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                 <ButtonFrostedPlay size={playSize} />
             </div>
-        </>
+        </Fragment>
     );
 }

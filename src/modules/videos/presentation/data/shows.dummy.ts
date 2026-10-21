@@ -7,36 +7,37 @@ import type { IShowEntity } from "@/modules/videos/domain/entities/IShowEntity";
 const SHOWS_COUNT = 60;
 
 const posters = [
-    "https://images.pexels.com/photos/7586662/pexels-photo-7586662.jpeg?auto=compress&cs=tinysrgb&w=800",
-    "https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg?auto=compress&cs=tinysrgb&w=800",
-    "https://images.pexels.com/photos/167636/pexels-photo-167636.jpeg?auto=compress&cs=tinysrgb&w=800",
-    "https://images.pexels.com/photos/1190298/pexels-photo-1190298.jpeg?auto=compress&cs=tinysrgb&w=800",
-    "https://images.pexels.com/photos/2240771/pexels-photo-2240771.jpeg?auto=compress&cs=tinysrgb&w=800",
-    "https://images.pexels.com/photos/1105666/pexels-photo-1105666.jpeg?auto=compress&cs=tinysrgb&w=800",
-    "https://images.pexels.com/photos/995301/pexels-photo-995301.jpeg?auto=compress&cs=tinysrgb&w=800",
-    "https://images.pexels.com/photos/1644888/pexels-photo-1644888.jpeg?auto=compress&cs=tinysrgb&w=800",
-    "https://images.pexels.com/photos/210922/pexels-photo-210922.jpeg?auto=compress&cs=tinysrgb&w=800",
-    "https://images.pexels.com/photos/3756879/pexels-photo-3756879.jpeg?auto=compress&cs=tinysrgb&w=800"
+    "https://www.revolt.tv/media_18d4d117df3479f2373befd395cfadafdc3487dcd.png?width=750&format=webp&optimize=high",
+    "https://www.revolt.tv/media_1ab87243e31962411ffd077417c0fa0030333d6f8.webp?width=750&format=webp&optimize=high",
+    "https://www.revolt.tv/media_1a9cbfc4387cfdeffff22f882ebe6cf9c8b5481d7.webp?width=750&format=webp&optimize=high",
+    "https://www.revolt.tv/media_17a08d8cea9c586980321de3d4239956594895b9f.webp?width=750&format=webp&optimize=high",
+    "https://www.revolt.tv/media_1666bf448c4d3919ae96ffd19634aa836b3e7ce4c.png?width=750&format=webp&optimize=high",
+    "https://www.revolt.tv/media_1233783e791d33a52ee523178c13bb7630606f53c.png?width=2000&format=webp&optimize=high",
+    "https://www.revolt.tv/media_1e13c6dc528b47b942fdc063af256ac37f9606e2e.png?width=2000&format=webp&optimize=high",
+    "https://www.revolt.tv/media_1c1e5e078197f0d34bfd0ae1478731231cd317127.png?width=2000&format=webp&optimize=high"
 ];
 
 /**
- * Deterministic poster-color pairs mirroring what the backend extracts from a
- * real poster (dominant background + WCAG-contrasting foreground). Used so the
- * fallback carousel exercises the same color-driven card styling as live data.
+ * Poster-color pairs read off each poster above, index for index: the dominant tone once
+ * the near-black and near-white pixels are dropped, paired with whichever of black or
+ * white contrasts better with it, as the backend's extraction does for real artwork.
  */
 const palette = [
-    { background: "#1F2A44", foreground: "#FFFFFF" },
-    { background: "#F4C430", foreground: "#000000" },
-    { background: "#7B2D26", foreground: "#FFFFFF" },
-    { background: "#0D3B2E", foreground: "#FFFFFF" },
-    { background: "#E8D5B5", foreground: "#000000" },
-    { background: "#2C2240", foreground: "#FFFFFF" }
+    { background: "#565258", foreground: "#FFFFFF" },
+    { background: "#2C2A27", foreground: "#FFFFFF" },
+    { background: "#B87845", foreground: "#000000" },
+    { background: "#B5E51B", foreground: "#000000" },
+    { background: "#C33332", foreground: "#FFFFFF" },
+    { background: "#0167C7", foreground: "#FFFFFF" },
+    { background: "#292A27", foreground: "#FFFFFF" },
+    { background: "#6A6507", foreground: "#FFFFFF" }
 ];
 
 const shows = [
     {
         name: "Chronique Sale",
-        description: "The unfiltered late-night talk show digging into the city's loudest stories."
+        description:
+            "The unfiltered late-night talk show digging into the city's loudest stories, where nothing gets edited out and no guest leaves without saying the thing they came to avoid. Recorded live, aired untouched, argued about for the rest of the week."
     },
     {
         name: "Studio Sessions",
@@ -44,15 +45,17 @@ const shows = [
     },
     {
         name: "The Cypher",
-        description: "Raw, one-take cyphers gathering the sharpest lyricists in one room."
+        description:
+            "Raw, one-take cyphers gathering the sharpest lyricists in one room, with no beat switches, no retakes, and no edits. Sixteen bars each, passed around until the circle breaks or the sun comes up."
     },
     {
         name: "Backstage Pass",
-        description: "What really happens before the lights go up — tours, soundchecks, and chaos."
+        description: "What really happens before the lights go up: tours, soundchecks, and chaos."
     },
     {
         name: "Le Focus",
-        description: "Long-form interviews that put one artist and one story under the spotlight."
+        description:
+            "Long-form interviews that put one artist and one story under the spotlight for a full hour, tracing the work back through the rooms, the setbacks and the people who shaped it long before anyone outside was paying attention."
     },
     {
         name: "Rooftop Live",
@@ -60,19 +63,22 @@ const shows = [
     },
     {
         name: "Diaspora Beats",
-        description: "Tracing the sound from Kinshasa to the world and back again."
+        description:
+            "Tracing the sound from Kinshasa to Brussels, Paris and Johannesburg and back again, following the records, the producers and the dancefloors that carried it."
     },
     {
         name: "First Listen",
-        description: "Premieres and reactions to the projects everyone will be talking about."
+        description:
+            "Premieres and first reactions to the projects everyone will be arguing about by Friday."
     },
     {
         name: "The Comeback",
-        description: "Stories of the artists who disappeared, regrouped, and came back harder."
+        description:
+            "Stories of the artists who disappeared, regrouped and came back harder, told by the people who were in the room when it fell apart and the ones who answered the phone when it was time to start again. Six episodes, six second chances."
     },
     {
         name: "Block Party",
-        description: "Street takeovers and neighborhood shows where the culture actually lives."
+        description: "Street takeovers and neighbourhood shows where the culture actually lives."
     }
 ];
 
@@ -101,7 +107,8 @@ function generateDummyShow(index: number): IShowEntity {
             .replace(/[^a-z0-9-]/g, ""),
         description: show.description,
         posterUrl: posters[index % posters.length],
-        colors: palette[index % palette.length]
+        colors: palette[index % posters.length],
+        episodeCount: 6 + ((index * 5) % 19)
     };
 }
 

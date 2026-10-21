@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { cache } from "react";
+import { cache, Fragment } from "react";
 
 import type { IVideoDetailEntity } from "@/modules/videos/domain/entities/IVideoDetailEntity";
 import { VideoDetailContainer } from "@/modules/videos/presentation/containers/VideoDetailContainer";
@@ -121,7 +121,7 @@ export default async function VideoDetailPage({ params }: VideoDetailRouteProps)
     if (!video) notFound();
 
     return (
-        <>
+        <Fragment>
             <script
                 type="application/ld+json"
                 // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON built from mapped entity data, not user HTML
@@ -131,6 +131,6 @@ export default async function VideoDetailPage({ params }: VideoDetailRouteProps)
                 slug={slug}
                 initialData={video}
             />
-        </>
+        </Fragment>
     );
 }

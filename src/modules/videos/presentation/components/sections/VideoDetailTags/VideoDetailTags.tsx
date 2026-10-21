@@ -31,18 +31,18 @@ export function VideoDetailTags({ tags }: VideoDetailTagsProps) {
 
     return (
         <div className="flex flex-wrap items-center gap-1 border-t pt-4">
-            <span className="mr-2 font-semibold text-muted-foreground text-sm uppercase tracking-wide">
+            <span className="mr-2 font-semibold text-muted-foreground text-xs uppercase tracking-wide lg:text-sm">
                 {t("videos.detail.tags.label")}:
             </span>
             {tags.map((tag) => (
                 <Tag
                     as="a"
-                    size="lg"
+                    size="md"
                     prefix="#"
                     key={tag.id}
                     variant="default"
                     href={`${VIDEOS_PATH}?tagSlug=${tag.slug}`}
-                    className="border-transparent bg-muted text-muted-foreground hover:border-primary hover:bg-primary hover:text-primary-foreground dark:hover:border-secondary dark:hover:bg-secondary dark:hover:text-secondary-foreground"
+                    className="border-transparent bg-muted text-muted-foreground hover:border-primary hover:bg-primary hover:text-primary-foreground lg:px-3 lg:py-1 lg:text-sm dark:hover:border-secondary dark:hover:bg-secondary dark:hover:text-secondary-foreground"
                 >
                     {tag.name}
                 </Tag>

@@ -1,6 +1,6 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { Fragment, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 
 import { useYoutubeStats } from "@/modules/videos/presentation/hooks/useYoutubeStats";
@@ -10,6 +10,7 @@ import {
     ThumbsUpIcon,
     YoutubeIcon
 } from "@/shared/presentation/components/ui/Icon";
+import { RelativeDate } from "@/shared/presentation/components/ui/RelativeDate";
 import { Skeleton } from "@/shared/presentation/components/ui/Skeleton";
 import { STAR_POSITIONS } from "@/shared/presentation/constants/rating";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
@@ -68,20 +69,23 @@ function ScoreboardColumn({
     ariaLabel?: string;
 }) {
     const inner = (
-        <>
-            <span className="flex items-center gap-1.5 font-semibold text-[10px] text-muted-foreground uppercase tracking-wider">
+        <Fragment>
+            <span className="flex items-center gap-1 font-semibold text-[9px] text-muted-foreground uppercase tracking-wider sm:gap-1.5 sm:text-[10px]">
                 {icon}
                 {label}
             </span>
-            <span className="font-bold text-2xl text-foreground tabular-nums md:text-3xl">
+            <span className="font-bold text-lg text-foreground tabular-nums sm:text-2xl md:text-3xl">
                 {value}
             </span>
             {middle}
-            <span className="text-muted-foreground text-xs">{secondary}</span>
-        </>
+            <span className="text-balance text-[11px] text-muted-foreground leading-tight sm:text-xs">
+                {secondary}
+            </span>
+        </Fragment>
     );
 
-    const layout = "flex flex-col items-center gap-1.5 px-2 py-1 text-center";
+    const layout =
+        "flex min-w-0 flex-col items-center gap-1 px-1 py-1 text-center sm:gap-1.5 sm:px-2";
 
     if (onClick) {
         return (
@@ -89,7 +93,7 @@ function ScoreboardColumn({
                 type="button"
                 onClick={onClick}
                 aria-label={ariaLabel}
-                className="flex cursor-pointer flex-col items-center justify-center rounded-2xl p-2 hover:bg-accent/40"
+                className="flex min-w-0 cursor-pointer flex-col items-center justify-center gap-1 rounded-2xl p-1.5 hover:bg-accent/40 sm:gap-1.5 sm:p-2"
             >
                 {inner}
             </button>
@@ -103,8 +107,8 @@ function ScoreboardColumn({
  * VideoDetail.Scoreboard
  *
  * @description
- * The video's headline stats board, split into three columns: rating (opens
- * the rating modal), YouTube views + comments, and YouTube likes + shares.
+ * The video's headline stats board, split into three columns: rating (opens the rating
+ * modal), YouTube views + upload date, and YouTube likes + shares.
  * YouTube values come from `useYoutubeStats`; unresolved ones show an em dash.
  */
 export function VideoDetailScoreboard({
@@ -122,25 +126,25 @@ export function VideoDetailScoreboard({
     const pending = Boolean(youtubeId) && isLoading;
 
     const bigValue = (value: number | null | undefined): ReactNode => {
-        if (pending) return <Skeleton className="mx-auto h-8 w-16" />;
+        if (pending) return <Skeleton className="mx-auto h-6 w-12 sm:h-8 sm:w-16" />;
         if (value === null || value === undefined) return "—";
         return formatCount(value);
     };
 
     const youtubeValue = (value: number | null | undefined): ReactNode => (
-        <span className="flex items-center gap-1.5">
+        <span className="flex items-center gap-1 sm:gap-1.5">
             {bigValue(value)}
-            <YoutubeIcon />
+            <YoutubeIcon className="size-3.5 shrink-0 sm:size-4" />
         </span>
     );
 
     const stars = (
-        <span className="flex items-center gap-1">
+        <span className="flex items-center gap-0.5 sm:gap-1">
             {STAR_POSITIONS.map((position) => (
                 <StarIcon
                     key={position}
                     className={cn(
-                        "size-3.5",
+                        "size-3 sm:size-3.5",
                         hasRatings && position <= Math.round(ratingAverage)
                             ? "fill-amber-400 text-yellow-400"
                             : "text-muted-foreground/30"
@@ -151,29 +155,23 @@ export function VideoDetailScoreboard({
     );
 
     return (
-        <div className="grid grid-cols-3 gap-2 rounded-2xl bg-muted/20 p-2">
+        <div className="grid grid-cols-3 gap-1 rounded-2xl bg-muted/20 p-1.5 sm:gap-2 sm:p-2">
             <ScoreboardColumn
                 value={youtubeValue(data?.viewCount)}
-                icon={<EyeIcon className="size-3.5" />}
+                icon={<EyeIcon className="size-3 sm:size-3.5" />}
                 label={t("videos.detail.scoreboard.views")}
                 secondary={
-                    data?.commentCount == null && !pending ? (
+                    data?.publishedAt == null ? (
                         t("videos.detail.scoreboard.viewsYoutube")
                     ) : (
-                        <span className="flex items-center gap-1.5">
-                            {t("videos.detail.scoreboard.comments", {
-                                count: data?.commentCount ?? 0,
-                                value: formatCount(data?.commentCount ?? 0)
-                            })}
-                            <YoutubeIcon />
-                        </span>
+                        <RelativeDate date={data.publishedAt} />
                     )
                 }
             />
             <ScoreboardColumn
                 middle={stars}
                 onClick={onOpenRating}
-                icon={<StarIcon className="size-3.5" />}
+                icon={<StarIcon className="size-3 sm:size-3.5" />}
                 label={t("videos.detail.scoreboard.note")}
                 ariaLabel={t("videos.detail.scoreboard.rate")}
                 value={
@@ -192,7 +190,7 @@ export function VideoDetailScoreboard({
             />
             <ScoreboardColumn
                 value={youtubeValue(data?.likeCount)}
-                icon={<ThumbsUpIcon className="size-3.5" />}
+                icon={<ThumbsUpIcon className="size-3 sm:size-3.5" />}
                 label={t("videos.detail.scoreboard.likes")}
                 secondary={t("videos.detail.scoreboard.shares", {
                     count: shareCount,

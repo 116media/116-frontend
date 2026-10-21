@@ -6,6 +6,7 @@ import { Footer } from "@/shared/presentation/layouts/Footer";
 import { Header } from "@/shared/presentation/layouts/Header";
 import { PageContainer } from "@/shared/presentation/layouts/PageContainer";
 import { TopBar } from "@/shared/presentation/layouts/TopBar";
+import { FilterBarPinProvider } from "@/shared/presentation/providers/FilterBarPinProvider";
 
 /**
  * Props for AppShell.
@@ -36,7 +37,7 @@ export async function AppShell({ children }: AppShellProps) {
     });
 
     return (
-        <>
+        <FilterBarPinProvider>
             <div
                 data-site-header
                 className="sticky top-0 z-40"
@@ -51,6 +52,6 @@ export async function AppShell({ children }: AppShellProps) {
                 <PageContainer>{children}</PageContainer>
             </main>
             <Footer />
-        </>
+        </FilterBarPinProvider>
     );
 }

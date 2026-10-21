@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Fragment } from "react";
 import type { IShowEntity } from "@/modules/videos/domain/entities/IShowEntity";
 import { SHOW_FALLBACK_COLORS } from "@/modules/videos/presentation/constants/showColors";
 import { PlayIcon } from "@/shared/presentation/components/ui/Icon";
@@ -27,7 +28,7 @@ export function Poster({ show }: ShowCardPosterProps) {
     const foreground = show.colors?.foreground ?? SHOW_FALLBACK_COLORS.foreground;
 
     return (
-        <>
+        <Fragment>
             {show.posterUrl && (
                 <Image
                     fill
@@ -55,6 +56,6 @@ export function Poster({ show }: ShowCardPosterProps) {
                     className="size-4 fill-current sm:size-5"
                 />
             </span>
-        </>
+        </Fragment>
     );
 }

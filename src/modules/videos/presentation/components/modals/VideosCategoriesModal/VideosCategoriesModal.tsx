@@ -31,9 +31,9 @@ export interface VideosCategoriesModalProps {
  *
  * @description
  * The "browse all shows" modal: a searchable vertical list of every active
- * show, each rendered as a `ShowCard.Horizontal` row. Clicking a
- * card navigates to the show's page; the search filters client-side over the
- * loaded list.
+ * show, each rendered as a `ShowCard.Horizontal` row, on the shared card panel so the
+ * dialog carries its own surface in both themes, full-screen on mobile. Clicking a card
+ * navigates to the show's page; the search filters client-side over the loaded list.
  */
 export function VideosCategoriesModal({ open, onOpenChange }: VideosCategoriesModalProps) {
     const { t } = useTranslation();
@@ -48,7 +48,7 @@ export function VideosCategoriesModal({ open, onOpenChange }: VideosCategoriesMo
             open={open}
             onOpenChange={onOpenChange}
         >
-            <DialogContent className="flex max-h-[80vh] flex-col gap-0 overflow-hidden p-0 sm:max-w-lg">
+            <DialogContent className="flex h-dvh max-h-dvh w-full max-w-none flex-col gap-0 overflow-hidden rounded-none border-0 bg-card p-0 shadow-xl sm:h-auto sm:max-h-[80vh] sm:max-w-lg sm:rounded-2xl sm:border">
                 <DialogHeader className="border-b p-4">
                     <DialogTitle>{t("videos.browse.modal.title")}</DialogTitle>
                 </DialogHeader>

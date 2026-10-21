@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import type { IArticleSummaryEntity } from "@/modules/articles/domain/entities/IArticleSummaryEntity";
 import { ArticlePromotionCard } from "@/modules/articles/presentation/components/cards/ArticlePromotionCard";
+import { Separator } from "@/shared/presentation/components/ui/Separator";
 
 /**
  * Props for the GossipStrip component.
@@ -28,7 +29,7 @@ export function GossipStrip({ articles }: GossipStripProps) {
                 {articles.map((article, index) => (
                     <Fragment key={article.id}>
                         <ArticlePromotionCard.Strip article={article} />
-                        {index < articles.length - 1 && <hr />}
+                        {index < articles.length - 1 && <Separator />}
                     </Fragment>
                 ))}
             </div>

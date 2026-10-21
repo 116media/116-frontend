@@ -1,7 +1,7 @@
 "use client";
 
 import { type APITypes, Plyr as PlyrReact } from "plyr-react";
-import type { Ref } from "react";
+import { type Ref, useMemo } from "react";
 import "plyr-react/plyr.css";
 import "./video-plyr.css";
 
@@ -74,26 +74,35 @@ export default function VideoPlayerPlyr({
     loop,
     plyrApiRef
 }: VideoPlayerPlyrProps) {
-    const source: Plyr.SourceInfo = youtubeId
-        ? { type: "video", sources: [{ src: youtubeId, provider: "youtube" }] }
-        : {
-              type: "video",
-              sources: [{ src: videoUrl ?? "", type: videoMimeType(videoUrl ?? "") }]
-          };
+    // plyr-react rebuilds the player whenever these change identity, which would restart
+    // playback on every re-render of an ancestor, so both are kept stable by value.
+    const source = useMemo<Plyr.SourceInfo>(
+        () =>
+            youtubeId
+                ? { type: "video", sources: [{ src: youtubeId, provider: "youtube" }] }
+                : {
+                      type: "video",
+                      sources: [{ src: videoUrl ?? "", type: videoMimeType(videoUrl ?? "") }]
+                  },
+        [youtubeId, videoUrl]
+    );
 
-    const options: Plyr.Options = {
-        controls: CONTROL_PRESETS[controls],
-        settings: ["quality", "speed"],
-        ratio,
-        clickToPlay: controls !== "bare",
-        hideControls: true,
-        resetOnEnd: !loop,
-        autoplay: Boolean(autoPlay),
-        muted: Boolean(muted),
-        storage: { enabled: false },
-        loop: { active: Boolean(loop) },
-        ...(typeof volume === "number" ? { volume } : {})
-    };
+    const options = useMemo<Plyr.Options>(
+        () => ({
+            controls: CONTROL_PRESETS[controls],
+            settings: ["quality", "speed"],
+            ratio,
+            clickToPlay: controls !== "bare",
+            hideControls: true,
+            resetOnEnd: !loop,
+            autoplay: Boolean(autoPlay),
+            muted: Boolean(muted),
+            storage: { enabled: false },
+            loop: { active: Boolean(loop) },
+            ...(typeof volume === "number" ? { volume } : {})
+        }),
+        [controls, ratio, loop, autoPlay, muted, volume]
+    );
 
     return (
         <PlyrReact

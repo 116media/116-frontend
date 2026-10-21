@@ -50,7 +50,7 @@ export function VideosPopularSidebarLoading({
     rows = POPULAR_SKELETON_ROWS
 }: VideosPopularSidebarLoadingProps) {
     return (
-        <div className="flex flex-col gap-4 rounded-xl bg-muted/25 p-3 sm:p-4 md:p-5 lg:p-3 xl:p-5">
+        <div className="flex flex-col gap-4 rounded-xl bg-muted/25 max-lg:contents lg:p-3 xl:p-5">
             {Array.from({ length: rows }, (_, index) => index).map((row) => (
                 <PopularRowSkeleton key={`popular-skeleton-${row}`} />
             ))}

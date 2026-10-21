@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-
+import { Separator } from "@/shared/presentation/components/ui/Separator";
 import { Skeleton } from "@/shared/presentation/components/ui/Skeleton";
 
 const POPULAR_SKELETON_ROWS = 5;
@@ -26,7 +26,7 @@ export function ArticlesPopularSidebarLoading() {
                             <Skeleton className="mt-auto h-3 w-24" />
                         </div>
                     </div>
-                    {row < POPULAR_SKELETON_ROWS - 1 && <hr />}
+                    {row < POPULAR_SKELETON_ROWS - 1 && <Separator />}
                 </Fragment>
             ))}
         </div>

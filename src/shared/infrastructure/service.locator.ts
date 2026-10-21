@@ -40,6 +40,9 @@ import type { VerifyOtpUseCase } from "@/modules/auth/application/usecases/verif
 import { registerAuthDependencies } from "@/modules/auth/infrastructure/dependencies/auth.dependencies";
 import type { SubscribeNewsletterUseCase } from "@/modules/newsletter/application/usecases/subscribenewsletter.usecase";
 import { registerNewsletterDependencies } from "@/modules/newsletter/infrastructure/dependencies/newsletter.dependencies";
+import type { INotificationsRepositoryPort } from "@/modules/notifications/application/repositories/notifications.repository.port";
+import type { GetUnreadNotificationCountUseCase } from "@/modules/notifications/application/usecases/getunreadnotificationcount.usecase";
+import { registerNotificationsDependencies } from "@/modules/notifications/infrastructure/dependencies/notifications.dependencies";
 import type { ISessionRepositoryPort } from "@/modules/session/application/repositories/session.repository.port";
 import type { GetSessionsUseCase } from "@/modules/session/application/usecases/getsessions.usecase";
 import type { RefreshTokenUseCase } from "@/modules/session/application/usecases/refreshtoken.usecase";
@@ -169,6 +172,8 @@ export interface Cradle {
     getVideoCategoriesUseCase: GetVideoCategoriesUseCase;
     getShowsUseCase: GetShowsUseCase;
     subscribeNewsletterUseCase: SubscribeNewsletterUseCase;
+    notificationsRepository: INotificationsRepositoryPort;
+    getUnreadNotificationCountUseCase: GetUnreadNotificationCountUseCase;
     getVideoFeedUseCase: GetVideoFeedUseCase;
     getVideoPopularTagsUseCase: GetVideoPopularTagsUseCase;
     getAllVideoTagsUseCase: GetAllVideoTagsUseCase;
@@ -239,6 +244,7 @@ container.register({ client: asValue(apiClient) });
 
 registerArticlesDependencies(container);
 registerNewsletterDependencies(container);
+registerNotificationsDependencies(container);
 registerVideosDependencies(container);
 registerShortsDependencies(container);
 registerAuthDependencies(container);

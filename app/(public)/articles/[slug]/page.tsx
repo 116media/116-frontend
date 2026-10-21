@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { cache } from "react";
+import { cache, Fragment } from "react";
 
 import type { IArticleDetailEntity } from "@/modules/articles/domain/entities/IArticleDetailEntity";
 import { ArticleDetailContainer } from "@/modules/articles/presentation/containers/ArticleDetailContainer";
@@ -112,7 +112,7 @@ export default async function ArticleDetailPage({ params }: ArticleDetailRoutePr
     if (!article) notFound();
 
     return (
-        <>
+        <Fragment>
             <script
                 type="application/ld+json"
                 // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON built from mapped entity data, not user HTML
@@ -122,6 +122,6 @@ export default async function ArticleDetailPage({ params }: ArticleDetailRoutePr
                 slug={slug}
                 initialData={article}
             />
-        </>
+        </Fragment>
     );
 }

@@ -28,8 +28,8 @@ export interface SectionHeaderProps {
 export function SectionHeader({ icon, title, subtitle, as = "h2" }: SectionHeaderProps) {
     const Heading = as;
     return (
-        <div className="mb-4 flex items-center gap-3 rounded-xl bg-muted/30 p-4">
-            <div className="flex size-12 items-center justify-center rounded-md bg-muted text-foreground [&_svg]:size-5">
+        <div className="mb-0 sm:mb-4 flex items-center gap-3 rounded-xl bg-muted/30 p-3 sm:p-4">
+            <div className="flex size-10 sm:size-12 items-center justify-center rounded-md bg-muted text-foreground [&_svg]:size-5">
                 {icon}
             </div>
             <div>

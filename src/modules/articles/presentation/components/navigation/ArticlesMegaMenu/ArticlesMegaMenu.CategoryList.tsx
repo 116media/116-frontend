@@ -21,7 +21,7 @@ export function ArticlesMegaMenuCategoryList({ categories }: ArticlesMegaMenuCat
             <p className="mb-3 pr-3 font-bold text-muted-foreground text-xs uppercase tracking-wider">
                 {t("articles.home.categories")}
             </p>
-            <div className="h-px bg-border/60" />
+            <div className="h-px bg-outlined/60" />
 
             <MegaMenuRow
                 href={ARTICLES_PATH}

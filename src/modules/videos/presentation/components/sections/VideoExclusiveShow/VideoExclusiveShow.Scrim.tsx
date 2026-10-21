@@ -1,15 +1,15 @@
 "use client";
 
 import { useExclusiveShow } from "@/modules/videos/presentation/context/ExclusiveShowProvider";
-import { withAlpha } from "@/shared/presentation/utils/color/color.utils";
+import { fade } from "@/shared/presentation/utils/color/color.utils";
 
 /**
  * Props for the VideoExclusiveShowScrim component.
  *
  * @interface VideoExclusiveShowScrimProps
  * @property {"right" | "top" | "panel"} direction - "right" darkens the hero text
- * side, "top" grounds the hero episodes rail, "panel" is the split poster's
- * solid-to-transparent bottom fade.
+ * side, "top" grounds the hero episodes rail, "panel" is the split poster's bottom fade,
+ * which keeps the upper artwork visible.
  */
 export interface VideoExclusiveShowScrimProps {
     direction: "right" | "top" | "panel";
@@ -27,14 +27,14 @@ export interface VideoExclusiveShowScrimProps {
  */
 function scrimGradient(direction: VideoExclusiveShowScrimProps["direction"], background: string) {
     if (direction === "right") {
-        return `linear-gradient(to right, ${withAlpha(background, 0.96)} 0%, ${withAlpha(background, 0.72)} 45%, ${withAlpha(background, 0)} 100%)`;
+        return `linear-gradient(to right, ${fade(background, 0.96)} 0%, ${fade(background, 0.72)} 45%, ${fade(background, 0)} 100%)`;
     }
 
     if (direction === "top") {
-        return `linear-gradient(to top, ${withAlpha(background, 0.96)} 0%, ${withAlpha(background, 0.72)} 45%)`;
+        return `linear-gradient(to top, ${fade(background, 0.96)} 0%, ${fade(background, 0.72)} 45%)`;
     }
 
-    return `linear-gradient(to top, ${background} 0%, ${background} 45%, ${withAlpha(background, 0)} 100%)`;
+    return `linear-gradient(to top, ${background} 0%, ${fade(background, 0.95)} 28%, ${fade(background, 0.6)} 65%, ${fade(background, 0)} 100%)`;
 }
 
 /**

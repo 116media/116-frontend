@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import type { IPlaylistEntity } from "@/modules/videos/domain/entities/IPlaylistEntity";
@@ -92,7 +92,7 @@ export function VideoPlaylistModal({ open, onOpenChange, videoId }: VideoPlaylis
                 submit();
             }}
             footer={
-                <>
+                <Fragment>
                     <Button
                         type="button"
                         variant="outline"
@@ -107,7 +107,7 @@ export function VideoPlaylistModal({ open, onOpenChange, videoId }: VideoPlaylis
                     >
                         {t("videos.detail.playlist.add")}
                     </Button>
-                </>
+                </Fragment>
             }
         >
             <div className="flex max-h-64 flex-col gap-1 overflow-y-auto">

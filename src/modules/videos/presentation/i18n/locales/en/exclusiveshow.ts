@@ -9,5 +9,10 @@
 export const exclusiveShow = {
     allEpisodes: "All Episodes",
     episodes: "Episodes",
+    episodeCount_one: "{{count}} episode",
+    episodeCount_other: "{{count}} episodes",
+    latestEpisode: "Latest episode",
+    updated: "Updated",
+    free: "Free",
     exclusive: "Exclusive"
 } as const;

@@ -7,7 +7,7 @@ const REVALIDATE_SECONDS = 300;
  * resolved — missing API key, implausible id, upstream error — so the page's
  * chips hide instead of erroring. Null means hidden/unavailable, never 0.
  */
-const NULL_STATS = { viewCount: null, likeCount: null, commentCount: null };
+const NULL_STATS = { viewCount: null, likeCount: null, commentCount: null, publishedAt: null };
 
 /**
  * isPlausibleYoutubeId
@@ -45,9 +45,9 @@ function toCount(value: unknown): number | null {
  * GET /api/youtube/[videoId]
  *
  * @description
- * Proxies the YouTube Data API v3 `videos?part=statistics` call for one video
- * id, keeping `YOUTUBE_API_KEY` server-side. Always responds 200 with the
- * stats shape `{ viewCount, likeCount, commentCount }` — a missing key, an
+ * Proxies the YouTube Data API v3 `videos?part=statistics,snippet` call for one video
+ * id, keeping `YOUTUBE_API_KEY` server-side. Always responds 200 with the stats shape
+ * `{ viewCount, likeCount, commentCount, publishedAt }` — a missing key, an
  * implausible id, or any upstream problem resolves to the all-null shape so
  * upstream failures never become page errors. The Google response is cached
  * for five minutes per id.
@@ -68,19 +68,25 @@ export async function GET(
     try {
         const url =
             "https://www.googleapis.com/youtube/v3/videos" +
-            `?part=statistics&id=${videoId}&key=${key}`;
+            `?part=statistics,snippet&id=${videoId}&key=${key}`;
         const response = await fetch(url, { next: { revalidate: REVALIDATE_SECONDS } });
         if (!response.ok) return Response.json(NULL_STATS);
 
         const payload = (await response.json()) as {
-            items?: { statistics?: Record<string, unknown> }[];
+            items?: {
+                statistics?: Record<string, unknown>;
+                snippet?: { publishedAt?: unknown };
+            }[];
         };
-        const statistics = payload?.items?.[0]?.statistics;
+        const item = payload?.items?.[0];
+        const statistics = item?.statistics;
+        const publishedAt = item?.snippet?.publishedAt;
 
         return Response.json({
             viewCount: toCount(statistics?.viewCount),
             likeCount: toCount(statistics?.likeCount),
-            commentCount: toCount(statistics?.commentCount)
+            commentCount: toCount(statistics?.commentCount),
+            publishedAt: typeof publishedAt === "string" ? publishedAt : null
         });
     } catch {
         return Response.json(NULL_STATS);

@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { HeartIcon, MessageSquareIcon, ShareIcon } from "@/shared/presentation/components/ui/Icon";
 import { formatCount } from "@/shared/presentation/utils/format/format.utils";
 
@@ -16,7 +17,7 @@ export function Stats({
     iconClassName = "size-3.5 sm:size-4"
 }: ArticlePromotionCardStatsProps) {
     return (
-        <>
+        <Fragment>
             <span className="flex items-center gap-1">
                 <MessageSquareIcon className={iconClassName} />
                 {formatCount(article.commentCount)}
@@ -29,6 +30,6 @@ export function Stats({
                 <ShareIcon className={iconClassName} />
                 {formatCount(article.shareCount)}
             </span>
-        </>
+        </Fragment>
     );
 }

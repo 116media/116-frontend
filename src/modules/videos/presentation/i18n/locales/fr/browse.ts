@@ -10,7 +10,7 @@ export const browse = {
     title: "Explorez les collections vidéo",
     filters: {
         all: "Tout",
-        searchPlaceholder: "Rechercher des vidéos…",
+        searchPlaceholder: "Filtrer dans les vidéos…",
         clearSearch: "Effacer la recherche",
         browseAllShows: "Toutes les émissions",
         allTags: "Toutes les étiquettes",

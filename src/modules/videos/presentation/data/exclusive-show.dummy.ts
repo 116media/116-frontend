@@ -2,10 +2,10 @@ import type { IVideoExclusiveShowEntity } from "@/modules/videos/domain/entities
 import type { IVideoSummaryEntity } from "@/modules/videos/domain/entities/IVideoSummaryEntity";
 
 const SHOW_ID = "exclusive-show-1";
-const SHOW_NAME = "Chronique Sale";
+const SHOW_NAME = "Le Focus";
 
 const posterUrl =
-    "https://images.pexels.com/photos/7586662/pexels-photo-7586662.jpeg?auto=compress&cs=tinysrgb&w=1200";
+    "https://www.revolt.tv/media_1666bf448c4d3919ae96ffd19634aa836b3e7ce4c.png?width=750&format=webp&optimize=high";
 
 const thumbnails = [
     "https://images.pexels.com/photos/4427610/pexels-photo-4427610.jpeg?auto=compress&cs=tinysrgb&w=600",
@@ -69,11 +69,12 @@ export function generateDummyExclusiveShow(): IVideoExclusiveShowEntity {
     return {
         id: SHOW_ID,
         name: SHOW_NAME,
-        slug: "chronique-sale",
+        slug: "le-focus",
         description:
-            "An unfiltered look inside the studios, late-night sessions, and untold stories shaping the sound of a generation. Each week we sit down with the artists, producers, and dreamers rewriting the rules — raw conversations, exclusive performances, and the moments that never make the headlines. Real, raw.",
+            "Long-form interviews that put one artist and one story under the spotlight for a full hour, tracing the work back through the rooms, the setbacks and the people who shaped it.",
         posterUrl,
-        colors: { background: "#1C0E08", foreground: "#FFFFFF" },
+        colors: { background: "#C33332", foreground: "#FFFFFF" },
+        episodeCount: episodes.length,
         episodes
     };
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { type ReactNode, useEffect } from "react";
+import { Fragment, type ReactNode, useEffect } from "react";
 
 import { INFINITE_SCROLL_SENTINEL_OPTIONS } from "@/shared/presentation/constants/infiniteScroll";
 import { useIntersectionObserver } from "@/shared/presentation/hooks/useIntersectionObserver";
@@ -47,7 +47,7 @@ export function InfiniteScrollFooter({
     }, [isSentinelVisible, hasNextPage, isFetchingNextPage, onLoadMore]);
 
     return (
-        <>
+        <Fragment>
             {isFetchingNextPage && loader}
             {hasNextPage ? (
                 <div
@@ -58,6 +58,6 @@ export function InfiniteScrollFooter({
             ) : (
                 <p className="text-center text-muted-foreground text-sm">{endLabel}</p>
             )}
-        </>
+        </Fragment>
     );
 }

@@ -2,9 +2,11 @@
  * LanguageDropdownProps
  *
  * @property placement - Direction the dropdown menu opens relative to the trigger
+ * @property size - Trigger footprint; `lg` is the 44px touch target used on mobile
  */
 export interface LanguageDropdownProps {
     placement?: "top" | "bottom";
+    size?: "default" | "lg";
 }
 
 /**

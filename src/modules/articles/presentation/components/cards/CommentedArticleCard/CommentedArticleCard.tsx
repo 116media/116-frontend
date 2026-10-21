@@ -48,7 +48,7 @@ export function CommentedArticleCard({ item, onViewComments }: CommentedArticleC
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
             />
             <FavoriteArticleContent article={article}>
-                <div className="-mx-3 -mb-3 mt-auto flex flex-col gap-3 rounded-lg bg-accent/50 p-3 transition-colors group-hover:bg-muted dark:group-hover:bg-background">
+                <div className="-mx-3 -mb-3 mt-auto flex flex-col gap-3 rounded-lg bg-accent/50 p-3 transition-colors group-hover:bg-accent">
                     <FavoriteCard.Comment
                         date={item.lastCommentedAt}
                         body={item.latestComment.body}

@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { Skeleton } from "@/shared/presentation/components/ui/Skeleton";
 
 /**
@@ -36,10 +37,10 @@ export interface CommentListLoadingProps {
  */
 export function CommentListLoading({ count = 4 }: CommentListLoadingProps) {
     return (
-        <>
+        <Fragment>
             {Array.from({ length: count }, (_, index) => index).map((slot) => (
                 <CommentSkeleton key={`comment-skeleton-${slot}`} />
             ))}
-        </>
+        </Fragment>
     );
 }

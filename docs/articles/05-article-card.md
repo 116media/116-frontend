@@ -231,7 +231,7 @@ column, not the card, owns the width. See
 
 - **`Separator`** (`src/shared/presentation/components/ui/Separator/`) — none exists.
   A minimal themed rule supporting `orientation="horizontal" | "vertical"`:
-  vertical → `w-px` full-height, horizontal → `h-px` full-width, `bg-border`. Build on
+  vertical → `w-px` full-height, horizontal → `h-px` full-width, `bg-outlined`. Build on
   `@radix-ui/react-separator` (run `npm show @radix-ui/react-separator dist-tags.latest`
   before pinning) or a bare `role="separator"` span. JSDoc + tokens required.
 - **`BookmarkPlusIcon`** — add `Bookmark, BookmarkPlus as BookmarkPlusIcon` to

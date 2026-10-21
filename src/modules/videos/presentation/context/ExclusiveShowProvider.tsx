@@ -2,7 +2,10 @@
 
 import { createContext, type ReactNode, useContext, useMemo } from "react";
 import type { IVideoExclusiveShowEntity } from "@/modules/videos/domain/entities/IVideoExclusiveShowEntity";
-import { SHOW_FALLBACK_COLORS } from "@/modules/videos/presentation/constants/showColors";
+import {
+    SHOW_FALLBACK_COLORS,
+    showPanelGround
+} from "@/modules/videos/presentation/constants/showColors";
 import { mostRecentEpisode } from "@/modules/videos/presentation/utils/episodes/episodes.utils";
 import { VIDEOS_PATH } from "@/shared/presentation/constants/paths";
 
@@ -11,8 +14,9 @@ import { VIDEOS_PATH } from "@/shared/presentation/constants/paths";
  *
  * @interface ExclusiveShowContextValue
  * @property {IVideoExclusiveShowEntity} category - The exclusive show being rendered.
- * @property {string} background - Poster-derived background color, fallback applied.
- * @property {string} foreground - Poster-derived text color, fallback applied.
+ * @property {string} background - The panel ground: the show's poster color mixed into
+ * the shared dark ground, so the panel is dark whatever the artwork is.
+ * @property {string} foreground - Panel text color, light against that ground.
  * @property {string} watchHref - Detail URL of the most recently published episode.
  */
 export interface ExclusiveShowContextValue {
@@ -41,8 +45,8 @@ export interface ExclusiveShowProviderProps {
  *
  * @description
  * Provides one exclusive show to the VideoExclusiveShow slots: resolves the
- * poster-derived colors with neutral fallbacks and the watch CTA target (most
- * recent episode) once, so slots read them without prop-drilling.
+ * the panel ground mixed from the show's poster color, its light text color, and the
+ * watch CTA target (most recent episode) once, so slots read them without prop-drilling.
  */
 export function ExclusiveShowProvider({ category, children }: ExclusiveShowProviderProps) {
     const value = useMemo<ExclusiveShowContextValue>(() => {
@@ -50,8 +54,10 @@ export function ExclusiveShowProvider({ category, children }: ExclusiveShowProvi
 
         return {
             category,
-            background: category.colors?.background ?? SHOW_FALLBACK_COLORS.background,
-            foreground: category.colors?.foreground ?? SHOW_FALLBACK_COLORS.foreground,
+            background: showPanelGround(
+                category.colors?.background ?? SHOW_FALLBACK_COLORS.background
+            ),
+            foreground: "#FFFFFF",
             watchHref: latest ? `${VIDEOS_PATH}/${latest.slug}` : VIDEOS_PATH
         };
     }, [category]);

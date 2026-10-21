@@ -155,6 +155,7 @@ export const VideosMapper = {
             name: dto.name,
             slug: dto.slug,
             description: dto.description,
+            episodeCount: dto.publishedCount,
             posterUrl: dto.posterUrl ?? null,
             colors: dto.colors
                 ? {
@@ -410,6 +411,7 @@ export const VideosMapper = {
             viewCount,
             likeCount,
             commentCount,
+            publishedAt: typeof record.publishedAt === "string" ? record.publishedAt : null,
             hasStats: viewCount !== null || likeCount !== null || commentCount !== null
         };
     }

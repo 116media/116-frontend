@@ -27,7 +27,7 @@ export function DesktopNav() {
                     )}
                 </Link>
             ))}
-            <div className="ml-2 h-8 w-px bg-border" aria-hidden="true" />
+            <div className="ml-2 h-8 w-px bg-outlined" aria-hidden="true" />
             <Button size="icon" variant="ghost" aria-label="Rechercher">
                 <Search />
             </Button>
@@ -127,7 +127,7 @@ export function DesktopNav({
                 <NavigationMenuViewport />
             </NavigationMenu>
 
-            <div className="ml-2 h-8 w-px bg-border" aria-hidden="true" />
+            <div className="ml-2 h-8 w-px bg-outlined" aria-hidden="true" />
 
             <Button
                 size="icon"

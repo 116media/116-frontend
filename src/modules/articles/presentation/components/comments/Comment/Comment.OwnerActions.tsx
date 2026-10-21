@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { useCommentData } from "@/modules/articles/presentation/context/CommentDataContext";
@@ -56,7 +56,7 @@ export function CommentOwnerActions() {
     }
 
     return (
-        <>
+        <Fragment>
             <Button
                 size="sm"
                 type="button"
@@ -77,6 +77,6 @@ export function CommentOwnerActions() {
                 <TrashIcon />
                 {t("articles.comments.delete")}
             </Button>
-        </>
+        </Fragment>
     );
 }

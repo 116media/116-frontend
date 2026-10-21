@@ -19,13 +19,24 @@ import {
 } from "./variants";
 
 /**
+ * Props for the ThemeToggle component.
+ *
+ * @interface ThemeToggleProps
+ * @property {"icon" | "icon-lg"} [size] - The button footprint. `icon-lg` is the 44px
+ * touch target used by the mobile surfaces; defaults to the compact header size.
+ */
+export interface ThemeToggleProps {
+    size?: "icon" | "icon-lg";
+}
+
+/**
  * ThemeToggle
  *
  * @description
  * Animated icon button that switches between light and dark mode, morphing between
  * a sun and a moon via Motion. All colors reference CSS tokens from theme.css.
  */
-export function ThemeToggle() {
+export function ThemeToggle({ size = "icon" }: ThemeToggleProps = {}) {
     const { theme, setTheme } = useTheme();
 
     const onToggle = useCallback(() => {
@@ -34,7 +45,7 @@ export function ThemeToggle() {
 
     return (
         <Button
-            size="icon"
+            size={size}
             type="button"
             variant="ghost"
             onClick={onToggle}

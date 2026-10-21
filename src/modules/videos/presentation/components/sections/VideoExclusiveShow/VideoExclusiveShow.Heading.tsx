@@ -1,5 +1,6 @@
 "use client";
 
+import { Fragment } from "react";
 import { useExclusiveShow } from "@/modules/videos/presentation/context/ExclusiveShowProvider";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 import { withAlpha } from "@/shared/presentation/utils/color/color.utils";
@@ -27,7 +28,7 @@ export function VideoExclusiveShowHeading({ clamp = true }: VideoExclusiveShowHe
     const { category, foreground } = useExclusiveShow();
 
     return (
-        <>
+        <Fragment>
             <h1
                 style={{ color: foreground }}
                 className="max-w-3xl text-2xl font-bold leading-tight lg:text-xl xl:text-3xl"
@@ -43,6 +44,6 @@ export function VideoExclusiveShowHeading({ clamp = true }: VideoExclusiveShowHe
             >
                 {category.description}
             </p>
-        </>
+        </Fragment>
     );
 }

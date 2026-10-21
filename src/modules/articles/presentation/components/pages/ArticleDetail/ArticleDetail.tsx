@@ -5,6 +5,7 @@ import { type RefObject, useEffect, useRef } from "react";
 import type { IArticleDetailEntity } from "@/modules/articles/domain/entities/IArticleDetailEntity";
 import { CommentList } from "@/modules/articles/presentation/components/comments/CommentList";
 import { ArticleDetailBody } from "@/modules/articles/presentation/components/sections/ArticleDetailBody";
+import { ArticleDetailDock } from "@/modules/articles/presentation/components/sections/ArticleDetailDock";
 import { ArticleDetailEngagement } from "@/modules/articles/presentation/components/sections/ArticleDetailEngagement";
 import { ArticleDetailHero } from "@/modules/articles/presentation/components/sections/ArticleDetailHero";
 import { ArticleDetailHeroCover } from "@/modules/articles/presentation/components/sections/ArticleDetailHeroCover";
@@ -50,10 +51,12 @@ function focusComposer(
  * @description
  * Presentation assembler for the single-article page. The only component that receives the
  * whole entity; each section child gets only the fields it renders. Wires the shared
- * body/comments/composer refs and auto-scrolls to comments when `?comments=1` is present.
+ * body/comments/composer refs, feeds the mobile dock its reveal line, and auto-scrolls to
+ * comments when `?comments=1` is present.
  */
 export function ArticleDetail({ article }: ArticleDetailProps) {
     const bodyRef = useRef<HTMLDivElement>(null);
+    const engagementRef = useRef<HTMLDivElement>(null);
     const commentsRef = useRef<HTMLElement>(null);
     const composerRef = useRef<HTMLTextAreaElement>(null);
 
@@ -83,17 +86,19 @@ export function ArticleDetail({ article }: ArticleDetailProps) {
                         categoryId={article.categoryId}
                         categoryName={article.categoryName}
                     />
-                    <ArticleDetailEngagement
-                        slug={article.slug}
-                        title={article.title}
-                        articleId={article.id}
-                        isLiked={article.isLiked}
-                        likeCount={article.likeCount}
-                        author={article.author ?? undefined}
-                        commentCount={article.commentCount}
-                        shareCount={article.shareCount}
-                        onComment={scrollToComments}
-                    />
+                    <div ref={engagementRef}>
+                        <ArticleDetailEngagement
+                            slug={article.slug}
+                            title={article.title}
+                            articleId={article.id}
+                            isLiked={article.isLiked}
+                            likeCount={article.likeCount}
+                            author={article.author ?? undefined}
+                            commentCount={article.commentCount}
+                            shareCount={article.shareCount}
+                            onComment={scrollToComments}
+                        />
+                    </div>
                     <ArticleDetailHeroCover
                         title={article.title}
                         coverImageUrl={article.coverImageUrl}
@@ -127,6 +132,20 @@ export function ArticleDetail({ article }: ArticleDetailProps) {
                     <NewsletterCard />
                 </aside>
             </div>
+
+            <ArticleDetailDock
+                slug={article.slug}
+                title={article.title}
+                articleId={article.id}
+                isLiked={article.isLiked}
+                likeCount={article.likeCount}
+                onComment={scrollToComments}
+                revealAfterRef={engagementRef}
+                shareCount={article.shareCount}
+                commentCount={article.commentCount}
+                isBookmarked={article.isBookmarked}
+                bookmarkCount={article.bookmarkCount}
+            />
         </div>
     );
 }

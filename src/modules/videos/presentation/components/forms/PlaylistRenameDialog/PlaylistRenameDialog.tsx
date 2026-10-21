@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
@@ -67,7 +67,7 @@ export function PlaylistRenameDialog({
             header={t("favorites.playlist.renameTitle")}
             subtitle={t("favorites.playlist.renameSubtitle")}
             footer={
-                <>
+                <Fragment>
                     <Button
                         type="button"
                         variant="outline"
@@ -82,7 +82,7 @@ export function PlaylistRenameDialog({
                     >
                         {t("favorites.playlist.save")}
                     </Button>
-                </>
+                </Fragment>
             }
         >
             <FloatingField

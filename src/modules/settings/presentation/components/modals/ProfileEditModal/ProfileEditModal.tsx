@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Fragment } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import type { z } from "zod";
@@ -89,7 +90,7 @@ export function ProfileEditModal({ open, onOpenChange, user }: ProfileEditModalP
             header={t("settings.profile.edit.title")}
             subtitle={t("settings.profile.edit.subtitle")}
             footer={
-                <>
+                <Fragment>
                     <Button
                         type="button"
                         variant="outline"
@@ -104,7 +105,7 @@ export function ProfileEditModal({ open, onOpenChange, user }: ProfileEditModalP
                     >
                         {t("settings.profile.edit.submit")}
                     </Button>
-                </>
+                </Fragment>
             }
         >
             {error && <Alert error={error} />}

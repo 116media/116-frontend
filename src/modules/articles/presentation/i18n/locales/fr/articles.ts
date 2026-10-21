@@ -32,8 +32,12 @@ export const articles = {
         },
         end: "Vous êtes à jour"
     },
+    browse: {
+        title: "Explorer les articles"
+    },
     filters: {
-        searchPlaceholder: "Rechercher des articles…",
+        all: "Tous",
+        searchPlaceholder: "Filtrer dans les articles…",
         clearSearch: "Effacer la recherche",
         allCategories: "Toutes les catégories",
         category: "Catégorie",

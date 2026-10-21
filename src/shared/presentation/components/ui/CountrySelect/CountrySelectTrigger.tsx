@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import type { ICountryObject } from "@/shared/infrastructure/constants/countries";
 import { ChevronsUpDownIcon } from "@/shared/presentation/components/ui/Icon";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
@@ -44,7 +45,7 @@ export function CountrySelectTrigger({
     const floated = open || Boolean(selected);
 
     return (
-        <>
+        <Fragment>
             <button
                 id={id}
                 type="button"
@@ -84,6 +85,6 @@ export function CountrySelectTrigger({
                 {label}
                 {required && <span className="ml-0.5 text-destructive">*</span>}
             </label>
-        </>
+        </Fragment>
     );
 }

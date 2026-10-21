@@ -2,11 +2,13 @@ import { VideoExclusiveShowAllEpisodesLink } from "./VideoExclusiveShow.AllEpiso
 import { VideoExclusiveShowEpisodes } from "./VideoExclusiveShow.Episodes";
 import { VideoExclusiveShowHeading } from "./VideoExclusiveShow.Heading";
 import { Hero } from "./VideoExclusiveShow.Hero";
+import { VideoExclusiveShowMeta } from "./VideoExclusiveShow.Meta";
 import { VideoExclusiveShowPoster } from "./VideoExclusiveShow.Poster";
 import { VideoExclusiveShowRoot } from "./VideoExclusiveShow.Root";
 import { VideoExclusiveShowScrim } from "./VideoExclusiveShow.Scrim";
 import { Split } from "./VideoExclusiveShow.Split";
 import { VideoExclusiveShowTag } from "./VideoExclusiveShow.Tag";
+import { VideoExclusiveShowTile } from "./VideoExclusiveShow.Tile";
 import { VideoExclusiveShowWatchButton } from "./VideoExclusiveShow.WatchButton";
 
 /**
@@ -25,7 +27,9 @@ export const VideoExclusiveShow = {
     Poster: VideoExclusiveShowPoster,
     Scrim: VideoExclusiveShowScrim,
     Tag: VideoExclusiveShowTag,
+    Tile: VideoExclusiveShowTile,
     Heading: VideoExclusiveShowHeading,
+    Meta: VideoExclusiveShowMeta,
     WatchButton: VideoExclusiveShowWatchButton,
     AllEpisodesLink: VideoExclusiveShowAllEpisodesLink,
     Episodes: VideoExclusiveShowEpisodes

@@ -10,9 +10,10 @@ import type { UserAccountControlSlotProps } from "./types";
  * UserAccountControlSlot
  *
  * @description
- * Reserved footprint for the auth control. An invisible "Log in" button holds the
- * button's width so the header never reflows as the auth state resolves; the active
- * state renders right-aligned on top.
+ * Reserved footprint for the auth control, matching the guest button at each width:
+ * a square icon on mobile and tablet, the labelled button from `lg` up. The invisible
+ * placeholder holds that width so the header never reflows as the auth state
+ * resolves; the active state renders right-aligned on top.
  */
 export function UserAccountControlSlot({ className, children }: UserAccountControlSlotProps) {
     const { t } = useTranslation();
@@ -23,9 +24,9 @@ export function UserAccountControlSlot({ className, children }: UserAccountContr
                 aria-hidden
                 tabIndex={-1}
                 variant="outline"
-                className="invisible text-sm font-medium"
+                className="invisible size-10 p-0 font-medium text-sm [&_svg]:size-5 lg:size-auto lg:px-4 lg:py-2 lg:[&_svg]:size-4"
             >
-                {t("navigation.login")}
+                <span className="hidden lg:inline">{t("navigation.login")}</span>
             </Button>
             <div className="absolute inset-0 flex items-center justify-end">{children}</div>
         </div>

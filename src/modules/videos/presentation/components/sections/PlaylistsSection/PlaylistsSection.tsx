@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { IPlaylistEntity } from "@/modules/videos/domain/entities/IPlaylistEntity";
 import { PlaylistCard } from "@/modules/videos/presentation/components/cards/PlaylistCard";
@@ -48,7 +48,7 @@ export function PlaylistsSection() {
     }
 
     return (
-        <>
+        <Fragment>
             <StateRenderer
                 data={data ?? []}
                 loading={isLoading}
@@ -111,6 +111,6 @@ export function PlaylistsSection() {
                     deletePlaylist.submit(deleteTarget.id, () => setDeleteTarget(null));
                 }}
             />
-        </>
+        </Fragment>
     );
 }

@@ -3,10 +3,11 @@
 import { useEffect, useState } from "react";
 
 /**
- * Minimum scroll distance (px) before a direction change is registered,
- * preventing jitter from tiny scroll adjustments.
+ * Minimum scroll distance (px) before a direction change is registered. Generous on
+ * purpose: chrome that rides on this would otherwise flip on the micro-reversals a finger
+ * and momentum scrolling produce, which reads as bouncing.
  */
-const DIRECTION_THRESHOLD = 8;
+const DIRECTION_THRESHOLD = 48;
 
 /**
  * Scroll offset (px) under which the direction always reads "up", so surfaces

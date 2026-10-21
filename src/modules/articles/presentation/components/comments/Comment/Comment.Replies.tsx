@@ -55,7 +55,7 @@ export function CommentReplies() {
     }
 
     return (
-        <div className="flex flex-col gap-4 border-border border-l-2 pl-4">
+        <div className="flex flex-col gap-4 border-outlined border-l-2 pl-4">
             {replies.map((reply) => (
                 <CommentView
                     isReply

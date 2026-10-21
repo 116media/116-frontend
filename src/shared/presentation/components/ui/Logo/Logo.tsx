@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Fragment } from "react";
 
 import { APP_NAME } from "@/shared/infrastructure/constants/common";
 import { HOME_PATH } from "@/shared/presentation/constants/paths";
@@ -46,7 +47,7 @@ export function Logo({
     const { width, height } = LOGO_VARIANTS[variant];
 
     const mark = (
-        <>
+        <Fragment>
             <Image
                 width={width}
                 height={height}
@@ -63,7 +64,7 @@ export function Logo({
                 src={`/images/logo/light/${variant}.svg`}
                 className={cn("hidden dark:block", className)}
             />
-        </>
+        </Fragment>
     );
 
     if (!canRedirect) return mark;

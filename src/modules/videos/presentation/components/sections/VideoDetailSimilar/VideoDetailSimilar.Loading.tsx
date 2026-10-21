@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { SIMILAR_VIDEOS_PAGE_SIZE } from "@/modules/videos/presentation/constants/videoKeys";
 import { Skeleton } from "@/shared/presentation/components/ui/Skeleton";
 
@@ -36,10 +37,10 @@ export function VideoDetailSimilarLoading({
     count = SIMILAR_VIDEOS_PAGE_SIZE
 }: VideoDetailSimilarLoadingProps) {
     return (
-        <>
+        <Fragment>
             {Array.from({ length: count }, (_, index) => index).map((row) => (
                 <SimilarCardSkeleton key={`similar-skeleton-${row}`} />
             ))}
-        </>
+        </Fragment>
     );
 }
