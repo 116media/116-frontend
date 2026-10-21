@@ -34,25 +34,24 @@ export function HeaderSearch({ className }: HeaderSearchProps) {
     const { open, isOpen } = useSearchOverlay();
     const { isPinned, isHidden } = useFilterBarPin();
 
-    // The search route has its own field; a second one above it would be two search
-    // boxes on the same screen.
-    if (pathname === SEARCH_PATH) return null;
-
-    // While the panel is open it carries the field, and this row would sit behind it —
-    // leaving the header's rule stranded below the panel instead of meeting its top edge.
     if (isOpen) return null;
-
-    // The bar owns the row only while it is pinned *and* on screen; once it scrolls
-    // away this control takes the row back, so search is never absent from the chrome.
+    if (pathname === SEARCH_PATH) return null;
     if (isPinned && !isHidden) return null;
 
     return (
-        <search className={cn("block pb-3", className)}>
+        <search
+            className={cn(
+                "-mx-3 block border-outlined/50 border-t px-3 py-3",
+                "sm:-mx-6 sm:px-6",
+                "surface-pro-portrait:-mx-18 surface-pro-portrait:px-18",
+                className
+            )}
+        >
             <button
                 type="button"
                 onClick={open}
                 aria-label={t("search.field.label")}
-                className="flex h-10 w-full items-center gap-3 rounded-md bg-muted px-4 text-left text-muted-foreground transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
+                className="flex h-10 w-full items-center gap-3 rounded-md border border-surface-hover bg-surface-sunken px-4 text-left text-subtle-foreground/65 transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
             >
                 <SearchIcon
                     aria-hidden="true"
