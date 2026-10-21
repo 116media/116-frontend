@@ -73,6 +73,8 @@
     --radius: 0.5rem;
 
     /* Surface */
+    --surface-sunken: var(--primitive-surface-sunken);
+    --subtle-foreground: var(--primitive-neutral-500);
     --surface-raised: var(--primitive-neutral-50);
     --surface-hover: var(--primitive-neutral-200);
     --mega-menu: var(--primitive-neutral-50);
@@ -127,6 +129,8 @@
     --ring: var(--primitive-brand-primary);
 
     /* Surface */
+    --surface-sunken: var(--primitive-brand-bg-dark);
+    --subtle-foreground: var(--primitive-text-muted);
     --surface-raised: var(--primitive-neutral-800);
     --surface-hover: var(--primitive-neutral-700);
     --mega-menu: var(--primitive-neutral-800);
@@ -217,6 +221,8 @@
     --color-bg-hover: var(--primitive-bg-hover);
 
     /* Surface */
+    --color-surface-sunken: var(--surface-sunken);
+    --color-subtle-foreground: var(--subtle-foreground);
     --color-surface-raised: var(--surface-raised);
     --color-surface-hover: var(--surface-hover);
     --color-mega-menu: var(--mega-menu);
@@ -229,6 +235,7 @@
 
     /* Border radius */
     --radius-md: var(--radius);
+
     --radius-base: calc(var(--radius) + 4px);
     --radius-sm: calc(var(--radius) - 4px);
     --radius-lg: calc(var(--radius) + 4px);
