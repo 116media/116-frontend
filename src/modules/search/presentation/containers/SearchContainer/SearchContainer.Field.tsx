@@ -6,6 +6,11 @@ import { useTranslation } from "react-i18next";
 import { MAX_SEARCH_TERM_LENGTH } from "@/modules/search/presentation/constants/searchKeys";
 import { SEARCH_FIELD_WIDTH } from "@/modules/search/presentation/constants/searchLayout";
 import { SearchIcon, XIcon } from "@/shared/presentation/components/ui/Icon";
+import {
+    searchFieldTextVariants,
+    searchFieldVariants
+} from "@/shared/presentation/components/ui/SearchField/searchFieldVariants";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
  * Props for the SearchContainer.Field component.
@@ -47,11 +52,11 @@ export function SearchContainerField({ value, onValueChange }: SearchContainerFi
             >
                 <label
                     htmlFor="search-page-field"
-                    className="flex h-13 items-center gap-3 rounded-base border-2 border-primary bg-card px-4 dark:border-secondary"
+                    className={searchFieldVariants({ variant: "prominent", size: "xl" })}
                 >
                     <SearchIcon
                         aria-hidden="true"
-                        className="size-5 shrink-0 text-muted-foreground"
+                        className="size-5 shrink-0 text-subtle-foreground/65"
                     />
                     <input
                         type="search"
@@ -66,7 +71,10 @@ export function SearchContainerField({ value, onValueChange }: SearchContainerFi
                         onChange={(event: ChangeEvent<HTMLInputElement>) =>
                             onValueChange(event.target.value)
                         }
-                        className="min-w-0 flex-1 bg-transparent text-field text-foreground outline-none placeholder:text-muted-foreground [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden"
+                        className={cn(
+                            searchFieldTextVariants(),
+                            "[&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden"
+                        )}
                     />
                     {value && (
                         <button
