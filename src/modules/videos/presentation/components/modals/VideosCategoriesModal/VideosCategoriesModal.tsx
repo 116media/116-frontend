@@ -6,7 +6,7 @@ import { ShowCard } from "@/modules/videos/presentation/components/cards/ShowCar
 import { useShows } from "@/modules/videos/presentation/hooks/useShows";
 import { EmptyState } from "@/shared/presentation/components/ui/EmptyState";
 import { SearchIcon } from "@/shared/presentation/components/ui/Icon";
-import { Input } from "@/shared/presentation/components/ui/Input";
+import { SearchField } from "@/shared/presentation/components/ui/SearchField";
 import { AdaptiveDialog } from "@/shared/presentation/components/ui/Sheet";
 
 /**
@@ -53,15 +53,17 @@ export function VideosCategoriesModal({ open, onOpenChange }: VideosCategoriesMo
                     closeLabel={t("videos.browse.modal.close")}
                 />
 
-                <div className="relative shrink-0 p-4 pb-2">
-                    <SearchIcon className="-translate-y-1/2 absolute top-[calc(50%+4px)] left-7 size-4 text-muted-foreground" />
-                    <Input
-                        autoFocus
-                        value={search}
-                        className="h-10 bg-muted pl-9 dark:bg-muted"
-                        onChange={(event) => setSearch(event.target.value)}
-                        placeholder={t("videos.browse.modal.searchPlaceholder")}
-                    />
+                <div className="shrink-0 p-4 pb-2">
+                    <SearchField.Root>
+                        <SearchField.Icon />
+                        <SearchField.Input
+                            autoFocus
+                            value={search}
+                            onValueChange={setSearch}
+                            onClear={() => setSearch("")}
+                            placeholder={t("videos.browse.modal.searchPlaceholder")}
+                        />
+                    </SearchField.Root>
                 </div>
 
                 <ul className="flex flex-1 flex-col gap-2 overflow-y-auto p-4 pt-2">
