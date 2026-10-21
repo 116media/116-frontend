@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation";
 import { useTranslation } from "react-i18next";
 
-import { SearchIcon } from "@/shared/presentation/components/ui/Icon";
+import { SearchField } from "@/shared/presentation/components/ui/SearchField";
 import { SEARCH_PATH } from "@/shared/presentation/constants/paths";
 import { useFilterBarPin } from "@/shared/presentation/providers/FilterBarPinProvider";
 import { useSearchOverlay } from "@/shared/presentation/providers/SearchOverlayProvider";
@@ -47,18 +47,11 @@ export function HeaderSearch({ className }: HeaderSearchProps) {
                 className
             )}
         >
-            <button
-                type="button"
-                onClick={open}
-                aria-label={t("search.field.label")}
-                className="flex h-10 w-full items-center gap-3 rounded-md border border-surface-hover bg-surface-sunken px-4 text-left text-subtle-foreground/65 transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
-            >
-                <SearchIcon
-                    aria-hidden="true"
-                    className="size-5 shrink-0"
-                />
-                <span className="truncate text-base">{t("search.field.placeholder")}</span>
-            </button>
+            <SearchField.Trigger
+                onOpen={open}
+                label={t("search.field.label")}
+                placeholder={t("search.field.placeholder")}
+            />
         </search>
     );
 }
