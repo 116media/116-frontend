@@ -280,3 +280,15 @@
     --animate-social-ping: social-ping 7s cubic-bezier(0, 0, 0.2, 1) infinite;
     --animate-social-nudge: social-nudge 7s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
 }
+
+/*
+ * Mobile WebKit zooms the whole viewport when a focused field measures under 16px and
+ * never restores it on blur. Phones take the full 16px; every wider screen keeps the
+ * 15px field size. Unlayered, so it outranks the @theme value it replaces.
+ */
+@media (width < 40rem) {
+    :root {
+        --text-field: 1rem;
+        --text-field--line-height: 1.5rem;
+    }
+}
