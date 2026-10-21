@@ -33,7 +33,7 @@ export function MobileMegaMenuSearch({ onOpen }: MobileMegaMenuSearchProps) {
                 onOpen();
                 open();
             }}
-            className="flex h-11 w-full items-center gap-3 rounded-md bg-muted px-4 text-left text-muted-foreground transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
+            className="flex h-11 w-full items-center gap-3 rounded-md border border-surface-hover bg-surface-sunken px-4 text-left text-subtle-foreground/65 transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
         >
             <SearchIcon
                 aria-hidden="true"
