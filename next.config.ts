@@ -54,6 +54,10 @@ const nextConfig: NextConfig = {
             {
                 protocol: "https",
                 hostname: "www.revolt.tv"
+            },
+            {
+                protocol: "https",
+                hostname: "i.ytimg.com"
             }
         ]
     }
