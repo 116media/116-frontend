@@ -29,6 +29,7 @@
     --primitive-neutral-300: var(--color-slate-300);
     --primitive-neutral-400: var(--color-slate-400);
     --primitive-neutral-500: var(--color-slate-500);
+    --primitive-surface-sunken: #eff2f6;
     --primitive-neutral-600: var(--color-slate-600);
     --primitive-neutral-700: var(--color-slate-700);
     --primitive-neutral-800: var(--color-slate-800);
