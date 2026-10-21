@@ -26,6 +26,62 @@ export function resolveShareUrl(path: string): string {
 }
 
 /**
+ * resolveAbsoluteShareUrl
+ *
+ * @description
+ * Builds the absolute URL of a page from its site-relative path, anchored on the current
+ * origin so a link shared from a feed card points at the article rather than the list it
+ * was shared from. Falls back to the public site base outside the browser.
+ *
+ * @param path - The site-relative path to the shared page (e.g. `/articles/{slug}`)
+ * @returns The absolute page URL
+ */
+export function resolveAbsoluteShareUrl(path: string): string {
+    const origin = typeof window === "undefined" ? SITE_URL : window.location.origin;
+    return `${origin}${path}`;
+}
+
+/**
+ * copyTextToClipboard
+ *
+ * @description
+ * Copies text to the clipboard, falling back to a hidden selection when the async
+ * Clipboard API is missing or refuses. That API only exists in a secure context, so on a
+ * phone reaching a dev server over plain HTTP it is undefined and the direct call throws.
+ *
+ * @param text - The text to place on the clipboard.
+ * @returns Whether the text reached the clipboard.
+ */
+export async function copyTextToClipboard(text: string): Promise<boolean> {
+    if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
+        try {
+            await navigator.clipboard.writeText(text);
+            return true;
+        } catch {
+            // Denied, or an insecure origin that exposes the API but blocks the write.
+        }
+    }
+
+    const field = document.createElement("textarea");
+    field.value = text;
+    field.setAttribute("readonly", "");
+    field.style.position = "fixed";
+    field.style.opacity = "0";
+    field.style.top = "0";
+    document.body.appendChild(field);
+    field.select();
+    field.setSelectionRange(0, text.length);
+
+    try {
+        return document.execCommand("copy");
+    } catch {
+        return false;
+    } finally {
+        field.remove();
+    }
+}
+
+/**
  * buildShareUrl
  *
  * @description
