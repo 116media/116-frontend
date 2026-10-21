@@ -12,7 +12,7 @@ import { MenuIcon } from "@/shared/presentation/components/ui/Icon";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/presentation/components/ui/Tabs";
 import { MOBILE_MENU_TABLET_WIDTH, PAGE_GUTTER } from "@/shared/presentation/constants/layout";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
-import { MOBILE_MENU_TABS, SWIPE_CLOSE_THRESHOLD } from "./constants";
+import { MOBILE_MENU_TABS, SWIPE_AXIS_LOCK, SWIPE_CLOSE_THRESHOLD } from "./constants";
 import { MobileMegaMenuArtists } from "./MobileMegaMenu.Artists";
 import { MobileMegaMenuFooter } from "./MobileMegaMenu.Footer";
 import { MobileMegaMenuHeader } from "./MobileMegaMenu.Header";
@@ -34,7 +34,8 @@ export function MobileMegaMenu({ articles, videos }: MobileMegaMenuProps) {
 
     const [isOpen, setIsOpen] = useState(false);
     const [dragX, setDragX] = useState(0);
-    const startX = useRef<number | null>(null);
+    const start = useRef<{ x: number; y: number } | null>(null);
+    const axis = useRef<"none" | "horizontal" | "vertical">("none");
     const openedAt = useRef(pathname);
 
     const close = () => setIsOpen(false);
@@ -49,17 +50,31 @@ export function MobileMegaMenu({ articles, videos }: MobileMegaMenuProps) {
 
     const onPointerDown = (event: PointerEvent<HTMLDivElement>) => {
         if (event.pointerType === "mouse") return;
-        startX.current = event.clientX;
+        start.current = { x: event.clientX, y: event.clientY };
+        axis.current = "none";
     };
 
     const onPointerMove = (event: PointerEvent<HTMLDivElement>) => {
-        if (startX.current === null) return;
-        setDragX(Math.min(0, event.clientX - startX.current));
+        if (start.current === null) return;
+
+        const deltaX = event.clientX - start.current.x;
+        const deltaY = event.clientY - start.current.y;
+
+        // Scrolling the panel bubbles its pointer moves up here too, so the gesture
+        // commits to one axis and a vertical one never drives the drag.
+        if (axis.current === "none") {
+            if (Math.max(Math.abs(deltaX), Math.abs(deltaY)) < SWIPE_AXIS_LOCK) return;
+            axis.current = Math.abs(deltaX) > Math.abs(deltaY) ? "horizontal" : "vertical";
+        }
+
+        if (axis.current === "vertical") return;
+        setDragX(Math.min(0, deltaX));
     };
 
     const onPointerUp = () => {
         if (dragX < -SWIPE_CLOSE_THRESHOLD) close();
-        startX.current = null;
+        start.current = null;
+        axis.current = "none";
         setDragX(0);
     };
 
@@ -97,7 +112,9 @@ export function MobileMegaMenu({ articles, videos }: MobileMegaMenuProps) {
                     className={cn(
                         "fixed inset-0 z-50 flex flex-col bg-background lg:hidden",
                         MOBILE_MENU_TABLET_WIDTH,
-                        dragX === 0 && "data-[state=open]:animate-sheet-in-left",
+                        // Unconditional: re-adding an animation class replays the
+                        // keyframes, so toggling it on drag re-opens the panel.
+                        "data-[state=open]:animate-sheet-in-left",
                         "data-[state=closed]:animate-sheet-out-left"
                     )}
                 >
@@ -107,7 +124,7 @@ export function MobileMegaMenu({ articles, videos }: MobileMegaMenuProps) {
 
                     <MobileMegaMenuHeader />
 
-                    <div className={cn("pb-3", PAGE_GUTTER)}>
+                    <div className={cn("py-3", PAGE_GUTTER)}>
                         <MobileMegaMenuSearch onOpen={close} />
                     </div>
 
