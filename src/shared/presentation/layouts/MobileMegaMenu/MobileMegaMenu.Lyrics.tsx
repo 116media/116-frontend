@@ -1,45 +1,23 @@
 "use client";
 
-import { useTranslation } from "react-i18next";
-
+import { LYRICS_FEATURE } from "@/modules/coming-soon/presentation/constants/comingSoonFeatures";
 import { LYRICS_PATH } from "@/shared/presentation/constants/paths";
-import { MobileMegaMenuChips } from "./MobileMegaMenu.Chips";
-import { MobileMegaMenuFeatured } from "./MobileMegaMenu.Featured";
-import { MobileMegaMenuList } from "./MobileMegaMenu.List";
-import { MobileMegaMenuSection } from "./MobileMegaMenu.Section";
-import { DUMMY_LYRIC_GENRES, DUMMY_TOP_LYRICS } from "./menu.dummy";
+import { MobileMegaMenuComingSoon } from "./MobileMegaMenu.ComingSoon";
 import type { MobileMegaMenuFooterProps } from "./types";
 
 /**
  * MobileMegaMenu.Lyrics
  *
  * @description
- * The LYRICS panel: the week's ranked top songs above the genre chips. Both run on
- * placeholder data until the lyrics endpoints exist.
+ * The LYRICS panel. The catalog is announced but not open, so the tab carries the same
+ * waiting copy as the route rather than placeholder songs.
  */
 export function MobileMegaMenuLyrics({ onNavigate }: MobileMegaMenuFooterProps) {
-    const { t } = useTranslation();
-
     return (
-        <div className="flex flex-col pb-4">
-            <MobileMegaMenuFeatured
-                onNavigate={onNavigate}
-                viewAllHref={LYRICS_PATH}
-                title={t("navigation.mobileMenu.topLyrics")}
-            >
-                <MobileMegaMenuList
-                    square
-                    onNavigate={onNavigate}
-                    items={DUMMY_TOP_LYRICS}
-                />
-            </MobileMegaMenuFeatured>
-
-            <MobileMegaMenuSection title={t("navigation.mobileMenu.byGenre")}>
-                <MobileMegaMenuChips
-                    onNavigate={onNavigate}
-                    items={DUMMY_LYRIC_GENRES}
-                />
-            </MobileMegaMenuSection>
-        </div>
+        <MobileMegaMenuComingSoon
+            href={LYRICS_PATH}
+            onNavigate={onNavigate}
+            feature={LYRICS_FEATURE}
+        />
     );
 }
