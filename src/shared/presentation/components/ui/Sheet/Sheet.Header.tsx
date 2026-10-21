@@ -50,7 +50,7 @@ export function SheetHeader({
                 {showCloseButton && (
                     <DialogCloseButton
                         label={closeLabel}
-                        className="absolute top-0 pt-2 right-0"
+                        className="-top-1 absolute right-0"
                     />
                 )}
             </div>
