@@ -2,11 +2,14 @@
 
 import Link from "next/link";
 import type * as React from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useShareArticle } from "@/modules/articles/presentation/hooks/useShareArticle";
 import { useToggleArticleBookmark } from "@/modules/articles/presentation/hooks/useToggleArticleBookmark";
 import { useToggleArticleLike } from "@/modules/articles/presentation/hooks/useToggleArticleLike";
+import { ArticleShareNotification } from "@/modules/articles/presentation/utils/notification/articles.share.notification";
 import { useRequireAuth } from "@/modules/auth/presentation/hooks/useRequireAuth";
+import container from "@/shared/infrastructure/service.locator";
+import { ShareModal } from "@/shared/presentation/components/common/ShareModal";
 import { Button } from "@/shared/presentation/components/ui/Button";
 import {
     BookmarkPlusIcon,
@@ -15,6 +18,7 @@ import {
     ShareIcon
 } from "@/shared/presentation/components/ui/Icon";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
+import { resolveAbsoluteShareUrl } from "@/shared/presentation/utils/share/share.utils";
 
 /**
  * Props for ArticleCardEngagement.
@@ -22,6 +26,7 @@ import { cn } from "@/shared/presentation/utils/cn/cn.utils";
  * @interface ArticleCardEngagementProps
  * @property {string} articleId - The article the mutations target.
  * @property {string} slug - The article slug (comment link target).
+ * @property {string} title - The article title, carried into the share sheet.
  * @property {number} likeCount - Baseline like count for the optimistic toggle.
  * @property {number} commentCount - Comment count shown on the (navigating) comment button.
  * @property {number} [bookmarkCount] - Baseline bookmark count for the optimistic toggle.
@@ -29,6 +34,7 @@ import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 export interface ArticleCardEngagementProps {
     articleId: string;
     slug: string;
+    title: string;
     likeCount: number;
     commentCount: number;
     bookmarkCount?: number;
@@ -39,12 +45,13 @@ export interface ArticleCardEngagementProps {
  *
  * @description
  * Card action row: like and bookmark (optimistic, auth-gated), comment (navigates to the
- * article's comments), and share. Every button stops propagation so it never follows the
- * card's article link.
+ * article's comments), and share, which opens the shared share sheet. Every button stops
+ * propagation so it never follows the card's article link.
  */
 export function ArticleCardEngagement({
     articleId,
     slug,
+    title,
     likeCount,
     commentCount,
     bookmarkCount
@@ -53,7 +60,11 @@ export function ArticleCardEngagement({
     const requireAuth = useRequireAuth();
     const like = useToggleArticleLike(articleId, likeCount);
     const bookmark = useToggleArticleBookmark(articleId, bookmarkCount ?? 0);
-    const share = useShareArticle(articleId, slug);
+    const [shareOpen, setShareOpen] = useState(false);
+
+    const recordShare = (channel: string) => {
+        container.cradle.shareArticleUseCase.execute({ articleId, shareChannel: channel });
+    };
 
     const stop = (fn: () => void) => (event: React.MouseEvent) => {
         event.stopPropagation();
@@ -98,7 +109,7 @@ export function ArticleCardEngagement({
                     variant="ghost"
                     aria-label={t("articles.card.share")}
                     className="h-8 gap-1 px-2 text-muted-foreground"
-                    onClick={stop(share)}
+                    onClick={stop(() => setShareOpen(true))}
                 >
                     <ShareIcon className="size-4" />
                     <span>{t("articles.card.share")}</span>
@@ -116,6 +127,26 @@ export function ArticleCardEngagement({
                     className={cn("size-5!", bookmark.bookmarked && "fill-primary text-primary")}
                 />
             </Button>
+
+            <ShareModal
+                title={title}
+                open={shareOpen}
+                onShared={recordShare}
+                onOpenChange={setShareOpen}
+                heading={t("articles.share.title")}
+                subtitle={t("articles.share.subtitle")}
+                linkLabel={t("articles.share.linkLabel")}
+                copyAction={t("articles.share.copyAction")}
+                nativeShareLabel={t("articles.card.share")}
+                url={resolveAbsoluteShareUrl(`/articles/${slug}`)}
+                copiedNotification={ArticleShareNotification.linkCopied(t)}
+                labels={{
+                    facebook: t("articles.share.facebook"),
+                    x: t("articles.share.x"),
+                    whatsapp: t("articles.share.whatsapp"),
+                    copy: t("articles.share.copy")
+                }}
+            />
         </div>
     );
 }
