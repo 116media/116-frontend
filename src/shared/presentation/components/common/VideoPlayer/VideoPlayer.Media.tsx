@@ -4,11 +4,65 @@ import { I18nProvider } from "@videojs/react/i18n";
 import { YouTubeVideo } from "@videojs/react/media/youtube-video";
 import { NeutralVideoSkin, Video, VideoPlayer as VideoJsPlayer } from "@videojs/react/video";
 import Image from "next/image";
-import type { ComponentProps, ReactNode } from "react";
+import { type ComponentProps, type ReactNode, useEffect, useState } from "react";
 import "@videojs/react/video/neutral-skin.css";
 import "./video-player.css";
 
+import { VideoPlayerMobileSkin } from "./VideoPlayer.MobileSkin";
 import { VideoPlayerReelSkin } from "./VideoPlayer.ReelSkin";
+
+/**
+ * Phones, by pointer rather than width alone, so a narrow desktop window keeps the
+ * pointer-sized skin it is built for.
+ */
+const PHONE_QUERY = "(max-width: 639px) and (pointer: coarse)";
+
+/**
+ * useIsPhone
+ *
+ * @description
+ * Tracks {@link PHONE_QUERY}, seeded on the first render rather than after it: this
+ * module is loaded with SSR off, and a second pass would rebuild the media element.
+ *
+ * @returns Whether the viewport is a phone.
+ */
+function useIsPhone(): boolean {
+    const [isPhone, setIsPhone] = useState(
+        () => typeof window !== "undefined" && window.matchMedia(PHONE_QUERY).matches
+    );
+
+    useEffect(() => {
+        const list = window.matchMedia(PHONE_QUERY);
+        setIsPhone(list.matches);
+
+        const onChange = (event: MediaQueryListEvent) => setIsPhone(event.matches);
+        list.addEventListener("change", onChange);
+
+        return () => list.removeEventListener("change", onChange);
+    }, []);
+
+    return isPhone;
+}
+
+/**
+ * useArrivedByGesture
+ *
+ * @description
+ * Whether the document had already been interacted with when the player mounted — true
+ * when a card click routed here, false on a cold load. Read once: the embed URL is built
+ * on the first render and never rebuilt.
+ *
+ * @returns Whether a gesture preceded this mount.
+ */
+function useArrivedByGesture(): boolean {
+    // Absent on browsers that do not carry the API, where assuming a gesture is the safer
+    // miss: a page nobody navigated to simply starts muted, instead of never starting.
+    const [arrived] = useState(
+        () => typeof navigator === "undefined" || (navigator.userActivation?.hasBeenActive ?? true)
+    );
+
+    return arrived;
+}
 
 /**
  * Props for VideoPlayer.Media.
@@ -22,6 +76,7 @@ import { VideoPlayerReelSkin } from "./VideoPlayer.ReelSkin";
  * @property {boolean} [autoPlay] - Autoplay on mount.
  * @property {boolean} [muted] - Start muted (required for autoplay).
  * @property {boolean} [loop] - Loop playback.
+ * @property {boolean} [pinned] - Whether the player is docked to the top of the viewport.
  * @property {ReactNode} [children] - Rendered inside the player context, for `usePlayer()` consumers.
  */
 export interface VideoPlayerMediaProps {
@@ -33,6 +88,7 @@ export interface VideoPlayerMediaProps {
     autoPlay?: boolean;
     muted?: boolean;
     loop?: boolean;
+    pinned?: boolean;
     children?: ReactNode;
 }
 
@@ -79,15 +135,22 @@ export function VideoPlayerMedia({
     autoPlay,
     muted,
     loop,
+    pinned,
     children
 }: VideoPlayerMediaProps) {
+    const isPhone = useIsPhone();
+    const arrivedByGesture = useArrivedByGesture();
+
+    // iOS refuses a play it did not handle inside the gesture itself, so an embed only
+    // starts there when its URL carries the intent. Muted is the price iOS sets on that.
+    const startsMuted = isPhone && arrivedByGesture && !autoPlay;
     const media = youtubeUrl ? (
         <YouTubeVideo
             playsInline
             loop={loop}
             src={youtubeUrl}
-            muted={muted}
-            autoPlay={autoPlay}
+            muted={muted || startsMuted}
+            autoPlay={autoPlay || startsMuted}
         />
     ) : (
         <Video
@@ -108,6 +171,13 @@ export function VideoPlayerMedia({
             >
                 {controls === "reel" ? (
                     <VideoPlayerReelSkin renderPoster={renderPoster}>{media}</VideoPlayerReelSkin>
+                ) : isPhone ? (
+                    <VideoPlayerMobileSkin
+                        renderPoster={renderPoster}
+                        variant={pinned ? "pinned" : "inline"}
+                    >
+                        {media}
+                    </VideoPlayerMobileSkin>
                 ) : (
                     <NeutralVideoSkin
                         className="size-full"
