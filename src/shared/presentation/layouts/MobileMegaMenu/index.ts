@@ -1,6 +1,7 @@
 import { MobileMegaMenu as MobileMegaMenuRoot } from "./MobileMegaMenu";
 import { MobileMegaMenuArtists } from "./MobileMegaMenu.Artists";
 import { MobileMegaMenuChips } from "./MobileMegaMenu.Chips";
+import { MobileMegaMenuComingSoon } from "./MobileMegaMenu.ComingSoon";
 import { MobileMegaMenuFeatured } from "./MobileMegaMenu.Featured";
 import { MobileMegaMenuFooter } from "./MobileMegaMenu.Footer";
 import { MobileMegaMenuHeader } from "./MobileMegaMenu.Header";
@@ -12,6 +13,7 @@ import { MobileMegaMenuTags } from "./MobileMegaMenu.Tags";
 export type {
     MobileMegaMenuChipItem,
     MobileMegaMenuChipsProps,
+    MobileMegaMenuComingSoonProps,
     MobileMegaMenuFeaturedProps,
     MobileMegaMenuFooterProps,
     MobileMegaMenuListItem,
@@ -26,13 +28,14 @@ export type {
  *
  * @description
  * The full-screen navigation panel below `lg`: the root owns the sheet and its tabs, with
- * `.Header`, `.Footer`, `.Section`, `.List`, `.Chips`, `.Tags`, `.Featured`, `.Artists` and
- * `.Lyrics` as the regions each module's panel composes.
+ * `.Header`, `.Footer`, `.Section`, `.List`, `.Chips`, `.Tags`, `.Featured`, `.ComingSoon`,
+ * `.Artists` and `.Lyrics` as the regions each module's panel composes.
  */
 export const MobileMegaMenu = {
     Root: MobileMegaMenuRoot,
     Artists: MobileMegaMenuArtists,
     Chips: MobileMegaMenuChips,
+    ComingSoon: MobileMegaMenuComingSoon,
     Featured: MobileMegaMenuFeatured,
     Footer: MobileMegaMenuFooter,
     Header: MobileMegaMenuHeader,
