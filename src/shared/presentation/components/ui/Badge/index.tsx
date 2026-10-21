@@ -15,7 +15,9 @@ const badgeVariants = cva(
                 destructive:
                     "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",
                 outline: "text-foreground",
-                muted: "border-transparent bg-foreground/10 text-foreground"
+                muted: "border-transparent bg-foreground/10 text-foreground",
+                "brand-outline":
+                    "border-primary/30 bg-transparent text-primary dark:border-secondary/30 dark:text-secondary"
             }
         },
         defaultVariants: {
@@ -43,7 +45,7 @@ export interface BadgeProps
  * valid inside a button such as a tab trigger. All colors use theme.css tokens. For a richer
  * tag/pill with link support and slots, use the Tag component instead.
  *
- * @param variant - Visual style: default | secondary | destructive | outline | muted
+ * @param variant - Visual style: default | secondary | destructive | outline | muted | brand-outline
  */
 export function Badge({ className, variant, ...props }: BadgeProps) {
     return (
