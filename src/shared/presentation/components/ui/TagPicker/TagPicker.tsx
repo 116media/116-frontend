@@ -4,8 +4,8 @@ import { useRef } from "react";
 
 import { Badge } from "@/shared/presentation/components/ui/Badge";
 import { Button } from "@/shared/presentation/components/ui/Button";
-import { CheckIcon, SearchIcon, TagsIcon, XIcon } from "@/shared/presentation/components/ui/Icon";
-import { Input } from "@/shared/presentation/components/ui/Input";
+import { CheckIcon, TagsIcon } from "@/shared/presentation/components/ui/Icon";
+import { SearchField } from "@/shared/presentation/components/ui/SearchField";
 import { Sheet } from "@/shared/presentation/components/ui/Sheet";
 import { useDismiss } from "@/shared/presentation/hooks/useDismiss";
 import { useMediaQuery } from "@/shared/presentation/hooks/useMediaQuery";
@@ -105,27 +105,21 @@ export function TagPicker({
     };
 
     const searchField = (
-        <div className="relative w-full">
-            <SearchIcon className="-translate-y-1/2 absolute top-1/2 left-3 size-4 text-muted-foreground" />
-            <Input
-                autoFocus={!isPhone}
+        <SearchField.Root>
+            <SearchField.Icon />
+            <SearchField.Input
                 value={search}
+                autoFocus={!isPhone}
+                onValueChange={onSearchChange}
                 placeholder={labels.searchPlaceholder}
-                className="h-10 bg-muted px-9 dark:bg-muted"
-                onChange={(event) => onSearchChange(event.target.value)}
+                onClear={() => onSearchChange("")}
             />
-            {search && (
-                <Button
-                    size="icon"
-                    variant="ghost"
-                    aria-label={labels.clearSearch}
-                    onClick={() => onSearchChange("")}
-                    className="-translate-y-1/2 absolute top-1/2 right-1 size-7 rounded-full text-muted-foreground"
-                >
-                    <XIcon className="size-4" />
-                </Button>
-            )}
-        </div>
+            <SearchField.Clear
+                hidden={!search}
+                label={labels.clearSearch}
+                onClear={() => onSearchChange("")}
+            />
+        </SearchField.Root>
     );
 
     const rows =
