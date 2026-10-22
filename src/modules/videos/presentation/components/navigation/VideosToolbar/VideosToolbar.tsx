@@ -87,7 +87,7 @@ export function VideosToolbar(props: VideosToolbarProps) {
                         <VideosToolbarSearchInput
                             value={props.search}
                             onChange={props.onSearchChange}
-                            className="hidden shrink-0 md:block md:w-56 lg:w-64"
+                            className="hidden shrink-0 md:flex md:w-56 lg:w-64"
                         />
                     }
                 />
