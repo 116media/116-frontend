@@ -5,10 +5,7 @@ import { useTranslation } from "react-i18next";
 import type { ISearchHitEntity } from "@/modules/search/domain/entities/ISearchHitEntity";
 import { ESearchScope } from "@/modules/search/domain/enums/ESearchScope";
 import { SearchResultList } from "@/modules/search/presentation/components/lists/SearchResultList";
-import {
-    CategoryTabs,
-    type ICategoryTab
-} from "@/shared/presentation/components/navigation/CategoryTabs";
+import { CategoryTabs, type ICategoryTab } from "@/shared/presentation/layouts/CategoryTabs";
 import { PageContainer } from "@/shared/presentation/layouts/PageContainer";
 
 import { SearchOverlayIdle } from "./SearchOverlay.Idle";
