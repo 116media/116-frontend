@@ -10,10 +10,12 @@ import { cn } from "@/shared/presentation/utils/cn/cn.utils";
  *
  * @property {string} id - Unique identifier
  * @property {string} name - Display name of the tag
+ * @property {string} slug - URL-safe slug the tag filter is keyed by
  */
 export interface MegaMenuTagItem {
     id: string;
     name: string;
+    slug: string;
 }
 
 /**
@@ -63,7 +65,7 @@ export function MegaMenuShell({ tagsBasePath, popularTags, children }: MegaMenuS
                                     shape="pill"
                                     key={tag.id}
                                     variant="default"
-                                    href={`${tagsBasePath}?tagId=${tag.id}`}
+                                    href={`${tagsBasePath}?tagSlug=${tag.slug}`}
                                 >
                                     {tag.name}
                                 </Tag>
