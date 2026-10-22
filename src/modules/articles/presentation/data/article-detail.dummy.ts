@@ -11,6 +11,23 @@ import type { IArticleTagEntity } from "@/modules/articles/domain/entities/IArti
 import { generateDummyArticles } from "./articles.dummy";
 
 /**
+ * dummyCategorySlug
+ *
+ * @description
+ * Dummy-phase shim: derives the URL-safe category slug the breadcrumb links by, since the
+ * dummy summaries carry only the display name. Removed with the dummy data.
+ *
+ * @param categoryName - The category display name.
+ * @returns The slug.
+ */
+function dummyCategorySlug(categoryName: string): string {
+    return categoryName
+        .toLowerCase()
+        .replace(/\s+/g, "-")
+        .replace(/[^a-z0-9-]/g, "");
+}
+
+/**
  * Fixed epoch the dummy comment dates count back from (deterministic, SSR-safe).
  */
 const DUMMY_BASE_MS = Date.parse("2026-06-01T09:00:00Z");
@@ -192,6 +209,7 @@ export function dummyArticleDetail(slug: string): IArticleDetailEntity {
         id: summary.id,
         categoryId: summary.categoryId,
         categoryName: summary.categoryName,
+        categorySlug: dummyCategorySlug(summary.categoryName),
         title: summary.title,
         slug: summary.slug,
         headline: toMaxLengthHeadline(summary.headline),
