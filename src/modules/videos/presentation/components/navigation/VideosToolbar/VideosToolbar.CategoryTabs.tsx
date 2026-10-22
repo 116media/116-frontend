@@ -12,14 +12,14 @@ import { CategoryTabs } from "@/shared/presentation/layouts/CategoryTabs";
  * Props for VideosToolbarCategoryTabs.
  *
  * @interface VideosToolbarCategoryTabsProps
- * @property {string | undefined} value - The selected category id, or undefined for all.
- * @property {(categoryId: string | undefined) => void} onChange - Emits the category id.
+ * @property {string | undefined} value - The selected category slug, or undefined for all.
+ * @property {(categorySlug: string | undefined) => void} onChange - Emits the category slug.
  * @property {() => void} onBrowseAll - Opens the "browse all shows" modal.
  */
 export interface VideosToolbarCategoryTabsProps {
     value: string | undefined;
     onBrowseAll: () => void;
-    onChange: (categoryId: string | undefined) => void;
+    onChange: (categorySlug: string | undefined) => void;
 }
 
 /**
@@ -37,11 +37,14 @@ export function VideosToolbarCategoryTabs({
     const { t } = useTranslation();
     const { data: categories = [] } = useVideoCategories();
 
+    // The rail emits the value it is keyed by, and the URL carries slugs, not identifiers.
+    const tabs = categories.map((category) => ({ id: category.slug, name: category.name }));
+
     return (
         <CategoryTabs
             value={value}
             onChange={onChange}
-            categories={categories}
+            categories={tabs}
             limit={VIDEO_BROWSE_CHIP_LIMIT}
             allLabel={t("videos.browse.filters.all")}
             action={
