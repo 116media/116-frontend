@@ -38,7 +38,7 @@ export function VideosMegaMenuCategoryList({ categories }: VideosMegaMenuCategor
                     label={category.name}
                     count={category.publishedCount}
                     description={category.description}
-                    href={`${VIDEOS_PATH}?categorySlug=${category.slug}`}
+                    href={`${SHOWS_PATH}/${category.slug}`}
                 />
             ))}
 
