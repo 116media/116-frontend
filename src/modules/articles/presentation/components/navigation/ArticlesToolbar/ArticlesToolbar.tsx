@@ -16,8 +16,8 @@ import { ArticlesToolbarTagStrip } from "./ArticlesToolbar.TagStrip";
  * @interface ArticlesToolbarProps
  * @property {string} search - The current (raw) search text.
  * @property {(value: string) => void} onSearchChange - Emits the search text.
- * @property {string | undefined} categoryId - The selected category id, or undefined for all.
- * @property {(categoryId: string | undefined) => void} onCategoryChange - Emits the category.
+ * @property {string | undefined} categorySlug - The selected category slug, or undefined for all.
+ * @property {(categorySlug: string | undefined) => void} onCategoryChange - Emits the category.
  * @property {string | undefined} tagSlug - The selected tag slug, or undefined for none.
  * @property {(tagSlug: string | undefined) => void} onTagChange - Emits the tag.
  * @property {boolean} hasActiveFilters - Whether any filter is set (shows "Clear filters").
@@ -26,8 +26,8 @@ import { ArticlesToolbarTagStrip } from "./ArticlesToolbar.TagStrip";
 export interface ArticlesToolbarProps {
     search: string;
     onSearchChange: (value: string) => void;
-    categoryId: string | undefined;
-    onCategoryChange: (categoryId: string | undefined) => void;
+    categorySlug: string | undefined;
+    onCategoryChange: (categorySlug: string | undefined) => void;
     tagSlug: string | undefined;
     onTagChange: (tagSlug: string | undefined) => void;
     hasActiveFilters: boolean;
@@ -74,7 +74,7 @@ export function ArticlesToolbar(props: ArticlesToolbarProps) {
 
                 <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                     <ArticlesToolbarCategoryTabs
-                        value={props.categoryId}
+                        value={props.categorySlug}
                         onChange={props.onCategoryChange}
                     />
                     <ArticlesToolbarSearchInput
