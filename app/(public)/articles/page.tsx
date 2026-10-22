@@ -10,7 +10,7 @@ import { getServerTranslation } from "@/shared/presentation/utils/i18n/i18n.serv
  *
  * @interface ArticlesPageProps
  * @property {Promise<Record<string, string | string[] | undefined>>} searchParams - The route
- * query params promise carrying the optional `search`, `categoryId`, and `tagSlug` filters.
+ * query params promise carrying the optional `search`, `categorySlug`, and `tagSlug` filters.
  */
 interface ArticlesPageProps {
     searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -65,7 +65,7 @@ export default async function ArticlesPage({ searchParams }: ArticlesPageProps) 
             </Suspense>
             <ArticlesFeedContainer
                 initialSearch={firstParam(params.search)}
-                initialCategoryId={firstParam(params.categoryId)}
+                initialCategorySlug={firstParam(params.categorySlug)}
                 initialTagSlug={firstParam(params.tagSlug)}
             />
         </div>
