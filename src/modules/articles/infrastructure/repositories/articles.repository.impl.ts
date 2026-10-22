@@ -105,7 +105,7 @@ export class ArticlesRepositoryImpl implements IArticlesRepositoryPort {
                 pageIndex: query.pageIndex,
                 pageSize: query.pageSize,
                 search: query.search,
-                categoryId: query.categoryId,
+                categorySlug: query.categorySlug,
                 tagSlug: query.tagSlug
             });
             return ok(ArticlesMapper.articlePageFromDto(response.data.articles));
