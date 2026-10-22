@@ -65,7 +65,7 @@ export function MegaMenuShell({ tagsBasePath, popularTags, children }: MegaMenuS
                                     shape="pill"
                                     key={tag.id}
                                     variant="default"
-                                    href={`${tagsBasePath}?tagSlug=${tag.slug}`}
+                                    href={`${tagsBasePath}?tag=${tag.slug}`}
                                 >
                                     {tag.name}
                                 </Tag>
