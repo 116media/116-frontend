@@ -1,17 +1,18 @@
+import type { TOptions } from "i18next";
 import { z } from "zod";
 
 import { i18n } from "@/shared/presentation/i18n/config";
 
 /**
- * Resolves an i18n key (with optional params) against the active language.
+ * Resolves an i18n key (with optional params) against the active language. The params are
+ * only passed when there are some: `t` takes no second argument for a plain lookup.
  *
  * @param key - A translation key in the `validator` namespace.
  * @param params - Optional interpolation params.
  * @returns The localized string.
  */
-const translate = (key: string, params?: Record<string, unknown>): string => {
-    return i18n.t(key, params) as string;
-};
+const translate = (key: string, params?: TOptions): string =>
+    params ? i18n.t(key, params) : i18n.t(key);
 
 /**
  * Builds a lazy, field-aware zod 4 `error` callback, invoked at validation time so the
