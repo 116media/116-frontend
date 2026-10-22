@@ -9,12 +9,12 @@ import { CategoryTabs } from "@/shared/presentation/layouts/CategoryTabs";
  * Props for ArticlesToolbarCategoryTabs.
  *
  * @interface ArticlesToolbarCategoryTabsProps
- * @property {string | undefined} value - The selected category id, or undefined for all.
- * @property {(categoryId: string | undefined) => void} onChange - Emits the category id.
+ * @property {string | undefined} value - The selected category slug, or undefined for all.
+ * @property {(categorySlug: string | undefined) => void} onChange - Emits the category slug.
  */
 export interface ArticlesToolbarCategoryTabsProps {
     value: string | undefined;
-    onChange: (categoryId: string | undefined) => void;
+    onChange: (categorySlug: string | undefined) => void;
 }
 
 /**
@@ -28,11 +28,14 @@ export function ArticlesToolbarCategoryTabs({ value, onChange }: ArticlesToolbar
     const { t } = useTranslation();
     const { data: categories = [] } = useArticleCategories();
 
+    // The rail emits the value it is keyed by, and the URL carries slugs, not identifiers.
+    const tabs = categories.map((category) => ({ id: category.slug, name: category.name }));
+
     return (
         <CategoryTabs
             value={value}
             onChange={onChange}
-            categories={categories}
+            categories={tabs}
             allLabel={t("articles.filters.all")}
         />
     );
