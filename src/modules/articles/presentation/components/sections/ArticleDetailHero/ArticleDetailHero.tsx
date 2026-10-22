@@ -37,7 +37,7 @@ export function ArticleDetailHero({ categorySlug, categoryName, title }: Article
                 items={[
                     { label: t("general.breadcrumbHome"), href: HOME_PATH },
                     { label: t("general.breadcrumbNews"), href: ARTICLES_PATH },
-                    { label: categoryName, href: `${ARTICLES_PATH}?categorySlug=${categorySlug}` }
+                    { label: categoryName, href: `${ARTICLES_PATH}?category=${categorySlug}` }
                 ]}
             />
 
