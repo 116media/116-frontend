@@ -10,7 +10,7 @@ import { getServerTranslation } from "@/shared/presentation/utils/i18n/i18n.serv
  *
  * @interface ArticlesPageProps
  * @property {Promise<Record<string, string | string[] | undefined>>} searchParams - The route
- * query params promise carrying the optional `search`, `categorySlug`, and `tagSlug` filters.
+ * query params promise carrying the optional `search`, `category`, and `tag` filters.
  */
 interface ArticlesPageProps {
     searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -50,7 +50,7 @@ export async function generateMetadata(): Promise<Metadata> {
  * The public articles listing (`/articles`): the promoted-articles feed (reused from the
  * homepage, server-rendered inside its own `<Suspense>` boundary) above the filter toolbar
  * and an infinite-scrolling grid of every published article. Awaits the route query params
- * and seeds the feed's filters from them, so deep links like `/articles?tagSlug=music`
+ * and seeds the feed's filters from them, so deep links like `/articles?tag=music`
  * (used by the article tag pills) open pre-filtered.
  *
  * @param searchParams - The route query params promise carrying the optional filters.
@@ -65,8 +65,8 @@ export default async function ArticlesPage({ searchParams }: ArticlesPageProps) 
             </Suspense>
             <ArticlesFeedContainer
                 initialSearch={firstParam(params.search)}
-                initialCategorySlug={firstParam(params.categorySlug)}
-                initialTagSlug={firstParam(params.tagSlug)}
+                initialCategorySlug={firstParam(params.category ?? params.categorySlug)}
+                initialTagSlug={firstParam(params.tag ?? params.tagSlug)}
             />
         </div>
     );
