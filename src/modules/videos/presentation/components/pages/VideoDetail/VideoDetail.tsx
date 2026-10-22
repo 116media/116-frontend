@@ -83,10 +83,13 @@ export function VideoDetail({ video }: VideoDetailProps) {
                     )}
                 >
                     <VideoPlayer.Root
+                        pinned={isPinned}
                         title={video.title}
                         thumbnailUrl={video.thumbnailUrl}
                         youtubeVideoUrl={video.youtubeVideoUrl}
-                    />
+                    >
+                        <VideoPlayer.Autostart />
+                    </VideoPlayer.Root>
                     <Button
                         size="icon"
                         variant="ghost"
