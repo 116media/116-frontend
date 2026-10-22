@@ -47,7 +47,7 @@ __metadata:
     lint-staged: "npm:^17.6.0"
     lucide-react: "npm:^1.61.0"
     motion: "npm:^14.6.0"
-    next: "npm:^16.4.3"
+    next: "npm:^16.4.6"
     next-themes: "npm:^0.4.6"
     playwright: "npm:^1.65.1"
     react: "npm:^19.3.1"
@@ -3043,7 +3043,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next@npm:^16.4.3":
+"next@npm:^16.4.6":
   version: 16.4.6
   resolution: "next@npm:16.4.6"
   dependencies:
