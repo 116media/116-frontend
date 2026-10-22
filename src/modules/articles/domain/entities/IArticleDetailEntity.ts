@@ -15,6 +15,7 @@ import type { IArticleTagEntity } from "@/modules/articles/domain/entities/IArti
  * @property {string} id - Unique identifier (UUID). Keys the interaction and comment endpoints
  * @property {string} categoryId - Associated category UUID
  * @property {string} categoryName - Display name of the category
+ * @property {string} categorySlug - URL-safe slug of the category
  * @property {string} title - Article display title
  * @property {string} slug - URL-safe slug
  * @property {string} headline - Teaser shown under the title
@@ -38,6 +39,7 @@ export interface IArticleDetailEntity {
     id: string;
     categoryId: string;
     categoryName: string;
+    categorySlug: string;
     title: string;
     slug: string;
     headline: string;
