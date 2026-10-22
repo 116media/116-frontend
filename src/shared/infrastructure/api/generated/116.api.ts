@@ -2290,6 +2290,7 @@ export interface PublicArticleDetailDto {
   /** @format uuid */
   categoryId: string;
   categoryName: string;
+  categorySlug: string;
   title: string;
   slug: string;
   headline: string;
@@ -14199,6 +14200,7 @@ export class Api<
         search?: string;
         /** @format uuid */
         categoryId?: string;
+        categorySlug?: string;
         tagSlug?: string;
       },
       params: RequestParams = {},
@@ -18359,6 +18361,7 @@ export class Api<
         search?: string;
         /** @format uuid */
         categoryId?: string;
+        categorySlug?: string;
         tagSlug?: string;
       },
       params: RequestParams = {},
