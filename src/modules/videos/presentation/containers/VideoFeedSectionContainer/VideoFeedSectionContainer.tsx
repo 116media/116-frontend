@@ -34,7 +34,7 @@ export function VideoFeedSectionContainer() {
                                     videos={videos}
                                     key={category.id}
                                     title={category.name}
-                                    viewAllHref={`${VIDEOS_PATH}?categoryId=${category.id}`}
+                                    viewAllHref={`${VIDEOS_PATH}?categorySlug=${category.slug}`}
                                 />
                             ))}
                         </div>
