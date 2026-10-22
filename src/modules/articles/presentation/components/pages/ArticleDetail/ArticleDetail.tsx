@@ -65,7 +65,7 @@ export function ArticleDetail({ article }: ArticleDetailProps) {
                 <article className="mt-6 flex w-full min-w-0 max-w-[68ch] flex-col gap-4 md:mt-0 xl:max-w-none">
                     <ArticleDetailHero
                         title={article.title}
-                        categoryId={article.categoryId}
+                        categorySlug={article.categorySlug}
                         categoryName={article.categoryName}
                     />
                     <div ref={engagementRef}>
