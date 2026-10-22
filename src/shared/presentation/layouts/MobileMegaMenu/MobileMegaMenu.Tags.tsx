@@ -31,7 +31,7 @@ export function MobileMegaMenuTags({ tags, basePath, onNavigate }: MobileMegaMen
                         key={tag.id}
                         variant="default"
                         onClick={onNavigate}
-                        href={`${basePath}?tagId=${tag.id}`}
+                        href={`${basePath}?tagSlug=${tag.slug}`}
                     >
                         {tag.name}
                     </Tag>
