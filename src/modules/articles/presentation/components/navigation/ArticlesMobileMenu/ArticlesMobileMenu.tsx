@@ -50,7 +50,7 @@ export function ArticlesMobileMenu({
                             icon={<NewspaperIcon />}
                             count={category.publishedCount}
                             description={category.description}
-                            href={`${ARTICLES_PATH}?categoryId=${category.id}`}
+                            href={`${ARTICLES_PATH}?categorySlug=${category.slug}`}
                         />
                     ))}
                 </div>
