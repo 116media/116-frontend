@@ -13,13 +13,13 @@ import {
 import { useRecentSearches } from "@/modules/search/presentation/hooks/useRecentSearches";
 import { useSearchResults } from "@/modules/search/presentation/hooks/useSearchResults";
 import { searchHref } from "@/modules/search/presentation/utils/search/search.utils";
-import type { ICategoryTab } from "@/shared/presentation/components/navigation/CategoryTabs";
 import { DialogOverlay, DialogPortal } from "@/shared/presentation/components/ui/Dialog";
 import { ScrollFade } from "@/shared/presentation/components/ui/ScrollFade";
 import { SheetHeader } from "@/shared/presentation/components/ui/Sheet/Sheet.Header";
 import { useDebouncedValue } from "@/shared/presentation/hooks/useDebouncedValue";
 import { useMediaQuery } from "@/shared/presentation/hooks/useMediaQuery";
 import { useProgressRouter } from "@/shared/presentation/hooks/useProgressRouter";
+import type { ICategoryTab } from "@/shared/presentation/layouts/CategoryTabs";
 import { PageContainer } from "@/shared/presentation/layouts/PageContainer";
 
 import { SearchOverlayBody } from "./SearchOverlay.Body";
