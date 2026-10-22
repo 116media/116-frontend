@@ -22,8 +22,8 @@ import { useScrollToFeedOnFilterChange } from "@/shared/presentation/hooks/useSc
  *
  * @interface VideosFeedContainerProps
  * @property {string} [initialSearch] - Initial search term, seeded from the URL `search` param.
- * @property {string} [initialCategorySlug] - Initial category filter, seeded from the URL `categorySlug` param.
- * @property {string} [initialTagSlug] - Initial tag filter, seeded from the URL `tagSlug` param.
+ * @property {string} [initialCategorySlug] - Initial category filter, seeded from the URL `category` param.
+ * @property {string} [initialTagSlug] - Initial tag filter, seeded from the URL `tag` param.
  */
 export interface VideosFeedContainerProps {
     initialSearch?: string;
@@ -81,8 +81,8 @@ export function VideosFeedContainer({
         const params = new URLSearchParams();
 
         if (debouncedSearch) params.set("search", debouncedSearch);
-        if (categorySlug) params.set("categorySlug", categorySlug);
-        if (tagSlug) params.set("tagSlug", tagSlug);
+        if (categorySlug) params.set("category", categorySlug);
+        if (tagSlug) params.set("tag", tagSlug);
 
         const query = params.toString();
         router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
