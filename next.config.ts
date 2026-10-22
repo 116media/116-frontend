@@ -29,6 +29,14 @@ const nextConfig: NextConfig = {
     turbopack: {
         root: projectRoot
     },
+    /**
+     * Barrels large enough to cost real compile time: the icon set alone exports close to
+     * seven thousand names for the handful this app draws. `lucide-react` is absent on
+     * purpose, being one of the packages Next optimizes without being asked.
+     */
+    experimental: {
+        optimizePackageImports: ["@icons-pack/react-simple-icons", "@videojs/react"]
+    },
     images: {
         remotePatterns: [
             {
