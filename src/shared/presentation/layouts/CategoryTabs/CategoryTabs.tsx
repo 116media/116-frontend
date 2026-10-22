@@ -98,9 +98,7 @@ export function CategoryTabs({
         return () => window.removeEventListener("resize", updateOverflow);
     }, [updateOverflow]);
 
-    // Bring the active tab into the rail on mount, e.g. a mega-menu deep link selecting a
-    // category that sits past the fold of the strip. The rail is scrolled directly rather
-    // than through `scrollIntoView`, which would also scroll the page down to it.
+    // Scrolls the rail itself, since scrollIntoView would drag the page down with it.
     useEffect(() => {
         const rail = railRef.current;
         const activeTab = rail?.querySelector<HTMLElement>('[data-state="active"]');
