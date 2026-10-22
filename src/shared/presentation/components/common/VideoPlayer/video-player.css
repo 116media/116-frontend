@@ -118,6 +118,22 @@
 }
 
 /*
+ * The embed owns the play control now, so taps have to reach it: the skin's layer passes
+ * them through and only its own controls take them back. The frame itself is freed in
+ * `useInteractiveEmbed`, since the adapter marks it inline.
+ */
+.mobile-skin-controls,
+.mobile-skin-scrim {
+    pointer-events: none;
+}
+
+.mobile-skin-controls button,
+.mobile-skin-controls [role="slider"],
+.mobile-skin-slider {
+    pointer-events: auto;
+}
+
+/*
  * The poster part ships no styles either, so without this it never stands down and a
  * playing video reads as a still frame stuck on its thumbnail.
  */
