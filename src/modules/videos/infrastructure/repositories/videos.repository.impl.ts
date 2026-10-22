@@ -129,7 +129,12 @@ export class VideosRepositoryImpl implements IVideosRepositoryPort {
 
     async getPublishedVideos(query: IPublishedVideosQuery): Promise<Result<IVideoPage>> {
         try {
-            const response = await this.api.getPublishedVideos(query);
+            const { categorySlug, tagSlug, ...rest } = query;
+            const response = await this.api.getPublishedVideos({
+                ...rest,
+                category: categorySlug,
+                tag: tagSlug
+            });
             return ok(VideosMapper.videoPageFromDto(response.data.videos));
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
