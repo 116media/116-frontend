@@ -41,7 +41,7 @@ export function VideoDetailTags({ tags }: VideoDetailTagsProps) {
                     prefix="#"
                     key={tag.id}
                     variant="default"
-                    href={`${VIDEOS_PATH}?tagSlug=${tag.slug}`}
+                    href={`${VIDEOS_PATH}?tag=${tag.slug}`}
                     className="border-transparent bg-muted text-muted-foreground hover:border-primary hover:bg-primary hover:text-primary-foreground lg:px-3 lg:py-1 lg:text-sm dark:hover:border-secondary dark:hover:bg-secondary dark:hover:text-secondary-foreground"
                 >
                     {tag.name}
