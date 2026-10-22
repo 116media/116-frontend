@@ -11,7 +11,7 @@ import { getServerTranslation } from "@/shared/presentation/utils/i18n/i18n.serv
  *
  * @interface VideosPageProps
  * @property {Promise<Record<string, string | string[] | undefined>>} searchParams - The route
- * query params promise carrying the optional `search`, `categoryId`, and `tagSlug` filters.
+ * query params promise carrying the optional `search`, `categorySlug`, and `tagSlug` filters.
  */
 interface VideosPageProps {
     searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -54,7 +54,7 @@ export async function generateMetadata(): Promise<Metadata> {
  * carousel above the browse feed — the sticky filter toolbar and an
  * infinite-scrolling grid of every published video. Awaits the route query
  * params and seeds the feed's filters from them, so deep links like
- * `/videos?categoryId=…` (used by the mega menu) open pre-filtered.
+ * `/videos?categorySlug=…` (used by the mega menu) open pre-filtered.
  *
  * @param searchParams - The route query params promise carrying the optional filters.
  */
@@ -74,7 +74,7 @@ export default async function VideosPage({ searchParams }: VideosPageProps) {
             {/* Browse — sticky filter toolbar + infinite video grid */}
             <VideosFeedContainer
                 initialSearch={firstParam(params.search)}
-                initialCategoryId={firstParam(params.categoryId)}
+                initialCategorySlug={firstParam(params.categorySlug)}
                 initialTagSlug={firstParam(params.tagSlug)}
             />
         </div>
