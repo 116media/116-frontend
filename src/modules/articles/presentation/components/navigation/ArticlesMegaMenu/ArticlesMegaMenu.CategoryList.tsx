@@ -38,7 +38,7 @@ export function ArticlesMegaMenuCategoryList({ categories }: ArticlesMegaMenuCat
                     icon={<NewspaperIcon />}
                     count={category.publishedCount}
                     description={category.description}
-                    href={`${ARTICLES_PATH}?categorySlug=${category.slug}`}
+                    href={`${ARTICLES_PATH}?category=${category.slug}`}
                 />
             ))}
         </div>
