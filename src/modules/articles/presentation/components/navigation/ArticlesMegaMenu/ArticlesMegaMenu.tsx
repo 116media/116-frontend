@@ -1,11 +1,7 @@
 import { ArticlesMegaMenuCard } from "@/modules/articles/presentation/components/cards/ArticlesMegaMenuCard";
 import { DUMMY_ARTICLES } from "@/modules/articles/presentation/data/mega-menu.dummy";
 import { ARTICLES_PATH } from "@/shared/presentation/constants/paths";
-import {
-    MegaMenuShell,
-    MegaMenuShellCards,
-    MegaMenuShellCategories
-} from "@/shared/presentation/layouts/MegaMenuShell";
+import { MegaMenuShell } from "@/shared/presentation/layouts/MegaMenuShell";
 import { ArticlesMegaMenuCategoryList } from "./ArticlesMegaMenu.CategoryList";
 import type { ArticlesMegaMenuProps } from "./types";
 
@@ -27,15 +23,15 @@ export function ArticlesMegaMenu({
     const compact = cards.slice(2, 4);
 
     return (
-        <MegaMenuShell
+        <MegaMenuShell.Root
             popularTags={popularTags}
             tagsBasePath={ARTICLES_PATH}
         >
-            <MegaMenuShellCategories>
+            <MegaMenuShell.Categories>
                 <ArticlesMegaMenuCategoryList categories={categories} />
-            </MegaMenuShellCategories>
+            </MegaMenuShell.Categories>
 
-            <MegaMenuShellCards viewAllHref={ARTICLES_PATH}>
+            <MegaMenuShell.Cards viewAllHref={ARTICLES_PATH}>
                 <div className="grid grid-cols-2 gap-2 grid-rows-[288px] lg:grid-rows-[320px]">
                     <ArticlesMegaMenuCard.FeaturedOverlay article={featured[0]} />
                     <ArticlesMegaMenuCard.FeaturedGradient article={featured[1]} />
@@ -48,7 +44,7 @@ export function ArticlesMegaMenu({
                         />
                     ))}
                 </div>
-            </MegaMenuShellCards>
-        </MegaMenuShell>
+            </MegaMenuShell.Cards>
+        </MegaMenuShell.Root>
     );
 }

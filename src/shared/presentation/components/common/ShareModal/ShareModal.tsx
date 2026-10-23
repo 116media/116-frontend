@@ -8,13 +8,13 @@ import {
 } from "@/shared/presentation/components/common/SocialShareGroup";
 import { Button } from "@/shared/presentation/components/ui/Button";
 import {
-    Dialog,
-    DialogContent,
+    DialogCloseButton,
     DialogHeader,
     DialogTitle
 } from "@/shared/presentation/components/ui/Dialog";
 import { Link2Icon, ShareIcon } from "@/shared/presentation/components/ui/Icon";
 import { Input } from "@/shared/presentation/components/ui/Input";
+import { AdaptiveDialog } from "@/shared/presentation/components/ui/Sheet";
 import {
     type INotificationConfig,
     showNotification
@@ -31,6 +31,7 @@ import {
  * @property {string} heading - The dialog heading.
  * @property {string} subtitle - The dialog subtitle.
  * @property {string} linkLabel - Accessible label for the copy-link field.
+ * @property {string} [closeLabel] - Accessible label for the close control.
  * @property {string} copyAction - Label for the copy button.
  * @property {string} [nativeShareLabel] - Label for the native OS share button; when set, the
  * button renders only where the Web Share API is available (chiefly mobile).
@@ -46,6 +47,7 @@ export interface ShareModalProps {
     subtitle: string;
     linkLabel: string;
     copyAction: string;
+    closeLabel?: string;
     nativeShareLabel?: string;
     labels: ISocialShareLabels;
     copiedNotification: INotificationConfig;
@@ -75,7 +77,8 @@ export function ShareModal({
     nativeShareLabel,
     labels,
     copiedNotification,
-    onShared
+    onShared,
+    closeLabel = "Close"
 }: ShareModalProps) {
     const [canNativeShare, setCanNativeShare] = useState(false);
 
@@ -100,12 +103,20 @@ export function ShareModal({
     };
 
     return (
-        <Dialog
+        <AdaptiveDialog.Root
             open={open}
             onOpenChange={onOpenChange}
         >
-            <DialogContent aria-describedby={undefined}>
-                <div className="relative grid gap-5 rounded-2xl border bg-card p-6 shadow-xl">
+            <AdaptiveDialog.Content
+                detent="fit"
+                aria-describedby={undefined}
+                className="bg-card sm:shadow-xl"
+            >
+                <DialogCloseButton
+                    label={closeLabel}
+                    className="absolute top-4 right-4 z-10"
+                />
+                <div className="relative grid gap-5 p-6">
                     <DialogHeader className="gap-1.5">
                         <DialogTitle>{heading}</DialogTitle>
                         <p className="text-muted-foreground text-sm">{subtitle}</p>
@@ -152,7 +163,7 @@ export function ShareModal({
                         />
                     </div>
                 </div>
-            </DialogContent>
-        </Dialog>
+            </AdaptiveDialog.Content>
+        </AdaptiveDialog.Root>
     );
 }

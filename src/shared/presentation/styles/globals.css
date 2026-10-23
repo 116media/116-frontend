@@ -96,6 +96,24 @@
     }
 }
 
+@keyframes sheet-in-bottom {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes sheet-out-bottom {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(100%);
+    }
+}
+
 @keyframes sheet-in-left {
     from {
         transform: translateX(-100%);

@@ -33,7 +33,7 @@ export function ShortsPlayerFullVideoLink({ videoSlug }: ShortsPlayerFullVideoLi
             href={`${VIDEOS_PATH}/${videoSlug}`}
             className={cn(
                 buttonVariants({ size: "sm" }),
-                "absolute bottom-28 left-4 z-30 gap-1.5 rounded-lg bg-black/50 text-white backdrop-blur-sm hover:bg-black/70"
+                "absolute bottom-[max(7rem,calc(env(safe-area-inset-bottom)+6rem))] left-4 z-30 gap-1.5 rounded-lg bg-black/50 text-white backdrop-blur-sm hover:bg-black/70 lg:bottom-28"
             )}
         >
             <FilmIcon className="size-4" />

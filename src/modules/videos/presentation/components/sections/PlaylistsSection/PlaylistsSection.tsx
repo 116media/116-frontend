@@ -70,7 +70,7 @@ export function PlaylistsSection() {
                 render={(playlists) => (
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
                         {playlists.map((playlist) => (
-                            <PlaylistCard
+                            <PlaylistCard.Root
                                 key={playlist.id}
                                 playlist={playlist}
                                 onOpen={() => setOpenId(playlist.id)}

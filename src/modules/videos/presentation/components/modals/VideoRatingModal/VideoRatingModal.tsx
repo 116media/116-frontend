@@ -6,12 +6,12 @@ import { useTranslation } from "react-i18next";
 import { useRateVideo } from "@/modules/videos/presentation/hooks/useRateVideo";
 import { Button } from "@/shared/presentation/components/ui/Button";
 import {
-    Dialog,
-    DialogContent,
+    DialogCloseButton,
     DialogHeader,
     DialogTitle
 } from "@/shared/presentation/components/ui/Dialog";
 import { StarIcon } from "@/shared/presentation/components/ui/Icon";
+import { AdaptiveDialog } from "@/shared/presentation/components/ui/Sheet";
 import { STAR_POSITIONS } from "@/shared/presentation/constants/rating";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
@@ -76,12 +76,20 @@ export function VideoRatingModal({
     };
 
     return (
-        <Dialog
+        <AdaptiveDialog.Root
             open={open}
             onOpenChange={close}
         >
-            <DialogContent aria-describedby={undefined}>
-                <div className="relative grid gap-5 rounded-2xl border bg-card p-6 text-center shadow-xl">
+            <AdaptiveDialog.Content
+                detent="fit"
+                aria-describedby={undefined}
+                className="bg-card sm:shadow-xl"
+            >
+                <DialogCloseButton
+                    label={t("videos.detail.ratingModal.close")}
+                    className="absolute top-4 right-4 z-10"
+                />
+                <div className="relative grid gap-5 p-6 text-center">
                     <DialogHeader className="items-center gap-1.5">
                         <DialogTitle>{t("videos.detail.ratingModal.title")}</DialogTitle>
                         <p className="text-muted-foreground text-sm">
@@ -147,7 +155,7 @@ export function VideoRatingModal({
                         </Button>
                     </div>
                 </div>
-            </DialogContent>
-        </Dialog>
+            </AdaptiveDialog.Content>
+        </AdaptiveDialog.Root>
     );
 }

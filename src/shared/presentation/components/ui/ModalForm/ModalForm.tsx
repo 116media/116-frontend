@@ -1,13 +1,12 @@
 "use client";
 
 import type { ComponentProps, ReactNode } from "react";
-
 import {
-    Dialog,
-    DialogContent,
+    DialogCloseButton,
     DialogDescription,
     DialogTitle
 } from "@/shared/presentation/components/ui/Dialog";
+import { AdaptiveDialog } from "@/shared/presentation/components/ui/Sheet";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
@@ -23,6 +22,7 @@ import { cn } from "@/shared/presentation/utils/cn/cn.utils";
  * @property {ReactNode} footer - The footer actions; laid out with space-between.
  * @property {string} [className] - Extra classes merged onto the panel.
  * @property {string} [describedById] - Id of the element describing the dialog, if any.
+ * @property {string} [closeLabel] - Accessible label for the close control.
  */
 export interface ModalFormProps {
     open: boolean;
@@ -33,6 +33,7 @@ export interface ModalFormProps {
     children: ReactNode;
     footer: ReactNode;
     className?: string;
+    closeLabel?: string;
     describedById?: string;
 }
 
@@ -42,7 +43,9 @@ export interface ModalFormProps {
  * @description
  * Shared chrome for every form-bearing modal: header with title and close button,
  * a form body, and a footer of actions, wrapped in one `<form>` so a footer submit
- * button drives `onSubmit`. Controlled via `open`/`onOpenChange`.
+ * button drives `onSubmit`. Controlled via `open`/`onOpenChange`. The panel is a bottom
+ * sheet on phones and the same centred dialog as before from `sm` up, so a field keeps
+ * its place above the keyboard without the form changing shape.
  */
 export function ModalForm({
     open,
@@ -53,23 +56,27 @@ export function ModalForm({
     children,
     footer,
     className,
+    closeLabel = "Close",
     describedById
 }: ModalFormProps) {
     return (
-        <Dialog
+        <AdaptiveDialog.Root
             open={open}
             onOpenChange={onOpenChange}
         >
-            <DialogContent
-                closeClassName="top-5 right-6"
+            <AdaptiveDialog.Content
+                detent="fit"
                 aria-describedby={subtitle ? undefined : describedById}
+                className={cn("bg-dialog sm:shadow-xl", className)}
             >
+                <DialogCloseButton
+                    label={closeLabel}
+                    className="absolute top-5 right-6 z-10"
+                />
+
                 <form
                     onSubmit={onSubmit}
-                    className={cn(
-                        "relative flex max-h-[85vh] flex-col rounded-2xl border bg-dialog shadow-xl",
-                        className
-                    )}
+                    className="flex min-h-0 flex-1 flex-col"
                 >
                     <header className="flex shrink-0 items-start border-b py-4 pr-12 pl-6">
                         <div className="grid min-w-0 gap-1">
@@ -78,13 +85,15 @@ export function ModalForm({
                         </div>
                     </header>
 
-                    <div className="grid gap-5 px-6 py-8">{children}</div>
+                    <div className="grid min-h-0 flex-1 gap-5 overflow-y-auto overscroll-contain px-6 py-8">
+                        {children}
+                    </div>
 
-                    <footer className="flex shrink-0 items-center justify-between gap-3 border-t px-6 py-4">
+                    <footer className="flex shrink-0 items-center justify-between gap-3 border-t px-6 py-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
                         {footer}
                     </footer>
                 </form>
-            </DialogContent>
-        </Dialog>
+            </AdaptiveDialog.Content>
+        </AdaptiveDialog.Root>
     );
 }

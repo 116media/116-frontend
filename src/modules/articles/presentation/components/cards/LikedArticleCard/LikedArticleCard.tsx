@@ -31,7 +31,7 @@ export function LikedArticleCard({ activity }: LikedArticleCardProps) {
     const href = ARTICLE_DETAIL_PATH.replace(":slug", article.slug);
 
     return (
-        <FavoriteCard>
+        <FavoriteCard.Root>
             <FavoriteCard.Media
                 aspect="video"
                 alt={article.title}
@@ -47,6 +47,6 @@ export function LikedArticleCard({ activity }: LikedArticleCardProps) {
                     className="-mx-3 -mb-3 mt-auto flex flex-col gap-3 rounded-lg bg-accent/50 p-3 transition-colors group-hover:bg-accent"
                 />
             </FavoriteArticleContent>
-        </FavoriteCard>
+        </FavoriteCard.Root>
     );
 }

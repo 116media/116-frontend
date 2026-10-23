@@ -11,23 +11,19 @@ import { VerifyOtpForm } from "@/modules/auth/presentation/components/forms/Veri
 import { VIEW_TITLES } from "@/modules/auth/presentation/constants/authModal";
 import { useAuthModal } from "@/modules/auth/presentation/context/AuthModalProvider";
 import { Button } from "@/shared/presentation/components/ui/Button";
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle
-} from "@/shared/presentation/components/ui/Dialog";
 import { ArrowLeftIcon } from "@/shared/presentation/components/ui/Icon";
+import { AdaptiveDialog } from "@/shared/presentation/components/ui/Sheet";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
  * AuthModal
  *
  * @description
- * The single auth dialog; switching views swaps its body in place rather than
- * opening a second modal. A mutation-cache subscription shakes the panel when
- * any `["auth", …]`-keyed mutation errors, so forms never opt in individually.
+ * The single auth surface: a bottom sheet on phones and a centred dialog from `sm` up,
+ * the same element either way so a half-filled form survives a rotation. Switching views
+ * swaps its body in place rather than opening a second modal, and a mutation-cache
+ * subscription shakes the panel when any `["auth", …]`-keyed mutation errors, so forms
+ * never opt in individually.
  */
 export function AuthModal() {
     const { t } = useTranslation();
@@ -50,58 +46,45 @@ export function AuthModal() {
     }, [queryClient]);
 
     return (
-        <Dialog
+        <AdaptiveDialog.Root
             open={isOpen}
             onOpenChange={(open) => !open && close()}
         >
-            <DialogContent
-                aria-describedby="auth-desc"
-                closeLabel={t("auth.common.close")}
+            <AdaptiveDialog.Content
+                detent="fit"
+                className={cn(shaking && "animate-dialog-shake")}
+                onAnimationEnd={(event) => {
+                    if (event.animationName === "dialog-shake") setShaking(false);
+                }}
             >
-                <div
-                    onAnimationEnd={(event) => {
-                        if (event.animationName === "dialog-shake") setShaking(false);
-                    }}
-                    className={cn(
-                        "relative grid gap-4 rounded-2xl border bg-card p-6 shadow-xl",
-                        shaking && "animate-dialog-shake"
-                    )}
-                >
-                    <DialogHeader>
-                        {canGoBack && (
+                <AdaptiveDialog.Header
+                    align="center"
+                    closeLabel={t("auth.common.close")}
+                    title={<span suppressHydrationWarning>{t(title)}</span>}
+                    description={<span suppressHydrationWarning>{t(subtitle)}</span>}
+                    leading={
+                        canGoBack && (
                             <Button
                                 size="icon"
                                 type="button"
                                 variant="ghost"
                                 onClick={back}
                                 aria-label={t("auth.common.back")}
-                                className="absolute left-3 top-3"
                             >
                                 <ArrowLeftIcon />
                             </Button>
-                        )}
-                        <DialogTitle
-                            className="text-center"
-                            suppressHydrationWarning
-                        >
-                            {t(title)}
-                        </DialogTitle>
-                        <DialogDescription
-                            id="auth-desc"
-                            className="text-center"
-                            suppressHydrationWarning
-                        >
-                            {t(subtitle)}
-                        </DialogDescription>
-                    </DialogHeader>
+                        )
+                    }
+                />
 
+                <AdaptiveDialog.Body className="pt-4 pb-6">
                     {view === "login" && <LoginForm />}
                     {view === "signup" && <SignupForm />}
                     {view === "verify-otp" && <VerifyOtpForm />}
                     {view === "forgot-password" && <ForgotPasswordForm />}
                     {view === "reset-password" && <ResetPasswordForm />}
-                </div>
-            </DialogContent>
-        </Dialog>
+                </AdaptiveDialog.Body>
+            </AdaptiveDialog.Content>
+        </AdaptiveDialog.Root>
     );
 }

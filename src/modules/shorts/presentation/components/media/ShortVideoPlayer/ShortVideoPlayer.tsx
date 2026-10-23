@@ -109,7 +109,7 @@ export function ShortVideoPlayer({
 
     return (
         <div className="relative size-full">
-            <VideoPlayer
+            <VideoPlayer.Root
                 loop
                 ratio="9:16"
                 title={title}

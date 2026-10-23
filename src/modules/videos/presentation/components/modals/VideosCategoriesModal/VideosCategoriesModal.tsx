@@ -5,14 +5,14 @@ import { useTranslation } from "react-i18next";
 import { ShowCard } from "@/modules/videos/presentation/components/cards/ShowCard";
 import { useShows } from "@/modules/videos/presentation/hooks/useShows";
 import {
-    Dialog,
-    DialogContent,
+    DialogCloseButton,
     DialogHeader,
     DialogTitle
 } from "@/shared/presentation/components/ui/Dialog";
 import { EmptyState } from "@/shared/presentation/components/ui/EmptyState";
 import { SearchIcon } from "@/shared/presentation/components/ui/Icon";
 import { Input } from "@/shared/presentation/components/ui/Input";
+import { AdaptiveDialog } from "@/shared/presentation/components/ui/Sheet";
 
 /**
  * Props for VideosCategoriesModal.
@@ -44,13 +44,17 @@ export function VideosCategoriesModal({ open, onOpenChange }: VideosCategoriesMo
     const filtered = term ? shows.filter((show) => show.name.toLowerCase().includes(term)) : shows;
 
     return (
-        <Dialog
+        <AdaptiveDialog.Root
             open={open}
             onOpenChange={onOpenChange}
         >
-            <DialogContent className="flex h-dvh max-h-dvh w-full max-w-none flex-col gap-0 overflow-hidden rounded-none border-0 bg-card p-0 shadow-xl sm:h-auto sm:max-h-[80vh] sm:max-w-lg sm:rounded-2xl sm:border">
-                <DialogHeader className="border-b p-4">
+            <AdaptiveDialog.Content
+                detent="large"
+                className="gap-0 bg-card p-0 sm:max-h-[80vh] sm:max-w-lg sm:shadow-xl"
+            >
+                <DialogHeader className="flex-row items-center justify-between gap-3 border-b p-4">
                     <DialogTitle>{t("videos.browse.modal.title")}</DialogTitle>
+                    <DialogCloseButton label={t("videos.browse.modal.close")} />
                 </DialogHeader>
 
                 <div className="relative shrink-0 p-4 pb-2">
@@ -84,7 +88,7 @@ export function VideosCategoriesModal({ open, onOpenChange }: VideosCategoriesMo
                         </li>
                     )}
                 </ul>
-            </DialogContent>
-        </Dialog>
+            </AdaptiveDialog.Content>
+        </AdaptiveDialog.Root>
     );
 }

@@ -12,7 +12,7 @@ export function PlaylistCardLoading() {
     const slots = [0, 1, 2, 3];
 
     return (
-        <FavoriteCard>
+        <FavoriteCard.Root>
             <div className="grid grid-cols-2 gap-px bg-outlined">
                 {slots.map((slot) => (
                     <Skeleton
@@ -32,6 +32,6 @@ export function PlaylistCardLoading() {
                     <Skeleton className="ml-auto size-7 rounded-md" />
                 </FavoriteCard.Actions>
             </FavoriteCard.Body>
-        </FavoriteCard>
+        </FavoriteCard.Root>
     );
 }

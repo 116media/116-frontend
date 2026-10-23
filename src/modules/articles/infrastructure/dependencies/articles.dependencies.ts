@@ -40,7 +40,7 @@ import { ArticlesRepositoryImpl } from "@/modules/articles/infrastructure/reposi
 export function registerArticlesDependencies(container: AwilixContainer): void {
     container.register({
         // Repository
-        articlesRepository: asClass(ArticlesRepositoryImpl).singleton(),
+        articlesRepository: asClass(ArticlesRepositoryImpl).scoped(),
 
         // Queries
         getPromotedArticlesUseCase: asClass(GetPromotedArticlesUseCase).transient(),

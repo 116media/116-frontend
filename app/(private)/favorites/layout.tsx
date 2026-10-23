@@ -13,5 +13,5 @@ import { FavoriteLayout as FavoriteLayoutFrame } from "@/shared/presentation/lay
  * @param children - The active favorites route.
  */
 export default function FavoriteLayout({ children }: { children: ReactNode }) {
-    return <FavoriteLayoutFrame>{children}</FavoriteLayoutFrame>;
+    return <FavoriteLayoutFrame.Root>{children}</FavoriteLayoutFrame.Root>;
 }

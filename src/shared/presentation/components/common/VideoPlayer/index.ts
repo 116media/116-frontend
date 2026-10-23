@@ -1,9 +1,18 @@
+import { VideoPlayer as VideoPlayerRoot } from "./VideoPlayer";
+import { VideoPlayerPoster } from "./VideoPlayer.Poster";
+
+export type { VideoPlayerProps } from "./VideoPlayer";
+
 /**
  * VideoPlayer
  *
  * @description
- * Entity-agnostic playback surface: a client-only Plyr YouTube embed over a 16:9 poster
- * layer. Shared library — consumed by any feature that plays a video (detail page,
- * shorts, promoted previews).
+ * Entity-agnostic playback surface: the root arranges the embed over `.Poster`, its 16:9
+ * placeholder layer. Consumed by any feature that plays a video. `.Plyr` is deliberately
+ * absent — the root loads it through `next/dynamic` with `ssr: false`, and naming it here
+ * would pull that chunk back into the static graph.
  */
-export { VideoPlayer, type VideoPlayerProps } from "./VideoPlayer";
+export const VideoPlayer = {
+    Root: VideoPlayerRoot,
+    Poster: VideoPlayerPoster
+} as const;

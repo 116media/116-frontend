@@ -38,7 +38,7 @@ export function CommentedArticleCard({ item, onViewComments }: CommentedArticleC
     const href = ARTICLE_DETAIL_PATH.replace(":slug", article.slug);
 
     return (
-        <FavoriteCard>
+        <FavoriteCard.Root>
             <FavoriteCard.Media
                 aspect="video"
                 alt={article.title}
@@ -57,7 +57,7 @@ export function CommentedArticleCard({ item, onViewComments }: CommentedArticleC
                     <FavoriteCard.Actions className="flex justify-between pt-3">
                         <Button
                             size="sm"
-                            variant="ghost"
+                            variant="outline"
                             onClick={onViewComments}
                         >
                             {t("favorites.comments.viewComments")}
@@ -72,6 +72,6 @@ export function CommentedArticleCard({ item, onViewComments }: CommentedArticleC
                     </FavoriteCard.Actions>
                 </div>
             </FavoriteArticleContent>
-        </FavoriteCard>
+        </FavoriteCard.Root>
     );
 }

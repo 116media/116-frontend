@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 
 import { VIEW_ENGAGEMENT_MS } from "@/modules/shorts/presentation/constants/gestures";
+import { isDummyShortId } from "@/modules/shorts/presentation/data/shorts.dummy";
 import { useRecordShortView } from "@/modules/shorts/presentation/hooks/useRecordShortView";
 
 /**
@@ -12,7 +13,8 @@ import { useRecordShortView } from "@/modules/shorts/presentation/hooks/useRecor
  * Fires a single deduplicated view event for a short once it has been the active,
  * playing slide for VIEW_ENGAGEMENT_MS. A per-session Set prevents re-firing when
  * the reader swipes back to an already-counted short; the timer resets if the
- * short is paused or swiped away before the threshold.
+ * short is paused or swiped away before the threshold. Padded shorts are skipped:
+ * the API has no row for them.
  *
  * @param shortId - The active short.
  * @param isActive - Whether this short is in view.
@@ -31,7 +33,7 @@ export function useShortViewGate(shortId: string, isActive: boolean, isPlaying: 
             }
         };
 
-        if (isActive && isPlaying && !fired.current.has(shortId)) {
+        if (isActive && isPlaying && !fired.current.has(shortId) && !isDummyShortId(shortId)) {
             timer.current = setTimeout(() => {
                 fired.current.add(shortId);
                 recordView(shortId);

@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import type { IShortVideoEntity } from "@/modules/shorts/domain/entities/IShortVideoEntity";
 import { shortKeys } from "@/modules/shorts/presentation/constants/shortKeys";
+import { dummyShortBySlug } from "@/modules/shorts/presentation/data/shorts.dummy";
 import type { Failure } from "@/shared/domain/failures/failure";
 import container from "@/shared/infrastructure/service.locator";
 
@@ -36,8 +37,14 @@ export function useShortBySlug(slug: string, options: IUseShortBySlugOptions = {
         initialData: options.initialData,
         queryFn: async () => {
             const result = await container.cradle.getShortBySlugUseCase.execute(slug);
-            if (!result.ok) throw result.error;
-            return result.value;
+            if (result.ok) return result.value;
+
+            // Dummy-data phase: a padded short has no backend row, so the slug resolves
+            // back to the short it names instead of failing the surface.
+            const padded = dummyShortBySlug(slug);
+            if (padded) return padded;
+
+            throw result.error;
         }
     });
 }

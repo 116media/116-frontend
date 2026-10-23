@@ -44,15 +44,15 @@ export function ArticlesPopularSidebar({ currentArticleId }: ArticlesPopularSide
             data={data}
             loading={isPending}
             skeleton={
-                <aside className="flex flex-col gap-4">
+                <aside className="flex flex-col max-lg:gap-4">
                     {header}
                     <ArticlesPopularSidebarLoading />
                 </aside>
             }
             render={(articles) => (
-                <aside className="flex flex-col">
+                <aside className="flex flex-col max-lg:gap-4">
                     {header}
-                    <div className="flex flex-col gap-4 rounded-xl bg-muted/30 p-3 sm:p-4 md:p-5 lg:p-3 xl:p-5">
+                    <div className="flex flex-col gap-4 rounded-xl bg-muted/60 p-3 sm:p-4 md:p-5 lg:p-3 xl:p-5">
                         {articles.map((article, index) => (
                             <Fragment key={article.id}>
                                 <ArticleCard.Horizontal article={article} />

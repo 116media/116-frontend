@@ -18,6 +18,7 @@ export const browse = {
         clear: "Clear filters"
     },
     modal: {
+        close: "Close",
         title: "Shows & categories",
         searchPlaceholder: "Search a show or category…",
         empty: "No show matches your search"

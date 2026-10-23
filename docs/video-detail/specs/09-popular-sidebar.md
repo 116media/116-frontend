@@ -10,7 +10,7 @@ Props: `{ currentVideoId: string }`.
 ```tsx
 <aside className="flex flex-col">
     <SectionHeader icon={<FlameIcon />} title={t("videos.detail.sidebar.popular")} />
-    <div className="flex flex-col gap-4 rounded-xl bg-muted/30 p-3 sm:p-4 md:p-5 lg:p-3 xl:p-5">
+    <div className="flex flex-col gap-4 rounded-xl bg-muted/60 p-3 sm:p-4 md:p-5 lg:p-3 xl:p-5">
         {data.map((video, index) => (
             <Fragment key={video.id}>
                 <VideoCard.Horizontal video={video} />
@@ -23,7 +23,7 @@ Props: `{ currentVideoId: string }`.
 
 - **`VideoCard.Horizontal` reused untouched** — it already renders thumbnail (play
   overlay), two-line title, star rating, relative date, and share count.
-- The block is the **gossip-strip surface** (`rounded-xl bg-muted/30` + the responsive
+- The block is the **gossip-strip surface** (`rounded-xl bg-muted/60` + the responsive
   padding scale + `<hr>` separators) so the column is the visual twin of the articles
   popular sidebar.
 - `isPending` → header + `VideosPopularSidebarLoading`; resolved empty → the whole

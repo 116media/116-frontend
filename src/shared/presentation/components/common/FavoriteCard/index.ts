@@ -24,7 +24,8 @@ export type { FavoriteCardTitleProps } from "./FavoriteCard.Title";
  * thumbnail), a `.Remove` media overlay, and body parts `.Body`, `.Title`, `.Meta`,
  * `.Comment`, and `.Actions`.
  */
-export const FavoriteCard = Object.assign(FavoriteCardRoot, {
+export const FavoriteCard = {
+    Root: FavoriteCardRoot,
     Media: FavoriteCardMedia,
     Remove: FavoriteCardRemove,
     Body: FavoriteCardBody,
@@ -32,4 +33,4 @@ export const FavoriteCard = Object.assign(FavoriteCardRoot, {
     Meta: FavoriteCardMeta,
     Comment: FavoriteCardComment,
     Actions: FavoriteCardActions
-});
+} as const;

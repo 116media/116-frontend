@@ -34,10 +34,13 @@ export interface ShortsPlayerProps {
  * ShortsPlayer
  *
  * @description
- * Full-screen, swipeable short-video player. The vertical track fills the viewport
- * over a blurred backdrop and snaps one short per gesture, so scrolling anywhere —
- * not only over the video — navigates. Up/down nav and a close control sit on top.
- * The Radix dialog supplies the focus trap, scroll lock, and escape.
+ * Full-screen, swipeable short-video player. The vertical track fills the viewport and
+ * snaps one short per gesture, so scrolling anywhere — not only over the video —
+ * navigates. Sized in `dvh` rather than percentages: a phone browser resolves `100%`
+ * against the layout viewport, which leaves the last rows of the short behind the address
+ * bar. The close control sits over the media; the up/down nav is a pointer affordance and
+ * stays out of a thumb's way. The Radix dialog supplies the focus trap, scroll lock and
+ * escape.
  */
 export function ShortsPlayer({
     shorts,
@@ -57,7 +60,7 @@ export function ShortsPlayer({
             <DialogContent
                 showCloseButton={false}
                 aria-describedby={undefined}
-                className="inset-0 top-0 left-0 h-full w-full max-w-none translate-x-0 translate-y-0 overflow-hidden border-0 bg-transparent p-0 shadow-none"
+                className="inset-0 top-0 left-0 h-dvh max-h-dvh w-screen max-w-none translate-x-0 translate-y-0 overflow-hidden border-0 bg-transparent p-0 shadow-none"
             >
                 <DialogTitle className="sr-only">{t("shorts.section.title")}</DialogTitle>
 

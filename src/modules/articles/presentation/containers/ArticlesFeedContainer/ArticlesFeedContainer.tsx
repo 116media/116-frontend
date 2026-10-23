@@ -102,7 +102,7 @@ export function ArticlesFeedContainer({
             ref={feedRef}
             className="flex flex-col gap-6"
         >
-            <ArticlesToolbar
+            <ArticlesToolbar.Root
                 search={search}
                 onSearchChange={setSearch}
                 categoryId={categoryId}

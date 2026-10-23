@@ -31,7 +31,7 @@ export function MobileMegaMenuFeatured({
                 "flex flex-col gap-3",
                 variant === "panel"
                     ? "mx-4 rounded-lg bg-primary/5 p-4 dark:bg-secondary/10"
-                    : "p-3",
+                    : "p-3"
             )}
         >
             <div className="flex items-center justify-between gap-3">

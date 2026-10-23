@@ -103,7 +103,7 @@ export function VideosFeedContainer({
             ref={feedRef}
             className="flex flex-col gap-6"
         >
-            <VideosToolbar
+            <VideosToolbar.Root
                 search={search}
                 tagSlug={tagSlug}
                 categoryId={categoryId}

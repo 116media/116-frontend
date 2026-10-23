@@ -31,7 +31,7 @@ export function ShortsPlayerTrack() {
     return (
         <div
             ref={scrollContainerRef}
-            className="size-full snap-y snap-mandatory overflow-y-auto scrollbar-none [&::-webkit-scrollbar]:hidden"
+            className="h-dvh w-full snap-y snap-mandatory overflow-y-auto overscroll-contain scrollbar-none [&::-webkit-scrollbar]:hidden"
         >
             {shorts.map((short, index) => (
                 <ShortsPlayerSlide

@@ -18,6 +18,7 @@ export const browse = {
         clear: "Effacer les filtres"
     },
     modal: {
+        close: "Fermer",
         title: "Émissions et catégories",
         searchPlaceholder: "Rechercher une émission ou une catégorie…",
         empty: "Aucune émission ne correspond à votre recherche"

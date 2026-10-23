@@ -16,9 +16,17 @@ import { getDeviceId } from "@/modules/session/infrastructure/storage/device-id.
 export const deviceIdInterceptor = (
     config: InternalAxiosRequestConfig
 ): InternalAxiosRequestConfig => {
-    const deviceId = getDeviceId();
-    if (deviceId) {
-        config.headers.set(X_DEVICE_ID_HEADER, deviceId);
+    // Reading or minting the id touches storage, which a private window or a blocked
+    // site-data setting can refuse. The header is an attribution aid, so the request
+    // goes out without it rather than failing before it reaches the network.
+    try {
+        const deviceId = getDeviceId();
+        if (deviceId) {
+            config.headers.set(X_DEVICE_ID_HEADER, deviceId);
+        }
+    } catch {
+        return config;
     }
+
     return config;
 };

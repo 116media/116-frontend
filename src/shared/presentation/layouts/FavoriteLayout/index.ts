@@ -13,7 +13,8 @@ export type { FavoriteLayoutTab, FavoriteLayoutTabsProps } from "./FavoriteLayou
  * Compound layout for the private favorites area. The root owns the sidebar/content
  * structure and `.Collection` owns the repeated heading and collection content frame.
  */
-export const FavoriteLayout = Object.assign(FavoriteLayoutRoot, {
+export const FavoriteLayout = {
+    Root: FavoriteLayoutRoot,
     Collection: FavoriteLayoutCollection,
     Tabs: FavoriteLayoutTabs
-});
+} as const;

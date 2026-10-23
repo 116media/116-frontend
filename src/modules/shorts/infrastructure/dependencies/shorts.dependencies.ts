@@ -26,7 +26,7 @@ import { ShortsRepositoryImpl } from "@/modules/shorts/infrastructure/repositori
 export function registerShortsDependencies(container: AwilixContainer): void {
     container.register({
         // Repository
-        shortsRepository: asClass(ShortsRepositoryImpl).singleton(),
+        shortsRepository: asClass(ShortsRepositoryImpl).scoped(),
 
         // Queries
         getShortsFeedUseCase: asClass(GetShortsFeedUseCase).transient(),
