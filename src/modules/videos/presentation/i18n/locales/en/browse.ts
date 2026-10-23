@@ -14,7 +14,10 @@ export const browse = {
         clearSearch: "Clear search",
         browseAllShows: "All the shows",
         allTags: "All tags",
-        tagSearch: "Find a tag…",
+        tagsTrigger: "Tags",
+        tagSearch: "Search…",
+        tagsClose: "Close tags",
+        tagsEmpty: "No tag matches your search",
         clear: "Clear filters"
     },
     modal: {

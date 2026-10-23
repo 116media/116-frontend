@@ -12,7 +12,9 @@ import { cn } from "@/shared/presentation/utils/cn/cn.utils";
  * SettingsSidebar
  *
  * @description
- * Vertical navigation for the settings shell (a horizontal scroll strip on mobile).
+ * Settings navigation: a tab bar up to `lg`, where it becomes the vertical sidebar beside
+ * the content. The rule it sits on and the underline under the current tab are what read as
+ * navigation rather than a row of buttons.
  * Each tab is a link that highlights when the current path matches, driven by
  * `usePathname()`. The frontend equivalent of the dashboard's settings menu.
  */
@@ -22,11 +24,11 @@ export function SettingsSidebar() {
     const direction = useScrollDirection();
 
     return (
-        <div className="md:w-60 md:shrink-0 md:rounded-l-lg md:bg-sidebar">
+        <div className="lg:w-60 lg:shrink-0 lg:rounded-l-lg lg:bg-sidebar">
             <nav
                 className={cn(
-                    "sticky top-28 z-20 flex gap-2 overflow-x-auto rounded-t-lg border-b bg-sidebar p-4 transition-all duration-300",
-                    "md:flex-col md:overflow-visible md:rounded-none md:border-b-0 md:bg-transparent",
+                    "sticky top-28 z-20 flex gap-1 overflow-x-auto border-b bg-background transition-all duration-300 scrollbar-none [&::-webkit-scrollbar]:hidden",
+                    "lg:flex-col lg:gap-2 lg:overflow-visible lg:border-b-0 lg:bg-transparent lg:p-4",
                     direction === "down" && "-translate-y-2 pointer-events-none opacity-0"
                 )}
             >
@@ -37,10 +39,15 @@ export function SettingsSidebar() {
                             key={href}
                             href={href}
                             className={cn(
-                                "flex items-center gap-2 whitespace-nowrap rounded-md px-3 py-2 font-medium text-sm transition-colors",
+                                "relative flex items-center gap-2 whitespace-nowrap px-3 py-2.5 font-medium text-sm transition-colors",
+                                "lg:rounded-md lg:py-2",
                                 isActive
-                                    ? "bg-primary/10 text-primary dark:bg-secondary/15 dark:text-secondary"
-                                    : "text-foreground/80 hover:bg-foreground/5 hover:text-foreground"
+                                    ? [
+                                          "text-primary after:absolute after:inset-x-3 after:bottom-0 after:h-0.5 after:rounded-full after:bg-primary",
+                                          "dark:text-secondary dark:after:bg-secondary",
+                                          "lg:bg-primary/10 lg:after:hidden dark:lg:bg-secondary/15"
+                                      ]
+                                    : "text-muted-foreground hover:text-foreground lg:text-foreground/80 lg:hover:bg-foreground/5"
                             )}
                         >
                             <Icon className="size-4" />

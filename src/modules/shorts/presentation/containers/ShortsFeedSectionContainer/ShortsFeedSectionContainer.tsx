@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -9,7 +8,7 @@ import { useShortsFeed } from "@/modules/shorts/presentation/hooks/useShortsFeed
 import { FeedHeading } from "@/shared/presentation/components/ui/FeedHeading";
 import { StateRenderer } from "@/shared/presentation/components/ui/StateRenderer";
 import { SHORTS_PATH } from "@/shared/presentation/constants/paths";
-
+import { useProgressRouter } from "@/shared/presentation/hooks/useProgressRouter";
 import { ShortsFeedSectionContainerLoading } from "./ShortsFeedSectionContainer.Loading";
 
 /**
@@ -24,7 +23,7 @@ import { ShortsFeedSectionContainerLoading } from "./ShortsFeedSectionContainer.
  */
 export function ShortsFeedSectionContainer() {
     const { t } = useTranslation();
-    const router = useRouter();
+    const router = useProgressRouter();
     const { data, isPending, isError } = useShortsFeed();
 
     const shorts = useMemo(() => data?.pages.flatMap((page) => page.items) ?? [], [data]);

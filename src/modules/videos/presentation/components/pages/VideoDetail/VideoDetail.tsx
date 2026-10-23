@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { type CSSProperties, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -15,6 +14,7 @@ import { VideosPopularSidebar } from "@/modules/videos/presentation/components/s
 import { VideoPlayer } from "@/shared/presentation/components/common/VideoPlayer";
 import { Button } from "@/shared/presentation/components/ui/Button";
 import { ArrowLeftIcon } from "@/shared/presentation/components/ui/Icon";
+import { useProgressRouter } from "@/shared/presentation/hooks/useProgressRouter";
 import { useScrolledPast } from "@/shared/presentation/hooks/useScrolledPast";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
@@ -40,7 +40,7 @@ export interface VideoDetailProps {
  */
 export function VideoDetail({ video }: VideoDetailProps) {
     const { t } = useTranslation();
-    const router = useRouter();
+    const router = useProgressRouter();
     const requireAuth = useRequireAuth();
     const [shareOpen, setShareOpen] = useState(false);
     const [playlistOpen, setPlaylistOpen] = useState(false);

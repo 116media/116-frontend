@@ -1,12 +1,11 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-
 import type { IArticleActivityEntity } from "@/modules/articles/domain/entities/IArticleActivityEntity";
 import { FavoriteArticleContent } from "@/modules/articles/presentation/components/cards/FavoriteArticleContent";
 import { FavoriteCard } from "@/shared/presentation/components/common/FavoriteCard";
 import { NewspaperIcon } from "@/shared/presentation/components/ui/Icon";
 import { ARTICLE_DETAIL_PATH } from "@/shared/presentation/constants/paths";
+import { useProgressRouter } from "@/shared/presentation/hooks/useProgressRouter";
 
 /**
  * Props for LikedArticleCard.
@@ -26,7 +25,7 @@ export interface LikedArticleCardProps {
  * headline, engagement) with the last-liked date in the favorites slot.
  */
 export function LikedArticleCard({ activity }: LikedArticleCardProps) {
-    const router = useRouter();
+    const router = useProgressRouter();
     const { article } = activity;
     const href = ARTICLE_DETAIL_PATH.replace(":slug", article.slug);
 

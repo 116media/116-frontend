@@ -1,12 +1,11 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-
 import type { IArticleBookmarkEntity } from "@/modules/articles/domain/entities/IArticleBookmarkEntity";
 import { FavoriteArticleContent } from "@/modules/articles/presentation/components/cards/FavoriteArticleContent";
 import { FavoriteCard } from "@/shared/presentation/components/common/FavoriteCard";
 import { NewspaperIcon } from "@/shared/presentation/components/ui/Icon";
 import { ARTICLE_DETAIL_PATH } from "@/shared/presentation/constants/paths";
+import { useProgressRouter } from "@/shared/presentation/hooks/useProgressRouter";
 
 /**
  * Props for BookmarkedArticleCard.
@@ -27,7 +26,7 @@ export interface BookmarkedArticleCardProps {
  * by the engagement bar's bookmark button.
  */
 export function BookmarkedArticleCard({ bookmark }: BookmarkedArticleCardProps) {
-    const router = useRouter();
+    const router = useProgressRouter();
     const { article } = bookmark;
     const href = ARTICLE_DETAIL_PATH.replace(":slug", article.slug);
 

@@ -50,7 +50,7 @@ export function ProfileSection() {
     };
 
     return (
-        <div>
+        <div className="flex flex-col gap-4">
             <SectionHeader
                 as="h1"
                 icon={<UserRoundIcon />}
@@ -60,7 +60,7 @@ export function ProfileSection() {
 
             <div className="flex flex-col gap-6">
                 <SettingsCard title={t("settings.profile.photo.title")}>
-                    <div className="flex items-center gap-4">
+                    <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
                         <div className="relative size-20 shrink-0">
                             <Button
                                 type="button"
@@ -98,7 +98,7 @@ export function ProfileSection() {
                             </span>
                         </div>
 
-                        <div className="min-w-0">
+                        <div className="min-w-0 max-sm:w-full">
                             <p className="font-medium text-foreground">{user.userName}</p>
                             {user.email && (
                                 <p className="truncate text-muted-foreground text-sm">
@@ -115,7 +115,7 @@ export function ProfileSection() {
 
                         <Button
                             variant="outline"
-                            className="ml-auto"
+                            className="w-full sm:ml-auto sm:w-auto"
                             loading={updateAvatar.isPending}
                             onClick={openFilePicker}
                         >
@@ -138,7 +138,7 @@ export function ProfileSection() {
                     editLabel={t("settings.common.edit")}
                     onEdit={() => setEditOpen(true)}
                 >
-                    <div className="grid gap-3 sm:grid-cols-2">
+                    <div className="grid gap-4 divide-y divide-outlined max-lg:*:not-last:pb-4 lg:grid-cols-2 lg:gap-3 lg:divide-y-0">
                         <DetailField
                             icon={<UserRoundIcon />}
                             label={t("settings.profile.fields.userName")}

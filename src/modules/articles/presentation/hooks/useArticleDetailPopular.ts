@@ -4,7 +4,10 @@ import { useQuery } from "@tanstack/react-query";
 
 import type { IArticleSummaryEntity } from "@/modules/articles/domain/entities/IArticleSummaryEntity";
 import { articleKeys } from "@/modules/articles/presentation/constants/articleKeys";
-import { dummyPopularArticles } from "@/modules/articles/presentation/data/article-detail.dummy";
+import {
+    dummyPopularArticles,
+    paddedPopularArticles
+} from "@/modules/articles/presentation/data/article-detail.dummy";
 import container from "@/shared/infrastructure/service.locator";
 import { apiIdOrUndefined } from "@/shared/presentation/utils/id/id.utils";
 
@@ -23,7 +26,8 @@ const POPULAR_SIDEBAR_LIMIT = 5;
  * Sources the popular-articles sidebar from `getPopularArticlesUseCase`, ranked by
  * weighted engagement server-side with the open article excluded via `excludeId`, which
  * is sent only when its id is one the API can bind (a dummy article's is not a UUID).
- * Dummy-data phase: a failed or empty result falls back to dummy popular articles.
+ * Dummy-data phase: a short list is topped up with dummy articles and a failed one is
+ * replaced by them, so the block is never part-filled.
  *
  * @param currentArticleId - The article currently open, excluded from the results.
  * @returns The TanStack Query result whose `data` is up to five `IArticleSummaryEntity`.
@@ -36,7 +40,10 @@ export function useArticleDetailPopular(currentArticleId: string) {
                 limit: POPULAR_SIDEBAR_LIMIT,
                 excludeId: apiIdOrUndefined(currentArticleId)
             });
-            if (result.ok && result.value.length > 0) return result.value;
+            if (result.ok) {
+                return paddedPopularArticles(result.value, currentArticleId, POPULAR_SIDEBAR_LIMIT);
+            }
+
             return dummyPopularArticles(currentArticleId, POPULAR_SIDEBAR_LIMIT);
         }
     });

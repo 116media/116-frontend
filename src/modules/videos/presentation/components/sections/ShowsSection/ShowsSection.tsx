@@ -21,8 +21,8 @@ export interface ShowsSectionProps {
  * ShowsSection
  *
  * @description
- * Homepage "shows" section: the shared heading row linking to the shows page,
- * above the swipeable focal carousel of shows.
+ * Homepage "shows" section: the shared heading block, which names what is on the other
+ * side of the link, above the swipeable focal carousel of shows.
  */
 export function ShowsSection({ shows }: ShowsSectionProps) {
     const { t } = useTranslation();
@@ -30,8 +30,9 @@ export function ShowsSection({ shows }: ShowsSectionProps) {
     return (
         <section className="flex flex-col gap-4">
             <FeedHeading
-                title={t("videos.home.showsTitle")}
                 actionHref={SHOWS_PATH}
+                title={t("videos.home.showsTitle")}
+                subtitle={t("videos.home.showsSubtitle")}
                 actionLabel={t("videos.home.showsViewAll")}
             />
 

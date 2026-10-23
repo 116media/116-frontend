@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+
 import { useTranslation } from "react-i18next";
 
 import type { ICommentedArticleEntity } from "@/modules/articles/domain/entities/ICommentedArticleEntity";
@@ -10,6 +10,7 @@ import { FavoriteCard } from "@/shared/presentation/components/common/FavoriteCa
 import { Button } from "@/shared/presentation/components/ui/Button";
 import { NewspaperIcon } from "@/shared/presentation/components/ui/Icon";
 import { ARTICLE_DETAIL_PATH } from "@/shared/presentation/constants/paths";
+import { useProgressRouter } from "@/shared/presentation/hooks/useProgressRouter";
 
 /**
  * Props for CommentedArticleCard.
@@ -33,7 +34,7 @@ export interface CommentedArticleCardProps {
  */
 export function CommentedArticleCard({ item, onViewComments }: CommentedArticleCardProps) {
     const { t } = useTranslation();
-    const router = useRouter();
+    const router = useProgressRouter();
     const { article } = item;
     const href = ARTICLE_DETAIL_PATH.replace(":slug", article.slug);
 

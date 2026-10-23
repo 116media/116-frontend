@@ -45,7 +45,7 @@ export class VideosRepositoryImpl implements IVideosRepositoryPort {
     async getVideoFeed(): Promise<Result<IVideoFeedEntity[]>> {
         try {
             const response = await this.api.publicGetVideoFeed();
-            return ok(VideosMapper.videoFeedListFromDto(response.data.sections));
+            return ok(VideosMapper.videoFeedListFromDto(response.data.items));
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }
@@ -103,7 +103,7 @@ export class VideosRepositoryImpl implements IVideosRepositoryPort {
             const response = await this.api.publicGetPopularTags({
                 contentType: EnumCoreContentType.Video
             });
-            return ok(VideosMapper.tagListFromDto(response.data.tags));
+            return ok(VideosMapper.tagWithCountListFromDto(response.data.tags));
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }
@@ -143,7 +143,7 @@ export class VideosRepositoryImpl implements IVideosRepositoryPort {
                 contentType: EnumCoreContentType.Video,
                 limit: ALL_VIDEO_TAGS_LIMIT
             });
-            return ok(VideosMapper.tagListFromDto(response.data.tags));
+            return ok(VideosMapper.tagWithCountListFromDto(response.data.tags));
         } catch (error) {
             return err(ProblemMapper.toFailure(error));
         }

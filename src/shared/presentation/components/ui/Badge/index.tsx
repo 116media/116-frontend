@@ -14,7 +14,8 @@ const badgeVariants = cva(
                     "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
                 destructive:
                     "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",
-                outline: "text-foreground"
+                outline: "text-foreground",
+                muted: "border-transparent bg-foreground/10 text-foreground"
             }
         },
         defaultVariants: {
@@ -31,22 +32,22 @@ const badgeVariants = cva(
  * @augments VariantProps<typeof badgeVariants>
  */
 export interface BadgeProps
-    extends HTMLAttributes<HTMLDivElement>,
+    extends HTMLAttributes<HTMLSpanElement>,
         VariantProps<typeof badgeVariants> {}
 
 /**
  * Badge
  *
  * @description
- * Compact inline label for status, category, or count indicators, with the four
- * standard shadcn variants. All colors use theme.css tokens. For a richer tag/pill
- * with link support and slots, use the Tag component instead.
+ * Compact inline label for status, category, or count indicators. Renders a span, so it is
+ * valid inside a button such as a tab trigger. All colors use theme.css tokens. For a richer
+ * tag/pill with link support and slots, use the Tag component instead.
  *
- * @param variant - Visual style: default | secondary | destructive | outline
+ * @param variant - Visual style: default | secondary | destructive | outline | muted
  */
 export function Badge({ className, variant, ...props }: BadgeProps) {
     return (
-        <div
+        <span
             className={cn(badgeVariants({ variant }), className)}
             {...props}
         />

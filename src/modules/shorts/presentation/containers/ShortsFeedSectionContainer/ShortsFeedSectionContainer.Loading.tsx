@@ -19,7 +19,7 @@ export function ShortsFeedSectionContainerLoading() {
             aria-hidden
         >
             <header>
-                <Skeleton className="h-5 w-24" />
+                <Skeleton className="h-7 w-32 sm:h-8 lg:h-9" />
             </header>
             <div className="-mx-3 flex gap-3 overflow-hidden px-3 pb-2 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 xl:mx-0 xl:px-0">
                 {Array.from({ length: SHIMMER_TILE_COUNT }, (_, index) => index).map((index) => (

@@ -1,8 +1,9 @@
 "use client";
 
-import { Fragment, type ReactNode, useRef, useState } from "react";
+import { Fragment, type ReactNode, useEffect, useRef, useState } from "react";
 import { Button } from "@/shared/presentation/components/ui/Button";
 import { ChevronLeftIcon, ChevronRightIcon } from "@/shared/presentation/components/ui/Icon";
+import { useMediaQuery } from "@/shared/presentation/hooks/useMediaQuery";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
@@ -16,6 +17,16 @@ const SLOT_TRANSITION =
  * Minimum horizontal pointer travel (px) that counts as a swipe, not a tap.
  */
 const SWIPE_THRESHOLD = 40;
+
+/**
+ * Default dwell per card when `autoplay` is on and no `duration` is given.
+ */
+const AUTOPLAY_DURATION_MS = 6000;
+
+/**
+ * Readers who ask for less motion get no self-advancing strip.
+ */
+const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 
 /**
  * Render state passed to `renderItem` so the consumer can style the focal
@@ -46,6 +57,9 @@ export interface Md3CarouselSlotState {
  * @property {string} [childClassName] - Width classes (e.g. a %) for a small edge card
  * @property {string} [heightClassName] - Tailwind height classes for the strip
  * @property {string} [ariaLabel] - Accessible label for the carousel region
+ * @property {boolean} [autoplay] - Advance on its own, pausing while the reader points at,
+ * drags or tabs into the strip, and never when the reader asks for reduced motion
+ * @property {number} [duration] - Milliseconds each card holds before the next advance
  */
 export interface Md3CarouselProps<T> {
     items: T[];
@@ -60,6 +74,8 @@ export interface Md3CarouselProps<T> {
     gapClassName?: string;
     heightClassName?: string;
     ariaLabel?: string;
+    autoplay?: boolean;
+    duration?: number;
 }
 
 /**
@@ -67,8 +83,9 @@ export interface Md3CarouselProps<T> {
  *
  * @description
  * Generic Material 3 multi-browse carousel: a fixed window of `heroCount` focal
- * cards plus `visibleChildren` small keyline cards, advanced by click, swipe, or
- * the corner arrows. Consumers supply card content via `renderItem`.
+ * cards plus `visibleChildren` small keyline cards, advanced by click, swipe, the corner
+ * arrows, or on its own when `autoplay` is set. Consumers supply card content via
+ * `renderItem`.
  */
 export function Md3Carousel<T>({
     items,
@@ -82,9 +99,13 @@ export function Md3Carousel<T>({
     childClassName = "w-[calc((100%_-_32px)_*_0.0625)]",
     gapClassName = "ml-2",
     heightClassName = "h-72 sm:h-80 lg:h-96",
-    ariaLabel
+    ariaLabel,
+    autoplay = false,
+    duration = AUTOPLAY_DURATION_MS
 }: Md3CarouselProps<T>) {
     const [current, setCurrent] = useState(0);
+    const [isPaused, setIsPaused] = useState(false);
+    const prefersReducedMotion = useMediaQuery(REDUCED_MOTION_QUERY);
 
     const windowSize = heroCount + visibleChildren;
     const maxCurrent = Math.max(0, items.length - windowSize);
@@ -110,14 +131,28 @@ export function Md3Carousel<T>({
     const goNext = () => setCurrent((index) => (index >= maxCurrent ? 0 : index + 1));
     const goPrev = () => setCurrent((index) => (index <= 0 ? maxCurrent : index - 1));
 
+    const isAutoplaying = autoplay && !prefersReducedMotion && !isPaused && maxCurrent > 0;
+
+    useEffect(() => {
+        if (!isAutoplaying) return;
+
+        const timer = setInterval(() => {
+            setCurrent((index) => (index >= maxCurrent ? 0 : index + 1));
+        }, duration);
+
+        return () => clearInterval(timer);
+    }, [isAutoplaying, duration, maxCurrent]);
+
     const onPointerDown = (event: React.PointerEvent) => {
         dragStartX.current = event.clientX;
         justSwiped.current = false;
+        setIsPaused(true);
     };
 
     const onPointerUp = (event: React.PointerEvent) => {
         const start = dragStartX.current;
         dragStartX.current = null;
+        setIsPaused(false);
         if (start === null) return;
 
         const delta = event.clientX - start;
@@ -135,8 +170,12 @@ export function Md3Carousel<T>({
                 aria-roledescription="carousel"
                 onPointerDown={onPointerDown}
                 onPointerUp={onPointerUp}
+                onPointerEnter={() => setIsPaused(true)}
+                onFocusCapture={() => setIsPaused(true)}
+                onBlurCapture={() => setIsPaused(false)}
                 onPointerLeave={() => {
                     dragStartX.current = null;
+                    setIsPaused(false);
                 }}
                 className={cn(
                     "relative flex w-full touch-pan-y select-none items-stretch overflow-hidden",

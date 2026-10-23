@@ -139,7 +139,6 @@ export function ArticleDetail({ article }: ArticleDetailProps) {
                 articleId={article.id}
                 isLiked={article.isLiked}
                 likeCount={article.likeCount}
-                onComment={scrollToComments}
                 revealAfterRef={engagementRef}
                 shareCount={article.shareCount}
                 commentCount={article.commentCount}

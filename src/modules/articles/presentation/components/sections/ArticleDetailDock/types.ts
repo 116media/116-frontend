@@ -12,10 +12,10 @@ import type { RefObject } from "react";
  * @property {number} bookmarkCount - Baseline bookmark count for the optimistic toggle.
  * @property {boolean} isBookmarked - Whether the viewer already bookmarked the article.
  * @property {number} shareCount - Share count shown on the share action.
- * @property {number} commentCount - Shown as the badge on the comment action.
+ * @property {number} commentCount - Shown as the badge on the comment action, and the
+ * total the comments sheet announces.
  * @property {RefObject<HTMLElement | null>} revealAfterRef - The element the reader must
  * scroll past before the dock appears.
- * @property {() => void} onComment - Scrolls to the comments and focuses the composer.
  */
 export interface ArticleDetailDockProps {
     articleId: string;
@@ -27,6 +27,5 @@ export interface ArticleDetailDockProps {
     isBookmarked: boolean;
     shareCount: number;
     commentCount: number;
-    onComment: () => void;
     revealAfterRef: RefObject<HTMLElement | null>;
 }

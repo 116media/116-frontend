@@ -43,7 +43,7 @@ export function AccountActionCard({
     danger = false
 }: AccountActionCardProps) {
     return (
-        <Card className="flex items-center gap-3 bg-transparent p-6 shadow-none hover:shadow-none">
+        <Card className="flex flex-col items-start gap-3 bg-transparent p-4 shadow-none hover:shadow-none sm:flex-row sm:items-center sm:p-6">
             <div
                 className={cn(
                     "flex size-10 shrink-0 items-center justify-center rounded-md [&_svg]:size-5",

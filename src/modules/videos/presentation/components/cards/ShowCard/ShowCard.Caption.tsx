@@ -32,15 +32,15 @@ const TITLE_CLASSES = {
  * RevealOnHover
  *
  * @description
- * Collapses its children to zero height and slides them open on group-hover
- * using the grid-rows `0fr` → `1fr` trick, so the "watch" call-to-action only
- * appears when the card is hovered.
+ * Collapses its children to zero height and slides them open on group-hover using the
+ * grid-rows `0fr` → `1fr` trick. A coarse pointer has no hover to open it with, so there
+ * the call-to-action starts open and stays open.
  *
- * @param children - The content revealed on hover
+ * @param children - The content revealed on hover, shown outright on touch
  */
 function RevealOnHover({ children }: { children: ReactNode }) {
     return (
-        <div className="grid grid-rows-[0fr] transition-all duration-300 group-hover:grid-rows-[1fr]">
+        <div className="grid grid-rows-[0fr] transition-all duration-300 group-hover:grid-rows-[1fr] pointer-coarse:grid-rows-[1fr]">
             <div className="overflow-hidden">
                 <div className="pt-3">{children}</div>
             </div>
@@ -52,9 +52,9 @@ function RevealOnHover({ children }: { children: ReactNode }) {
  * Caption
  *
  * @description
- * Bottom overlay of a show card: the show title, clamped description, and the
- * hover-revealed watch CTA over a gradient grounded in the show's
- * poster-derived colors.
+ * Bottom overlay of a show card: the show title, clamped description, and the watch CTA
+ * over a gradient grounded in the show's poster-derived colors. The CTA is revealed on
+ * hover where there is one and shown outright on touch.
  */
 export function Caption({ show, size = "md" }: ShowCardCaptionProps) {
     const { t } = useTranslation();

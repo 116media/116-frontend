@@ -9,5 +9,6 @@ export const home = {
     watchNow: "Regarder",
     categories: "Catégories",
     showsTitle: "Tout le monde regarde maintenant",
+    showsSubtitle: "Les émissions les plus suivies de la semaine",
     showsViewAll: "Voir toutes les émissions"
 } as const;

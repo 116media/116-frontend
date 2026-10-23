@@ -42,7 +42,10 @@ export const articles = {
         allCategories: "All categories",
         category: "Category",
         allTags: "All tags",
-        tagSearch: "Find a tag…",
+        tagsTrigger: "Tags",
+        tagSearch: "Search…",
+        tagsClose: "Close tags",
+        tagsEmpty: "No tag matches your search",
         clear: "Clear filters"
     }
 } as const;

@@ -1,12 +1,12 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { type FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { SearchIcon } from "@/shared/presentation/components/ui/Icon";
 import { ARTICLES_PATH } from "@/shared/presentation/constants/paths";
 import { MIN_SEARCH_LENGTH } from "@/shared/presentation/constants/search";
+import { useProgressRouter } from "@/shared/presentation/hooks/useProgressRouter";
 import { useFilterBarPin } from "@/shared/presentation/providers/FilterBarPinProvider";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
@@ -29,7 +29,7 @@ export interface HeaderSearchProps {
  * page's filter bar is pinned under the header, so no screen shows two search boxes.
  */
 export function HeaderSearch({ className }: HeaderSearchProps) {
-    const router = useRouter();
+    const router = useProgressRouter();
     const { isPinned, isHidden } = useFilterBarPin();
     const { t } = useTranslation();
     const [query, setQuery] = useState("");
