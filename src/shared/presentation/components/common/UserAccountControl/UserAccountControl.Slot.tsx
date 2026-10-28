@@ -24,7 +24,7 @@ export function UserAccountControlSlot({ className, children }: UserAccountContr
                 aria-hidden
                 tabIndex={-1}
                 variant="outline"
-                className="invisible size-10 p-0 font-medium text-sm [&_svg]:size-5 lg:size-auto lg:px-4 lg:py-2 lg:[&_svg]:size-4"
+                className="invisible size-10 p-0 font-medium text-sm [&_svg]:size-5 surface-pro-portrait:size-11.25 surface-pro-portrait:[&_svg]:size-5.5 lg:size-auto lg:px-4 lg:py-2 lg:[&_svg]:size-4"
             >
                 <span className="hidden lg:inline">{t("navigation.login")}</span>
             </Button>

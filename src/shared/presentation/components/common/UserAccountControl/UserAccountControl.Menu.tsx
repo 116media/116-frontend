@@ -44,7 +44,7 @@ export function UserAccountControlMenu({ user }: UserAccountControlMenuProps) {
                         type="button"
                         variant="ghost"
                         aria-label={`Compte de ${user.userName}`}
-                        className="size-10 rounded-full p-0 transition-opacity hover:opacity-90 lg:size-8"
+                        className="size-10 surface-pro-portrait:size-11.25 rounded-full p-0 transition-opacity hover:opacity-90 lg:size-8"
                     >
                         <UserAvatar
                             size={32}

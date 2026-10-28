@@ -44,10 +44,10 @@ export function ArticleCardFeed({ article }: ArticleCardFeedProps) {
                     categoryName={article.categoryName}
                     readTimeInMinutes={article.readTimeInMinutes}
                 />
-                <h3 className="mb-3 line-clamp-2 font-bold text-md transition-colors group-hover:text-primary dark:group-hover:text-secondary">
+                <h3 className="mb-3 line-clamp-2 font-bold text-md transition-colors md:text-lg xl:text-md group-hover:text-primary dark:group-hover:text-secondary">
                     <Link href={`/articles/${article.slug}`}>{article.title}</Link>
                 </h3>
-                <p className="mb-4 line-clamp-2 text-muted-foreground text-sm">
+                <p className="mb-4 line-clamp-2 text-muted-foreground text-sm md:text-base xl:text-sm">
                     {article.headline}
                 </p>
                 <div className="mt-auto">

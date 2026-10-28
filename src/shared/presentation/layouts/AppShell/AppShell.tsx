@@ -7,6 +7,7 @@ import { Header } from "@/shared/presentation/layouts/Header";
 import { PageContainer } from "@/shared/presentation/layouts/PageContainer";
 import { TopBar } from "@/shared/presentation/layouts/TopBar";
 import { FilterBarPinProvider } from "@/shared/presentation/providers/FilterBarPinProvider";
+import { AppShellHeaderHeight } from "./AppShell.HeaderHeight";
 
 /**
  * Props for AppShell.
@@ -48,6 +49,7 @@ export async function AppShell({ children }: AppShellProps) {
                     articles={articles}
                 />
             </div>
+            <AppShellHeaderHeight />
             <main className="min-h-screen py-4">
                 <PageContainer>{children}</PageContainer>
             </main>

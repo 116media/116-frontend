@@ -1,7 +1,7 @@
 "use client";
 
-import type { APITypes } from "plyr-react";
-import { useEffect, useRef, useState } from "react";
+import { usePlayer } from "@videojs/react/video";
+import { useEffect, useState } from "react";
 
 import { VideoPlayer } from "@/shared/presentation/components/common/VideoPlayer";
 
@@ -30,14 +30,75 @@ export interface ShortVideoPlayerProps {
 }
 
 /**
+ * Props for the transport that drives the player from the session state.
+ *
+ * @interface ShortVideoTransportProps
+ * @property {boolean} isActive - Whether this is the visible short.
+ * @property {boolean} isPlaying - Desired play state for the active short.
+ * @property {boolean} isMuted - Session mute state.
+ * @property {number} volume - Session playback volume (0 to 1).
+ * @property {(canPlay: boolean) => void} onCanPlayChange - Reports when the clip can play.
+ */
+interface ShortVideoTransportProps {
+    isActive: boolean;
+    isPlaying: boolean;
+    isMuted: boolean;
+    volume: number;
+    onCanPlayChange: (canPlay: boolean) => void;
+}
+
+/**
+ * ShortVideoTransport
+ *
+ * @description
+ * Drives playback from the session state. Video.js exposes the player only through
+ * `usePlayer()` inside the player's own subtree, so this renders nothing and exists
+ * purely to hold those effects.
+ */
+function ShortVideoTransport({
+    isActive,
+    isPlaying,
+    isMuted,
+    volume,
+    onCanPlayChange
+}: ShortVideoTransportProps) {
+    const player = usePlayer();
+    const canPlay = usePlayer((state) => state.canPlay);
+    // The Player provider attaches the media in its own effect, which React runs after
+    // this child's: a resolved source is the first state the store reports once attached.
+    const isAttached = usePlayer((state) => state.currentSrc !== "");
+
+    useEffect(() => {
+        if (!isAttached) return;
+        if (isActive && isPlaying) {
+            void player.play().catch(() => undefined);
+            return;
+        }
+        player.pause();
+        if (!isActive) void player.seek(0).catch(() => undefined);
+    }, [player, isAttached, isActive, isPlaying]);
+
+    useEffect(() => {
+        if (!isAttached) return;
+        player.setMuted(isMuted);
+        player.setVolume(volume);
+    }, [player, isAttached, isMuted, volume]);
+
+    useEffect(() => {
+        onCanPlayChange(canPlay);
+    }, [onCanPlayChange, canPlay]);
+
+    return null;
+}
+
+/**
  * ShortVideoPlayer
  *
  * @description
- * The shared `VideoPlayer` configured for shorts, matching the dashboard réel
- * preview: 9:16, the `reel` control set (large play, play toggle, seek, time), with
- * mute/volume driven from the session's custom overlay control. Drives play/pause on
- * the underlying Plyr instance as the slide becomes active; rewinds when it leaves
- * view. A skeleton covers the stage until the clip can play.
+ * The shared `VideoPlayer` configured for shorts, matching the dashboard réel preview:
+ * 9:16, the `reel` transport (centred play, play toggle, seek, time), with mute/volume
+ * driven from the session's custom overlay control. Plays and pauses as the slide becomes
+ * active; rewinds when it leaves view. A skeleton covers the stage until the clip can play.
  */
 export function ShortVideoPlayer({
     videoUrl,
@@ -48,64 +109,7 @@ export function ShortVideoPlayer({
     isMuted,
     volume
 }: ShortVideoPlayerProps) {
-    const playerRef = useRef<APITypes>(null);
-    const [isReady, setIsReady] = useState(false);
-
-    useEffect(() => {
-        const plyr = playerRef.current?.plyr;
-        if (!plyr || typeof plyr.play !== "function") return;
-        if (isActive && isPlaying) {
-            void Promise.resolve(plyr.play()).catch(() => undefined);
-        } else {
-            plyr.pause();
-            if (!isActive) plyr.currentTime = 0;
-        }
-    }, [isActive, isPlaying]);
-
-    useEffect(() => {
-        const plyr = playerRef.current?.plyr;
-        if (!plyr) return;
-        plyr.muted = isMuted;
-        plyr.volume = volume;
-    }, [isMuted, volume]);
-
-    useEffect(() => {
-        setIsReady(false);
-        let cancelled = false;
-        let detach: (() => void) | undefined;
-
-        const attach = () => {
-            if (cancelled) return;
-            const media = (
-                playerRef.current?.plyr as unknown as
-                    | { media?: HTMLMediaElement | null }
-                    | undefined
-            )?.media;
-            if (!media) {
-                window.setTimeout(attach, 120);
-                return;
-            }
-            if (media.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
-                setIsReady(true);
-                return;
-            }
-            const markReady = () => {
-                if (!cancelled) setIsReady(true);
-            };
-            media.addEventListener("canplay", markReady);
-            media.addEventListener("playing", markReady);
-            detach = () => {
-                media.removeEventListener("canplay", markReady);
-                media.removeEventListener("playing", markReady);
-            };
-        };
-
-        attach();
-        return () => {
-            cancelled = true;
-            detach?.();
-        };
-    }, []);
+    const [canPlay, setCanPlay] = useState(false);
 
     return (
         <div className="relative size-full">
@@ -115,13 +119,19 @@ export function ShortVideoPlayer({
                 title={title}
                 controls="reel"
                 muted={isMuted}
-                volume={volume}
                 videoUrl={videoUrl}
-                playerRef={playerRef}
                 autoPlay={isActive}
                 thumbnailUrl={thumbnailUrl}
-            />
-            {videoUrl && !isReady && <ShortVideoPlayerLoading />}
+            >
+                <ShortVideoTransport
+                    volume={volume}
+                    isMuted={isMuted}
+                    isActive={isActive}
+                    isPlaying={isPlaying}
+                    onCanPlayChange={setCanPlay}
+                />
+            </VideoPlayer.Root>
+            {videoUrl && !canPlay && <ShortVideoPlayerLoading />}
         </div>
     );
 }

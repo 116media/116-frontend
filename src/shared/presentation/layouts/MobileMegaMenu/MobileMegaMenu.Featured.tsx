@@ -4,8 +4,8 @@ import Link from "next/link";
 import { useTranslation } from "react-i18next";
 
 import { ChevronRightIcon, StarIcon } from "@/shared/presentation/components/ui/Icon";
+import { PAGE_GUTTER } from "@/shared/presentation/constants/layout";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
-
 import type { MobileMegaMenuFeaturedProps } from "./types";
 
 /**
@@ -30,8 +30,8 @@ export function MobileMegaMenuFeatured({
             className={cn(
                 "flex flex-col gap-3",
                 variant === "panel"
-                    ? "mx-4 rounded-lg bg-primary/5 p-4 dark:bg-secondary/10"
-                    : "p-3"
+                    ? "mx-4 surface-pro-portrait:mx-18 rounded-lg bg-primary/5 p-4 dark:bg-secondary/10"
+                    : cn("py-3", PAGE_GUTTER)
             )}
         >
             <div className="flex items-center justify-between gap-3">

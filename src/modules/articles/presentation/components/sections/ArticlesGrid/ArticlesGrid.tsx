@@ -6,7 +6,7 @@ import { cn } from "@/shared/presentation/utils/cn/cn.utils";
  * Large-breakpoint column count per layout variant (mobile is always 1, tablet 2).
  */
 const GRID_COLUMNS = {
-    feed: "sm:grid-cols-2 lg:grid-cols-4",
+    feed: "sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
     compact: "sm:grid-cols-2 lg:grid-cols-3"
 } as const;
 

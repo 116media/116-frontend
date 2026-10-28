@@ -36,7 +36,7 @@ export interface ShortsPlayerSlideProps {
  * @description
  * One full-viewport slide with a centered 9:16 stage: the full-controls player, the
  * action rail, and the caption. A double-click on the stage likes with a heart burst
- * (Plyr owns single-click play/pause). Reports itself active to the context when it
+ * (the player owns single-click play/pause). Reports itself active to the context when it
  * is the most-visible slide and drives the engagement-gated view event while playing.
  */
 export function ShortsPlayerSlide({ short, index }: ShortsPlayerSlideProps) {

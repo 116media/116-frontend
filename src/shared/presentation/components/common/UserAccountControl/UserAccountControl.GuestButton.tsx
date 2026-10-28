@@ -30,7 +30,7 @@ export function UserAccountControlGuestButton({ onAction }: UserAccountControlGu
             variant="outline"
             onClick={onOpenLogin}
             aria-label={t("navigation.login")}
-            className="size-10 p-0 font-medium text-sm [&_svg]:size-5 lg:size-auto lg:px-4 lg:py-2 lg:[&_svg]:size-4"
+            className="size-10 p-0 font-medium text-sm [&_svg]:size-5 surface-pro-portrait:size-11.25 surface-pro-portrait:[&_svg]:size-5.5 lg:size-auto lg:px-4 lg:py-2 lg:[&_svg]:size-4"
         >
             <UserRoundIcon className="lg:hidden" />
             <span className="hidden lg:inline">{t("navigation.login")}</span>

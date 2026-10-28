@@ -4,6 +4,8 @@ import { useTranslation } from "react-i18next";
 
 import { DialogCloseButton } from "@/shared/presentation/components/ui/Dialog";
 import { Logo } from "@/shared/presentation/components/ui/Logo";
+import { PAGE_GUTTER } from "@/shared/presentation/constants/layout";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
  * MobileMegaMenu.Header
@@ -16,7 +18,7 @@ export function MobileMegaMenuHeader() {
     const { t } = useTranslation();
 
     return (
-        <div className="flex items-center gap-3 p-3">
+        <div className={cn("flex items-center gap-3 py-3", PAGE_GUTTER)}>
             <Logo className="size-9" />
 
             <DialogCloseButton

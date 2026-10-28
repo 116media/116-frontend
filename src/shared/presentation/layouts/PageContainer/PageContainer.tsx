@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-
+import { PAGE_GUTTER } from "@/shared/presentation/constants/layout";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
@@ -19,16 +19,13 @@ export interface PageContainerProps {
  *
  * @description
  * Wraps page content with consistent responsive horizontal padding and a centered
- * max-width. Used in every layout and directly in pages for uniform spacing.
+ * max-width. Used in every layout and directly in pages for uniform spacing. The gutter
+ * holds at every width: the max-width equals the `xl` breakpoint, so dropping it there
+ * would leave the content flush to both edges on a viewport of exactly that size.
  */
 export function PageContainer({ children, className }: PageContainerProps) {
     return (
-        <div
-            className={cn(
-                "mx-auto w-full max-w-7xl px-3 sm:px-6 lg:px-8 xl:px-0 3xl:max-w-8xl",
-                className
-            )}
-        >
+        <div className={cn("mx-auto w-full max-w-7xl 3xl:max-w-8xl", PAGE_GUTTER, className)}>
             {children}
         </div>
     );

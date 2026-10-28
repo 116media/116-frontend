@@ -54,7 +54,7 @@ export function VideosPopularSidebar({ currentVideoId }: VideosPopularSidebarPro
             render={(videos) => (
                 <aside className="flex flex-col gap-4">
                     {header}
-                    <div className="flex flex-col gap-4 rounded-xl bg-muted/25 max-lg:contents lg:p-3 xl:p-5">
+                    <div className="grid gap-4 rounded-xl bg-muted/25 max-md:contents md:grid-cols-2 md:p-4 xl:grid-cols-1 xl:p-5">
                         {videos.map((video) => (
                             <VideoCard.Horizontal
                                 key={video.id}

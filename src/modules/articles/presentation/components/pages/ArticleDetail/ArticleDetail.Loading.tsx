@@ -33,10 +33,10 @@ export function ArticleDetailLoading() {
     const sidebarRows = Array.from({ length: 5 }, (_, index) => index);
 
     return (
-        <div className="lg:grid lg:grid-cols-[auto_minmax(0,2.5fr)_minmax(0,2fr)] lg:gap-6">
-            <aside className="hidden lg:block lg:w-9" />
+        <div className="md:grid md:grid-cols-[auto_minmax(0,1fr)] md:gap-6 xl:grid-cols-[auto_minmax(0,2.5fr)_minmax(0,2fr)]">
+            <aside className="hidden md:block md:w-9" />
 
-            <div className="mt-6 flex min-w-0 flex-col gap-4 lg:mt-0">
+            <div className="mt-6 flex w-full min-w-0 max-w-[68ch] flex-col gap-4 md:mt-0 xl:max-w-none">
                 <div className="flex items-center gap-2">
                     <Skeleton className="h-3 w-16" />
                     <Skeleton className="h-3 w-12" />
@@ -64,7 +64,7 @@ export function ArticleDetailLoading() {
                     </div>
                 </div>
 
-                <Skeleton className="aspect-video w-full rounded-xl md:aspect-auto md:h-[60vh]" />
+                <Skeleton className="aspect-video w-full rounded-xl md:aspect-3/2 xl:aspect-[13/10]" />
 
                 <div className="flex flex-col gap-2">
                     <Skeleton className="h-5 w-full" />
@@ -97,7 +97,7 @@ export function ArticleDetailLoading() {
                 </div>
             </div>
 
-            <aside className="mt-12 hidden lg:mt-0 lg:flex lg:flex-col lg:gap-3">
+            <aside className="mt-12 hidden md:col-start-2 xl:col-start-3 xl:mt-0 xl:flex xl:flex-col xl:gap-3">
                 <div className="mb-4 flex items-center gap-3 rounded-xl border bg-muted/60 p-4">
                     <Skeleton className="size-12 rounded-md" />
                     <Skeleton className="h-5 w-40" />

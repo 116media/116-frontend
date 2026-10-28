@@ -62,7 +62,7 @@ export function VideosMobileMenu({
                 viewAllHref={VIDEOS_PATH}
             >
                 <div className="flex flex-col gap-3">
-                    <div className="grid grid-cols-2 grid-rows-[200px] gap-3">
+                    <div className="grid grid-cols-2 grid-rows-[200px] gap-3 md:grid-rows-[264px]">
                         {featured[0] && (
                             <VideosMegaMenuCard.FeaturedFullBleed video={featured[0]} />
                         )}
@@ -71,7 +71,7 @@ export function VideosMobileMenu({
                         )}
                     </div>
                     {compact.length > 0 && (
-                        <div className="grid grid-cols-2 grid-rows-[150px] gap-3">
+                        <div className="grid grid-cols-2 grid-rows-[150px] gap-3 md:grid-rows-[196px]">
                             {compact.map((video) => (
                                 <VideosMegaMenuCard.Compact
                                     key={video.id}

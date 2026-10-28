@@ -137,7 +137,7 @@ export function TagPicker({
                             type="button"
                             onClick={() => select(tag.slug)}
                             className={cn(
-                                "flex w-full cursor-pointer items-center gap-2 rounded-md p-3 text-left", 
+                                "flex w-full cursor-pointer items-center gap-2 rounded-md p-3 text-left",
                                 "text-base transition-colors hover:bg-accent hover:text-accent-foreground sm:p-2 sm:text-sm",
                                 tag.slug === value && "bg-accent/50"
                             )}

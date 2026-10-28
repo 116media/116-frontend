@@ -48,7 +48,7 @@ export function VideoDetailLoading() {
     }, []);
 
     return (
-        <div className="lg:grid lg:grid-cols-[minmax(0,1.8fr)_minmax(0,1fr)] lg:gap-6">
+        <div className="xl:grid xl:grid-cols-[minmax(0,1.8fr)_minmax(0,1fr)] xl:gap-6">
             <div className="flex min-w-0 flex-col gap-2">
                 <Skeleton className="aspect-video w-full rounded-lg" />
 
@@ -98,7 +98,7 @@ export function VideoDetailLoading() {
                 </div>
             </div>
 
-            <aside className="mt-10 hidden lg:mt-0 lg:flex lg:flex-col lg:gap-4">
+            <aside className="mt-10 hidden xl:mt-0 xl:flex xl:flex-col xl:gap-4">
                 <SectionHeader
                     icon={<FlameIcon />}
                     title={t("videos.detail.sidebar.popular")}

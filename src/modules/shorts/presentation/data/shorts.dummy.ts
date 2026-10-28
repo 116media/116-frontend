@@ -3,7 +3,7 @@ import type { IShortVideoEntity } from "@/modules/shorts/domain/entities/IShortV
 /**
  * Playable sample clips from Cloudinary's public `demo` account, cropped to a 9:16
  * vertical frame on the fly (`c_fill`). Hotlink- and CORS-friendly with no API key,
- * so the dummy shorts actually play in the Plyr file source. A `<video>` source is
+ * so the dummy shorts actually play from a file source. A `<video>` source is
  * not subject to the `next/image` host allow-list.
  */
 const CLOUDINARY_VERTICAL =

@@ -11,7 +11,7 @@ export function UserAccountControlLoading() {
     return (
         <div className="flex w-full items-center justify-end gap-2">
             <Skeleton className="h-9 flex-1 rounded-md" />
-            <Skeleton className="size-10 shrink-0 rounded-full ring-2 ring-foreground/25 lg:size-8" />
+            <Skeleton className="size-10 surface-pro-portrait:size-11.25 shrink-0 rounded-full ring-2 ring-foreground/25 lg:size-8" />
         </div>
     );
 }

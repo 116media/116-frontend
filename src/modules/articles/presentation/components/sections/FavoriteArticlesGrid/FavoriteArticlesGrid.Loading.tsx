@@ -77,7 +77,7 @@ export function FavoriteArticlesGridLoading({ rows }: FavoriteArticlesGridLoadin
     const slots = Array.from({ length: count }, (_, index) => index);
 
     return (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 ipad-pro:grid-cols-2 2xl:grid-cols-4">
             {slots.map((slot) => (
                 <FavoriteArticleCardSkeleton key={slot} />
             ))}
