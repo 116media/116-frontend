@@ -43,6 +43,9 @@ import { registerNewsletterDependencies } from "@/modules/newsletter/infrastruct
 import type { INotificationsRepositoryPort } from "@/modules/notifications/application/repositories/notifications.repository.port";
 import type { GetUnreadNotificationCountUseCase } from "@/modules/notifications/application/usecases/getunreadnotificationcount.usecase";
 import { registerNotificationsDependencies } from "@/modules/notifications/infrastructure/dependencies/notifications.dependencies";
+import type { ISearchRepositoryPort } from "@/modules/search/application/repositories/search.repository.port";
+import type { SearchContentUseCase } from "@/modules/search/application/usecases/searchcontent.usecase";
+import { registerSearchDependencies } from "@/modules/search/infrastructure/dependencies/search.dependencies";
 import type { ISessionRepositoryPort } from "@/modules/session/application/repositories/session.repository.port";
 import type { GetSessionsUseCase } from "@/modules/session/application/usecases/getsessions.usecase";
 import type { RefreshTokenUseCase } from "@/modules/session/application/usecases/refreshtoken.usecase";
@@ -146,6 +149,12 @@ export interface Cradle {
     likeArticleCommentUseCase: LikeArticleCommentUseCase;
     unlikeArticleCommentUseCase: UnlikeArticleCommentUseCase;
 
+    // Search repository
+    searchRepository: ISearchRepositoryPort;
+
+    // Search use cases
+    searchContentUseCase: SearchContentUseCase;
+
     // Shorts repository
     shortsRepository: IShortsRepositoryPort;
 
@@ -246,6 +255,7 @@ registerArticlesDependencies(container);
 registerNewsletterDependencies(container);
 registerNotificationsDependencies(container);
 registerVideosDependencies(container);
+registerSearchDependencies(container);
 registerShortsDependencies(container);
 registerAuthDependencies(container);
 registerSessionDependencies(container);

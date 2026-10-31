@@ -32,7 +32,7 @@ export interface MegaMenuRowProps {
  */
 export function MegaMenuRow({ href, label, count, onNavigate }: MegaMenuRowProps) {
     return (
-        <div className="border-b border-outlined/50 first:border-b-0 py-1">
+        <div className="border-b border-outlined/50 py-1">
             <Link
                 href={href}
                 onClick={onNavigate}

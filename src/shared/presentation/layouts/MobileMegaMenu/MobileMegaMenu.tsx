@@ -17,6 +17,7 @@ import { MobileMegaMenuArtists } from "./MobileMegaMenu.Artists";
 import { MobileMegaMenuFooter } from "./MobileMegaMenu.Footer";
 import { MobileMegaMenuHeader } from "./MobileMegaMenu.Header";
 import { MobileMegaMenuLyrics } from "./MobileMegaMenu.Lyrics";
+import { MobileMegaMenuSearch } from "./MobileMegaMenu.Search";
 import type { MobileMegaMenuProps } from "./types";
 
 /**
@@ -105,6 +106,10 @@ export function MobileMegaMenu({ articles, videos }: MobileMegaMenuProps) {
                     </DialogPrimitive.Title>
 
                     <MobileMegaMenuHeader />
+
+                    <div className={cn("pb-3", PAGE_GUTTER)}>
+                        <MobileMegaMenuSearch onOpen={close} />
+                    </div>
 
                     <Tabs
                         defaultValue={MOBILE_MENU_TABS[0].value}

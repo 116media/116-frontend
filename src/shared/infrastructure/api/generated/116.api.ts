@@ -47,6 +47,13 @@ export enum EnumShareChannel {
   WebShare = "WebShare",
 }
 
+export enum EnumSearchScope {
+  All = "All",
+  Articles = "Articles",
+  Videos = "Videos",
+  Shorts = "Shorts",
+}
+
 export enum EnumReleaseType {
   Album = "Album",
   Mixtape = "Mixtape",
@@ -2809,6 +2816,13 @@ export interface PublicRoleWithPermissionsDto {
   permissions: PublicPermissionDto[];
 }
 
+export interface PublicSearchResponse {
+  query: string;
+  scope: EnumSearchScope;
+  counts: Record<string, number>;
+  results: SearchHitDtoPaginatedResult;
+}
+
 export interface PublicSessionDto {
   /** @format uuid */
   id: string;
@@ -3137,6 +3151,37 @@ export interface RoleWithPermissionsDto {
   /** @format date-time */
   deletedAt?: string | null;
   permissions: PermissionDto[];
+}
+
+export interface SearchHitDto {
+  type: EnumCoreContentType;
+  /** @format uuid */
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  imageUrl?: string | null;
+  categoryName?: string | null;
+  /** @format date-time */
+  publishedAt?: string | null;
+  /** @format double */
+  score: number;
+  /** @format double */
+  ratingAverage?: number | null;
+  /** @format uuid */
+  categoryId?: string | null;
+  /** @format uuid */
+  imageFileId?: string | null;
+}
+
+export interface SearchHitDtoPaginatedResult {
+  /** @format int32 */
+  pageIndex: number;
+  /** @format int32 */
+  pageSize: number;
+  /** @format int64 */
+  count: number;
+  items: SearchHitDto[];
 }
 
 export interface SessionDto {
@@ -17155,6 +17200,45 @@ export class Api<
       this.request<PublicGetActivePromotionLevelsResponse, ProblemDetails>({
         path: `/api/v1/public/promotion-levels`,
         method: "GET",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Searches the published articles and videos with PostgreSQL full-text search, ranked by relevance. Accent-insensitive and stemmed for French. Returns the hits for the requested scope plus the hit counts for every scope, so a client can label its scope tabs from one response. **Response Codes:** - Returns 200 OK with the ranked hits, or an empty list when nothing matches - Returns 400 Bad Request when the term is shorter than 2 characters - Returns 429 Too Many Requests if rate limit is exceeded
+     *
+     * @tags public::search
+     * @name PublicSearch
+     * @summary Search across the published content
+     * @request GET:/api/v1/public/search
+     * @secure
+     * @response `200` `PublicSearchResponse` OK
+     * @response `400` `ProblemDetails` Bad Request
+     * @response `429` `ProblemDetails` Too Many Requests
+     */
+    publicSearch: (
+      query: {
+        q: string;
+        /** @default 0 */
+        scope?: "All" | "Articles" | "Videos" | "Shorts";
+        /**
+         * @format int32
+         * @default 0
+         */
+        pageIndex?: number;
+        /**
+         * @format int32
+         * @default 20
+         */
+        pageSize?: number;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<PublicSearchResponse, ProblemDetails>({
+        path: `/api/v1/public/search`,
+        method: "GET",
+        query: query,
         secure: true,
         format: "json",
         ...params,

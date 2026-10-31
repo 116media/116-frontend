@@ -7,10 +7,10 @@ load without touching the database.
 
 - [x] `useDebouncedValue` hook in `shared/presentation/hooks/` — **already exists**
 - [x] Both feed containers debounce at 300ms — **already done**
-- [ ] 2-character floor before a request is issued
-- [ ] Settled term written to the URL with `replace`
-- [ ] Toolbar placeholders relabelled to "filter"
-- [ ] `HeaderSearch` hidden on `/articles` and `/videos`
+- [x] 2-character floor before a request is issued
+- [x] Settled term written to the URL with `replace`
+- [x] Toolbar placeholders relabelled to "filter"
+- [x] `HeaderSearch` hidden on `/articles` and `/videos`
 
 ---
 

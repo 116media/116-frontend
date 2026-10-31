@@ -3,6 +3,7 @@
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import Link from "next/link";
 import { Fragment, type MouseEvent, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { ArticlesMegaMenu } from "@/modules/articles/presentation/components/navigation/ArticlesMegaMenu";
 import type { ArticlesMegaMenuProps } from "@/modules/articles/presentation/components/navigation/ArticlesMegaMenu/types";
 import { VideosMegaMenu } from "@/modules/videos/presentation/components/navigation/VideosMegaMenu";
@@ -19,6 +20,7 @@ import {
     NavigationMenuViewport
 } from "@/shared/presentation/components/ui/NavigationMenu";
 import { NAV_LINKS } from "@/shared/presentation/layouts/Header/constants";
+import { useSearchOverlay } from "@/shared/presentation/providers/SearchOverlayProvider";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
@@ -42,6 +44,8 @@ export interface DesktopNavProps {
  * is prefetched server-side in PublicLayout and passed in as props.
  */
 export function DesktopNav({ articles, videos }: DesktopNavProps) {
+    const { t } = useTranslation();
+    const { open: openSearch } = useSearchOverlay();
     const [openMenu, setOpenMenu] = useState("");
 
     const closeOnLinkClick = (event: MouseEvent<HTMLDivElement>) => {
@@ -114,7 +118,8 @@ export function DesktopNav({ articles, videos }: DesktopNavProps) {
             <Button
                 size="icon"
                 variant="ghost"
-                aria-label="Rechercher"
+                onClick={openSearch}
+                aria-label={t("search.field.label")}
                 className="text-muted-foreground hover:text-foreground"
             >
                 <SearchIcon />

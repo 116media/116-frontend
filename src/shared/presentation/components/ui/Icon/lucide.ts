@@ -59,6 +59,7 @@ export {
     Pause as PauseIcon,
     Play as PlayIcon,
     Search as SearchIcon,
+    SearchX as SearchXIcon,
     Settings as SettingsIcon,
     Share2 as ShareIcon,
     Smartphone as SmartphoneIcon,

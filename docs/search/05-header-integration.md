@@ -2,11 +2,11 @@
 
 ## Checklist
 
-- [ ] `HeaderSearch` submits to `/search?q=`
-- [ ] `HeaderSearch` hidden on `/search`
-- [ ] Phase 0's `/articles` and `/videos` exclusions removed
-- [ ] Desktop magnifier in `DesktopNav` links to `/search`
-- [ ] Field clears on navigation
+- [x] `HeaderSearch` submits to `/search?q=`
+- [x] `HeaderSearch` hidden on `/search`
+- [x] Phase 0's `/articles` and `/videos` exclusions removed
+- [x] Desktop magnifier in `DesktopNav` links to `/search`
+- [x] Field clears on navigation
 
 ---
 

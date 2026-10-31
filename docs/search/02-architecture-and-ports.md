@@ -5,15 +5,15 @@ repository impl → port → use case → Awilix → TanStack hook → container
 
 ## Checklist
 
-- [ ] `ESearchScope` enum
-- [ ] `ISearchHitEntity`, `ISearchResultsEntity`
-- [ ] `SearchMapper` with list helpers
-- [ ] `ISearchRepositoryPort`
-- [ ] `SearchContentUseCase`
-- [ ] `SearchRepositoryImpl`
-- [ ] `registerSearchDependencies` and the `Cradle` entries
-- [ ] `searchKeys`
-- [ ] `useSearch`
+- [x] `ESearchScope` enum
+- [x] `ISearchHitEntity`, `ISearchResultsEntity`
+- [x] `SearchMapper` with list helpers
+- [x] `ISearchRepositoryPort`
+- [x] `SearchContentUseCase`
+- [x] `SearchRepositoryImpl`
+- [x] `registerSearchDependencies` and the `Cradle` entries
+- [x] `searchKeys`
+- [x] `useSearch`
 
 ---
 
@@ -27,7 +27,8 @@ repository impl → port → use case → Awilix → TanStack hook → container
 export enum ESearchScope {
     All = "all",
     Articles = "articles",
-    Videos = "videos"
+    Videos = "videos",
+    Shorts = "shorts"
 }
 ```
 
@@ -49,11 +50,10 @@ import type { EContentType } from "@/shared/domain/enums/EContentType";
  * @property {string} title - Entity title
  * @property {string} excerpt - Plain-text summary, pre-truncated by the API
  * @property {string | null} imageUrl - Cover or thumbnail, null when unset
- * @property {string} categoryName - Owning category's display name
+ * @property {string | null} categoryName - Owning category's display name, null for shorts
  * @property {string | null} publishedAt - ISO publication timestamp
  * @property {number} score - Relevance; higher ranks first. Not displayed
  * @property {number | null} ratingAverage - Cached average rating, videos only
- * @property {number | null} durationSeconds - Runtime, videos only
  */
 export interface ISearchHitEntity {
     type: EContentType;
@@ -62,11 +62,10 @@ export interface ISearchHitEntity {
     title: string;
     excerpt: string;
     imageUrl: string | null;
-    categoryName: string;
+    categoryName: string | null;
     publishedAt: string | null;
     score: number;
     ratingAverage: number | null;
-    durationSeconds: number | null;
 }
 ```
 
@@ -146,8 +145,7 @@ export const SearchMapper = {
             categoryName: dto.categoryName,
             publishedAt: dto.publishedAt ?? null,
             score: dto.score,
-            ratingAverage: dto.ratingAverage ?? null,
-            durationSeconds: dto.durationSeconds ?? null
+            ratingAverage: dto.ratingAverage ?? null
         };
     },
 
@@ -176,7 +174,8 @@ export const SearchMapper = {
             counts: {
                 [ESearchScope.All]: dto.counts.all,
                 [ESearchScope.Articles]: dto.counts.articles,
-                [ESearchScope.Videos]: dto.counts.videos
+                [ESearchScope.Videos]: dto.counts.videos,
+                [ESearchScope.Shorts]: dto.counts.shorts
             },
             items: SearchMapper.hitListFromDto(items),
             pageIndex,
@@ -429,3 +428,22 @@ export function useSearch(query: string, scope: ESearchScope) {
 `placeholderData: (previous) => previous` is what makes the results feel instant: the
 old list stays on screen, dimmed, while the new one resolves, instead of flashing a
 skeleton on every settled keystroke.
+
+---
+
+## Shorts
+
+A short hit arrives with `categoryName: null` and `excerpt: ""`, because shorts carry
+neither a category nor a description. The row component renders the category chip only
+when `categoryName` is set, and drops the excerpt line when `excerpt` is empty, rather
+than reserving empty space for them.
+
+Its `publishedAt` carries the upload date, so the relative-date line needs no special
+case.
+
+`EContentType.Short` is the discriminator, and a short's detail route is the shorts
+viewer, not a `/videos/[slug]` page, so the row's href is resolved per type rather than
+from one template.
+
+**Lyrics and artists are the remaining scopes.** Both are additive here: a new
+`ESearchScope` member, a new key in the counts mapper, and a tab.

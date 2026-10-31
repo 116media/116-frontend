@@ -7,6 +7,7 @@ import { Header } from "@/shared/presentation/layouts/Header";
 import { PageContainer } from "@/shared/presentation/layouts/PageContainer";
 import { TopBar } from "@/shared/presentation/layouts/TopBar";
 import { FilterBarPinProvider } from "@/shared/presentation/providers/FilterBarPinProvider";
+import { SearchOverlayProvider } from "@/shared/presentation/providers/SearchOverlayProvider";
 import { AppShellHeaderHeight } from "./AppShell.HeaderHeight";
 
 /**
@@ -39,21 +40,23 @@ export async function AppShell({ children }: AppShellProps) {
 
     return (
         <FilterBarPinProvider>
-            <div
-                data-site-header
-                className="sticky top-0 z-40"
-            >
-                <TopBar />
-                <Header
-                    videos={videos}
-                    articles={articles}
-                />
-            </div>
-            <AppShellHeaderHeight />
-            <main className="min-h-screen py-4">
-                <PageContainer>{children}</PageContainer>
-            </main>
-            <Footer />
+            <SearchOverlayProvider>
+                <div
+                    data-site-header
+                    className="sticky top-0 z-40"
+                >
+                    <TopBar />
+                    <Header
+                        videos={videos}
+                        articles={articles}
+                    />
+                </div>
+                <AppShellHeaderHeight />
+                <main className="min-h-screen py-4">
+                    <PageContainer>{children}</PageContainer>
+                </main>
+                <Footer />
+            </SearchOverlayProvider>
         </FilterBarPinProvider>
     );
 }

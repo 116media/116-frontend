@@ -2,13 +2,13 @@
 
 ## Checklist
 
-- [ ] `SearchPage` assembler with its state files
-- [ ] `SearchField`
-- [ ] `SearchScopeTabs`
-- [ ] `SearchHitCard`
-- [ ] `SearchResults`
-- [ ] `SearchRecent`
-- [ ] `SearchPage.Loading`, `.Empty`, `.Error`
+- [x] Assembler with its state files — built as `SearchContainer`
+- [x] Field — built as `SearchContainer.Field` and `SearchOverlay.Field`
+- [x] `SearchScopeTabs`
+- [x] Hit row — built as `SearchResultRow`
+- [x] Result list — built as `SearchResultList`
+- [x] Recent terms — built into `SearchOverlay.Idle`
+- [x] `SearchResultList.Loading` and `.Empty`; the error state is inline in the container
 
 ---
 
@@ -117,7 +117,8 @@ import type { SearchScopeTabsProps } from "./types";
 const SCOPES = [
     { value: ESearchScope.All, label: "search.scope.all" },
     { value: ESearchScope.Articles, label: "search.scope.articles" },
-    { value: ESearchScope.Videos, label: "search.scope.videos" }
+    { value: ESearchScope.Videos, label: "search.scope.videos" },
+    { value: ESearchScope.Shorts, label: "search.scope.shorts" }
 ] as const;
 
 /**
@@ -178,7 +179,6 @@ import { ClockIcon, StarIcon } from "@/shared/presentation/components/ui/Icon";
 import { RelativeDate } from "@/shared/presentation/components/ui/RelativeDate";
 import { Tag } from "@/shared/presentation/components/ui/Tag";
 import { ARTICLES_PATH, VIDEOS_PATH } from "@/shared/presentation/constants/paths";
-import { formatDuration } from "@/shared/presentation/utils/format/format.utils";
 
 import type { SearchHitCardProps } from "./types";
 
@@ -224,24 +224,22 @@ export function SearchHitCard({ hit }: SearchHitCardProps) {
                     >
                         {typeLabel}
                     </Tag>
-                    <span className="truncate text-muted-foreground text-xs">
-                        {hit.categoryName}
-                    </span>
+                    {hit.categoryName && (
+                        <span className="truncate text-muted-foreground text-xs">
+                            {hit.categoryName}
+                        </span>
+                    )}
                 </span>
 
                 <span className="line-clamp-2 font-bold text-foreground text-sm">{hit.title}</span>
 
-                <span className="line-clamp-2 text-muted-foreground text-xs">{hit.excerpt}</span>
+                {hit.excerpt && (
+                    <span className="line-clamp-2 text-muted-foreground text-xs">{hit.excerpt}</span>
+                )}
 
                 <span className="flex items-center gap-3 text-muted-foreground text-xs">
                     <RelativeDate date={hit.publishedAt} />
 
-                    {isVideo && hit.durationSeconds !== null && (
-                        <span className="flex items-center gap-1">
-                            <ClockIcon className="size-3" />
-                            {formatDuration(hit.durationSeconds)}
-                        </span>
-                    )}
 
                     {isVideo && hit.ratingAverage !== null && hit.ratingAverage > 0 && (
                         <span className="flex items-center gap-1">
@@ -347,3 +345,41 @@ repeated six times. Mirrors `SearchHitCard` so nothing shifts when results land.
 
 Uses the shared `Alert` with a retry `Button`. The query stays in the field and in the
 URL, so retry re-runs the same search.
+
+---
+
+## Shorts rows
+
+A short has no category and no description, so `categoryName` is `null` and `excerpt` is
+`""`. Both are guarded above rather than rendered empty: an always-present wrapper would
+hold its line-height and leave a gap where the text would be, so a shorts-only page would
+read as a column of broken rows.
+
+Its thumbnail is portrait where article and video covers are landscape. The row's fixed
+`128px` media box crops it with `object-cover`, which is the intended behaviour here: the
+row is a dense list item, not a shorts card.
+
+Opening a short goes to the shorts viewer, not a `/videos/[slug]` page, so the row's
+href comes from a per-type resolver.
+
+**The scope tabs are built from `SCOPES`, so lyrics and artists each cost one entry plus
+an i18n key when their scopes land.**
+
+---
+
+## Built names
+
+The components exist under the module's own naming rather than the names sketched here,
+and the overlay took on work this file gave to the page:
+
+| This spec | Built as |
+| --- | --- |
+| `SearchPage` | `SearchContainer` |
+| `SearchField` | `SearchContainer.Field`, `SearchOverlay.Field` |
+| `SearchHitCard` | `SearchResultRow` |
+| `SearchResults` | `SearchResultList` |
+| `SearchRecent` | folded into `SearchOverlay.Idle` |
+| — | `SearchOverlay`, `SearchOverlay.Idle`, `SearchScopeTabs` |
+
+The error state is a paragraph in `SearchContainer` rather than its own file: it carries
+one line and no layout, so a file for it would be indirection without content.
