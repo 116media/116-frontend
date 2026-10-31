@@ -139,7 +139,16 @@ const POOL: ISearchHitEntity[] = Array.from({ length: POOL_SIZE }, (_, index) =>
         categoryName: isShort ? null : CATEGORIES[index % CATEGORIES.length],
         publishedAt: new Date(DUMMY_BASE_MS - index * DAY_MS).toISOString(),
         ratingAverage,
-        hasRating: ratingAverage !== null
+        hasRating: ratingAverage !== null,
+        // Only the figures the type actually keeps, so a dummy row exercises the same
+        // null handling a live hit does.
+        likeCount: type === EContentType.Video ? null : 40 + ((index * 7) % 900),
+        commentCount: type === EContentType.Article ? 3 + ((index * 3) % 120) : null,
+        shareCount: 5 + ((index * 5) % 300),
+        viewCount: isShort ? 1_200 + ((index * 37) % 48_000) : null,
+        bookmarkCount: type === EContentType.Video ? null : 2 + ((index * 11) % 140),
+        ratingCount: type === EContentType.Video ? 8 + ((index * 13) % 400) : null,
+        hasEngagement: true
     };
 });
 

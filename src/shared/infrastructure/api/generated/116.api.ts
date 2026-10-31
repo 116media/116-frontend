@@ -3166,12 +3166,28 @@ export interface SearchHitDto {
   publishedAt?: string | null;
   /** @format double */
   score: number;
-  /** @format double */
-  ratingAverage?: number | null;
   /** @format uuid */
   categoryId?: string | null;
   /** @format uuid */
   imageFileId?: string | null;
+  engagement: SearchHitEngagementDto;
+}
+
+export interface SearchHitEngagementDto {
+  /** @format int32 */
+  likeCount?: number | null;
+  /** @format int32 */
+  commentCount?: number | null;
+  /** @format int32 */
+  shareCount?: number | null;
+  /** @format int32 */
+  viewCount?: number | null;
+  /** @format int32 */
+  bookmarkCount?: number | null;
+  /** @format double */
+  ratingAverage?: number | null;
+  /** @format int32 */
+  ratingCount?: number | null;
 }
 
 export interface SearchHitDtoPaginatedResult {
