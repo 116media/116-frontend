@@ -1,5 +1,6 @@
 import { articlesMessages } from "@/modules/articles/presentation/i18n";
 import { authMessages } from "@/modules/auth/presentation/i18n";
+import { comingSoonMessages } from "@/modules/coming-soon/presentation/i18n";
 import { searchMessages } from "@/modules/search/presentation/i18n";
 import { settingsMessages } from "@/modules/settings/presentation/i18n";
 import { shortsMessages } from "@/modules/shorts/presentation/i18n";
@@ -22,7 +23,8 @@ export const en = {
     shorts: shortsMessages.en,
     auth: authMessages.en,
     settings: settingsMessages.en,
-    search: searchMessages.en
+    search: searchMessages.en,
+    comingSoon: comingSoonMessages.en
 } as const;
 
 /**
@@ -39,7 +41,8 @@ export const fr = {
     shorts: shortsMessages.fr,
     auth: authMessages.fr,
     settings: settingsMessages.fr,
-    search: searchMessages.fr
+    search: searchMessages.fr,
+    comingSoon: comingSoonMessages.fr
 } as const;
 
 /**

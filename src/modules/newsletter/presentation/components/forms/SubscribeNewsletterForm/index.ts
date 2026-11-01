@@ -1,1 +1,4 @@
-export { SubscribeNewsletterForm } from "./SubscribeNewsletterForm";
+export {
+    SubscribeNewsletterForm,
+    type SubscribeNewsletterFormProps
+} from "./SubscribeNewsletterForm";

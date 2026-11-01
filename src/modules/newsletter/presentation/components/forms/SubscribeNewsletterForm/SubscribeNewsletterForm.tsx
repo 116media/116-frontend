@@ -12,13 +12,25 @@ import { Button } from "@/shared/presentation/components/ui/Button";
 import { FloatingField } from "@/shared/presentation/components/ui/FloatingField";
 
 /**
+ * Props for the SubscribeNewsletterForm component.
+ *
+ * @interface SubscribeNewsletterFormProps
+ * @property {string} [submitLabel] - What the action is called. A surface that collects
+ * the address for a launch announcement rather than for the newsletter itself names it
+ * after what the reader is asking for.
+ */
+export interface SubscribeNewsletterFormProps {
+    submitLabel?: string;
+}
+
+/**
  * SubscribeNewsletterForm
  *
  * @description
  * Collects an email and requests a newsletter subscription. The API answers with a
  * confirmation mail, so the success toast tells the reader to check their inbox.
  */
-export function SubscribeNewsletterForm() {
+export function SubscribeNewsletterForm({ submitLabel }: SubscribeNewsletterFormProps = {}) {
     const { t } = useTranslation();
     const { mutate, error, isPending } = useSubscribeNewsletter();
 
@@ -53,7 +65,7 @@ export function SubscribeNewsletterForm() {
                 loading={isPending}
                 className="h-12 self-center px-8 font-bold text-base"
             >
-                {t("newsletter.card.submit")}
+                {submitLabel ?? t("newsletter.card.submit")}
             </Button>
         </form>
     );

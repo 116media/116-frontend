@@ -14,6 +14,7 @@ const tagVariants = cva(
                     "border-outlined bg-transparent text-foreground hover:bg-surface-raised hover:text-primary dark:border-foreground/10 dark:hover:text-secondary",
                 primary:
                     "border-transparent bg-primary text-primary-foreground hover:bg-primary/80",
+                brand: "border-transparent bg-primary text-primary-foreground hover:bg-primary/90 dark:bg-secondary dark:text-secondary-foreground dark:hover:bg-secondary/90",
                 secondary:
                     "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
                 ghost: "border-transparent bg-transparent text-muted-foreground hover:bg-surface-raised hover:text-foreground"
