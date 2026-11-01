@@ -39,7 +39,7 @@ export interface SearchOverlayProps {
 
 /**
  * Zeroed counts, so the group headings render before the first response lands. The tabs
- * take the live tallies instead and carry no badge until there are real ones.
+ * take the live counts instead and carry no badge until there are real ones.
  */
 const EMPTY_COUNTS: Record<ESearchScope, number> = {
     [ESearchScope.All]: 0,
@@ -106,8 +106,8 @@ export function SearchOverlay({ isOpen, onOpenChange }: SearchOverlayProps) {
     };
 
     const hits = data?.items.slice(0, SEARCH_OVERLAY_RESULTS) ?? [];
-    const tallies = data?.counts;
-    const counts = tallies ?? EMPTY_COUNTS;
+    const scopeCounts = data?.counts;
+    const counts = scopeCounts ?? EMPTY_COUNTS;
     const total = counts[scope] ?? 0;
 
     const scopeTabs = useMemo<ICategoryTab[]>(
@@ -115,11 +115,11 @@ export function SearchOverlay({ isOpen, onOpenChange }: SearchOverlayProps) {
             SEARCH_SCOPES.filter((candidate) => candidate !== ESearchScope.All).map(
                 (candidate) => ({
                     id: candidate,
-                    count: tallies?.[candidate],
+                    count: scopeCounts?.[candidate],
                     name: t(`search.scope.${candidate}`)
                 })
             ),
-        [tallies, t]
+        [scopeCounts, t]
     );
 
     return (

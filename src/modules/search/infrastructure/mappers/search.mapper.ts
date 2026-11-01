@@ -47,7 +47,19 @@ export const SearchMapper = {
      * @returns {ISearchHitEntity} The mapped hit.
      */
     hitFromDto(dto: SearchHitDto): ISearchHitEntity {
-        const ratingAverage = dto.ratingAverage ?? null;
+        // A figure the hit's type does not keep comes back null, which is not the same as
+        // a type that keeps it and stands at zero, so the nulls are preserved rather than
+        // flattened here. The card adapters decide what a missing figure renders as.
+        const engagement = dto.engagement ?? {};
+        const ratingAverage = engagement.ratingAverage ?? null;
+        const figures = [
+            engagement.likeCount,
+            engagement.commentCount,
+            engagement.shareCount,
+            engagement.viewCount,
+            engagement.bookmarkCount,
+            engagement.ratingCount
+        ];
 
         return {
             type: CONTENT_TYPES[dto.type] ?? EContentType.Article,
@@ -61,7 +73,14 @@ export const SearchMapper = {
             publishedAt: dto.publishedAt ?? null,
             score: dto.score,
             ratingAverage,
-            hasRating: ratingAverage !== null && ratingAverage > 0
+            hasRating: ratingAverage !== null && ratingAverage > 0,
+            likeCount: engagement.likeCount ?? null,
+            commentCount: engagement.commentCount ?? null,
+            shareCount: engagement.shareCount ?? null,
+            viewCount: engagement.viewCount ?? null,
+            bookmarkCount: engagement.bookmarkCount ?? null,
+            ratingCount: engagement.ratingCount ?? null,
+            hasEngagement: figures.some((figure) => figure !== null && figure !== undefined)
         };
     },
 

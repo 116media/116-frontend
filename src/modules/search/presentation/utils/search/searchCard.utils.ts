@@ -7,9 +7,9 @@ import type { IVideoSummaryEntity } from "@/modules/videos/domain/entities/IVide
  * Adapts a search hit to the shape each feed card already takes, so search reuses the
  * cards the rest of the site renders rather than growing a parallel set.
  *
- * A hit carries only what search indexes, so the engagement tallies a card shows come
- * back as zero: the API does not return them for a result, and inventing them would put
- * numbers on screen that are not true.
+ * A hit carries the engagement figures its own type keeps, read from the source row at
+ * search time. A figure a type does not keep comes back null and renders as zero, which is
+ * what the card would show for it anyway.
  */
 
 /**
@@ -29,9 +29,9 @@ export function toArticleSummary(hit: ISearchHitEntity): IArticleSummaryEntity {
         coverImageUrl: hit.imageUrl,
         publishedAt: hit.publishedAt,
         isPromoted: false,
-        likeCount: 0,
-        commentCount: 0,
-        shareCount: 0
+        likeCount: hit.likeCount ?? 0,
+        commentCount: hit.commentCount ?? 0,
+        shareCount: hit.shareCount ?? 0
     };
 }
 
@@ -52,9 +52,9 @@ export function toVideoSummary(hit: ISearchHitEntity): IVideoSummaryEntity {
         youtubeVideoUrl: null,
         publishedAt: hit.publishedAt,
         isPromoted: false,
-        shareCount: 0,
+        shareCount: hit.shareCount ?? 0,
         ratingAverage: hit.ratingAverage ?? 0,
-        ratingCount: 0
+        ratingCount: hit.ratingCount ?? 0
     };
 }
 
@@ -73,10 +73,10 @@ export function toShortVideo(hit: ISearchHitEntity): IShortVideoEntity {
         thumbnailUrl: hit.imageUrl,
         hasFullVideo: false,
         videoSlug: null,
-        viewCount: 0,
-        likeCount: 0,
-        shareCount: 0,
-        bookmarkCount: 0,
+        viewCount: hit.viewCount ?? 0,
+        likeCount: hit.likeCount ?? 0,
+        shareCount: hit.shareCount ?? 0,
+        bookmarkCount: hit.bookmarkCount ?? 0,
         isLiked: false,
         isBookmarked: false
     };

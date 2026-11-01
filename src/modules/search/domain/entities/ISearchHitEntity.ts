@@ -20,6 +20,13 @@ import type { EContentType } from "@/modules/search/domain/enums/EContentType";
  * @property {number} score - Relevance; higher ranks first. Not displayed
  * @property {number | null} ratingAverage - Cached average rating, videos only
  * @property {boolean} hasRating - Whether a rating is worth rendering
+ * @property {number | null} likeCount - Likes, articles and shorts
+ * @property {number | null} commentCount - Comments, articles only
+ * @property {number | null} shareCount - Shares, every type
+ * @property {number | null} viewCount - Views, shorts only
+ * @property {number | null} bookmarkCount - Bookmarks, articles and shorts
+ * @property {number | null} ratingCount - Ratings cast, videos only
+ * @property {boolean} hasEngagement - Whether any engagement figure came back
  */
 export interface ISearchHitEntity {
     type: EContentType;
@@ -34,4 +41,11 @@ export interface ISearchHitEntity {
     score: number;
     ratingAverage: number | null;
     hasRating: boolean;
+    likeCount: number | null;
+    commentCount: number | null;
+    shareCount: number | null;
+    viewCount: number | null;
+    bookmarkCount: number | null;
+    ratingCount: number | null;
+    hasEngagement: boolean;
 }

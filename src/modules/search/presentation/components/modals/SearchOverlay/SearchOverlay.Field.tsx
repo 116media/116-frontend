@@ -1,6 +1,6 @@
 "use client";
 
-import { type ChangeEvent, type FormEvent, type KeyboardEvent, useEffect, useRef } from "react";
+import { type ChangeEvent, type KeyboardEvent, type SubmitEvent, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import {
     MAX_SEARCH_TERM_LENGTH,
@@ -42,7 +42,7 @@ export function SearchOverlayField({ value, onValueChange, onSubmit }: SearchOve
         return () => window.cancelAnimationFrame(frame);
     }, []);
 
-    const submit = (event: FormEvent<HTMLFormElement>) => {
+    const submit = (event: SubmitEvent<HTMLFormElement>) => {
         event.preventDefault();
         onSubmit();
     };

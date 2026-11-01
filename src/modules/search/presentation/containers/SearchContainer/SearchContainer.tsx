@@ -88,8 +88,8 @@ export function SearchContainer() {
         [query, router]
     );
 
-    const tallies = data?.counts;
-    const counts = tallies ?? EMPTY_COUNTS;
+    const scopeCounts = data?.counts;
+    const counts = scopeCounts ?? EMPTY_COUNTS;
 
     // The scope rail is the browse feeds' category rail, so search reads as the same
     // control: "all" is its leading tab, the rest carry their counts.
@@ -98,11 +98,11 @@ export function SearchContainer() {
             SEARCH_SCOPES.filter((candidate) => candidate !== ESearchScope.All).map(
                 (candidate) => ({
                     id: candidate,
-                    count: tallies?.[candidate],
+                    count: scopeCounts?.[candidate],
                     name: t(`search.scope.${candidate}`)
                 })
             ),
-        [tallies, t]
+        [scopeCounts, t]
     );
     const hits = useMemo(() => data?.items ?? [], [data]);
 
