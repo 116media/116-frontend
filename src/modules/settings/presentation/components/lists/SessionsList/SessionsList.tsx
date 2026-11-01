@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useSessions } from "@/modules/session/presentation/hooks/useSessions";
 import { SessionCard } from "@/modules/settings/presentation/components/cards/SessionCard";
 import { SettingsCard } from "@/modules/settings/presentation/components/cards/SettingsCard";
+import { ErrorState } from "@/shared/presentation/components/ui/ErrorState";
 import { StateRenderer } from "@/shared/presentation/components/ui/StateRenderer";
 import { Tag } from "@/shared/presentation/components/ui/Tag";
 
@@ -15,12 +16,13 @@ import { SessionsListLoading } from "./SessionsList.Loading";
  *
  * @description
  * The Security tab's active-sessions block: a `SettingsCard` with a session-count tag,
- * listing one {@link SessionCard} per session. Shows a skeleton while loading and an
- * empty line when there are no sessions.
+ * listing one {@link SessionCard} per session. A failed load is reported rather than
+ * folded into the empty line, so "no active sessions" is never shown for a request that
+ * did not answer.
  */
 export function SessionsList() {
     const { t } = useTranslation();
-    const { data: sessions, isLoading } = useSessions();
+    const { data: sessions, isLoading, isError, refetch } = useSessions();
     const count = sessions?.length ?? 0;
 
     return (
@@ -35,8 +37,18 @@ export function SessionsList() {
         >
             <StateRenderer
                 data={sessions}
+                error={isError}
                 loading={isLoading}
                 skeleton={<SessionsListLoading />}
+                errorState={
+                    <ErrorState
+                        onRetry={refetch}
+                        className="min-h-0 py-8"
+                        context="security-sessions-error"
+                        title={t("settings.security.sessions.error")}
+                        retryLabel={t("settings.security.sessions.retry")}
+                    />
+                }
                 empty={
                     <p className="text-muted-foreground text-sm">
                         {t("settings.security.sessions.empty")}

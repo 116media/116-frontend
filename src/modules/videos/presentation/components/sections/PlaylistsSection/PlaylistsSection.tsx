@@ -11,6 +11,7 @@ import { useMyPlaylists } from "@/modules/videos/presentation/hooks/useMyPlaylis
 import { useRenamePlaylist } from "@/modules/videos/presentation/hooks/useRenamePlaylist";
 import { ConfirmDialog } from "@/shared/presentation/components/ui/ConfirmDialog";
 import { EmptyState } from "@/shared/presentation/components/ui/EmptyState";
+import { ErrorState } from "@/shared/presentation/components/ui/ErrorState";
 import { ListVideoIcon } from "@/shared/presentation/components/ui/Icon";
 import { StateRenderer } from "@/shared/presentation/components/ui/StateRenderer";
 
@@ -30,7 +31,7 @@ const PLAYLIST_SKELETON_SLOTS = [0, 1, 2, 3, 4, 5];
 export function PlaylistsSection() {
     const { t } = useTranslation();
 
-    const { data, isLoading } = useMyPlaylists(true);
+    const { data, isLoading, isError, refetch } = useMyPlaylists(true);
     const renamePlaylist = useRenamePlaylist();
     const deletePlaylist = useDeletePlaylist();
 
@@ -51,6 +52,7 @@ export function PlaylistsSection() {
         <Fragment>
             <StateRenderer
                 data={data ?? []}
+                error={isError}
                 loading={isLoading}
                 skeleton={
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 ipad-pro:grid-cols-2 2xl:grid-cols-4">
@@ -58,6 +60,14 @@ export function PlaylistsSection() {
                             <PlaylistCard.Loading key={slot} />
                         ))}
                     </div>
+                }
+                errorState={
+                    <ErrorState
+                        onRetry={refetch}
+                        context="favorites-playlists-error"
+                        title={t("favorites.states.error")}
+                        retryLabel={t("favorites.states.retry")}
+                    />
                 }
                 empty={
                     <EmptyState

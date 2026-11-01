@@ -23,6 +23,8 @@ export const security = {
         revokeDescription:
             "Êtes-vous sûr de vouloir révoquer cette session ? L'appareil sera déconnecté immédiatement.",
         empty: "Aucune session active.",
+        error: "Impossible de charger vos sessions.",
+        retry: "Réessayer",
         unknownIp: "—"
     }
 } as const;

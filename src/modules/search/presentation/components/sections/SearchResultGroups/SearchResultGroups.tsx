@@ -3,21 +3,12 @@
 import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 
-import { ArticleCard } from "@/modules/articles/presentation/components/cards/ArticleCard";
 import type { ISearchHitEntity } from "@/modules/search/domain/entities/ISearchHitEntity";
-import { EContentType } from "@/modules/search/domain/enums/EContentType";
-import { ESearchScope } from "@/modules/search/domain/enums/ESearchScope";
+import type { ESearchScope } from "@/modules/search/domain/enums/ESearchScope";
+import { SEARCH_GROUPS } from "@/modules/search/presentation/constants/searchGroups";
 import { SEARCH_GRIDS } from "@/modules/search/presentation/constants/searchLayout";
-import {
-    toArticleSummary,
-    toShortVideo,
-    toVideoSummary
-} from "@/modules/search/presentation/utils/search/searchCard.utils";
-import { ShortCard } from "@/modules/shorts/presentation/components/cards/ShortCard";
-import { VideoCard } from "@/modules/videos/presentation/components/cards/VideoCard";
-import { FilmIcon, NewspaperIcon, PlayIcon } from "@/shared/presentation/components/ui/Icon";
+import { searchHitHref } from "@/modules/search/presentation/utils/search/search.utils";
 import { SectionHeader } from "@/shared/presentation/components/ui/SectionHeader";
-import { SHORTS_PATH } from "@/shared/presentation/constants/paths";
 import { useProgressRouter } from "@/shared/presentation/hooks/useProgressRouter";
 
 /**
@@ -79,16 +70,12 @@ function SearchResultSection({ icon, title, subtitle, grid, children }: SearchRe
  * @description
  * The results, grouped by content type and rendered with each type's own feed card, so a
  * result looks exactly like the same item does on its listing. Ranking is preserved
- * inside a group; across groups the order is fixed, because mixing three card shapes in
- * one grid leaves ragged rows at every width.
+ * inside a group; across groups the order is the registry's, because mixing three card
+ * shapes in one grid leaves ragged rows at every width.
  */
 export function SearchResultGroups({ hits, counts, onNavigate }: SearchResultGroupsProps) {
     const { t } = useTranslation();
     const router = useProgressRouter();
-
-    const articles = hits.filter((hit) => hit.type === EContentType.Article);
-    const videos = hits.filter((hit) => hit.type === EContentType.Video);
-    const shorts = hits.filter((hit) => hit.type === EContentType.Short);
 
     /**
      * How many of a type to report: its true total where the caller knows it, otherwise
@@ -100,67 +87,32 @@ export function SearchResultGroups({ hits, counts, onNavigate }: SearchResultGro
      */
     const totalFor = (scope: ESearchScope, shown: number) => counts?.[scope] ?? shown;
 
-    const openShort = (slug: string) => {
+    const open = (hit: ISearchHitEntity) => {
         onNavigate?.();
-        router.push(`${SHORTS_PATH}/${slug}`);
+        router.push(searchHitHref(hit));
     };
 
     return (
         <div className="flex flex-col gap-12">
-            {articles.length > 0 && (
-                <SearchResultSection
-                    grid={SEARCH_GRIDS.wide}
-                    icon={<NewspaperIcon />}
-                    title={t("search.scope.articles")}
-                    subtitle={t("search.results.count", {
-                        count: totalFor(ESearchScope.Articles, articles.length)
-                    })}
-                >
-                    {articles.map((hit) => (
-                        <ArticleCard.Feed
-                            key={hit.id}
-                            article={toArticleSummary(hit)}
-                        />
-                    ))}
-                </SearchResultSection>
-            )}
+            {SEARCH_GROUPS.map((group) => {
+                const matches = hits.filter((hit) => hit.type === group.type);
 
-            {videos.length > 0 && (
-                <SearchResultSection
-                    icon={<PlayIcon />}
-                    grid={SEARCH_GRIDS.wide}
-                    title={t("search.scope.videos")}
-                    subtitle={t("search.results.count", {
-                        count: totalFor(ESearchScope.Videos, videos.length)
-                    })}
-                >
-                    {videos.map((hit) => (
-                        <VideoCard.Vertical
-                            key={hit.id}
-                            video={toVideoSummary(hit)}
-                        />
-                    ))}
-                </SearchResultSection>
-            )}
+                if (matches.length === 0) return null;
 
-            {shorts.length > 0 && (
-                <SearchResultSection
-                    icon={<FilmIcon />}
-                    grid={SEARCH_GRIDS.tall}
-                    title={t("search.scope.shorts")}
-                    subtitle={t("search.results.count", {
-                        count: totalFor(ESearchScope.Shorts, shorts.length)
-                    })}
-                >
-                    {shorts.map((hit) => (
-                        <ShortCard.Root
-                            key={hit.id}
-                            short={toShortVideo(hit)}
-                            onOpen={() => openShort(hit.slug)}
-                        />
-                    ))}
-                </SearchResultSection>
-            )}
+                return (
+                    <SearchResultSection
+                        key={group.type}
+                        icon={group.icon}
+                        title={t(group.titleKey)}
+                        grid={SEARCH_GRIDS[group.shape]}
+                        subtitle={t("search.results.count", {
+                            count: totalFor(group.scope, matches.length)
+                        })}
+                    >
+                        {matches.map((hit) => group.render(hit, open))}
+                    </SearchResultSection>
+                );
+            })}
         </div>
     );
 }

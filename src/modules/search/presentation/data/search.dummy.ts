@@ -2,6 +2,7 @@ import type { ISearchHitEntity } from "@/modules/search/domain/entities/ISearchH
 import type { ISearchResultsEntity } from "@/modules/search/domain/entities/ISearchResultsEntity";
 import { EContentType } from "@/modules/search/domain/enums/EContentType";
 import { ESearchScope } from "@/modules/search/domain/enums/ESearchScope";
+import { SEARCH_GROUPS } from "@/modules/search/presentation/constants/searchGroups";
 
 /**
  * Whether the dummy pool is mixed into live results. Development scaffolding: the
@@ -85,15 +86,6 @@ const EXCERPTS = [
 ];
 
 /**
- * The scope each dummy hit belongs to, rotated so every tab has something to show.
- */
-const TYPES: readonly { type: EContentType; scope: ESearchScope }[] = [
-    { type: EContentType.Article, scope: ESearchScope.Articles },
-    { type: EContentType.Video, scope: ESearchScope.Videos },
-    { type: EContentType.Short, scope: ESearchScope.Shorts }
-];
-
-/**
  * How many hits the pool holds. Large enough that a common term overflows one page.
  */
 const POOL_SIZE = 96;
@@ -120,7 +112,7 @@ function toSlug(title: string, index: number): string {
  * The dummy pool, built once. Deterministic, so the server and the client agree.
  */
 const POOL: ISearchHitEntity[] = Array.from({ length: POOL_SIZE }, (_, index) => {
-    const { type } = TYPES[index % TYPES.length];
+    const { type } = SEARCH_GROUPS[index % SEARCH_GROUPS.length];
     const subject = SUBJECTS[index % SUBJECTS.length];
     const predicate = PREDICATES[index % PREDICATES.length];
     const isShort = type === EContentType.Short;
@@ -176,7 +168,7 @@ function matches(query: string, scope: ESearchScope): ISearchHitEntity[] {
     return POOL.filter((hit) => {
         const inScope =
             scope === ESearchScope.All ||
-            TYPES.find((entry) => entry.type === hit.type)?.scope === scope;
+            SEARCH_GROUPS.find((group) => group.type === hit.type)?.scope === scope;
 
         return inScope && (fold(hit.title).includes(needle) || fold(hit.excerpt).includes(needle));
     });
@@ -192,7 +184,8 @@ function dummyCounts(query: string): Record<ESearchScope, number> {
     const all = matches(query, ESearchScope.All);
 
     const countFor = (scope: ESearchScope) =>
-        all.filter((hit) => TYPES.find((entry) => entry.type === hit.type)?.scope === scope).length;
+        all.filter((hit) => SEARCH_GROUPS.find((group) => group.type === hit.type)?.scope === scope)
+            .length;
 
     return {
         [ESearchScope.All]: all.length,

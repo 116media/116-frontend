@@ -4,11 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import type { ISearchHitEntity } from "@/modules/search/domain/entities/ISearchHitEntity";
 import { ESearchScope } from "@/modules/search/domain/enums/ESearchScope";
-import {
-    SearchResultListEmpty,
-    SearchResultListLoading
-} from "@/modules/search/presentation/components/lists/SearchResultList";
-import { SearchResultGroups } from "@/modules/search/presentation/components/sections/SearchResultGroups";
+import { SearchResultList } from "@/modules/search/presentation/components/lists/SearchResultList";
 import {
     CategoryTabs,
     type ICategoryTab
@@ -36,6 +32,7 @@ import { SearchOverlayIdle } from "./SearchOverlay.Idle";
  * @property {() => void} onClearRecent - Clears the history.
  * @property {() => void} onNavigate - Called when anything inside navigates away.
  * @property {() => void} onSeeAll - Opens the full results route for the active term.
+ * @property {() => void} onRetry - Runs the failed search again.
  */
 export interface SearchOverlayBodyProps {
     query: string;
@@ -52,6 +49,7 @@ export interface SearchOverlayBodyProps {
     onClearRecent: () => void;
     onNavigate: () => void;
     onSeeAll: () => void;
+    onRetry: () => void;
 }
 
 /**
@@ -59,9 +57,9 @@ export interface SearchOverlayBodyProps {
  *
  * @description
  * Everything under the panel's field: the idle state before a term, then the scope rail
- * and whichever of loading, error, empty or results the search produced. Separated from
- * the panel so the panel is only the surface — where it sits, how it opens and what
- * traps focus — and this is only what fills it.
+ * and whichever of loading, error, empty or results the search produced. The rail stays
+ * up through a failure, so a reader can still switch scope. Separated from the panel so
+ * the panel is only the surface, and this is only what fills it.
  */
 export function SearchOverlayBody({
     query,
@@ -77,7 +75,8 @@ export function SearchOverlayBody({
     recent,
     onClearRecent,
     onNavigate,
-    onSeeAll
+    onSeeAll,
+    onRetry
 }: SearchOverlayBodyProps) {
     const { t } = useTranslation();
 
@@ -93,16 +92,6 @@ export function SearchOverlayBody({
         );
     }
 
-    if (isError) {
-        return (
-            <PageContainer>
-                <p className="py-8 text-center text-muted-foreground text-sm">
-                    {t("search.error")}
-                </p>
-            </PageContainer>
-        );
-    }
-
     return (
         <PageContainer className="flex flex-col gap-5">
             <CategoryTabs
@@ -113,22 +102,17 @@ export function SearchOverlayBody({
                 onChange={(next) => onScopeChange((next as ESearchScope) ?? ESearchScope.All)}
             />
 
-            {isLoading && (
-                <SearchResultListLoading
-                    scope={scope}
-                    density="preview"
-                />
-            )}
-
-            {!isLoading && hits.length === 0 && <SearchResultListEmpty query={query} />}
-
-            {hits.length > 0 && (
-                <div className="flex flex-col gap-3">
-                    <SearchResultGroups
-                        hits={hits}
-                        counts={counts}
-                        onNavigate={onNavigate}
-                    />
+            <SearchResultList
+                hits={hits}
+                query={query}
+                scope={scope}
+                counts={counts}
+                density="preview"
+                isError={isError}
+                onRetry={onRetry}
+                isLoading={isLoading}
+                onNavigate={onNavigate}
+                footer={
                     <button
                         type="button"
                         onClick={onSeeAll}
@@ -136,8 +120,8 @@ export function SearchOverlayBody({
                     >
                         {t("search.overlay.seeAll", { count: total })}
                     </button>
-                </div>
-            )}
+                }
+            />
         </PageContainer>
     );
 }

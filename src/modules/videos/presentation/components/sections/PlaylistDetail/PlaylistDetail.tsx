@@ -4,16 +4,18 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { IPlaylistVideoEntity } from "@/modules/videos/domain/entities/IPlaylistVideoEntity";
 import { PlaylistRenameDialog } from "@/modules/videos/presentation/components/forms/PlaylistRenameDialog";
-import { PlaylistVideoList } from "@/modules/videos/presentation/components/lists/PlaylistVideoList";
-import { PlaylistVideoListEmpty } from "@/modules/videos/presentation/components/lists/PlaylistVideoList/PlaylistVideoList.Empty";
+import {
+    PlaylistVideoList,
+    PlaylistVideoListEmpty,
+    PlaylistVideoListLoading
+} from "@/modules/videos/presentation/components/lists/PlaylistVideoList";
 import { PlaylistDetailHeader } from "@/modules/videos/presentation/components/navigation/PlaylistDetailHeader";
 import { useDeletePlaylist } from "@/modules/videos/presentation/hooks/useDeletePlaylist";
 import { usePlaylist } from "@/modules/videos/presentation/hooks/usePlaylist";
 import { useRemoveVideoFromPlaylist } from "@/modules/videos/presentation/hooks/useRemoveVideoFromPlaylist";
 import { useRenamePlaylist } from "@/modules/videos/presentation/hooks/useRenamePlaylist";
 import { ConfirmDialog } from "@/shared/presentation/components/ui/ConfirmDialog";
-import { FeedError } from "@/shared/presentation/components/ui/FeedError";
-import { SpinnerIcon } from "@/shared/presentation/components/ui/Icon";
+import { ErrorState } from "@/shared/presentation/components/ui/ErrorState";
 import { StateRenderer } from "@/shared/presentation/components/ui/StateRenderer";
 
 /**
@@ -60,23 +62,19 @@ export function PlaylistDetail({ id, onClose }: PlaylistDetailProps) {
             />
 
             <StateRenderer
-                data={data?.videos ?? []}
-                loading={isLoading}
                 error={isError}
-                skeleton={
-                    <div className="flex justify-center py-12">
-                        <SpinnerIcon className="size-6 animate-spin text-muted-foreground" />
-                    </div>
-                }
+                loading={isLoading}
+                data={data?.videos ?? []}
+                empty={<PlaylistVideoListEmpty />}
+                skeleton={<PlaylistVideoListLoading />}
                 errorState={
-                    <FeedError
+                    <ErrorState
                         onRetry={refetch}
                         title={t("favorites.states.error")}
                         retryLabel={t("favorites.states.retry")}
                         context="favorites-feed-error"
                     />
                 }
-                empty={<PlaylistVideoListEmpty />}
                 render={(videos) => (
                     <PlaylistVideoList
                         videos={videos}

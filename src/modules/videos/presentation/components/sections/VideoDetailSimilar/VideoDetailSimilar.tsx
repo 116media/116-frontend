@@ -34,7 +34,9 @@ export interface VideoDetailSimilarProps {
  * @description
  * The similar-videos tab panel: an infinite-scrolling grid of
  * `VideoCard.Vertical` cards sourced from the lazy `useSimilarVideos` query,
- * with skeleton fills while loading and a muted line when the list is empty.
+ * with skeleton fills while loading and a muted line when the list is empty. A failed
+ * request reads as empty here on purpose: the panel sits beside the video it relates
+ * to, and an alert for a secondary rail would outweigh what was lost.
  */
 export function VideoDetailSimilar({
     categoryId,

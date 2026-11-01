@@ -10,6 +10,12 @@ export const SEARCH_GRIDS = {
 } as const;
 
 /**
+ * One column ladder: `wide` for a 16:9 cover with a headline under it, `tall` for a
+ * bare 9:16 poster.
+ */
+export type SearchGridShape = keyof typeof SEARCH_GRIDS;
+
+/**
  * The term field's cap. Below `xl` it tracks the page gutter; past that the line grows
  * longer than a query ever is, so it centres on a readable measure while the results
  * under it keep the full width.
