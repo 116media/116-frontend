@@ -10,7 +10,7 @@ import { FavoriteArticlesGrid } from "@/modules/articles/presentation/components
 import { FavoriteArticlesGridLoading } from "@/modules/articles/presentation/components/sections/FavoriteArticlesGrid/FavoriteArticlesGrid.Loading";
 import { useMyCommentedArticles } from "@/modules/articles/presentation/hooks/useMyCommentedArticles";
 import { EmptyState } from "@/shared/presentation/components/ui/EmptyState";
-import { FeedError } from "@/shared/presentation/components/ui/FeedError";
+import { ErrorState } from "@/shared/presentation/components/ui/ErrorState";
 import { MessageSquareIcon } from "@/shared/presentation/components/ui/Icon";
 import { InfiniteScrollFooter } from "@/shared/presentation/components/ui/InfiniteScrollFooter";
 import { StateRenderer } from "@/shared/presentation/components/ui/StateRenderer";
@@ -40,7 +40,7 @@ export function CommentedArticlesSection() {
                 loading={isLoading}
                 skeleton={<FavoriteArticlesGridLoading />}
                 errorState={
-                    <FeedError
+                    <ErrorState
                         onRetry={refetch}
                         context="favorites-feed-error"
                         title={t("favorites.states.error")}

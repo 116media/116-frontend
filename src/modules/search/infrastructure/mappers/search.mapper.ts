@@ -47,9 +47,7 @@ export const SearchMapper = {
      * @returns {ISearchHitEntity} The mapped hit.
      */
     hitFromDto(dto: SearchHitDto): ISearchHitEntity {
-        // A figure the hit's type does not keep comes back null, which is not the same as
-        // a type that keeps it and stands at zero, so the nulls are preserved rather than
-        // flattened here. The card adapters decide what a missing figure renders as.
+        // Null (the type keeps no such figure) is not zero, so it survives for the adapters.
         const engagement = dto.engagement ?? {};
         const ratingAverage = engagement.ratingAverage ?? null;
         const figures = [

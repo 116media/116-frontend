@@ -1,5 +1,9 @@
 import { ESearchScope } from "@/modules/search/domain/enums/ESearchScope";
-import { SEARCH_GRIDS } from "@/modules/search/presentation/constants/searchLayout";
+import { SEARCH_GROUPS } from "@/modules/search/presentation/constants/searchGroups";
+import {
+    SEARCH_GRIDS,
+    type SearchGridShape
+} from "@/modules/search/presentation/constants/searchLayout";
 import { Skeleton } from "@/shared/presentation/components/ui/Skeleton";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
@@ -55,7 +59,7 @@ function HeadingPlaceholder() {
  * One group of placeholders: the heading box over the type's own column ladder. `wide`
  * cards carry a 16:9 cover and a meta row; `tall` cards are a bare 9:16 poster.
  */
-function GroupPlaceholder({ shape, count }: { shape: "wide" | "tall"; count: number }) {
+function GroupPlaceholder({ shape, count }: { shape: SearchGridShape; count: number }) {
     const keys = Array.from({ length: count }, (_, index) => `${shape}-${index}`);
 
     return (
@@ -78,7 +82,7 @@ function GroupPlaceholder({ shape, count }: { shape: "wide" | "tall"; count: num
                             key={key}
                             className="flex flex-col gap-2"
                         >
-                            <Skeleton className="aspect-[9/16] w-full rounded-xl" />
+                            <Skeleton className="aspect-9/16 w-full rounded-xl" />
                             <Skeleton className="h-3 w-2/3" />
                         </div>
                     )
@@ -89,15 +93,20 @@ function GroupPlaceholder({ shape, count }: { shape: "wide" | "tall"; count: num
 }
 
 /**
- * Which shapes stand in for a scope. Searching everything can return any type, so it
- * shows both ladders; a single scope shows only its own.
+ * Which ladders stand in for a scope, read off the group registry. Searching everything
+ * can return any type, so it shows each ladder once; a single scope shows only its own.
+ *
+ * @param scope - The scope being searched.
+ * @returns {SearchGridShape[]} The ladders to fill, in registry order.
  */
-const SHAPES: Record<ESearchScope, Array<"wide" | "tall">> = {
-    [ESearchScope.All]: ["wide", "tall"],
-    [ESearchScope.Articles]: ["wide"],
-    [ESearchScope.Videos]: ["wide"],
-    [ESearchScope.Shorts]: ["tall"]
-};
+function shapesFor(scope: ESearchScope): SearchGridShape[] {
+    const groups =
+        scope === ESearchScope.All
+            ? SEARCH_GROUPS
+            : SEARCH_GROUPS.filter((group) => group.scope === scope);
+
+    return [...new Set(groups.map((group) => group.shape))];
+}
 
 /**
  * SearchResultList.Loading
@@ -114,7 +123,7 @@ export function SearchResultListLoading({ scope, density = "page" }: SearchResul
             aria-busy
             className="flex flex-col gap-12"
         >
-            {SHAPES[scope].map((shape) => (
+            {shapesFor(scope).map((shape) => (
                 <GroupPlaceholder
                     key={shape}
                     shape={shape}

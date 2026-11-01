@@ -7,7 +7,7 @@ import { FavoriteVideosGrid } from "@/modules/videos/presentation/components/sec
 import { FavoriteVideosGridLoading } from "@/modules/videos/presentation/components/sections/FavoriteVideosGrid/FavoriteVideosGrid.Loading";
 import { useMySharedVideos } from "@/modules/videos/presentation/hooks/useMySharedVideos";
 import { EmptyState } from "@/shared/presentation/components/ui/EmptyState";
-import { FeedError } from "@/shared/presentation/components/ui/FeedError";
+import { ErrorState } from "@/shared/presentation/components/ui/ErrorState";
 import { ShareIcon } from "@/shared/presentation/components/ui/Icon";
 import { InfiniteScrollFooter } from "@/shared/presentation/components/ui/InfiniteScrollFooter";
 import { StateRenderer } from "@/shared/presentation/components/ui/StateRenderer";
@@ -34,7 +34,7 @@ export function SharedVideosSection() {
             loading={isLoading}
             skeleton={<FavoriteVideosGridLoading />}
             errorState={
-                <FeedError
+                <ErrorState
                     onRetry={refetch}
                     title={t("favorites.states.error")}
                     retryLabel={t("favorites.states.retry")}

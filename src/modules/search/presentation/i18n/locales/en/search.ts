@@ -50,5 +50,8 @@ export const search = {
         hint: "Check the spelling, or try something broader: an artist, a show, a genre."
     },
     prompt: "Type at least two characters to start searching.",
-    error: "The search did not go through. Try again in a moment."
+    error: {
+        title: "The search did not go through. Try again in a moment.",
+        retry: "Try again"
+    }
 } as const;

@@ -50,5 +50,8 @@ export const search = {
         hint: "Vérifiez l'orthographe ou essayez un terme plus large : un artiste, une émission, un genre."
     },
     prompt: "Saisissez quelque mots pour lancer la recherche.",
-    error: "La recherche n'a pas abouti. Réessayez dans un instant."
+    error: {
+        title: "La recherche n'a pas abouti. Réessayez dans un instant.",
+        retry: "Réessayer"
+    }
 } as const;

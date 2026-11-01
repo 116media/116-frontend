@@ -8,7 +8,7 @@ import {
     needsVerification
 } from "@/modules/auth/domain/valueobjects/AuthStatus";
 import { useAuth } from "@/modules/auth/presentation/context/AuthProvider";
-import { FeedError } from "@/shared/presentation/components/ui/FeedError";
+import { ErrorState } from "@/shared/presentation/components/ui/ErrorState";
 import { SpinnerIcon } from "@/shared/presentation/components/ui/Icon";
 import { HOME_PATH } from "@/shared/presentation/constants/paths";
 import { useProgressRouter } from "@/shared/presentation/hooks/useProgressRouter";
@@ -33,9 +33,9 @@ export interface AuthGuardProps {
  * `proxy` cookie gate so every private route is protected on both sides.
  */
 export function AuthGuard({ children }: AuthGuardProps) {
+    const { t } = useTranslation();
     const router = useProgressRouter();
     const { status, refetch } = useAuth();
-    const { t } = useTranslation();
     const [rechecked, setRechecked] = useState(false);
 
     useEffect(() => {
@@ -58,13 +58,14 @@ export function AuthGuard({ children }: AuthGuardProps) {
         if (status === "guest" && rechecked) router.replace(HOME_PATH);
     }, [status, rechecked, router]);
 
-    if (isAuthenticatedStatus(status) || needsVerification(status))
+    if (isAuthenticatedStatus(status) || needsVerification(status)) {
         return <Fragment>{children}</Fragment>;
+    }
 
     if (status === "error") {
         return (
             <div className="flex min-h-64 items-center justify-center">
-                <FeedError
+                <ErrorState
                     context="auth-guard-error"
                     title={t("auth.errors.sessionUnavailable")}
                     retryLabel={t("auth.errors.retry")}

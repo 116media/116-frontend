@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { useVideoPopularTags } from "@/modules/videos/presentation/hooks/useVideoPopularTags";
 import { orderTags } from "@/modules/videos/presentation/utils/tags/tags.utils";
 import { Skeleton } from "@/shared/presentation/components/ui/Skeleton";
+import { StateRenderer } from "@/shared/presentation/components/ui/StateRenderer";
 import { Tag } from "@/shared/presentation/components/ui/Tag";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 import { VideosToolbarAllTagsPopover } from "./VideosToolbar.AllTagsPopover";
@@ -44,31 +45,35 @@ export function VideosToolbarTagStrip({ value, onChange, trailing }: VideosToolb
     return (
         <div className="flex items-center gap-2">
             <div className="scrollbar-hide flex min-w-0 flex-1 items-center gap-2 overflow-x-auto">
-                {isPending &&
-                    TAG_SKELETON_WIDTHS.map((width) => (
+                <StateRenderer
+                    data={popular}
+                    loading={isPending}
+                    skeleton={TAG_SKELETON_WIDTHS.map((width) => (
                         <Skeleton
                             key={width}
                             className={cn("h-8 shrink-0 rounded-md", width)}
                         />
                     ))}
-                {!isPending &&
-                    orderTags(popular, value).map((tag) => (
-                        <Tag
-                            size="lg"
-                            as="span"
-                            prefix="#"
-                            shape="pill"
-                            key={tag.slug}
-                            variant={tag.slug === value ? "primary" : "default"}
-                            onClick={() => onChange(tag.slug === value ? undefined : tag.slug)}
-                            className={cn(
-                                COMPACT_CHIP,
-                                tag.slug !== value && "border-outlined bg-surface-raised"
-                            )}
-                        >
-                            {tag.name}
-                        </Tag>
-                    ))}
+                    render={(tags) =>
+                        orderTags(tags, value).map((tag) => (
+                            <Tag
+                                size="lg"
+                                as="span"
+                                prefix="#"
+                                shape="pill"
+                                key={tag.slug}
+                                variant={tag.slug === value ? "primary" : "default"}
+                                onClick={() => onChange(tag.slug === value ? undefined : tag.slug)}
+                                className={cn(
+                                    COMPACT_CHIP,
+                                    tag.slug !== value && "border-outlined bg-surface-raised"
+                                )}
+                            >
+                                {tag.name}
+                            </Tag>
+                        ))
+                    }
+                />
             </div>
             {trailing}
 

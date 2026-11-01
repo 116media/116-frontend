@@ -12,10 +12,12 @@ import { UserAccountControlSlot } from "./UserAccountControl.Slot";
  *
  * @description
  * Selects the active auth state view via guard clauses: loading skeleton, guest
- * "Log in" button, or the authenticated avatar menu.
+ * "Log in" button, or the authenticated avatar menu. A failed resolution reads as guest.
  */
 function AccountControlView({ status, user, onAction }: AccountControlViewProps) {
-    if (status === "loading" || status === "error") return <UserAccountControlLoading />;
+    // A failed resolution falls through to the guest button rather than the skeleton,
+    // which would otherwise shimmer for the rest of the session.
+    if (status === "loading") return <UserAccountControlLoading />;
     if (!user) return <UserAccountControlGuestButton onAction={onAction} />;
 
     return <UserAccountControlMenu user={user} />;
