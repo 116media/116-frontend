@@ -82,7 +82,7 @@ export function VideoPlayer({
 
     if (!hasSource) {
         return (
-            <div className="video-player w-full overflow-hidden rounded-lg">
+            <div className="video-player w-full overflow-hidden rounded-base">
                 <VideoPlayerPoster
                     title={title}
                     thumbnailUrl={thumbnailUrl}
@@ -93,7 +93,9 @@ export function VideoPlayer({
     }
 
     return (
-        <div className={cn("video-player relative w-full overflow-hidden rounded-lg", ratioClass)}>
+        <div
+            className={cn("video-player relative w-full overflow-hidden rounded-base", ratioClass)}
+        >
             <div className="absolute inset-0">
                 <VideoPlayerPoster
                     title={title}

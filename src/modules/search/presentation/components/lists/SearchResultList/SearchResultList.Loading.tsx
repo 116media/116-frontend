@@ -45,8 +45,8 @@ export interface SearchResultListLoadingProps {
  */
 function HeadingPlaceholder() {
     return (
-        <div className={cn("flex items-center rounded-lg bg-muted/40", HEADING.box)}>
-            <Skeleton className={cn("shrink-0 rounded-md", HEADING.well)} />
+        <div className={cn("flex items-center rounded-base bg-muted/40", HEADING.box)}>
+            <Skeleton className={cn("shrink-0 rounded-base", HEADING.well)} />
             <div className="flex flex-col gap-2">
                 <Skeleton className="h-3 w-28" />
                 <Skeleton className="h-2 w-20" />
@@ -72,7 +72,7 @@ function GroupPlaceholder({ shape, count }: { shape: SearchGridShape; count: num
                             key={key}
                             className="flex flex-col gap-3"
                         >
-                            <Skeleton className="aspect-video w-full rounded-xl" />
+                            <Skeleton className="aspect-video w-full rounded-base" />
                             <Skeleton className="h-3 w-24" />
                             <Skeleton className="h-4 w-3/4" />
                             <Skeleton className="h-3 w-1/2" />
@@ -82,7 +82,7 @@ function GroupPlaceholder({ shape, count }: { shape: SearchGridShape; count: num
                             key={key}
                             className="flex flex-col gap-2"
                         >
-                            <Skeleton className="aspect-9/16 w-full rounded-xl" />
+                            <Skeleton className="aspect-9/16 w-full rounded-base" />
                             <Skeleton className="h-3 w-2/3" />
                         </div>
                     )

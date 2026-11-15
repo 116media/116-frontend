@@ -217,7 +217,7 @@ export function Md3Carousel<T>({
                                 }
                             }}
                             className={cn(
-                                "group relative h-full shrink-0 overflow-hidden rounded-2xl bg-muted outline-none",
+                                "group relative h-full shrink-0 overflow-hidden rounded-base bg-muted outline-none",
                                 SLOT_TRANSITION,
                                 isHero && heroClassName,
                                 isChild && cn(childClassName, "cursor-pointer"),

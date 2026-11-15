@@ -29,7 +29,7 @@ export type SocialShareKey = SharePlatform | "copy";
  * @property {string} url - The absolute URL being shared.
  * @property {string} title - The page title, carried into the share message.
  * @property {"horizontal" | "vertical"} [orientation] - Group direction. Defaults to vertical.
- * @property {boolean} [separated] - Render individually rounded, gapped buttons instead of
+ * @property {boolean} [separated] - Render individually rounded-base, gapped buttons instead of
  * one seamless segmented control. Defaults to false.
  * @property {ISocialShareLabels} labels - Accessible labels for the four buttons.
  * @property {(platform: string) => void} [onShared] - Fires after a network share completes (telemetry seam).

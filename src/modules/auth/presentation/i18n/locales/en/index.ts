@@ -6,6 +6,7 @@ import { otp } from "@/modules/auth/presentation/i18n/locales/en/otp";
 import { password } from "@/modules/auth/presentation/i18n/locales/en/password";
 import { session } from "@/modules/auth/presentation/i18n/locales/en/session";
 import { signup } from "@/modules/auth/presentation/i18n/locales/en/signup";
+import { verified } from "@/modules/auth/presentation/i18n/locales/en/verified";
 
 /**
  * en
@@ -20,6 +21,7 @@ export const en = {
     login,
     signup,
     otp,
+    verified,
     password,
     session,
     errors,

@@ -19,7 +19,7 @@ export function Side({ article }: ArticlePromotionCardProps) {
     return (
         <Link
             href={`/articles/${article.slug}`}
-            className="group flex h-full min-w-0 flex-col overflow-hidden rounded-xl bg-linear-to-br from-primary/10 to-secondary/10 dark:from-primary/15 dark:to-secondary/15"
+            className="group flex h-full min-w-0 flex-col overflow-hidden rounded-base bg-linear-to-br from-primary/10 to-secondary/10 dark:from-primary/15 dark:to-secondary/15"
         >
             <div className="flex flex-1 flex-col p-4 sm:p-5 md:p-6 lg:p-3 xl:p-6">
                 <div className="mb-3 flex flex-wrap items-center gap-2 text-xs text-muted-foreground sm:mb-4 md:text-sm lg:mb-3 lg:text-xs xl:text-sm">
@@ -35,7 +35,7 @@ export function Side({ article }: ArticlePromotionCardProps) {
                 </div>
 
                 <div className="flex min-w-0 flex-1 flex-col gap-3 sm:flex-row sm:gap-5">
-                    <div className="relative h-36 w-full shrink-0 overflow-hidden rounded-lg sm:h-auto sm:w-1/3">
+                    <div className="relative h-36 w-full shrink-0 overflow-hidden rounded-base sm:h-auto sm:w-1/3">
                         {article.coverImageUrl && (
                             <Image
                                 fill

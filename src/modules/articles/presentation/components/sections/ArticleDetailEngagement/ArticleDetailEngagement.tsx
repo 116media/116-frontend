@@ -147,7 +147,7 @@ export function ArticleDetailEngagement({
                         variant="outline"
                         aria-label={label}
                         onClick={onClick}
-                        className="h-9 gap-1.5 rounded-lg px-3 text-muted-foreground"
+                        className="h-9 gap-1.5 rounded-base px-3 text-muted-foreground"
                     >
                         {icon}
                         <span className={cn(countClass)}>{formatCount(count)}</span>

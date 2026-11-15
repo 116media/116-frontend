@@ -45,9 +45,9 @@ export function Horizontal({ show, onNavigate }: ShowCardHorizontalProps) {
             onClick={onNavigate}
             href={`${SHOWS_PATH}/${show.slug}`}
             style={{ backgroundImage: `linear-gradient(${tint}, ${tint})` }}
-            className="flex items-center gap-3 rounded-lg border border-outlined bg-card p-3 text-foreground transition-transform hover:scale-[1.01] hover:opacity-95"
+            className="flex items-center gap-3 rounded-base border border-outlined bg-card p-3 text-foreground transition-transform hover:scale-[1.01] hover:opacity-95"
         >
-            <span className="relative aspect-video w-36 shrink-0 overflow-hidden rounded-md">
+            <span className="relative aspect-video w-36 shrink-0 overflow-hidden rounded-base">
                 {show.posterUrl && (
                     <Image
                         fill

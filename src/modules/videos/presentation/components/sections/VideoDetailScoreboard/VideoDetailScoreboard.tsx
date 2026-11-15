@@ -93,7 +93,7 @@ function ScoreboardColumn({
                 type="button"
                 onClick={onClick}
                 aria-label={ariaLabel}
-                className="flex min-w-0 cursor-pointer flex-col items-center justify-center gap-1 rounded-2xl p-1.5 hover:bg-accent/40 sm:gap-1.5 sm:p-2"
+                className="flex min-w-0 cursor-pointer flex-col items-center justify-center gap-1 rounded-md p-1.5 hover:bg-accent/40 sm:gap-1.5 sm:p-2"
             >
                 {inner}
             </button>
@@ -155,7 +155,7 @@ export function VideoDetailScoreboard({
     );
 
     return (
-        <div className="grid grid-cols-3 gap-1 rounded-2xl bg-muted/20 p-1.5 sm:gap-2 sm:p-2">
+        <div className="grid grid-cols-3 gap-1 rounded-base bg-muted/20 p-1.5 sm:gap-2 sm:p-2">
             <ScoreboardColumn
                 value={youtubeValue(data?.viewCount)}
                 icon={<EyeIcon className="size-3 sm:size-3.5" />}

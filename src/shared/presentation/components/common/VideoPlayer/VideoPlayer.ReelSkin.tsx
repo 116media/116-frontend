@@ -114,7 +114,7 @@ export function VideoPlayerReelSkin({ children, renderPoster }: VideoPlayerReelS
             <StatusAnnouncer />
 
             <ErrorDialog.Root>
-                <ErrorDialog.Popup className="-translate-1/2 absolute top-1/2 left-1/2 z-30 max-w-[80%] rounded-lg bg-black/80 p-4 text-center text-sm text-white">
+                <ErrorDialog.Popup className="-translate-1/2 absolute top-1/2 left-1/2 z-30 max-w-[80%] rounded-base bg-black/80 p-4 text-center text-sm text-white">
                     <ErrorDialog.Title className="font-semibold" />
                     <ErrorDialog.Description className="mt-1 text-white/80" />
                 </ErrorDialog.Popup>

@@ -48,7 +48,7 @@ export function ArticlesToolbarTagStrip({ value, onChange }: ArticlesToolbarTagS
                     skeleton={TAG_SKELETON_WIDTHS.map((width) => (
                         <Skeleton
                             key={width}
-                            className={cn("h-8 shrink-0 rounded-md", width)}
+                            className={cn("h-8 shrink-0 rounded-base", width)}
                         />
                     ))}
                     render={(tags) =>

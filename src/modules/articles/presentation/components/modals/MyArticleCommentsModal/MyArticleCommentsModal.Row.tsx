@@ -65,7 +65,7 @@ export function MyArticleCommentsModalRow({
     const { t } = useTranslation();
 
     return (
-        <li className="rounded-lg border border-outlined bg-muted p-4">
+        <li className="rounded-base border border-outlined bg-muted p-4">
             {isEditing ? (
                 <MyArticleCommentsModalEditForm
                     body={body}

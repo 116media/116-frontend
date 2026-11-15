@@ -1,4 +1,4 @@
-import type { RefObject } from "react";
+import { type RefObject, useEffect, useRef } from "react";
 
 import type { ICountryObject } from "@/shared/infrastructure/constants/countries";
 import { Input } from "@/shared/presentation/components/ui/Input";
@@ -31,9 +31,9 @@ export interface CountrySelectMenuProps {
  * CountrySelectMenu
  *
  * @description
- * The floating panel of {@link CountrySelect}: a pinned search field over a scrollable
- * list of {@link CountryOption} rows. Rendered in flow under the trigger so it stays
- * inside any surrounding focus/scroll scope (e.g. a modal dialog).
+ * The expanded panel of {@link CountrySelect}: a pinned search field over a scrollable
+ * list of {@link CountryOption} rows. Renders in flow under the trigger, so a modal's
+ * scrolling body cannot clip it and the footer cannot cover it.
  */
 export function CountrySelectMenu({
     results,
@@ -44,20 +44,38 @@ export function CountrySelectMenu({
     value,
     placeholder
 }: CountrySelectMenuProps) {
+    const listRef = useRef<HTMLUListElement>(null);
+    const selectedRef = useRef<HTMLLIElement>(null);
+
+    // Scrolls the list itself rather than calling scrollIntoView, which would also
+    // scroll the surrounding dialog body.
+    useEffect(() => {
+        const list = listRef.current;
+        const item = selectedRef.current;
+        if (!list || !item) return;
+        list.scrollTop = item.offsetTop - list.clientHeight / 2 + item.clientHeight / 2;
+    }, []);
+
     return (
-        <div className="absolute top-full right-0 left-0 z-50 mt-1 flex max-h-72 flex-col overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md">
+        <div className="-mt-px flex max-h-72 flex-col overflow-hidden rounded-b-base border border-ring bg-popover text-popover-foreground">
             <div className="shrink-0 p-2">
                 <Input
                     value={query}
                     ref={searchRef}
                     placeholder={placeholder}
-                    className="py-4.5 text-sm"
+                    className="py-4.5"
                     onChange={(event) => onQueryChange(event.target.value)}
                 />
             </div>
-            <ul className="flex-1 overflow-y-auto px-2 pb-2">
+            <ul
+                ref={listRef}
+                className="relative flex-1 overflow-y-auto overscroll-contain px-2 pb-2"
+            >
                 {results.map((country) => (
-                    <li key={country.isoCode}>
+                    <li
+                        key={country.isoCode}
+                        ref={country.name === value ? selectedRef : undefined}
+                    >
                         <CountryOption
                             country={country}
                             onSelect={onSelect}

@@ -8,6 +8,7 @@ export const VIEW_TITLES = {
     login: { title: "auth.login.title", subtitle: "auth.login.subtitle" },
     signup: { title: "auth.signup.title", subtitle: "auth.signup.subtitle" },
     "verify-otp": { title: "auth.otp.title", subtitle: "auth.otp.subtitle" },
+    verified: { title: "auth.verified.title", subtitle: "auth.verified.subtitle" },
     "forgot-password": {
         title: "auth.password.forgotTitle",
         subtitle: "auth.password.forgotSubtitle"

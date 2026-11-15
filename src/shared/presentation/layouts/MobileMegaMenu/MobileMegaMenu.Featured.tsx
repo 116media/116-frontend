@@ -30,7 +30,7 @@ export function MobileMegaMenuFeatured({
             className={cn(
                 "flex flex-col gap-3",
                 variant === "panel"
-                    ? "mx-4 surface-pro-portrait:mx-18 rounded-lg bg-primary/5 p-4 dark:bg-secondary/10"
+                    ? "mx-4 surface-pro-portrait:mx-18 rounded-base bg-primary/5 p-4 dark:bg-secondary/10"
                     : cn("py-3", PAGE_GUTTER)
             )}
         >

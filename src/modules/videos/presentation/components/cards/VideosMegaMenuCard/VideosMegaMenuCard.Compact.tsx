@@ -24,7 +24,7 @@ export function Compact({ video }: VideosMegaMenuCardProps) {
         <div
             className={cn(
                 cardVariants,
-                "group h-full rounded-xl border-0 p-0.5 transition-all duration-300",
+                "group h-full rounded-base border-0 p-0.5 transition-all duration-300",
                 "bg-outlined",
                 "hover:[background:conic-gradient(from_var(--border-angle),var(--color-primary),var(--color-secondary),var(--color-primary))]",
                 "hover:animate-[spin-border_2s_linear_infinite]"
@@ -32,7 +32,7 @@ export function Compact({ video }: VideosMegaMenuCardProps) {
         >
             <Link
                 href={`${VIDEOS_PATH}/${video.slug}`}
-                className="relative block h-full overflow-hidden rounded-[calc(var(--radius-xl)-2px)] bg-black"
+                className="relative block h-full overflow-hidden rounded-[calc(var(--radius-base)-2px)] bg-black"
             >
                 <div className="relative h-full overflow-hidden">
                     {video.thumbnailUrl ? (

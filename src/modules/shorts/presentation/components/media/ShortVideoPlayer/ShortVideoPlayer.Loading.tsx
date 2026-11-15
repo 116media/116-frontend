@@ -11,8 +11,8 @@ import { Skeleton } from "@/shared/presentation/components/ui/Skeleton";
  */
 export function ShortVideoPlayerLoading() {
     return (
-        <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-xl">
-            <Skeleton className="absolute inset-0 size-full rounded-xl" />
+        <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-base">
+            <Skeleton className="absolute inset-0 size-full rounded-base" />
 
             <div className="absolute inset-0 flex items-center justify-center">
                 <Skeleton className="size-16 rounded-full bg-white/20" />

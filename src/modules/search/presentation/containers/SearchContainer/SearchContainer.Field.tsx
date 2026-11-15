@@ -47,7 +47,7 @@ export function SearchContainerField({ value, onValueChange }: SearchContainerFi
             >
                 <label
                     htmlFor="search-page-field"
-                    className="flex h-13 items-center gap-3 rounded-xl border-2 border-primary bg-card px-4 dark:border-secondary"
+                    className="flex h-13 items-center gap-3 rounded-base border-2 border-primary bg-card px-4 dark:border-secondary"
                 >
                     <SearchIcon
                         aria-hidden="true"
@@ -66,7 +66,7 @@ export function SearchContainerField({ value, onValueChange }: SearchContainerFi
                         onChange={(event: ChangeEvent<HTMLInputElement>) =>
                             onValueChange(event.target.value)
                         }
-                        className="min-w-0 flex-1 bg-transparent text-base text-foreground outline-none placeholder:text-muted-foreground [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden"
+                        className="min-w-0 flex-1 bg-transparent text-field text-foreground outline-none placeholder:text-muted-foreground [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden"
                     />
                     {value && (
                         <button

@@ -34,12 +34,12 @@ export function FavoriteVideoContent({ video, children }: FavoriteVideoContentPr
         <article className="group relative flex h-full flex-col transition-transform duration-300 hover:z-10 hover:scale-[1.03]">
             <span
                 aria-hidden
-                className="pointer-events-none absolute -inset-2 -z-10 rounded-2xl transition-colors duration-300 group-hover:bg-muted/95"
+                className="pointer-events-none absolute -inset-2 -z-10 rounded-base transition-colors duration-300 group-hover:bg-muted/95"
             />
             <Link
                 href={href}
                 aria-label={video.title}
-                className="relative block aspect-video overflow-hidden rounded-lg bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="relative block aspect-video overflow-hidden rounded-base bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
                 <VideoCard.Media
                     playSize="md"

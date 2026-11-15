@@ -19,14 +19,14 @@ export interface FavoriteCardProps {
  *
  * @description
  * The full-height bordered shell every favorites tile is built on: a `group` article
- * with a fixed rounded border and hover shadow so activity meta, actions, and remove
+ * with a fixed rounded-base border and hover shadow so activity meta, actions, and remove
  * affordances all sit inside one frame.
  */
 export function FavoriteCardRoot({ children, className }: FavoriteCardProps) {
     return (
         <article
             className={cn(
-                "group flex h-full flex-col overflow-hidden rounded-xl border bg-card",
+                "group flex h-full flex-col overflow-hidden rounded-base border bg-card",
                 className
             )}
         >

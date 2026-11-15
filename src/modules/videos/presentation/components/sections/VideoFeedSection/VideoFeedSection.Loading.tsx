@@ -19,7 +19,7 @@ export function VideoFeedSectionLoading() {
             <div className="grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
                     <div key={i}>
-                        <Skeleton className="aspect-video w-full rounded-xl" />
+                        <Skeleton className="aspect-video w-full rounded-base" />
                         <div className="mt-3 space-y-2 px-1">
                             <Skeleton className="h-4 w-full" />
                             <Skeleton className="h-4 w-2/3" />

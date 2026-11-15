@@ -32,7 +32,7 @@ export function Progress({ value, className, indicatorClassName, ...props }: Pro
             aria-valuenow={Math.round(clamped)}
             aria-valuemin={0}
             aria-valuemax={100}
-            className={cn("h-1 w-full overflow-hidden rounded bg-muted", className)}
+            className={cn("h-1 w-full overflow-hidden rounded-base bg-muted", className)}
             {...props}
         >
             <div

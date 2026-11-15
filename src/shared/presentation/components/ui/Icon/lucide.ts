@@ -14,6 +14,7 @@
 export {
     AlertCircle as AlertCircleIcon,
     ArrowLeft as ArrowLeftIcon,
+    ArrowLeftCircle as ArrowLeftCircleIcon,
     BadgeCheck as BadgeCheckIcon,
     Bell as BellIcon,
     Bookmark as BookmarkIcon,

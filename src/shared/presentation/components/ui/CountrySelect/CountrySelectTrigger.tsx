@@ -52,10 +52,10 @@ export function CountrySelectTrigger({
                 onClick={onToggle}
                 aria-invalid={error ? true : undefined}
                 className={cn(
-                    "flex h-12 w-full cursor-pointer items-center gap-2 rounded-md",
-                    "border border-input bg-muted px-3 pt-4 text-left text-sm outline-none transition-colors",
+                    "relative flex h-12 w-full cursor-pointer items-center gap-2 rounded-md",
+                    "border border-input bg-muted py-0 pt-4 pr-9 pl-3 text-left text-field outline-none transition-colors",
                     "focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/20",
-                    open && "border-ring ring-3 ring-ring/20",
+                    open && "rounded-b-none border-ring",
                     error && "border-destructive"
                 )}
             >
@@ -70,7 +70,7 @@ export function CountrySelectTrigger({
                         <span className="truncate">{selected.name}</span>
                     </span>
                 )}
-                <ChevronsUpDownIcon className="ml-auto size-4 shrink-0 text-muted-foreground" />
+                <ChevronsUpDownIcon className="-translate-y-1/2 absolute top-1/2 right-3 size-4 text-muted-foreground" />
             </button>
 
             <label

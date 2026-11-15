@@ -78,7 +78,7 @@ export function VideoDetail({ video }: VideoDetailProps) {
                 <div
                     ref={playerRef}
                     className={cn(
-                        "z-50 overflow-hidden rounded-lg transform-gpu bg-background xl:static xl:z-auto xl:col-start-1 xl:row-start-1",
+                        "z-50 overflow-hidden rounded-base transform-gpu bg-background xl:static xl:z-auto xl:col-start-1 xl:row-start-1",
                         isPinned ? "player-pinned fixed inset-x-0 top-0 xl:relative" : "relative"
                     )}
                 >
@@ -126,7 +126,7 @@ export function VideoDetail({ video }: VideoDetailProps) {
 
                 <div
                     data-mobile-sheet
-                    className="-mx-3 min-w-0 rounded-t-2xl bg-background px-3 pb-6 shadow-[0_-8px_24px_rgba(0,0,0,0.25)] sm:-mx-6 sm:px-6 xl:mx-0 xl:rounded-none xl:px-0 xl:pb-0 xl:shadow-none xl:col-start-1 xl:row-start-3"
+                    className="-mx-3 min-w-0 rounded-t-base bg-background px-3 pb-6 shadow-[0_-8px_24px_rgba(0,0,0,0.25)] sm:-mx-6 sm:px-6 xl:mx-0 xl:rounded-none xl:px-0 xl:pb-0 xl:shadow-none xl:col-start-1 xl:row-start-3"
                 >
                     <VideoDetailTabs
                         videoId={video.id}

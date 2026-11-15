@@ -50,14 +50,14 @@ export function VideoDetailLoading() {
     return (
         <div className="xl:grid xl:grid-cols-[minmax(0,1.8fr)_minmax(0,1fr)] xl:gap-6">
             <div className="flex min-w-0 flex-col gap-2">
-                <Skeleton className="aspect-video w-full rounded-lg" />
+                <Skeleton className="aspect-video w-full rounded-base" />
 
-                <div className="flex flex-col gap-4 rounded-lg border p-3 md:p-4">
+                <div className="flex flex-col gap-4 rounded-base border p-3 md:p-4">
                     <div className="flex items-center justify-between">
-                        <Skeleton className="h-7 w-24 rounded-md" />
+                        <Skeleton className="h-7 w-24 rounded-base" />
                         <div className="flex items-center gap-2">
-                            <Skeleton className="h-9 w-24 rounded-lg" />
-                            <Skeleton className="h-9 w-24 rounded-lg" />
+                            <Skeleton className="h-9 w-24 rounded-base" />
+                            <Skeleton className="h-9 w-24 rounded-base" />
                         </div>
                     </div>
 
@@ -66,7 +66,7 @@ export function VideoDetailLoading() {
                         <Skeleton className="h-6 w-3/4 md:h-7" />
                     </div>
 
-                    <div className="grid grid-cols-3 gap-2 rounded-2xl bg-muted/20 p-2">
+                    <div className="grid grid-cols-3 gap-2 rounded-base bg-muted/20 p-2">
                         {SCOREBOARD_COLUMNS.map((column) => (
                             <ScoreboardColumnSkeleton key={column} />
                         ))}
@@ -84,8 +84,8 @@ export function VideoDetailLoading() {
                 </div>
 
                 <div className="mt-4 flex flex-col gap-2">
-                    <Skeleton className="h-10 w-64 rounded-lg" />
-                    <div className="rounded-lg border p-4">
+                    <Skeleton className="h-10 w-64 rounded-base" />
+                    <div className="rounded-base border p-4">
                         <div className="flex flex-col gap-3">
                             {DESCRIPTION_LINES.map((line) => (
                                 <Skeleton

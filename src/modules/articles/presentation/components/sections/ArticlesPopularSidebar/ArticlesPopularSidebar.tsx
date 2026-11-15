@@ -54,7 +54,7 @@ export function ArticlesPopularSidebar({ currentArticleId }: ArticlesPopularSide
             render={(articles) => (
                 <aside className="flex flex-col gap-4">
                     {header}
-                    <div className="flex flex-col gap-4 rounded-xl bg-muted/60 p-3 sm:p-4 md:p-5 lg:p-3 xl:p-5">
+                    <div className="flex flex-col gap-4 rounded-base bg-muted/60 p-3 sm:p-4 md:p-5 lg:p-3 xl:p-5">
                         {articles.map((article, index) => (
                             <Fragment key={article.id}>
                                 <ArticleCard.Horizontal article={article} />

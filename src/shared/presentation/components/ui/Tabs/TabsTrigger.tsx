@@ -50,7 +50,7 @@ export const TabsTrigger = forwardRef<ComponentRef<typeof TabsPrimitive.Trigger>
                 className={cn(tabsTriggerVariants({ size: size ?? inherited }), className)}
                 {...props}
             >
-                {isActive && <span className="absolute inset-0 rounded-md bg-background" />}
+                {isActive && <span className="absolute inset-0 rounded-base bg-background" />}
                 <span className="relative z-10">{children}</span>
             </TabsPrimitive.Trigger>
         );

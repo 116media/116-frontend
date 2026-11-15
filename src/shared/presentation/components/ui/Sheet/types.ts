@@ -45,7 +45,6 @@ export interface SheetContentProps
  * @property {ReactNode} [children] - Row under the title, e.g. tabs or a segmented control.
  * @property {ReactNode} [leading] - Control before the title, e.g. a back button on a
  * multi-step sheet.
- * @property {"start" | "center"} [align] - How the title block aligns. Defaults to `start`.
  * @property {boolean} [showCloseButton] - Renders the close control. Defaults to true.
  * @property {string} [closeLabel] - Accessible label for the close control.
  * @property {string} [className] - Extra classes merged onto the header.
@@ -58,7 +57,6 @@ export interface SheetHeaderProps {
     closeLabel?: string;
     description?: ReactNode;
     showCloseButton?: boolean;
-    align?: "start" | "center";
 }
 
 /**

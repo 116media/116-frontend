@@ -14,7 +14,7 @@ export function ShowDetailHero({ category }: VideoExclusiveShowViewProps) {
     return (
         <VideoExclusiveShow.Root
             category={category}
-            className="always-dark dark grid grid-cols-1 overflow-hidden rounded-2xl border border-white/10 lg:grid-cols-[1.2fr_1fr]"
+            className="always-dark dark grid grid-cols-1 overflow-hidden rounded-base border border-white/10 lg:grid-cols-[1.2fr_1fr]"
         >
             <div className="relative flex min-h-112 flex-col justify-end overflow-hidden lg:min-h-130 lg:border-r">
                 <VideoExclusiveShow.Poster />

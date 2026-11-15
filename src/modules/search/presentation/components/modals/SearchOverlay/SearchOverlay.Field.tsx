@@ -63,7 +63,7 @@ export function SearchOverlayField({ value, onValueChange, onSubmit }: SearchOve
             >
                 <label
                     htmlFor="search-overlay-field"
-                    className="flex h-13 items-center gap-2 rounded-xl border-2 border-primary bg-card pr-1.5 pl-4 dark:border-secondary"
+                    className="flex h-13 items-center gap-2 rounded-base border-2 border-primary bg-card pr-1.5 pl-4 dark:border-secondary"
                 >
                     <SearchIcon
                         aria-hidden="true"
@@ -83,7 +83,7 @@ export function SearchOverlayField({ value, onValueChange, onSubmit }: SearchOve
                         onChange={(event: ChangeEvent<HTMLInputElement>) =>
                             onValueChange(event.target.value)
                         }
-                        className="min-w-0 flex-1 bg-transparent text-base text-foreground outline-none placeholder:text-muted-foreground [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden"
+                        className="min-w-0 flex-1 bg-transparent text-field text-foreground outline-none placeholder:text-muted-foreground [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden"
                     />
                     {value && (
                         <button
@@ -102,7 +102,7 @@ export function SearchOverlayField({ value, onValueChange, onSubmit }: SearchOve
                         type="submit"
                         disabled={!canSubmit}
                         aria-label={t("search.field.submit")}
-                        className="flex h-10 shrink-0 items-center justify-center gap-2 rounded-lg bg-primary px-3 font-semibold text-primary-foreground text-sm transition-opacity hover:opacity-90 disabled:opacity-40 sm:px-4 dark:bg-secondary dark:text-secondary-foreground"
+                        className="flex h-10 shrink-0 items-center justify-center gap-2 rounded-md bg-primary px-3 font-semibold text-primary-foreground text-sm transition-opacity hover:opacity-90 disabled:opacity-40 sm:px-4 dark:bg-secondary dark:text-secondary-foreground"
                     >
                         <SearchIcon className="size-4 shrink-0" />
                         {/* The word costs nothing where there is room, and a phone needs that room. */}

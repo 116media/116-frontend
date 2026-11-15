@@ -11,9 +11,9 @@ import { Skeleton } from "@/shared/presentation/components/ui/Skeleton";
  */
 export function VideoExclusiveShowHeroLoading() {
     return (
-        <section className="overflow-hidden rounded-2xl border bg-card">
+        <section className="overflow-hidden rounded-base border bg-card">
             <div className="space-y-4 p-5 sm:p-8 lg:p-10">
-                <Skeleton className="h-6 w-28 rounded-md" />
+                <Skeleton className="h-6 w-28 rounded-base" />
 
                 <Skeleton className="h-12 w-2/3 max-w-3xl sm:h-14" />
 
@@ -23,8 +23,8 @@ export function VideoExclusiveShowHeroLoading() {
                 </div>
 
                 <div className="flex flex-col gap-3 pt-2 sm:flex-row">
-                    <Skeleton className="h-10 w-full rounded-md sm:w-44" />
-                    <Skeleton className="h-10 w-full rounded-md sm:w-44" />
+                    <Skeleton className="h-10 w-full rounded-base sm:w-44" />
+                    <Skeleton className="h-10 w-full rounded-base sm:w-44" />
                 </div>
 
                 <div className="pt-6 lg:pt-10">
@@ -35,7 +35,7 @@ export function VideoExclusiveShowHeroLoading() {
                                 key={index}
                                 className="w-56 shrink-0 sm:w-64"
                             >
-                                <Skeleton className="aspect-video rounded-lg" />
+                                <Skeleton className="aspect-video rounded-base" />
                                 <Skeleton className="mt-2 h-4 w-3/4" />
                             </div>
                         ))}

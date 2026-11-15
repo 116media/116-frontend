@@ -29,14 +29,14 @@ export function Horizontal({
     return (
         <article
             className={cn(
-                "group flex gap-3 rounded-xl border p-3 transition-all bg-surface-raised/50 hover:bg-muted/50",
+                "group flex gap-3 rounded-base border p-3 transition-all bg-surface-raised/50 hover:bg-muted/50",
                 className
             )}
         >
             <Link
                 href={href}
                 aria-label={video.title}
-                className="relative min-h-18 w-28 shrink-0 self-stretch overflow-hidden rounded-md bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:w-24 md:w-32 lg:w-20 xl:w-32"
+                className="relative min-h-18 w-28 shrink-0 self-stretch overflow-hidden rounded-base bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:w-24 md:w-32 lg:w-20 xl:w-32"
             >
                 <VideoCardMedia
                     playSize="sm"

@@ -25,10 +25,10 @@ export function Vertical({ video }: VideoCardProps) {
         >
             <span
                 aria-hidden
-                className="pointer-events-none absolute -inset-2 -z-10 rounded-2xl bg-muted/0 transition-colors duration-300 group-hover:bg-muted/95"
+                className="pointer-events-none absolute -inset-2 -z-10 rounded-base bg-muted/0 transition-colors duration-300 group-hover:bg-muted/95"
             />
 
-            <div className="relative aspect-video overflow-hidden rounded-lg bg-muted">
+            <div className="relative aspect-video overflow-hidden rounded-base bg-muted">
                 <VideoCardMedia
                     playSize="md"
                     title={video.title}

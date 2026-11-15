@@ -6,6 +6,7 @@ import { otp } from "@/modules/auth/presentation/i18n/locales/fr/otp";
 import { password } from "@/modules/auth/presentation/i18n/locales/fr/password";
 import { session } from "@/modules/auth/presentation/i18n/locales/fr/session";
 import { signup } from "@/modules/auth/presentation/i18n/locales/fr/signup";
+import { verified } from "@/modules/auth/presentation/i18n/locales/fr/verified";
 
 /**
  * fr
@@ -19,6 +20,7 @@ export const fr = {
     login,
     signup,
     otp,
+    verified,
     password,
     session,
     errors,

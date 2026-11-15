@@ -75,7 +75,7 @@ export function VideoDetailHeader({
     const { data: youtubeStats } = useYoutubeStats(extractYoutubeId(youtubeVideoUrl));
 
     return (
-        <header className="flex flex-col gap-4 rounded-lg border p-3 md:p-4">
+        <header className="flex flex-col gap-4 rounded-base border p-3 md:p-4">
             <div className="flex flex-wrap items-center justify-between gap-3">
                 <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
                     <Tag

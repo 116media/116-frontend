@@ -19,7 +19,7 @@ export function SheetFooter({ children, className }: SheetRegionProps) {
     return (
         <footer
             className={cn(
-                "shrink-0 border-outlined border-t bg-dialog p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:px-6",
+                "shrink-0 border-outlined border-t bg-dialog p-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:px-6",
                 className
             )}
         >

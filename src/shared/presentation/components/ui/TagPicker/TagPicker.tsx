@@ -191,7 +191,7 @@ export function TagPicker({
                 </Sheet.Root>
             ) : (
                 open && (
-                    <div className="absolute right-0 z-20 mt-1 flex max-h-72 w-64 flex-col overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md">
+                    <div className="absolute right-0 z-20 mt-1 flex max-h-72 w-64 flex-col overflow-hidden rounded-base border bg-popover text-popover-foreground shadow-md">
                         <div className="shrink-0 p-2">{searchField}</div>
                         <div className="flex-1 overflow-y-auto p-1">{rows}</div>
                     </div>

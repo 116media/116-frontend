@@ -4,7 +4,7 @@ import type * as React from "react";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 const tagVariants = cva(
-    "inline-flex items-center gap-1 rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors cursor-pointer select-none whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+    "inline-flex items-center gap-1 rounded-base border px-2.5 py-0.5 text-xs font-semibold transition-colors cursor-pointer select-none whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
     {
         variants: {
             variant: {
@@ -25,7 +25,7 @@ const tagVariants = cva(
                 lg: "px-3 py-1 text-sm"
             },
             shape: {
-                rounded: "!rounded-md",
+                rounded: "!rounded-base",
                 pill: ""
             }
         },

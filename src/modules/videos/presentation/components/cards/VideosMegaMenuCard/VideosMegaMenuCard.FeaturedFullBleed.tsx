@@ -28,7 +28,7 @@ export function FeaturedFullBleed({ video }: VideosMegaMenuCardProps) {
             href={`${VIDEOS_PATH}/${video.slug}`}
             className={cn(
                 cardVariants,
-                "group relative flex h-full flex-col overflow-hidden rounded-xl border-0 bg-black"
+                "group relative flex h-full flex-col overflow-hidden rounded-base border-0 bg-black"
             )}
         >
             {video.thumbnailUrl ? (

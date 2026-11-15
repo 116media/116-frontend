@@ -69,7 +69,7 @@ export function FlashToast({ type, title, description, onDismiss }: FlashToastPr
     return (
         <div
             role="alert"
-            className={cn("inline-flex items-start gap-3 rounded-lg p-4 shadow-lg", surface)}
+            className={cn("inline-flex items-start gap-3 rounded-base p-4 shadow-lg", surface)}
         >
             <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-white/25">
                 {icon}

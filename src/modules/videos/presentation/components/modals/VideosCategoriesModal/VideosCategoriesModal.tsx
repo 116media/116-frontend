@@ -4,11 +4,6 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ShowCard } from "@/modules/videos/presentation/components/cards/ShowCard";
 import { useShows } from "@/modules/videos/presentation/hooks/useShows";
-import {
-    DialogCloseButton,
-    DialogHeader,
-    DialogTitle
-} from "@/shared/presentation/components/ui/Dialog";
 import { EmptyState } from "@/shared/presentation/components/ui/EmptyState";
 import { SearchIcon } from "@/shared/presentation/components/ui/Icon";
 import { Input } from "@/shared/presentation/components/ui/Input";
@@ -52,10 +47,11 @@ export function VideosCategoriesModal({ open, onOpenChange }: VideosCategoriesMo
                 detent="large"
                 className="gap-0 bg-card p-0 sm:max-h-[80vh] sm:max-w-lg sm:shadow-xl"
             >
-                <DialogHeader className="flex-row items-center justify-between gap-3 border-b p-4">
-                    <DialogTitle>{t("videos.browse.modal.title")}</DialogTitle>
-                    <DialogCloseButton label={t("videos.browse.modal.close")} />
-                </DialogHeader>
+                <AdaptiveDialog.Header
+                    className="p-4 sm:p-4"
+                    title={t("videos.browse.modal.title")}
+                    closeLabel={t("videos.browse.modal.close")}
+                />
 
                 <div className="relative shrink-0 p-4 pb-2">
                     <SearchIcon className="-translate-y-1/2 absolute top-[calc(50%+4px)] left-7 size-4 text-muted-foreground" />

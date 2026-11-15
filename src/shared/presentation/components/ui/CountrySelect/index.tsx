@@ -37,7 +37,7 @@ export interface CountrySelectProps {
  * @description
  * A searchable country picker composed from {@link CountrySelectTrigger} and
  * {@link CountrySelectMenu}. Owns the open/search/filter state and emits the selected
- * country name; the menu renders in flow so it stays usable inside modal dialogs.
+ * country name; the menu expands in flow so it stays usable inside modal dialogs.
  */
 export function CountrySelect({
     value,
@@ -70,7 +70,24 @@ export function CountrySelect({
     useDismiss(open, close, containerRef);
 
     useEffect(() => {
-        if (open) searchRef.current?.focus();
+        if (!open) return;
+        searchRef.current?.focus({ preventScroll: true });
+        containerRef.current?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    }, [open]);
+
+    useEffect(() => {
+        if (!open) return;
+
+        // Window capture runs before Radix's document-level one, so Escape closes only
+        // this menu and leaves a surrounding dialog open.
+        const onEscape = (event: KeyboardEvent) => {
+            if (event.key !== "Escape") return;
+            event.stopImmediatePropagation();
+            setOpen(false);
+        };
+
+        window.addEventListener("keydown", onEscape, true);
+        return () => window.removeEventListener("keydown", onEscape, true);
     }, [open]);
 
     const select = (name: string) => {

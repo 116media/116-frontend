@@ -10,7 +10,7 @@ import { Skeleton } from "@/shared/presentation/components/ui/Skeleton";
 function SidebarRowSkeleton() {
     return (
         <div className="flex gap-3">
-            <Skeleton className="min-h-18 w-28 shrink-0 rounded-md" />
+            <Skeleton className="min-h-18 w-28 shrink-0 rounded-base" />
             <div className="flex flex-1 flex-col gap-2">
                 <Skeleton className="h-4 w-full" />
                 <Skeleton className="h-3 w-2/3" />
@@ -58,13 +58,13 @@ export function ArticleDetailLoading() {
                         </div>
                     </div>
                     <div className="flex items-center gap-3">
-                        <Skeleton className="h-8 w-16 rounded-md" />
-                        <Skeleton className="h-8 w-16 rounded-md" />
-                        <Skeleton className="h-8 w-16 rounded-md" />
+                        <Skeleton className="h-8 w-16 rounded-base" />
+                        <Skeleton className="h-8 w-16 rounded-base" />
+                        <Skeleton className="h-8 w-16 rounded-base" />
                     </div>
                 </div>
 
-                <Skeleton className="aspect-video w-full rounded-xl md:aspect-3/2 xl:aspect-[13/10]" />
+                <Skeleton className="aspect-video w-full rounded-base md:aspect-3/2 xl:aspect-[13/10]" />
 
                 <div className="flex flex-col gap-2">
                     <Skeleton className="h-5 w-full" />
@@ -73,7 +73,7 @@ export function ArticleDetailLoading() {
 
                 <div className="flex flex-wrap items-center justify-between gap-4 border-y py-3">
                     <div className="flex items-center gap-4">
-                        <Skeleton className="h-9 w-24 rounded-lg" />
+                        <Skeleton className="h-9 w-24 rounded-base" />
                         <Skeleton className="h-4 w-28" />
                     </div>
                     <Skeleton className="h-4 w-24" />
@@ -98,11 +98,11 @@ export function ArticleDetailLoading() {
             </div>
 
             <aside className="mt-12 hidden md:col-start-2 xl:col-start-3 xl:mt-0 xl:flex xl:flex-col xl:gap-3">
-                <div className="mb-4 flex items-center gap-3 rounded-xl border bg-muted/60 p-4">
-                    <Skeleton className="size-12 rounded-md" />
+                <div className="mb-4 flex items-center gap-3 rounded-base border bg-muted/60 p-4">
+                    <Skeleton className="size-12 rounded-base" />
                     <Skeleton className="h-5 w-40" />
                 </div>
-                <div className="flex flex-col gap-8 rounded-xl bg-muted/60 p-3 xl:p-5">
+                <div className="flex flex-col gap-8 rounded-base bg-muted/60 p-3 xl:p-5">
                     {sidebarRows.map((row) => (
                         <SidebarRowSkeleton key={row} />
                     ))}

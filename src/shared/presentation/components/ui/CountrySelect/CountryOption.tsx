@@ -22,7 +22,7 @@ export interface CountryOptionProps {
  * @description
  * A single selectable row inside the {@link CountrySelect} menu: the country flag, dial
  * code, and name, with a trailing check when it is the current selection. Shares the
- * spacing of the app's dropdown menu items (`gap-2 rounded-sm p-2`).
+ * spacing of the app's dropdown menu items (`gap-2 rounded-base p-2`).
  */
 export function CountryOption({ country, selected, onSelect }: CountryOptionProps) {
     return (
@@ -30,7 +30,7 @@ export function CountryOption({ country, selected, onSelect }: CountryOptionProp
             type="button"
             onClick={() => onSelect(country.name)}
             className={cn(
-                "flex w-full cursor-pointer items-center gap-2 rounded-sm p-2 text-left text-sm",
+                "flex w-full cursor-pointer items-center gap-2 rounded-md p-2 text-left text-sm",
                 "transition-colors hover:bg-accent hover:text-accent-foreground",
                 selected && "bg-accent/50"
             )}
@@ -39,7 +39,7 @@ export function CountryOption({ country, selected, onSelect }: CountryOptionProp
                 loading="eager"
                 src={country.flag}
                 alt={country.isoCode}
-                className="h-3 w-4.5 shrink-0 rounded-xs object-cover"
+                className="h-3 w-4.5 shrink-0 rounded-base object-cover"
             />
             <span className="w-12 shrink-0 text-muted-foreground">{country.dialCode}</span>
             <span className="truncate">{country.name}</span>

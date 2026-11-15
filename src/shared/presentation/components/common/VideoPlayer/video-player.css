@@ -23,7 +23,7 @@
 
 /*
  * Squared off while the player is pinned to the top of a small viewport: the band runs
- * edge to edge there, so every rounded layer inside it has to let go of its corners.
+ * edge to edge there, so every rounded-base layer inside it has to let go of its corners.
  */
 .player-pinned,
 .player-pinned .video-player,

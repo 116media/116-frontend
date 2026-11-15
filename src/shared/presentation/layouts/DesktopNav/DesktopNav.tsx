@@ -70,7 +70,7 @@ export function DesktopNav({ articles, videos }: DesktopNavProps) {
                                         <Link
                                             href={href}
                                             className={cn(
-                                                "flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-foreground transition-colors",
+                                                "flex items-center gap-1 rounded-base px-3 py-2 text-sm font-medium text-foreground transition-colors",
                                                 "hover:bg-accent hover:text-accent-foreground",
                                                 "data-[state=open]:bg-accent data-[state=open]:text-accent-foreground"
                                             )}
@@ -96,7 +96,7 @@ export function DesktopNav({ articles, videos }: DesktopNavProps) {
                                     <Link
                                         href={href}
                                         className={cn(
-                                            "flex items-center rounded-md px-3 py-2 text-sm font-medium text-foreground transition-colors",
+                                            "flex items-center rounded-base px-3 py-2 text-sm font-medium text-foreground transition-colors",
                                             "hover:bg-accent hover:text-accent-foreground"
                                         )}
                                     >

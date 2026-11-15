@@ -29,7 +29,7 @@ export function CommentBubble({ children }: CommentBubbleProps) {
     return (
         <div
             className={cn(
-                "relative flex flex-col gap-1.5 rounded-md bg-muted",
+                "relative flex flex-col gap-1.5 rounded-base bg-muted",
                 isReply ? "p-3" : "p-3 sm:p-4"
             )}
         >

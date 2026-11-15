@@ -37,7 +37,7 @@ export function MegaMenuRow({ href, label, count, onNavigate }: MegaMenuRowProps
                 href={href}
                 onClick={onNavigate}
                 className={cn(
-                    "group flex items-center justify-between rounded-md p-3 transition-colors",
+                    "group flex items-center justify-between rounded-base p-3 transition-colors",
                     "hover:bg-accent"
                 )}
             >

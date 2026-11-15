@@ -28,7 +28,7 @@ const VARIANT: Record<SheetVariant, string> = {
     sheet: "sm:left-1/2 sm:max-w-lg sm:-translate-x-1/2",
     adaptive: [
         "sm:top-1/2 sm:bottom-auto sm:left-1/2 sm:h-auto sm:max-h-[85dvh] sm:max-w-md",
-        "sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-2xl sm:border sm:border-outlined",
+        "sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-base sm:border sm:border-outlined",
         "sm:data-[state=open]:animate-dialog-in sm:data-[state=closed]:animate-dialog-out"
     ].join(" ")
 };
@@ -57,7 +57,7 @@ export const SheetContent = forwardRef<
         <DialogPrimitive.Content
             ref={ref}
             className={cn(
-                "fixed inset-x-0 bottom-0 z-50 flex w-full flex-col overflow-hidden rounded-t-2xl bg-dialog text-dialog-foreground shadow-[0_-8px_32px_rgba(0,0,0,0.28)] focus:outline-none",
+                "fixed inset-x-0 bottom-0 z-50 flex w-full flex-col overflow-hidden rounded-t-base bg-dialog text-dialog-foreground shadow-[0_-8px_32px_rgba(0,0,0,0.28)] focus:outline-none",
                 "data-[state=open]:animate-sheet-in-bottom data-[state=closed]:animate-sheet-out-bottom",
                 "sm:inset-x-auto sm:w-full",
                 DETENT[detent],

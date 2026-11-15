@@ -29,7 +29,7 @@ export interface ArticleCardFeedProps {
  */
 export function ArticleCardFeed({ article }: ArticleCardFeedProps) {
     return (
-        <article className="group flex h-full flex-col overflow-hidden rounded-xl border bg-background">
+        <article className="group flex h-full flex-col overflow-hidden rounded-base border bg-background">
             <ArticleCardMedia
                 slug={article.slug}
                 title={article.title}

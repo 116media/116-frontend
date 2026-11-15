@@ -118,9 +118,9 @@ export function VideoPlaylistModal({ open, onOpenChange, videoId }: VideoPlaylis
                     skeleton={[0, 1, 2].map((row) => (
                         <div
                             key={row}
-                            className="flex items-center gap-3 rounded-lg p-2"
+                            className="flex items-center gap-3 rounded-base p-2"
                         >
-                            <Skeleton className="size-4 rounded" />
+                            <Skeleton className="size-4 rounded-base" />
                             <Skeleton className="h-4 w-40" />
                         </div>
                     ))}
@@ -128,7 +128,7 @@ export function VideoPlaylistModal({ open, onOpenChange, videoId }: VideoPlaylis
                         <button
                             type="button"
                             onClick={() => refetch()}
-                            className="rounded-lg p-2 text-left text-destructive text-sm hover:bg-muted/50"
+                            className="rounded-md p-2 text-left text-destructive text-sm hover:bg-muted/50"
                         >
                             {t("videos.detail.error.retry")}
                         </button>
@@ -143,7 +143,7 @@ export function VideoPlaylistModal({ open, onOpenChange, videoId }: VideoPlaylis
                             <label
                                 key={playlist.id}
                                 htmlFor={`playlist-${playlist.id}`}
-                                className="flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-colors hover:bg-muted/50"
+                                className="flex cursor-pointer items-center gap-3 rounded-base border p-3 transition-colors hover:bg-muted/50"
                             >
                                 <Checkbox
                                     id={`playlist-${playlist.id}`}
@@ -201,7 +201,7 @@ export function VideoPlaylistModal({ open, onOpenChange, videoId }: VideoPlaylis
                 <button
                     type="button"
                     onClick={() => setCreating(true)}
-                    className="flex items-center justify-center gap-2 rounded-lg border border-dashed p-3 text-muted-foreground text-sm transition-colors hover:bg-muted/50 hover:text-foreground"
+                    className="flex items-center justify-center gap-2 rounded-md border border-dashed p-3 text-muted-foreground text-sm transition-colors hover:bg-muted/50 hover:text-foreground"
                 >
                     <ListPlusIcon className="size-4" />
                     {t("videos.detail.playlist.createNew")}

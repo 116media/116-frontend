@@ -27,7 +27,7 @@ export function Vertical({ show }: ShowCardVerticalProps) {
     return (
         <Link
             href={`${SHOWS_PATH}/${show.slug}`}
-            className="group relative block aspect-4/5 overflow-hidden rounded-xl"
+            className="group relative block aspect-4/5 overflow-hidden rounded-base"
         >
             <Poster show={show} />
             <Caption

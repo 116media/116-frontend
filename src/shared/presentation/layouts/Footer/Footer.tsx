@@ -56,7 +56,7 @@ export function Footer({ minimal = false }: FooterProps) {
                                         size="icon"
                                         key={label}
                                         variant="ghost"
-                                        className="size-10 rounded-lg bg-foreground/5 hover:bg-foreground/10 [&_svg]:size-4"
+                                        className="size-10 rounded-base bg-foreground/5 hover:bg-foreground/10 [&_svg]:size-4"
                                     >
                                         <a
                                             href={href}

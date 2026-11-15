@@ -70,7 +70,7 @@ export function OtpInput({ value, onChange, length = 6 }: OtpInputProps) {
                             event.clipboardData.getData("text").replace(/\D/g, "").slice(0, length)
                         );
                     }}
-                    className="size-11 rounded-sm px-0 text-center text-lg font-semibold"
+                    className="size-11 rounded-base px-0 text-center text-lg font-semibold"
                 />
             ))}
         </div>

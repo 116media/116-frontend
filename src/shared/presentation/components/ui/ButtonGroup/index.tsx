@@ -8,7 +8,7 @@ import { cn } from "@/shared/presentation/utils/cn/cn.utils";
  *
  * @description
  * Joins a set of buttons into a single segmented control: no gap, shared edges, and
- * only the group's outer corners rounded. Inner buttons drop their touching radii and
+ * only the group's outer corners rounded-base. Inner buttons drop their touching radii and
  * borders per orientation; `items-stretch` keeps every button the same cross-size.
  */
 const buttonGroupVariants = cva("flex w-fit items-stretch", {
@@ -43,7 +43,7 @@ export interface ButtonGroupProps
  * @description
  * Groups related buttons into a seamless segmented control (shadcn-style): buttons
  * sit edge-to-edge with inner borders collapsed, so only the outer corners stay
- * rounded. Exposes the `group` ARIA role and `data-orientation`.
+ * rounded-base. Exposes the `group` ARIA role and `data-orientation`.
  */
 export function ButtonGroup({ orientation, className, ...props }: ButtonGroupProps) {
     return (

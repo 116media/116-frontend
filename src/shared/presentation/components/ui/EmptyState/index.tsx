@@ -42,7 +42,7 @@ export function EmptyState({ context, icon, title, subtitle, action, className }
         <div
             data-empty-state={context}
             className={cn(
-                "flex min-h-[70vh] w-full flex-col items-center justify-center gap-3 rounded-lg bg-sidebar p-8 text-center",
+                "flex min-h-[70vh] w-full flex-col items-center justify-center gap-3 rounded-base bg-sidebar p-8 text-center",
                 className
             )}
         >

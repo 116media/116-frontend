@@ -17,7 +17,7 @@ export function Strip({ article }: ArticlePromotionCardProps) {
             href={`/articles/${article.slug}`}
             className="group flex min-w-0 flex-1 gap-2 sm:gap-3 lg:gap-2 xl:gap-3"
         >
-            <div className="relative min-h-18 w-28 shrink-0 self-stretch overflow-hidden rounded-md sm:w-24 md:w-32 lg:w-20 xl:w-32">
+            <div className="relative min-h-18 w-28 shrink-0 self-stretch overflow-hidden rounded-base sm:w-24 md:w-32 lg:w-20 xl:w-32">
                 {article.coverImageUrl && (
                     <Image
                         fill

@@ -39,9 +39,9 @@ export function ComingSoonHighlights({ highlights }: ComingSoonHighlightsProps) 
                 {highlights.map((item) => (
                     <div
                         key={item.id}
-                        className="flex flex-col gap-3 rounded-lg border border-foreground/5 bg-surface-raised p-5"
+                        className="flex flex-col gap-3 rounded-base border border-foreground/5 bg-surface-raised p-5"
                     >
-                        <span className="flex size-10 items-center justify-center rounded-md bg-muted text-primary dark:text-secondary [&_svg]:size-5">
+                        <span className="flex size-10 items-center justify-center rounded-base bg-muted text-primary dark:text-secondary [&_svg]:size-5">
                             {item.icon}
                         </span>
                         <h3 className="font-semibold text-base text-foreground">

@@ -27,7 +27,7 @@ export function ComingSoonVideosLoading({ count = 4 }: ComingSoonVideosLoadingPr
                     key={`coming-soon-video-${slot}`}
                     className="flex flex-col gap-2"
                 >
-                    <Skeleton className="aspect-video w-full rounded-lg" />
+                    <Skeleton className="aspect-video w-full rounded-base" />
                     <Skeleton className="h-4 w-full" />
                     <Skeleton className="h-3 w-2/3" />
                 </div>

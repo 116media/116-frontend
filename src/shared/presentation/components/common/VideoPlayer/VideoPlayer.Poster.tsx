@@ -31,7 +31,9 @@ export function VideoPlayerPoster({
     ratioClassName = "aspect-video"
 }: VideoPlayerPosterProps) {
     return (
-        <div className={cn("relative w-full overflow-hidden rounded-lg bg-muted", ratioClassName)}>
+        <div
+            className={cn("relative w-full overflow-hidden rounded-base bg-muted", ratioClassName)}
+        >
             {thumbnailUrl && (
                 <Image
                     fill

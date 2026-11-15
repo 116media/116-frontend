@@ -116,7 +116,7 @@ export function SearchOverlayBody({
                     <button
                         type="button"
                         onClick={onSeeAll}
-                        className="rounded-lg py-2 text-center font-semibold text-primary text-sm transition-colors hover:bg-muted dark:text-secondary"
+                        className="rounded-md py-2 text-center font-semibold text-primary text-sm transition-colors hover:bg-muted dark:text-secondary"
                     >
                         {t("search.overlay.seeAll", { count: total })}
                     </button>

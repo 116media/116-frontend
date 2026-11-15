@@ -25,7 +25,7 @@ export function FeaturedOverlay({ article }: ArticlesMegaMenuCardProps) {
             href={`${ARTICLES_PATH}/${article.slug}`}
             className={cn(
                 cardVariants,
-                "group relative flex h-full flex-col overflow-hidden rounded-xl border-0"
+                "group relative flex h-full flex-col overflow-hidden rounded-base border-0"
             )}
         >
             <div className="relative flex-1 w-full">

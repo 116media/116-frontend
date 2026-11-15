@@ -5,11 +5,15 @@ import type { NextConfig } from "next";
 const projectRoot = dirname(fileURLToPath(import.meta.url));
 
 /**
- * Where the dev proxy forwards `/backend/*`. The browser never names the backend
- * directly, so the app works unchanged on localhost, on whatever LAN address the
- * machine currently holds, and through an https tunnel.
+ * Where `/backend/*` is forwarded. The browser never names the backend directly, so the app
+ * works unchanged on localhost, on whatever LAN address the machine currently holds, and
+ * through an https tunnel. Unset is a misconfiguration, not a default to guess at.
  */
-const apiOrigin = (process.env.API_INTERNAL_URL ?? "http://localhost:5025").replace(/\/+$/, "");
+const apiOrigin = process.env.API_INTERNAL_URL?.replace(/\/+$/, "");
+
+if (!apiOrigin) {
+    throw new Error("API_INTERNAL_URL is required: /backend/* has nowhere to forward to.");
+}
 
 const nextConfig: NextConfig = {
     allowedDevOrigins: [

@@ -28,7 +28,7 @@ export function FeaturedSpotlight({ video }: VideosMegaMenuCardProps) {
             href={`${VIDEOS_PATH}/${video.slug}`}
             className={cn(
                 cardVariants,
-                "group relative flex h-full flex-col overflow-hidden rounded-xl border-0",
+                "group relative flex h-full flex-col overflow-hidden rounded-base border-0",
                 "bg-linear-to-br from-primary/5 to-secondary/5 dark:from-primary/10 dark:to-secondary/10",
                 "p-3"
             )}
@@ -48,7 +48,7 @@ export function FeaturedSpotlight({ video }: VideosMegaMenuCardProps) {
                 </h3>
             </div>
 
-            <div className="relative w-full flex-1 min-h-0 overflow-hidden rounded-md mb-2">
+            <div className="relative w-full flex-1 min-h-0 overflow-hidden rounded-base mb-2">
                 {video.thumbnailUrl ? (
                     <Image
                         fill

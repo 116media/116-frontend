@@ -112,7 +112,7 @@ export function SocialShareGroup({
             className={cn(
                 "size-12 p-0 text-white transition-all hover:text-white [&_svg]:size-5",
                 "hover:brightness-90 hover:[&_svg]:scale-120 [&_svg]:transition-transform",
-                separated && "rounded-lg",
+                separated && "rounded-base",
                 bgClass
             )}
         >
