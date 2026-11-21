@@ -17,10 +17,7 @@ import {
 import { useRecentSearches } from "@/modules/search/presentation/hooks/useRecentSearches";
 import { useSearchResults } from "@/modules/search/presentation/hooks/useSearchResults";
 import { searchHref } from "@/modules/search/presentation/utils/search/search.utils";
-import {
-    CategoryTabs,
-    type ICategoryTab
-} from "@/shared/presentation/components/navigation/CategoryTabs";
+import { CategoryTabs, type ICategoryTab } from "@/shared/presentation/layouts/CategoryTabs";
 
 import { SearchContainerField } from "./SearchContainer.Field";
 

@@ -19,6 +19,7 @@ import {
     type INotificationConfig,
     showNotification
 } from "@/shared/presentation/utils/notification/notification.utils";
+import { copyTextToClipboard } from "@/shared/presentation/utils/share/share.utils";
 
 /**
  * Props for the ShareModal component.
@@ -88,7 +89,7 @@ export function ShareModal({
     }, [url]);
 
     const copy = async () => {
-        await navigator.clipboard.writeText(url);
+        if (!(await copyTextToClipboard(url))) return;
         onShared("clipboard");
         showNotification(copiedNotification);
     };

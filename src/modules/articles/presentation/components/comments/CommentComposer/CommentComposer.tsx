@@ -59,6 +59,7 @@ export function CommentComposer({ articleId, slug, composerRef }: CommentCompose
                 <Button
                     variant="outline"
                     onClick={() => open("login")}
+                    className="max-sm:h-11 max-sm:w-full max-sm:font-semibold"
                 >
                     {t("articles.comments.loginCta")}
                 </Button>
@@ -85,6 +86,7 @@ export function CommentComposer({ articleId, slug, composerRef }: CommentCompose
                     type="submit"
                     loading={addComment.isPending}
                     disabled={!isValid || addComment.isPending}
+                    className="max-sm:h-11 max-sm:w-full max-sm:font-semibold"
                 >
                     {t("articles.comments.submit")}
                 </Button>

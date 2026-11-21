@@ -11,6 +11,7 @@ export const general = {
     breadcrumbNews: "News",
     all: "Tout",
     viewAll: "Voir tout",
+    learnMore: "En savoir plus",
     popularTags: "Tags populaires",
     metaTitleDefault: "116 - Musique & Culture Hip-Hop",
     metaDescription: "Articles, vidéos et paroles de la culture hip-hop en RDC et au-delà."

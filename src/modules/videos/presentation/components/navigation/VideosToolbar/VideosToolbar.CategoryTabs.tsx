@@ -4,9 +4,9 @@ import { useTranslation } from "react-i18next";
 
 import { VIDEO_BROWSE_CHIP_LIMIT } from "@/modules/videos/presentation/constants/videoKeys";
 import { useVideoCategories } from "@/modules/videos/presentation/hooks/useVideoCategories";
-import { CategoryTabs } from "@/shared/presentation/components/navigation/CategoryTabs";
 import { Button } from "@/shared/presentation/components/ui/Button";
 import { LayoutGridIcon } from "@/shared/presentation/components/ui/Icon";
+import { CategoryTabs } from "@/shared/presentation/layouts/CategoryTabs";
 
 /**
  * Props for VideosToolbarCategoryTabs.

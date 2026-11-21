@@ -2,6 +2,7 @@
 
 import { useTranslation } from "react-i18next";
 
+import { PlayIcon } from "@/shared/presentation/components/ui/Icon";
 import { MegaMenuRow } from "@/shared/presentation/components/ui/MegaMenuRow";
 import { SHOWS_PATH, VIDEOS_PATH } from "@/shared/presentation/constants/paths";
 import type { VideosMegaMenuCategoryListProps } from "./types";
@@ -25,21 +26,27 @@ export function VideosMegaMenuCategoryList({ categories }: VideosMegaMenuCategor
 
             <MegaMenuRow
                 href={VIDEOS_PATH}
+                icon={<PlayIcon />}
                 label={t("general.all")}
+                description={t("videos.home.allDescription")}
             />
 
             {categories.map((category) => (
                 <MegaMenuRow
                     key={category.id}
+                    icon={<PlayIcon />}
                     label={category.name}
                     count={category.publishedCount}
+                    description={category.description}
                     href={`${VIDEOS_PATH}?categoryId=${category.id}`}
                 />
             ))}
 
             <MegaMenuRow
                 href={SHOWS_PATH}
+                icon={<PlayIcon />}
                 label={t("videos.home.showsViewAll")}
+                description={t("videos.home.showsViewAllDescription")}
             />
         </div>
     );

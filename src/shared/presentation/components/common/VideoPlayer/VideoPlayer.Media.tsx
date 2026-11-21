@@ -2,13 +2,12 @@
 
 import { I18nProvider } from "@videojs/react/i18n";
 import { YouTubeVideo } from "@videojs/react/media/youtube-video";
-import { NeutralVideoSkin, Video, VideoPlayer as VideoJsPlayer } from "@videojs/react/video";
-import Image from "next/image";
-import type { ComponentProps, ReactNode } from "react";
+import { Video, VideoPlayer as VideoJsPlayer } from "@videojs/react/video";
+import type { ReactNode } from "react";
 import "@videojs/react/video/neutral-skin.css";
 import "./video-player.css";
 
-import { VideoPlayerReelSkin } from "./VideoPlayer.ReelSkin";
+import { VideoPlayerSkin } from "./VideoPlayer.Skin";
 
 /**
  * Props for VideoPlayer.Media.
@@ -22,6 +21,7 @@ import { VideoPlayerReelSkin } from "./VideoPlayer.ReelSkin";
  * @property {boolean} [autoPlay] - Autoplay on mount.
  * @property {boolean} [muted] - Start muted (required for autoplay).
  * @property {boolean} [loop] - Loop playback.
+ * @property {boolean} [pinned] - Whether the player is docked to the top of the viewport.
  * @property {ReactNode} [children] - Rendered inside the player context, for `usePlayer()` consumers.
  */
 export interface VideoPlayerMediaProps {
@@ -33,32 +33,8 @@ export interface VideoPlayerMediaProps {
     autoPlay?: boolean;
     muted?: boolean;
     loop?: boolean;
+    pinned?: boolean;
     children?: ReactNode;
-}
-
-/**
- * renderPoster
- *
- * @description
- * Draws the poster through `next/image` instead of the skin's own `<img>`, so the frame
- * goes through the image pipeline like every other thumbnail in the app.
- *
- * @param props - The image props the skin resolves, including the poster `src`.
- * @returns {ReactNode} The poster image, or null before a source resolves.
- */
-function renderPoster({ src, alt }: ComponentProps<"img">) {
-    if (typeof src !== "string" || !src) return null;
-
-    return (
-        <Image
-            fill
-            priority
-            src={src}
-            alt={alt ?? ""}
-            sizes="(max-width: 1024px) 100vw, 66vw"
-            className="object-cover"
-        />
-    );
 }
 
 /**
@@ -79,6 +55,7 @@ export function VideoPlayerMedia({
     autoPlay,
     muted,
     loop,
+    pinned,
     children
 }: VideoPlayerMediaProps) {
     const media = youtubeUrl ? (
@@ -106,16 +83,13 @@ export function VideoPlayerMedia({
                 title={title}
                 poster={poster}
             >
-                {controls === "reel" ? (
-                    <VideoPlayerReelSkin renderPoster={renderPoster}>{media}</VideoPlayerReelSkin>
-                ) : (
-                    <NeutralVideoSkin
-                        className="size-full"
-                        renderPoster={renderPoster}
-                    >
-                        {media}
-                    </NeutralVideoSkin>
-                )}
+                <VideoPlayerSkin
+                    title={title}
+                    pinned={pinned}
+                    controls={controls}
+                >
+                    {media}
+                </VideoPlayerSkin>
                 {children}
             </VideoJsPlayer>
         </I18nProvider>

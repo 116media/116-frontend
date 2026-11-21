@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
 import type { ArticlesMegaMenuProps } from "@/modules/articles/presentation/components/navigation/ArticlesMegaMenu/types";
+import type { IComingSoonFeature } from "@/modules/coming-soon/presentation/constants/comingSoonFeatures";
 import type { VideosMegaMenuProps } from "@/modules/videos/presentation/components/navigation/VideosMegaMenu/types";
 import type { MegaMenuTagItem } from "@/shared/presentation/layouts/MegaMenuShell";
 
@@ -130,5 +131,19 @@ export interface MobileMegaMenuChipItem {
  */
 export interface MobileMegaMenuChipsProps {
     items: MobileMegaMenuChipItem[];
+    onNavigate: () => void;
+}
+
+/**
+ * Props for MobileMegaMenu.ComingSoon.
+ *
+ * @interface MobileMegaMenuComingSoonProps
+ * @property {IComingSoonFeature} feature - The announced feature whose copy the panel shows.
+ * @property {string} href - The feature's own page, linked under the points.
+ * @property {() => void} onNavigate - Closes the panel once the link is followed.
+ */
+export interface MobileMegaMenuComingSoonProps {
+    feature: IComingSoonFeature;
+    href: string;
     onNavigate: () => void;
 }

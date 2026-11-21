@@ -34,7 +34,7 @@ export const tabsTriggerVariants = cva(
  * the pills consistently across the scale.
  */
 export const tabsListVariants = cva(
-    "inline-flex items-center gap-1 rounded-base bg-muted text-muted-foreground",
+    "inline-flex items-center gap-1 rounded-base border border-surface-hover/65 bg-muted text-muted-foreground",
     {
         variants: {
             size: {

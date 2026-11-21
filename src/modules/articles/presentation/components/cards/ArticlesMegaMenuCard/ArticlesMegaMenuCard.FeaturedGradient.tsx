@@ -26,7 +26,7 @@ export function FeaturedGradient({ article }: ArticlesMegaMenuCardProps) {
             className={cn(
                 cardVariants,
                 "group relative flex h-full flex-col overflow-hidden rounded-base border-0",
-                "bg-linear-to-br from-primary/5 to-secondary/5 dark:from-primary/10 dark:to-secondary/10",
+                "bg-linear-to-br from-primary/10 to-secondary/10 dark:from-primary/10 dark:to-secondary/10",
                 ""
             )}
         >

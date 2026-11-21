@@ -1,7 +1,7 @@
 import { type RefObject, useEffect, useRef } from "react";
 
 import type { ICountryObject } from "@/shared/infrastructure/constants/countries";
-import { Input } from "@/shared/presentation/components/ui/Input";
+import { SearchField } from "@/shared/presentation/components/ui/SearchField";
 
 import { CountryOption } from "./CountryOption";
 
@@ -59,13 +59,15 @@ export function CountrySelectMenu({
     return (
         <div className="-mt-px flex max-h-72 flex-col overflow-hidden rounded-b-base border border-ring bg-popover text-popover-foreground">
             <div className="shrink-0 p-2">
-                <Input
-                    value={query}
-                    ref={searchRef}
-                    placeholder={placeholder}
-                    className="py-4.5"
-                    onChange={(event) => onQueryChange(event.target.value)}
-                />
+                <SearchField.Root>
+                    <SearchField.Icon />
+                    <SearchField.Input
+                        value={query}
+                        ref={searchRef}
+                        placeholder={placeholder}
+                        onValueChange={onQueryChange}
+                    />
+                </SearchField.Root>
             </div>
             <ul
                 ref={listRef}

@@ -8,6 +8,11 @@ import {
 } from "@/modules/search/presentation/constants/searchKeys";
 import { SEARCH_FIELD_WIDTH } from "@/modules/search/presentation/constants/searchLayout";
 import { SearchIcon, XIcon } from "@/shared/presentation/components/ui/Icon";
+import {
+    searchFieldTextVariants,
+    searchFieldVariants
+} from "@/shared/presentation/components/ui/SearchField/searchFieldVariants";
+import { cn } from "@/shared/presentation/utils/cn/cn.utils";
 
 /**
  * Props for the SearchOverlay.Field component.
@@ -63,11 +68,14 @@ export function SearchOverlayField({ value, onValueChange, onSubmit }: SearchOve
             >
                 <label
                     htmlFor="search-overlay-field"
-                    className="flex h-13 items-center gap-2 rounded-base border-2 border-primary bg-card pr-1.5 pl-4 dark:border-secondary"
+                    className={cn(
+                        searchFieldVariants({ variant: "prominent", size: "xl" }),
+                        "gap-2 pr-1.5"
+                    )}
                 >
                     <SearchIcon
                         aria-hidden="true"
-                        className="size-5 shrink-0 text-muted-foreground"
+                        className="size-5 shrink-0 text-subtle-foreground/65"
                     />
                     <input
                         type="search"
@@ -83,7 +91,10 @@ export function SearchOverlayField({ value, onValueChange, onSubmit }: SearchOve
                         onChange={(event: ChangeEvent<HTMLInputElement>) =>
                             onValueChange(event.target.value)
                         }
-                        className="min-w-0 flex-1 bg-transparent text-field text-foreground outline-none placeholder:text-muted-foreground [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden"
+                        className={cn(
+                            searchFieldTextVariants(),
+                            "[&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden"
+                        )}
                     />
                     {value && (
                         <button

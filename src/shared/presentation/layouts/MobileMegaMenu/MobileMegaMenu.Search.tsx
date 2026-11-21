@@ -2,7 +2,7 @@
 
 import { useTranslation } from "react-i18next";
 
-import { SearchIcon } from "@/shared/presentation/components/ui/Icon";
+import { SearchField } from "@/shared/presentation/components/ui/SearchField";
 import { useSearchOverlay } from "@/shared/presentation/providers/SearchOverlayProvider";
 
 /**
@@ -27,19 +27,14 @@ export function MobileMegaMenuSearch({ onOpen }: MobileMegaMenuSearchProps) {
     const { open } = useSearchOverlay();
 
     return (
-        <button
-            type="button"
-            onClick={() => {
+        <SearchField.Trigger
+            size="lg"
+            label={t("search.field.label")}
+            placeholder={t("search.field.placeholder")}
+            onOpen={() => {
                 onOpen();
                 open();
             }}
-            className="flex h-11 w-full items-center gap-3 rounded-md bg-muted px-4 text-left text-muted-foreground transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
-        >
-            <SearchIcon
-                aria-hidden="true"
-                className="size-5 shrink-0"
-            />
-            <span className="truncate text-base">{t("search.field.placeholder")}</span>
-        </button>
+        />
     );
 }

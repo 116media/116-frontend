@@ -2,6 +2,7 @@
 
 import { useTranslation } from "react-i18next";
 
+import { NewspaperIcon } from "@/shared/presentation/components/ui/Icon";
 import { MegaMenuRow } from "@/shared/presentation/components/ui/MegaMenuRow";
 import { ARTICLES_PATH } from "@/shared/presentation/constants/paths";
 import type { ArticlesMegaMenuCategoryListProps } from "./types";
@@ -26,13 +27,17 @@ export function ArticlesMegaMenuCategoryList({ categories }: ArticlesMegaMenuCat
             <MegaMenuRow
                 href={ARTICLES_PATH}
                 label={t("general.all")}
+                icon={<NewspaperIcon />}
+                description={t("articles.home.allDescription")}
             />
 
             {categories.map((category) => (
                 <MegaMenuRow
                     key={category.id}
                     label={category.name}
+                    icon={<NewspaperIcon />}
                     count={category.publishedCount}
+                    description={category.description}
                     href={`${ARTICLES_PATH}?categoryId=${category.id}`}
                 />
             ))}

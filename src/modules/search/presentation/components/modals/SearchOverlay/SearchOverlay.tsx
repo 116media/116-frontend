@@ -13,13 +13,13 @@ import {
 import { useRecentSearches } from "@/modules/search/presentation/hooks/useRecentSearches";
 import { useSearchResults } from "@/modules/search/presentation/hooks/useSearchResults";
 import { searchHref } from "@/modules/search/presentation/utils/search/search.utils";
-import type { ICategoryTab } from "@/shared/presentation/components/navigation/CategoryTabs";
 import { DialogOverlay, DialogPortal } from "@/shared/presentation/components/ui/Dialog";
 import { ScrollFade } from "@/shared/presentation/components/ui/ScrollFade";
 import { SheetHeader } from "@/shared/presentation/components/ui/Sheet/Sheet.Header";
 import { useDebouncedValue } from "@/shared/presentation/hooks/useDebouncedValue";
 import { useMediaQuery } from "@/shared/presentation/hooks/useMediaQuery";
 import { useProgressRouter } from "@/shared/presentation/hooks/useProgressRouter";
+import type { ICategoryTab } from "@/shared/presentation/layouts/CategoryTabs";
 import { PageContainer } from "@/shared/presentation/layouts/PageContainer";
 
 import { SearchOverlayBody } from "./SearchOverlay.Body";
@@ -54,12 +54,14 @@ const EMPTY_COUNTS: Record<ESearchScope, number> = {
  * reads as the same gesture as opening NEWS or VIDEOS. It hangs off the pinned header
  * height rather than the live one, so it covers the header's own search trigger instead
  * of stacking a second field under it. Below `sm` it docks to the bottom edge, where a
- * thumb reaches it and the keyboard opens beneath rather than over it.
+ * thumb reaches it and the keyboard opens beneath rather than over it. Its height there
+ * is fixed on open: a sheet pinned to the bottom and sized by its results would move its
+ * own top edge, and the field, on every keystroke.
  */
 const PANEL = [
-    "fixed inset-x-0 bottom-0 z-50 flex max-h-[85dvh] flex-col overflow-hidden rounded-t-base border-t bg-background pb-[max(1.5rem,env(safe-area-inset-bottom))]",
+    "fixed inset-x-0 bottom-0 z-50 flex h-[85dvh] flex-col overflow-hidden rounded-t-base border-t bg-background pb-[max(1.5rem,env(safe-area-inset-bottom))]",
     "data-[state=open]:animate-sheet-in-bottom data-[state=closed]:animate-sheet-out-bottom",
-    "sm:top-(--site-header-height-pinned) sm:bottom-auto sm:max-h-[min(70dvh,40rem)] sm:rounded-none sm:border-t-0",
+    "sm:top-(--site-header-height-pinned) sm:bottom-auto sm:h-auto sm:max-h-[min(70dvh,40rem)] sm:rounded-none sm:border-t-0",
     "sm:border-b sm:pb-8 sm:shadow-lg",
     "sm:data-[state=open]:animate-mega-menu-slide-down sm:data-[state=closed]:animate-mega-menu-slide-up"
 ].join(" ");

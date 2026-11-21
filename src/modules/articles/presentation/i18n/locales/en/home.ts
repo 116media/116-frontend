@@ -7,5 +7,6 @@
  * exact same keys as the French mirror.
  */
 export const home = {
-    categories: "Categories"
+    categories: "Categories",
+    allDescription: "Everything published on 116, across every category."
 } as const;

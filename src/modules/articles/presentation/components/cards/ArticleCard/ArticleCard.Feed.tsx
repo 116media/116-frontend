@@ -54,6 +54,7 @@ export function ArticleCardFeed({ article }: ArticleCardFeedProps) {
                     <ArticleCardEngagement
                         articleId={article.id}
                         slug={article.slug}
+                        title={article.title}
                         likeCount={article.likeCount}
                         commentCount={article.commentCount}
                         bookmarkCount={article.bookmarkCount}

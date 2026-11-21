@@ -63,6 +63,8 @@ export {
     SearchX as SearchXIcon,
     Settings as SettingsIcon,
     Share2 as ShareIcon,
+    SkipBack as TrackPreviousIcon,
+    SkipForward as TrackNextIcon,
     Smartphone as SmartphoneIcon,
     SquarePen as EditIcon,
     Star as StarIcon,

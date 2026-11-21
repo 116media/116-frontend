@@ -7,6 +7,7 @@
     --media-accent-color: var(--primary);
     --media-border-radius: var(--radius-lg, 0.5rem);
     --media-font-family: var(--font-sans);
+    --media-controls-before-start: visible;
 }
 
 .dark .video-player {
@@ -24,12 +25,16 @@
 /*
  * Squared off while the player is pinned to the top of a small viewport: the band runs
  * edge to edge there, so every rounded-base layer inside it has to let go of its corners.
+ * Bounded to the widths that actually pin — from `xl` the player stays in the grid, where
+ * the pinned class still lands but squaring it would only strip the corners for nothing.
  */
-.player-pinned,
-.player-pinned .video-player,
-.player-pinned .media-container {
-    --media-border-radius: 0;
-    border-radius: 0;
+@media (width < 80rem) {
+    .player-pinned,
+    .player-pinned .video-player,
+    .player-pinned .media-container {
+        --media-border-radius: 0;
+        border-radius: 0;
+    }
 }
 
 /*
@@ -41,4 +46,102 @@
     height: 100%;
     aspect-ratio: auto;
     border-radius: 0;
+}
+
+/*
+ * iPhone has no element Fullscreen API and a YouTube embed exposes no video element to
+ * present natively, so the player fills the viewport itself. Same corner handling as the
+ * pinned band: a full-bleed stage drops every radius inside it.
+ */
+.player-stage,
+.player-stage .media-container {
+    --media-border-radius: 0;
+    border-radius: 0;
+}
+
+/*
+ * A transformed ancestor becomes the containing block for a fixed child, so the stage
+ * would hang off the wrapper instead of the viewport and be clipped by its overflow.
+ * The wrapper stands down for as long as the player is filling the screen.
+ */
+:has(> .player-stage) {
+    transform: none;
+    overflow: visible;
+}
+
+/*
+ * The phone skin. The slider parts are positioned from the percentages the component
+ * publishes, which is the contract for building a slider out of its primitives.
+ */
+.mobile-skin-fill {
+    width: var(--media-slider-fill);
+}
+
+.mobile-skin-buffer {
+    width: var(--media-slider-buffer);
+}
+
+.mobile-skin-thumb {
+    position: absolute;
+    left: var(--media-slider-fill);
+    translate: -50% 0;
+}
+
+/*
+ * The transport sits over whatever frame is behind it, so the scrim carries the contrast
+ * rather than every control carrying its own shadow. It fades with the controls.
+ */
+.mobile-skin-scrim {
+    background: linear-gradient(
+        to top,
+        rgb(0 0 0 / 0.85) 0%,
+        rgb(0 0 0 / 0.5) 28%,
+        rgb(0 0 0 / 0.4) 55%,
+        rgb(0 0 0 / 0.7) 100%
+    );
+}
+
+/*
+ * The controls parts ship no styles, so the skin owns its own hidden state: once playback
+ * is under way and the reader is idle, the frame carries nothing at all. The embed's own
+ * chrome never surfaces because its iframe takes no pointer events.
+ */
+.mobile-skin-controls,
+.mobile-skin-scrim {
+    transition: opacity 200ms var(--ease-out, ease-out);
+}
+
+.mobile-skin-controls:not([data-visible]),
+.mobile-skin-scrim:not([data-visible]) {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/*
+ * The embed owns the play control now, so taps have to reach it: the skin's layer passes
+ * them through and only its own controls take them back. The frame itself is freed in
+ * `useInteractiveEmbed`, since the adapter marks it inline.
+ */
+.mobile-skin-controls,
+.mobile-skin-scrim {
+    pointer-events: none;
+}
+
+.mobile-skin-controls button,
+.mobile-skin-controls [role="slider"],
+.mobile-skin-slider {
+    pointer-events: auto;
+}
+
+/*
+ * The poster part ships no styles either, so without this it never stands down and a
+ * playing video reads as a still frame stuck on its thumbnail.
+ */
+.mobile-skin-poster {
+    transition: opacity 200ms var(--ease-out, ease-out);
+}
+
+.mobile-skin-poster:not([data-visible]) {
+    opacity: 0;
+    pointer-events: none;
 }

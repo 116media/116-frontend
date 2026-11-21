@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import { ArticlesMegaMenuCard } from "@/modules/articles/presentation/components/cards/ArticlesMegaMenuCard";
 import { DUMMY_ARTICLES } from "@/modules/articles/presentation/data/mega-menu.dummy";
+import { NewspaperIcon } from "@/shared/presentation/components/ui/Icon";
 import { MegaMenuRow } from "@/shared/presentation/components/ui/MegaMenuRow";
 import { ARTICLES_PATH } from "@/shared/presentation/constants/paths";
 import { MobileMegaMenu } from "@/shared/presentation/layouts/MobileMegaMenu";
@@ -37,14 +38,18 @@ export function ArticlesMobileMenu({
                     <MegaMenuRow
                         href={ARTICLES_PATH}
                         onNavigate={onNavigate}
+                        icon={<NewspaperIcon />}
                         label={t("general.all")}
+                        description={t("articles.home.allDescription")}
                     />
                     {categories.map((category) => (
                         <MegaMenuRow
                             key={category.id}
                             label={category.name}
                             onNavigate={onNavigate}
+                            icon={<NewspaperIcon />}
                             count={category.publishedCount}
+                            description={category.description}
                             href={`${ARTICLES_PATH}?categoryId=${category.id}`}
                         />
                     ))}

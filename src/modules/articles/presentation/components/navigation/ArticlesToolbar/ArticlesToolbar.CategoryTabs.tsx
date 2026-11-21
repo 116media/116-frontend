@@ -3,7 +3,7 @@
 import { useTranslation } from "react-i18next";
 
 import { useArticleCategories } from "@/modules/articles/presentation/hooks/useArticleCategories";
-import { CategoryTabs } from "@/shared/presentation/components/navigation/CategoryTabs";
+import { CategoryTabs } from "@/shared/presentation/layouts/CategoryTabs";
 
 /**
  * Props for ArticlesToolbarCategoryTabs.

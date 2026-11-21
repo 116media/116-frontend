@@ -1,45 +1,23 @@
 "use client";
 
-import { useTranslation } from "react-i18next";
-
+import { ARTISTS_FEATURE } from "@/modules/coming-soon/presentation/constants/comingSoonFeatures";
 import { ARTISTES_PATH } from "@/shared/presentation/constants/paths";
-import { MobileMegaMenuChips } from "./MobileMegaMenu.Chips";
-import { MobileMegaMenuFeatured } from "./MobileMegaMenu.Featured";
-import { MobileMegaMenuList } from "./MobileMegaMenu.List";
-import { MobileMegaMenuSection } from "./MobileMegaMenu.Section";
-import { DUMMY_ARTIST_GENRES, DUMMY_ARTISTS } from "./menu.dummy";
+import { MobileMegaMenuComingSoon } from "./MobileMegaMenu.ComingSoon";
 import type { MobileMegaMenuFooterProps } from "./types";
 
 /**
  * MobileMegaMenu.Artists
  *
  * @description
- * The ARTISTES panel: genre chips above the artists-to-follow block. Both run on
- * placeholder data until the artists endpoints exist.
+ * The ARTISTES panel. The profiles are announced but not open, so the tab carries the
+ * same waiting copy as the route rather than placeholder artists.
  */
 export function MobileMegaMenuArtists({ onNavigate }: MobileMegaMenuFooterProps) {
-    const { t } = useTranslation();
-
     return (
-        <div className="flex flex-col pb-4">
-            <MobileMegaMenuSection title={t("navigation.mobileMenu.genres")}>
-                <MobileMegaMenuChips
-                    onNavigate={onNavigate}
-                    items={DUMMY_ARTIST_GENRES}
-                />
-            </MobileMegaMenuSection>
-
-            <MobileMegaMenuFeatured
-                onNavigate={onNavigate}
-                viewAllHref={ARTISTES_PATH}
-                title={t("navigation.mobileMenu.artistsToFollow")}
-            >
-                <MobileMegaMenuList
-                    square
-                    items={DUMMY_ARTISTS}
-                    onNavigate={onNavigate}
-                />
-            </MobileMegaMenuFeatured>
-        </div>
+        <MobileMegaMenuComingSoon
+            href={ARTISTES_PATH}
+            onNavigate={onNavigate}
+            feature={ARTISTS_FEATURE}
+        />
     );
 }

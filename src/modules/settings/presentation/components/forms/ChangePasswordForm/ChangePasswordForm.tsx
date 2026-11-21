@@ -83,6 +83,7 @@ export function ChangePasswordForm() {
                     <Button
                         type="submit"
                         loading={isPending}
+                        className="max-sm:h-11 max-sm:w-full max-sm:font-semibold"
                     >
                         {t("settings.security.password.submit")}
                     </Button>

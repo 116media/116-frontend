@@ -8,7 +8,11 @@ import { ButtonGroup } from "@/shared/presentation/components/ui/ButtonGroup";
 import { LinkIcon } from "@/shared/presentation/components/ui/Icon";
 import { Colors } from "@/shared/presentation/constants/colors";
 import { cn } from "@/shared/presentation/utils/cn/cn.utils";
-import { buildShareUrl, type SharePlatform } from "@/shared/presentation/utils/share/share.utils";
+import {
+    buildShareUrl,
+    copyTextToClipboard,
+    type SharePlatform
+} from "@/shared/presentation/utils/share/share.utils";
 import type { SocialShareGroupProps, SocialShareKey } from "./types";
 
 const DEFAULT_PLATFORMS: SocialShareKey[] = ["facebook", "x", "whatsapp", "copy"];
@@ -61,7 +65,7 @@ export function SocialShareGroup({
     };
 
     const copyLink = async () => {
-        await navigator.clipboard.writeText(url);
+        if (!(await copyTextToClipboard(url))) return;
         onCopied?.();
         onShared?.("clipboard");
     };
