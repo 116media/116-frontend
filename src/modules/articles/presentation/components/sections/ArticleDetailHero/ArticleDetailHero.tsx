@@ -10,12 +10,12 @@ import { ARTICLES_PATH, HOME_PATH } from "@/shared/presentation/constants/paths"
  * Props for the ArticleDetail.Hero component.
  *
  * @interface ArticleDetailHeroProps
- * @property {string} categoryId - The category UUID, used by the breadcrumb and the tag link.
+ * @property {string} categorySlug - The category slug, linked by the breadcrumb.
  * @property {string} categoryName - The article category display name.
  * @property {string} title - The article title.
  */
 export interface ArticleDetailHeroProps {
-    categoryId: string;
+    categorySlug: string;
     categoryName: string;
     title: string;
 }
@@ -28,7 +28,7 @@ export interface ArticleDetailHeroProps {
  * byline, summary, meta bar and cover are composed after the hero by the
  * assembler.
  */
-export function ArticleDetailHero({ categoryId, categoryName, title }: ArticleDetailHeroProps) {
+export function ArticleDetailHero({ categorySlug, categoryName, title }: ArticleDetailHeroProps) {
     const { t } = useTranslation();
 
     return (
@@ -37,7 +37,7 @@ export function ArticleDetailHero({ categoryId, categoryName, title }: ArticleDe
                 items={[
                     { label: t("general.breadcrumbHome"), href: HOME_PATH },
                     { label: t("general.breadcrumbNews"), href: ARTICLES_PATH },
-                    { label: categoryName, href: `${ARTICLES_PATH}?categoryId=${categoryId}` }
+                    { label: categoryName, href: `${ARTICLES_PATH}?category=${categorySlug}` }
                 ]}
             />
 

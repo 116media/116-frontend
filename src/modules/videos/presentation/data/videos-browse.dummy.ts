@@ -234,6 +234,21 @@ function normalizeDummyCategoryId(categoryId: string): string {
 }
 
 /**
+ * dummyCategoryIdForSlug
+ *
+ * @description
+ * Dummy-phase shim: resolves a category slug onto the dummy pool, falling back to the
+ * id shim so an unseeded backend slug still previews. Removed with the dummy data.
+ *
+ * @param categorySlug - The requested category slug.
+ * @returns A category id present in the dummy pool.
+ */
+function dummyCategoryIdForSlug(categorySlug: string): string {
+    const index = CATEGORIES.findIndex((category) => slugify(category.name) === categorySlug);
+    return index === -1 ? normalizeDummyCategoryId(categorySlug) : `dummy-category-${index + 1}`;
+}
+
+/**
  * matchesFilters
  *
  * @description
@@ -251,6 +266,9 @@ function matchesFilters(
     filters: IVideoFeedFilters
 ): boolean {
     if (filters.categoryId && video.categoryId !== normalizeDummyCategoryId(filters.categoryId)) {
+        return false;
+    }
+    if (filters.categorySlug && video.categoryId !== dummyCategoryIdForSlug(filters.categorySlug)) {
         return false;
     }
     if (filters.tagSlug && !dummyTagsForVideo(index).includes(filters.tagSlug)) return false;

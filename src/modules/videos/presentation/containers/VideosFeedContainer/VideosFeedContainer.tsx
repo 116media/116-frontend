@@ -22,12 +22,12 @@ import { useScrollToFeedOnFilterChange } from "@/shared/presentation/hooks/useSc
  *
  * @interface VideosFeedContainerProps
  * @property {string} [initialSearch] - Initial search term, seeded from the URL `search` param.
- * @property {string} [initialCategoryId] - Initial category filter, seeded from the URL `categoryId` param.
- * @property {string} [initialTagSlug] - Initial tag filter, seeded from the URL `tagSlug` param.
+ * @property {string} [initialCategorySlug] - Initial category filter, seeded from the URL `category` param.
+ * @property {string} [initialTagSlug] - Initial tag filter, seeded from the URL `tag` param.
  */
 export interface VideosFeedContainerProps {
     initialSearch?: string;
-    initialCategoryId?: string;
+    initialCategorySlug?: string;
     initialTagSlug?: string;
 }
 
@@ -42,11 +42,11 @@ export interface VideosFeedContainerProps {
  */
 export function VideosFeedContainer({
     initialSearch = "",
-    initialCategoryId,
+    initialCategorySlug,
     initialTagSlug
 }: VideosFeedContainerProps = {}) {
     const [search, setSearch] = useState(initialSearch);
-    const [categoryId, setCategoryId] = useState<string | undefined>(initialCategoryId);
+    const [categorySlug, setCategorySlug] = useState<string | undefined>(initialCategorySlug);
     const [tagSlug, setTagSlug] = useState<string | undefined>(initialTagSlug);
 
     const router = useRouter();
@@ -59,12 +59,12 @@ export function VideosFeedContainer({
     // treated as no filter at all rather than sent to the API.
     const debouncedSearch = settled.trim().length >= MIN_SEARCH_LENGTH ? settled.trim() : "";
     const filters = useMemo(
-        () => ({ search: debouncedSearch || undefined, categoryId, tagSlug }),
-        [debouncedSearch, categoryId, tagSlug]
+        () => ({ search: debouncedSearch || undefined, categorySlug, tagSlug }),
+        [debouncedSearch, categorySlug, tagSlug]
     );
-    const hasActiveFilters = Boolean(filters.search || categoryId || tagSlug);
+    const hasActiveFilters = Boolean(filters.search || categorySlug || tagSlug);
 
-    useScrollToFeedOnFilterChange(feedRef, [debouncedSearch, categoryId, tagSlug]);
+    useScrollToFeedOnFilterChange(feedRef, [debouncedSearch, categorySlug, tagSlug]);
 
     const { data, isLoading, isError, refetch, fetchNextPage, hasNextPage, isFetchingNextPage } =
         useVideosFeed(filters);
@@ -81,12 +81,12 @@ export function VideosFeedContainer({
         const params = new URLSearchParams();
 
         if (debouncedSearch) params.set("search", debouncedSearch);
-        if (categoryId) params.set("categoryId", categoryId);
-        if (tagSlug) params.set("tagSlug", tagSlug);
+        if (categorySlug) params.set("category", categorySlug);
+        if (tagSlug) params.set("tag", tagSlug);
 
         const query = params.toString();
         router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
-    }, [debouncedSearch, categoryId, tagSlug, pathname, router]);
+    }, [debouncedSearch, categorySlug, tagSlug, pathname, router]);
 
     useEffect(() => {
         if (isSentinelVisible && hasNextPage && !isFetchingNextPage) fetchNextPage();
@@ -94,7 +94,7 @@ export function VideosFeedContainer({
 
     const clear = () => {
         setSearch("");
-        setCategoryId(undefined);
+        setCategorySlug(undefined);
         setTagSlug(undefined);
     };
 
@@ -106,10 +106,10 @@ export function VideosFeedContainer({
             <VideosToolbar.Root
                 search={search}
                 tagSlug={tagSlug}
-                categoryId={categoryId}
+                categorySlug={categorySlug}
                 onTagChange={setTagSlug}
                 onSearchChange={setSearch}
-                onCategoryChange={setCategoryId}
+                onCategoryChange={setCategorySlug}
                 hasActiveFilters={hasActiveFilters}
                 onClear={clear}
             />

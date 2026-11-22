@@ -240,6 +240,7 @@ export const ArticlesMapper = {
             id: dto.id,
             categoryId: dto.categoryId,
             categoryName: dto.categoryName,
+            categorySlug: dto.categorySlug,
             title: dto.title,
             slug: dto.slug,
             headline: dto.headline,

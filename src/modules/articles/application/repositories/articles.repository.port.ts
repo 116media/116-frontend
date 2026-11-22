@@ -20,14 +20,14 @@ import type { Result } from "@/shared/domain/results/result";
  * @property {number} pageIndex - Zero-based page number
  * @property {number} pageSize - Items per page
  * @property {string} [search] - Optional full-text search term
- * @property {string} [categoryId] - Optional category filter (UUID)
+ * @property {string} [categorySlug] - Optional category filter
  * @property {string} [tagSlug] - Optional tag filter
  */
 export interface IPublishedArticlesQuery {
     pageIndex: number;
     pageSize: number;
     search?: string;
-    categoryId?: string;
+    categorySlug?: string;
     tagSlug?: string;
 }
 

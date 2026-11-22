@@ -4,7 +4,7 @@ import { VideoFeedSection } from "@/modules/videos/presentation/components/secti
 import { VideoFeedSectionLoading } from "@/modules/videos/presentation/components/sections/VideoFeedSection/VideoFeedSection.Loading";
 import { useVideoFeed } from "@/modules/videos/presentation/hooks/useVideoFeed";
 import { StateRenderer } from "@/shared/presentation/components/ui/StateRenderer";
-import { VIDEOS_PATH } from "@/shared/presentation/constants/paths";
+import { SHOWS_PATH } from "@/shared/presentation/constants/paths";
 import { PageContainer } from "@/shared/presentation/layouts/PageContainer";
 
 /**
@@ -34,7 +34,7 @@ export function VideoFeedSectionContainer() {
                                     videos={videos}
                                     key={category.id}
                                     title={category.name}
-                                    viewAllHref={`${VIDEOS_PATH}?categoryId=${category.id}`}
+                                    viewAllHref={`${SHOWS_PATH}/${category.slug}`}
                                 />
                             ))}
                         </div>

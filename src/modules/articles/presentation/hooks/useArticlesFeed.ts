@@ -28,7 +28,7 @@ import container from "@/shared/infrastructure/service.locator";
  * @returns The `useInfiniteQuery` result for the feed.
  */
 export function useArticlesFeed(filters: IArticleFeedFilters = {}) {
-    const isUnfiltered = !filters.search && !filters.categoryId && !filters.tagSlug;
+    const isUnfiltered = !filters.search && !filters.categorySlug && !filters.tagSlug;
 
     return useInfiniteQuery<IArticlePage, Failure>({
         queryKey: articleKeys.feed(filters),

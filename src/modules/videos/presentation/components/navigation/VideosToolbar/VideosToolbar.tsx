@@ -17,8 +17,8 @@ import { VideosToolbarTagStrip } from "./VideosToolbar.TagStrip";
  * @interface VideosToolbarProps
  * @property {string} search - The current (raw) search text.
  * @property {(value: string) => void} onSearchChange - Emits the search text.
- * @property {string | undefined} categoryId - The selected category id, or undefined for all.
- * @property {(categoryId: string | undefined) => void} onCategoryChange - Emits the category.
+ * @property {string | undefined} categorySlug - The selected category slug, or undefined for all.
+ * @property {(categorySlug: string | undefined) => void} onCategoryChange - Emits the category.
  * @property {string | undefined} tagSlug - The selected tag slug, or undefined for none.
  * @property {(tagSlug: string | undefined) => void} onTagChange - Emits the tag.
  * @property {boolean} hasActiveFilters - Whether any filter is set (shows "Clear filters").
@@ -27,10 +27,10 @@ import { VideosToolbarTagStrip } from "./VideosToolbar.TagStrip";
 export interface VideosToolbarProps {
     search: string;
     tagSlug: string | undefined;
-    categoryId: string | undefined;
+    categorySlug: string | undefined;
     hasActiveFilters: boolean;
     onSearchChange: (value: string) => void;
-    onCategoryChange: (categoryId: string | undefined) => void;
+    onCategoryChange: (categorySlug: string | undefined) => void;
     onTagChange: (tagSlug: string | undefined) => void;
     onClear: () => void;
 }
@@ -75,7 +75,7 @@ export function VideosToolbar(props: VideosToolbarProps) {
                 </h2>
 
                 <VideosToolbarCategoryTabs
-                    value={props.categoryId}
+                    value={props.categorySlug}
                     onChange={props.onCategoryChange}
                     onBrowseAll={() => setModalOpen(true)}
                 />
@@ -87,7 +87,7 @@ export function VideosToolbar(props: VideosToolbarProps) {
                         <VideosToolbarSearchInput
                             value={props.search}
                             onChange={props.onSearchChange}
-                            className="hidden shrink-0 md:block md:w-56 lg:w-64"
+                            className="hidden shrink-0 md:flex md:w-56 lg:w-64"
                         />
                     }
                 />

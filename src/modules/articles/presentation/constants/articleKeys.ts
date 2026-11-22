@@ -8,12 +8,12 @@
  * @interface IArticleFeedFilters
  *
  * @property {string} [search] - Optional full-text search term
- * @property {string} [categoryId] - Optional category filter (UUID)
+ * @property {string} [categorySlug] - Optional category filter
  * @property {string} [tagSlug] - Optional tag filter
  */
 export interface IArticleFeedFilters {
     search?: string;
-    categoryId?: string;
+    categorySlug?: string;
     tagSlug?: string;
 }
 
